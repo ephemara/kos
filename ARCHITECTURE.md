@@ -48,6 +48,14 @@ The host now also exposes a registry-backed composition surface from [`M:\K_OS\s
 - filtered integration contract lists
 - per-package public API summaries
 
+The Tauri boundary now has three shared contract modules:
+
+- [`M:\K_OS\src-tauri\src\registry_contract.rs`](M:\K_OS\src-tauri\src\registry_contract.rs)
+- [`M:\K_OS\src-tauri\src\kain_contract.rs`](M:\K_OS\src-tauri\src\kain_contract.rs)
+- [`M:\K_OS\src-tauri\src\viewport_contract.rs`](M:\K_OS\src-tauri\src\viewport_contract.rs)
+
+`src-tauri/build.rs` exports those contracts through Specta into [`M:\K_OS\src-frontend\generated\tauriRegistry.gen.ts`](M:\K_OS\src-frontend\generated\tauriRegistry.gen.ts), so the frontend can consume typed registry, Kain, and viewport commands without hand-maintaining TS interfaces.
+
 ### Bevy
 
 [`M:\K_OS\crates\k-os-bevy\Cargo.toml`](M:\K_OS\crates\k-os-bevy\Cargo.toml) is an experimental host that aggregates renderer, sculpt, GPU, and gameplay crates directly.
@@ -189,6 +197,8 @@ Testing and heavy validation should still follow the repo conversation rule: ask
 - `integration_registry.json` is the curated composition layer. It assigns each crate a stability tier and recommended entrypoints so integrators do not have to consume the full raw public surface.
 - `adapter_manifests.json` projects the curated composition layer into host-oriented adapter targets. Right now the generated targets are `tauri`, `bevy`, `zen`, and `external`.
 - `src-tauri/build.rs` enforces crate documentation parity against [`M:\K_OS\docs\CARGO_ARSENAL.md`](M:\K_OS\docs\CARGO_ARSENAL.md). Any new Tauri dependency added to [`M:\K_OS\src-tauri\Cargo.toml`](M:\K_OS\src-tauri\Cargo.toml) must also be documented there or `cargo check -p k-os-backend` will fail before Rust compilation finishes.
+- `src-tauri/build.rs` now also generates [`M:\K_OS\src-frontend\generated\tauriRegistry.gen.ts`](M:\K_OS\src-frontend\generated\tauriRegistry.gen.ts). Despite the filename, it now contains registry, Kain, and viewport bindings. If the file looks stale, rebuild the backend with `cargo check -p k-os-backend` instead of editing the generated TS directly.
+- The generated Tauri wrappers should use camelCase argument names for command parameters even when the Rust function arguments are snake_case. Keep nested payload DTO field naming aligned with the Rust serde contract, but do not hand-write snake_case top-level invoke keys in frontend code.
 - The workspace root manifest is virtual, so a root `build.rs` will not run. Shared generation work must live in a real package like `k-os-workspace-registry`.
 - Builds of `k-os-backend`, `k-os-bevy`, and `zen` now regenerate the workspace registry because they depend on `k-os-workspace-registry`, but arbitrary leaf-crate builds will not. If universal pre-build sync becomes necessary, add an `xtask` or wrapper command rather than trying to force it through the virtual workspace root.
 - `DIRECTORY.md` is helpful background, but it is not the authoritative Rust workspace contract. Check manifests and crate entrypoints directly before changing wiring.

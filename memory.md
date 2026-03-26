@@ -1,5 +1,69 @@
 # Memory
 
+## 2026-03-26: Specta expansion for Kain and viewport contracts
+
+### What changed
+
+Extended the shared Tauri Specta contract beyond the workspace registry by adding:
+
+- [`M:\K_OS\src-tauri\src\kain_contract.rs`](M:\K_OS\src-tauri\src\kain_contract.rs)
+- [`M:\K_OS\src-tauri\src\viewport_contract.rs`](M:\K_OS\src-tauri\src\viewport_contract.rs)
+
+Updated [`M:\K_OS\src-tauri\src\kain_commands.rs`](M:\K_OS\src-tauri\src\kain_commands.rs) and [`M:\K_OS\src-tauri\src\commands\viewport.rs`](M:\K_OS\src-tauri\src\commands\viewport.rs) so the backend command layer now maps between owner-crate types and explicit frontend-facing contract DTOs instead of exposing ad hoc serialized structs or raw renderer/Kain types directly.
+
+Expanded [`M:\K_OS\src-tauri\build.rs`](M:\K_OS\src-tauri\build.rs) so [`M:\K_OS\src-frontend\generated\tauriRegistry.gen.ts`](M:\K_OS\src-frontend\generated\tauriRegistry.gen.ts) now exports typed Kain and viewport bindings in addition to the registry slice. Refactored [`M:\K_OS\src-frontend\kain\bridge\KAINBridge.ts`](M:\K_OS\src-frontend\kain\bridge\KAINBridge.ts) and [`M:\K_OS\src-frontend\services\viewportClient.ts`](M:\K_OS\src-frontend\services\viewportClient.ts) to consume those generated wrappers instead of using handwritten `invoke()` DTOs.
+
+### Durable findings
+
+- The current pragmatic Specta pattern in this repo is still “shared DTO modules + generated wrapper file,” not full `tauri-specta` command collection. That is enough to replace handwritten TypeScript on high-leverage surfaces without forcing a full backend migration.
+- Kain benefited from a local contract module because the build script cannot safely import owner-crate-only types unless those crates are also build dependencies. Keep contract modules self-contained and do type conversion inside command modules.
+- Tauri command argument keys should be emitted as camelCase in the generated wrappers even when the Rust parameter names are snake_case. The earlier registry wrapper slice was updated accordingly during this pass.
+- `cargo check -p k-os-backend` now validates the registry, Kain, and viewport Specta export path together and regenerates the single frontend binding file.
+
+### Design decision
+
+The Tauri/frontend boundary now has an explicit contract layer for three families:
+
+1. Workspace registry composition data.
+2. Kain compile and manifest-backed registry data.
+3. Native viewport config and diagnostics data.
+
+That keeps owner/domain crates authoritative while making the host boundary typed, generated, and much easier to integrate against from React.
+
+### Next recommended step
+
+Use the generated contract file for the next high-value Tauri surfaces that still have manual DTO drift:
+
+1. Renderer event payloads in [`M:\K_OS\src-frontend\services\rendererClient.ts`](M:\K_OS\src-frontend\services\rendererClient.ts).
+2. Additional Kain multi-target compile and toolchain request payloads in [`M:\K_OS\src-tauri\src\main.rs`](M:\K_OS\src-tauri\src\main.rs).
+3. Any frontend feature panels that still mirror backend structs by hand.
+
+## 2026-03-26: Specta registry bindings and frontend adoption
+
+### What changed
+
+Added a shared registry contract module at [`M:\K_OS\src-tauri\src\registry_contract.rs`](M:\K_OS\src-tauri\src\registry_contract.rs), then used `specta` from [`M:\K_OS\src-tauri\build.rs`](M:\K_OS\src-tauri\build.rs) to generate frontend bindings at [`M:\K_OS\src-frontend\generated\tauriRegistry.gen.ts`](M:\K_OS\src-frontend\generated\tauriRegistry.gen.ts).
+
+Added a frontend registry client at [`M:\K_OS\src-frontend\services\workspaceRegistryClient.ts`](M:\K_OS\src-frontend\services\workspaceRegistryClient.ts) and wired [`M:\K_OS\src-frontend\features\native\NativeToolWorkspace.tsx`](M:\K_OS\src-frontend\features\native\NativeToolWorkspace.tsx) to consume `registry_get_adapter_manifest("tauri")` and the filtered integration contract list instead of relying only on static UI copy.
+
+### Durable findings
+
+- `specta` 1.x works fine here for DTO/type export, but the current repo still does not have a live `tauri-specta` command-collection pipeline. The pragmatic first step is shared Specta DTO export plus thin handwritten invoke wrappers in the generated TS file.
+- Specta's default TypeScript export config fails on `usize` and similar integer widths because it treats them as BigInt-sensitive. The local fix is to export with `ts::ExportConfiguration::new().bigint(ts::BigIntExportBehavior::Number)` in the Tauri build script.
+- `cargo check -p k-os-backend` now validates both the new Specta export path and the registry-backed frontend consumption path, and it regenerates the TS file in `src-frontend/generated`.
+
+### Design decision
+
+The registry surface is now the first Tauri API slice with a generated TS contract. This keeps the Specta blast radius small and useful: one stable, high-leverage command family instead of trying to retrofit the entire backend command set in one pass.
+
+### Next recommended step
+
+Expand this same pattern to other data-driven surfaces that already have clean registry semantics:
+
+1. Kain registry commands.
+2. Viewport diagnostics/state summaries.
+3. Host capability browsers or tool launch surfaces that currently rely on static frontend metadata.
+
 ## 2026-03-26: Tauri registry host commands
 
 ### What changed

@@ -5,6 +5,10 @@ import { AppMenuBar } from '@/ui/shell/AppMenuBar';
 import type { DockTab } from '@/ui/shell/DockPanel';
 import type { NativeViewportSyncSource } from '@/services/nativeViewportBridge';
 import {
+    getTauriAdapterManifest,
+    listTauriIntegrationContracts,
+} from '@/services/workspaceRegistryClient';
+import {
     NATIVE_TOOL_MODULES,
     type NativeToolModuleConfig,
     type NativeToolModuleId,
@@ -100,6 +104,37 @@ function NativeViewportOverlay({
     sourceLabel: string;
     sharedState: NativeToolWorkspaceProps['sharedState'];
 }) {
+    const [tauriPackageCount, setTauriPackageCount] = React.useState<number | null>(null);
+    const [topPackages, setTopPackages] = React.useState<
+        Array<{ packageName: string; stabilityTier: string; entrypoint: string | null }>
+    >([]);
+
+    React.useEffect(() => {
+        let isMounted = true;
+
+        void Promise.all([
+            getTauriAdapterManifest(),
+            listTauriIntegrationContracts(),
+        ]).then(([adapterManifest, contracts]) => {
+            if (!isMounted) {
+                return;
+            }
+
+            setTauriPackageCount(adapterManifest?.package_count ?? null);
+            setTopPackages(
+                contracts.slice(0, 4).map((contract) => ({
+                    packageName: contract.package_name,
+                    stabilityTier: contract.stability_tier,
+                    entrypoint: contract.recommended_entrypoints[0] ?? null,
+                })),
+            );
+        });
+
+        return () => {
+            isMounted = false;
+        };
+    }, []);
+
     const stats = [
         { label: 'ARTIFACTS', value: String(sharedState?.storage?.length ?? 0), icon: Database },
         { label: 'MATERIALS', value: String(sharedState?.materials?.length ?? 0), icon: Orbit },
@@ -144,12 +179,34 @@ function NativeViewportOverlay({
             <div className="absolute bottom-5 right-5 w-[300px] rounded-2xl border border-white/[0.08] bg-black/45 p-4 backdrop-blur-md">
                 <div className="mb-2 flex items-center gap-2 text-[9px] font-black tracking-[0.18em] text-white/55">
                     <PanelsTopLeft size={12} />
-                    NATIVE SOURCE OF TRUTH
+                    TAURI ADAPTER MANIFEST
                 </div>
-                <div className="space-y-1">
-                    <div className="text-[10px] text-white/45">Renderer ownership is centralized.</div>
-                    <div className="text-[10px] text-white/45">Module UI is tabbed and stateless.</div>
-                    <div className="text-[10px] text-white/45">Legacy Three.js entrypoints are no longer loaded here.</div>
+                <div className="mb-3 text-[10px] text-white/45">
+                    {tauriPackageCount === null
+                        ? 'Tauri registry unavailable. Falling back to static shell metadata.'
+                        : `Live Tauri adapter manifest loaded with ${tauriPackageCount} integration-visible packages.`}
+                </div>
+                <div className="space-y-2">
+                    {topPackages.length === 0 ? (
+                        <div className="text-[10px] text-white/35">
+                            Waiting for registry-backed package surface…
+                        </div>
+                    ) : (
+                        topPackages.map((pkg) => (
+                            <div
+                                key={pkg.packageName}
+                                className="rounded-xl border border-white/[0.06] bg-white/[0.03] px-3 py-2"
+                            >
+                                <div className="flex items-center justify-between gap-2 text-[10px] font-black text-white/75">
+                                    <span>{pkg.packageName}</span>
+                                    <span className="uppercase text-white/35">{pkg.stabilityTier}</span>
+                                </div>
+                                <div className="mt-1 text-[9px] text-white/40">
+                                    {pkg.entrypoint ?? 'No recommended entrypoint yet'}
+                                </div>
+                            </div>
+                        ))
+                    )}
                 </div>
             </div>
 

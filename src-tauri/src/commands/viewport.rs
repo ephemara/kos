@@ -1,9 +1,14 @@
+use crate::viewport_contract::{
+    CameraState, FrameStats, RendererMode, SelectionResult, ShadingMode, ViewportConfig,
+};
 use crate::viewport_host;
 use k_os_eval::mesh_pipeline::ViewportBufferPayload;
 use k_os_renderer::{
-    spawn_headless_service_with_source, BridgeError, CameraState, EvaluatedMeshSource, FrameStats,
-    RenderMeshHandle, RendererError, RendererService, SelectionResult, ViewportConfig,
-    ViewportHandle,
+    spawn_headless_service_with_source, BridgeError, CameraState as RendererCameraState,
+    EvaluatedMeshSource, FrameStats as RendererFrameStats, RenderMeshHandle, RendererError,
+    RendererMode as RendererViewportMode, RendererService,
+    SelectionResult as RendererSelectionResult, ShadingMode as RendererShadingMode,
+    ViewportConfig as RendererViewportConfig, ViewportHandle,
 };
 use k_os_scene::MeshHandle;
 use k_os_sculpt::viewport::{get_sculpt_viewport_payload, SculptMeshHandle};
@@ -36,16 +41,73 @@ fn map_err(err: RendererError) -> String {
     err.to_string()
 }
 
+fn into_renderer_config(config: ViewportConfig) -> RendererViewportConfig {
+    RendererViewportConfig {
+        width: config.width,
+        height: config.height,
+        shading_mode: match config.shading_mode {
+            ShadingMode::Solid => RendererShadingMode::Solid,
+            ShadingMode::Wireframe => RendererShadingMode::Wireframe,
+        },
+        background_color: config.background_color,
+        enable_selection: config.enable_selection,
+        enable_shadows: config.enable_shadows,
+        msaa_samples: config.msaa_samples,
+        renderer_mode: match config.renderer_mode {
+            RendererMode::Native => RendererViewportMode::Native,
+            RendererMode::ThreeFallback => RendererViewportMode::ThreeFallback,
+        },
+    }
+}
+
+fn into_renderer_camera(camera: CameraState) -> RendererCameraState {
+    RendererCameraState {
+        position: camera.position,
+        target: camera.target,
+        up: camera.up,
+        fov_degrees: camera.fov_degrees,
+        near: camera.near,
+        far: camera.far,
+    }
+}
+
+fn into_contract_selection(result: RendererSelectionResult) -> SelectionResult {
+    SelectionResult {
+        hit: result.hit,
+        mesh_handle: result.mesh_handle,
+        face_index: result.face_index,
+        position: result.position,
+        normal: result.normal,
+        distance: result.distance,
+    }
+}
+
+fn into_contract_stats(stats: RendererFrameStats) -> FrameStats {
+    FrameStats {
+        frame_time_ms: stats.frame_time_ms,
+        fps: stats.fps,
+        vertex_count: stats.vertex_count,
+        face_count: stats.face_count,
+        draw_calls: stats.draw_calls,
+        mesh_sync_time_ms: stats.mesh_sync_time_ms,
+        selection_latency_ms: stats.selection_latency_ms,
+        gpu_upload_bytes: stats.gpu_upload_bytes,
+        gpu_memory_bytes: stats.gpu_memory_bytes,
+    }
+}
+
 #[tauri::command]
 pub async fn viewport_create(
     app: tauri::AppHandle,
     config: ViewportConfig,
 ) -> Result<ViewportHandle, String> {
+    let renderer_config = into_renderer_config(config.clone());
     let handle = renderer_service()
-        .create_viewport(config.clone())
+        .create_viewport(renderer_config.clone())
         .map_err(map_err)?;
 
-    if let Err(err) = viewport_host::create_native_viewport_session(&app, handle, &config) {
+    if let Err(err) = viewport_host::create_native_viewport_session(&app, handle, &renderer_config)
+    {
         let _ = renderer_service().dispose_viewport(handle);
         return Err(err);
     }
@@ -90,7 +152,7 @@ pub async fn viewport_set_camera(
     camera: CameraState,
 ) -> Result<(), String> {
     renderer_service()
-        .set_camera(viewport, camera)
+        .set_camera(viewport, into_renderer_camera(camera))
         .map_err(map_err)
 }
 
@@ -107,12 +169,16 @@ pub async fn viewport_request_selection(
 ) -> Result<SelectionResult, String> {
     renderer_service()
         .request_selection(viewport, [ndc_x, ndc_y])
+        .map(into_contract_selection)
         .map_err(map_err)
 }
 
 #[tauri::command]
 pub async fn viewport_get_stats(viewport: ViewportHandle) -> Result<FrameStats, String> {
-    renderer_service().get_stats(viewport).map_err(map_err)
+    renderer_service()
+        .get_stats(viewport)
+        .map(into_contract_stats)
+        .map_err(map_err)
 }
 
 #[tauri::command]

@@ -11,65 +11,96 @@
 //! The CLI is the same KAIN v0.1.0 binary already powering the existing
 //! sculpt brush GPU shaders and FluidDynamics.kn.
 
-use k_os_kain::{
-    build_file, compile_source, list_runtime_apps, list_sources, run_source, KainCliTarget,
-    KainDomain, KainHostKind, KainRuntimeKind, KainTargetKind,
+use crate::kain_contract::{
+    KainCliTarget, KainCompileResponse, KainHostKind as ContractKainHostKind,
+    KainRegistryTargetKind, KainRunResponse, KainRuntimeKind as ContractKainRuntimeKind,
+    KainRuntimeOutputRegistryEntry, KainRuntimeRegistryEntry, KainSourceDomain,
+    KainSourceRegistryEntry,
 };
-use serde::Serialize;
+use k_os_kain::{
+    build_file, compile_source, list_runtime_apps, list_sources, run_source,
+    KainCliTarget as NativeKainCliTarget, KainDomain, KainHostKind, KainRuntimeKind,
+    KainTargetKind,
+};
 use std::path::{Path, PathBuf};
 
-// ─── Response types (mirror TypeScript interfaces in KAINBridge.ts) ───────────
-
-#[derive(Debug, Serialize)]
-pub struct KAINCompileResponse {
-    pub success: bool,
-    pub output: Option<String>,
-    pub output_path: Option<String>,
-    pub errors: Option<String>,
-    pub duration_ms: f64,
+fn into_native_cli_target(target: KainCliTarget) -> NativeKainCliTarget {
+    match target {
+        KainCliTarget::Wasm => NativeKainCliTarget::Wasm,
+        KainCliTarget::Spirv => NativeKainCliTarget::Spirv,
+        KainCliTarget::Ts => NativeKainCliTarget::Ts,
+        KainCliTarget::Js => NativeKainCliTarget::Js,
+        KainCliTarget::Ks => NativeKainCliTarget::Ks,
+        KainCliTarget::Hybrid => NativeKainCliTarget::Hybrid,
+        KainCliTarget::Rust => NativeKainCliTarget::Rust,
+        KainCliTarget::Cpp => NativeKainCliTarget::Cpp,
+        KainCliTarget::Run => NativeKainCliTarget::Run,
+        KainCliTarget::Test => NativeKainCliTarget::Test,
+        KainCliTarget::Hlsl => NativeKainCliTarget::Hlsl,
+        KainCliTarget::Usf => NativeKainCliTarget::Usf,
+    }
 }
 
-#[derive(Debug, Serialize)]
-pub struct KAINRunResponse {
-    pub success: bool,
-    pub stdout: String,
-    pub stderr: String,
-    pub exit_code: i32,
+fn into_contract_domain(domain: KainDomain) -> KainSourceDomain {
+    match domain {
+        KainDomain::Fluid => KainSourceDomain::Fluid,
+        KainDomain::Sculpting => KainSourceDomain::Sculpt,
+        KainDomain::Supermotion => KainSourceDomain::Mocap,
+        KainDomain::Paint => KainSourceDomain::Paint,
+        KainDomain::Renderer => KainSourceDomain::Renderer,
+        KainDomain::Materials => KainSourceDomain::Materials,
+        KainDomain::Imports => KainSourceDomain::Imports,
+        KainDomain::SculptingEngine => KainSourceDomain::SculptingEngine,
+        KainDomain::Brush => KainSourceDomain::Brush,
+        KainDomain::Shader => KainSourceDomain::Shader,
+        KainDomain::Procedural => KainSourceDomain::Procedural,
+        KainDomain::Kainscript => KainSourceDomain::Kainscript,
+    }
 }
 
-#[derive(Debug, Serialize)]
-pub struct KAINSourceRegistryEntry {
-    pub id: String,
-    pub label: String,
-    pub domain: String,
-    pub source_path: String,
-    pub compiled_path: Option<String>,
-    pub target: String,
+fn into_contract_registry_target(target: KainTargetKind) -> KainRegistryTargetKind {
+    match target {
+        KainTargetKind::Spirv => KainRegistryTargetKind::Spirv,
+        KainTargetKind::Source => KainRegistryTargetKind::Source,
+    }
 }
 
-#[derive(Debug, Serialize)]
-pub struct KAINRuntimeOutputRegistryEntry {
-    pub target: String,
-    pub path: String,
+fn into_contract_runtime_kind(kind: KainRuntimeKind) -> ContractKainRuntimeKind {
+    match kind {
+        KainRuntimeKind::TauriFrontend => ContractKainRuntimeKind::TauriFrontend,
+        KainRuntimeKind::DesktopScript => ContractKainRuntimeKind::DesktopScript,
+        KainRuntimeKind::ComputeKernel => ContractKainRuntimeKind::ComputeKernel,
+        KainRuntimeKind::HybridModule => ContractKainRuntimeKind::HybridModule,
+    }
 }
 
-#[derive(Debug, Serialize)]
-pub struct KAINRuntimeRegistryEntry {
-    pub id: String,
-    pub label: String,
-    pub source_path: String,
-    pub runtime_kind: String,
-    pub host_kind: String,
-    pub namespace: String,
-    pub outputs: Vec<KAINRuntimeOutputRegistryEntry>,
+fn into_contract_host_kind(kind: KainHostKind) -> ContractKainHostKind {
+    match kind {
+        KainHostKind::Tauri => ContractKainHostKind::Tauri,
+        KainHostKind::Webview => ContractKainHostKind::Webview,
+        KainHostKind::WasmRuntime => ContractKainHostKind::WasmRuntime,
+        KainHostKind::Hybrid => ContractKainHostKind::Hybrid,
+    }
 }
 
-// ─── Target validation ────────────────────────────────────────────────────────
-
-fn validate_target(target: &str) -> Result<(), String> {
-    KainCliTarget::try_from(target)
-        .map(|_| ())
-        .map_err(|e| e.to_string())
+fn into_contract_cli_target(target: &str) -> Result<KainCliTarget, String> {
+    match NativeKainCliTarget::try_from(target) {
+        Ok(native_target) => Ok(match native_target {
+            NativeKainCliTarget::Wasm => KainCliTarget::Wasm,
+            NativeKainCliTarget::Spirv => KainCliTarget::Spirv,
+            NativeKainCliTarget::Ts => KainCliTarget::Ts,
+            NativeKainCliTarget::Js => KainCliTarget::Js,
+            NativeKainCliTarget::Ks => KainCliTarget::Ks,
+            NativeKainCliTarget::Hybrid => KainCliTarget::Hybrid,
+            NativeKainCliTarget::Rust => KainCliTarget::Rust,
+            NativeKainCliTarget::Cpp => KainCliTarget::Cpp,
+            NativeKainCliTarget::Run => KainCliTarget::Run,
+            NativeKainCliTarget::Test => KainCliTarget::Test,
+            NativeKainCliTarget::Hlsl => KainCliTarget::Hlsl,
+            NativeKainCliTarget::Usf => KainCliTarget::Usf,
+        }),
+        Err(error) => Err(error.to_string()),
+    }
 }
 
 // ─── Tauri Commands ───────────────────────────────────────────────────────────
@@ -82,15 +113,20 @@ fn validate_target(target: &str) -> Result<(), String> {
 #[tauri::command]
 pub async fn kain_compile(
     source: String,
-    target: String,
+    target: KainCliTarget,
     output_name: String,
     verbose: bool,
     strict: bool,
-) -> Result<KAINCompileResponse, String> {
-    let target = KainCliTarget::try_from(target.as_str()).map_err(|e| e.to_string())?;
-    let result =
-        compile_source(source, target, output_name, verbose, strict).map_err(|e| e.to_string())?;
-    Ok(KAINCompileResponse {
+) -> Result<KainCompileResponse, String> {
+    let result = compile_source(
+        source,
+        into_native_cli_target(target),
+        output_name,
+        verbose,
+        strict,
+    )
+    .map_err(|e| e.to_string())?;
+    Ok(KainCompileResponse {
         success: result.success,
         output: result.output,
         output_path: result.output_path,
@@ -102,9 +138,9 @@ pub async fn kain_compile(
 /// Run KAIN source in the interpreter (`kain run`).
 /// Returns stdout and stderr separately.
 #[tauri::command]
-pub async fn kain_run(source: String, verbose: bool) -> Result<KAINRunResponse, String> {
+pub async fn kain_run(source: String, verbose: bool) -> Result<KainRunResponse, String> {
     let result = run_source(source, verbose).map_err(|e| e.to_string())?;
-    Ok(KAINRunResponse {
+    Ok(KainRunResponse {
         success: result.success,
         stdout: result.stdout,
         stderr: result.stderr,
@@ -118,12 +154,12 @@ pub async fn kain_run(source: String, verbose: bool) -> Result<KAINRunResponse, 
 #[tauri::command]
 pub async fn kain_build_file(
     path: String,
-    target: String,
+    target: KainCliTarget,
     output: Option<String>,
-) -> Result<KAINCompileResponse, String> {
-    let target = KainCliTarget::try_from(target.as_str()).map_err(|e| e.to_string())?;
-    let result = build_file(path, target, output).map_err(|e| e.to_string())?;
-    Ok(KAINCompileResponse {
+) -> Result<KainCompileResponse, String> {
+    let result =
+        build_file(path, into_native_cli_target(target), output).map_err(|e| e.to_string())?;
+    Ok(KainCompileResponse {
         success: result.success,
         output: result.output,
         output_path: result.output_path,
@@ -134,32 +170,16 @@ pub async fn kain_build_file(
 
 /// List KAIN sources from the native registry crate.
 #[tauri::command]
-pub async fn kain_list_sources() -> Result<Vec<KAINSourceRegistryEntry>, String> {
+pub async fn kain_list_sources() -> Result<Vec<KainSourceRegistryEntry>, String> {
     let sources = list_sources()
         .iter()
-        .map(|entry| KAINSourceRegistryEntry {
+        .map(|entry| KainSourceRegistryEntry {
             id: entry.id.to_string(),
             label: entry.label.to_string(),
-            domain: match entry.domain {
-                KainDomain::Fluid => "fluid".to_string(),
-                KainDomain::Sculpting => "sculpt".to_string(),
-                KainDomain::Supermotion => "mocap".to_string(),
-                KainDomain::Paint => "paint".to_string(),
-                KainDomain::Renderer => "renderer".to_string(),
-                KainDomain::Materials => "materials".to_string(),
-                KainDomain::Imports => "imports".to_string(),
-                KainDomain::SculptingEngine => "sculpting_engine".to_string(),
-                KainDomain::Brush => "brush".to_string(),
-                KainDomain::Shader => "shader".to_string(),
-                KainDomain::Procedural => "procedural".to_string(),
-                KainDomain::Kainscript => "kainscript".to_string(),
-            },
+            domain: into_contract_domain(entry.domain),
             source_path: entry.source_path.to_string(),
             compiled_path: entry.compiled_path.clone(),
-            target: match entry.target {
-                KainTargetKind::Spirv => "spirv".to_string(),
-                KainTargetKind::Source => "source".to_string(),
-            },
+            target: into_contract_registry_target(entry.target),
         })
         .collect();
 
@@ -167,31 +187,22 @@ pub async fn kain_list_sources() -> Result<Vec<KAINSourceRegistryEntry>, String>
 }
 
 #[tauri::command]
-pub async fn kain_list_runtime_apps() -> Result<Vec<KAINRuntimeRegistryEntry>, String> {
+pub async fn kain_list_runtime_apps() -> Result<Vec<KainRuntimeRegistryEntry>, String> {
     let apps = list_runtime_apps()
         .iter()
-        .map(|entry| KAINRuntimeRegistryEntry {
+        .map(|entry| KainRuntimeRegistryEntry {
             id: entry.id.to_string(),
             label: entry.label.to_string(),
             source_path: entry.source_path.to_string(),
-            runtime_kind: match entry.runtime_kind {
-                KainRuntimeKind::TauriFrontend => "tauri_frontend".to_string(),
-                KainRuntimeKind::DesktopScript => "desktop_script".to_string(),
-                KainRuntimeKind::ComputeKernel => "compute_kernel".to_string(),
-                KainRuntimeKind::HybridModule => "hybrid_module".to_string(),
-            },
-            host_kind: match entry.host_kind {
-                KainHostKind::Tauri => "tauri".to_string(),
-                KainHostKind::Webview => "webview".to_string(),
-                KainHostKind::WasmRuntime => "wasm_runtime".to_string(),
-                KainHostKind::Hybrid => "hybrid".to_string(),
-            },
+            runtime_kind: into_contract_runtime_kind(entry.runtime_kind),
+            host_kind: into_contract_host_kind(entry.host_kind),
             namespace: entry.namespace.to_string(),
             outputs: entry
                 .outputs
                 .iter()
-                .map(|output| KAINRuntimeOutputRegistryEntry {
-                    target: output.target.as_str().to_string(),
+                .map(|output| KainRuntimeOutputRegistryEntry {
+                    target: into_contract_cli_target(output.target.as_str())
+                        .expect("runtime manifest target should always be valid"),
                     path: output.path.to_string(),
                 })
                 .collect(),

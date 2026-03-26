@@ -454,7 +454,10 @@ CORE FILES:
   src/kos_bridge.rs      # K_OS bridge utilities
   src/kos_commands.rs    # K_OS command handlers
   src/kain_commands.rs   # KAIN source registry/build/runtime command bridge
+  src/kain_contract.rs   # Shared Specta/Tauri Kain DTO contract
   src/mocap_bridge.rs    # Mocap bridge and command forwarding
+  src/registry_contract.rs # Shared Specta/Tauri workspace registry DTO contract
+  src/viewport_contract.rs # Shared Specta/Tauri viewport DTO contract
   src/viewport_host.rs   # Viewport host-side payload coordination
 
 BEVY VIEWPORT (OPTIONAL): crates/k-os-bevy/
@@ -883,8 +886,11 @@ RECENT_CHANGES.md                            # Changelog (AI-native format)
     - **bevy/**
     - **modules/**
     - [leash.rs](src-tauri\src\leash.rs) `(15.3KB, 398 lines)` - *! The Leash - IPC Bridge between Tauri and Bevy*
+    - [kain_contract.rs](src-tauri\src\kain_contract.rs) - *Shared Specta/Tauri Kain DTO contract*
     - [main.rs](src-tauri\src\main.rs) `(15.4KB, 455 lines)` - *! K_OS Backend - High-Performance Rust Engine*
     - [python_bridge.rs](src-tauri\src\python_bridge.rs) `(11.1KB, 375 lines)` - *! K_OS Python Bridge*
+    - [registry_contract.rs](src-tauri\src\registry_contract.rs) - *Shared Specta/Tauri workspace registry DTO contract*
+    - [viewport_contract.rs](src-tauri\src\viewport_contract.rs) - *Shared Specta/Tauri viewport DTO contract*
   - [DIRECTORY.md](src-tauri\DIRECTORY.md) `(175B, 17 lines)`
   - [TAURI_DIRECTORY.md](src-tauri\TAURI_DIRECTORY.md) `(17.2KB, 473 lines)`
   - [build.rs](src-tauri\build.rs) `(12.6KB, 310 lines)` - *1. Get Project Root (we are in src-tauri, so go up one level)*

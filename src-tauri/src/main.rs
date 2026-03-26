@@ -19,9 +19,12 @@
 mod baking; // Texture baking operations
 mod commands; // Feature-specific command handlers
 mod kain_commands; // KAIN language compiler bridge
+mod kain_contract; // Shared Tauri/Specta Kain types
 mod mocap; // Zen mocap command surface
 mod mocap_bridge; // Shared K_OS <-> ZenMocap interop event bus
 mod python_bridge; // Python sidecar - AI/ML operations
+mod registry_contract; // Shared Tauri/Specta registry types
+mod viewport_contract; // Shared Tauri/Specta viewport types
 mod viewport_host; // Native viewport host adapter
 
 use tauri::Emitter; // Required for event emission in Tauri v2

@@ -26,32 +26,34 @@
  * ═══════════════════════════════════════════════════════════════════════
  */
 
-import { invoke } from '@tauri-apps/api/core';
+import {
+    kainBuildFile,
+    kainCompile,
+    kainListRuntimeApps,
+    kainListSources,
+    kainReadSource,
+    kainRun,
+    kainWriteSource,
+    type KainCliTarget,
+    type KainHostKind as NativeKainHostKind,
+    type KainRuntimeKind as NativeKainRuntimeKind,
+    type KainRuntimeRegistryEntry,
+    type KainSourceDomain as NativeKainSourceDomain,
+    type KainSourceRegistryEntry,
+} from '@/generated/tauriRegistry.gen';
 import { GENERATED_KAIN_RUNTIME_REGISTRY } from '../runtime/generatedRegistry';
 
 // ─── KAIN compilation targets (mirrors kain --help) ───────────────────────────
 
-export type KAINTarget =
-    | 'wasm'    // WebAssembly module
-    | 'spirv'   // SPIR-V GPU compute shader
-    | 'ts'      // TypeScript (KAINScript → TS)
-    | 'js'      // JavaScript
-    | 'ks'      // KainScript
-    | 'hybrid'  // Hybrid JS/WASM bundle entry
-    | 'rust'    // Rust source
-    | 'cpp'     // C++ source
-    | 'run'     // Interpret immediately (no output file)
-    | 'test'    // Run tests
-    | 'hlsl'    // Direct HLSL
-    | 'usf';    // Unreal Shader Format
+export type KAINTarget = KainCliTarget;
 
 // ─── Result types ─────────────────────────────────────────────────────────────
 
 export interface KAINCompileResult {
     success: boolean;
-    output?: string;    // stdout / compiled output text
-    outputPath?: string;   // path to compiled artifact
-    errors?: string;    // stderr
+    output?: string | null;    // stdout / compiled output text
+    outputPath?: string | null;   // path to compiled artifact
+    errors?: string | null;    // stderr
     target: KAINTarget;
     durationMs: number;
     description: string;
@@ -78,7 +80,7 @@ export interface KAINScriptPlugin {
 
 export interface KAINSourceFile {
     path: string;
-    domain: 'sculpt' | 'physics' | 'fluid' | 'mocap' | 'paint' | 'renderer' | 'plugin' | 'custom';
+    domain: KAINSourceDomain;
     category: string;
     label: string;
     target: KAINTarget;
@@ -86,26 +88,9 @@ export interface KAINSourceFile {
     outputPath?: string;
 }
 
-interface NativeKAINSourceRegistryEntry {
-    id: string;
-    label: string;
-    domain: 'sculpt' | 'mocap' | 'paint' | 'renderer';
-    source_path: string;
-    compiled_path?: string | null;
-    target: 'spirv' | 'source';
-}
-
-export type KAINRuntimeKind =
-    | 'tauri_frontend'
-    | 'desktop_script'
-    | 'compute_kernel'
-    | 'hybrid_module';
-
-export type KAINHostKind =
-    | 'tauri'
-    | 'webview'
-    | 'wasm_runtime'
-    | 'hybrid';
+export type KAINSourceDomain = NativeKainSourceDomain | 'physics' | 'plugin' | 'custom';
+export type KAINRuntimeKind = NativeKainRuntimeKind;
+export type KAINHostKind = NativeKainHostKind;
 
 export interface KAINRuntimeOutputFile {
     target: KAINTarget;
@@ -122,21 +107,6 @@ export interface KAINRuntimeApp {
     outputs: KAINRuntimeOutputFile[];
 }
 
-interface NativeKAINRuntimeOutputRegistryEntry {
-    target: KAINTarget;
-    path: string;
-}
-
-interface NativeKAINRuntimeRegistryEntry {
-    id: string;
-    label: string;
-    source_path: string;
-    runtime_kind: KAINRuntimeKind;
-    host_kind: KAINHostKind;
-    namespace: string;
-    outputs: NativeKAINRuntimeOutputRegistryEntry[];
-}
-
 export const KAIN_SOURCE_REGISTRY: KAINSourceFile[] = [];
 export const KAIN_RUNTIME_REGISTRY: KAINRuntimeApp[] = GENERATED_KAIN_RUNTIME_REGISTRY;
 
@@ -150,6 +120,51 @@ export interface KAINAuthoringSession {
 }
 
 const AUTHORING_EVENT = 'kos:kain-authoring-session';
+
+const CATEGORY_BY_SOURCE_DOMAIN: Record<KAINSourceDomain, string> = {
+    fluid: 'native',
+    sculpt: 'native',
+    mocap: 'supermotion',
+    paint: 'paint',
+    renderer: 'renderer',
+    materials: 'native',
+    imports: 'native',
+    sculpting_engine: 'native',
+    brush: 'native',
+    shader: 'native',
+    procedural: 'native',
+    kainscript: 'native',
+    physics: 'native',
+    plugin: 'native',
+    custom: 'native',
+};
+
+function mapNativeSourceEntry(entry: KainSourceRegistryEntry): KAINSourceFile {
+    return {
+        path: entry.sourcePath,
+        domain: entry.domain,
+        category: CATEGORY_BY_SOURCE_DOMAIN[entry.domain],
+        label: entry.label,
+        target: entry.target === 'source' ? 'ts' : entry.target,
+        description: `Native KAIN registry entry: ${entry.id}`,
+        outputPath: entry.compiledPath ?? undefined,
+    };
+}
+
+function mapNativeRuntimeEntry(entry: KainRuntimeRegistryEntry): KAINRuntimeApp {
+    return {
+        id: entry.id,
+        label: entry.label,
+        sourcePath: entry.sourcePath,
+        runtimeKind: entry.runtimeKind,
+        hostKind: entry.hostKind,
+        namespace: entry.namespace,
+        outputs: entry.outputs.map((output) => ({
+            target: output.target,
+            path: output.path,
+        })),
+    };
+}
 
 // ─── KAINBridge class ─────────────────────────────────────────────────────────
 
@@ -175,14 +190,12 @@ export class KAINBridge {
     } = {}): Promise<KAINCompileResult> {
         const start = performance.now();
         try {
-            const result = await invoke<{ output: string; outputPath?: string; errors?: string; success: boolean }>(
-                'kain_compile', {
+            const result = await kainCompile(
                 source,
                 target,
-                outputName: opts.outputName ?? 'kain_output',
-                verbose: opts.verbose ?? false,
-                strict: opts.strict ?? false,
-            }
+                opts.outputName ?? 'kain_output',
+                opts.verbose ?? false,
+                opts.strict ?? false,
             );
             return {
                 ...result,
@@ -207,10 +220,7 @@ export class KAINBridge {
      */
     async run(source: string, opts: { verbose?: boolean } = {}): Promise<KAINRunResult> {
         try {
-            return await invoke<KAINRunResult>('kain_run', {
-                source,
-                verbose: opts.verbose ?? false,
-            });
+            return await kainRun(source, opts.verbose ?? false);
         } catch (err: any) {
             return { success: false, stdout: '', stderr: String(err), exitCode: 1 };
         }
@@ -308,12 +318,10 @@ export class KAINBridge {
     async rebuildFile(file: KAINSourceFile): Promise<KAINCompileResult> {
         const start = performance.now();
         try {
-            const result = await invoke<{ success: boolean; errors?: string; outputPath?: string }>(
-                'kain_build_file', {
-                path: file.path,
-                target: file.target,
-                output: file.outputPath ?? null,
-            }
+            const result = await kainBuildFile(
+                file.path,
+                file.target,
+                file.outputPath ?? null,
             );
             return { ...result, output: result.outputPath, target: file.target, durationMs: performance.now() - start, description: `Rebuilt ${file.path}` };
         } catch (err: any) {
@@ -343,23 +351,8 @@ export class KAINBridge {
         }
 
         try {
-            const entries = await invoke<NativeKAINSourceRegistryEntry[]>('kain_list_sources');
-            this.nativeRegistryCache = entries.map((entry) => ({
-                path: entry.source_path,
-                domain: entry.domain,
-                category:
-                    entry.domain === 'mocap'
-                        ? 'supermotion'
-                        : entry.domain === 'paint'
-                            ? 'paint'
-                            : entry.domain === 'renderer'
-                                ? 'renderer'
-                                : 'native',
-                label: entry.label,
-                target: entry.target === 'source' ? 'ts' : entry.target,
-                description: `Native KAIN registry entry: ${entry.id}`,
-                outputPath: entry.compiled_path ?? undefined,
-            }));
+            const entries = await kainListSources();
+            this.nativeRegistryCache = entries.map(mapNativeSourceEntry);
             return this.nativeRegistryCache;
         } catch (err) {
             console.warn('[KAINBridge] Falling back to frontend KAIN registry:', err);
@@ -381,19 +374,8 @@ export class KAINBridge {
         }
 
         try {
-            const entries = await invoke<NativeKAINRuntimeRegistryEntry[]>('kain_list_runtime_apps');
-            this.nativeRuntimeRegistryCache = entries.map((entry) => ({
-                id: entry.id,
-                label: entry.label,
-                sourcePath: entry.source_path,
-                runtimeKind: entry.runtime_kind,
-                hostKind: entry.host_kind,
-                namespace: entry.namespace,
-                outputs: entry.outputs.map((output) => ({
-                    target: output.target,
-                    path: output.path,
-                })),
-            }));
+            const entries = await kainListRuntimeApps();
+            this.nativeRuntimeRegistryCache = entries.map(mapNativeRuntimeEntry);
             return this.nativeRuntimeRegistryCache;
         } catch (err) {
             console.warn('[KAINBridge] Falling back to frontend runtime registry:', err);
@@ -427,11 +409,11 @@ export class KAINBridge {
     }
 
     async readSource(path: string): Promise<string> {
-        return invoke<string>('kain_read_source', { path });
+        return kainReadSource(path);
     }
 
     async writeSource(path: string, source: string): Promise<void> {
-        await invoke('kain_write_source', { path, source });
+        await kainWriteSource(path, source);
     }
 
     openAuthoringSession(session: KAINAuthoringSession): void {
