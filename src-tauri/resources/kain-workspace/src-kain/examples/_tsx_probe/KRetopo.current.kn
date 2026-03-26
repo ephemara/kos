@@ -1,0 +1,33 @@
+# Generated from TypeScript source by kain import-ts
+
+type RetopoMode = String
+
+struct KRetopoProps:
+    sharedState: Option<Any>
+    onCommit: Option<Any>
+
+fn KRetopo(arg_1: KRetopoProps):
+    let canvasRef = useRef(none)
+    let engineRef = useRef(none)
+    let (mode, setMode) = useState("draw")
+    let (surfaceSnapping, setSurfaceSnapping) = useState(true)
+    let (snapDistance, setSnapDistance) = useState(0.1)
+    let (symmetryEnabled, setSymmetryEnabled) = useState(false)
+    let (symmetryAxis, setSymmetryAxis) = useState("x")
+    let (status, setStatus) = useState("Ready")
+    let (useNativeRenderer, setUseNativeRenderer) = useState(none)
+    let (stats, setStats) = useState(none)
+    useEffect(none, [useNativeRenderer])
+    useEffect(none, [useNativeRenderer])
+    useEffect(none, [sharedState.artifact, useNativeRenderer])
+    useEffect(none, [mode])
+    useEffect(none, [surfaceSnapping, snapDistance])
+    useEffect(none, [symmetryEnabled, symmetryAxis])
+    let handleExport = none
+    let handleAutoRetopo = none
+    useEffect(none, [])
+    let leftTabs = useMemo(none, [surfaceSnapping, snapDistance, symmetryEnabled, symmetryAxis])
+    let rightTabs = useMemo(none, [stats])
+    let nativeSyncSource = useMemo(none, [sharedState.artifact])
+    return (<AppShell layoutKey="kretopo" className="text-gray-300 font-mono select-none overflow-hidden bg-[#050505]" menuBar={<AppMenuBar menus={[none, none, none]} />} topBar={<TopBar mode={mode} onModeChange={setMode} onExport={handleExport} status={status} />} left={none} right={none}><div className="relative h-full w-full bg-[#090909] cursor-crosshair overflow-hidden select-none">{if (!useNativeRenderer): <canvas ref={canvasRef} className="w-full h-full" style={none} />}{if useNativeRenderer: <NativeViewport meshHandle={none} syncSource={nativeSyncSource} onStatusChange={setStatus} />}<div className="absolute bottom-4 left-4 bg-black/70 backdrop-blur px-3 py-1 rounded text-[10px] text-gray-400 font-mono border border-gray-800 flex items-center gap-2 pointer-events-none z-30"><Activity size={12} className={none} />{status}</div></div></AppShell>)
+

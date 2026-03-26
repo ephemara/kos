@@ -1,0 +1,32 @@
+{
+  "id": "wave_ripple",
+  "name": "Wave Ripple",
+  "category": "Sculpt/Procedural",
+  "tags": ["procedural", "wave", "ripple", "water"],
+  "kernel": "stamp",
+  "params": {
+    "radius": 0.12,
+    "strength": 0.4,
+    "hardness": 0.3,
+    "spacing": 0.06,
+    "lazy_radius": 0.02,
+    "subtract": false,
+    "front_faces_only": true,
+    "accumulate": true,
+    "jitter_position": 0.0,
+    "jitter_rotation": 0.0,
+    "jitter_strength": 0.0,
+    "falloff_type": "smooth",
+    "extras": {
+      "wave_frequency": 5.0,
+      "wave_amplitude": 0.1,
+      "wave_decay": 0.8
+    }
+  },
+  "textures": {},
+  "pressure_strength": "soft",
+  "pressure_radius": "soft",
+  "speed_radius": null,
+  "tilt_rotation": null,
+  "entry_fade_dabs": 4
+}

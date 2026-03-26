@@ -1,0 +1,187 @@
+# K_OS Workspace Root
+# 
+# Structure:
+# - owner crates: domain-specific compute/runtime crates
+# - src-tauri: Thin Tauri proxy (IPC only)
+# - crates/k-os-bevy: Bevy 3D renderer
+
+[workspace]
+members = [
+    "src-tauri",
+    "crates/zen",
+    "crates/zen-assets",
+    "crates/zen-core",
+    "crates/zen-editor",
+    "crates/zen-host",
+    "crates/zen-kain-api",
+    "crates/zen-kain-modules",
+    "crates/zen-render",
+    "crates/zen-runtime",
+    "crates/zen-scene",
+    "crates/k-os-bevy",
+    "crates/k-os-scene",
+    "crates/k-os-eval",
+    "crates/k-os-renderer",
+    "crates/k-os-kain",
+    "crates/k-os-workspace-registry",
+    "crates/k-os-animation",
+    "crates/k-os-brushes",
+    "crates/k-os-config",
+    "crates/k-os-external",
+    "crates/k-os-hdr",
+    "crates/k-os-sculpt",
+    "crates/k-os-sim",
+    "crates/k-os-io",
+    "crates/k-os-wasm",
+    "crates/k-os-gpu-pipeline",
+    "crates/k-os-scene-runtime",
+    "crates/k-os-mesh",
+    "crates/k-os-undo",
+    "crates/k-os-asset-pipeline",
+    "crates/k-os-plugin",
+    "crates/k-os-material",
+    "crates/k-os-rig",
+    "crates/k-os-mesh-processing",
+    "crates/k-os-baking",
+    "crates/k-os-photogrammetry",
+    "crates/k-os-scatter",
+    "crates/k-os-game-runtime",
+    "crates/k-os-game-framework",
+    "crates/k-os-game-play",
+    "crates/k-os-game-ai",
+    "crates/k-os-game-camera",
+    "crates/k-os-game-input",
+    "crates/k-os-game-sequencer",
+]
+resolver = "2"
+
+# Shared profile settings for faster builds
+[profile.dev]
+incremental = false         # Stops Windows 'anon' symbol corruption
+opt-level = 1               # Some optimization for snappy runtime
+debug = 0                   # No debug symbols = faster compile + link
+split-debuginfo = "unpacked"
+
+# Optimize all dependencies (they rarely change)
+[profile.dev.package."*"]
+opt-level = 2
+debug = false
+
+[profile.release]
+lto = true
+codegen-units = 1
+panic = "abort"
+opt-level = 3
+
+[workspace.metadata.kos]
+registry_version = 1
+aggregator_packages = ["k-os-backend", "k-os-bevy", "zen"]
+default_host_support = ["backend", "bevy", "zen"]
+
+[workspace.metadata.kos.inference]
+aggregator_threshold = 8
+backend_dependency_markers = ["tauri", "tauri-build", "tauri-plugin-shell", "tauri-plugin-dialog"]
+bevy_dependency_markers = ["bevy", "bevy_egui", "bevy_panorbit_camera"]
+zen_dependency_markers = ["kain-ui", "zen-core", "zen-editor", "zen-host", "zen-runtime", "zen-kain-api", "zen-kain-modules"]
+gpu_dependency_markers = ["wgpu", "naga", "k-os-gpu-pipeline"]
+kain_dependency_markers = ["k-os-kain", "kain-core", "kain-ui", "zen-kain-api", "zen-kain-modules"]
+game_prefixes = ["k-os-game-"]
+zen_prefixes = ["zen", "zen-"]
+kos_prefixes = ["k-os-"]
+
+[workspace.metadata.kos.external_manifests]
+kain_spirv_sources = "crates/k-os-kain/manifests/sources.json"
+kain_runtime_apps = "crates/k-os-kain/manifests/runtime_apps.json"
+zen_runtime = "crates/zen/resources/runtime.toml"
+zen_modules = "crates/zen/resources/modules.toml"
+zen_host_api = "crates/zen/resources/host_api.toml"
+
+[workspace.metadata.kos.overrides.k-os-backend]
+roles = ["host", "aggregator", "tauri-backend"]
+capabilities = ["ipc-proxy", "workspace-host"]
+hosts = ["backend"]
+stability_tier = "host-api"
+adapter_targets = ["tauri"]
+
+[workspace.metadata.kos.overrides.k-os-bevy]
+roles = ["host", "aggregator", "viewport"]
+capabilities = ["bevy-renderer", "workspace-host"]
+hosts = ["bevy"]
+stability_tier = "host-api"
+adapter_targets = ["bevy"]
+
+[workspace.metadata.kos.overrides.zen]
+roles = ["host", "aggregator", "editor-shell"]
+capabilities = ["native-renderer", "kain-ui-host", "workspace-host"]
+hosts = ["zen"]
+stability_tier = "host-api"
+adapter_targets = ["zen"]
+
+[workspace.metadata.kos.overrides.k-os-kain]
+roles = ["registry", "artifact-provider"]
+capabilities = ["spirv-source-registry", "runtime-app-registry", "domain-metadata"]
+hosts = ["backend", "zen"]
+stability_tier = "integration"
+adapter_targets = ["tauri", "zen", "external"]
+recommended_entrypoints = [
+  "crate::list_sources",
+  "crate::list_runtime_apps",
+  "crate::generated_spirv_by_id",
+  "crate::generated_runtime_app_by_id",
+  "crate::compile_source",
+  "crate::build_file",
+]
+
+[workspace.metadata.kos.overrides.k-os-workspace-registry]
+roles = ["registry", "workspace-metadata"]
+capabilities = ["cargo-metadata-registry", "manifest-extraction", "workspace-proof"]
+hosts = ["backend", "bevy", "zen"]
+stability_tier = "integration"
+adapter_targets = ["tauri", "bevy", "zen", "external"]
+recommended_entrypoints = [
+  "crate::workspace_registry",
+  "crate::public_api_registry",
+  "crate::api_bloat_pressure_report",
+]
+
+[workspace.metadata.kos.overrides.k-os-game-runtime]
+roles = ["manifest-owner", "runtime-schema"]
+capabilities = ["pipeline-manifest-schema", "registry-compatibility", "runtime-policy"]
+hosts = ["backend", "bevy"]
+stability_tier = "integration"
+adapter_targets = ["tauri", "bevy", "external"]
+recommended_entrypoints = [
+  "crate::load_manifest_from_file",
+  "crate::build_execution_plan",
+  "crate::run_preflight_checks",
+  "crate::execute_plan_with_builtin_adapters",
+]
+
+[workspace.metadata.kos.overrides.k-os-gpu-pipeline]
+capabilities = ["gpu", "compute-pipeline", "shader-dispatch"]
+hosts = ["backend", "bevy", "zen"]
+stability_tier = "integration"
+adapter_targets = ["tauri", "bevy", "zen", "external"]
+recommended_entrypoints = [
+  "crate::GpuComputeDevice",
+  "crate::GpuMeshBridge",
+  "crate::GpuSculptCompute",
+  "crate::GpuNormalCompute",
+  "crate::gpu",
+]
+
+[workspace.metadata.kos.overrides.k-os-sculpt]
+capabilities = ["sculpt", "mesh-edit", "stroke-application"]
+hosts = ["backend", "bevy"]
+stability_tier = "integration"
+adapter_targets = ["tauri", "bevy", "external"]
+recommended_entrypoints = [
+  "crate::commands::init_sculpt_mesh",
+  "crate::commands::apply_brush",
+  "crate::commands::apply_brush_spirv",
+  "crate::commands::get_sculpt_viewport_payload",
+]
+
+[patch.crates-io]
+bitarray = { path = "vendor/bitarray-0.2.6" }
+

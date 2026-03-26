@@ -1,0 +1,8 @@
+# ONNX model files — too large for git
+*.onnx
+*.pt
+*.pth
+*.ot
+# Keep scripts and manifests
+!convert_models.py
+!*.md

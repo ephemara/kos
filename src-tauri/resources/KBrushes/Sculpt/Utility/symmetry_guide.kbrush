@@ -1,0 +1,32 @@
+{
+  "id": "symmetry_guide",
+  "name": "Symmetry Guide",
+  "category": "Sculpt/Utility",
+  "tags": ["utility", "symmetry", "guide", "mirror"],
+  "kernel": "custom",
+  "params": {
+    "radius": 0.1,
+    "strength": 0.5,
+    "hardness": 0.5,
+    "spacing": 0.05,
+    "lazy_radius": 0.0,
+    "subtract": false,
+    "front_faces_only": true,
+    "accumulate": false,
+    "jitter_position": 0.0,
+    "jitter_rotation": 0.0,
+    "jitter_strength": 0.0,
+    "falloff_type": "gaussian",
+    "extras": {
+      "symmetry_axis": "x",
+      "symmetry_count": 1,
+      "radial_mode": false
+    }
+  },
+  "textures": {},
+  "pressure_strength": "linear",
+  "pressure_radius": null,
+  "speed_radius": null,
+  "tilt_rotation": null,
+  "entry_fade_dabs": 1
+}

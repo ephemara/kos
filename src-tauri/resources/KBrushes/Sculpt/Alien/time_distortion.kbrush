@@ -1,0 +1,32 @@
+{
+  "id": "time_distortion",
+  "name": "Time Distortion",
+  "category": "Sculpt/Alien",
+  "tags": ["alien", "time", "distortion", "temporal"],
+  "kernel": "custom",
+  "params": {
+    "radius": 0.12,
+    "strength": 0.5,
+    "hardness": 0.15,
+    "spacing": 0.03,
+    "lazy_radius": 0.04,
+    "subtract": false,
+    "front_faces_only": false,
+    "accumulate": true,
+    "jitter_position": 0.05,
+    "jitter_rotation": 0.9,
+    "jitter_strength": 0.35,
+    "falloff_type": "smooth",
+    "extras": {
+      "time_dilation": 0.8,
+      "causality_violation": 0.3,
+      "paradox_potential": 0.6
+    }
+  },
+  "textures": {},
+  "pressure_strength": "soft",
+  "pressure_radius": "soft",
+  "speed_radius": null,
+  "tilt_rotation": null,
+  "entry_fade_dabs": 7
+}

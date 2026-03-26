@@ -1,0 +1,2 @@
+fn viewport_bridge_name() -> String with Pure:
+    "viewport_bridge"

@@ -1,0 +1,9 @@
+[package]
+name = "zen-runtime"
+version = "0.1.0"
+edition = "2021"
+description = "Zen runtime session, command dispatch, and play-mode orchestration"
+
+[dependencies]
+zen-core = { path = "../zen-core" }
+zen-scene = { path = "../zen-scene" }

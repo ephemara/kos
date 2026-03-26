@@ -1,0 +1,26 @@
+# KAIN Omni Manifest - KainScript Builder
+# Dedicated pipeline for zero-compile script bundles and typed host bindings.
+
+[project]
+entry = "kainscript_builder.kn"
+build_dir = "dist"
+
+[import_resolution]
+inline_kain_imports = true
+search_roots = []
+
+[[targets]]
+kind = "ks"
+output = "dist/kainscript_builder.ks"
+
+[[targets]]
+kind = "ts"
+output = "dist/KainScriptBuilderBindings.ts"
+
+[[targets]]
+kind = "js"
+output = "dist/kainscript_builder.js"
+
+[[targets]]
+kind = "rust"
+output = "dist/kainscript_builder_runtime.rs"

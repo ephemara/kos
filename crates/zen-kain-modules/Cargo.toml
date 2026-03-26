@@ -1,0 +1,10 @@
+[package]
+name = "zen-kain-modules"
+version = "0.1.0"
+edition = "2021"
+description = "Data-driven Kain shell and module registry for Zen"
+
+[dependencies]
+k-os-kain = { path = "../k-os-kain" }
+serde = { version = "1.0", features = ["derive"] }
+toml = "0.8"

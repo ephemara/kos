@@ -1,0 +1,548 @@
+/*
+ * K_OS Global Styles
+ * ─────────────────────────────────────────────────────────────────────────────
+ * Design system tokens, typography, animation utilities, and global polish.
+ * This is the single source of truth for all ambient styling.
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap');
+
+/* Floating Dock System */
+@import '../ui/shell/floating-dock.css';
+
+/* ─── Reset & Base ─────────────────────────────────────────────────────────── */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html, body, #root {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background: #050505;
+  font-family: 'Inter', 'Segoe UI', 'SF Pro Text', Roboto, Helvetica, Arial, system-ui, sans-serif;
+}
+
+/* ─── Design Tokens ────────────────────────────────────────────────────────── */
+
+:root {
+  /* Font families */
+  --kos-font-ui: 'Inter', 'Segoe UI', 'SF Pro Text', Roboto, Helvetica, Arial, system-ui, sans-serif;
+  --kos-font-mono: 'IBM Plex Mono', 'JetBrains Mono', 'Fira Code', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+  /* Timing curves — Lusion-grade easing */
+  --ease-expo:     cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring:   cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-smooth:   cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-sharp:    cubic-bezier(0.25, 0, 0.3, 1);
+  --ease-bounce:   cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  --ease-cinematic:cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* Panel sizes */
+  --panel-border-color: rgba(255, 255, 255, 0.05);
+  --panel-bg: #0a0a0a;
+  --surface-raised: #111111;
+
+  /* Accent */
+  --accent: #00ffcc;
+  --accent-dim: rgba(0, 255, 204, 0.15);
+
+  /* Typography scale */
+  --font-label:   9px;
+  --font-caption: 10px;
+  --font-body:    12px;
+  --font-ui:      11px;
+
+  /* Scrollbar system */
+  --kos-scrollbar-size: 8px;
+  --kos-scrollbar-track: rgba(255, 255, 255, 0.025);
+  --kos-scrollbar-thumb: rgba(255, 255, 255, 0.12);
+  --kos-scrollbar-thumb-hover: rgba(255, 255, 255, 0.22);
+  --kos-scrollbar-thumb-active: rgba(255, 255, 255, 0.3);
+}
+
+/* ─── Custom Scrollbar ─────────────────────────────────────────────────────── */
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--kos-scrollbar-thumb) var(--kos-scrollbar-track);
+}
+
+*::-webkit-scrollbar {
+  width: var(--kos-scrollbar-size);
+  height: var(--kos-scrollbar-size);
+}
+
+*::-webkit-scrollbar-track {
+  background: var(--kos-scrollbar-track);
+  border-radius: 999px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: var(--kos-scrollbar-thumb);
+  border: 2px solid transparent;
+  border-radius: 999px;
+  background-clip: padding-box;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background-color: var(--kos-scrollbar-thumb-hover);
+}
+
+*::-webkit-scrollbar-thumb:active {
+  background-color: var(--kos-scrollbar-thumb-active);
+}
+
+*::-webkit-scrollbar-button {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+*::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: var(--kos-scrollbar-thumb) var(--kos-scrollbar-track);
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: var(--kos-scrollbar-size);
+  height: var(--kos-scrollbar-size);
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.015), rgba(255, 255, 255, 0.035));
+  border-radius: 999px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0.1));
+  border: 2px solid transparent;
+  border-radius: 999px;
+  background-clip: padding-box;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.28), rgba(255, 255, 255, 0.14));
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:active {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.34), rgba(255, 255, 255, 0.18));
+}
+
+.scrollbar-hide,
+.scrollbar-none,
+.no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar,
+.scrollbar-none::-webkit-scrollbar,
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+/* ─── Global animation utilities ───────────────────────────────────────────── */
+
+/* Fade + slide up — used for panel content mounting */
+@keyframes kos-enter {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Fade + scale — used for overlays, dialogs */
+@keyframes kos-scale-in {
+  from { opacity: 0; transform: scale(0.97); filter: blur(4px); }
+  to   { opacity: 1; transform: scale(1);    filter: blur(0); }
+}
+
+/* Fade out */
+@keyframes kos-exit {
+  from { opacity: 1; transform: translateY(0); }
+  to   { opacity: 0; transform: translateY(-6px); }
+}
+
+/* Pulse glow */
+@keyframes kos-pulse-glow {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50%       { opacity: 0.7; transform: scale(1.15); }
+}
+
+/* Shimmer sweep */
+@keyframes kos-shimmer {
+  from { transform: translateX(-200%) skewX(-12deg); }
+  to   { transform: translateX(400%)  skewX(-12deg); }
+}
+
+/* Subtle scan line */
+@keyframes kos-scanline {
+  0%   { top: -2px; }
+  100% { top: calc(100% + 2px); }
+}
+
+/* Slow ambient gradient drift for shell atmosphere */
+@keyframes kos-aurora-drift {
+  0%   { transform: translate3d(-2%, 0, 0) scale(1.02); opacity: 0.42; }
+  50%  { transform: translate3d(2%, -1%, 0) scale(1.04); opacity: 0.58; }
+  100% { transform: translate3d(-2%, 0, 0) scale(1.02); opacity: 0.42; }
+}
+
+.kos-enter       { animation: kos-enter 0.35s var(--ease-expo) both; }
+.kos-scale-in    { animation: kos-scale-in 0.3s var(--ease-expo) both; }
+.kos-exit        { animation: kos-exit 0.2s var(--ease-smooth) both; }
+.kos-shimmer     { animation: kos-shimmer 2.5s linear infinite; }
+.kos-pulse-glow  { animation: kos-pulse-glow 3s ease-in-out infinite; }
+
+/* ─── Shell motion system ─────────────────────────────────────────────────── */
+
+.kos-shell {
+  position: relative;
+  --kos-parallax-x: 0;
+  --kos-parallax-y: 0;
+  --kos-shell-aurora-speed: 14s;
+  --kos-shell-aurora-opacity: 0.5;
+}
+
+.kos-shell-topbar {
+  backdrop-filter: blur(10px) saturate(1.2);
+  -webkit-backdrop-filter: blur(10px) saturate(1.2);
+}
+
+.kos-shell-aurora {
+  background:
+    radial-gradient(1000px 480px at 8% 8%, rgba(0, 255, 204, 0.045), transparent 60%),
+    radial-gradient(900px 420px at 92% 0%, rgba(255, 128, 48, 0.04), transparent 62%),
+    radial-gradient(760px 420px at 50% 100%, rgba(96, 160, 255, 0.035), transparent 68%);
+  opacity: var(--kos-shell-aurora-opacity);
+  transform: translate3d(calc(var(--kos-parallax-x) * 8px), calc(var(--kos-parallax-y) * 8px), 0);
+  filter: saturate(1.15) blur(0.2px);
+  animation: kos-aurora-drift var(--kos-shell-aurora-speed) var(--ease-cinematic) infinite;
+  transition: transform 280ms var(--ease-cinematic), opacity 220ms var(--ease-smooth);
+}
+
+.kos-shell-grid--full {
+  transition: grid-template-columns 380ms var(--ease-cinematic), grid-template-rows 360ms var(--ease-cinematic);
+}
+
+.kos-shell-grid--balanced {
+  transition: grid-template-columns 260ms var(--ease-expo), grid-template-rows 240ms var(--ease-expo);
+}
+
+.kos-shell-panel--full {
+  transition: opacity 240ms var(--ease-cinematic), filter 240ms var(--ease-cinematic), transform 300ms var(--ease-cinematic);
+  will-change: transform, opacity;
+}
+
+.kos-shell-panel--balanced {
+  transition: opacity 170ms var(--ease-expo), transform 190ms var(--ease-expo);
+}
+
+.kos-shell-panel--reduced {
+  transition: none !important;
+}
+
+.kos-shell[data-lightning-drive="warp"] {
+  --kos-shell-aurora-speed: 11s;
+  --kos-shell-aurora-opacity: 0.62;
+}
+
+.kos-shell[data-lightning-drive="cruise"] {
+  --kos-shell-aurora-speed: 14s;
+  --kos-shell-aurora-opacity: 0.5;
+}
+
+.kos-shell[data-lightning-drive="safe"] {
+  --kos-shell-aurora-speed: 18s;
+  --kos-shell-aurora-opacity: 0.34;
+}
+
+.kos-shell[data-ui-capacitor="charged"] .kos-shell-topbar {
+  box-shadow: inset 0 -1px 0 rgba(255, 255, 255, 0.06);
+}
+
+.kos-shell[data-ui-capacitor="priming"] .kos-shell-topbar {
+  box-shadow: inset 0 -1px 0 rgba(255, 255, 255, 0.03);
+}
+
+.kos-shell[data-ui-capacitor="discharged"] .kos-shell-aurora {
+  opacity: 0.18;
+  transition: none;
+}
+
+/* ─── Stagger children animation ───────────────────────────────────────────── */
+
+.kos-stagger > * {
+  opacity: 0;
+  animation: kos-enter 0.4s var(--ease-expo) both;
+}
+
+.kos-stagger > *:nth-child(1)  { animation-delay: 0ms; }
+.kos-stagger > *:nth-child(2)  { animation-delay: 40ms; }
+.kos-stagger > *:nth-child(3)  { animation-delay: 80ms; }
+.kos-stagger > *:nth-child(4)  { animation-delay: 120ms; }
+.kos-stagger > *:nth-child(5)  { animation-delay: 160ms; }
+.kos-stagger > *:nth-child(6)  { animation-delay: 200ms; }
+.kos-stagger > *:nth-child(7)  { animation-delay: 240ms; }
+.kos-stagger > *:nth-child(8)  { animation-delay: 280ms; }
+.kos-stagger > *:nth-child(9)  { animation-delay: 320ms; }
+.kos-stagger > *:nth-child(10) { animation-delay: 360ms; }
+.kos-stagger > *:nth-child(11) { animation-delay: 400ms; }
+.kos-stagger > *:nth-child(12) { animation-delay: 440ms; }
+
+/* ─── Glass surface utility ────────────────────────────────────────────────── */
+
+.kos-glass {
+  background: rgba(10, 10, 10, 0.8);
+  backdrop-filter: blur(24px) saturate(1.4);
+  -webkit-backdrop-filter: blur(24px) saturate(1.4);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.kos-glass-sm {
+  background: rgba(10, 10, 10, 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+/* ─── Noise texture overlay (Lusion-grade depth) ───────────────────────────── */
+
+.kos-noise::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-size: 128px 128px;
+  z-index: 0;
+}
+
+/* ─── Interactive button ripple ──────────────────────────────────────────────── */
+
+.kos-ripple {
+  position: relative;
+  overflow: hidden;
+}
+
+.kos-ripple::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(255,255,255,0.08) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.kos-ripple:active::after {
+  opacity: 1;
+  transition: opacity 0s;
+}
+
+/* ─── Glow focus ring ──────────────────────────────────────────────────────── */
+
+.kos-focus {
+  outline: none;
+}
+
+.kos-focus:focus-visible {
+  box-shadow: 0 0 0 2px rgba(0, 255, 204, 0.4), 0 0 12px rgba(0, 255, 204, 0.15);
+}
+
+/* ─── Tab active indicator — smooth transition ─────────────────────────────── */
+
+/* Overrides DockPanel tab after: pseudo that was static (no transition) */
+[data-state="active"] {
+  --tab-bar-transition: transform 0.25s var(--ease-expo);
+}
+
+/* ─── App module transition ──────────────────────────────────────────────────── */
+
+.kos-module-enter {
+  animation: kos-scale-in 0.3s var(--ease-expo) both;
+}
+
+/* ─── Tooltip polish ───────────────────────────────────────────────────────── */
+
+[data-radix-tooltip-content] {
+  animation: kos-enter 0.15s var(--ease-expo) both;
+}
+
+/* ─── Command palette ──────────────────────────────────────────────────────── */
+
+[cmdk-root] {
+  font-family: var(--kos-font-ui);
+}
+
+/* Keep numeric/technical regions mono while default UI remains readable */
+.font-mono,
+code,
+pre,
+kbd,
+samp {
+  font-family: var(--kos-font-mono) !important;
+}
+
+[cmdk-item] {
+  transition: background 0.12s var(--ease-smooth), color 0.12s;
+}
+
+[cmdk-item][aria-selected="true"] {
+  background: rgba(255, 165, 0, 0.12);
+  border-color: rgba(255, 165, 0, 0.2);
+  color: rgba(255, 220, 180, 1);
+}
+
+/* ─── Radix Dialog / Popover backdrop ─────────────────────────────────────── */
+
+[data-radix-popper-content-wrapper] {
+  z-index: 200 !important;
+}
+
+/* ─── Input range global ───────────────────────────────────────────────────── */
+
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+  background: rgba(255,255,255,0.06);
+  height: 2px;
+  border-radius: 1px;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #00ffcc;
+  margin-top: -4px;
+  transition: transform 0.15s, box-shadow 0.15s;
+  box-shadow: 0 0 6px rgba(0, 255, 204, 0.4);
+}
+
+input[type="range"]:hover::-webkit-slider-thumb {
+  transform: scale(1.3);
+  box-shadow: 0 0 10px rgba(0, 255, 204, 0.7);
+}
+
+input[type="range"]::-moz-range-track {
+  background: rgba(255,255,255,0.06);
+  height: 2px;
+  border-radius: 1px;
+}
+
+input[type="range"]::-moz-range-thumb {
+  border: none;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #00ffcc;
+  transition: transform 0.15s, box-shadow 0.15s;
+  box-shadow: 0 0 6px rgba(0, 255, 204, 0.4);
+}
+
+/* ─── Theme transition animation ───────────────────────────────────────────── */
+
+.kos-theme-transition {
+  transition: background-color 0.4s var(--ease-smooth), color 0.4s var(--ease-smooth);
+}
+
+/* ─── Selective matte for 3D viewports ─────────────────────────────────────── */
+
+.kos-viewport-matte {
+  background: radial-gradient(ellipse at center, #111 0%, #050505 100%);
+  position: relative;
+}
+
+.kos-viewport-matte::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse at 50% 100%, rgba(0, 255, 204, 0.02) 0%, transparent 70%);
+}
+
+/* ─── DockPanel tab improvements ───────────────────────────────────────────── */
+
+/* Smooth the active indicator pseudo-element */
+.dock-tab-trigger::after {
+  transition: opacity 0.2s var(--ease-expo), transform 0.25s var(--ease-expo);
+  transform-origin: center bottom;
+}
+
+/* DockPanel collapsed icon hover ring */
+.dock-icon-btn {
+  position: relative;
+  transition: background 0.15s, color 0.15s, transform 0.15s var(--ease-spring);
+}
+
+.dock-icon-btn:hover {
+  transform: scale(1.1);
+}
+
+.dock-icon-btn:active {
+  transform: scale(0.92);
+}
+
+/* ─── Accessibility: reduced motion ───────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .kos-enter,
+  .kos-scale-in,
+  .kos-exit,
+  .kos-shimmer,
+  .kos-pulse-glow,
+  .kos-shell-aurora {
+    animation: none !important;
+  }
+
+  .kos-shell-grid--full,
+  .kos-shell-grid--balanced,
+  .kos-shell-panel--full,
+  .kos-shell-panel--balanced,
+  .kos-shell-aurora {
+    transition: none !important;
+  }
+}
+
+/* ─── Status bar pulse ──────────────────────────────────────────────────────── */
+
+.kos-status-live::before {
+  content: '';
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #00ffcc;
+  margin-right: 6px;
+  animation: kos-pulse-glow 2s ease-in-out infinite;
+  vertical-align: middle;
+}
+
+/* ─── Selection ────────────────────────────────────────────────────────────── */
+
+::selection {
+  background: rgba(0, 255, 204, 0.2);
+  color: #fff;
+}

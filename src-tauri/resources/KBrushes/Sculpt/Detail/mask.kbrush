@@ -1,0 +1,25 @@
+{
+  "id": "mask",
+  "name": "Mask",
+  "category": "Sculpt/Detail",
+  "tags": ["sculpt", "mask", "protect", "selection"],
+  "kernel": "paint_mask",
+  "params": {
+    "radius": 0.1,
+    "strength": 1.0,
+    "hardness": 0.5,
+    "spacing": 0.04,
+    "lazy_radius": 0.0,
+    "subtract": false,
+    "front_faces_only": true,
+    "accumulate": false,
+    "jitter_position": 0.0,
+    "jitter_rotation": 0.0,
+    "jitter_strength": 0.0,
+    "extras": {}
+  },
+  "textures": {},
+  "pressure_strength": "linear",
+  "speed_radius": null,
+  "tilt_rotation": null
+}

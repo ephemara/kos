@@ -1,0 +1,32 @@
+{
+  "id": "dna_helix",
+  "name": "DNA Helix",
+  "category": "Sculpt/Organic",
+  "tags": ["organic", "dna", "helix", "genetic"],
+  "kernel": "grab",
+  "params": {
+    "radius": 0.05,
+    "strength": 0.5,
+    "hardness": 0.4,
+    "spacing": 0.02,
+    "lazy_radius": 0.01,
+    "subtract": false,
+    "front_faces_only": true,
+    "accumulate": false,
+    "jitter_position": 0.0,
+    "jitter_rotation": 0.0,
+    "jitter_strength": 0.0,
+    "falloff_type": "gaussian",
+    "extras": {
+      "helix_radius": 0.02,
+      "helix_pitch": 0.05,
+      "base_pairs_per_turn": 10
+    }
+  },
+  "textures": {},
+  "pressure_strength": "linear",
+  "pressure_radius": null,
+  "speed_radius": null,
+  "tilt_rotation": null,
+  "entry_fade_dabs": 3
+}

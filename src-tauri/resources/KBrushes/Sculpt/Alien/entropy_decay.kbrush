@@ -1,0 +1,32 @@
+{
+  "id": "entropy_decay",
+  "name": "Entropy Decay",
+  "category": "Sculpt/Alien",
+  "tags": ["alien", "entropy", "decay", "chaos"],
+  "kernel": "stamp",
+  "params": {
+    "radius": 0.09,
+    "strength": 0.4,
+    "hardness": 0.15,
+    "spacing": 0.04,
+    "lazy_radius": 0.03,
+    "subtract": false,
+    "front_faces_only": true,
+    "accumulate": true,
+    "jitter_position": 0.06,
+    "jitter_rotation": 1.2,
+    "jitter_strength": 0.35,
+    "falloff_type": "gaussian",
+    "extras": {
+      "chaos_factor": 0.8,
+      "disintegration_rate": 0.6,
+      "quantum_uncertainty": 0.9
+    }
+  },
+  "textures": {},
+  "pressure_strength": "soft",
+  "pressure_radius": "soft",
+  "speed_radius": null,
+  "tilt_rotation": null,
+  "entry_fade_dabs": 7
+}

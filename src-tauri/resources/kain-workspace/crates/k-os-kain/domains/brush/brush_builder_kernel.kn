@@ -1,0 +1,16 @@
+// Brush builder domain source seed.
+// Runtime wiring is data-driven via manifests/sources.json and runtime_apps.json.
+
+struct BrushBuilderKernelConfig:
+    preset_id: String
+    spacing: Float
+    jitter: Float
+    flow: Float
+
+fn default_brush_builder_kernel_config() -> BrushBuilderKernelConfig with Pure:
+    let config = BrushBuilderKernelConfig()
+    config.preset_id = "ink_liner"
+    config.spacing = 0.08
+    config.jitter = 0.01
+    config.flow = 0.95
+    config

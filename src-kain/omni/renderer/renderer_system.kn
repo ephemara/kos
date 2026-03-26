@@ -1,0 +1,274 @@
+// Omni Renderer System
+// Single-source renderer that integrates with the material system outputs
+// Compile with: kain omni build
+
+// =============================================================================
+// SHARED TYPES
+// =============================================================================
+
+struct Vec3:
+    x: Float
+    y: Float
+    z: Float
+
+struct Vec4:
+    x: Float
+    y: Float
+    z: Float
+    w: Float
+
+struct Mat4:
+    columns: [Vec4; 4]
+
+struct MaterialHandle:
+    material_id: String
+
+struct MeshBuffers:
+    positions: Array<Vec4>
+    normals: Array<Vec4>
+    tangents: Array<Vec4>
+    uvs: Array<Vec4>
+    indices: Array<UInt>
+
+struct RenderInstance:
+    mesh: MeshBuffers
+    material: MaterialHandle
+    transform: Mat4
+
+struct CameraParams:
+    view: Mat4
+    projection: Mat4
+    position: Vec4
+
+struct RendererScene:
+    instances: Array<RenderInstance>
+    sun_direction: Vec4
+    sun_color: Vec4
+    sun_intensity: Float
+
+struct RendererViewport:
+    width: UInt
+    height: UInt
+
+struct RendererConfig:
+    workgroup_size_x: UInt
+    workgroup_size_y: UInt
+    tiled_gbuffer: Bool
+
+struct GBufferTargets:
+    positions: Array<Vec4>
+    normals: Array<Vec4>
+    tangents: Array<Vec4>
+    uvs: Array<Vec4>
+
+// =============================================================================
+// RENDERER RUNTIME (Rust target)
+// =============================================================================
+
+struct WgpuDevice:
+    handle: Ptr<Unit>
+
+struct WgpuQueue:
+    handle: Ptr<Unit>
+
+struct WgpuTextureView:
+    handle: Ptr<Unit>
+
+struct WgpuBuffer:
+    handle: Ptr<Unit>
+    size: UInt
+    usage: UInt
+
+struct WgpuBindGroup:
+    handle: Ptr<Unit>
+
+struct WgpuBindGroupLayout:
+    handle: Ptr<Unit>
+
+struct WgpuPipelineLayout:
+    handle: Ptr<Unit>
+
+struct WgpuComputePipeline:
+    handle: Ptr<Unit>
+    shader_module: Ptr<Unit>
+
+struct RendererRuntime:
+    device: WgpuDevice
+    queue: WgpuQueue
+    gbuffer_pipeline: WgpuComputePipeline
+    lighting_pipeline: WgpuComputePipeline
+    gbuffer_layout: WgpuBindGroupLayout
+    lighting_layout: WgpuBindGroupLayout
+    pipeline_layout: WgpuPipelineLayout
+    config: RendererConfig
+
+fn create_renderer_runtime(device: WgpuDevice, queue: WgpuQueue, config: RendererConfig, gbuffer_spirv: Array<UInt>, lighting_spirv: Array<UInt>) -> RendererRuntime:
+    let gbuffer_module = create_shader_module(device, gbuffer_spirv)
+    let lighting_module = create_shader_module(device, lighting_spirv)
+    let gbuffer_layout = create_bind_group_layout(device, "gbuffer")
+    let lighting_layout = create_bind_group_layout(device, "lighting")
+    let pipeline_layout = create_pipeline_layout(device, gbuffer_layout, lighting_layout)
+    let gbuffer_pipeline = create_compute_pipeline(device, gbuffer_module, pipeline_layout, config.workgroup_size_x, config.workgroup_size_y)
+    let lighting_pipeline = create_compute_pipeline(device, lighting_module, pipeline_layout, config.workgroup_size_x, config.workgroup_size_y)
+    let runtime = RendererRuntime()
+    runtime.device = device
+    runtime.queue = queue
+    runtime.gbuffer_pipeline = gbuffer_pipeline
+    runtime.lighting_pipeline = lighting_pipeline
+    runtime.gbuffer_layout = gbuffer_layout
+    runtime.lighting_layout = lighting_layout
+    runtime.pipeline_layout = pipeline_layout
+    runtime.config = config
+    return runtime
+
+impl RendererRuntime:
+    fn render_frame(self, scene: RendererScene, camera: CameraParams, viewport: RendererViewport) -> WgpuTextureView:
+        let gbuffer = build_gbuffer(scene, camera, viewport)
+        let lighting_target = create_swapchain_target(self.device, viewport)
+        dispatch_gbuffer(self, scene, camera, viewport, gbuffer)
+        dispatch_lighting(self, scene, camera, viewport, gbuffer, lighting_target)
+        return lighting_target
+
+fn build_gbuffer(scene: RendererScene, camera: CameraParams, viewport: RendererViewport) -> GBufferTargets:
+    let targets = GBufferTargets()
+    targets.positions = Array<Vec4>()
+    targets.normals = Array<Vec4>()
+    targets.tangents = Array<Vec4>()
+    targets.uvs = Array<Vec4>()
+    return targets
+
+fn dispatch_gbuffer(runtime: RendererRuntime, scene: RendererScene, camera: CameraParams, viewport: RendererViewport, targets: GBufferTargets):
+    let encoder = create_command_encoder(runtime.device)
+    let gbuffer_pass = begin_compute_pass(encoder)
+    set_pipeline(gbuffer_pass, runtime.gbuffer_pipeline)
+    bind_gbuffer_resources(gbuffer_pass, runtime.gbuffer_layout, scene, camera, viewport, targets)
+    let groups_x = (viewport.width + runtime.config.workgroup_size_x - 1) / runtime.config.workgroup_size_x
+    let groups_y = (viewport.height + runtime.config.workgroup_size_y - 1) / runtime.config.workgroup_size_y
+    dispatch_workgroups(gbuffer_pass, groups_x, groups_y, 1)
+    end_compute_pass(gbuffer_pass)
+    submit_command_buffer(runtime.queue, finish_encoder(encoder))
+
+fn dispatch_lighting(runtime: RendererRuntime, scene: RendererScene, camera: CameraParams, viewport: RendererViewport, targets: GBufferTargets, output: WgpuTextureView):
+    let encoder = create_command_encoder(runtime.device)
+    let lighting_pass = begin_compute_pass(encoder)
+    set_pipeline(lighting_pass, runtime.lighting_pipeline)
+    bind_lighting_resources(lighting_pass, runtime.lighting_layout, scene, camera, viewport, targets, output)
+    let groups_x = (viewport.width + runtime.config.workgroup_size_x - 1) / runtime.config.workgroup_size_x
+    let groups_y = (viewport.height + runtime.config.workgroup_size_y - 1) / runtime.config.workgroup_size_y
+    dispatch_workgroups(lighting_pass, groups_x, groups_y, 1)
+    end_compute_pass(lighting_pass)
+    submit_command_buffer(runtime.queue, finish_encoder(encoder))
+
+// =============================================================================
+// EXTERN HOOKS (implemented by Rust backend)
+// =============================================================================
+
+@extern
+fn create_shader_module(device: WgpuDevice, spirv: Array<UInt>) -> Ptr<Unit>
+
+@extern
+fn create_bind_group_layout(device: WgpuDevice, name: String) -> WgpuBindGroupLayout
+
+@extern
+fn create_pipeline_layout(device: WgpuDevice, gbuffer_layout: WgpuBindGroupLayout, lighting_layout: WgpuBindGroupLayout) -> WgpuPipelineLayout
+
+@extern
+fn create_compute_pipeline(device: WgpuDevice, module: Ptr<Unit>, layout: WgpuPipelineLayout, workgroup_x: UInt, workgroup_y: UInt) -> WgpuComputePipeline
+
+@extern
+fn create_command_encoder(device: WgpuDevice) -> Ptr<Unit>
+
+@extern
+fn begin_compute_pass(encoder: Ptr<Unit>) -> Ptr<Unit>
+
+@extern
+fn set_pipeline(compute_pass: Ptr<Unit>, pipeline: WgpuComputePipeline)
+
+@extern
+fn bind_gbuffer_resources(compute_pass: Ptr<Unit>, layout: WgpuBindGroupLayout, scene: RendererScene, camera: CameraParams, viewport: RendererViewport, targets: GBufferTargets)
+
+@extern
+fn bind_lighting_resources(compute_pass: Ptr<Unit>, layout: WgpuBindGroupLayout, scene: RendererScene, camera: CameraParams, viewport: RendererViewport, targets: GBufferTargets, output: WgpuTextureView)
+
+@extern
+fn dispatch_workgroups(compute_pass: Ptr<Unit>, x: UInt, y: UInt, z: UInt)
+
+@extern
+fn end_compute_pass(compute_pass: Ptr<Unit>)
+
+@extern
+fn finish_encoder(encoder: Ptr<Unit>) -> Ptr<Unit>
+
+@extern
+fn submit_command_buffer(queue: WgpuQueue, command_buffer: Ptr<Unit>)
+
+@extern
+fn create_swapchain_target(device: WgpuDevice, viewport: RendererViewport) -> WgpuTextureView
+
+// =============================================================================
+// GPU SHADERS
+// =============================================================================
+
+shader compute gbuffer_pass(id: UVec3) -> Vec4:
+    uniform instance_transforms: StorageBuffer<Vec4> @0
+    uniform mesh_positions: StorageBuffer<Vec4> @1
+    uniform mesh_normals: StorageBuffer<Vec4> @2
+    uniform mesh_tangents: StorageBuffer<Vec4> @3
+    uniform mesh_uvs: StorageBuffer<Vec4> @4
+    uniform camera_view: Mat4 @5
+    uniform camera_projection: Mat4 @6
+    uniform viewport_width: UInt @7
+    uniform viewport_height: UInt @8
+    uniform gbuffer_positions: StorageBuffer<Vec4> @9
+    uniform gbuffer_normals: StorageBuffer<Vec4> @10
+    uniform gbuffer_tangents: StorageBuffer<Vec4> @11
+    uniform gbuffer_uvs: StorageBuffer<Vec4> @12
+
+    let pixel = id.x + id.y * viewport_width
+    let position = mesh_positions[pixel]
+    let normal = mesh_normals[pixel]
+    let tangent = mesh_tangents[pixel]
+    let uv = mesh_uvs[pixel]
+
+    gbuffer_positions[pixel] = position
+    gbuffer_normals[pixel] = normal
+    gbuffer_tangents[pixel] = tangent
+    gbuffer_uvs[pixel] = uv
+
+    return vec4(position.x, position.y, position.z, 1.0)
+
+shader compute lighting_pass(id: UVec3) -> Vec4:
+    uniform gbuffer_positions: StorageBuffer<Vec4> @0
+    uniform gbuffer_normals: StorageBuffer<Vec4> @1
+    uniform gbuffer_tangents: StorageBuffer<Vec4> @2
+    uniform gbuffer_uvs: StorageBuffer<Vec4> @3
+    uniform material_albedo: Sampler2D @4
+    uniform material_normal: Sampler2D @5
+    uniform material_metallic: Sampler2D @6
+    uniform material_roughness: Sampler2D @7
+    uniform material_ao: Sampler2D @8
+    uniform material_emissive: Sampler2D @9
+    uniform sun_direction: Vec4 @10
+    uniform sun_color: Vec4 @11
+    uniform sun_intensity: Float @12
+    uniform camera_position: Vec4 @13
+    uniform viewport_width: UInt @14
+    uniform viewport_height: UInt @15
+    uniform swapchain_out: StorageBuffer<Vec4> @16
+
+    let pixel = id.x + id.y * viewport_width
+    let position = gbuffer_positions[pixel]
+    let normal = normalize(vec3(gbuffer_normals[pixel].x, gbuffer_normals[pixel].y, gbuffer_normals[pixel].z))
+    let uv = vec2(gbuffer_uvs[pixel].x, gbuffer_uvs[pixel].y)
+    let base_color = sample(material_albedo, uv).rgb
+    let metallic = sample(material_metallic, uv).r
+    let roughness = sample(material_roughness, uv).r
+    let ambient = sample(material_ao, uv).r
+    let emissive = sample(material_emissive, uv).rgb
+    let light_dir = normalize(vec3(sun_direction.x, sun_direction.y, sun_direction.z))
+    let view_dir = normalize(vec3(camera_position.x, camera_position.y, camera_position.z) - vec3(position.x, position.y, position.z))
+    let n_dot_l = max(dot(normal, light_dir), 0.0)
+    let color = base_color * n_dot_l * sun_intensity * vec3(sun_color.x, sun_color.y, sun_color.z) + emissive + ambient * base_color
+    swapchain_out[pixel] = vec4(color.x, color.y, color.z, 1.0)
+
+    return vec4(color.x, color.y, color.z, 1.0)

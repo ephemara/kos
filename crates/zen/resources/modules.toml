@@ -1,0 +1,9 @@
+[registry]
+default_shell = "zen.shell.main"
+
+[[shells]]
+key = "zen.shell.main"
+label = "Zen Shell"
+source_path = "crates/zen/resources/zen_shell.kn"
+root_component = "App"
+tags = ["editor", "universal", "default"]

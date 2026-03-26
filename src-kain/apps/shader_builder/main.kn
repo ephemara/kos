@@ -1,0 +1,8 @@
+fn shader_builder_name() -> String with Pure:
+    "shader_builder"
+
+fn shader_builder_manifest_path() -> String with Pure:
+    "src-kain/omni/shader_builder/KAIN.omni.toml"
+
+fn shader_builder_registry_path() -> String with Pure:
+    "src-kain/domains/shader/shader_builder_registry.json"

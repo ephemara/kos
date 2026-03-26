@@ -1,0 +1,32 @@
+{
+  "id": "quantum_entanglement",
+  "name": "Quantum Entanglement",
+  "category": "Sculpt/Alien",
+  "tags": ["alien", "quantum", "entanglement", "spooky"],
+  "kernel": "custom",
+  "params": {
+    "radius": 0.09,
+    "strength": 0.5,
+    "hardness": 0.15,
+    "spacing": 0.03,
+    "lazy_radius": 0.04,
+    "subtract": false,
+    "front_faces_only": false,
+    "accumulate": true,
+    "jitter_position": 0.05,
+    "jitter_rotation": 0.9,
+    "jitter_strength": 0.3,
+    "falloff_type": "smooth",
+    "extras": {
+      "entanglement_strength": 0.95,
+      "non_local_correlation": 1.0,
+      "bell_inequality": 0.0
+    }
+  },
+  "textures": {},
+  "pressure_strength": "soft",
+  "pressure_radius": "soft",
+  "speed_radius": null,
+  "tilt_rotation": null,
+  "entry_fade_dabs": 7
+}

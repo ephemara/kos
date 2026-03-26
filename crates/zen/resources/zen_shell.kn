@@ -1,0 +1,32 @@
+component App():
+    render <panel title="Zen Shell" layout="dock" gap={12} padding={12}>
+        <panel title="Command Deck" dock="top" height={144} layout="column" gap={10} padding={10}>
+            <panel title="Runtime State" layout="row" gap={10} padding={0}>
+                <button action="runtime.edit">Edit</button>
+                <button action="runtime.simulate">Simulate</button>
+                <button action="runtime.play">Play</button>
+                <button action="shell.reload">Reload Shell</button>
+            </panel>
+            <panel title="Viewport Ops" layout="row" gap={10} padding={0}>
+                <button action="scene.focus_selection">Focus Selected</button>
+                <button action="scene.frame_scene">Frame Scene</button>
+                <button action="scene.spawn_box">Spawn Box</button>
+                <button action="scene.clear_selection">Clear Selection</button>
+            </panel>
+            <panel title="Selection" layout="row" gap={10} padding={0}>
+                <button action="scene.select_previous">Previous Object</button>
+                <button action="scene.select_next">Next Object</button>
+            </panel>
+        </panel>
+        <panel title="Workspace" dock="left" width={340} gap={12} padding={12}>
+            <tree title="Scene Outliner" bind="scene.objects" />
+            <inspector title="Selection" bind="scene.selection" />
+        </panel>
+        <panel title="Runtime" dock="right" width={360} gap={12} padding={12}>
+            <inspector title="Renderer" bind="engine.runtime" />
+            <inspector title="Host API" bind="engine.host_api" />
+            <graph title="Kain Runtime" bind="engine.kain" />
+        </panel>
+        <timeline title="Sequencer" dock="bottom" height={164} bind="engine.timeline" />
+        <viewport3d title="Universal Viewport" dock="center" scene="zen_default" bind="scene.viewport" />
+    </panel>

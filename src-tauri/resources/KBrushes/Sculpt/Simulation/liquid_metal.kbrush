@@ -1,0 +1,32 @@
+{
+  "id": "liquid_metal",
+  "name": "Liquid Metal",
+  "category": "Sculpt/Simulation",
+  "tags": ["simulation", "liquid", "metal", "mercury"],
+  "kernel": "grab",
+  "params": {
+    "radius": 0.08,
+    "strength": 0.7,
+    "hardness": 0.15,
+    "spacing": 0.02,
+    "lazy_radius": 0.03,
+    "subtract": false,
+    "front_faces_only": true,
+    "accumulate": false,
+    "jitter_position": 0.02,
+    "jitter_rotation": 0.3,
+    "jitter_strength": 0.25,
+    "falloff_type": "smooth",
+    "extras": {
+      "surface_tension": 0.8,
+      "conductivity": 1.0,
+      "cohesion": 0.6
+    }
+  },
+  "textures": {},
+  "pressure_strength": "soft",
+  "pressure_radius": "soft",
+  "speed_radius": null,
+  "tilt_rotation": null,
+  "entry_fade_dabs": 4
+}

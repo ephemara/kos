@@ -1,0 +1,23 @@
+[package]
+name = "k-os-hdr"
+version = "0.1.0"
+edition = "2021"
+description = "K_OS HDR capture and tone-mapping domain"
+
+[lib]
+name = "k_os_hdr"
+path = "src/lib.rs"
+
+[dependencies]
+k-os-gpu-pipeline = { path = "../k-os-gpu-pipeline" }
+exr = "1.72"
+image = "0.25"
+log = "0.4"
+nalgebra = { version = "0.33", features = ["serde-serialize"] }
+rand = "0.8"
+rayon = "1.10"
+serde = { version = "1.0", features = ["derive"] }
+thiserror = "2.0"
+
+[dev-dependencies]
+tempfile = "3"

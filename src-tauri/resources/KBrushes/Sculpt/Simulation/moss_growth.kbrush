@@ -1,0 +1,32 @@
+{
+  "id": "moss_growth",
+  "name": "Moss Growth",
+  "category": "Sculpt/Simulation",
+  "tags": ["simulation", "moss", "growth", "organic"],
+  "kernel": "stamp",
+  "params": {
+    "radius": 0.05,
+    "strength": 0.35,
+    "hardness": 0.25,
+    "spacing": 0.03,
+    "lazy_radius": 0.02,
+    "subtract": false,
+    "front_faces_only": true,
+    "accumulate": true,
+    "jitter_position": 0.03,
+    "jitter_rotation": 0.5,
+    "jitter_strength": 0.2,
+    "falloff_type": "smooth",
+    "extras": {
+      "growth_density": 0.7,
+      "moisture_level": 0.8,
+      "spreading_rate": 0.4
+    }
+  },
+  "textures": {},
+  "pressure_strength": "soft",
+  "pressure_radius": "soft",
+  "speed_radius": null,
+  "tilt_rotation": null,
+  "entry_fade_dabs": 5
+}

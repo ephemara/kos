@@ -1,0 +1,55 @@
+[package]
+name = "k-os-baking"
+version = "0.1.0"
+edition = "2021"
+description = "K_OS Texture Baking System - GPU-accelerated texture baking with ray tracing for normal maps, AO, curvature, and more"
+
+[lib]
+name = "k_os_baking"
+path = "src/lib.rs"
+
+[dependencies]
+# === ERROR HANDLING ===
+thiserror = "2.0"
+
+# === MATH ===
+glam = { version = "0.30", features = ["serde"] }
+nalgebra = "0.33"
+
+# === GPU COMPUTE ===
+wgpu = "23.0"
+bytemuck = { version = "1.14", features = ["derive"] }
+pollster = "0.3"
+
+# === IMAGE PROCESSING ===
+image = { version = "0.25", features = ["png", "jpeg", "tiff", "exr"] }
+
+# === SPATIAL STRUCTURES ===
+parry3d = { version = "0.17", features = ["serde-serialize"] }
+
+# === SERIALIZATION ===
+serde = { version = "1.0", features = ["derive"] }
+
+# === LOGGING ===
+log = "0.4"
+
+# === CONCURRENCY ===
+rayon = "1.10"
+
+# === ASYNC ===
+futures = "0.3"
+
+# === RANDOM ===
+rand = "0.8"
+
+[dev-dependencies]
+# === TESTING ===
+proptest = "1.5"
+env_logger = "0.11"
+criterion = "0.5"
+tempfile = "3.13"
+
+[[bench]]
+name = "baking_bench"
+harness = false
+

@@ -1,0 +1,24 @@
+{
+  "schema": "k_os_scene_v1",
+  "scene_id": "sandbox",
+  "actors": [
+    {
+      "id": "player_spawn",
+      "archetype": "hero.default",
+      "transform": {
+        "translation": [0.0, 1.2, 0.0],
+        "rotation_euler": [0.0, 0.0, 0.0],
+        "scale": [1.0, 1.0, 1.0]
+      }
+    },
+    {
+      "id": "cam_anchor",
+      "archetype": "camera.anchor.default",
+      "transform": {
+        "translation": [0.0, 2.4, -4.5],
+        "rotation_euler": [10.0, 0.0, 0.0],
+        "scale": [1.0, 1.0, 1.0]
+      }
+    }
+  ]
+}

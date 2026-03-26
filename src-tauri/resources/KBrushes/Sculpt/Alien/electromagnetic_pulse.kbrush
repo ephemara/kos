@@ -1,0 +1,32 @@
+{
+  "id": "electromagnetic_pulse",
+  "name": "Electromagnetic Pulse",
+  "category": "Sculpt/Alien",
+  "tags": ["alien", "electromagnetic", "pulse", "emp"],
+  "kernel": "custom",
+  "params": {
+    "radius": 0.15,
+    "strength": 0.9,
+    "hardness": 0.05,
+    "spacing": 0.03,
+    "lazy_radius": 0.06,
+    "subtract": false,
+    "front_faces_only": false,
+    "accumulate": false,
+    "jitter_position": 0.04,
+    "jitter_rotation": 0.8,
+    "jitter_strength": 0.4,
+    "falloff_type": "sphere",
+    "extras": {
+      "pulse_frequency": 1000.0,
+      "field_strength": 100.0,
+      "disruption_radius": 0.2
+    }
+  },
+  "textures": {},
+  "pressure_strength": "hard",
+  "pressure_radius": null,
+  "speed_radius": null,
+  "tilt_rotation": null,
+  "entry_fade_dabs": 2
+}

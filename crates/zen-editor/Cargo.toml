@@ -1,0 +1,13 @@
+[package]
+name = "zen-editor"
+version = "0.1.0"
+edition = "2021"
+description = "Zen editor session state, layouts, and docking metadata"
+
+[dependencies]
+egui_dock = { version = "0.17", features = ["serde"] }
+k-os-kain = { path = "../k-os-kain" }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+toml = "0.8"
+zen-core = { path = "../zen-core" }

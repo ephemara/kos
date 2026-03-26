@@ -1,0 +1,90 @@
+[package]
+name = "zen-mocap-engine"
+version = "0.1.0"
+edition = "2021"
+description = "ZenMocap GPU-accelerated real-time pose inference, IK solving, and DCC broadcasting engine"
+
+[lib]
+name = "zen_mocap_engine"
+path = "src/lib.rs"
+
+[features]
+default = ["gpu-chain"]
+kain-generated = []   # Enable KAIN-transpiled C library modules (WIP — not production ready yet)
+# Enable ONNX Runtime CUDA execution provider (requires CUDA runtime on target machine)
+cuda = ["ort/cuda"]
+# Enable TensorRT execution provider (higher throughput on NVIDIA, requires TRT installed)
+tensorrt = ["ort/tensorrt"]
+# Allow Tauri #[tauri::command] attributes on session commands
+tauri-commands = ["dep:tauri"]
+# Enable live wgpu GPU compute chain (requires compatible GPU + wgpu-capable driver)
+gpu-chain = ["dep:wgpu"]
+
+[dependencies]
+# === K_OS RIG (rig/IK math) ===
+k-os-rig = { path = "../k-os-rig" }
+k-os-kain = { path = "../k-os-kain" }
+
+# === TAURI (optional — only for command attribute macros) ===
+tauri = { version = "2", optional = true }
+
+# === ONNX RUNTIME — GPU-accelerated pose inference ===
+# load-dynamic: links at runtime — no CUDA SDK needed to *compile*,
+# only to *run*. Keeps CI builds fast on CPU-only machines.
+# cuda / tensorrt features are gated above and off by default.
+ort = { version = "=2.0.0-rc.11", features = ["ndarray"] }
+# === CAMERA CAPTURE ===
+# Windows: Media Foundation (MSMF) backend via input-native feature
+# output-threaded: non-blocking frame grab callback
+nokhwa = { version = "0.10", features = ["input-native", "output-threaded"] }
+
+# === LOCK-FREE RING BUFFER (camera → inference hot path) ===
+# Single-producer single-consumer, zero-copy frame passing between threads
+ringbuf = "0.4"
+
+# === OSC PROTOCOL (Blender, Maya, C4D output) ===
+rosc = "0.11"
+
+# === HTTP (model weight download on first run) ===
+reqwest = { version = "0.12", default-features = false, features = ["blocking", "rustls-tls"] }
+
+# === SHA-256 (model integrity verification) ===
+sha2 = "0.10"
+hex = "0.4"
+
+# === CONFIG PARSING (models_manifest.toml) ===
+toml = "0.8"
+ndarray = "0.16"
+image = "0.25"
+
+# === MATH / TYPES ===
+glam = { version = "0.30", features = ["serde", "bytemuck"] }
+bytemuck = { version = "1.20", features = ["derive"] }
+half = { version = "2.3", features = ["serde", "bytemuck"] }
+
+# === SERIALIZATION ===
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+rmp-serde = "1.3"   # MessagePack — 10× smaller than JSON for take files
+
+# === ASYNC RUNTIME ===
+tokio = { version = "1", features = ["full"] }
+
+# === CONCURRENCY ===
+parking_lot = "0.12"
+crossbeam-channel = "0.5"
+
+# === LOGGING ===
+log = "0.4"
+
+# === UTILITIES ===
+thiserror = "2"
+anyhow = "1"
+once_cell = "1.21"
+dirs = "6.0"
+
+# === GPU COMPUTE CHAIN (wgpu — SPIR-V passthrough for KAIN-compiled shaders) ===
+# optional — enable with feature "gpu-chain"
+# spirv feature: exposes SPIRV_SHADER_PASSTHROUGH for uploading pre-compiled .spv
+# Vulkan/DX12/Metal backends selected at runtime based on host GPU.
+wgpu = { version = "24", features = ["spirv"], optional = true }

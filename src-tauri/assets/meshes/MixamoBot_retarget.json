@@ -1,0 +1,83 @@
+{
+    "id": "mixamo_bot",
+    "label": "Mixamo Y-Bot",
+    "file": "MixamoBot.glb",
+    "scale": 0.01,
+    "forward_axis": "z",
+    "up_axis": "y",
+    "joints": [
+        {
+            "coco": "left_hip",
+            "bone": "mixamorig:LeftUpLeg_056",
+            "mode": "direction"
+        },
+        {
+            "coco": "right_hip",
+            "bone": "mixamorig:RightUpLeg_061",
+            "mode": "direction"
+        },
+        {
+            "coco": "left_knee",
+            "bone": "mixamorig:LeftLeg_057",
+            "mode": "direction"
+        },
+        {
+            "coco": "right_knee",
+            "bone": "mixamorig:RightLeg_00",
+            "mode": "direction"
+        },
+        {
+            "coco": "left_ankle",
+            "bone": "mixamorig:LeftFoot_058",
+            "mode": "direction"
+        },
+        {
+            "coco": "right_ankle",
+            "bone": "mixamorig:RightFoot_062",
+            "mode": "direction"
+        },
+        {
+            "coco": "left_shoulder",
+            "bone": "mixamorig:LeftArm_09",
+            "mode": "direction"
+        },
+        {
+            "coco": "right_shoulder",
+            "bone": "mixamorig:RightArm_033",
+            "mode": "direction"
+        },
+        {
+            "coco": "left_elbow",
+            "bone": "mixamorig:LeftForeArm_010",
+            "mode": "direction"
+        },
+        {
+            "coco": "right_elbow",
+            "bone": "mixamorig:RightForeArm_034",
+            "mode": "direction"
+        },
+        {
+            "coco": "left_wrist",
+            "bone": "mixamorig:LeftHand_011",
+            "mode": "direction"
+        },
+        {
+            "coco": "right_wrist",
+            "bone": "mixamorig:RightHand_035",
+            "mode": "direction"
+        },
+        {
+            "coco": "nose",
+            "bone": "mixamorig:Head_06",
+            "mode": "direction"
+        }
+    ],
+    "root_bone": "mixamorig:Hips_01",
+    "root_coco": "mid_hip",
+    "spine_bones": [
+        "mixamorig:Spine_02",
+        "mixamorig:Spine1_03",
+        "mixamorig:Spine2_04"
+    ],
+    "rest_pose": "t_pose"
+}

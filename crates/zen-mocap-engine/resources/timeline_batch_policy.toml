@@ -1,0 +1,23 @@
+[batch]
+allow_empty = false
+max_operations = 128
+
+[[origins]]
+id = "sequencer-ui"
+enabled = true
+
+[[origins]]
+id = "hotkey"
+enabled = true
+
+[[origins]]
+id = "import"
+enabled = true
+
+[[origins]]
+id = "automation"
+enabled = false
+
+[supermotion]
+allow_mode_override = true
+allowed_mode_ids = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]

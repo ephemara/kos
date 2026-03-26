@@ -1,0 +1,32 @@
+{
+  "id": "tesseract_fold",
+  "name": "Tesseract Fold",
+  "category": "Sculpt/Alien",
+  "tags": ["alien", "tesseract", "4d", "hyperdimensional"],
+  "kernel": "grab",
+  "params": {
+    "radius": 0.1,
+    "strength": 0.6,
+    "hardness": 0.25,
+    "spacing": 0.03,
+    "lazy_radius": 0.04,
+    "subtract": false,
+    "front_faces_only": false,
+    "accumulate": false,
+    "jitter_position": 0.02,
+    "jitter_rotation": 0.7,
+    "jitter_strength": 0.2,
+    "falloff_type": "sphere",
+    "extras": {
+      "dimensional_shift": 0.9,
+      "hypercube_rotation": 0.5,
+      "reality_bend": 0.7
+    }
+  },
+  "textures": {},
+  "pressure_strength": "soft",
+  "pressure_radius": "soft",
+  "speed_radius": null,
+  "tilt_rotation": null,
+  "entry_fade_dabs": 6
+}

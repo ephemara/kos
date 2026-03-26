@@ -1,0 +1,350 @@
+{
+  "schema_version": 1,
+  "generated_at_utc": "2026-03-26T20:02:25.916456+00:00",
+  "display_name": "K_OS",
+  "directory": "M:\\K_OS",
+  "summary": {
+    "languages": [
+      "JSON",
+      "Markdown",
+      "Python",
+      "Rust",
+      "TOML",
+      "TSX",
+      "TypeScript"
+    ],
+    "entry_files": [
+      "src-frontend/App.tsx",
+      "src-tauri/src/main.rs",
+      "Cargo.toml",
+      "src-tauri/Cargo.toml"
+    ],
+    "related_files": [],
+    "subdirs": [
+      "crates",
+      "src-mocap",
+      "src-frontend",
+      "src-python",
+      "test-docgen",
+      "src-tauri"
+    ],
+    "manifests": [
+      {
+        "path": "Cargo.toml",
+        "type": "cargo",
+        "package_name": null,
+        "workspace_members": 45,
+        "dependency_count": 0
+      },
+      {
+        "path": "src-tauri/Cargo.toml",
+        "type": "cargo",
+        "package_name": "k-os-backend",
+        "workspace_members": 0,
+        "dependency_count": 41
+      },
+      {
+        "path": "package.json",
+        "type": "npm",
+        "package_name": "k-os-dashboard",
+        "dependency_count": 152,
+        "script_count": 19
+      },
+      {
+        "path": "test-docgen/Cargo.toml",
+        "type": "cargo",
+        "package_name": "k-os-test-module",
+        "workspace_members": 0,
+        "dependency_count": 3
+      },
+      {
+        "path": "public/wasm/package.json",
+        "type": "npm",
+        "package_name": "k-greeble-wasm",
+        "dependency_count": 0,
+        "script_count": 0
+      },
+      {
+        "path": "crates/k-os-animation/Cargo.toml",
+        "type": "cargo",
+        "package_name": "k-os-animation",
+        "workspace_members": 0,
+        "dependency_count": 1
+      },
+      {
+        "path": "crates/k-os-asset-pipeline/Cargo.toml",
+        "type": "cargo",
+        "package_name": "k-os-asset-pipeline",
+        "workspace_members": 0,
+        "dependency_count": 12
+      },
+      {
+        "path": "crates/k-os-baking/Cargo.toml",
+        "type": "cargo",
+        "package_name": "k-os-baking",
+        "workspace_members": 0,
+        "dependency_count": 13
+      },
+      {
+        "path": "crates/k-os-bevy/Cargo.toml",
+        "type": "cargo",
+        "package_name": "k-os-bevy",
+        "workspace_members": 0,
+        "dependency_count": 29
+      },
+      {
+        "path": "crates/k-os-bevy-lab/Cargo.toml",
+        "type": "cargo",
+        "package_name": "k-os-bevy",
+        "workspace_members": 0,
+        "dependency_count": 30
+      },
+      {
+        "path": "crates/k-os-brushes/Cargo.toml",
+        "type": "cargo",
+        "package_name": "k-os-brushes",
+        "workspace_members": 0,
+        "dependency_count": 12
+      },
+      {
+        "path": "crates/k-os-config/Cargo.toml",
+        "type": "cargo",
+        "package_name": "k-os-config",
+        "workspace_members": 0,
+        "dependency_count": 11
+      }
+    ],
+    "manifest_count_total": 53,
+    "sampled_file_count": 220
+  },
+  "nodes": [
+    {
+      "id": "dir_dir",
+      "label": "K_OS",
+      "kind": "directory",
+      "path": "M:\\K_OS"
+    },
+    {
+      "id": "dir_crates",
+      "label": "crates",
+      "kind": "subdir",
+      "path": "M:\\K_OS\\crates"
+    },
+    {
+      "id": "dir_src_mocap",
+      "label": "src-mocap",
+      "kind": "subdir",
+      "path": "M:\\K_OS\\src-mocap"
+    },
+    {
+      "id": "dir_src_frontend",
+      "label": "src-frontend",
+      "kind": "subdir",
+      "path": "M:\\K_OS\\src-frontend"
+    },
+    {
+      "id": "dir_src_python",
+      "label": "src-python",
+      "kind": "subdir",
+      "path": "M:\\K_OS\\src-python"
+    },
+    {
+      "id": "dir_test_docgen",
+      "label": "test-docgen",
+      "kind": "subdir",
+      "path": "M:\\K_OS\\test-docgen"
+    },
+    {
+      "id": "dir_src_tauri",
+      "label": "src-tauri",
+      "kind": "subdir",
+      "path": "M:\\K_OS\\src-tauri"
+    },
+    {
+      "id": "file_src_frontend_app_tsx",
+      "label": "src-frontend/App.tsx",
+      "kind": "file",
+      "path": "M:\\K_OS\\src-frontend\\App.tsx"
+    },
+    {
+      "id": "file_src_tauri_src_main_rs",
+      "label": "src-tauri/src/main.rs",
+      "kind": "file",
+      "path": "M:\\K_OS\\src-tauri\\src\\main.rs"
+    },
+    {
+      "id": "file_cargo_toml",
+      "label": "Cargo.toml",
+      "kind": "file",
+      "path": "M:\\K_OS\\Cargo.toml"
+    },
+    {
+      "id": "file_src_tauri_cargo_toml",
+      "label": "src-tauri/Cargo.toml",
+      "kind": "file",
+      "path": "M:\\K_OS\\src-tauri\\Cargo.toml"
+    },
+    {
+      "id": "lane_frontend_react_lane",
+      "label": "Frontend / React lane",
+      "kind": "lane"
+    },
+    {
+      "id": "lane_tauri_desktop_lane",
+      "label": "Tauri desktop lane",
+      "kind": "lane"
+    },
+    {
+      "id": "lane_gpu_shader_lane",
+      "label": "GPU / shader lane",
+      "kind": "lane"
+    },
+    {
+      "id": "lane_unreal_lane",
+      "label": "Unreal lane",
+      "kind": "lane"
+    },
+    {
+      "id": "lane_interop_ffi_lane",
+      "label": "Interop / FFI lane",
+      "kind": "lane"
+    },
+    {
+      "id": "lane_web_wasm_lane",
+      "label": "Web / WASM lane",
+      "kind": "lane"
+    }
+  ],
+  "edges": [
+    {
+      "from": "dir_dir",
+      "to": "file_cargo_toml",
+      "kind": "entrypoint"
+    },
+    {
+      "from": "dir_dir",
+      "to": "file_src_frontend_app_tsx",
+      "kind": "entrypoint"
+    },
+    {
+      "from": "dir_dir",
+      "to": "file_src_tauri_cargo_toml",
+      "kind": "entrypoint"
+    },
+    {
+      "from": "dir_dir",
+      "to": "file_src_tauri_src_main_rs",
+      "kind": "entrypoint"
+    },
+    {
+      "from": "file_cargo_toml",
+      "to": "lane_gpu_shader_lane",
+      "kind": "targets"
+    },
+    {
+      "from": "file_cargo_toml",
+      "to": "lane_tauri_desktop_lane",
+      "kind": "targets"
+    },
+    {
+      "from": "file_cargo_toml",
+      "to": "lane_web_wasm_lane",
+      "kind": "targets"
+    },
+    {
+      "from": "file_src_frontend_app_tsx",
+      "to": "lane_frontend_react_lane",
+      "kind": "targets"
+    },
+    {
+      "from": "file_src_frontend_app_tsx",
+      "to": "lane_gpu_shader_lane",
+      "kind": "targets"
+    },
+    {
+      "from": "file_src_frontend_app_tsx",
+      "to": "lane_interop_ffi_lane",
+      "kind": "targets"
+    },
+    {
+      "from": "file_src_frontend_app_tsx",
+      "to": "lane_tauri_desktop_lane",
+      "kind": "targets"
+    },
+    {
+      "from": "file_src_frontend_app_tsx",
+      "to": "lane_unreal_lane",
+      "kind": "targets"
+    },
+    {
+      "from": "file_src_tauri_cargo_toml",
+      "to": "lane_gpu_shader_lane",
+      "kind": "targets"
+    },
+    {
+      "from": "file_src_tauri_cargo_toml",
+      "to": "lane_tauri_desktop_lane",
+      "kind": "targets"
+    },
+    {
+      "from": "file_src_tauri_src_main_rs",
+      "to": "lane_frontend_react_lane",
+      "kind": "targets"
+    },
+    {
+      "from": "file_src_tauri_src_main_rs",
+      "to": "lane_gpu_shader_lane",
+      "kind": "targets"
+    },
+    {
+      "from": "file_src_tauri_src_main_rs",
+      "to": "lane_interop_ffi_lane",
+      "kind": "targets"
+    },
+    {
+      "from": "file_src_tauri_src_main_rs",
+      "to": "lane_tauri_desktop_lane",
+      "kind": "targets"
+    },
+    {
+      "from": "file_src_tauri_src_main_rs",
+      "to": "lane_web_wasm_lane",
+      "kind": "targets"
+    },
+    {
+      "from": "dir_dir",
+      "to": "lane_web_wasm_lane",
+      "kind": "supports"
+    },
+    {
+      "from": "dir_dir",
+      "to": "dir_crates",
+      "kind": "contains"
+    },
+    {
+      "from": "dir_dir",
+      "to": "dir_src_frontend",
+      "kind": "contains"
+    },
+    {
+      "from": "dir_dir",
+      "to": "dir_src_mocap",
+      "kind": "contains"
+    },
+    {
+      "from": "dir_dir",
+      "to": "dir_src_python",
+      "kind": "contains"
+    },
+    {
+      "from": "dir_dir",
+      "to": "dir_src_tauri",
+      "kind": "contains"
+    },
+    {
+      "from": "dir_dir",
+      "to": "dir_test_docgen",
+      "kind": "contains"
+    }
+  ]
+}

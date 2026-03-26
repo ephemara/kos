@@ -1,0 +1,32 @@
+{
+  "id": "crystalline_formation",
+  "name": "Crystalline Formation",
+  "category": "Sculpt/Procedural",
+  "tags": ["procedural", "crystalline", "formation", "mineral"],
+  "kernel": "stamp",
+  "params": {
+    "radius": 0.07,
+    "strength": 0.55,
+    "hardness": 0.75,
+    "spacing": 0.04,
+    "lazy_radius": 0.0,
+    "subtract": false,
+    "front_faces_only": true,
+    "accumulate": true,
+    "jitter_position": 0.02,
+    "jitter_rotation": 0.6,
+    "jitter_strength": 0.1,
+    "falloff_type": "sharp",
+    "extras": {
+      "crystal_system": "hexagonal",
+      "lattice_parameter": 0.5,
+      "growth_rate": 0.8
+    }
+  },
+  "textures": {},
+  "pressure_strength": "hard",
+  "pressure_radius": null,
+  "speed_radius": null,
+  "tilt_rotation": null,
+  "entry_fade_dabs": 3
+}

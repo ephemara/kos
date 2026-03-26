@@ -1,0 +1,111 @@
+{
+  "legacyBundle": {
+    "workingDir": "archive/oldkos",
+    "distDir": "dist",
+    "stageDir": "dist/legacy",
+    "entryPoint": "legacy/index.html",
+    "extraFiles": [
+      "metadata.json",
+      "README.md"
+    ]
+  },
+  "pythonSidecar": {
+    "enabledByDefault": false,
+    "buildScript": "src-python/build.py",
+    "artifact": "src-python/dist/kos_python",
+    "entryPoint": "kos_python.exe",
+    "bundleTarget": "src-tauri/resources/bin/kos_python"
+  },
+  "nativeLaunchers": [
+    {
+      "id": "zen",
+      "enabledByDefault": true,
+      "build": {
+        "command": "cargo",
+        "args": [
+          "build",
+          "-p",
+          "zen",
+          "--release"
+        ]
+      },
+      "binary": "target/release/zen.exe",
+      "bundleTarget": "src-tauri/resources/bin/zen.exe",
+      "resourceCopies": [
+        {
+          "source": "crates/zen/resources/runtime.toml",
+          "target": "src-tauri/resources/bin/zen/runtime.toml"
+        },
+        {
+          "source": "crates/zen/resources/input_bindings.toml",
+          "target": "src-tauri/resources/bin/zen/input_bindings.toml"
+        }
+      ]
+    }
+  ],
+  "portablePackage": {
+    "stagingDir": "target/release/bundle/portable/app",
+    "archivePath": "target/release/bundle/portable/K_OS_9.0.2_x64.7z",
+    "outputPath": "target/release/bundle/portable/K_OS.exe",
+    "title": "K_OS 9.0.2",
+    "installPath": "%LOCALAPPDATA%\\\\K_OS\\\\9.0.2",
+    "runProgram": "k-os-backend.exe",
+    "compressionLevel": 1,
+    "sfxModuleCandidates": [
+      "C:/Program Files/7-Zip/7z.sfx",
+      "C:/Users/Admin/scoop/apps/7zip/current/7z.sfx"
+    ],
+    "entries": [
+      {
+        "source": "target/release/k-os-backend.exe",
+        "target": "k-os-backend.exe"
+      },
+      {
+        "source": "target/release/DirectML.dll",
+        "target": "DirectML.dll"
+      },
+      {
+        "source": "target/release/k_os_wasm.dll",
+        "target": "k_os_wasm.dll"
+      },
+      {
+        "source": "src-tauri/resources",
+        "target": "resources"
+      }
+    ]
+  },
+  "resourceCopies": [
+    {
+      "source": "src-game/assets",
+      "target": "src-tauri/resources/runtime/game-assets"
+    },
+    {
+      "source": "src-python/main.py",
+      "target": "src-tauri/resources/runtime/python-source/main.py"
+    },
+    {
+      "source": "src-python/kos",
+      "target": "src-tauri/resources/runtime/python-source/kos"
+    },
+    {
+      "source": "src-python/requirements.txt",
+      "target": "src-tauri/resources/runtime/python-source/requirements.txt"
+    },
+    {
+      "source": "src-python/requirements-autopbr.txt",
+      "target": "src-tauri/resources/runtime/python-source/requirements-autopbr.txt"
+    },
+    {
+      "source": "src-python/requirements-photogrammetry.txt",
+      "target": "src-tauri/resources/runtime/python-source/requirements-photogrammetry.txt"
+    },
+    {
+      "source": "crates/k-os-kain",
+      "target": "src-tauri/resources/kain-workspace/crates/k-os-kain"
+    },
+    {
+      "source": "src-kain",
+      "target": "src-tauri/resources/kain-workspace/src-kain"
+    }
+  ]
+}

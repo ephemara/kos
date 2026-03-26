@@ -1,0 +1,31 @@
+{
+  "id": "snake_hook",
+  "name": "Snake Hook",
+  "category": "Sculpt/Grab",
+  "tags": ["sculpt", "snake", "hook", "trail", "organic"],
+  "kernel": "grab",
+  "params": {
+    "radius": 0.18,
+    "strength": 0.85,
+    "hardness": 0.15,
+    "spacing": 0.015,
+    "lazy_radius": 0.0,
+    "subtract": false,
+    "front_faces_only": false,
+    "accumulate": false,
+    "jitter_position": 0.0,
+    "jitter_rotation": 0.0,
+    "jitter_strength": 0.0,
+    "falloff_type": "smooth",
+    "extras": {
+      "snake_falloff": 0.75,
+      "magnify": 1.2
+    }
+  },
+  "textures": {},
+  "pressure_strength": "soft",
+  "pressure_radius": "soft",
+  "speed_radius": null,
+  "tilt_rotation": null,
+  "entry_fade_dabs": 0
+}

@@ -1,0 +1,25 @@
+{
+  "id": "trim",
+  "name": "Trim",
+  "category": "Sculpt/Flatten",
+  "tags": ["sculpt", "trim", "cut", "hard surface"],
+  "kernel": "flatten",
+  "params": {
+    "radius": 0.08,
+    "strength": 0.7,
+    "hardness": 0.85,
+    "spacing": 0.03,
+    "lazy_radius": 0.0,
+    "subtract": true,
+    "front_faces_only": true,
+    "accumulate": false,
+    "jitter_position": 0.0,
+    "jitter_rotation": 0.0,
+    "jitter_strength": 0.0,
+    "extras": {}
+  },
+  "textures": {},
+  "pressure_strength": "hard",
+  "speed_radius": null,
+  "tilt_rotation": null
+}

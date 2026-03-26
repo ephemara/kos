@@ -1,0 +1,90 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://kos.dev/schemas/export_formats.json",
+  "title": "Export Format Configuration",
+  "description": "Configuration schema for DCC Suite export formats",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "required": ["id", "name", "extensions"],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the export format",
+        "pattern": "^[a-z0-9_-]+$"
+      },
+      "name": {
+        "type": "string",
+        "description": "Display name for the export format",
+        "minLength": 1
+      },
+      "extensions": {
+        "type": "array",
+        "description": "File extensions supported by this format",
+        "items": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+$"
+        },
+        "minItems": 1
+      },
+      "supportsMeshes": {
+        "type": "boolean",
+        "description": "Whether this format supports mesh export",
+        "default": false
+      },
+      "supportsTextures": {
+        "type": "boolean",
+        "description": "Whether this format supports texture export",
+        "default": false
+      },
+      "supportsMaterials": {
+        "type": "boolean",
+        "description": "Whether this format supports material export",
+        "default": false
+      },
+      "options": {
+        "type": "array",
+        "description": "Export options for this format",
+        "items": {
+          "type": "object",
+          "required": ["id", "label", "type"],
+          "properties": {
+            "id": {
+              "type": "string",
+              "description": "Option identifier",
+              "pattern": "^[a-z0-9_-]+$"
+            },
+            "label": {
+              "type": "string",
+              "description": "Display label for the option",
+              "minLength": 1
+            },
+            "type": {
+              "type": "string",
+              "description": "Option value type",
+              "enum": ["bool", "int", "float", "enum"]
+            },
+            "default": {
+              "description": "Default value for the option"
+            },
+            "min": {
+              "type": "number",
+              "description": "Minimum value (for int/float types)"
+            },
+            "max": {
+              "type": "number",
+              "description": "Maximum value (for int/float types)"
+            },
+            "values": {
+              "type": "array",
+              "description": "Possible values (for enum type)",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

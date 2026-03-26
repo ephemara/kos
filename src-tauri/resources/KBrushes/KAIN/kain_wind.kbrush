@@ -1,0 +1,30 @@
+{
+  "id": "kain_wind",
+  "name": "KAIN Wind",
+  "category": "KAIN/Physics",
+  "tags": ["kain", "physics", "wind", "flow", "spirv"],
+  "icon": "💨",
+  "kernel": {
+    "family": "spirv",
+    "shader": "physics_wind"
+  },
+  "params": {
+    "radius": 0.26,
+    "strength": 0.35,
+    "hardness": 0.2,
+    "spacing": 0.16,
+    "accumulate": false,
+    "subtract": false,
+    "front_faces_only": false,
+    "alpha_enabled": false,
+    "alpha_scale": 1.0,
+    "jitter_position": 0.05,
+    "jitter_rotation": 0.1,
+    "jitter_strength": 0.05,
+    "random_seed": 123.0,
+    "pressure_curve_idx": 0,
+    "speed_curve_idx": 0,
+    "tilt_curve_idx": 0
+  },
+  "textures": {}
+}

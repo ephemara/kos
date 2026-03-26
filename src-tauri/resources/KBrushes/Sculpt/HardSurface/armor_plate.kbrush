@@ -1,0 +1,32 @@
+{
+  "id": "armor_plate",
+  "name": "Armor Plate",
+  "category": "Sculpt/HardSurface",
+  "tags": ["hardsurface", "armor", "plate", "military"],
+  "kernel": "flatten",
+  "params": {
+    "radius": 0.12,
+    "strength": 0.6,
+    "hardness": 0.5,
+    "spacing": 0.06,
+    "lazy_radius": 0.0,
+    "subtract": false,
+    "front_faces_only": true,
+    "accumulate": false,
+    "jitter_position": 0.0,
+    "jitter_rotation": 0.0,
+    "jitter_strength": 0.0,
+    "falloff_type": "flat",
+    "extras": {
+      "plate_thickness": 0.2,
+      "edge_bevel": 0.05,
+      "surface_hardening": 0.8
+    }
+  },
+  "textures": {},
+  "pressure_strength": "linear",
+  "pressure_radius": null,
+  "speed_radius": null,
+  "tilt_rotation": null,
+  "entry_fade_dabs": 2
+}

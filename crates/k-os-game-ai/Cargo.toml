@@ -1,0 +1,14 @@
+[package]
+name = "k-os-game-ai"
+version = "0.1.0"
+edition = "2021"
+description = "K_OS Game AI ownership for registry-driven agent/state-tree runtime projection"
+
+[lib]
+name = "k_os_game_ai"
+path = "src/lib.rs"
+
+[dependencies]
+bevy_ecs = "0.17"
+k-os-game-framework = { path = "../k-os-game-framework" }
+toml = "0.8"

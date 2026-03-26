@@ -1,0 +1,494 @@
+# Generated from TypeScript source by kain import-ts
+
+mod kquantum:
+    component KQuantum() with Reactive:
+        state appMode: String = "QUANTUM"
+        state isPlaying: Any = true
+        state status: Any = "K-QUANTUM: READY"
+        state simRes: Any = 256
+        state mode: Any = 0
+        state speed: Any = 1
+        state chaos: Any = 1
+        state damping: Any = 0.96
+        state highFidelity: Any = false
+        state fluidSimEnabled: Any = false
+        state particleLifeEnabled: Any = false
+        state lifeDecayRate: Any = 0.005
+        state respawnBounds: Any = 100
+        state forceMultiplier: Any = 1
+        state curlStrength: Any = 1
+        state centerPull: Any = 0
+        state maxVelocity: Any = 50
+        state showDebug: Any = false
+        state cfdResolution: Any = 64
+        state cfdViscosity: Any = 0.001
+        state cfdBuoyancy: Any = 2
+        state cfdVorticityConfinement: Any = 1
+        state cfdDissipation: Any = 0.99
+        state cfdFluidType: Any = "Smoke"
+        state cfdEmitterRadius: Any = 5
+        state cfdEmitterVelocity: Any = 10
+        state cfdEmitterTemperature: Any = 50
+        state entanglementActive: Any = false
+        state activeModifiers: [String] = []
+        state modParams: Any = none
+        state colorHex: Any = "#00ffcc"
+        state color2Hex: Any = "#ff00cc"
+        state colorMode: Any = 0
+        state pointSize: Any = 1
+        state opacity: Any = 0.8
+        state gradientStrength: Any = 1
+        state aberration: Any = 1
+        state decay: Any = 0.9
+        state distortion: Any = 0
+        state bloomIntensity: Any = 1.5
+        state bloomThreshold: Any = 0.3
+        state currentPalette: Any = "COSMIC"
+        state audioSensitivity: Any = none
+        state recResolution: Any = "WINDOW"
+        state isRecording: Any = false
+        state engineRef: Any = useRef(none)
+        state leftTabs: [DockTab] = [none, none, none]
+        state rightTabs: [DockTab] = [none, none, none]
+        fn setAppMode(value: String):
+            (appMode = value)
+
+        fn setIsPlaying(value: Any):
+            (isPlaying = value)
+
+        fn setStatus(value: Any):
+            (status = value)
+
+        fn setSimRes(value: Any):
+            (simRes = value)
+
+        fn setMode(value: Any):
+            (mode = value)
+
+        fn setSpeed(value: Any):
+            (speed = value)
+
+        fn setChaos(value: Any):
+            (chaos = value)
+
+        fn setDamping(value: Any):
+            (damping = value)
+
+        fn setHighFidelity(value: Any):
+            (highFidelity = value)
+
+        fn setFluidSimEnabled(value: Any):
+            (fluidSimEnabled = value)
+
+        fn setParticleLifeEnabled(value: Any):
+            (particleLifeEnabled = value)
+
+        fn setLifeDecayRate(value: Any):
+            (lifeDecayRate = value)
+
+        fn setRespawnBounds(value: Any):
+            (respawnBounds = value)
+
+        fn setForceMultiplier(value: Any):
+            (forceMultiplier = value)
+
+        fn setCurlStrength(value: Any):
+            (curlStrength = value)
+
+        fn setCenterPull(value: Any):
+            (centerPull = value)
+
+        fn setMaxVelocity(value: Any):
+            (maxVelocity = value)
+
+        fn setShowDebug(value: Any):
+            (showDebug = value)
+
+        fn setCfdResolution(value: Any):
+            (cfdResolution = value)
+
+        fn setCfdViscosity(value: Any):
+            (cfdViscosity = value)
+
+        fn setCfdBuoyancy(value: Any):
+            (cfdBuoyancy = value)
+
+        fn setCfdVorticityConfinement(value: Any):
+            (cfdVorticityConfinement = value)
+
+        fn setCfdDissipation(value: Any):
+            (cfdDissipation = value)
+
+        fn setCfdFluidType(value: Any):
+            (cfdFluidType = value)
+
+        fn setCfdEmitterRadius(value: Any):
+            (cfdEmitterRadius = value)
+
+        fn setCfdEmitterVelocity(value: Any):
+            (cfdEmitterVelocity = value)
+
+        fn setCfdEmitterTemperature(value: Any):
+            (cfdEmitterTemperature = value)
+
+        fn setEntanglementActive(value: Any):
+            (entanglementActive = value)
+
+        fn setActiveModifiers(value: [String]):
+            (activeModifiers = value)
+
+        fn setModParams(value: Any):
+            (modParams = value)
+
+        fn setColorHex(value: Any):
+            (colorHex = value)
+
+        fn setColor2Hex(value: Any):
+            (color2Hex = value)
+
+        fn setColorMode(value: Any):
+            (colorMode = value)
+
+        fn setPointSize(value: Any):
+            (pointSize = value)
+
+        fn setOpacity(value: Any):
+            (opacity = value)
+
+        fn setGradientStrength(value: Any):
+            (gradientStrength = value)
+
+        fn setAberration(value: Any):
+            (aberration = value)
+
+        fn setDecay(value: Any):
+            (decay = value)
+
+        fn setDistortion(value: Any):
+            (distortion = value)
+
+        fn setBloomIntensity(value: Any):
+            (bloomIntensity = value)
+
+        fn setBloomThreshold(value: Any):
+            (bloomThreshold = value)
+
+        fn setCurrentPalette(value: Any):
+            (currentPalette = value)
+
+        fn setAudioSensitivity(value: Any):
+            (audioSensitivity = value)
+
+        fn setRecResolution(value: Any):
+            (recResolution = value)
+
+        fn setIsRecording(value: Any):
+            (isRecording = value)
+
+        fn handleAudioUpload(e: Any):
+            setStatus("AUDIO LOADED")
+
+        fn handleReset():
+            setMode(0)
+            setSpeed(1)
+            setChaos(1)
+            setDamping(0.96)
+            setActiveModifiers([])
+            setStatus("SIMULATION RESET")
+
+        fn exportGLB():
+            none
+            setStatus("VALIDATING...")
+
+        fn exportOBJ():
+            none
+            setStatus("VALIDATING...")
+
+        fn handleUplink():
+            (await exportGLB())
+
+        fn toggleRecording():
+            setIsRecording((!isRecording))
+            setStatus(none)
+
+        render <AppShell menuBar={<AppMenuBar />} topBar={<TopBar appMode={appMode} setAppMode={setAppMode} isPlaying={isPlaying} togglePlay={none} handleReset={handleReset} highFidelity={highFidelity} setHighFidelity={setHighFidelity} onUplink={handleUplink} />} left={none} right={none} bottom={undefined} bottomHeight={0}><div className="relative w-full h-full bg-black"><KQuantumEngine simRes={simRes} mode={mode} speed={speed} chaos={chaos} damping={damping} pointSize={pointSize} opacity={opacity} colorHex={colorHex} color2Hex={color2Hex} colorMode={colorMode} gradientStrength={gradientStrength} highFidelity={highFidelity} autoOrbit={(!isPlaying)} aberration={aberration} distortion={distortion} decay={decay} activeModifiers={activeModifiers} modParams={modParams} userScript="" isScriptActive={false} audioBass={0} audioHigh={0} audioLevel={0} fluidSimEnabled={fluidSimEnabled} particleLifeEnabled={particleLifeEnabled} lifeDecayRate={lifeDecayRate} respawnBounds={respawnBounds} forceMultiplier={forceMultiplier} curlStrength={curlStrength} centerPull={centerPull} maxVelocity={maxVelocity} appMode={appMode} cfdResolution={cfdResolution} cfdViscosity={cfdViscosity} cfdBuoyancy={cfdBuoyancy} cfdVorticityConfinement={cfdVorticityConfinement} cfdDissipation={cfdDissipation} cfdFluidType={cfdFluidType} cfdEmitterRadius={cfdEmitterRadius} cfdEmitterVelocity={cfdEmitterVelocity} cfdEmitterTemperature={cfdEmitterTemperature} engineRef={engineRef} /><div className="absolute bottom-4 left-4 text-[10px] font-mono text-blue-500/50 pointer-events-none">{status}:: RES:{simRes}:: MODE:{mode}</div></div></AppShell>
+
+
+mod kquantumengine:
+    struct KQuantumEngineProps:
+        simRes: Float
+        mode: Float
+        speed: Float
+        chaos: Float
+        damping: Float
+        pointSize: Float
+        opacity: Float
+        colorHex: String
+        color2Hex: String
+        colorMode: Float
+        gradientStrength: Float
+        highFidelity: Bool
+        autoOrbit: Bool
+        aberration: Float
+        distortion: Float
+        decay: Float
+        activeModifiers: [String]
+        modParams: Any
+        userScript: String
+        isScriptActive: Bool
+        audioBass: Float
+        audioHigh: Float
+        audioLevel: Float
+        fluidSimEnabled: Bool
+        particleLifeEnabled: Bool
+        lifeDecayRate: Float
+        respawnBounds: Float
+        forceMultiplier: Float
+        curlStrength: Float
+        centerPull: Float
+        maxVelocity: Float
+        appMode: String
+        cfdResolution: Float
+        cfdViscosity: Float
+        cfdBuoyancy: Float
+        cfdVorticityConfinement: Float
+        cfdDissipation: Float
+        cfdFluidType: String
+        cfdEmitterRadius: Float
+        cfdEmitterVelocity: Float
+        cfdEmitterTemperature: Float
+        engineRef: React_MutableRefObject<Any>
+
+    fn KQuantumEngine(arg_1: KQuantumEngineProps):
+        let mountRef = useRef(none)
+        let requestRef = useRef()
+        let quantum = useQuantumRust()
+        let (rustParticleData, setRustParticleData) = useState(none)
+        let rustSimActiveRef = useRef(false)
+        let lastModeRef = useRef(mode)
+        let cfdSimIdRef = useRef(none)
+        let cfdActiveRef = useRef(false)
+        let lastAppModeRef = useRef(appMode)
+        useEffect(none, [mode])
+        useEffect(none, [appMode, cfdResolution, cfdFluidType, cfdViscosity, cfdBuoyancy, cfdVorticityConfinement, cfdDissipation])
+        useEffect(none, [simRes])
+        useEffect(none, [mode, speed, chaos, damping, colorHex, pointSize, opacity, colorMode, highFidelity, autoOrbit, aberration, distortion, decay, activeModifiers, modParams, audioBass, audioHigh, audioLevel, simRes, forceMultiplier, curlStrength, centerPull, maxVelocity, particleLifeEnabled, lifeDecayRate, respawnBounds])
+        let handleMouseMove = none
+        return (<div ref={mountRef} className="w-full h-full relative overflow-hidden" onMouseMove={handleMouseMove} onMouseDown={handleMouseMove} onMouseUp={none} />)
+
+
+mod kretopo:
+    type RetopoMode = String
+
+    struct KRetopoProps:
+        sharedState: Option<Any>
+        onCommit: Option<Any>
+
+    fn KRetopo(arg_1: KRetopoProps):
+        let canvasRef = useRef(none)
+        let engineRef = useRef(none)
+        let (mode, setMode) = useState("draw")
+        let (surfaceSnapping, setSurfaceSnapping) = useState(true)
+        let (snapDistance, setSnapDistance) = useState(0.1)
+        let (symmetryEnabled, setSymmetryEnabled) = useState(false)
+        let (symmetryAxis, setSymmetryAxis) = useState("x")
+        let (status, setStatus) = useState("Ready")
+        let (useNativeRenderer, setUseNativeRenderer) = useState(none)
+        let (stats, setStats) = useState(none)
+        useEffect(none, [useNativeRenderer])
+        useEffect(none, [useNativeRenderer])
+        useEffect(none, [sharedState.artifact, useNativeRenderer])
+        useEffect(none, [mode])
+        useEffect(none, [surfaceSnapping, snapDistance])
+        useEffect(none, [symmetryEnabled, symmetryAxis])
+        let handleExport = none
+        let handleAutoRetopo = none
+        useEffect(none, [])
+        let leftTabs = useMemo(none, [surfaceSnapping, snapDistance, symmetryEnabled, symmetryAxis])
+        let rightTabs = useMemo(none, [stats])
+        let nativeSyncSource = useMemo(none, [sharedState.artifact])
+        return (<AppShell layoutKey="kretopo" className="text-gray-300 font-mono select-none overflow-hidden bg-[#050505]" menuBar={<AppMenuBar menus={[none, none, none]} />} topBar={<TopBar mode={mode} onModeChange={setMode} onExport={handleExport} status={status} />} left={none} right={none}><div className="relative h-full w-full bg-[#090909] cursor-crosshair overflow-hidden select-none">{if (!useNativeRenderer): <canvas ref={canvasRef} className="w-full h-full" style={none} />}{if useNativeRenderer: <NativeViewport meshHandle={none} syncSource={nativeSyncSource} onStatusChange={setStatus} />}<div className="absolute bottom-4 left-4 bg-black/70 backdrop-blur px-3 py-1 rounded text-[10px] text-gray-400 font-mono border border-gray-800 flex items-center gap-2 pointer-events-none z-30"><Activity size={12} className={none} />{status}</div></div></AppShell>)
+
+
+mod kscatter:
+    fn KScatter(arg_1: Any):
+        let (status, setStatus) = useState("K-SCATTER ONLINE")
+        let (objectCount, setObjectCount) = useState(100)
+        let (scatterRadius, setScatterRadius) = useState(2)
+        let (minScale, setMinScale) = useState(0.05)
+        let (maxScale, setMaxScale) = useState(0.2)
+        let (scatterMode, setScatterMode) = useState("CLOUD")
+        let (weldGeometry, setWeldGeometry) = useState(false)
+        let (autoRotate, setAutoRotate) = useState(false)
+        let (distributionEnabled, setDistributionEnabled) = useState(false)
+        let (isLoading, setIsLoading) = useState(false)
+        let (userScript, setUserScript) = useState(none)
+        let (scriptError, setScriptError) = useState(none)
+        let (activePrimitive, setActivePrimitive) = useState("CUBE")
+        let (activeStorageId, setActiveStorageId) = useState(none)
+        let paletteRef = useRef([])
+        let mountRef = useRef(none)
+        let stageRef = useRef(none)
+        let engine = useRef(none)
+        useEffect(none, [])
+        useEffect(none, [autoRotate])
+        useEffect(none, [sharedState.artifact])
+        let updatePaletteFromPrimitive = none
+        let loadAsBaseMesh = none
+        let updatePaletteFromStorage = none
+        let RUST_MODES = ["POISSON", "FIBONACCI", "SUNFLOWER", "HALTON", "VORONOI", "PHYLLOTAXIS", "CLUSTER", "ORGANIC", "PHYSICS_DROP", "GRAVITY_WELL"]
+        let generateScatterRust = none
+        let generateScatter = none
+        let handleExport = none
+        useGlobalHotkeys(none)
+        useEffect(none, [objectCount, scatterRadius, minScale, maxScale, scatterMode, userScript])
+        return (<AppShell className="bg-[#050505] text-gray-300 font-mono select-none overflow-hidden" menuBar={<AppMenuBar menus={[none, none, none, none]} />} menuBarDefaultOpen={false} topBar={<TopBar objectCount={objectCount} setObjectCount={setObjectCount} scatterRadius={scatterRadius} setScatterRadius={setScatterRadius} minScale={minScale} setMinScale={setMinScale} maxScale={maxScale} setMaxScale={setMaxScale} autoRotate={autoRotate} setAutoRotate={setAutoRotate} weldGeometry={weldGeometry} setWeldGeometry={setWeldGeometry} distributionEnabled={distributionEnabled} setDistributionEnabled={setDistributionEnabled} onUplink={handleExport} />} left={none} right={none}><div className="relative h-full w-full bg-black cursor-crosshair"><div ref={mountRef} className="absolute inset-0 w-full h-full" /><div className="absolute top-20 left-6 flex flex-col gap-2 pointer-events-none"><div className="flex items-center gap-2 text-[10px] font-bold text-pink-500 bg-black/80 px-4 py-2 border-l-2 border-pink-500 shadow-xl backdrop-blur-md"><Activity size={12} className="animate-pulse" />{status}</div><div className="flex items-center gap-2 text-[10px] font-bold text-gray-400 bg-black/60 px-4 py-1 rounded border border-white/10 backdrop-blur-md"><Package size={12} />INSTANCES:{objectCount}</div></div></div></AppShell>)
+
+
+mod ksculpt:
+    struct SculptLayer:
+        id: String
+        name: String
+        mesh: THREE_Mesh
+        visible: Bool
+        polyCount: Float
+        materialId: Option<String>
+
+    fn KSculpt(arg_1: Any):
+        let (appMode, setAppMode) = useState("SCULPT")
+        let (modelState, setModelState) = useState(DEFAULT_MODEL_STATE)
+        let (mode, setMode) = useState("SCULPT")
+        let (activeTab, setActiveTab) = useState("BRUSH")
+        let (isSceneReady, setIsSceneReady) = useState(false)
+        let (activeBrush, setActiveBrush) = useState(none)
+        let (brushesLoaded, setBrushesLoaded) = useState(false)
+        let (activeTool, setActiveTool) = useState("CLAY")
+        let (radius, setRadius) = useState(0.5)
+        let (intensity, setIntensity) = useState(0.5)
+        let (wireframe, setWireframe) = useState(false)
+        let (symmetry, setSymmetry) = useState("NONE")
+        let (status, setStatus) = useState("KIPP SCULPT ENGINE")
+        let (activeColor, setActiveColor) = useState("#ffffff")
+        let (brushMode, setBrushMode) = useState("ADD")
+        let (lastGpuStroke, setLastGpuStroke) = useState(none)
+        let (dynamicTopology, setDynamicTopology) = useState(false)
+        let (detailSize, setDetailSize) = useState(0.5)
+        let (useKainShaders, setUseKainShaders) = useState(false)
+        let (pipelineStatus, setPipelineStatus) = useState("WGSL")
+        useEffect(none, [useKainShaders, activeBrush])
+        let (isBevyActive, setIsBevyActive) = useState(false)
+        let (useNativeRenderer, setUseNativeRenderer) = useState(none)
+        let (nativeSelection, setNativeSelection) = useState(none)
+        let (gizmoMode, setGizmoMode) = useState("translate")
+        let (transformSpace, setTransformSpace) = useState("world")
+        let (snapEnabled, setSnapEnabled) = useState(false)
+        let orbitRef = useRef(none)
+        let lastRot = useRef(none)
+        let (isBrushMenuOpen, setIsBrushMenuOpen) = useState(false)
+        let (isAlphaMenuOpen, setIsAlphaMenuOpen) = useState(false)
+        let (isSpaceMenuOpen, setIsSpaceMenuOpen) = useState(false)
+        let (isSpaceMenuLocked, setIsSpaceMenuLocked) = useState(false)
+        let (isBrushMenuLocked, setIsBrushMenuLocked) = useState(false)
+        let (simGpuMode, setSimGpuMode) = useState(true)
+        let sculptQuickMenuCommands = React.useMemo(none, [])
+        useRegisterQuickMenuCommands("ksculpt", sculptQuickMenuCommands)
+        let (menuPos, setMenuPos) = useState(none)
+        let mousePosRef = useRef(none)
+        let qKeyActiveRef = React.useRef(false)
+        useEffect(none, [isSpaceMenuLocked])
+        let handleGlobalMouseMove = none
+        useEffect(none, [])
+        useEffect(none, [])
+        let (layers, setLayers) = useState([])
+        let (activeLayerId, setActiveLayerId) = useState(none)
+        let (selectedLayerIds, setSelectedLayerIds) = useState(Set())
+        let (materialMode, setMaterialMode) = useState("CLAY")
+        let (activeMaterial, setActiveMaterial) = useState(none)
+        let (activeAlpha, setActiveAlpha) = useState(none)
+        let (currentMatCap, setCurrentMatCap) = useState("CLAY")
+        let (showGrid, setShowGrid) = useState(true)
+        let (fluxActive, setFluxActive) = useState(false)
+        let (fluxMode, setFluxMode) = useState("PUSH")
+        let (fluxParams, setFluxParams) = useState(DEFAULT_FLUX_PARAMS)
+        let (activeMathBrush, setActiveMathBrush) = useState(none)
+        let (mathBrushParams, setMathBrushParams) = useState(none)
+        let (mathBrushStats, setMathBrushStats) = useState(none)
+        let sceneRef = useRef(none)
+        useEffect(none, [useNativeRenderer])
+        let activeNativeMeshHandle = React.useMemo(none, [activeLayerId, layers])
+        let nativeSyncSource = React.useMemo(none, [activeNativeMeshHandle])
+        let getActiveNativeMesh = React.useCallback(none, [activeLayerId])
+        let syncActiveMeshToNativeRenderer = React.useCallback(none, [getActiveNativeMesh, useNativeRenderer])
+        let applyNativeSelectionBrush = React.useCallback(none, [activeAlpha.handle, activeTool, brushMode, getActiveNativeMesh, intensity, radius, symmetry])
+        useEffect(none, [useNativeRenderer, activeLayerId, syncActiveMeshToNativeRenderer])
+        let fluxMesh = (none)()
+        let flux = useFlux(none)
+        let immDefaultMaterialRef = useRef(THREE.MeshStandardMaterial(none))
+        let prevMaterialModeRef = useRef("CLAY")
+        let prevActiveMaterialRef = useRef(none)
+        let altOrbitEnabledRef = useRef(false)
+        let ensureSculptGeometryAttributes = none
+        let activePolyCount = (layers.find(none).polyCount || 0)
+        let (subdivisionLevel, setSubdivisionLevel) = useState(0)
+        let (extractionThickness, setExtractionThickness) = useState(0.01)
+        let (subdivisionProgress, setSubdivisionProgress) = useState(none)
+        let (transformData, setTransformData) = useState(none)
+        let mountRef = useRef(none)
+        let stageRef = useRef(none)
+        useEffect(none, [])
+        useEffect(none, [activeTool, radius, intensity, symmetry, mode, activeLayerId, activeMaterial, brushMode, activeAlpha, dynamicTopology, detailSize, activeColor, isSceneReady, isBevyActive, activeBrush])
+        useEffect(none, [activeBrush.id])
+        let getActiveMesh = React.useCallback(none, [layers, activeLayerId])
+        let getSubdivisionLevel = React.useCallback(none, [subdivisionLevel])
+        let handleIMMUpdate = React.useCallback(none, [activeLayerId])
+        useIMMInteraction(none)
+        useEffect(none, [showGrid, sceneRef.current.scene])
+        useEffect(none, [])
+        useEffect(none, [])
+        useEffect(none, [useNativeRenderer])
+        useEffect(none, [useNativeRenderer])
+        useEffect(none, [gizmoMode, transformSpace, snapEnabled])
+        let addMeshToScene = none
+        useEffect(none, [appMode])
+        let mergeMeshes = none
+        let handleMergeDown = none
+        let handleMergeSelected = none
+        let handleMergeAll = none
+        let handleSubdivide = none
+        let handleApplyMaterial = none
+        let updateMeshMaterial = none
+        let handleOpenKainAuthoring = React.useCallback(none, [activeBrush])
+        useEffect(none, [appMode, materialMode, layers, sharedState.materials, currentMatCap])
+        useEffect(none, [wireframe, layers])
+        let handleLayerSelect = none
+        let handleFrameActive = none
+        let handleCycleLayer = none
+        let loadPrimitive = none
+        let loadFromStorage = none
+        ((window).ksculptSceneRef = sceneRef)
+        ((window).ksculptActiveLayerId = activeLayerId)
+        let saveHistory = none
+        ((window).ksculptSaveHistory = saveHistory)
+        let undo = none
+        let handleStepUp = none
+        let updateTransformFromUI = none
+        let onPointerMove = none
+        useEffect(none, [mode])
+        let onPointerDown = none
+        let onPointerUp = none
+        let applyBrush = none
+        let executeBrushStamp = none
+        useGlobalHotkeys(none, true)
+        let commitToKernel = none
+        let handleToggleVis = none
+        let handleDeleteLayer = none
+        let clearMask = none
+        let invertMask = none
+        let extractMask = none
+        let handleVoxelRemesh = none
+        let handleGpuDynamesh = none
+        useEffect(none, [activeLayerId, mode])
+        let handleUplink = none
+        return (<AppShell layoutKey="ksculpt" className={none} menuBar={<AppMenuBar menus={[none, none, none, none]} />} menuBarDefaultOpen={false} topBar={<TopBar appMode={appMode} setAppMode={setAppMode} activeBrush={activeBrush} setActiveBrush={setActiveBrush} brushesLoaded={brushesLoaded} radius={radius} setRadius={setRadius} intensity={intensity} setIntensity={setIntensity} brushMode={brushMode} setBrushMode={setBrushMode} symmetry={symmetry} setSymmetry={setSymmetry} wireframe={wireframe} setWireframe={setWireframe} dynamicTopology={dynamicTopology} setDynamicTopology={setDynamicTopology} detailSize={detailSize} setDetailSize={setDetailSize} currentMatCap={currentMatCap} setCurrentMatCap={setCurrentMatCap} showGrid={showGrid} setShowGrid={setShowGrid} useKainShaders={useKainShaders} setUseKainShaders={setUseKainShaders} pipelineStatus={pipelineStatus} onOpenKainAuthoring={handleOpenKainAuthoring} onUplink={handleUplink} fluxActive={fluxActive} onFluxToggle={none} />} left={none} right={none}><div className="relative h-full w-full bg-black cursor-crosshair" onDragOver={none} onDrop={none}><div ref={mountRef} className={none} onPointerDown={onPointerDown} onPointerMove={onPointerMove} onPointerUp={onPointerUp} onPointerLeave={onPointerUp} />{if useNativeRenderer: <NativeViewport meshHandle={activeNativeMeshHandle} useSculptHandle={true} syncSource={nativeSyncSource} hostInputMode="camera+cursor" onSelectionChange={none} onStrokeStart={none} onStrokeMove={none} onStrokeEnd={none} onStatusChange={none} />}<ScreenspaceCursor radius={radius} camera={(sceneRef.current.camera || none)} visible={((((isSceneReady && (mode == "SCULPT")) && (activeTool != "SELECT")) && (!isBevyActive)) && (!useNativeRenderer))} isActive={(sceneRef.current.isSculpting || false)} symmetry={symmetry} mountRef={mountRef} color="#ff8c00" /><KSculptQuickMenu open={isSpaceMenuOpen} onOpenChange={setIsSpaceMenuOpen} activeBrush={activeBrush} setActiveBrush={setActiveBrush} intensity={intensity} setIntensity={setIntensity} radius={radius} setRadius={setRadius} gpuMode={simGpuMode} setGpuMode={setSimGpuMode} pinned={isSpaceMenuLocked} setPinned={setIsSpaceMenuLocked} onReset={none} /><div className="absolute top-20 left-6 flex flex-col gap-2 pointer-events-none"><div className="flex items-center gap-2 text-[10px] font-bold text-orange-500 bg-black/80 px-4 py-2 border-l-2 border-orange-500 shadow-xl backdrop-blur-md"><Activity size={12} className="animate-pulse" />{status}</div><div className="pointer-events-auto"><button type="button" onClick={none} className={none}>{if useNativeRenderer: {"NATIVE VIEWPORT: ON"} else: {"NATIVE VIEWPORT: OFF"}}</button></div>{if useNativeRenderer: <div className="text-[10px] font-bold text-sky-300 bg-sky-950/70 px-4 py-2 border-l-2 border-sky-400 shadow-xl backdrop-blur-md">PICK:{if nativeSelection.hit: {none} else: {"NO-HIT"}}</div>}</div></div></AppShell>)
+
+

@@ -1,0 +1,37 @@
+{
+  "$schema": "../schemas/animation.schema.json",
+  "name": "Flowing Water",
+  "description": "Continuous UV scrolling with noise variation for realistic water flow. Perfect for rivers, streams, waterfalls, or any flowing liquid surface. Combines horizontal scrolling with subtle vertical wave motion and animated normal strength for dynamic surface detail.",
+  "category": "Organic",
+  "tags": ["water", "flow", "scroll", "procedural", "nature", "liquid", "river", "stream"],
+  "author": "K_OS Team",
+  "version": 1,
+  "duration": 10.0,
+  "loop_mode": "Loop",
+  "tracks": [
+    {
+      "parameter": "UVOffsetX",
+      "animation_type": {
+        "Procedural": {
+          "expression": "t * 0.1"
+        }
+      }
+    },
+    {
+      "parameter": "UVOffsetY",
+      "animation_type": {
+        "Procedural": {
+          "expression": "sin(t * 0.5) * 0.05"
+        }
+      }
+    },
+    {
+      "parameter": "NormalStrength",
+      "animation_type": {
+        "Procedural": {
+          "expression": "0.8 + sin(t * 2.0) * 0.2"
+        }
+      }
+    }
+  ]
+}

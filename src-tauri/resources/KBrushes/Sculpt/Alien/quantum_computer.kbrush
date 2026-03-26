@@ -1,0 +1,32 @@
+{
+  "id": "quantum_computer",
+  "name": "Quantum Computer",
+  "category": "Sculpt/Alien",
+  "tags": ["alien", "quantum", "computer", "qubit"],
+  "kernel": "custom",
+  "params": {
+    "radius": 0.07,
+    "strength": 0.5,
+    "hardness": 0.3,
+    "spacing": 0.02,
+    "lazy_radius": 0.01,
+    "subtract": false,
+    "front_faces_only": true,
+    "accumulate": true,
+    "jitter_position": 0.03,
+    "jitter_rotation": 0.6,
+    "jitter_strength": 0.15,
+    "falloff_type": "smooth",
+    "extras": {
+      "qubit_count": 1000,
+      "coherence_time": 0.001,
+      "entanglement_degree": 0.9
+    }
+  },
+  "textures": {},
+  "pressure_strength": "soft",
+  "pressure_radius": "soft",
+  "speed_radius": null,
+  "tilt_rotation": null,
+  "entry_fade_dabs": 4
+}

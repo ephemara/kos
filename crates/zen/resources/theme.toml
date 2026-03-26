@@ -1,0 +1,60 @@
+[palette]
+window_bg = "#080B0F"
+panel_bg = "#0D1218"
+panel_bg_alt = "#10161D"
+toolbar_bg = "#080B0F"
+status_bg = "#0B0F14"
+overlay_bg = "#090C10D8"
+border_subtle = "#263644"
+border_strong = "#5CADDB"
+text_primary = "#ECF2F6"
+text_secondary = "#ADD8FF"
+text_muted = "#AAB5BE"
+accent = "#5CADDB"
+accent_soft = "#1C5C7E"
+warning = "#F6D365"
+danger = "#FFAC93"
+selection_fill = "#1C5C7E"
+selection_stroke = "#A1E1FF"
+viewport_outline = "#346784"
+viewport_outline_hover = "#66E2EE"
+timeline_track = "#11171F"
+timeline_tick = "#2D3E50"
+timeline_clip = "#F6D365"
+
+[spacing]
+item = [8.0, 8.0]
+button_padding = [12.0, 7.0]
+window_margin = 10.0
+panel_margin = 10.0
+
+[rounding]
+panel = 10.0
+viewport = 12.0
+overlay = 10.0
+
+[dock]
+surface_border = "#22323E"
+tab_bar_bg = "#0A0F14"
+tab_bar_line = "#1B2834"
+tab_active_bg = "#101A24"
+tab_inactive_bg = "#0B1117"
+tab_hover_bg = "#152534"
+tab_focused_bg = "#162B3D"
+tab_text = "#ECF2F6"
+tab_text_muted = "#9FB0BC"
+tab_outline = "#2C4355"
+tab_outline_hover = "#5CADDB"
+separator_idle = "#20303D"
+separator_hover = "#4E7998"
+separator_drag = "#A1E1FF"
+overlay_selection = "#1C5C7E88"
+overlay_button = "#6A8299"
+overlay_button_border = "#31485A"
+tab_bar_height = 30.0
+tab_rounding = 8.0
+body_rounding = 10.0
+separator_width = 1.0
+separator_hit = 5.0
+overlay_button_spacing = 10.0
+overlay_button_max = 96.0

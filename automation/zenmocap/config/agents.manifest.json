@@ -1,0 +1,97 @@
+{
+  "agents": [
+    {
+      "id": "scope-architect",
+      "title": "Scope Architect",
+      "mission": "Find the best next ZenMocap vertical slice and leave the loop with an executable backlog, not vague ambition.",
+      "mustRead": [
+        "M:\\K_OS\\automation\\zenmocap\\runtime\\state.json",
+        "M:\\K_OS\\automation\\zenmocap\\runtime\\memory.md",
+        "M:\\K_OS\\src-mocap\\README.md",
+        "M:\\K_OS\\crates\\zen-mocap-engine\\README.md"
+      ],
+      "deliverables": [
+        "Prioritized target list",
+        "Architecture note in run handoff",
+        "Concrete implementation recommendation for the next turn"
+      ]
+    },
+    {
+      "id": "animator-builder",
+      "title": "Animator Builder",
+      "mission": "Expand ZenMocap toward a stronger animator with keyframe authoring, editability, and motion tooling.",
+      "mustRead": [
+        "M:\\K_OS\\automation\\zenmocap\\runtime\\state.json",
+        "M:\\K_OS\\automation\\zenmocap\\runtime\\memory.md",
+        "M:\\K_OS\\src-mocap\\features\\Sequencer",
+        "M:\\K_OS\\crates\\zen-mocap-engine\\src"
+      ],
+      "deliverables": [
+        "Feature implementation",
+        "Tests when practical",
+        "Updated handoff with UX/runtime gaps"
+      ]
+    },
+    {
+      "id": "engine-forger",
+      "title": "Engine Forger",
+      "mission": "Push engine internals, Kain pipeline integration, shader generation, rigging math, and crate ownership forward.",
+      "mustRead": [
+        "M:\\K_OS\\automation\\zenmocap\\runtime\\state.json",
+        "M:\\K_OS\\automation\\zenmocap\\runtime\\memory.md",
+        "M:\\K_OS\\crates\\zen-mocap-engine\\src",
+        "M:\\K_OS\\crates\\k-os-kain"
+      ],
+      "deliverables": [
+        "Crate-level implementation",
+        "Any new Kain/shader integration notes",
+        "Handoff with touched contracts"
+      ]
+    },
+    {
+      "id": "integration-closer",
+      "title": "Integration Closer",
+      "mission": "Reduce cross-surface drift by wiring frontend, engine, and Kain-backed systems into coherent product behavior.",
+      "mustRead": [
+        "M:\\K_OS\\automation\\zenmocap\\runtime\\state.json",
+        "M:\\K_OS\\src-mocap",
+        "M:\\K_OS\\crates\\zen-mocap-engine",
+        "M:\\K_OS\\crates\\k-os-kain"
+      ],
+      "deliverables": [
+        "Integrated feature slice",
+        "Verification notes",
+        "New blockers or cleanup items"
+      ]
+    },
+    {
+      "id": "validation-chief",
+      "title": "Validation Chief",
+      "mission": "Tell the truth about the system by running the narrowest meaningful build/test suite and recording exact pass/fail status.",
+      "mustRead": [
+        "M:\\K_OS\\automation\\zenmocap\\runtime\\state.json",
+        "M:\\K_OS\\automation\\zenmocap\\config\\verification.manifest.json"
+      ],
+      "deliverables": [
+        "Command log",
+        "Pass/fail summary",
+        "Regression list and confidence notes"
+      ]
+    },
+    {
+      "id": "doc-operator",
+      "title": "Doc Operator",
+      "mission": "Keep the loop legible by documenting wiring, feature growth, folder roles, and the changelog trail.",
+      "mustRead": [
+        "M:\\K_OS\\automation\\zenmocap\\runtime\\state.json",
+        "M:\\K_OS\\automation\\zenmocap\\runtime\\memory.md",
+        "M:\\K_OS\\automation\\zenmocap\\config\\targets.manifest.json"
+      ],
+      "deliverables": [
+        "Docs updates",
+        "Folder wiring notes",
+        "Changelog entry"
+      ]
+    }
+  ]
+}

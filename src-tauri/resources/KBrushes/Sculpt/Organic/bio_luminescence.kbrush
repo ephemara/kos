@@ -1,0 +1,32 @@
+{
+  "id": "bio_luminescence",
+  "name": "Bio Luminescence",
+  "category": "Sculpt/Organic",
+  "tags": ["organic", "bio", "luminescence", "glow"],
+  "kernel": "stamp",
+  "params": {
+    "radius": 0.06,
+    "strength": 0.35,
+    "hardness": 0.25,
+    "spacing": 0.03,
+    "lazy_radius": 0.01,
+    "subtract": false,
+    "front_faces_only": true,
+    "accumulate": true,
+    "jitter_position": 0.04,
+    "jitter_rotation": 0.7,
+    "jitter_strength": 0.15,
+    "falloff_type": "gaussian",
+    "extras": {
+      "glow_intensity": 0.8,
+      "pulse_frequency": 2.0,
+      "organism_type": "jellyfish"
+    }
+  },
+  "textures": {},
+  "pressure_strength": "soft",
+  "pressure_radius": "soft",
+  "speed_radius": null,
+  "tilt_rotation": null,
+  "entry_fade_dabs": 5
+}

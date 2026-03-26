@@ -1,0 +1,28 @@
+{
+  "id": "gravity",
+  "name": "Gravity",
+  "category": "Sculpt/Physics",
+  "tags": ["sculpt", "physics", "gravity", "drape"],
+  "kernel": "physics",
+  "params": {
+    "radius": 0.3,
+    "strength": 0.25,
+    "hardness": 0.3,
+    "spacing": 0.06,
+    "lazy_radius": 0.0,
+    "subtract": false,
+    "front_faces_only": false,
+    "accumulate": false,
+    "jitter_position": 0.0,
+    "jitter_rotation": 0.0,
+    "jitter_strength": 0.0,
+    "extras": {
+      "entry_point": 3.0,
+      "gravity_strength": 0.5
+    }
+  },
+  "textures": {},
+  "pressure_strength": "soft",
+  "speed_radius": null,
+  "tilt_rotation": null
+}

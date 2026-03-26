@@ -1,0 +1,37 @@
+{
+  "$schema": "../schemas/animation.schema.json",
+  "name": "Wind Sway",
+  "description": "Subtle swaying motion simulating wind effects on flexible materials like grass, leaves, fabric, or flags. Uses sinusoidal motion with multiple frequencies to create natural, non-repetitive movement. Combines UV offset animation with height displacement for realistic wind-blown appearance. Ideal for foliage, cloth, banners, or any material affected by air currents.",
+  "category": "Organic",
+  "tags": ["wind", "sway", "motion", "organic", "grass", "leaves", "fabric", "nature"],
+  "author": "K_OS Team",
+  "version": 1,
+  "duration": 6.0,
+  "loop_mode": "Loop",
+  "tracks": [
+    {
+      "parameter": "UVOffsetX",
+      "animation_type": {
+        "Procedural": {
+          "expression": "sin(t * 1.2) * 0.02"
+        }
+      }
+    },
+    {
+      "parameter": "UVOffsetY",
+      "animation_type": {
+        "Procedural": {
+          "expression": "sin(t * 0.8) * 0.015"
+        }
+      }
+    },
+    {
+      "parameter": "HeightOffset",
+      "animation_type": {
+        "Procedural": {
+          "expression": "sin(t * 1.5) * 0.03 + sin(t * 2.3) * 0.01"
+        }
+      }
+    }
+  ]
+}

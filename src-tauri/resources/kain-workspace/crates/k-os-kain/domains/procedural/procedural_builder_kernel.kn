@@ -1,0 +1,16 @@
+// Procedural builder domain source seed.
+// Runtime wiring is provided by manifests/sources.json and runtime_apps.json.
+
+struct ProceduralBuilderKernelConfig:
+    profile_id: String
+    macro_scale: Float
+    detail_gain: Float
+    warp_strength: Float
+
+fn default_procedural_builder_kernel_config() -> ProceduralBuilderKernelConfig with Pure:
+    let config = ProceduralBuilderKernelConfig()
+    config.profile_id = "terrain_macro_noise"
+    config.macro_scale = 18.0
+    config.detail_gain = 0.58
+    config.warp_strength = 0.14
+    config

@@ -1,0 +1,280 @@
+// PBR Material System - wgpu Runtime Integration
+// This KAIN file compiles to Rust and provides full wgpu binding management
+// Compile with: kain build material_wgpu_runtime.kn --target rust
+
+// ============================================================================
+// WGPU BINDING TYPES (will map to wgpu Rust types)
+// ============================================================================
+
+struct WgpuDevice:
+    handle: Ptr<Unit>
+
+struct WgpuQueue:
+    handle: Ptr<Unit>
+
+struct WgpuBuffer:
+    handle: Ptr<Unit>
+    size: UInt
+    usage: UInt
+
+struct WgpuTexture:
+    handle: Ptr<Unit>
+    width: UInt
+    height: UInt
+    format: UInt
+
+struct WgpuSampler:
+    handle: Ptr<Unit>
+
+struct WgpuBindGroup:
+    handle: Ptr<Unit>
+
+struct WgpuBindGroupLayout:
+    handle: Ptr<Unit>
+
+struct WgpuPipelineLayout:
+    handle: Ptr<Unit>
+
+struct WgpuComputePipeline:
+    handle: Ptr<Unit>
+    shader_module: Ptr<Unit>
+
+struct WgpuCommandEncoder:
+    handle: Ptr<Unit>
+
+struct WgpuComputePass:
+    handle: Ptr<Unit>
+
+// ============================================================================
+// MATERIAL PARAMETER STRUCTS
+// ============================================================================
+
+struct PbrMaterialParams:
+    base_color: Vec4
+    metallic_factor: Float
+    roughness_factor: Float
+    emissive_strength: Float
+    normal_strength: Float
+    ao_strength: Float
+
+struct SceneParams:
+    camera_position: Vec4
+    sun_direction: Vec4
+    sun_color: Vec4
+    sun_intensity: Float
+    ambient_color: Vec3
+
+struct ViewportParams:
+    width: UInt
+    height: UInt
+
+// ============================================================================
+// MATERIAL TEXTURE SET
+// ============================================================================
+
+struct PbrTextureSet:
+    albedo: WgpuTexture
+    normal: WgpuTexture
+    metallic: WgpuTexture
+    roughness: WgpuTexture
+    ao: WgpuTexture
+    emissive: WgpuTexture
+    texture_sampler: WgpuSampler
+
+// ============================================================================
+// MATERIAL PIPELINE CONFIGURATION
+// ============================================================================
+
+struct MaterialPipelineConfig:
+    enable_normal_mapping: Bool
+    enable_ao: Bool
+    enable_emissive: Bool
+    high_quality: Bool
+    workgroup_size_x: UInt
+    workgroup_size_y: UInt
+
+impl MaterialPipelineConfig:
+    fn create_default() -> MaterialPipelineConfig:
+        let config = MaterialPipelineConfig()
+        config.enable_normal_mapping = true
+        config.enable_ao = true
+        config.enable_emissive = true
+        config.high_quality = false
+        config.workgroup_size_x = 8
+        config.workgroup_size_y = 8
+        return config
+
+// ============================================================================
+// MATERIAL RUNTIME - Main Integration Layer
+// ============================================================================
+
+struct MaterialRuntime:
+    device: WgpuDevice
+    queue: WgpuQueue
+    pipeline: WgpuComputePipeline
+    bind_group_layout: WgpuBindGroupLayout
+    pipeline_layout: WgpuPipelineLayout
+    config: MaterialPipelineConfig
+    positions_buffer: WgpuBuffer
+    normals_buffer: WgpuBuffer
+    uvs_buffer: WgpuBuffer
+    tangents_buffer: WgpuBuffer
+    color_output_buffer: WgpuBuffer
+    material_params_buffer: WgpuBuffer
+    scene_params_buffer: WgpuBuffer
+    viewport_params_buffer: WgpuBuffer
+    textures: PbrTextureSet
+    bind_group: Option<WgpuBindGroup>
+
+impl MaterialRuntime:
+    fn create_runtime(device: WgpuDevice, queue: WgpuQueue, spirv_bytes: Array<UInt>, config: MaterialPipelineConfig) -> MaterialRuntime:
+        let shader_module = create_shader_module(device, spirv_bytes)
+        let bind_group_layout = create_bind_group_layout(device)
+        let pipeline_layout = create_pipeline_layout(device, bind_group_layout)
+        let pipeline = create_compute_pipeline(device, shader_module, pipeline_layout, config)
+        
+        let runtime = MaterialRuntime()
+        runtime.device = device
+        runtime.queue = queue
+        runtime.pipeline = pipeline
+        runtime.bind_group_layout = bind_group_layout
+        runtime.pipeline_layout = pipeline_layout
+        runtime.config = config
+        runtime.positions_buffer = create_empty_buffer()
+        runtime.normals_buffer = create_empty_buffer()
+        runtime.uvs_buffer = create_empty_buffer()
+        runtime.tangents_buffer = create_empty_buffer()
+        runtime.color_output_buffer = create_empty_buffer()
+        runtime.material_params_buffer = create_empty_buffer()
+        runtime.scene_params_buffer = create_empty_buffer()
+        runtime.viewport_params_buffer = create_empty_buffer()
+        runtime.textures = create_default_textures(device)
+        runtime.bind_group = None
+        return runtime
+    
+    fn upload_gbuffer(self, positions: Array<Vec4>, normals: Array<Vec4>, uvs: Array<Vec4>, tangents: Array<Vec4>):
+        self.positions_buffer = create_storage_buffer_vec4(self.device, self.queue, positions)
+        self.normals_buffer = create_storage_buffer_vec4(self.device, self.queue, normals)
+        self.uvs_buffer = create_storage_buffer_vec4(self.device, self.queue, uvs)
+        self.tangents_buffer = create_storage_buffer_vec4(self.device, self.queue, tangents)
+    
+    fn upload_material_params(self, params: PbrMaterialParams):
+        self.material_params_buffer = create_uniform_buffer_material(self.device, self.queue, params)
+    
+    fn upload_scene_params(self, params: SceneParams):
+        self.scene_params_buffer = create_uniform_buffer_scene(self.device, self.queue, params)
+    
+    fn upload_viewport_params(self, params: ViewportParams):
+        self.viewport_params_buffer = create_uniform_buffer_viewport(self.device, self.queue, params)
+        let pixel_count = params.width * params.height
+        self.color_output_buffer = create_output_buffer(self.device, pixel_count)
+    
+    fn upload_textures(self, textures: PbrTextureSet):
+        self.textures = textures
+    
+    fn build_bind_group(self):
+        let bind_group = create_material_bind_group(
+            self.device,
+            self.bind_group_layout,
+            self.positions_buffer,
+            self.normals_buffer,
+            self.uvs_buffer,
+            self.tangents_buffer,
+            self.textures,
+            self.material_params_buffer,
+            self.scene_params_buffer,
+            self.viewport_params_buffer,
+            self.color_output_buffer
+        )
+        self.bind_group = Some(bind_group)
+    
+    fn execute(self, viewport_width: UInt, viewport_height: UInt) -> Array<Vec4>:
+        match self.bind_group:
+            None =>
+                self.build_bind_group()
+            _ =>
+                let __empty = 0
+        
+        let encoder = create_command_encoder(self.device)
+        let compute_pass_handle = begin_compute_pass(encoder)
+        
+        set_pipeline(compute_pass_handle, self.pipeline)
+        set_bind_group(compute_pass_handle, 0, self.bind_group)
+        
+        let workgroup_count_x = (viewport_width + self.config.workgroup_size_x - 1) / self.config.workgroup_size_x
+        let workgroup_count_y = (viewport_height + self.config.workgroup_size_y - 1) / self.config.workgroup_size_y
+        
+        dispatch_workgroups(compute_pass_handle, workgroup_count_x, workgroup_count_y, 1)
+        end_compute_pass(compute_pass_handle)
+        
+        let command_buffer = finish_encoder(encoder)
+        submit_command_buffer(self.queue, command_buffer)
+        
+        return read_buffer_vec4(self.device, self.queue, self.color_output_buffer, viewport_width * viewport_height)
+
+// ============================================================================
+// WGPU HELPER FUNCTIONS (extern declarations for Rust backend)
+// ============================================================================
+
+@extern
+fn create_shader_module(device: WgpuDevice, spirv_bytes: Array<UInt>) -> Ptr<Unit>
+
+@extern
+fn create_bind_group_layout(device: WgpuDevice) -> WgpuBindGroupLayout
+
+@extern
+fn create_pipeline_layout(device: WgpuDevice, layout: WgpuBindGroupLayout) -> WgpuPipelineLayout
+
+@extern
+fn create_compute_pipeline(device: WgpuDevice, shader: Ptr<Unit>, layout: WgpuPipelineLayout, config: MaterialPipelineConfig) -> WgpuComputePipeline
+
+@extern
+fn create_empty_buffer() -> WgpuBuffer
+
+@extern
+fn create_storage_buffer_vec4(device: WgpuDevice, queue: WgpuQueue, data: Array<Vec4>) -> WgpuBuffer
+
+@extern
+fn create_uniform_buffer_material(device: WgpuDevice, queue: WgpuQueue, data: PbrMaterialParams) -> WgpuBuffer
+
+@extern
+fn create_uniform_buffer_scene(device: WgpuDevice, queue: WgpuQueue, data: SceneParams) -> WgpuBuffer
+
+@extern
+fn create_uniform_buffer_viewport(device: WgpuDevice, queue: WgpuQueue, data: ViewportParams) -> WgpuBuffer
+
+@extern
+fn create_output_buffer(device: WgpuDevice, pixel_count: UInt) -> WgpuBuffer
+
+@extern
+fn create_default_textures(device: WgpuDevice) -> PbrTextureSet
+
+@extern
+fn create_material_bind_group(device: WgpuDevice, layout: WgpuBindGroupLayout, positions: WgpuBuffer, normals: WgpuBuffer, uvs: WgpuBuffer, tangents: WgpuBuffer, textures: PbrTextureSet, material_params: WgpuBuffer, scene_params: WgpuBuffer, viewport_params: WgpuBuffer, output: WgpuBuffer) -> WgpuBindGroup
+
+@extern
+fn create_command_encoder(device: WgpuDevice) -> WgpuCommandEncoder
+
+@extern
+fn begin_compute_pass(encoder: WgpuCommandEncoder) -> WgpuComputePass
+
+@extern
+fn set_pipeline(compute_pass_handle: WgpuComputePass, pipeline: WgpuComputePipeline)
+
+@extern
+fn set_bind_group(compute_pass_handle: WgpuComputePass, index: UInt, bind_group: Option<WgpuBindGroup>)
+
+@extern
+fn dispatch_workgroups(compute_pass_handle: WgpuComputePass, x: UInt, y: UInt, z: UInt)
+
+@extern
+fn end_compute_pass(compute_pass_handle: WgpuComputePass)
+
+@extern
+fn finish_encoder(encoder: WgpuCommandEncoder) -> Ptr<Unit>
+
+@extern
+fn submit_command_buffer(queue: WgpuQueue, command_buffer: Ptr<Unit>)
+
+@extern
+fn read_buffer_vec4(device: WgpuDevice, queue: WgpuQueue, buffer: WgpuBuffer, count: UInt) -> Array<Vec4>

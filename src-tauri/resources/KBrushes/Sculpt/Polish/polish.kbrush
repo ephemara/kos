@@ -1,0 +1,31 @@
+{
+  "id": "polish",
+  "name": "Polish",
+  "category": "Sculpt/Polish",
+  "tags": ["sculpt", "polish", "flatten", "surface"],
+  "kernel": "smooth",
+  "params": {
+    "radius": 0.15,
+    "strength": 0.55,
+    "hardness": 0.35,
+    "spacing": 0.04,
+    "lazy_radius": 0.01,
+    "subtract": false,
+    "front_faces_only": true,
+    "accumulate": false,
+    "jitter_position": 0.0,
+    "jitter_rotation": 0.0,
+    "jitter_strength": 0.0,
+    "falloff_type": "flat",
+    "extras": {
+      "polish_mode": 1.0,
+      "preserve_edges": 0.3
+    }
+  },
+  "textures": {},
+  "pressure_strength": "soft",
+  "pressure_radius": null,
+  "speed_radius": null,
+  "tilt_rotation": null,
+  "entry_fade_dabs": 2
+}

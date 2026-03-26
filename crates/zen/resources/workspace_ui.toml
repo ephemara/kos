@@ -1,0 +1,205 @@
+[workspace]
+key = "zen.workspace.default.v2"
+title = "Zen Workspace"
+
+[[documents]]
+key = "document.scene.default"
+title = "Main Scene"
+kind = "scene"
+path = "workspace://scene/main"
+source_path = "workspace/main_scene.zen"
+primary = true
+
+[[documents]]
+key = "document.graph.material"
+title = "Material Graph"
+kind = "graph"
+path = "workspace://graphs/material"
+source_path = "workspace/material_graph.kn"
+
+[[documents]]
+key = "document.timeline.master"
+title = "Master Timeline"
+kind = "timeline"
+path = "workspace://timeline/master"
+source_path = "workspace/master_timeline.toml"
+
+[[presets]]
+key = "preset.universal"
+title = "Core"
+viewport_layout = "universal"
+
+[presets.layout]
+center_tabs = ["workspace.viewport.perspective"]
+left_tabs = ["workspace.outliner", "workspace.documents"]
+right_tabs = ["workspace.selection", "workspace.runtime"]
+bottom_tabs = ["workspace.file_editor", "workspace.timeline"]
+left_ratio = 0.16
+right_ratio = 0.2
+bottom_ratio = 0.22
+
+[[presets]]
+key = "preset.lookdev"
+title = "Lookdev"
+viewport_layout = "lookdev"
+
+[presets.layout]
+center_tabs = ["workspace.viewport.perspective", "workspace.viewport.runtime"]
+left_tabs = ["workspace.outliner", "workspace.documents"]
+right_tabs = ["workspace.selection", "workspace.runtime", "workspace.kain"]
+bottom_tabs = ["workspace.file_editor", "workspace.timeline", "workspace.host_api"]
+left_ratio = 0.16
+right_ratio = 0.22
+bottom_ratio = 0.24
+
+[[presets]]
+key = "preset.quad"
+title = "Quad View"
+viewport_layout = "quad"
+
+[presets.layout]
+center_tabs = [
+  "workspace.viewport.perspective",
+  "workspace.viewport.top",
+  "workspace.viewport.front",
+  "workspace.viewport.runtime",
+]
+left_tabs = ["workspace.outliner", "workspace.documents"]
+right_tabs = ["workspace.selection", "workspace.runtime"]
+bottom_tabs = ["workspace.file_editor", "workspace.timeline"]
+left_ratio = 0.16
+right_ratio = 0.18
+bottom_ratio = 0.22
+
+[[features]]
+key = "workspace.documents"
+title = "Workspace"
+kind = "document_context"
+closable = true
+default_open = true
+
+[[features]]
+key = "workspace.file_editor"
+title = "Document Editor"
+kind = "file_editor"
+closable = true
+default_open = true
+
+[[features]]
+key = "workspace.viewport.perspective"
+title = "Perspective"
+kind = "viewport"
+binding = "scene.viewport"
+closable = false
+default_open = true
+props = { viewport_profile = "perspective", viewport_mode = "editor" }
+
+[[features]]
+key = "workspace.viewport.top"
+title = "Top"
+kind = "viewport"
+binding = "scene.viewport"
+closable = true
+default_open = false
+props = { viewport_profile = "top", viewport_mode = "orthographic" }
+
+[[features]]
+key = "workspace.viewport.front"
+title = "Front"
+kind = "viewport"
+binding = "scene.viewport"
+closable = true
+default_open = false
+props = { viewport_profile = "front", viewport_mode = "orthographic" }
+
+[[features]]
+key = "workspace.viewport.runtime"
+title = "Runtime Preview"
+kind = "viewport"
+binding = "scene.viewport"
+closable = true
+default_open = false
+props = { viewport_profile = "runtime", viewport_mode = "play" }
+
+[[features]]
+key = "workspace.tools"
+title = "Tool Actions"
+kind = "action_strip"
+actions = [
+  "runtime.edit",
+  "runtime.simulate",
+  "runtime.play",
+  "scene.focus_selection",
+  "scene.frame_scene",
+  "scene.spawn_box",
+  "scene.select_previous",
+  "scene.select_next",
+  "scene.clear_selection",
+  "shell.reload",
+]
+closable = true
+default_open = false
+
+[[features]]
+key = "workspace.outliner"
+title = "Scene Outliner"
+kind = "scene_tree"
+binding = "scene.objects"
+closable = true
+default_open = true
+
+[[features]]
+key = "workspace.selection"
+title = "Selection"
+kind = "selection_inspector"
+binding = "scene.selection"
+closable = true
+default_open = true
+
+[[features]]
+key = "workspace.runtime"
+title = "Runtime"
+kind = "runtime_inspector"
+binding = "engine.runtime"
+actions = [
+  "runtime.edit",
+  "runtime.simulate",
+  "runtime.play",
+  "scene.focus_selection",
+  "scene.frame_scene",
+]
+closable = true
+default_open = true
+
+[[features]]
+key = "workspace.timeline"
+title = "Sequencer"
+kind = "timeline"
+binding = "engine.timeline"
+closable = true
+default_open = false
+
+[[features]]
+key = "workspace.host_api"
+title = "Host API"
+kind = "host_api"
+binding = "engine.host_api"
+closable = true
+default_open = false
+
+[[features]]
+key = "workspace.kain"
+title = "Kain Status"
+kind = "kain_status"
+binding = "engine.kain"
+closable = true
+default_open = false
+
+[layout]
+center_tabs = ["workspace.viewport.perspective"]
+left_tabs = ["workspace.outliner", "workspace.documents"]
+right_tabs = ["workspace.selection", "workspace.runtime"]
+bottom_tabs = ["workspace.file_editor", "workspace.timeline"]
+left_ratio = 0.16
+right_ratio = 0.2
+bottom_ratio = 0.22

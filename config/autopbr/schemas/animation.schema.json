@@ -1,0 +1,344 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://k-os.dev/schemas/autopbr/animation.schema.json",
+  "title": "AnimationPreset",
+  "description": "KAutoPBR animation preset configuration with metadata for library organization and searchability",
+  "type": "object",
+  "required": ["name", "description", "duration", "loop_mode", "tracks"],
+  "properties": {
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256,
+      "description": "Preset display name (e.g., 'Pulsing Emissive', 'Flowing Water')"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 2048,
+      "description": "Detailed description of the animation effect and use cases"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "Quick Start",
+        "Metal",
+        "Wood",
+        "Stone",
+        "Fabric",
+        "Organic",
+        "Sci-Fi",
+        "Fantasy",
+        "Effects",
+        "Custom"
+      ],
+      "description": "Preset category for organization and filtering"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 64
+      },
+      "maxItems": 16,
+      "description": "Searchable tags (e.g., ['glow', 'pulse', 'emissive', 'sci-fi'])"
+    },
+    "author": {
+      "type": "string",
+      "maxLength": 256,
+      "description": "Preset author name or organization"
+    },
+    "version": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Preset version number for tracking updates"
+    },
+    "thumbnail": {
+      "type": "string",
+      "description": "Optional path to preview thumbnail image (relative to preset file)"
+    },
+    "duration": {
+      "type": "number",
+      "minimum": 0.1,
+      "maximum": 3600.0,
+      "description": "Animation duration in seconds (0.1s to 1 hour)"
+    },
+    "loop_mode": {
+      "type": "string",
+      "enum": ["Once", "Loop", "PingPong"],
+      "description": "Animation loop behavior: Once (play once), Loop (repeat), PingPong (reverse on repeat)"
+    },
+    "tracks": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/AnimationTrack"
+      },
+      "minItems": 1,
+      "description": "Animation tracks defining parameter changes over time"
+    }
+  },
+  "definitions": {
+    "AnimationTrack": {
+      "type": "object",
+      "required": ["parameter", "animation_type"],
+      "properties": {
+        "parameter": {
+          "type": "string",
+          "enum": [
+            "LayerOpacity", "LayerBlendMode",
+            "AlbedoColor", "AlbedoRed", "AlbedoGreen", "AlbedoBlue",
+            "Roughness", "Metallic", "EmissiveIntensity", "EmissiveColor",
+            "HeightOffset", "NormalStrength",
+            "UVOffsetX", "UVOffsetY", "UVScaleX", "UVScaleY"
+          ]
+        },
+        "animation_type": {
+          "oneOf": [
+            {
+              "type": "object",
+              "required": ["Keyframe"],
+              "properties": {
+                "Keyframe": {
+                  "$ref": "#/definitions/KeyframeAnimation"
+                }
+              }
+            },
+            {
+              "type": "object",
+              "required": ["Procedural"],
+              "properties": {
+                "Procedural": {
+                  "$ref": "#/definitions/ProceduralAnimation"
+                }
+              }
+            },
+            {
+              "type": "object",
+              "required": ["Physics"],
+              "properties": {
+                "Physics": {
+                  "$ref": "#/definitions/PhysicsAnimation"
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "KeyframeAnimation": {
+      "type": "object",
+      "required": ["keyframes", "interpolation"],
+      "properties": {
+        "keyframes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Keyframe"
+          },
+          "minItems": 2
+        },
+        "interpolation": {
+          "type": "string",
+          "enum": ["Linear", "EaseIn", "EaseOut", "EaseInOut", "Bezier"]
+        }
+      }
+    },
+    "Keyframe": {
+      "type": "object",
+      "required": ["time", "value"],
+      "properties": {
+        "time": {
+          "type": "number",
+          "minimum": 0.0,
+          "description": "Time position of the keyframe in seconds"
+        },
+        "value": {
+          "type": "number",
+          "description": "Value at this keyframe"
+        },
+        "tangent_in": {
+          "type": "object",
+          "properties": {
+            "x": { "type": "number" },
+            "y": { "type": "number" }
+          },
+          "required": ["x", "y"],
+          "description": "Incoming tangent for Bezier interpolation (optional)"
+        },
+        "tangent_out": {
+          "type": "object",
+          "properties": {
+            "x": { "type": "number" },
+            "y": { "type": "number" }
+          },
+          "required": ["x", "y"],
+          "description": "Outgoing tangent for Bezier interpolation (optional)"
+        }
+      }
+    },
+    "ProceduralAnimation": {
+      "type": "object",
+      "required": ["expression"],
+      "properties": {
+        "expression": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Mathematical expression with time variable (t)"
+        }
+      }
+    },
+    "PhysicsAnimation": {
+      "type": "object",
+      "required": ["simulation_type"],
+      "properties": {
+        "simulation_type": {
+          "type": "string",
+          "enum": ["RustSpreading", "MossGrowth", "Erosion", "Weathering", "Cracking", "Melting"]
+        }
+      }
+    }
+  },
+  "examples": [
+    {
+      "name": "Pulsing Emissive",
+      "description": "Smooth pulsing glow effect ideal for sci-fi interfaces, energy cores, or magical artifacts",
+      "category": "Sci-Fi",
+      "tags": ["glow", "pulse", "emissive", "sci-fi", "energy"],
+      "author": "K_OS Team",
+      "version": 1,
+      "duration": 2.0,
+      "loop_mode": "Loop",
+      "tracks": [
+        {
+          "parameter": "EmissiveIntensity",
+          "animation_type": {
+            "Keyframe": {
+              "keyframes": [
+                { "time": 0.0, "value": 0.2 },
+                { "time": 1.0, "value": 1.0 },
+                { "time": 2.0, "value": 0.2 }
+              ],
+              "interpolation": "EaseInOut"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Flowing Water",
+      "description": "Continuous UV scrolling with noise variation for realistic water flow",
+      "category": "Organic",
+      "tags": ["water", "flow", "scroll", "procedural", "nature"],
+      "author": "K_OS Team",
+      "version": 1,
+      "duration": 10.0,
+      "loop_mode": "Loop",
+      "tracks": [
+        {
+          "parameter": "UVOffsetX",
+          "animation_type": {
+            "Procedural": {
+              "expression": "t * 0.1"
+            }
+          }
+        },
+        {
+          "parameter": "UVOffsetY",
+          "animation_type": {
+            "Procedural": {
+              "expression": "sin(t * 0.5) * 0.05"
+            }
+          }
+        },
+        {
+          "parameter": "NormalStrength",
+          "animation_type": {
+            "Procedural": {
+              "expression": "0.8 + sin(t * 2.0) * 0.2"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Flickering Fire",
+      "description": "Chaotic flickering effect using noise for fire, torches, or damaged lights",
+      "category": "Effects",
+      "tags": ["fire", "flicker", "noise", "chaos", "light"],
+      "author": "K_OS Team",
+      "version": 1,
+      "duration": 5.0,
+      "loop_mode": "Loop",
+      "tracks": [
+        {
+          "parameter": "EmissiveIntensity",
+          "animation_type": {
+            "Procedural": {
+              "expression": "0.7 + noise(t * 10.0) * 0.3"
+            }
+          }
+        },
+        {
+          "parameter": "AlbedoRed",
+          "animation_type": {
+            "Procedural": {
+              "expression": "0.9 + noise(t * 8.0) * 0.1"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Rust Spreading",
+      "description": "Physics-based rust oxidation spreading across metal surfaces over time",
+      "category": "Metal",
+      "tags": ["rust", "oxidation", "weathering", "physics", "metal"],
+      "author": "K_OS Team",
+      "version": 1,
+      "duration": 30.0,
+      "loop_mode": "Once",
+      "tracks": [
+        {
+          "parameter": "Roughness",
+          "animation_type": {
+            "Physics": {
+              "simulation_type": "RustSpreading"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Breathing Effect",
+      "description": "Gentle expansion and contraction for organic or living materials",
+      "category": "Organic",
+      "tags": ["breathing", "organic", "life", "subtle", "animation"],
+      "author": "K_OS Team",
+      "version": 1,
+      "duration": 4.0,
+      "loop_mode": "Loop",
+      "tracks": [
+        {
+          "parameter": "HeightOffset",
+          "animation_type": {
+            "Keyframe": {
+              "keyframes": [
+                { "time": 0.0, "value": 0.0 },
+                { "time": 2.0, "value": 0.05 },
+                { "time": 4.0, "value": 0.0 }
+              ],
+              "interpolation": "EaseInOut"
+            }
+          }
+        },
+        {
+          "parameter": "Roughness",
+          "animation_type": {
+            "Procedural": {
+              "expression": "0.5 + sin(t * 1.57) * 0.1"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

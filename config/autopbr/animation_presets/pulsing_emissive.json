@@ -1,0 +1,26 @@
+{
+  "$schema": "../schemas/animation.schema.json",
+  "name": "Pulsing Emissive",
+  "description": "Smooth pulsing glow effect ideal for sci-fi interfaces, energy cores, magical artifacts, or any glowing element that needs rhythmic intensity variation. Uses ease-in-out interpolation for natural breathing motion. Perfect for UI elements, power cores, crystals, or bioluminescent materials.",
+  "category": "Sci-Fi",
+  "tags": ["glow", "pulse", "emissive", "sci-fi", "energy", "interface", "core", "magic"],
+  "author": "K_OS Team",
+  "version": 1,
+  "duration": 2.0,
+  "loop_mode": "Loop",
+  "tracks": [
+    {
+      "parameter": "EmissiveIntensity",
+      "animation_type": {
+        "Keyframe": {
+          "keyframes": [
+            { "time": 0.0, "value": 0.2 },
+            { "time": 1.0, "value": 1.0 },
+            { "time": 2.0, "value": 0.2 }
+          ],
+          "interpolation": "EaseInOut"
+        }
+      }
+    }
+  ]
+}

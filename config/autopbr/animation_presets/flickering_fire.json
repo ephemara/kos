@@ -1,0 +1,37 @@
+{
+  "$schema": "../schemas/animation.schema.json",
+  "name": "Flickering Fire",
+  "description": "Chaotic flickering effect using noise for fire, torches, damaged lights, or unstable energy sources. Creates realistic flame-like behavior with rapid intensity variations and subtle color shifts in the red channel. Ideal for campfires, torches, burning objects, or malfunctioning lights.",
+  "category": "Effects",
+  "tags": ["fire", "flicker", "noise", "chaos", "light", "flame", "torch", "energy"],
+  "author": "K_OS Team",
+  "version": 1,
+  "duration": 5.0,
+  "loop_mode": "Loop",
+  "tracks": [
+    {
+      "parameter": "EmissiveIntensity",
+      "animation_type": {
+        "Procedural": {
+          "expression": "0.7 + noise(t * 10.0) * 0.3"
+        }
+      }
+    },
+    {
+      "parameter": "AlbedoRed",
+      "animation_type": {
+        "Procedural": {
+          "expression": "0.9 + noise(t * 8.0) * 0.1"
+        }
+      }
+    },
+    {
+      "parameter": "EmissiveColor",
+      "animation_type": {
+        "Procedural": {
+          "expression": "0.95 + noise(t * 12.0) * 0.05"
+        }
+      }
+    }
+  ]
+}

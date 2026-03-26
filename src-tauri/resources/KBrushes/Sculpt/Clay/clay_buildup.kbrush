@@ -1,0 +1,31 @@
+{
+  "id": "clay_buildup",
+  "name": "Clay Buildup",
+  "category": "Sculpt/Clay",
+  "tags": ["sculpt", "clay", "buildup", "organic", "primary"],
+  "kernel": "stamp",
+  "params": {
+    "radius": 0.14,
+    "strength": 0.6,
+    "hardness": 0.3,
+    "spacing": 0.07,
+    "lazy_radius": 0.02,
+    "subtract": false,
+    "front_faces_only": true,
+    "accumulate": true,
+    "jitter_position": 0.02,
+    "jitter_rotation": 0.0,
+    "jitter_strength": 0.04,
+    "falloff_type": "gaussian",
+    "extras": {
+      "plane_offset": 0.25,
+      "buildup_mode": true
+    }
+  },
+  "textures": {},
+  "pressure_strength": "soft",
+  "pressure_radius": "linear",
+  "speed_radius": null,
+  "tilt_rotation": null,
+  "entry_fade_dabs": 3
+}

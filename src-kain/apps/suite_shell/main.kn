@@ -1,0 +1,2 @@
+fn suite_shell_name() -> String with Pure:
+    "suite_shell"

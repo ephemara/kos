@@ -1,0 +1,32 @@
+{
+  "id": "acid_burn",
+  "name": "Acid Burn",
+  "category": "Sculpt/Simulation",
+  "tags": ["simulation", "acid", "burn", "corrosive"],
+  "kernel": "pinch",
+  "params": {
+    "radius": 0.06,
+    "strength": 0.7,
+    "hardness": 0.5,
+    "spacing": 0.02,
+    "lazy_radius": 0.01,
+    "subtract": true,
+    "front_faces_only": true,
+    "accumulate": true,
+    "jitter_position": 0.02,
+    "jitter_rotation": 0.4,
+    "jitter_strength": 0.15,
+    "falloff_type": "sharp",
+    "extras": {
+      "acid_strength": 0.9,
+      "bubble_formation": 0.6,
+      "material_resistance": 0.3
+    }
+  },
+  "textures": {},
+  "pressure_strength": "hard",
+  "pressure_radius": null,
+  "speed_radius": null,
+  "tilt_rotation": null,
+  "entry_fade_dabs": 2
+}

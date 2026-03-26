@@ -1,0 +1,16 @@
+// KainScript builder domain source seed.
+// Runtime defaults are sourced from src-kain/domains/kainscript/kainscript_builder_registry.json.
+
+struct KainScriptBuilderKernelConfig:
+    profile_id: String
+    entry_module: String
+    module_format: String
+    sourcemap: Bool
+
+fn default_kainscript_builder_kernel_config() -> KainScriptBuilderKernelConfig with Pure:
+    let config = KainScriptBuilderKernelConfig()
+    config.profile_id = "ui_runtime_bundle"
+    config.entry_module = "suite/runtime"
+    config.module_format = "esm"
+    config.sourcemap = true
+    config

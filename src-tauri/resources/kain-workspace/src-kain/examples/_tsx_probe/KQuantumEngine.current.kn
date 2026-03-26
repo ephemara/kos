@@ -1,0 +1,63 @@
+# Generated from TypeScript source by kain import-ts
+
+struct KQuantumEngineProps:
+    simRes: Float
+    mode: Float
+    speed: Float
+    chaos: Float
+    damping: Float
+    pointSize: Float
+    opacity: Float
+    colorHex: String
+    color2Hex: String
+    colorMode: Float
+    gradientStrength: Float
+    highFidelity: Bool
+    autoOrbit: Bool
+    aberration: Float
+    distortion: Float
+    decay: Float
+    activeModifiers: [String]
+    modParams: Any
+    userScript: String
+    isScriptActive: Bool
+    audioBass: Float
+    audioHigh: Float
+    audioLevel: Float
+    fluidSimEnabled: Bool
+    particleLifeEnabled: Bool
+    lifeDecayRate: Float
+    respawnBounds: Float
+    forceMultiplier: Float
+    curlStrength: Float
+    centerPull: Float
+    maxVelocity: Float
+    appMode: String
+    cfdResolution: Float
+    cfdViscosity: Float
+    cfdBuoyancy: Float
+    cfdVorticityConfinement: Float
+    cfdDissipation: Float
+    cfdFluidType: String
+    cfdEmitterRadius: Float
+    cfdEmitterVelocity: Float
+    cfdEmitterTemperature: Float
+    engineRef: React_MutableRefObject<Any>
+
+fn KQuantumEngine(arg_1: KQuantumEngineProps):
+    let mountRef = useRef(none)
+    let requestRef = useRef()
+    let quantum = useQuantumRust()
+    let (rustParticleData, setRustParticleData) = useState(none)
+    let rustSimActiveRef = useRef(false)
+    let lastModeRef = useRef(mode)
+    let cfdSimIdRef = useRef(none)
+    let cfdActiveRef = useRef(false)
+    let lastAppModeRef = useRef(appMode)
+    useEffect(none, [mode])
+    useEffect(none, [appMode, cfdResolution, cfdFluidType, cfdViscosity, cfdBuoyancy, cfdVorticityConfinement, cfdDissipation])
+    useEffect(none, [simRes])
+    useEffect(none, [mode, speed, chaos, damping, colorHex, pointSize, opacity, colorMode, highFidelity, autoOrbit, aberration, distortion, decay, activeModifiers, modParams, audioBass, audioHigh, audioLevel, simRes, forceMultiplier, curlStrength, centerPull, maxVelocity, particleLifeEnabled, lifeDecayRate, respawnBounds])
+    let handleMouseMove = none
+    return (<div ref={mountRef} className="w-full h-full relative overflow-hidden" onMouseMove={handleMouseMove} onMouseDown={handleMouseMove} onMouseUp={none} />)
+

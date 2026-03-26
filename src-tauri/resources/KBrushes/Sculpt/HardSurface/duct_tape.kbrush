@@ -1,0 +1,32 @@
+{
+  "id": "duct_tape",
+  "name": "Duct Tape",
+  "category": "Sculpt/HardSurface",
+  "tags": ["hardsurface", "tape", "adhesive", "repair"],
+  "kernel": "stamp",
+  "params": {
+    "radius": 0.06,
+    "strength": 0.3,
+    "hardness": 0.2,
+    "spacing": 0.02,
+    "lazy_radius": 0.01,
+    "subtract": false,
+    "front_faces_only": true,
+    "accumulate": true,
+    "jitter_position": 0.01,
+    "jitter_rotation": 0.1,
+    "jitter_strength": 0.05,
+    "falloff_type": "smooth",
+    "extras": {
+      "tape_width": 0.1,
+      "adhesive_strength": 0.5,
+      "surface_texture": "cloth"
+    }
+  },
+  "textures": {},
+  "pressure_strength": "soft",
+  "pressure_radius": "soft",
+  "speed_radius": null,
+  "tilt_rotation": null,
+  "entry_fade_dabs": 3
+}

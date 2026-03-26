@@ -1,0 +1,32 @@
+{
+  "id": "diamond_plate",
+  "name": "Diamond Plate",
+  "category": "Sculpt/HardSurface",
+  "tags": ["hardsurface", "diamond", "plate", "texture"],
+  "kernel": "stamp",
+  "params": {
+    "radius": 0.04,
+    "strength": 0.3,
+    "hardness": 0.6,
+    "spacing": 0.04,
+    "lazy_radius": 0.0,
+    "subtract": false,
+    "front_faces_only": true,
+    "accumulate": true,
+    "jitter_position": 0.0,
+    "jitter_rotation": 0.0,
+    "jitter_strength": 0.0,
+    "falloff_type": "sharp",
+    "extras": {
+      "diamond_size": 0.03,
+      "pattern_depth": 0.02,
+      "plate_thickness": 0.05
+    }
+  },
+  "textures": {},
+  "pressure_strength": "linear",
+  "pressure_radius": null,
+  "speed_radius": null,
+  "tilt_rotation": null,
+  "entry_fade_dabs": 2
+}

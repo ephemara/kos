@@ -1,0 +1,27 @@
+# KAIN Omni Manifest - Material Builder
+# Shared source for material graph builder artifacts and runtime glue.
+
+[project]
+entry = "material_builder.kn"
+build_dir = "dist"
+
+[import_resolution]
+inline_kain_imports = true
+search_roots = []
+
+[[targets]]
+kind = "spirv"
+output = "dist/material_builder.spv"
+
+[[targets]]
+kind = "rust_bundle"
+output = "dist/material_builder_bundle"
+artifacts = ["source", "shader_host", "shader_reflection", "spirv"]
+
+[[targets]]
+kind = "ts"
+output = "dist/MaterialBuilderBindings.ts"
+
+[[targets]]
+kind = "ks"
+output = "dist/material_builder.ks"

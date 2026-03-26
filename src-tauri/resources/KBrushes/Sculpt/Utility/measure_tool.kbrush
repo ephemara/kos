@@ -1,0 +1,32 @@
+{
+  "id": "measure_tool",
+  "name": "Measure Tool",
+  "category": "Sculpt/Utility",
+  "tags": ["utility", "measure", "dimension", "analyze"],
+  "kernel": "custom",
+  "params": {
+    "radius": 0.02,
+    "strength": 0.0,
+    "hardness": 1.0,
+    "spacing": 0.01,
+    "lazy_radius": 0.0,
+    "subtract": false,
+    "front_faces_only": true,
+    "accumulate": false,
+    "jitter_position": 0.0,
+    "jitter_rotation": 0.0,
+    "jitter_strength": 0.0,
+    "falloff_type": "flat",
+    "extras": {
+      "measure_mode": "distance",
+      "show_dimensions": true,
+      "precision": 0.001
+    }
+  },
+  "textures": {},
+  "pressure_strength": "constant",
+  "pressure_radius": null,
+  "speed_radius": null,
+  "tilt_rotation": null,
+  "entry_fade_dabs": 0
+}

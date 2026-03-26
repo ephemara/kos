@@ -1,0 +1,16 @@
+scene "MainScene" {
+  unit = "meters"
+  up_axis = "Y"
+
+  camera "EditorCamera" {
+    position = [-0.4, 3.2, 8.4]
+    target = [0.0, 1.5, 0.0]
+    mode = "fly"
+  }
+
+  object "Zen Core" {
+    mesh = "primitive:box"
+    translation = [0.0, 1.75, 0.0]
+    scale = [1.0, 1.75, 1.0]
+  }
+}

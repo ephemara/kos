@@ -1,0 +1,32 @@
+{
+  "id": "erosion_flow",
+  "name": "Erosion Flow",
+  "category": "Sculpt/Simulation",
+  "tags": ["simulation", "erosion", "flow", "water"],
+  "kernel": "stamp",
+  "params": {
+    "radius": 0.1,
+    "strength": 0.4,
+    "hardness": 0.3,
+    "spacing": 0.05,
+    "lazy_radius": 0.02,
+    "subtract": true,
+    "front_faces_only": true,
+    "accumulate": true,
+    "jitter_position": 0.02,
+    "jitter_rotation": 0.3,
+    "jitter_strength": 0.1,
+    "falloff_type": "smooth",
+    "extras": {
+      "flow_rate": 0.8,
+      "sediment_capacity": 0.5,
+      "deposition_rate": 0.2
+    }
+  },
+  "textures": {},
+  "pressure_strength": "soft",
+  "pressure_radius": "soft",
+  "speed_radius": null,
+  "tilt_rotation": null,
+  "entry_fade_dabs": 5
+}

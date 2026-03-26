@@ -1,0 +1,112 @@
+[api]
+name = "Zen Host API"
+version = "0.1.0"
+
+[[actions]]
+key = "shell.reload"
+label = "Reload Shell"
+description = "Recompile and reload the active Kain shell document."
+behavior = "reload_shell"
+
+[[actions]]
+key = "scene.spawn_box"
+label = "Spawn Box"
+description = "Spawn a new workspace box into the active Zen scene."
+behavior = "scene_spawn_box"
+
+[[actions]]
+key = "scene.select_next"
+label = "Next Object"
+description = "Advance the current scene selection to the next object."
+behavior = "scene_select_next"
+
+[[actions]]
+key = "scene.select_previous"
+label = "Previous Object"
+description = "Move the current scene selection to the previous object."
+behavior = "scene_select_previous"
+
+[[actions]]
+key = "scene.clear_selection"
+label = "Clear Selection"
+description = "Clear the active scene selection."
+behavior = "scene_clear_selection"
+
+[[actions]]
+key = "scene.focus_selection"
+label = "Focus Selected"
+description = "Move the active camera to frame the current selection."
+behavior = "camera_focus_selection"
+
+[[actions]]
+key = "scene.frame_scene"
+label = "Frame Scene"
+description = "Move the active camera to frame the current scene."
+behavior = "camera_frame_scene"
+
+[[actions]]
+key = "runtime.edit"
+label = "Edit"
+description = "Switch the runtime back to editor mode."
+behavior = "runtime_set_edit_mode"
+
+[[actions]]
+key = "runtime.simulate"
+label = "Simulate"
+description = "Run the active world in simulation mode."
+behavior = "runtime_set_simulate_mode"
+
+[[actions]]
+key = "runtime.play"
+label = "Play"
+description = "Run the active world in play mode."
+behavior = "runtime_set_play_mode"
+
+[[bindings]]
+key = "scene.objects"
+label = "Scene Objects"
+widget = "tree"
+description = "Scene outliner entries from the active world."
+handler = "scene_objects"
+
+[[bindings]]
+key = "scene.selection"
+label = "Scene Selection"
+widget = "inspector"
+description = "Editable details for the currently selected scene object."
+handler = "scene_selection"
+
+[[bindings]]
+key = "scene.viewport"
+label = "Universal Viewport"
+widget = "viewport3d"
+description = "The live native Zen viewport surface."
+handler = "scene_viewport"
+
+[[bindings]]
+key = "engine.runtime"
+label = "Engine Runtime"
+widget = "inspector"
+description = "Renderer and camera runtime statistics."
+handler = "engine_runtime"
+
+[[bindings]]
+key = "engine.kain"
+label = "Kain Runtime"
+widget = "graph"
+description = "Current Kain runtime and post-processing status."
+handler = "engine_kain"
+
+[[bindings]]
+key = "engine.timeline"
+label = "Engine Timeline"
+widget = "timeline"
+description = "Sequencer placeholder surface for timeline-driven tools."
+handler = "engine_timeline"
+
+[[bindings]]
+key = "engine.host_api"
+label = "Host API"
+widget = "inspector"
+description = "Zen host actions and bindings available to Kain-authored shells."
+handler = "engine_host_api"

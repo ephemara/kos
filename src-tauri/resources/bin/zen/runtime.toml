@@ -1,0 +1,19 @@
+[window]
+title = "Zen // Native Renderer MVP"
+width = 1540
+height = 920
+min_width = 960
+min_height = 600
+
+[camera]
+start_position = [0.0, 3.0, 10.0]
+yaw = -1.5707964
+pitch = -0.18
+fov_degrees = 60.0
+near_plane = 0.1
+far_plane = 500.0
+
+[kain]
+validate_catalog_on_startup = true
+enable_dispatch = false
+dispatch_interval_frames = 12

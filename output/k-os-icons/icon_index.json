@@ -1,0 +1,227 @@
+{
+  "name": "K_OS DCC Suite Icons",
+  "version": "1.0.0",
+  "description": "Complete icon set for K_OS 3D DCC Suite",
+  "total_icons": 124,
+  "categories": {
+    "modeling": {
+      "count": 15,
+      "icons": [
+        "cube",
+        "sphere",
+        "cylinder",
+        "cone",
+        "torus",
+        "plane",
+        "extrude",
+        "bevel",
+        "boolean_union",
+        "boolean_subtract",
+        "boolean_intersect",
+        "subdivide",
+        "mirror",
+        "array",
+        "lattice"
+      ]
+    },
+    "sculpting": {
+      "count": 8,
+      "icons": [
+        "sculpt_draw",
+        "sculpt_grab",
+        "sculpt_smooth",
+        "sculpt_inflate",
+        "sculpt_crease",
+        "sculpt_pinch",
+        "sculpt_clay",
+        "sculpt_flatten"
+      ]
+    },
+    "texturing": {
+      "count": 6,
+      "icons": [
+        "uv_unwrap",
+        "texture_paint",
+        "material",
+        "shader",
+        "normal_map",
+        "bake"
+      ]
+    },
+    "rigging": {
+      "count": 4,
+      "icons": [
+        "bone",
+        "ik",
+        "fk",
+        "constraint"
+      ]
+    },
+    "animation": {
+      "count": 4,
+      "icons": [
+        "keyframe",
+        "timeline",
+        "graph_editor",
+        "dope_sheet"
+      ]
+    },
+    "rendering": {
+      "count": 8,
+      "icons": [
+        "camera",
+        "light_point",
+        "light_spot",
+        "light_area",
+        "light_sun",
+        "render",
+        "viewport",
+        "wireframe"
+      ]
+    },
+    "simulation": {
+      "count": 6,
+      "icons": [
+        "particle",
+        "cloth",
+        "fluid",
+        "smoke",
+        "collision",
+        "force_field"
+      ]
+    },
+    "selection": {
+      "count": 6,
+      "icons": [
+        "select_box",
+        "select_circle",
+        "select_lasso",
+        "move",
+        "rotate",
+        "scale"
+      ]
+    },
+    "view": {
+      "count": 7,
+      "icons": [
+        "view_front",
+        "view_side",
+        "view_top",
+        "view_perspective",
+        "zoom_in",
+        "zoom_out",
+        "frame_all"
+      ]
+    },
+    "file": {
+      "count": 7,
+      "icons": [
+        "new",
+        "open",
+        "save",
+        "import",
+        "export",
+        "undo",
+        "redo"
+      ]
+    },
+    "organization": {
+      "count": 8,
+      "icons": [
+        "layer",
+        "group",
+        "collection",
+        "outliner",
+        "visible",
+        "hidden",
+        "lock",
+        "unlock"
+      ]
+    },
+    "utilities": {
+      "count": 11,
+      "icons": [
+        "settings",
+        "preferences",
+        "help",
+        "search",
+        "filter",
+        "pin",
+        "bookmark",
+        "trash",
+        "duplicate",
+        "link",
+        "unlink"
+      ]
+    },
+    "playback": {
+      "count": 7,
+      "icons": [
+        "play",
+        "pause",
+        "stop",
+        "record",
+        "skip_forward",
+        "skip_back",
+        "loop"
+      ]
+    },
+    "compositing": {
+      "count": 5,
+      "icons": [
+        "compositor",
+        "color_correction",
+        "blur",
+        "glow",
+        "mask"
+      ]
+    },
+    "grease_pencil": {
+      "count": 5,
+      "icons": [
+        "grease_pencil",
+        "draw_line",
+        "draw_curve",
+        "eraser",
+        "fill"
+      ]
+    },
+    "curves": {
+      "count": 4,
+      "icons": [
+        "bezier",
+        "nurbs",
+        "path_edit",
+        "spline"
+      ]
+    },
+    "measurement": {
+      "count": 4,
+      "icons": [
+        "ruler",
+        "protractor",
+        "grid",
+        "snap"
+      ]
+    },
+    "procedural": {
+      "count": 4,
+      "icons": [
+        "geometry_nodes",
+        "procedural",
+        "noise",
+        "voronoi"
+      ]
+    },
+    "modifiers": {
+      "count": 5,
+      "icons": [
+        "modifier",
+        "bend",
+        "twist",
+        "wave",
+        "shrinkwrap"
+      ]
+    }
+  }
+}

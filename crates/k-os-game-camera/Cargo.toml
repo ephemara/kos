@@ -1,0 +1,14 @@
+[package]
+name = "k-os-game-camera"
+version = "0.1.0"
+edition = "2021"
+description = "K_OS Game camera ownership for registry-driven rig projection and gameplay-action camera routing"
+
+[lib]
+name = "k_os_game_camera"
+path = "src/lib.rs"
+
+[dependencies]
+bevy_ecs = "0.17"
+k-os-game-framework = { path = "../k-os-game-framework" }
+toml = "0.8"

@@ -1,0 +1,28 @@
+{
+  "id": "inflate",
+  "name": "Inflate",
+  "category": "Sculpt/Detail",
+  "tags": ["sculpt", "inflate", "blow", "expand"],
+  "kernel": "stamp",
+  "params": {
+    "radius": 0.12,
+    "strength": 0.45,
+    "hardness": 0.3,
+    "spacing": 0.05,
+    "lazy_radius": 0.01,
+    "subtract": false,
+    "front_faces_only": true,
+    "accumulate": true,
+    "jitter_position": 0.0,
+    "jitter_rotation": 0.0,
+    "jitter_strength": 0.0,
+    "falloff_type": "gaussian",
+    "extras": {}
+  },
+  "textures": {},
+  "pressure_strength": "soft",
+  "pressure_radius": "soft",
+  "speed_radius": null,
+  "tilt_rotation": null,
+  "entry_fade_dabs": 3
+}

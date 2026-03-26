@@ -1,0 +1,32 @@
+{
+  "id": "concrete_texture",
+  "name": "Concrete Texture",
+  "category": "Sculpt/HardSurface",
+  "tags": ["hardsurface", "concrete", "rough", "construction"],
+  "kernel": "stamp",
+  "params": {
+    "radius": 0.08,
+    "strength": 0.4,
+    "hardness": 0.3,
+    "spacing": 0.05,
+    "lazy_radius": 0.01,
+    "subtract": false,
+    "front_faces_only": true,
+    "accumulate": true,
+    "jitter_position": 0.03,
+    "jitter_rotation": 0.4,
+    "jitter_strength": 0.15,
+    "falloff_type": "gaussian",
+    "extras": {
+      "aggregate_size": 0.02,
+      "surface_roughness": 0.7,
+      "porosity": 0.3
+    }
+  },
+  "textures": {},
+  "pressure_strength": "soft",
+  "pressure_radius": "soft",
+  "speed_radius": null,
+  "tilt_rotation": null,
+  "entry_fade_dabs": 4
+}

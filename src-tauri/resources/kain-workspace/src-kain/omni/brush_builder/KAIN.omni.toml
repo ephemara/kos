@@ -1,0 +1,22 @@
+# KAIN Omni Manifest - Brush Builder
+# Shared source for brush preset schema and runtime glue.
+
+[project]
+entry = "brush_builder.kn"
+build_dir = "dist"
+
+[import_resolution]
+inline_kain_imports = true
+search_roots = []
+
+[[targets]]
+kind = "ts"
+output = "dist/BrushBuilderBindings.ts"
+
+[[targets]]
+kind = "ks"
+output = "dist/brush_builder.ks"
+
+[[targets]]
+kind = "rust"
+output = "dist/brush_builder_runtime.rs"

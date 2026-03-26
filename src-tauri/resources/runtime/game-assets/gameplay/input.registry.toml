@@ -1,0 +1,214 @@
+version = "1"
+registry_kind = "input_bindings"
+
+[[contexts]]
+id = "player.default"
+priority = 100
+
+[[contexts.actions]]
+id = "player.move"
+kind = "axis_2d"
+default = ["w", "a", "s", "d", "left_stick"]
+
+[[contexts.actions]]
+id = "player.look"
+kind = "axis_2d"
+default = ["mouse_delta", "right_stick"]
+
+[[contexts.actions]]
+id = "player.jump"
+kind = "digital"
+default = ["space", "gamepad_south"]
+
+[[contexts.actions]]
+id = "player.interact"
+kind = "digital"
+default = ["e", "gamepad_west"]
+
+[action_projection]
+
+[[action_projection.routes]]
+agent = "npc.vendor"
+phase = "act"
+gameplay_action_prefix = "interaction.vendor."
+input_action = "player.interact"
+priority = 220
+
+[[action_projection.routes]]
+phase = "recover"
+gameplay_action_prefix = "locomotion.recovery."
+input_action = "player.move"
+priority = 60
+
+[input_host]
+axis_deadzone = 0.15
+activation_threshold = 0.2
+max_mouse_delta = 260.0
+
+[[input_host.digital_axes]]
+token = "w"
+axis = [0.0, 1.0]
+
+[[input_host.digital_axes]]
+token = "a"
+axis = [-1.0, 0.0]
+
+[[input_host.digital_axes]]
+token = "s"
+axis = [0.0, -1.0]
+
+[[input_host.digital_axes]]
+token = "d"
+axis = [1.0, 0.0]
+
+[input_policy]
+default_camera_mode = "third_person"
+
+[[input_policy.camera_mode_aliases]]
+rig_prefix = "player.follow."
+mode = "third_person"
+
+[[input_policy.camera_mode_aliases]]
+rig_prefix = "cinematic."
+mode = "cinematic"
+
+[[input_policy.camera_mode_aliases]]
+rig_prefix = "debug.freefly"
+mode = "freefly"
+
+[[input_policy.rules]]
+camera_mode = "cinematic"
+phase = "act"
+gameplay_action_prefix = "combat.attack."
+allow = false
+reason = "cinematic_combat_lock"
+priority = 500
+
+[[input_policy.rules]]
+camera_mode = "third_person"
+input_action = "player.look"
+scale = 0.8
+priority = 220
+
+[runtime_execution]
+
+[[runtime_execution.routes]]
+agent = "hero.default"
+phase = "act"
+input_action = "player.move"
+input_kind = "axis_2d"
+command_kind = "locomotion.move"
+vector_space = "move_xz"
+linear_scale = 6.0
+priority = 450
+
+[[runtime_execution.routes]]
+agent = "hero.default"
+phase = "act"
+input_action = "player.look"
+input_kind = "axis_2d"
+command_kind = "camera.look"
+vector_space = "look_yaw_pitch"
+angular_scale = 1.6
+priority = 380
+
+[[runtime_execution.routes]]
+agent = "npc.vendor"
+phase = "act"
+input_action = "player.interact"
+command_kind = "gameplay.interact"
+vector_space = "none"
+active_only = true
+priority = 220
+
+[runtime_execution_apply]
+fixed_step_seconds = 0.0166667
+max_linear_speed = 7.5
+max_angular_speed = 2.8
+max_frame_steps = 4
+inactive_decay = 0.82
+
+[runtime_execution_effects]
+max_events_per_frame = 48
+default_replication_channel = "reliable"
+
+[[runtime_execution_effects.routes]]
+command_prefix = "locomotion."
+effect_kind = "movement"
+replication_channel = "unreliable"
+priority = 320
+
+[[runtime_execution_effects.routes]]
+command_prefix = "camera.look"
+effect_kind = "impulse"
+replication_channel = "unreliable"
+priority = 260
+
+[[runtime_execution_effects.routes]]
+command_prefix = "gameplay.interact"
+effect_kind = "interaction"
+replication_channel = "reliable_ordered"
+emit_inactive = false
+priority = 240
+
+[[runtime_execution_effects.routes]]
+command_prefix = "ability."
+effect_kind = "ability_cast"
+replication_channel = "reliable_ordered"
+emit_inactive = true
+priority = 360
+
+[runtime_execution_transport]
+max_journal_events = 512
+rollback_window_frames = 120
+default_lane = "gameplay_events"
+default_reliability = "reliable"
+default_rollback = true
+
+[[runtime_execution_transport.channel_routes]]
+channel_prefix = "unreliable"
+lane = "state_delta"
+reliability = "unreliable_unordered"
+rollback = false
+priority = 180
+
+[[runtime_execution_transport.channel_routes]]
+channel_prefix = "reliable_ordered"
+lane = "gameplay_rpc"
+reliability = "reliable_ordered"
+rollback = true
+priority = 320
+
+[[runtime_execution_transport.channel_routes]]
+channel_prefix = "reliable"
+lane = "rollback_journal"
+reliability = "reliable"
+rollback = true
+priority = 240
+
+[runtime_execution_transport_backends]
+max_payloads_per_frame = 24
+default_backend = "event_log"
+default_payload_kind = "journal_slice"
+default_max_events_per_payload = 8
+
+[[runtime_execution_transport_backends.lane_backends]]
+lane_prefix = "state_delta"
+backend = "state_stream"
+payload_kind = "delta_patch"
+max_events_per_payload = 4
+priority = 260
+
+[[runtime_execution_transport_backends.lane_backends]]
+lane_prefix = "gameplay_rpc"
+backend = "rpc_bus"
+payload_kind = "rpc_event"
+max_events_per_payload = 2
+priority = 320
+
+[[runtime_execution_transport_backends.lane_backends]]
+lane_prefix = "rollback_journal"
+backend = "rollback_store"
+payload_kind = "rollback_slice"
+max_events_per_payload = 16
+priority = 280

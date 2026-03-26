@@ -1,0 +1,11 @@
+struct MaterialBuilderConfig:
+    default_domain: String
+    runtime_registry_path: String
+    output_root: String
+
+fn material_builder_config() -> MaterialBuilderConfig with Pure:
+    let config = MaterialBuilderConfig()
+    config.default_domain = "materials"
+    config.runtime_registry_path = "crates/k-os-kain/generated/json/runtime_registry.json"
+    config.output_root = "crates/k-os-kain/generated/runtime"
+    config

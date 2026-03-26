@@ -1,0 +1,28 @@
+{
+  "id": "pinch",
+  "name": "Pinch",
+  "category": "Sculpt/Crease",
+  "tags": ["sculpt", "pinch", "pull", "primary"],
+  "kernel": "pinch",
+  "params": {
+    "radius": 0.1,
+    "strength": 0.55,
+    "hardness": 0.55,
+    "spacing": 0.04,
+    "lazy_radius": 0.015,
+    "subtract": false,
+    "front_faces_only": true,
+    "accumulate": true,
+    "jitter_position": 0.0,
+    "jitter_rotation": 0.0,
+    "jitter_strength": 0.0,
+    "falloff_type": "sharp",
+    "extras": {}
+  },
+  "textures": {},
+  "pressure_strength": "linear",
+  "pressure_radius": null,
+  "speed_radius": null,
+  "tilt_rotation": null,
+  "entry_fade_dabs": 2
+}

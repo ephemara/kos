@@ -1,0 +1,270 @@
+[
+  {
+    "id": "standard",
+    "name": "Standard",
+    "category": "sculpt",
+    "defaultSize": 0.1,
+    "defaultStrength": 0.5,
+    "supportsPressure": true,
+    "gpuShader": "sculpt_stamp",
+    "icon": "brush-standard",
+    "parameters": {
+      "falloff": {
+        "type": "float",
+        "default": 0.5,
+        "min": 0.0,
+        "max": 1.0
+      }
+    }
+  },
+  {
+    "id": "draw",
+    "name": "Draw",
+    "category": "sculpt",
+    "defaultSize": 0.08,
+    "defaultStrength": 0.7,
+    "supportsPressure": true,
+    "gpuShader": "sculpt_draw",
+    "icon": "brush-draw",
+    "parameters": {}
+  },
+  {
+    "id": "clay",
+    "name": "Clay",
+    "category": "sculpt",
+    "defaultSize": 0.12,
+    "defaultStrength": 0.6,
+    "supportsPressure": true,
+    "gpuShader": "sculpt_clay",
+    "icon": "brush-clay",
+    "parameters": {
+      "flatten": {
+        "type": "float",
+        "default": 0.3,
+        "min": 0.0,
+        "max": 1.0
+      }
+    }
+  },
+  {
+    "id": "grab",
+    "name": "Grab",
+    "category": "sculpt",
+    "defaultSize": 0.2,
+    "defaultStrength": 1.0,
+    "supportsPressure": false,
+    "gpuShader": "sculpt_grab",
+    "icon": "brush-grab",
+    "parameters": {}
+  },
+  {
+    "id": "pinch",
+    "name": "Pinch",
+    "category": "sculpt",
+    "defaultSize": 0.1,
+    "defaultStrength": 0.5,
+    "supportsPressure": true,
+    "gpuShader": "sculpt_pinch",
+    "icon": "brush-pinch",
+    "parameters": {}
+  },
+  {
+    "id": "inflate",
+    "name": "Inflate",
+    "category": "sculpt",
+    "defaultSize": 0.15,
+    "defaultStrength": 0.4,
+    "supportsPressure": true,
+    "gpuShader": "sculpt_inflate",
+    "icon": "brush-inflate",
+    "parameters": {}
+  },
+  {
+    "id": "smooth",
+    "name": "Smooth",
+    "category": "smooth",
+    "defaultSize": 0.15,
+    "defaultStrength": 0.3,
+    "supportsPressure": true,
+    "gpuShader": "sculpt_smooth",
+    "icon": "brush-smooth",
+    "parameters": {
+      "iterations": {
+        "type": "int",
+        "default": 3,
+        "min": 1,
+        "max": 10
+      }
+    }
+  },
+  {
+    "id": "flatten",
+    "name": "Flatten",
+    "category": "smooth",
+    "defaultSize": 0.12,
+    "defaultStrength": 0.5,
+    "supportsPressure": true,
+    "gpuShader": "sculpt_flatten",
+    "icon": "brush-flatten",
+    "parameters": {}
+  },
+  {
+    "id": "paint_basic",
+    "name": "Basic Paint",
+    "category": "paint",
+    "defaultSize": 0.05,
+    "defaultStrength": 0.8,
+    "supportsPressure": true,
+    "gpuShader": "paint_basic",
+    "icon": "brush-paint",
+    "parameters": {
+      "opacity": {
+        "type": "float",
+        "default": 1.0,
+        "min": 0.0,
+        "max": 1.0
+      },
+      "flow": {
+        "type": "float",
+        "default": 0.8,
+        "min": 0.0,
+        "max": 1.0
+      }
+    }
+  },
+  {
+    "id": "paint_smear",
+    "name": "Smear",
+    "category": "paint",
+    "defaultSize": 0.08,
+    "defaultStrength": 0.6,
+    "supportsPressure": true,
+    "gpuShader": "paint_smear",
+    "icon": "brush-smear",
+    "parameters": {
+      "smearLength": {
+        "type": "float",
+        "default": 0.5,
+        "min": 0.0,
+        "max": 1.0
+      }
+    }
+  },
+  {
+    "id": "paint_watercolor",
+    "name": "Watercolor",
+    "category": "paint",
+    "defaultSize": 0.1,
+    "defaultStrength": 0.4,
+    "supportsPressure": true,
+    "gpuShader": "paint_watercolor",
+    "icon": "brush-watercolor",
+    "parameters": {
+      "wetness": {
+        "type": "float",
+        "default": 0.7,
+        "min": 0.0,
+        "max": 1.0
+      },
+      "pigment": {
+        "type": "float",
+        "default": 0.5,
+        "min": 0.0,
+        "max": 1.0
+      }
+    }
+  },
+  {
+    "id": "paint_oil",
+    "name": "Oil Paint",
+    "category": "paint",
+    "defaultSize": 0.07,
+    "defaultStrength": 0.9,
+    "supportsPressure": true,
+    "gpuShader": "paint_oil",
+    "icon": "brush-oil",
+    "parameters": {
+      "thickness": {
+        "type": "float",
+        "default": 0.6,
+        "min": 0.0,
+        "max": 1.0
+      },
+      "blending": {
+        "type": "float",
+        "default": 0.3,
+        "min": 0.0,
+        "max": 1.0
+      }
+    }
+  },
+  {
+    "id": "paint_ink",
+    "name": "Ink",
+    "category": "paint",
+    "defaultSize": 0.03,
+    "defaultStrength": 1.0,
+    "supportsPressure": true,
+    "gpuShader": "paint_ink",
+    "icon": "brush-ink",
+    "parameters": {
+      "hardness": {
+        "type": "float",
+        "default": 1.0,
+        "min": 0.0,
+        "max": 1.0
+      },
+      "flow": {
+        "type": "float",
+        "default": 1.0,
+        "min": 0.0,
+        "max": 1.0
+      }
+    }
+  },
+  {
+    "id": "paint_blend",
+    "name": "Blend",
+    "category": "paint",
+    "defaultSize": 0.1,
+    "defaultStrength": 0.5,
+    "supportsPressure": true,
+    "gpuShader": "paint_blend",
+    "icon": "brush-blend",
+    "parameters": {
+      "blendMode": {
+        "type": "int",
+        "default": 0,
+        "min": 0,
+        "max": 5
+      },
+      "smoothness": {
+        "type": "float",
+        "default": 0.7,
+        "min": 0.0,
+        "max": 1.0
+      }
+    }
+  },
+  {
+    "id": "mask_paint",
+    "name": "Mask Paint",
+    "category": "mask",
+    "defaultSize": 0.1,
+    "defaultStrength": 1.0,
+    "supportsPressure": true,
+    "gpuShader": "mask_paint",
+    "icon": "brush-mask",
+    "parameters": {}
+  },
+  {
+    "id": "mask_lasso",
+    "name": "Lasso Mask",
+    "category": "mask",
+    "defaultSize": 0.05,
+    "defaultStrength": 1.0,
+    "supportsPressure": false,
+    "icon": "brush-lasso",
+    "parameters": {}
+  }
+]

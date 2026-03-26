@@ -1,0 +1,238 @@
+[
+  {
+    "id": "gltf",
+    "name": "GLTF",
+    "extensions": ["gltf"],
+    "supportsMeshes": true,
+    "supportsTextures": true,
+    "supportsMaterials": true,
+    "options": [
+      {
+        "id": "embed_textures",
+        "label": "Embed Textures",
+        "type": "bool",
+        "default": true
+      },
+      {
+        "id": "embed_buffers",
+        "label": "Embed Buffers",
+        "type": "bool",
+        "default": false
+      },
+      {
+        "id": "pretty_print",
+        "label": "Pretty Print JSON",
+        "type": "bool",
+        "default": true
+      }
+    ]
+  },
+  {
+    "id": "glb",
+    "name": "GLB (Binary GLTF)",
+    "extensions": ["glb"],
+    "supportsMeshes": true,
+    "supportsTextures": true,
+    "supportsMaterials": true,
+    "options": []
+  },
+  {
+    "id": "obj",
+    "name": "Wavefront OBJ",
+    "extensions": ["obj"],
+    "supportsMeshes": true,
+    "supportsTextures": false,
+    "supportsMaterials": true,
+    "options": [
+      {
+        "id": "export_normals",
+        "label": "Export Normals",
+        "type": "bool",
+        "default": true
+      },
+      {
+        "id": "export_uvs",
+        "label": "Export UVs",
+        "type": "bool",
+        "default": true
+      },
+      {
+        "id": "triangulate",
+        "label": "Triangulate Faces",
+        "type": "bool",
+        "default": false
+      }
+    ]
+  },
+  {
+    "id": "png",
+    "name": "PNG Image",
+    "extensions": ["png"],
+    "supportsMeshes": false,
+    "supportsTextures": true,
+    "supportsMaterials": false,
+    "options": [
+      {
+        "id": "resolution",
+        "label": "Resolution",
+        "type": "enum",
+        "default": "2048",
+        "values": ["512", "1024", "2048", "4096", "8192"]
+      },
+      {
+        "id": "bit_depth",
+        "label": "Bit Depth",
+        "type": "enum",
+        "default": "8",
+        "values": ["8", "16"]
+      },
+      {
+        "id": "compression",
+        "label": "Compression Level",
+        "type": "int",
+        "default": 6,
+        "min": 0,
+        "max": 9
+      }
+    ]
+  },
+  {
+    "id": "jpg",
+    "name": "JPEG Image",
+    "extensions": ["jpg", "jpeg"],
+    "supportsMeshes": false,
+    "supportsTextures": true,
+    "supportsMaterials": false,
+    "options": [
+      {
+        "id": "resolution",
+        "label": "Resolution",
+        "type": "enum",
+        "default": "2048",
+        "values": ["512", "1024", "2048", "4096", "8192"]
+      },
+      {
+        "id": "quality",
+        "label": "Quality",
+        "type": "int",
+        "default": 90,
+        "min": 1,
+        "max": 100
+      }
+    ]
+  },
+  {
+    "id": "exr",
+    "name": "OpenEXR (HDR)",
+    "extensions": ["exr"],
+    "supportsMeshes": false,
+    "supportsTextures": true,
+    "supportsMaterials": false,
+    "options": [
+      {
+        "id": "resolution",
+        "label": "Resolution",
+        "type": "enum",
+        "default": "2048",
+        "values": ["512", "1024", "2048", "4096", "8192"]
+      },
+      {
+        "id": "compression",
+        "label": "Compression",
+        "type": "enum",
+        "default": "zip",
+        "values": ["none", "rle", "zip", "piz", "pxr24"]
+      },
+      {
+        "id": "bit_depth",
+        "label": "Bit Depth",
+        "type": "enum",
+        "default": "half",
+        "values": ["half", "float"]
+      }
+    ]
+  },
+  {
+    "id": "heightmap_png",
+    "name": "Heightmap (PNG)",
+    "extensions": ["png"],
+    "supportsMeshes": false,
+    "supportsTextures": true,
+    "supportsMaterials": false,
+    "options": [
+      {
+        "id": "resolution",
+        "label": "Resolution",
+        "type": "enum",
+        "default": "1024",
+        "values": ["512", "1024", "2048", "4096", "8192"]
+      },
+      {
+        "id": "bit_depth",
+        "label": "Bit Depth",
+        "type": "enum",
+        "default": "16",
+        "values": ["8", "16"]
+      },
+      {
+        "id": "normalize",
+        "label": "Normalize Height Range",
+        "type": "bool",
+        "default": true
+      }
+    ]
+  },
+  {
+    "id": "heightmap_exr",
+    "name": "Heightmap (EXR)",
+    "extensions": ["exr"],
+    "supportsMeshes": false,
+    "supportsTextures": true,
+    "supportsMaterials": false,
+    "options": [
+      {
+        "id": "resolution",
+        "label": "Resolution",
+        "type": "enum",
+        "default": "1024",
+        "values": ["512", "1024", "2048", "4096", "8192"]
+      },
+      {
+        "id": "compression",
+        "label": "Compression",
+        "type": "enum",
+        "default": "zip",
+        "values": ["none", "rle", "zip"]
+      }
+    ]
+  },
+  {
+    "id": "fbx",
+    "name": "Autodesk FBX",
+    "extensions": ["fbx"],
+    "supportsMeshes": true,
+    "supportsTextures": true,
+    "supportsMaterials": true,
+    "options": [
+      {
+        "id": "version",
+        "label": "FBX Version",
+        "type": "enum",
+        "default": "7.4",
+        "values": ["7.2", "7.3", "7.4", "7.5"]
+      },
+      {
+        "id": "ascii",
+        "label": "ASCII Format",
+        "type": "bool",
+        "default": false
+      },
+      {
+        "id": "embed_textures",
+        "label": "Embed Textures",
+        "type": "bool",
+        "default": true
+      }
+    ]
+  }
+]

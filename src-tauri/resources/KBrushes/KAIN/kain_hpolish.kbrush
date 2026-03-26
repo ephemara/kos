@@ -1,0 +1,30 @@
+{
+  "id": "kain_hpolish",
+  "name": "KAIN HPolish",
+  "category": "KAIN/Stamp",
+  "tags": ["kain", "polish", "smooth", "spirv"],
+  "icon": "✨",
+  "kernel": {
+    "family": "spirv",
+    "shader": "stamp_hpolish"
+  },
+  "params": {
+    "radius": 0.17,
+    "strength": 0.5,
+    "hardness": 0.6,
+    "spacing": 0.1,
+    "accumulate": true,
+    "subtract": false,
+    "front_faces_only": true,
+    "alpha_enabled": false,
+    "alpha_scale": 1.0,
+    "jitter_position": 0.0,
+    "jitter_rotation": 0.0,
+    "jitter_strength": 0.0,
+    "random_seed": 0.0,
+    "pressure_curve_idx": 0,
+    "speed_curve_idx": 0,
+    "tilt_curve_idx": 0
+  },
+  "textures": {}
+}

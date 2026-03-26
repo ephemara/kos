@@ -1,0 +1,29 @@
+# KAIN Omni Manifest - Renderer System
+# Builds Rust runtime + GPU bundles from renderer_system.kn
+
+[project]
+entry = "renderer_system.kn"
+build_dir = "dist"
+
+[import_resolution]
+inline_kain_imports = true
+search_roots = []
+
+[[targets]]
+kind = "rust"
+output = "dist/renderer_backend.rs"
+
+[[targets]]
+kind = "spirv"
+output = "dist/gbuffer_pass.spv"
+shader = "gbuffer_pass"
+
+[[targets]]
+kind = "spirv"
+output = "dist/lighting_pass.spv"
+shader = "lighting_pass"
+
+[[targets]]
+kind = "rust_bundle"
+output = "dist/gpu_bundle"
+artifacts = ["source", "shader_host", "shader_reflection", "spirv"]

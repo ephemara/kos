@@ -1,0 +1,307 @@
+/* K_OS RAW DOG THEME */
+
+:root {
+  /* COLORS */
+  --kos-bg: #0a0a0a;
+  --kos-bg-translucent: rgba(10, 10, 10, 0.95);
+  --kos-panel: #111111;
+  --kos-panel-header: #1a1a1a;
+  --kos-border: #333;
+  --kos-border-focus: #555;
+
+  --kos-accent-orange: #f97316;
+  --kos-accent-blue: #3b82f6;
+  --kos-accent-green: #22c55e;
+  --kos-accent-purple: #a855f7;
+
+  --kos-text: #e5e5e5;
+  --kos-text-muted: #888;
+
+  /* SIZING */
+  --header-height: 40px;
+  --footer-height: 30px;
+  --panel-width: 300px;
+
+  /* EFFECTS */
+  --glass: blur(12px);
+  --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  user-select: none;
+  /* Desktop app feel */
+}
+
+body {
+  background: var(--kos-bg);
+  color: var(--kos-text);
+  font-family: 'Inter', system-ui, sans-serif;
+  overflow: hidden;
+  height: 100vh;
+  width: 100vw;
+}
+
+/* 1. CANVAS LAYER */
+#kos-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  /* Canvas sits behind UI */
+}
+
+/* 2. UI OVERLAY */
+#ui-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  pointer-events: none;
+  /* Let clicks pass to canvas where there is no UI */
+}
+
+/* TOP BAR */
+#top-bar {
+  height: var(--header-height);
+  background: var(--kos-bg-translucent);
+  border-bottom: 1px solid var(--kos-border);
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  pointer-events: auto;
+  /* Catch clicks */
+  backdrop-filter: var(--glass);
+}
+
+.logo-icon {
+  width: 24px;
+  height: 24px;
+  background: linear-gradient(135deg, var(--kos-accent-orange), #ea580c);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+  font-size: 14px;
+  color: #000;
+  margin-right: 8px;
+}
+
+.logo-text {
+  font-weight: 800;
+  letter-spacing: 1px;
+  font-size: 12px;
+}
+
+/* APP SWITCHER */
+#app-switcher {
+  display: flex;
+  gap: 10px;
+  flex: 1;
+  justify-content: center;
+}
+
+.app-tab {
+  background: transparent;
+  border: none;
+  color: var(--kos-text-muted);
+  font-size: 12px;
+  font-weight: 700;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.app-tab.active {
+  background: var(--kos-accent-orange);
+  color: black;
+  box-shadow: 0 0 10px rgba(249, 115, 22, 0.4);
+}
+
+/* GOLDEN LAYOUT ROOT */
+#dock-root {
+  flex: 1;
+  width: 100%;
+  height: calc(100vh - var(--header-height) - var(--footer-height));
+  pointer-events: auto;
+  position: relative;
+}
+
+/* GOLDEN LAYOUT OVERRIDES */
+.lm_header {
+  background: var(--kos-panel-header) !important;
+  font-family: inherit !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  border-bottom: 1px solid var(--kos-border) !important;
+}
+
+.lm_title {
+  color: var(--kos-text-muted) !important;
+  font-family: inherit !important;
+}
+
+.lm_content {
+  background: var(--kos-bg-translucent) !important;
+  backdrop-filter: var(--glass) !important;
+  color: var(--kos-text) !important;
+}
+
+.lm_splitter:hover,
+.lm_splitter.lm_dragging {
+  background: var(--kos-accent-orange) !important;
+}
+
+.lm_tab {
+  background: transparent !important;
+  border: none !important;
+  color: var(--kos-text-muted) !important;
+}
+
+.lm_tab.lm_active {
+  background: var(--kos-bg-translucent) !important;
+  border-bottom: 2px solid var(--kos-accent-orange) !important;
+  color: var(--kos-text) !important;
+  box-shadow: none !important;
+}
+
+/* FOOTER */
+#bottom-bar {
+  height: var(--footer-height);
+  background: var(--kos-bg-translucent);
+  border-top: 1px solid var(--kos-border);
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  font-size: 10px;
+  font-family: monospace;
+  color: var(--kos-text-muted);
+  pointer-events: auto;
+}
+
+/* MODALS */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: auto;
+  opacity: 1;
+  transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.modal.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.modal-content {
+  width: 80%;
+  height: 80%;
+  background: var(--kos-bg-translucent);
+  border: 1px solid var(--kos-border);
+  border-radius: 12px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+  backdrop-filter: var(--glass);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  animation: modal-pop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes modal-pop {
+  from {
+    transform: scale(0.9) translateY(20px);
+    opacity: 0;
+  }
+
+  to {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
+}
+
+.modal-content header {
+  padding: 15px 20px;
+  background: var(--kos-panel-header);
+  border-bottom: 1px solid var(--kos-border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-content header h2 {
+  font-size: 11px;
+  letter-spacing: 2px;
+  font-weight: 900;
+  color: var(--kos-accent-orange);
+}
+
+/* SCROLLBAR */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #333;
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: var(--kos-accent-orange);
+}
+
+/* NOTIFICATIONS */
+#notification-layer .notification {
+  animation: slide-in-toast 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes slide-in-toast {
+  from {
+    transform: translateX(120%);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}
+
+/* UTILS */
+.glass-panel {
+  background: rgba(20, 20, 20, 0.7);
+  backdrop-filter: blur(30px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.flex-1 {
+  flex: 1;
+}
+
+.overflow-y-auto {
+  overflow-y: auto;
+}
+
+.hidden {
+  display: none !important;
+}

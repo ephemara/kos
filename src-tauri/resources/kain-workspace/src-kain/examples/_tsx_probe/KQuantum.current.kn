@@ -1,0 +1,214 @@
+# Generated from TypeScript source by kain import-ts
+
+component KQuantum() with Reactive:
+    state appMode: String = "QUANTUM"
+    state isPlaying: Any = true
+    state status: Any = "K-QUANTUM: READY"
+    state simRes: Any = 256
+    state mode: Any = 0
+    state speed: Any = 1
+    state chaos: Any = 1
+    state damping: Any = 0.96
+    state highFidelity: Any = false
+    state fluidSimEnabled: Any = false
+    state particleLifeEnabled: Any = false
+    state lifeDecayRate: Any = 0.005
+    state respawnBounds: Any = 100
+    state forceMultiplier: Any = 1
+    state curlStrength: Any = 1
+    state centerPull: Any = 0
+    state maxVelocity: Any = 50
+    state showDebug: Any = false
+    state cfdResolution: Any = 64
+    state cfdViscosity: Any = 0.001
+    state cfdBuoyancy: Any = 2
+    state cfdVorticityConfinement: Any = 1
+    state cfdDissipation: Any = 0.99
+    state cfdFluidType: Any = "Smoke"
+    state cfdEmitterRadius: Any = 5
+    state cfdEmitterVelocity: Any = 10
+    state cfdEmitterTemperature: Any = 50
+    state entanglementActive: Any = false
+    state activeModifiers: [String] = []
+    state modParams: Any = none
+    state colorHex: Any = "#00ffcc"
+    state color2Hex: Any = "#ff00cc"
+    state colorMode: Any = 0
+    state pointSize: Any = 1
+    state opacity: Any = 0.8
+    state gradientStrength: Any = 1
+    state aberration: Any = 1
+    state decay: Any = 0.9
+    state distortion: Any = 0
+    state bloomIntensity: Any = 1.5
+    state bloomThreshold: Any = 0.3
+    state currentPalette: Any = "COSMIC"
+    state audioSensitivity: Any = none
+    state recResolution: Any = "WINDOW"
+    state isRecording: Any = false
+    state engineRef: Any = useRef(none)
+    state leftTabs: [DockTab] = [none, none, none]
+    state rightTabs: [DockTab] = [none, none, none]
+    fn setAppMode(value: String):
+        (appMode = value)
+
+    fn setIsPlaying(value: Any):
+        (isPlaying = value)
+
+    fn setStatus(value: Any):
+        (status = value)
+
+    fn setSimRes(value: Any):
+        (simRes = value)
+
+    fn setMode(value: Any):
+        (mode = value)
+
+    fn setSpeed(value: Any):
+        (speed = value)
+
+    fn setChaos(value: Any):
+        (chaos = value)
+
+    fn setDamping(value: Any):
+        (damping = value)
+
+    fn setHighFidelity(value: Any):
+        (highFidelity = value)
+
+    fn setFluidSimEnabled(value: Any):
+        (fluidSimEnabled = value)
+
+    fn setParticleLifeEnabled(value: Any):
+        (particleLifeEnabled = value)
+
+    fn setLifeDecayRate(value: Any):
+        (lifeDecayRate = value)
+
+    fn setRespawnBounds(value: Any):
+        (respawnBounds = value)
+
+    fn setForceMultiplier(value: Any):
+        (forceMultiplier = value)
+
+    fn setCurlStrength(value: Any):
+        (curlStrength = value)
+
+    fn setCenterPull(value: Any):
+        (centerPull = value)
+
+    fn setMaxVelocity(value: Any):
+        (maxVelocity = value)
+
+    fn setShowDebug(value: Any):
+        (showDebug = value)
+
+    fn setCfdResolution(value: Any):
+        (cfdResolution = value)
+
+    fn setCfdViscosity(value: Any):
+        (cfdViscosity = value)
+
+    fn setCfdBuoyancy(value: Any):
+        (cfdBuoyancy = value)
+
+    fn setCfdVorticityConfinement(value: Any):
+        (cfdVorticityConfinement = value)
+
+    fn setCfdDissipation(value: Any):
+        (cfdDissipation = value)
+
+    fn setCfdFluidType(value: Any):
+        (cfdFluidType = value)
+
+    fn setCfdEmitterRadius(value: Any):
+        (cfdEmitterRadius = value)
+
+    fn setCfdEmitterVelocity(value: Any):
+        (cfdEmitterVelocity = value)
+
+    fn setCfdEmitterTemperature(value: Any):
+        (cfdEmitterTemperature = value)
+
+    fn setEntanglementActive(value: Any):
+        (entanglementActive = value)
+
+    fn setActiveModifiers(value: [String]):
+        (activeModifiers = value)
+
+    fn setModParams(value: Any):
+        (modParams = value)
+
+    fn setColorHex(value: Any):
+        (colorHex = value)
+
+    fn setColor2Hex(value: Any):
+        (color2Hex = value)
+
+    fn setColorMode(value: Any):
+        (colorMode = value)
+
+    fn setPointSize(value: Any):
+        (pointSize = value)
+
+    fn setOpacity(value: Any):
+        (opacity = value)
+
+    fn setGradientStrength(value: Any):
+        (gradientStrength = value)
+
+    fn setAberration(value: Any):
+        (aberration = value)
+
+    fn setDecay(value: Any):
+        (decay = value)
+
+    fn setDistortion(value: Any):
+        (distortion = value)
+
+    fn setBloomIntensity(value: Any):
+        (bloomIntensity = value)
+
+    fn setBloomThreshold(value: Any):
+        (bloomThreshold = value)
+
+    fn setCurrentPalette(value: Any):
+        (currentPalette = value)
+
+    fn setAudioSensitivity(value: Any):
+        (audioSensitivity = value)
+
+    fn setRecResolution(value: Any):
+        (recResolution = value)
+
+    fn setIsRecording(value: Any):
+        (isRecording = value)
+
+    fn handleAudioUpload(e: Any):
+        setStatus("AUDIO LOADED")
+
+    fn handleReset():
+        setMode(0)
+        setSpeed(1)
+        setChaos(1)
+        setDamping(0.96)
+        setActiveModifiers([])
+        setStatus("SIMULATION RESET")
+
+    fn exportGLB():
+        none
+        setStatus("VALIDATING...")
+
+    fn exportOBJ():
+        none
+        setStatus("VALIDATING...")
+
+    fn handleUplink():
+        (await exportGLB())
+
+    fn toggleRecording():
+        setIsRecording((!isRecording))
+        setStatus(none)
+
+    render <AppShell menuBar={<AppMenuBar />} topBar={<TopBar appMode={appMode} setAppMode={setAppMode} isPlaying={isPlaying} togglePlay={none} handleReset={handleReset} highFidelity={highFidelity} setHighFidelity={setHighFidelity} onUplink={handleUplink} />} left={none} right={none} bottom={undefined} bottomHeight={0}><div className="relative w-full h-full bg-black"><KQuantumEngine simRes={simRes} mode={mode} speed={speed} chaos={chaos} damping={damping} pointSize={pointSize} opacity={opacity} colorHex={colorHex} color2Hex={color2Hex} colorMode={colorMode} gradientStrength={gradientStrength} highFidelity={highFidelity} autoOrbit={(!isPlaying)} aberration={aberration} distortion={distortion} decay={decay} activeModifiers={activeModifiers} modParams={modParams} userScript="" isScriptActive={false} audioBass={0} audioHigh={0} audioLevel={0} fluidSimEnabled={fluidSimEnabled} particleLifeEnabled={particleLifeEnabled} lifeDecayRate={lifeDecayRate} respawnBounds={respawnBounds} forceMultiplier={forceMultiplier} curlStrength={curlStrength} centerPull={centerPull} maxVelocity={maxVelocity} appMode={appMode} cfdResolution={cfdResolution} cfdViscosity={cfdViscosity} cfdBuoyancy={cfdBuoyancy} cfdVorticityConfinement={cfdVorticityConfinement} cfdDissipation={cfdDissipation} cfdFluidType={cfdFluidType} cfdEmitterRadius={cfdEmitterRadius} cfdEmitterVelocity={cfdEmitterVelocity} cfdEmitterTemperature={cfdEmitterTemperature} engineRef={engineRef} /><div className="absolute bottom-4 left-4 text-[10px] font-mono text-blue-500/50 pointer-events-none">{status}:: RES:{simRes}:: MODE:{mode}</div></div></AppShell>
+

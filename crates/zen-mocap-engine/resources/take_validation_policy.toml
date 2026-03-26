@@ -1,0 +1,24 @@
+[fps]
+min = 1.0
+max = 240.0
+
+[frame_count]
+min = 1
+max = 172800
+
+[tags]
+max_count = 16
+max_len = 64
+
+[rotations]
+require_frame_alignment = true
+min_joints_per_frame = 1
+max_joints_per_frame = 512
+
+[sequencing]
+require_strict_seq_increment = true
+require_monotonic_timestamps = true
+
+[metadata]
+require_model_id = true
+require_known_model = true

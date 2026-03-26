@@ -1,0 +1,12 @@
+[package]
+name = "k-os-animation"
+version = "0.1.0"
+edition = "2021"
+description = "K_OS native animation asset and clip metadata types"
+
+[lib]
+name = "k_os_animation"
+path = "src/lib.rs"
+
+[dependencies]
+serde = { version = "1.0", features = ["derive"] }

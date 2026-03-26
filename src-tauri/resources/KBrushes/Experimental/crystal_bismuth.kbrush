@@ -1,0 +1,17 @@
+{
+  "id": "crystal_bismuth",
+  "name": "Bismuth Crystal",
+  "category": "Experimental",
+  "tags": ["bismuth", "crystal", "stepped", "terrace", "gpu"],
+  "kernel": "crystal_bismuth",
+  "params": {
+    "radius": 0.18,
+    "strength": 0.9,
+    "hardness": 0.5,
+    "spacing": 0.06,
+    "extras": {
+      "extra0": 0.03,
+      "extra1": 5.0
+    }
+  }
+}

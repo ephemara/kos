@@ -1,0 +1,32 @@
+{
+  "id": "melt_drip",
+  "name": "Melt Drip",
+  "category": "Sculpt/Simulation",
+  "tags": ["simulation", "melt", "drip", "liquid"],
+  "kernel": "grab",
+  "params": {
+    "radius": 0.08,
+    "strength": 0.7,
+    "hardness": 0.2,
+    "spacing": 0.03,
+    "lazy_radius": 0.04,
+    "subtract": false,
+    "front_faces_only": true,
+    "accumulate": false,
+    "jitter_position": 0.01,
+    "jitter_rotation": 0.2,
+    "jitter_strength": 0.2,
+    "falloff_type": "gaussian",
+    "extras": {
+      "viscosity": 0.6,
+      "surface_tension": 0.3,
+      "gravity_factor": 0.8
+    }
+  },
+  "textures": {},
+  "pressure_strength": "soft",
+  "pressure_radius": "soft",
+  "speed_radius": null,
+  "tilt_rotation": null,
+  "entry_fade_dabs": 4
+}

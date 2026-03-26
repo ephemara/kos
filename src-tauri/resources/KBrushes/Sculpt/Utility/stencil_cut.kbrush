@@ -1,0 +1,32 @@
+{
+  "id": "stencil_cut",
+  "name": "Stencil Cut",
+  "category": "Sculpt/Utility",
+  "tags": ["utility", "stencil", "cut", "mask"],
+  "kernel": "pinch",
+  "params": {
+    "radius": 0.05,
+    "strength": 1.0,
+    "hardness": 1.0,
+    "spacing": 0.01,
+    "lazy_radius": 0.0,
+    "subtract": true,
+    "front_faces_only": false,
+    "accumulate": false,
+    "jitter_position": 0.0,
+    "jitter_rotation": 0.0,
+    "jitter_strength": 0.0,
+    "falloff_type": "flat",
+    "extras": {
+      "stencil_shape": "custom",
+      "cut_depth": 1.0,
+      "edge_quality": "sharp"
+    }
+  },
+  "textures": {},
+  "pressure_strength": "hard",
+  "pressure_radius": null,
+  "speed_radius": null,
+  "tilt_rotation": null,
+  "entry_fade_dabs": 0
+}

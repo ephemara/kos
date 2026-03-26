@@ -1,0 +1,28 @@
+{
+  "id": "twist",
+  "name": "Twist",
+  "category": "Sculpt/Grab",
+  "tags": ["sculpt", "twist", "rotate", "spiral"],
+  "kernel": "grab",
+  "params": {
+    "radius": 0.2,
+    "strength": 0.5,
+    "hardness": 0.4,
+    "spacing": 0.03,
+    "lazy_radius": 0.0,
+    "subtract": false,
+    "front_faces_only": false,
+    "accumulate": false,
+    "jitter_position": 0.0,
+    "jitter_rotation": 0.0,
+    "jitter_strength": 0.0,
+    "extras": {
+      "entry_point": 3.0,
+      "twist_angle": 0.1
+    }
+  },
+  "textures": {},
+  "pressure_strength": "soft",
+  "speed_radius": null,
+  "tilt_rotation": null
+}

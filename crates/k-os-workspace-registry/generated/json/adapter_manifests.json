@@ -1,0 +1,978 @@
+{
+  "adapter_count": 4,
+  "adapters": [
+    {
+      "adapter_target": "bevy",
+      "package_count": 5,
+      "packages": [
+        {
+          "package_name": "k-os-bevy",
+          "stability_tier": "host-api",
+          "capabilities": [
+            "bevy-renderer",
+            "gpu",
+            "k-os",
+            "workspace-host"
+          ],
+          "recommended_entrypoints": [
+            "crate::ImportGltfEvent"
+          ],
+          "pressure_priority": "low"
+        },
+        {
+          "package_name": "k-os-game-runtime",
+          "stability_tier": "integration",
+          "capabilities": [
+            "game",
+            "k-os",
+            "pipeline-manifest-schema",
+            "registry-compatibility",
+            "runtime-policy"
+          ],
+          "recommended_entrypoints": [
+            "crate::build_execution_plan",
+            "crate::execute_plan_with_builtin_adapters",
+            "crate::load_manifest_from_file",
+            "crate::run_preflight_checks"
+          ],
+          "pressure_priority": "low"
+        },
+        {
+          "package_name": "k-os-gpu-pipeline",
+          "stability_tier": "integration",
+          "capabilities": [
+            "compute-pipeline",
+            "gpu",
+            "k-os",
+            "kain",
+            "shader-dispatch"
+          ],
+          "recommended_entrypoints": [
+            "crate::GpuComputeDevice",
+            "crate::GpuMeshBridge",
+            "crate::GpuNormalCompute",
+            "crate::GpuSculptCompute",
+            "crate::gpu"
+          ],
+          "pressure_priority": "critical"
+        },
+        {
+          "package_name": "k-os-sculpt",
+          "stability_tier": "integration",
+          "capabilities": [
+            "gpu",
+            "k-os",
+            "mesh-edit",
+            "sculpt",
+            "stroke-application"
+          ],
+          "recommended_entrypoints": [
+            "crate::commands::apply_brush",
+            "crate::commands::apply_brush_spirv",
+            "crate::commands::get_sculpt_viewport_payload",
+            "crate::commands::init_sculpt_mesh"
+          ],
+          "pressure_priority": "medium"
+        },
+        {
+          "package_name": "k-os-workspace-registry",
+          "stability_tier": "integration",
+          "capabilities": [
+            "build-script",
+            "cargo-metadata-registry",
+            "k-os",
+            "manifest-extraction",
+            "workspace-proof"
+          ],
+          "recommended_entrypoints": [
+            "crate::api_bloat_pressure_report",
+            "crate::public_api_registry",
+            "crate::workspace_registry"
+          ],
+          "pressure_priority": "low"
+        }
+      ]
+    },
+    {
+      "adapter_target": "external",
+      "package_count": 28,
+      "packages": [
+        {
+          "package_name": "k-os-baking",
+          "stability_tier": "integration",
+          "capabilities": [
+            "gpu",
+            "k-os"
+          ],
+          "recommended_entrypoints": [
+            "crate::Aabb",
+            "crate::AoBaker",
+            "crate::BakeMesh",
+            "crate::BakeSettings",
+            "crate::BakingError",
+            "crate::BakingSystem"
+          ],
+          "pressure_priority": "medium"
+        },
+        {
+          "package_name": "k-os-brushes",
+          "stability_tier": "integration",
+          "capabilities": [
+            "gpu",
+            "k-os"
+          ],
+          "recommended_entrypoints": [
+            "crate::AlphaSlot",
+            "crate::BRUSH_LIBRARY",
+            "crate::BrushCurve",
+            "crate::BrushKernel",
+            "crate::BrushParams",
+            "crate::BrushParamsGpu"
+          ],
+          "pressure_priority": "medium"
+        },
+        {
+          "package_name": "k-os-config",
+          "stability_tier": "integration",
+          "capabilities": [
+            "k-os"
+          ],
+          "recommended_entrypoints": [
+            "crate::*"
+          ],
+          "pressure_priority": "medium"
+        },
+        {
+          "package_name": "k-os-external",
+          "stability_tier": "integration",
+          "capabilities": [
+            "k-os"
+          ],
+          "recommended_entrypoints": [
+            "crate::*"
+          ],
+          "pressure_priority": "low"
+        },
+        {
+          "package_name": "k-os-game-runtime",
+          "stability_tier": "integration",
+          "capabilities": [
+            "game",
+            "k-os",
+            "pipeline-manifest-schema",
+            "registry-compatibility",
+            "runtime-policy"
+          ],
+          "recommended_entrypoints": [
+            "crate::build_execution_plan",
+            "crate::execute_plan_with_builtin_adapters",
+            "crate::load_manifest_from_file",
+            "crate::run_preflight_checks"
+          ],
+          "pressure_priority": "low"
+        },
+        {
+          "package_name": "k-os-gpu-pipeline",
+          "stability_tier": "integration",
+          "capabilities": [
+            "compute-pipeline",
+            "gpu",
+            "k-os",
+            "kain",
+            "shader-dispatch"
+          ],
+          "recommended_entrypoints": [
+            "crate::GpuComputeDevice",
+            "crate::GpuMeshBridge",
+            "crate::GpuNormalCompute",
+            "crate::GpuSculptCompute",
+            "crate::gpu"
+          ],
+          "pressure_priority": "critical"
+        },
+        {
+          "package_name": "k-os-hdr",
+          "stability_tier": "integration",
+          "capabilities": [
+            "gpu",
+            "k-os"
+          ],
+          "recommended_entrypoints": [
+            "crate::*"
+          ],
+          "pressure_priority": "low"
+        },
+        {
+          "package_name": "k-os-io",
+          "stability_tier": "integration",
+          "capabilities": [
+            "k-os"
+          ],
+          "recommended_entrypoints": [
+            "crate::Asset",
+            "crate::AssetHandle",
+            "crate::AssetMetadata",
+            "crate::AssetQuery",
+            "crate::AssetType",
+            "crate::StorageBackend"
+          ],
+          "pressure_priority": "high"
+        },
+        {
+          "package_name": "k-os-kain",
+          "stability_tier": "integration",
+          "capabilities": [
+            "artifact-provider",
+            "build-script",
+            "domain-metadata",
+            "gpu",
+            "k-os",
+            "kain",
+            "runtime-app-registry",
+            "spirv-source-registry"
+          ],
+          "recommended_entrypoints": [
+            "crate::build_file",
+            "crate::compile_source",
+            "crate::generated_runtime_app_by_id",
+            "crate::generated_spirv_by_id",
+            "crate::list_runtime_apps",
+            "crate::list_sources"
+          ],
+          "pressure_priority": "low"
+        },
+        {
+          "package_name": "k-os-material",
+          "stability_tier": "integration",
+          "capabilities": [
+            "gpu",
+            "k-os"
+          ],
+          "recommended_entrypoints": [
+            "crate::AlphaMode",
+            "crate::ClearcoatExtension",
+            "crate::Material",
+            "crate::MaterialError",
+            "crate::MaterialLibrary",
+            "crate::MaterialPreset"
+          ],
+          "pressure_priority": "critical"
+        },
+        {
+          "package_name": "k-os-photogrammetry",
+          "stability_tier": "integration",
+          "capabilities": [
+            "gpu",
+            "k-os"
+          ],
+          "recommended_entrypoints": [
+            "crate::*"
+          ],
+          "pressure_priority": "low"
+        },
+        {
+          "package_name": "k-os-renderer",
+          "stability_tier": "integration",
+          "capabilities": [
+            "gpu",
+            "k-os",
+            "kain"
+          ],
+          "recommended_entrypoints": [
+            "crate::BridgeError",
+            "crate::CameraState",
+            "crate::DirectRendererUploadBridge",
+            "crate::DispatchTopology",
+            "crate::DrawPacket",
+            "crate::EvaluatedMeshSource"
+          ],
+          "pressure_priority": "medium"
+        },
+        {
+          "package_name": "k-os-scatter",
+          "stability_tier": "integration",
+          "capabilities": [
+            "k-os"
+          ],
+          "recommended_entrypoints": [
+            "crate::cluster_scatter",
+            "crate::fibonacci_spiral_scatter",
+            "crate::halton_scatter",
+            "crate::organic_scatter",
+            "crate::physics_drop_scatter",
+            "crate::poisson_disk_scatter"
+          ],
+          "pressure_priority": "low"
+        },
+        {
+          "package_name": "k-os-scene-runtime",
+          "stability_tier": "integration",
+          "capabilities": [
+            "gpu",
+            "k-os"
+          ],
+          "recommended_entrypoints": [
+            "crate::mesh_state::SharedMesh",
+            "crate::mesh_state::SharedMeshInfo",
+            "crate::mesh_state::dispose_shared_mesh",
+            "crate::mesh_state::dispose_shared_mesh_cmd",
+            "crate::mesh_state::evaluate_viewport_bridge_summary",
+            "crate::mesh_state::evaluate_viewport_payload"
+          ],
+          "pressure_priority": "low"
+        },
+        {
+          "package_name": "k-os-sculpt",
+          "stability_tier": "integration",
+          "capabilities": [
+            "gpu",
+            "k-os",
+            "mesh-edit",
+            "sculpt",
+            "stroke-application"
+          ],
+          "recommended_entrypoints": [
+            "crate::commands::apply_brush",
+            "crate::commands::apply_brush_spirv",
+            "crate::commands::get_sculpt_viewport_payload",
+            "crate::commands::init_sculpt_mesh"
+          ],
+          "pressure_priority": "medium"
+        },
+        {
+          "package_name": "k-os-sim",
+          "stability_tier": "integration",
+          "capabilities": [
+            "k-os"
+          ],
+          "recommended_entrypoints": [
+            "crate::FLUID_SIMS",
+            "crate::cfd_add_source",
+            "crate::cfd_create",
+            "crate::cfd_dispose",
+            "crate::cfd_get_density_field",
+            "crate::cfd_get_velocity_field"
+          ],
+          "pressure_priority": "medium"
+        },
+        {
+          "package_name": "k-os-wasm",
+          "stability_tier": "integration",
+          "capabilities": [
+            "gpu",
+            "k-os"
+          ],
+          "recommended_entrypoints": [
+            "crate::init_gpu",
+            "crate::painter_dispose",
+            "crate::painter_init",
+            "crate::painter_reset",
+            "crate::painter_update",
+            "crate::raycast"
+          ],
+          "pressure_priority": "low"
+        },
+        {
+          "package_name": "k-os-workspace-registry",
+          "stability_tier": "integration",
+          "capabilities": [
+            "build-script",
+            "cargo-metadata-registry",
+            "k-os",
+            "manifest-extraction",
+            "workspace-proof"
+          ],
+          "recommended_entrypoints": [
+            "crate::api_bloat_pressure_report",
+            "crate::public_api_registry",
+            "crate::workspace_registry"
+          ],
+          "pressure_priority": "low"
+        },
+        {
+          "package_name": "zen-assets",
+          "stability_tier": "integration",
+          "capabilities": [
+            "zen"
+          ],
+          "recommended_entrypoints": [
+            "crate::ZenAssetCatalog",
+            "crate::ZenAssetRoot"
+          ],
+          "pressure_priority": "low"
+        },
+        {
+          "package_name": "zen-core",
+          "stability_tier": "integration",
+          "capabilities": [
+            "zen"
+          ],
+          "recommended_entrypoints": [
+            "crate::command_label"
+          ],
+          "pressure_priority": "low"
+        },
+        {
+          "package_name": "zen-editor",
+          "stability_tier": "integration",
+          "capabilities": [
+            "kain",
+            "zen"
+          ],
+          "recommended_entrypoints": [
+            "crate::load_editor_session",
+            "crate::load_persisted_dock_state",
+            "crate::load_user_layouts",
+            "crate::persist_dock_state",
+            "crate::persist_editor_session",
+            "crate::persist_user_layouts"
+          ],
+          "pressure_priority": "low"
+        },
+        {
+          "package_name": "zen-host",
+          "stability_tier": "integration",
+          "capabilities": [
+            "kain",
+            "zen"
+          ],
+          "recommended_entrypoints": [
+            "crate::ZenHostAction",
+            "crate::ZenHostApi",
+            "crate::ZenHostBinding",
+            "crate::ZenHostBindingKind"
+          ],
+          "pressure_priority": "low"
+        },
+        {
+          "package_name": "zen-kain-api",
+          "stability_tier": "integration",
+          "capabilities": [
+            "kain",
+            "zen"
+          ],
+          "recommended_entrypoints": [
+            "crate::ZenKainActionContract",
+            "crate::ZenKainBindingContract",
+            "crate::ZenKainContract",
+            "crate::ZenKainShellContract"
+          ],
+          "pressure_priority": "low"
+        },
+        {
+          "package_name": "zen-kain-modules",
+          "stability_tier": "integration",
+          "capabilities": [
+            "kain",
+            "zen"
+          ],
+          "recommended_entrypoints": [
+            "crate::ZenKainModuleRegistry",
+            "crate::ZenResolvedShell",
+            "crate::ZenShellModule"
+          ],
+          "pressure_priority": "low"
+        },
+        {
+          "package_name": "zen-mocap-engine",
+          "stability_tier": "integration",
+          "capabilities": [
+            "gpu",
+            "kain",
+            "zen"
+          ],
+          "recommended_entrypoints": [
+            "crate::JointFrame",
+            "crate::MocapSession",
+            "crate::PipelineEvent",
+            "crate::PipelineStats",
+            "crate::SessionConfig"
+          ],
+          "pressure_priority": "high"
+        },
+        {
+          "package_name": "zen-render",
+          "stability_tier": "integration",
+          "capabilities": [
+            "zen"
+          ],
+          "recommended_entrypoints": [
+            "crate::ZenRenderPass",
+            "crate::ZenRenderProfile"
+          ],
+          "pressure_priority": "low"
+        },
+        {
+          "package_name": "zen-runtime",
+          "stability_tier": "integration",
+          "capabilities": [
+            "zen"
+          ],
+          "recommended_entrypoints": [
+            "crate::ZenDispatchResult",
+            "crate::ZenRuntimeSession"
+          ],
+          "pressure_priority": "low"
+        },
+        {
+          "package_name": "zen-scene",
+          "stability_tier": "integration",
+          "capabilities": [
+            "gpu",
+            "zen"
+          ],
+          "recommended_entrypoints": [
+            "crate::SceneFocusTarget",
+            "crate::SceneImportReport",
+            "crate::SceneMesh",
+            "crate::SceneObjectEntry",
+            "crate::SelectedObjectDetails",
+            "crate::SelectedObjectSummary"
+          ],
+          "pressure_priority": "low"
+        }
+      ]
+    },
+    {
+      "adapter_target": "tauri",
+      "package_count": 13,
+      "packages": [
+        {
+          "package_name": "k-os-backend",
+          "stability_tier": "host-api",
+          "capabilities": [
+            "build-script",
+            "gpu",
+            "ipc-proxy",
+            "k-os",
+            "kain",
+            "workspace-host"
+          ],
+          "recommended_entrypoints": [],
+          "pressure_priority": "low"
+        },
+        {
+          "package_name": "k-os-brushes",
+          "stability_tier": "integration",
+          "capabilities": [
+            "gpu",
+            "k-os"
+          ],
+          "recommended_entrypoints": [
+            "crate::AlphaSlot",
+            "crate::BRUSH_LIBRARY",
+            "crate::BrushCurve",
+            "crate::BrushKernel",
+            "crate::BrushParams",
+            "crate::BrushParamsGpu"
+          ],
+          "pressure_priority": "medium"
+        },
+        {
+          "package_name": "k-os-config",
+          "stability_tier": "integration",
+          "capabilities": [
+            "k-os"
+          ],
+          "recommended_entrypoints": [
+            "crate::*"
+          ],
+          "pressure_priority": "medium"
+        },
+        {
+          "package_name": "k-os-external",
+          "stability_tier": "integration",
+          "capabilities": [
+            "k-os"
+          ],
+          "recommended_entrypoints": [
+            "crate::*"
+          ],
+          "pressure_priority": "low"
+        },
+        {
+          "package_name": "k-os-game-runtime",
+          "stability_tier": "integration",
+          "capabilities": [
+            "game",
+            "k-os",
+            "pipeline-manifest-schema",
+            "registry-compatibility",
+            "runtime-policy"
+          ],
+          "recommended_entrypoints": [
+            "crate::build_execution_plan",
+            "crate::execute_plan_with_builtin_adapters",
+            "crate::load_manifest_from_file",
+            "crate::run_preflight_checks"
+          ],
+          "pressure_priority": "low"
+        },
+        {
+          "package_name": "k-os-gpu-pipeline",
+          "stability_tier": "integration",
+          "capabilities": [
+            "compute-pipeline",
+            "gpu",
+            "k-os",
+            "kain",
+            "shader-dispatch"
+          ],
+          "recommended_entrypoints": [
+            "crate::GpuComputeDevice",
+            "crate::GpuMeshBridge",
+            "crate::GpuNormalCompute",
+            "crate::GpuSculptCompute",
+            "crate::gpu"
+          ],
+          "pressure_priority": "critical"
+        },
+        {
+          "package_name": "k-os-io",
+          "stability_tier": "integration",
+          "capabilities": [
+            "k-os"
+          ],
+          "recommended_entrypoints": [
+            "crate::Asset",
+            "crate::AssetHandle",
+            "crate::AssetMetadata",
+            "crate::AssetQuery",
+            "crate::AssetType",
+            "crate::StorageBackend"
+          ],
+          "pressure_priority": "high"
+        },
+        {
+          "package_name": "k-os-kain",
+          "stability_tier": "integration",
+          "capabilities": [
+            "artifact-provider",
+            "build-script",
+            "domain-metadata",
+            "gpu",
+            "k-os",
+            "kain",
+            "runtime-app-registry",
+            "spirv-source-registry"
+          ],
+          "recommended_entrypoints": [
+            "crate::build_file",
+            "crate::compile_source",
+            "crate::generated_runtime_app_by_id",
+            "crate::generated_spirv_by_id",
+            "crate::list_runtime_apps",
+            "crate::list_sources"
+          ],
+          "pressure_priority": "low"
+        },
+        {
+          "package_name": "k-os-scatter",
+          "stability_tier": "integration",
+          "capabilities": [
+            "k-os"
+          ],
+          "recommended_entrypoints": [
+            "crate::cluster_scatter",
+            "crate::fibonacci_spiral_scatter",
+            "crate::halton_scatter",
+            "crate::organic_scatter",
+            "crate::physics_drop_scatter",
+            "crate::poisson_disk_scatter"
+          ],
+          "pressure_priority": "low"
+        },
+        {
+          "package_name": "k-os-sculpt",
+          "stability_tier": "integration",
+          "capabilities": [
+            "gpu",
+            "k-os",
+            "mesh-edit",
+            "sculpt",
+            "stroke-application"
+          ],
+          "recommended_entrypoints": [
+            "crate::commands::apply_brush",
+            "crate::commands::apply_brush_spirv",
+            "crate::commands::get_sculpt_viewport_payload",
+            "crate::commands::init_sculpt_mesh"
+          ],
+          "pressure_priority": "medium"
+        },
+        {
+          "package_name": "k-os-sim",
+          "stability_tier": "integration",
+          "capabilities": [
+            "k-os"
+          ],
+          "recommended_entrypoints": [
+            "crate::FLUID_SIMS",
+            "crate::cfd_add_source",
+            "crate::cfd_create",
+            "crate::cfd_dispose",
+            "crate::cfd_get_density_field",
+            "crate::cfd_get_velocity_field"
+          ],
+          "pressure_priority": "medium"
+        },
+        {
+          "package_name": "k-os-workspace-registry",
+          "stability_tier": "integration",
+          "capabilities": [
+            "build-script",
+            "cargo-metadata-registry",
+            "k-os",
+            "manifest-extraction",
+            "workspace-proof"
+          ],
+          "recommended_entrypoints": [
+            "crate::api_bloat_pressure_report",
+            "crate::public_api_registry",
+            "crate::workspace_registry"
+          ],
+          "pressure_priority": "low"
+        },
+        {
+          "package_name": "zen-mocap-engine",
+          "stability_tier": "integration",
+          "capabilities": [
+            "gpu",
+            "kain",
+            "zen"
+          ],
+          "recommended_entrypoints": [
+            "crate::JointFrame",
+            "crate::MocapSession",
+            "crate::PipelineEvent",
+            "crate::PipelineStats",
+            "crate::SessionConfig"
+          ],
+          "pressure_priority": "high"
+        }
+      ]
+    },
+    {
+      "adapter_target": "zen",
+      "package_count": 14,
+      "packages": [
+        {
+          "package_name": "k-os-gpu-pipeline",
+          "stability_tier": "integration",
+          "capabilities": [
+            "compute-pipeline",
+            "gpu",
+            "k-os",
+            "kain",
+            "shader-dispatch"
+          ],
+          "recommended_entrypoints": [
+            "crate::GpuComputeDevice",
+            "crate::GpuMeshBridge",
+            "crate::GpuNormalCompute",
+            "crate::GpuSculptCompute",
+            "crate::gpu"
+          ],
+          "pressure_priority": "critical"
+        },
+        {
+          "package_name": "k-os-kain",
+          "stability_tier": "integration",
+          "capabilities": [
+            "artifact-provider",
+            "build-script",
+            "domain-metadata",
+            "gpu",
+            "k-os",
+            "kain",
+            "runtime-app-registry",
+            "spirv-source-registry"
+          ],
+          "recommended_entrypoints": [
+            "crate::build_file",
+            "crate::compile_source",
+            "crate::generated_runtime_app_by_id",
+            "crate::generated_spirv_by_id",
+            "crate::list_runtime_apps",
+            "crate::list_sources"
+          ],
+          "pressure_priority": "low"
+        },
+        {
+          "package_name": "k-os-workspace-registry",
+          "stability_tier": "integration",
+          "capabilities": [
+            "build-script",
+            "cargo-metadata-registry",
+            "k-os",
+            "manifest-extraction",
+            "workspace-proof"
+          ],
+          "recommended_entrypoints": [
+            "crate::api_bloat_pressure_report",
+            "crate::public_api_registry",
+            "crate::workspace_registry"
+          ],
+          "pressure_priority": "low"
+        },
+        {
+          "package_name": "zen",
+          "stability_tier": "host-api",
+          "capabilities": [
+            "artifact-provider",
+            "gpu",
+            "kain",
+            "kain-ui-host",
+            "native-renderer",
+            "workspace-host",
+            "zen"
+          ],
+          "recommended_entrypoints": [],
+          "pressure_priority": "low"
+        },
+        {
+          "package_name": "zen-assets",
+          "stability_tier": "integration",
+          "capabilities": [
+            "zen"
+          ],
+          "recommended_entrypoints": [
+            "crate::ZenAssetCatalog",
+            "crate::ZenAssetRoot"
+          ],
+          "pressure_priority": "low"
+        },
+        {
+          "package_name": "zen-core",
+          "stability_tier": "integration",
+          "capabilities": [
+            "zen"
+          ],
+          "recommended_entrypoints": [
+            "crate::command_label"
+          ],
+          "pressure_priority": "low"
+        },
+        {
+          "package_name": "zen-editor",
+          "stability_tier": "integration",
+          "capabilities": [
+            "kain",
+            "zen"
+          ],
+          "recommended_entrypoints": [
+            "crate::load_editor_session",
+            "crate::load_persisted_dock_state",
+            "crate::load_user_layouts",
+            "crate::persist_dock_state",
+            "crate::persist_editor_session",
+            "crate::persist_user_layouts"
+          ],
+          "pressure_priority": "low"
+        },
+        {
+          "package_name": "zen-host",
+          "stability_tier": "integration",
+          "capabilities": [
+            "kain",
+            "zen"
+          ],
+          "recommended_entrypoints": [
+            "crate::ZenHostAction",
+            "crate::ZenHostApi",
+            "crate::ZenHostBinding",
+            "crate::ZenHostBindingKind"
+          ],
+          "pressure_priority": "low"
+        },
+        {
+          "package_name": "zen-kain-api",
+          "stability_tier": "integration",
+          "capabilities": [
+            "kain",
+            "zen"
+          ],
+          "recommended_entrypoints": [
+            "crate::ZenKainActionContract",
+            "crate::ZenKainBindingContract",
+            "crate::ZenKainContract",
+            "crate::ZenKainShellContract"
+          ],
+          "pressure_priority": "low"
+        },
+        {
+          "package_name": "zen-kain-modules",
+          "stability_tier": "integration",
+          "capabilities": [
+            "kain",
+            "zen"
+          ],
+          "recommended_entrypoints": [
+            "crate::ZenKainModuleRegistry",
+            "crate::ZenResolvedShell",
+            "crate::ZenShellModule"
+          ],
+          "pressure_priority": "low"
+        },
+        {
+          "package_name": "zen-mocap-engine",
+          "stability_tier": "integration",
+          "capabilities": [
+            "gpu",
+            "kain",
+            "zen"
+          ],
+          "recommended_entrypoints": [
+            "crate::JointFrame",
+            "crate::MocapSession",
+            "crate::PipelineEvent",
+            "crate::PipelineStats",
+            "crate::SessionConfig"
+          ],
+          "pressure_priority": "high"
+        },
+        {
+          "package_name": "zen-render",
+          "stability_tier": "integration",
+          "capabilities": [
+            "zen"
+          ],
+          "recommended_entrypoints": [
+            "crate::ZenRenderPass",
+            "crate::ZenRenderProfile"
+          ],
+          "pressure_priority": "low"
+        },
+        {
+          "package_name": "zen-runtime",
+          "stability_tier": "integration",
+          "capabilities": [
+            "zen"
+          ],
+          "recommended_entrypoints": [
+            "crate::ZenDispatchResult",
+            "crate::ZenRuntimeSession"
+          ],
+          "pressure_priority": "low"
+        },
+        {
+          "package_name": "zen-scene",
+          "stability_tier": "integration",
+          "capabilities": [
+            "gpu",
+            "zen"
+          ],
+          "recommended_entrypoints": [
+            "crate::SceneFocusTarget",
+            "crate::SceneImportReport",
+            "crate::SceneMesh",
+            "crate::SceneObjectEntry",
+            "crate::SelectedObjectDetails",
+            "crate::SelectedObjectSummary"
+          ],
+          "pressure_priority": "low"
+        }
+      ]
+    }
+  ]
+}

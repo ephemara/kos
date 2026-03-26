@@ -1,0 +1,29 @@
+[[sequencer_action_bindings]]
+action_id = "sequencer-add-keyframe"
+origin_id = "sequencer-ui"
+operation_id = "upsert"
+event_source_id = "sequencer-ui"
+
+[[sequencer_action_bindings]]
+action_id = "sequencer-remove-keyframe"
+origin_id = "sequencer-ui"
+operation_id = "remove"
+event_source_id = "sequencer-ui"
+
+[[sequencer_action_bindings]]
+action_id = "sequencer-move-keyframe"
+origin_id = "sequencer-ui"
+operation_id = "move"
+event_source_id = "sequencer-ui"
+
+[[sequencer_action_bindings]]
+action_id = "sequencer-import-track"
+origin_id = "import"
+operation_id = "upsert"
+event_source_id = "take-import"
+
+[[sequencer_action_bindings]]
+action_id = "sequencer-automation-replay"
+origin_id = "automation"
+operation_id = "upsert"
+event_source_id = "automation-replay"

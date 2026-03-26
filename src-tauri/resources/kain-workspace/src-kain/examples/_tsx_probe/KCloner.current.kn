@@ -1,0 +1,611 @@
+# Generated from TypeScript source by kain import-ts
+
+component KCloner(arg_0: Any) with Reactive:
+    state isPlaying: Any = true
+    state fps: Any = 30
+    state baking: Any = false
+    state status: Any = "kipp engine 0.6 beta"
+    state exportFormat: Any = "GLB"
+    state exportMode: Any = "ANIM"
+    state targetEngine: Any = "GENERIC"
+    state splitAnimations: Any = false
+    state normalizeScale: Any = true
+    state distributionMode: Any = "ROUND_ROBIN"
+    state keyframes: Record<String, [Any]> = Any()
+    state activeKeyId: Option<String> = none
+    state timeRef: Any = useRef(0)
+    state chains: Any = fn():
+        let initialChain = createChainInstance(0)
+        initialChain.modifiers = [createModifierInstance("FLOAT")]
+        return [initialChain]
+    state activeChainId: Any = fn(): chains[0].id
+    state playbackChainId: Option<String> = none
+    state selectedModId: Option<String> = fn(): chains[0].modifiers[0].instanceId
+    state clonerMode: Any = "GRID"
+    state clonerCount: Any = Any()
+    state clonerSpacing: Any = Any()
+    state radialRadius: Any = 5
+    state radialCount: Any = 8
+    state mountRef: Any = useRef(none)
+    state fileInputRef: Any = useRef(none)
+    state stageRef: Any = useRef(none)
+    state clockRef: Any = useRef(THREE.Clock())
+    state lastBlobRef: Any = useRef(none)
+    state meshGroupRef: Any = useRef(none)
+    state dummyRef: Any = useRef(THREE.Object3D())
+    state originalsRef: Any = useRef([])
+    state geometriesRef: Any = useRef([])
+    state materialsRef: Any = useRef([])
+    state scriptCache: Any = useRef(Any())
+    state totalDuration: Any = chains.reduce(fn(acc: Any, chain: Any): (acc + chain.duration), 0)
+    state stateRef: Any = useRef(Any())
+    state sequencerTracks: [SequencerTrack] = Object.keys(keyframes).map(fn(id: Any): (Any()))
+    state prevModeRef: Any = useRef(clonerMode)
+    state uiTime: Any = 0
+    fn setIsPlaying(value: Any):
+        isPlaying = value
+
+    fn setFps(value: Any):
+        fps = value
+
+    fn setBaking(value: Any):
+        baking = value
+
+    fn setStatus(value: Any):
+        status = value
+
+    fn setExportFormat(value: Any):
+        exportFormat = value
+
+    fn setExportMode(value: Any):
+        exportMode = value
+
+    fn setTargetEngine(value: Any):
+        targetEngine = value
+
+    fn setSplitAnimations(value: Any):
+        splitAnimations = value
+
+    fn setNormalizeScale(value: Any):
+        normalizeScale = value
+
+    fn setDistributionMode(value: Any):
+        distributionMode = value
+
+    fn setKeyframes(value: Record<String, [Any]>):
+        keyframes = value
+
+    fn setActiveKeyId(value: Option<String>):
+        activeKeyId = value
+
+    fn setChains(value: Any):
+        chains = value
+
+    fn setActiveChainId(value: Any):
+        activeChainId = value
+
+    fn setPlaybackChainId(value: Option<String>):
+        playbackChainId = value
+
+    fn setSelectedModId(value: Option<String>):
+        selectedModId = value
+
+    fn setClonerMode(value: Any):
+        clonerMode = value
+
+    fn setClonerCount(value: Any):
+        clonerCount = value
+
+    fn setClonerSpacing(value: Any):
+        clonerSpacing = value
+
+    fn setRadialRadius(value: Any):
+        radialRadius = value
+
+    fn setRadialCount(value: Any):
+        radialCount = value
+
+    fn getVal(id: String, def: Float, timeOverride: Float):
+        let t = (timeOverride || timeRef.current)
+        let track = keyframes[id]
+        if ((!track) || (track.length == 0)):
+            return def
+        let sorted = [track].sort(fn(a: Any, b: Any): (a.t - b.t))
+        if (t <= sorted[0].t):
+            return sorted[0].v
+        if (t >= sorted[(sorted.length - 1)].t):
+            return sorted[(sorted.length - 1)].v
+        let idx = sorted.findIndex(fn(k: Any): (k.t > t))
+        if (idx == (-1)):
+            return sorted[(sorted.length - 1)].v
+        let k1 = sorted[(idx - 1)]
+        let k2 = sorted[idx]
+        let pct = (((t - k1.t)) / ((k2.t - k1.t)))
+        return (k1.v + (((k2.v - k1.v)) * pct))
+
+    fn toggleKey(id: String, val: Float):
+        let t = parseFloat(timeRef.current.toFixed(2))
+        setKeyframes(
+            fn(prev: Any):
+                            let track = (prev[id] || [])
+                            let existsIdx = track.findIndex(fn(k: Any): (Math.abs((k.t - t)) < 0.05))
+                            if (existsIdx >= 0):
+                                let next = [track]
+                                next.splice(existsIdx, 1)
+                                let res = Any()
+                                if (next.length == 0):
+                                    res[id]
+                                return res
+                            else:
+                                return Any()
+        )
+
+    fn rebuildLayout():
+        let group = meshGroupRef.current
+        if (!group):
+            return
+        let _ = stateRef.current
+        let origins: [Any] = []
+        let totalCount = 0
+        if (clonerMode == "SINGLE"):
+            origins.push(Any())
+            totalCount = 1
+        else if (clonerMode == "GRID"):
+            let offX = ((((clonerCount.x - 1)) * clonerSpacing.x) * 0.5)
+            let offY = (((((clonerCount.y - 1)) * clonerSpacing.y) - ((((clonerCount.y - 1)) * clonerSpacing.y) * 0.5)) + 0.5)
+            let offZ = ((((clonerCount.z - 1)) * clonerSpacing.z) * 0.5)
+            let x = 0
+            while (x < clonerCount.x):
+                let y = 0
+                while (y < clonerCount.y):
+                    let z = 0
+                    while (z < clonerCount.z):
+                        origins.push(Any())
+                        totalCount = (totalCount + 1)
+                        z = (z + 1)
+                    y = (y + 1)
+                x = (x + 1)
+        else if (clonerMode == "RADIAL"):
+            let step = (((Math.PI * 2)) / radialCount)
+            let i = 0
+            while (i < radialCount):
+                let angle = (step * i)
+                origins.push(Any())
+                totalCount = (totalCount + 1)
+                i = (i + 1)
+        else if (clonerMode == "LINEAR"):
+            let offY = ((((clonerCount.y - 1)) * clonerSpacing.y) * 0.5)
+            let i = 0
+            while (i < clonerCount.y):
+                origins.push(Any())
+                totalCount = (totalCount + 1)
+                i = (i + 1)
+        originalsRef.current = origins
+        let geometries = geometriesRef.current
+        let materials = materialsRef.current
+        let numVariants = geometries.length
+        if (numVariants == 0):
+            return
+        while (group.children.length > numVariants):
+            let mesh = group.children.pop()
+            if mesh:
+                mesh.dispose()
+        while (group.children.length < numVariants):
+            let mesh = THREE.InstancedMesh(geometries[group.children.length], materials[group.children.length], 10000)
+            mesh.castShadow = true
+            mesh.receiveShadow = true
+            mesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage)
+            mesh.userData.globalIndices = []
+            group.add(mesh)
+        let countsPerVariant = Array(numVariants).fill(0)
+        let assignments = Int32Array(totalCount)
+        let i = 0
+        while (i < totalCount):
+            assignments[i] = if (distributionMode == "RANDOM"):
+                Math.floor((Math.random() * numVariants))
+            else:
+                (i % numVariants)
+            i = (i + 1)
+        let i = 0
+        while (i < totalCount):
+            countsPerVariant[assignments[i]] = (countsPerVariant[assignments[i]] + 1)
+            i = (i + 1)
+        let iter_1 = group.children
+        let index_2 = 0
+        while (index_2 < iter_1.length):
+            let mesh = iter_1[index_2]
+            let vIdx = index_2
+            let needed = countsPerVariant[vIdx]
+            if (needed > mesh.instanceMatrix.count):
+                let newMesh = THREE.InstancedMesh(geometries[vIdx], materials[vIdx], Math.max((mesh.instanceMatrix.count * 2), (needed + 1000)))
+                newMesh.castShadow = true
+                newMesh.receiveShadow = true
+                newMesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage)
+                group.children[vIdx] = newMesh
+                mesh.dispose()
+                mesh = newMesh
+            mesh.count = needed
+            mesh.userData.globalIndices = Int32Array(needed)
+            mesh.userData.localCounter = 0
+            mesh.geometry = geometries[vIdx]
+            mesh.material = materials[vIdx]
+            index_2 = (index_2 + 1)
+        let dum = dummyRef.current
+        let i = 0
+        while (i < totalCount):
+            let variantIdx = assignments[i]
+            let mesh = group.children[variantIdx]
+            let localIdx = mesh.userData.localCounter = (mesh.userData.localCounter + 1)
+            mesh.userData.globalIndices[localIdx] = i
+            let o = origins[i]
+            dum.position.copy(o.pos)
+            dum.rotation.copy(o.rot)
+            dum.scale.copy(o.scale)
+            dum.updateMatrix()
+            mesh.setMatrixAt(localIdx, dum.matrix_)
+            i = (i + 1)
+        let iter_3 = group.children
+        let index_4 = 0
+        while (index_4 < iter_3.length):
+            let m = iter_3[index_4]
+            m.instanceMatrix.needsUpdate = true
+            m.userData.localCounter
+            index_4 = (index_4 + 1)
+
+    fn applyModifierLogic(obj: Any, mod_: Any, t: Float, index: Float, getK: Any):
+        let baseP = mod_.params
+        let getP = fn(k: String): getK("mod_" + mod_.instanceId + "_" + k, baseP[k])
+        let p: Any = Proxy(baseP, Any())
+        let step = (baseP.step || 0.1)
+        let time = (t + (index * step))
+        let DEG = (Math.PI / 180)
+        if (mod_.type_ == "orbit"):
+            let rr = (((time * p.speed) * Math.PI) * 2)
+            if (p.axis == "y"):
+                obj.rotation.y = (obj.rotation.y + rr)
+            else if (p.axis == "x"):
+                obj.rotation.x = (obj.rotation.x + rr)
+            else:
+                obj.rotation.z = (obj.rotation.z + rr)
+            break
+        else if (mod_.type_ == "float"):
+            obj.position.y = (obj.position.y + (Math.sin(((time * p.speed) + ((p.phase || 0)))) * p.height))
+        else if (mod_.type_ == "pulse"):
+            obj.scale.multiplyScalar((1 + (Math.sin((time * p.speed)) * p.scale)))
+        else if (mod_.type_ == "shake"):
+            obj.position.x = (obj.position.x + (((noise(((t * p.frequency) + index)) - 0.5)) * p.intensity))
+            obj.position.y = (obj.position.y + (((noise((((t * p.frequency) + 100) + index)) - 0.5)) * p.intensity))
+            obj.position.z = (obj.position.z + (((noise((((t * p.frequency) + 200) + index)) - 0.5)) * p.intensity))
+        else if (mod_.type_ == "elastic"):
+            let stretch = (Math.sin(((time * p.speed) + (index * step))) * p.amount)
+            if (p.axis == "y"):
+                obj.scale.y = (obj.scale.y + stretch)
+                obj.scale.x = (obj.scale.x - (stretch * 0.5))
+                obj.scale.z = (obj.scale.z - (stretch * 0.5))
+            else if (p.axis == "x"):
+                obj.scale.x = (obj.scale.x + stretch)
+                obj.scale.y = (obj.scale.y - (stretch * 0.5))
+                obj.scale.z = (obj.scale.z - (stretch * 0.5))
+            else:
+                obj.scale.z = (obj.scale.z + stretch)
+                obj.scale.x = (obj.scale.x - (stretch * 0.5))
+                obj.scale.y = (obj.scale.y - (stretch * 0.5))
+            break
+        else if (mod_.type_ == "pendulum"):
+            let swing = ((Math.sin((time * p.speed)) * p.angle) * DEG)
+            if (p.axis == "z"):
+                obj.rotation.z = (obj.rotation.z + swing)
+            else if (p.axis == "x"):
+                obj.rotation.x = (obj.rotation.x + swing)
+            else:
+                obj.rotation.y = (obj.rotation.y + swing)
+            break
+        else if (mod_.type_ == "wobble"):
+            obj.rotation.x = (obj.rotation.x + (Math.sin((((time * p.speed) * 1.1) + index)) * p.intensity))
+            obj.rotation.z = (obj.rotation.z + (Math.cos((((time * p.speed) * 0.9) + index)) * p.intensity))
+            break
+        else if (mod_.type_ == "figure8"):
+            let a = (time * p.speed)
+            obj.position.x = (obj.position.x + (Math.sin(a) * p.width))
+            obj.position.y = (obj.position.y + (Math.sin((a * 2)) * p.height))
+            break
+        else if (mod_.type_ == "heartbeat"):
+            let period = (60 / p.bpm)
+            let phase = (((t % period)) / period)
+            let beat = if (phase < 0.1):
+                Math.sin(((phase / 0.1) * Math.PI))
+            else:
+                if (phase < 0.2):
+                    (Math.sin(((((phase - 0.1)) / 0.1) * Math.PI)) * 0.5)
+                else:
+                    0
+            obj.scale.multiplyScalar((1 + (beat * p.intensity)))
+            break
+        else if (mod_.type_ == "glitch"):
+            let slot = Math.floor((t / p.interval))
+            let rng = hash(((slot * 1234) + (index * 5678)))
+            if (rng > 0.7):
+                obj.position.x = (obj.position.x + ((((hash((slot + 1)) - 0.5)) * p.scatter) * 2))
+                obj.position.y = (obj.position.y + ((((hash((slot + 2)) - 0.5)) * p.scatter) * 2))
+                obj.position.z = (obj.position.z + ((((hash((slot + 3)) - 0.5)) * p.scatter) * 2))
+            break
+        else if (mod_.type_ == "step"):
+            let stepT = (Math.floor((t * p.fps)) / p.fps)
+            if ((!obj.userData.stepLast) || (Math.abs((obj.userData.stepLast - stepT)) > 0.001)):
+                obj.userData.stepLast = stepT
+                obj.userData.stepPos = obj.position.clone()
+                obj.userData.stepRot = obj.rotation.clone()
+            if obj.userData.stepPos:
+                obj.position.copy(obj.userData.stepPos)
+                obj.rotation.copy(obj.userData.stepRot)
+            break
+        else if (mod_.type_ == "bounce"):
+            let bt = (((time * p.speed)) % (Math.PI))
+            let h = (Math.abs(Math.sin(bt)) * p.height)
+            obj.position.y = (obj.position.y + h)
+            let squash = (1 - Math.max(0, (((1 - (h / p.height))) * p.squash)))
+            obj.scale.y = (obj.scale.y * squash)
+            obj.scale.x = (obj.scale.x / Math.sqrt(squash))
+            obj.scale.z = (obj.scale.z / Math.sqrt(squash))
+            break
+        else if (mod_.type_ == "tumble"):
+            obj.rotation.x = (obj.rotation.x + (time * p.speedX))
+            obj.rotation.y = (obj.rotation.y + (time * p.speedY))
+            obj.rotation.z = (obj.rotation.z + (time * p.speedZ))
+        else if (mod_.type_ == "strobe"):
+            let cycle = (((t * p.speed)) % 1)
+            if (cycle > p.duty):
+                obj.scale.set(0.001, 0.001, 0.001)
+            break
+        else if (mod_.type_ == "corkscrew"):
+            let angle = ((((time * p.speed) * Math.PI) * 2) * p.rotations)
+            obj.position.x = (obj.position.x + (Math.cos(angle) * 0.3))
+            obj.position.y = (obj.position.y + ((time * p.height) * p.speed))
+            obj.position.z = (obj.position.z + (Math.sin(angle) * 0.3))
+            obj.rotation.y = (obj.rotation.y + ((time * p.speed) * p.rotations))
+            break
+        else if (mod_.type_ == "shiver"):
+            obj.position.x = (obj.position.x + (((Math.random() - 0.5)) * p.intensity))
+            obj.position.y = (obj.position.y + (((Math.random() - 0.5)) * p.intensity))
+            obj.position.z = (obj.position.z + (((Math.random() - 0.5)) * p.intensity))
+        else if (mod_.type_ == "sway"):
+            let swayAngle = ((Math.sin(((time * p.speed) + (index * step))) * p.angle) * DEG)
+            obj.rotation.z = (obj.rotation.z + swayAngle)
+            break
+        else if (mod_.type_ == "yoyo"):
+            let yo = Math.abs(Math.sin((time * p.speed)))
+            obj.position.y = (obj.position.y + (yo * p.length))
+            break
+        else if (mod_.type_ == "crab"):
+            obj.position.x = (obj.position.x + (Math.sin(((time * p.speed) + (index * step))) * p.width))
+            break
+        else if (mod_.type_ == "lissajous"):
+            let lx = (Math.sin((((time * p.speed) * p.a) + (Math.PI / 2))) * p.size)
+            let ly = ((Math.sin(((time * p.speed) * p.b)) * p.size) * 0.5)
+            obj.position.x = (obj.position.x + lx)
+            obj.position.y = (obj.position.y + ly)
+            break
+        else if (mod_.type_ == "flip"):
+            let flipT = (((Math.floor((t / p.interval)) + index)) % 2)
+            let progress = Math.min(1, ((((t % p.interval)) * p.speed)))
+            let angle = ((flipT * Math.PI) + (progress * Math.PI))
+            if (p.axis == "x"):
+                obj.rotation.x = (obj.rotation.x + angle)
+            else if (p.axis == "z"):
+                obj.rotation.z = (obj.rotation.z + angle)
+            else:
+                obj.rotation.y = (obj.rotation.y + angle)
+            break
+        else if (mod_.type_ == "tremor"):
+            obj.position.x = (obj.position.x + (Math.sin(((t * p.speed) + (index * 37.3))) * p.intensity))
+            obj.position.z = (obj.position.z + (Math.cos(((t * p.speed) + (index * 19.7))) * p.intensity))
+        else if (mod_.type_ == "scan"):
+            let scanT = Math.sin((time * p.speed))
+            if (p.axis == "x"):
+                obj.position.x = (obj.position.x + (scanT * p.distance))
+            else if (p.axis == "z"):
+                obj.position.z = (obj.position.z + (scanT * p.distance))
+            else:
+                obj.position.y = (obj.position.y + (scanT * p.distance))
+            break
+        else if (mod_.type_ == "warp"):
+            let wt = (time * p.speed)
+            let sx = (1 + (Math.sin((wt + index)) * p.stretch))
+            let sy = (1 + (Math.cos(((wt * 1.3) + index)) * p.stretch))
+            obj.scale.x = (obj.scale.x * sx)
+            obj.scale.y = (obj.scale.y * sy)
+            break
+        else if (mod_.type_ == "drift"):
+            let da = (time * p.speed)
+            obj.position.x = (obj.position.x + ((Math.cos((da + (index * 1.23))) * p.radius) * 0.016))
+            obj.position.z = (obj.position.z + ((Math.sin((da + (index * 1.23))) * p.radius) * 0.016))
+            break
+        else if (mod_.type_ == "bobble"):
+            obj.position.y = (obj.position.y + (Math.sin(((time * p.speed) + (index * step))) * p.amount))
+            obj.rotation.z = (obj.rotation.z + (Math.cos((((time * p.speed) * 1.1) + index)) * 0.05))
+            break
+        else if (mod_.type_ == "twist"):
+            let twistAngle = ((Math.sin(((time * p.speed) + (index * step))) * p.angle) * DEG)
+            if (p.axis == "y"):
+                obj.rotation.y = (obj.rotation.y + twistAngle)
+            else if (p.axis == "x"):
+                obj.rotation.x = (obj.rotation.x + twistAngle)
+            else:
+                obj.rotation.z = (obj.rotation.z + twistAngle)
+            break
+        else if (mod_.type_ == "spiral"):
+            let sa = ((time * p.speed) + (index * (((Math.PI * 2) / Math.max(1, p.rotations)))))
+            let sr = (p.radius * ((1 + ((index * p.grow) * 0.01))))
+            obj.position.x = (obj.position.x + ((Math.cos(sa) * sr) * 0.016))
+            obj.position.z = (obj.position.z + ((Math.sin(sa) * sr) * 0.016))
+            obj.position.y = (obj.position.y + ((time * p.speed) * 0.01))
+            break
+        else if (mod_.type_ == "vortex"):
+            let dist = (Math.sqrt(((obj.position.x ** 2) + (obj.position.z ** 2))) || 0.001)
+            let pull = (p.strength / ((dist + p.falloff)))
+            let vAngle = (time * p.speed)
+            obj.position.x = (obj.position.x + (((((-Math.sin(vAngle)) * pull) + (((0 - obj.position.x)) * 0.001))) * Math.min((dist / p.radius), 1)))
+            obj.position.z = (obj.position.z + ((((Math.cos(vAngle) * pull) + (((0 - obj.position.z)) * 0.001))) * Math.min((dist / p.radius), 1)))
+            break
+        else if (mod_.type_ == "magnet"):
+            let mx = obj.position.x
+            let mz = obj.position.z
+            let md = (Math.sqrt(((mx * mx) + (mz * mz))) + 0.001)
+            if (md < p.range):
+                let force = (((p.strength * ((1 - (md / p.range)))) * p.speed) * 0.01)
+                obj.position.x = (obj.position.x - (((mx / md)) * force))
+                obj.position.z = (obj.position.z - (((mz / md)) * force))
+            break
+        else if (mod_.type_ == "noise_flow"):
+            let ns = p.scale
+            obj.position.x = (obj.position.x + ((((noise(((obj.position.x * ns) + (t * p.speed))) - 0.5)) * p.force) * 0.05))
+            obj.position.y = (obj.position.y + ((((noise((((obj.position.y * ns) + (t * p.speed)) + 100)) - 0.5)) * p.force) * 0.02))
+            obj.position.z = (obj.position.z + ((((noise((((obj.position.z * ns) + (t * p.speed)) + 200)) - 0.5)) * p.force) * 0.05))
+            break
+        else if (mod_.type_ == "ripple"):
+            let rDist = Math.sqrt(((obj.position.x ** 2) + (obj.position.z ** 2)))
+            let rWave = ((Math.sin(((rDist * p.frequency) - (time * p.speed))) * p.amplitude) * Math.exp(((-rDist) * p.decay)))
+            obj.position.y = (obj.position.y + rWave)
+            break
+        else if (mod_.type_ == "squash"):
+            let sq = (1 + (Math.sin(((time * p.speed) + (index * step))) * p.amount))
+            if (p.axis == "y"):
+                obj.scale.y = (obj.scale.y * sq)
+                obj.scale.x = (obj.scale.x * (1 / Math.sqrt(sq)))
+                obj.scale.z = (obj.scale.z * (1 / Math.sqrt(sq)))
+            else if (p.axis == "x"):
+                obj.scale.x = (obj.scale.x * sq)
+                obj.scale.y = (obj.scale.y * (1 / Math.sqrt(sq)))
+                obj.scale.z = (obj.scale.z * (1 / Math.sqrt(sq)))
+            else:
+                obj.scale.z = (obj.scale.z * sq)
+                obj.scale.x = (obj.scale.x * (1 / Math.sqrt(sq)))
+                obj.scale.y = (obj.scale.y * (1 / Math.sqrt(sq)))
+            break
+        else if (mod_.type_ == "accordion"):
+            let acc = (Math.sin(((time * p.speed) + (index * step))) * p.amount)
+            if (p.axis == "y"):
+                obj.scale.y = (obj.scale.y + acc)
+            else if (p.axis == "x"):
+                obj.scale.x = (obj.scale.x + acc)
+            else:
+                obj.scale.z = (obj.scale.z + acc)
+            break
+        else if (mod_.type_ == "chaos"):
+            let ct = ((t * p.speed) + index)
+            obj.position.x = (obj.position.x + ((((noise(ct) - 0.5)) * p.scale) * 0.05))
+            obj.position.y = (obj.position.y + ((((noise((ct + 33)) - 0.5)) * p.scale) * 0.05))
+            obj.position.z = (obj.position.z + ((((noise((ct + 66)) - 0.5)) * p.scale) * 0.05))
+            obj.rotation.y = (obj.rotation.y + (((noise((ct + 99)) - 0.5)) * 0.05))
+            break
+        else if (mod_.type_ == "breathe"):
+            let breath = (1 + (Math.sin(((((time * p.speed) * Math.PI) * 2) + (index * step))) * p.amount))
+            obj.scale.multiplyScalar(breath)
+            break
+        else if (mod_.type_ == "explode"):
+            if (t > p.trigger):
+                let age = (t - p.trigger)
+                let dir = THREE.Vector3((hash(((index * 3) + 1)) - 0.5), hash(((index * 3) + 2)), (hash(((index * 3) + 3)) - 0.5)).normalize()
+                let strength = (p.strength * Math.exp(((-age) * p.decay)))
+                obj.position.addScaledVector(dir, (strength * 0.016))
+                obj.rotation.x = (obj.rotation.x + (dir.x * 0.1))
+                obj.rotation.z = (obj.rotation.z + (dir.z * 0.1))
+            break
+        else if (mod_.type_ == "code"):
+            let cacheKey = mod_.instanceId
+            let script = scriptCache.current[cacheKey]
+            let v: Any = Any()
+            if p.sliders:
+                let iter_5 = p.sliders
+                let index_6 = 0
+                while (index_6 < iter_5.length):
+                    let s = iter_5[index_6]
+                    v[s.id] = s.val
+                    index_6 = (index_6 + 1)
+            if ((!script) || (script.raw != p.code)):
+                script = scriptCache.current[cacheKey]
+            if script.valid:
+                pass
+            break
+
+    fn handleImport():
+        if fileInputRef.current:
+            fileInputRef.current.click()
+
+    fn handleBake():
+        if baking:
+            return
+        let group = meshGroupRef.current
+        if ((!group) || (group.children.length == 0)):
+            setStatus("Error: No clones to export")
+            return
+        setBaking(true)
+        setStatus("Exporting clones...")
+
+    fn handleAddModifier(key: String):
+        let newMod = createModifierInstance(key)
+        setChains(
+            fn(prev: Any): prev.map(
+                            fn(c: Any): if (c.id == activeChainId):
+                                                Any()
+                                            else:
+                                                c
+                        )
+        )
+        if activeChainId:
+            setSelectedModId(newMod.instanceId)
+
+    fn handleAction(type_: String, payload: Any):
+        if (type_ == "ADD_CHAIN"):
+            setChains(fn(p: Any): [p, createChainInstance(p.length)])
+        else if (type_ == "REMOVE_CHAIN"):
+            setChains(fn(p: Any): p.filter(fn(c: Any): (c.id != payload)))
+            if (activeChainId == payload):
+                setActiveChainId(chains[0].id)
+        else if (type_ == "UPDATE_CHAIN"):
+            setChains(
+                fn(p: Any): p.map(
+                                    fn(c: Any): if (c.id == payload.id):
+                                                            Any()
+                                                        else:
+                                                            c
+                                )
+            )
+        else if (type_ == "REMOVE_MOD"):
+            setChains(
+                fn(p: Any): p.map(
+                                    fn(c: Any): if (c.id == activeChainId):
+                                                            Any()
+                                                        else:
+                                                            c
+                                )
+            )
+        else if (type_ == "UPDATE_PARAM"):
+            setChains(
+                fn(p: Any): p.map(
+                                    fn(c: Any): if (c.id == activeChainId):
+                                                            Any()
+                                                        else:
+                                                            c
+                                )
+            )
+
+    fn setUiTime(value: Any):
+        uiTime = value
+
+    render <AppShell menuBar={<AppMenuBar />} topBar={<TopBar exportFormat={exportFormat} setExportFormat={setExportFormat} exportMode={exportMode} setExportMode={setExportMode} targetEngine={targetEngine} setTargetEngine={setTargetEngine} splitAnimations={splitAnimations} setSplitAnimations={setSplitAnimations} baking={baking} onImport={handleImport} onBrowse={none} onUplink={none} onBake={handleBake} cloneCount={if (clonerMode == "GRID"):
+    ((clonerCount.x * clonerCount.y) * clonerCount.z)
+else:
+    if (clonerMode == "RADIAL"):
+        radialCount
+    else:
+        if (clonerMode == "LINEAR"):
+            clonerCount.y
+        else:
+            1} />} left={Any()} right={Any()} bottom={<Sequencer currentFrame={Math.floor(
+    ((if isPlaying:
+            uiTime
+        else:
+            timeRef.current) * fps)
+)} totalFrames={Math.floor((totalDuration * fps))} fps={fps} isPlaying={isPlaying} onPlayPause={setIsPlaying} onSeek={none} tracks={sequencerTracks} activeTrackId={none} onSelectTrack={none} onAddKeyframe={none} onDeleteKeyframe={none} />}><div ref={mountRef} className="w-full h-full relative group"><input type="file" ref={fileInputRef} onChange={handleImport} className="hidden" /></div></AppShell>
+

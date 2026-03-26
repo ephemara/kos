@@ -1,0 +1,30 @@
+{
+  "id": "kain_magnet",
+  "name": "KAIN Magnet",
+  "category": "KAIN/Physics",
+  "tags": ["kain", "physics", "magnet", "attract", "spirv"],
+  "icon": "🧲",
+  "kernel": {
+    "family": "spirv",
+    "shader": "physics_magnet"
+  },
+  "params": {
+    "radius": 0.2,
+    "strength": 0.6,
+    "hardness": 0.4,
+    "spacing": 0.12,
+    "accumulate": false,
+    "subtract": false,
+    "front_faces_only": false,
+    "alpha_enabled": false,
+    "alpha_scale": 1.0,
+    "jitter_position": 0.0,
+    "jitter_rotation": 0.0,
+    "jitter_strength": 0.0,
+    "random_seed": 0.0,
+    "pressure_curve_idx": 0,
+    "speed_curve_idx": 0,
+    "tilt_curve_idx": 0
+  },
+  "textures": {}
+}

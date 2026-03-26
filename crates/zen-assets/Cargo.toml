@@ -1,0 +1,9 @@
+[package]
+name = "zen-assets"
+version = "0.1.0"
+edition = "2021"
+description = "Zen asset catalog and import metadata contracts"
+
+[dependencies]
+serde = { version = "1.0", features = ["derive"] }
+toml = "0.8"

@@ -1,0 +1,34 @@
+[
+  {
+    "id": "ktecton_standard",
+    "name": "Standard Shaded",
+    "app": "ktecton",
+    "modeIndex": 0,
+    "icon": "eye",
+    "description": "Dark Matter - Standard shaded view with highlights on peaks"
+  },
+  {
+    "id": "ktecton_neon",
+    "name": "Neon Wireframe",
+    "app": "ktecton",
+    "modeIndex": 1,
+    "icon": "grid",
+    "description": "Neon Cyberpunk - Grid effect with neon wireframe"
+  },
+  {
+    "id": "ktecton_heatmap",
+    "name": "Height Heatmap",
+    "app": "ktecton",
+    "modeIndex": 2,
+    "icon": "activity",
+    "description": "Slope Heatmap - Visualize terrain slope with color gradient"
+  },
+  {
+    "id": "ktecton_contours",
+    "name": "Topographic Contours",
+    "app": "ktecton",
+    "modeIndex": 3,
+    "icon": "layers",
+    "description": "Contour Lines - Topographic contour visualization"
+  }
+]

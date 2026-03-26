@@ -1,0 +1,18 @@
+[package]
+name = "k-os-game-play"
+version = "0.1.0"
+edition = "2021"
+description = "K_OS Game gameplay ownership for runtime gameplay bindings, readiness policy, and gameplay-facing registry projection"
+
+[lib]
+name = "k_os_game_play"
+path = "src/lib.rs"
+
+[dependencies]
+bevy_ecs = "0.17"
+k-os-game-ai = { path = "../k-os-game-ai" }
+k-os-game-framework = { path = "../k-os-game-framework" }
+k-os-game-input = { path = "../k-os-game-input" }
+k-os-game-runtime = { path = "../k-os-game-runtime" }
+log = "0.4"
+toml = "0.8"

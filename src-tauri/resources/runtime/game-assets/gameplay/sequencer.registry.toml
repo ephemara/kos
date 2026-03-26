@@ -1,0 +1,83 @@
+version = "1"
+registry_kind = "sequencer_timelines"
+
+[[timelines]]
+id = "runtime.idle.observe"
+tracks = ["camera.idle", "audio.ambience", "event.idle"]
+loop = true
+
+[[timelines]]
+id = "combat.hero.attack_intro"
+tracks = ["camera.attack_close", "fx.sword_trail", "event.combat_strike"]
+default_rate = 1.0
+loop = false
+
+[[timelines]]
+id = "interaction.vendor.serve"
+tracks = ["camera.vendor_close", "audio.vendor_line", "event.vendor_offer"]
+default_rate = 1.0
+loop = false
+
+[action_projection]
+
+[[action_projection.routes]]
+agent = "hero.default"
+phase = "act"
+gameplay_action_prefix = "combat.attack."
+camera_mode = "cinematic"
+target_timeline = "combat.hero.attack_intro"
+playback_rate = 1.0
+loop = false
+priority = 500
+event = "timeline.combat.attack_intro"
+
+[[action_projection.routes]]
+agent = "npc.vendor"
+phase = "act"
+gameplay_action_prefix = "interaction.vendor."
+camera_rig = "cinematic.spline.preview"
+target_timeline = "interaction.vendor.serve"
+playback_rate = 1.0
+loop = false
+priority = 360
+event = "timeline.vendor.serve"
+
+[playback_policy]
+default_timeline = "runtime.idle.observe"
+default_rate = 1.0
+allow_looping_default = true
+
+[runtime_dispatch]
+default_track_intensity = 1.0
+max_tracks_per_frame = 8
+max_events_per_frame = 4
+
+[[runtime_dispatch.routes]]
+track_prefix = "camera."
+binding_target = "camera.runtime.controller"
+effect_kind = "camera_pose"
+intensity = 1.0
+priority = 100
+
+[[runtime_dispatch.routes]]
+track_prefix = "audio."
+binding_target = "audio.runtime.bus"
+effect_kind = "audio_playback"
+intensity = 0.85
+priority = 100
+
+[[runtime_dispatch.routes]]
+agent = "hero.default"
+phase = "act"
+track_prefix = "event.combat_"
+binding_target = "gameplay.event_bus"
+effect_kind = "gameplay_event"
+event_id = "combat.timeline.hero"
+intensity = 1.25
+priority = 520
+
+[[runtime_dispatch.routes]]
+track_prefix = "event."
+binding_target = "gameplay.event_bus"
+effect_kind = "gameplay_event"
+priority = 120

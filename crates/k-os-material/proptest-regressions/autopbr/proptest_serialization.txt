@@ -1,0 +1,7 @@
+# Seeds for failure cases proptest has generated in the past. It is
+# automatically read and these particular cases re-run before any
+# novel cases are generated.
+#
+# It is recommended to check this file in to source control so that
+# everyone who runs the test benefits from these saved cases.
+cc 0bb0e0fe9878c7721f16030a66c6848280fabc1c4d8a9fac111ce39442279997 # shrinks to material = Material { id: 3a87ecb1-e8e9-489d-863c-a78d2c7ab295, metadata: MaterialMetadata { name: "0", description: "", tags: [], author: "a", created_at: 1970-01-01T00:00:00Z, modified_at: 1970-01-01T00:00:00Z, version: 1, category: Metal }, layers: [], animation: Some(AnimationData { duration: 0.1, loop_mode: Once, tracks: [AnimationTrack { parameter: LayerOpacity, animation_type: Keyframe(KeyframeAnimation { keyframes: [], interpolation: Linear }) }] }), variants: [], base_material: None }

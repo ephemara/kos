@@ -1,0 +1,30 @@
+{
+  "id": "grab",
+  "name": "Grab",
+  "category": "Sculpt/Grab",
+  "tags": ["sculpt", "grab", "move", "primary"],
+  "kernel": "grab",
+  "params": {
+    "radius": 0.25,
+    "strength": 1.0,
+    "hardness": 0.25,
+    "spacing": 0.01,
+    "lazy_radius": 0.0,
+    "subtract": false,
+    "front_faces_only": false,
+    "accumulate": false,
+    "jitter_position": 0.0,
+    "jitter_rotation": 0.0,
+    "jitter_strength": 0.0,
+    "falloff_type": "sphere",
+    "extras": {
+      "use_grab_delta": 1.0
+    }
+  },
+  "textures": {},
+  "pressure_strength": "linear",
+  "pressure_radius": null,
+  "speed_radius": null,
+  "tilt_rotation": null,
+  "entry_fade_dabs": 0
+}

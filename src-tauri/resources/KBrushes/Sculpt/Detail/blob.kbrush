@@ -1,0 +1,25 @@
+{
+  "id": "blob",
+  "name": "Blob",
+  "category": "Sculpt/Detail",
+  "tags": ["sculpt", "blob", "round", "organic"],
+  "kernel": "stamp",
+  "params": {
+    "radius": 0.12,
+    "strength": 0.6,
+    "hardness": 0.25,
+    "spacing": 0.06,
+    "lazy_radius": 0.0,
+    "subtract": false,
+    "front_faces_only": true,
+    "accumulate": true,
+    "jitter_position": 0.02,
+    "jitter_rotation": 0.0,
+    "jitter_strength": 0.04,
+    "extras": {}
+  },
+  "textures": {},
+  "pressure_strength": "soft",
+  "speed_radius": null,
+  "tilt_rotation": null
+}

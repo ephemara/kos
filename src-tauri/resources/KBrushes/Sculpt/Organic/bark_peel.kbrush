@@ -1,0 +1,32 @@
+{
+  "id": "bark_peel",
+  "name": "Bark Peel",
+  "category": "Sculpt/Organic",
+  "tags": ["organic", "bark", "peel", "wood"],
+  "kernel": "pinch",
+  "params": {
+    "radius": 0.12,
+    "strength": 0.6,
+    "hardness": 0.5,
+    "spacing": 0.05,
+    "lazy_radius": 0.02,
+    "subtract": true,
+    "front_faces_only": true,
+    "accumulate": true,
+    "jitter_position": 0.01,
+    "jitter_rotation": 0.2,
+    "jitter_strength": 0.05,
+    "falloff_type": "sharp",
+    "extras": {
+      "peel_depth": 0.4,
+      "wood_grain": 1.0,
+      "crack_frequency": 2.0
+    }
+  },
+  "textures": {},
+  "pressure_strength": "hard",
+  "pressure_radius": null,
+  "speed_radius": null,
+  "tilt_rotation": null,
+  "entry_fade_dabs": 2
+}

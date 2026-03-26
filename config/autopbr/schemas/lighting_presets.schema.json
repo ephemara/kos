@@ -1,0 +1,90 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Lighting Presets Configuration",
+  "description": "HDR-based lighting presets for material preview",
+  "type": "object",
+  "properties": {
+    "presets": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique preset identifier"
+          },
+          "name": {
+            "type": "string",
+            "description": "Display name"
+          },
+          "description": {
+            "type": "string",
+            "description": "Preset description"
+          },
+          "hdr_environment": {
+            "type": "string",
+            "description": "Path to HDR environment file (relative to config/autopbr/hdri/)"
+          },
+          "intensity": {
+            "type": "number",
+            "description": "Environment intensity multiplier",
+            "minimum": 0,
+            "default": 1.0
+          },
+          "rotation": {
+            "type": "number",
+            "description": "Environment rotation in degrees",
+            "minimum": 0,
+            "maximum": 360,
+            "default": 0
+          },
+          "additional_lights": {
+            "type": "array",
+            "description": "Additional lights to add to the environment",
+            "items": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "enum": ["point", "directional", "area"]
+                },
+                "position": {
+                  "type": "array",
+                  "items": { "type": "number" },
+                  "minItems": 3,
+                  "maxItems": 3
+                },
+                "direction": {
+                  "type": "array",
+                  "items": { "type": "number" },
+                  "minItems": 3,
+                  "maxItems": 3
+                },
+                "intensity": {
+                  "type": "number",
+                  "minimum": 0
+                },
+                "color_temperature": {
+                  "type": "number",
+                  "minimum": 1000,
+                  "maximum": 40000
+                },
+                "area_width": {
+                  "type": "number",
+                  "minimum": 0
+                },
+                "area_height": {
+                  "type": "number",
+                  "minimum": 0
+                }
+              },
+              "required": ["type", "intensity", "color_temperature"]
+            }
+          }
+        },
+        "required": ["id", "name", "hdr_environment"]
+      }
+    }
+  },
+  "required": ["presets"]
+}

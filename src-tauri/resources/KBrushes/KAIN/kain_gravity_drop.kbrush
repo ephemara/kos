@@ -1,0 +1,30 @@
+{
+  "id": "kain_gravity_drop",
+  "name": "KAIN Gravity",
+  "category": "KAIN/Physics",
+  "tags": ["kain", "physics", "gravity", "drop", "spirv"],
+  "icon": "⬇️",
+  "kernel": {
+    "family": "spirv",
+    "shader": "physics_gravity_drop"
+  },
+  "params": {
+    "radius": 0.19,
+    "strength": 0.65,
+    "hardness": 0.4,
+    "spacing": 0.11,
+    "accumulate": false,
+    "subtract": false,
+    "front_faces_only": false,
+    "alpha_enabled": false,
+    "alpha_scale": 1.0,
+    "jitter_position": 0.0,
+    "jitter_rotation": 0.0,
+    "jitter_strength": 0.0,
+    "random_seed": 0.0,
+    "pressure_curve_idx": 0,
+    "speed_curve_idx": 0,
+    "tilt_curve_idx": 0
+  },
+  "textures": {}
+}

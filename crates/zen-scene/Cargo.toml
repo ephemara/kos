@@ -1,0 +1,12 @@
+[package]
+name = "zen-scene"
+version = "0.1.0"
+edition = "2021"
+description = "Zen scene graph primitives and viewport render mesh generation"
+
+[dependencies]
+bytemuck = { version = "1.20", features = ["derive"] }
+glam = "0.30"
+k-os-asset-pipeline = { path = "../k-os-asset-pipeline" }
+k-os-scene = { path = "../k-os-scene" }
+wgpu = "26"

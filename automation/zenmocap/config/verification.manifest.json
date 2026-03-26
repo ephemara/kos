@@ -1,0 +1,35 @@
+{
+  "validationTurnCommands": [
+    {
+      "id": "vitest-mocap",
+      "cwd": "M:\\K_OS",
+      "command": "npx vitest run",
+      "purpose": "Frontend and TypeScript test sweep"
+    },
+    {
+      "id": "cargo-zen-mocap-engine",
+      "cwd": "M:\\K_OS",
+      "command": "cargo test -p zen-mocap-engine",
+      "purpose": "Zen mocap engine crate verification"
+    },
+    {
+      "id": "cargo-k-os-kain",
+      "cwd": "M:\\K_OS",
+      "command": "cargo test -p k-os-kain",
+      "purpose": "Kain registry and domain verification"
+    }
+  ],
+  "lightweightCommands": [
+    {
+      "id": "tsc",
+      "cwd": "M:\\K_OS",
+      "command": "npx tsc --noEmit",
+      "purpose": "TypeScript compile guardrail"
+    }
+  ],
+  "documentationTurnExpectations": [
+    "Update or add ZenMocap pipeline docs",
+    "Record wiring between src-mocap, zen-mocap-engine, and k-os-kain",
+    "Append a changelog entry in automation/docs/changelog/zenmocap-closed-loop"
+  ]
+}

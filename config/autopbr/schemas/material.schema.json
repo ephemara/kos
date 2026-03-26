@@ -1,0 +1,357 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://k-os.dev/schemas/autopbr/material.schema.json",
+  "title": "Material",
+  "description": "KAutoPBR material definition with layers, animation, and metadata",
+  "type": "object",
+  "required": ["id", "metadata", "layers"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Unique material identifier"
+    },
+    "metadata": {
+      "$ref": "#/definitions/MaterialMetadata"
+    },
+    "layers": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Layer"
+      },
+      "minItems": 0,
+      "maxItems": 64,
+      "description": "Material layer stack (max 64 layers)"
+    },
+    "animation": {
+      "oneOf": [
+        { "$ref": "#/definitions/AnimationData" },
+        { "type": "null" }
+      ],
+      "description": "Optional animation data"
+    },
+    "variants": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "description": "UUIDs of material variants"
+    },
+    "base_material": {
+      "oneOf": [
+        { "type": "string", "format": "uuid" },
+        { "type": "null" }
+      ],
+      "description": "UUID of base material if this is a variant"
+    }
+  },
+  "definitions": {
+    "MaterialMetadata": {
+      "type": "object",
+      "required": ["name", "description", "tags", "author", "created_at", "modified_at", "version", "category"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 256
+        },
+        "description": {
+          "type": "string",
+          "maxLength": 2048
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64
+          },
+          "maxItems": 32
+        },
+        "author": {
+          "type": "string",
+          "maxLength": 256
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "modified_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "version": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "category": {
+          "type": "string",
+          "enum": ["Metal", "Wood", "Stone", "Fabric", "Plastic", "Organic", "SciFi", "Fantasy"]
+        }
+      }
+    },
+    "Layer": {
+      "type": "object",
+      "required": ["id", "name", "maps", "opacity", "blend_mode", "visible", "locked"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 256
+        },
+        "maps": {
+          "$ref": "#/definitions/PBRMaps"
+        },
+        "opacity": {
+          "type": "number",
+          "minimum": 0.0,
+          "maximum": 1.0
+        },
+        "blend_mode": {
+          "type": "string",
+          "enum": ["Normal", "Multiply", "Screen", "Overlay", "Add", "Subtract", "Divide", "Difference", "Darken", "Lighten"]
+        },
+        "mask": {
+          "oneOf": [
+            { "$ref": "#/definitions/Mask" },
+            { "type": "null" }
+          ]
+        },
+        "visible": {
+          "type": "boolean"
+        },
+        "locked": {
+          "type": "boolean"
+        }
+      }
+    },
+    "PBRMaps": {
+      "type": "object",
+      "properties": {
+        "albedo": {
+          "oneOf": [
+            { "$ref": "#/definitions/TextureHandle" },
+            { "type": "null" }
+          ]
+        },
+        "normal": {
+          "oneOf": [
+            { "$ref": "#/definitions/TextureHandle" },
+            { "type": "null" }
+          ]
+        },
+        "roughness": {
+          "oneOf": [
+            { "$ref": "#/definitions/TextureHandle" },
+            { "type": "null" }
+          ]
+        },
+        "metallic": {
+          "oneOf": [
+            { "$ref": "#/definitions/TextureHandle" },
+            { "type": "null" }
+          ]
+        },
+        "ao": {
+          "oneOf": [
+            { "$ref": "#/definitions/TextureHandle" },
+            { "type": "null" }
+          ]
+        },
+        "height": {
+          "oneOf": [
+            { "$ref": "#/definitions/TextureHandle" },
+            { "type": "null" }
+          ]
+        },
+        "emissive": {
+          "oneOf": [
+            { "$ref": "#/definitions/TextureHandle" },
+            { "type": "null" }
+          ]
+        }
+      }
+    },
+    "TextureHandle": {
+      "type": "object",
+      "required": ["path", "width", "height"],
+      "properties": {
+        "path": {
+          "type": "string"
+        },
+        "width": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 16384
+        },
+        "height": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 16384
+        }
+      }
+    },
+    "Mask": {
+      "type": "object",
+      "required": ["texture", "invert"],
+      "properties": {
+        "texture": {
+          "$ref": "#/definitions/TextureHandle"
+        },
+        "invert": {
+          "type": "boolean"
+        }
+      }
+    },
+    "AnimationData": {
+      "type": "object",
+      "required": ["duration", "loop_mode", "tracks"],
+      "properties": {
+        "duration": {
+          "type": "number",
+          "minimum": 0.1,
+          "maximum": 3600.0
+        },
+        "loop_mode": {
+          "type": "string",
+          "enum": ["Once", "Loop", "PingPong"]
+        },
+        "tracks": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AnimationTrack"
+          }
+        }
+      }
+    },
+    "AnimationTrack": {
+      "type": "object",
+      "required": ["parameter", "animation_type"],
+      "properties": {
+        "parameter": {
+          "type": "string",
+          "enum": [
+            "LayerOpacity", "LayerBlendMode",
+            "AlbedoColor", "AlbedoRed", "AlbedoGreen", "AlbedoBlue",
+            "Roughness", "Metallic", "EmissiveIntensity", "EmissiveColor",
+            "HeightOffset", "NormalStrength",
+            "UVOffsetX", "UVOffsetY", "UVScaleX", "UVScaleY"
+          ]
+        },
+        "animation_type": {
+          "oneOf": [
+            {
+              "type": "object",
+              "required": ["Keyframe"],
+              "properties": {
+                "Keyframe": {
+                  "$ref": "#/definitions/KeyframeAnimation"
+                }
+              }
+            },
+            {
+              "type": "object",
+              "required": ["Procedural"],
+              "properties": {
+                "Procedural": {
+                  "$ref": "#/definitions/ProceduralAnimation"
+                }
+              }
+            },
+            {
+              "type": "object",
+              "required": ["Physics"],
+              "properties": {
+                "Physics": {
+                  "$ref": "#/definitions/PhysicsAnimation"
+                }
+              }
+            }
+          ],
+          "description": "Animation type (Keyframe, Procedural, or Physics)"
+        }
+      }
+    },
+    "KeyframeAnimation": {
+      "type": "object",
+      "required": ["keyframes", "interpolation"],
+      "properties": {
+        "keyframes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Keyframe"
+          },
+          "minItems": 0
+        },
+        "interpolation": {
+          "type": "string",
+          "enum": ["Linear", "EaseIn", "EaseOut", "EaseInOut", "Bezier"]
+        }
+      }
+    },
+    "Keyframe": {
+      "type": "object",
+      "required": ["time", "value"],
+      "properties": {
+        "time": {
+          "type": "number",
+          "minimum": 0.0
+        },
+        "value": {
+          "type": "number"
+        },
+        "tangent_in": {
+          "oneOf": [
+            {
+              "type": "object",
+              "required": ["x", "y"],
+              "properties": {
+                "x": { "type": "number" },
+                "y": { "type": "number" }
+              }
+            },
+            { "type": "null" }
+          ]
+        },
+        "tangent_out": {
+          "oneOf": [
+            {
+              "type": "object",
+              "required": ["x", "y"],
+              "properties": {
+                "x": { "type": "number" },
+                "y": { "type": "number" }
+              }
+            },
+            { "type": "null" }
+          ]
+        }
+      }
+    },
+    "ProceduralAnimation": {
+      "type": "object",
+      "required": ["expression"],
+      "properties": {
+        "expression": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "PhysicsAnimation": {
+      "type": "object",
+      "required": ["simulation_type"],
+      "properties": {
+        "simulation_type": {
+          "type": "string",
+          "enum": ["RustSpreading", "MossGrowth", "Erosion", "Weathering", "Cracking", "Melting"]
+        }
+      }
+    }
+  }
+}

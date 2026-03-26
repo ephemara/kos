@@ -1,0 +1,214 @@
+/**
+ * K_OS Floating Dock Styles
+ * ─────────────────────────────────────────────────────────────────────────────
+ * Custom styling for rc-dock to match K_OS dark theme
+ */
+
+.kos-floating-dock {
+    --dock-bg: #0a0a0a;
+    --dock-border: #1c1c1c;
+    --dock-tab-bg: #080808;
+    --dock-tab-active-bg: #111;
+    --dock-tab-hover-bg: rgba(255, 255, 255, 0.02);
+    --dock-text: #9ca3af;
+    --dock-text-active: #f3f4f6;
+    --dock-accent: #f97316;
+    --dock-divider: #2a2a2a;
+}
+
+/* Panel container */
+.kos-floating-dock .dock-panel {
+    background: var(--dock-bg);
+    border: 1px solid var(--dock-border);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+/* Tab bar */
+.kos-floating-dock .dock-bar {
+    background: var(--dock-tab-bg);
+    border-bottom: 1px solid var(--dock-border);
+    height: 36px;
+    display: flex;
+    align-items: stretch;
+}
+
+/* Individual tab */
+.kos-floating-dock .dock-tab {
+    background: transparent;
+    border: none;
+    border-right: 1px solid var(--dock-divider);
+    color: var(--dock-text);
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0 16px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.kos-floating-dock .dock-tab:hover {
+    background: var(--dock-tab-hover-bg);
+    color: var(--dock-text-active);
+}
+
+.kos-floating-dock .dock-tab-active {
+    background: var(--dock-tab-active-bg);
+    color: var(--dock-text-active);
+}
+
+.kos-floating-dock .dock-tab-active::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 8px;
+    right: 8px;
+    height: 2px;
+    background: var(--dock-accent);
+    border-radius: 2px;
+}
+
+/* Tab close button */
+.kos-floating-dock .dock-tab-close-btn {
+    width: 16px;
+    height: 16px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.5;
+    transition: all 0.15s ease;
+}
+
+.kos-floating-dock .dock-tab-close-btn:hover {
+    opacity: 1;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* Tab content area */
+.kos-floating-dock .dock-content {
+    background: var(--dock-bg);
+    height: calc(100% - 36px);
+    overflow: hidden;
+}
+
+/* Floating window */
+.kos-floating-dock .dock-fbox {
+    background: var(--dock-bg);
+    border: 1px solid var(--dock-border);
+    border-radius: 8px;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 10px 10px -5px rgba(0, 0, 0, 0.4);
+    overflow: hidden;
+}
+
+/* Floating window header (drag handle) */
+.kos-floating-dock .dock-fbox-drag {
+    background: var(--dock-tab-bg);
+    border-bottom: 1px solid var(--dock-border);
+    height: 32px;
+    cursor: move;
+    display: flex;
+    align-items: center;
+    padding: 0 12px;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--dock-text-active);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* Window controls (maximize, close) */
+.kos-floating-dock .dock-fbox-btn {
+    width: 24px;
+    height: 24px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--dock-text);
+    transition: all 0.15s ease;
+    cursor: pointer;
+}
+
+.kos-floating-dock .dock-fbox-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--dock-text-active);
+}
+
+/* Divider between panels */
+.kos-floating-dock .dock-divider {
+    background: var(--dock-divider);
+}
+
+.kos-floating-dock .dock-divider:hover {
+    background: var(--dock-accent);
+}
+
+/* Drop zones for docking */
+.kos-floating-dock .dock-drop-indicator {
+    background: rgba(249, 115, 22, 0.2);
+    border: 2px solid var(--dock-accent);
+    border-radius: 4px;
+}
+
+/* Maximize mode */
+.kos-floating-dock .dock-fbox-maximized {
+    border-radius: 0;
+}
+
+/* Panel drag preview */
+.kos-floating-dock .dock-drag-preview {
+    background: var(--dock-bg);
+    border: 1px solid var(--dock-accent);
+    border-radius: 8px;
+    opacity: 0.8;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+}
+
+/* Empty panel placeholder */
+.kos-floating-dock .dock-panel-empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--dock-text);
+    font-size: 12px;
+    font-weight: 600;
+    opacity: 0.5;
+}
+
+/* Scrollbar styling for content */
+.kos-floating-dock .dock-content::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+.kos-floating-dock .dock-content::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.kos-floating-dock .dock-content::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 4px;
+}
+
+.kos-floating-dock .dock-content::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.12);
+}
+
+/* Animation for tab switching */
+.kos-floating-dock .dock-tab,
+.kos-floating-dock .dock-fbox-btn {
+    transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Focus styles */
+.kos-floating-dock .dock-tab:focus-visible,
+.kos-floating-dock .dock-fbox-btn:focus-visible {
+    outline: 2px solid var(--dock-accent);
+    outline-offset: 2px;
+}

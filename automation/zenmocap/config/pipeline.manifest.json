@@ -1,0 +1,70 @@
+{
+  "pipelineId": "zenmocap-closed-loop",
+  "name": "ZenMocap Closed Loop",
+  "workspaceRoot": "M:\\K_OS",
+  "defaultBranchPrefix": "codex/zenmocap",
+  "primaryProductRoots": [
+    "M:\\K_OS\\src-mocap",
+    "M:\\K_OS\\crates\\zen-mocap-engine",
+    "M:\\K_OS\\crates\\k-os-kain"
+  ],
+  "supportingRoots": [
+    "M:\\K_OS\\src-kain",
+    "M:\\K_OS\\src-frontend",
+    "M:\\K_OS\\docs"
+  ],
+  "output": {
+    "runsDir": "M:\\K_OS\\automation\\zenmocap\\runs",
+    "stateFile": "M:\\K_OS\\automation\\zenmocap\\runtime\\state.json",
+    "memoryFile": "M:\\K_OS\\automation\\zenmocap\\runtime\\memory.md",
+    "notesDir": "M:\\K_OS\\automation\\docs\\notes\\zenmocap-closed-loop",
+    "changelogDir": "M:\\K_OS\\automation\\docs\\changelog\\zenmocap-closed-loop"
+  },
+  "policies": {
+    "closedLoop": true,
+    "requireChangelogEveryTurn": true,
+    "requireDocsOnDocumentationTurn": true,
+    "requireValidationOnValidationTurn": true,
+    "preferDataDrivenContracts": true,
+    "preserveStandaloneZenMocapIdentity": true,
+    "allowSharedKOSComponents": true
+  },
+  "cycle": [
+    {
+      "slot": 1,
+      "phaseId": "discovery-architecture",
+      "agentId": "scope-architect",
+      "goal": "Audit the highest-value ZenMocap gaps and choose the next vertical slice with an architecture-first bias."
+    },
+    {
+      "slot": 2,
+      "phaseId": "animator-systems",
+      "agentId": "animator-builder",
+      "goal": "Push animator, keyframe, rig, timeline, and editing-system depth."
+    },
+    {
+      "slot": 3,
+      "phaseId": "engine-kain-shaders",
+      "agentId": "engine-forger",
+      "goal": "Strengthen zen-mocap-engine, Kain, omni pipeline usage, and shader/runtime surfaces."
+    },
+    {
+      "slot": 4,
+      "phaseId": "integration-polish",
+      "agentId": "integration-closer",
+      "goal": "Wire features together, reduce regressions, and harden UX/runtime integration."
+    },
+    {
+      "slot": 5,
+      "phaseId": "validation",
+      "agentId": "validation-chief",
+      "goal": "Run the broader test/build sweep and record the truth of the current system."
+    },
+    {
+      "slot": 6,
+      "phaseId": "documentation",
+      "agentId": "doc-operator",
+      "goal": "Document the current wiring, folder ownership, new features, and changelog trail."
+    }
+  ]
+}

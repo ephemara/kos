@@ -1,0 +1,2 @@
+fn desktop_automation_name() -> String with Pure:
+    "desktop_automation"

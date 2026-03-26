@@ -1,0 +1,25 @@
+{
+  "domain": "brush",
+  "builder": "brush_builder",
+  "kainscript_entry": "src-kain/domains/brush/brush_runtime_presets.ks",
+  "profiles": [
+    {
+      "id": "ink_liner",
+      "label": "Ink Liner",
+      "mode": "stroke_surface",
+      "kernel": "brush_builder_kernel"
+    },
+    {
+      "id": "soft_airbrush",
+      "label": "Soft Airbrush",
+      "mode": "spray_falloff",
+      "kernel": "brush_builder_kernel"
+    }
+  ],
+  "targets": [
+    "ts",
+    "js",
+    "ks",
+    "rust"
+  ]
+}

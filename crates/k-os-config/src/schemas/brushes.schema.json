@@ -1,0 +1,105 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://kos.dev/schemas/brushes.json",
+  "title": "Brush Configuration",
+  "description": "Configuration schema for DCC Suite brushes",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "required": ["id", "name", "category", "icon"],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the brush",
+        "pattern": "^[a-z0-9_-]+$"
+      },
+      "name": {
+        "type": "string",
+        "description": "Display name for the brush",
+        "minLength": 1
+      },
+      "category": {
+        "type": "string",
+        "description": "Brush category",
+        "enum": ["sculpt", "paint", "mask", "smooth"]
+      },
+      "defaultSize": {
+        "type": "number",
+        "description": "Default brush size in world units",
+        "minimum": 0.001,
+        "maximum": 10.0,
+        "default": 0.1
+      },
+      "defaultStrength": {
+        "type": "number",
+        "description": "Default brush strength (0.0 to 1.0)",
+        "minimum": 0.0,
+        "maximum": 1.0,
+        "default": 0.5
+      },
+      "supportsPressure": {
+        "type": "boolean",
+        "description": "Whether this brush supports pressure sensitivity",
+        "default": false
+      },
+      "gpuShader": {
+        "type": "string",
+        "description": "GPU shader name for this brush (optional)"
+      },
+      "icon": {
+        "type": "string",
+        "description": "Icon identifier for UI display",
+        "minLength": 1
+      },
+      "parameters": {
+        "type": "object",
+        "description": "Additional brush parameters",
+        "additionalProperties": {
+          "oneOf": [
+            {
+              "type": "object",
+              "required": ["type", "default", "min", "max"],
+              "properties": {
+                "type": { "const": "float" },
+                "default": { "type": "number" },
+                "min": { "type": "number" },
+                "max": { "type": "number" }
+              }
+            },
+            {
+              "type": "object",
+              "required": ["type", "default", "min", "max"],
+              "properties": {
+                "type": { "const": "int" },
+                "default": { "type": "integer" },
+                "min": { "type": "integer" },
+                "max": { "type": "integer" }
+              }
+            },
+            {
+              "type": "object",
+              "required": ["type", "default"],
+              "properties": {
+                "type": { "const": "bool" },
+                "default": { "type": "boolean" }
+              }
+            },
+            {
+              "type": "object",
+              "required": ["type", "default"],
+              "properties": {
+                "type": { "const": "color" },
+                "default": {
+                  "type": "array",
+                  "items": { "type": "number" },
+                  "minItems": 4,
+                  "maxItems": 4
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

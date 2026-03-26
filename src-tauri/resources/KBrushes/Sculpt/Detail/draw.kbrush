@@ -1,0 +1,28 @@
+{
+  "id": "draw",
+  "name": "Draw",
+  "category": "Sculpt/Detail",
+  "tags": ["sculpt", "draw", "standard", "primary"],
+  "kernel": "stamp",
+  "params": {
+    "radius": 0.1,
+    "strength": 0.55,
+    "hardness": 0.45,
+    "spacing": 0.06,
+    "lazy_radius": 0.015,
+    "subtract": false,
+    "front_faces_only": true,
+    "accumulate": true,
+    "jitter_position": 0.0,
+    "jitter_rotation": 0.0,
+    "jitter_strength": 0.0,
+    "falloff_type": "gaussian",
+    "extras": {}
+  },
+  "textures": {},
+  "pressure_strength": "soft",
+  "pressure_radius": "soft",
+  "speed_radius": null,
+  "tilt_rotation": null,
+  "entry_fade_dabs": 3
+}

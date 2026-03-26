@@ -1,0 +1,32 @@
+{
+  "id": "warp_drive",
+  "name": "Warp Drive",
+  "category": "Sculpt/Alien",
+  "tags": ["alien", "warp", "drive", "faster_than_light"],
+  "kernel": "custom",
+  "params": {
+    "radius": 0.15,
+    "strength": 0.8,
+    "hardness": 0.1,
+    "spacing": 0.03,
+    "lazy_radius": 0.05,
+    "subtract": false,
+    "front_faces_only": false,
+    "accumulate": false,
+    "jitter_position": 0.04,
+    "jitter_rotation": 0.7,
+    "jitter_strength": 0.3,
+    "falloff_type": "smooth",
+    "extras": {
+      "warp_factor": 9.0,
+      "spacetime_metric": "alcubierre",
+      "energy_requirement": 1e20
+    }
+  },
+  "textures": {},
+  "pressure_strength": "hard",
+  "pressure_radius": null,
+  "speed_radius": null,
+  "tilt_rotation": null,
+  "entry_fade_dabs": 6
+}

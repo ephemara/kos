@@ -1,0 +1,32 @@
+{
+  "id": "vein_network",
+  "name": "Vein Network",
+  "category": "Sculpt/Organic",
+  "tags": ["organic", "veins", "leaf", "network"],
+  "kernel": "pinch",
+  "params": {
+    "radius": 0.05,
+    "strength": 0.5,
+    "hardness": 0.4,
+    "spacing": 0.03,
+    "lazy_radius": 0.01,
+    "subtract": true,
+    "front_faces_only": true,
+    "accumulate": true,
+    "jitter_position": 0.01,
+    "jitter_rotation": 0.4,
+    "jitter_strength": 0.0,
+    "falloff_type": "smooth",
+    "extras": {
+      "vein_thickness": 0.3,
+      "branch_angle": 30.0,
+      "vein_depth": 0.2
+    }
+  },
+  "textures": {},
+  "pressure_strength": "soft",
+  "pressure_radius": "soft",
+  "speed_radius": null,
+  "tilt_rotation": null,
+  "entry_fade_dabs": 4
+}

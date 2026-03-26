@@ -1,0 +1,32 @@
+{
+  "id": "panel_lines",
+  "name": "Panel Lines",
+  "category": "Sculpt/HardSurface",
+  "tags": ["hardsurface", "panel", "lines", "groove"],
+  "kernel": "pinch",
+  "params": {
+    "radius": 0.02,
+    "strength": 0.5,
+    "hardness": 0.9,
+    "spacing": 0.01,
+    "lazy_radius": 0.0,
+    "subtract": true,
+    "front_faces_only": true,
+    "accumulate": true,
+    "jitter_position": 0.0,
+    "jitter_rotation": 0.0,
+    "jitter_strength": 0.0,
+    "falloff_type": "sharp",
+    "extras": {
+      "line_width": 0.02,
+      "line_depth": 0.1,
+      "sharp_corners": 1.0
+    }
+  },
+  "textures": {},
+  "pressure_strength": "hard",
+  "pressure_radius": null,
+  "speed_radius": null,
+  "tilt_rotation": null,
+  "entry_fade_dabs": 0
+}

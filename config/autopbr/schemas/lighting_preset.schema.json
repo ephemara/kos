@@ -1,0 +1,98 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Lighting Preset Configuration",
+  "description": "Schema for KAutoPBR lighting preset configurations",
+  "type": "object",
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "presets": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/definitions/LightingPreset"
+      }
+    }
+  },
+  "required": ["presets"],
+  "definitions": {
+    "LightingPreset": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Display name of the preset"
+        },
+        "description": {
+          "type": "string",
+          "description": "Description of the lighting setup"
+        },
+        "intensity": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 10,
+          "description": "Overall intensity multiplier"
+        },
+        "background": {
+          "type": "string",
+          "pattern": "^#[0-9A-Fa-f]{6}$",
+          "description": "Background color in hex format"
+        },
+        "useHDR": {
+          "type": "boolean",
+          "description": "Whether this preset uses HDR environment maps"
+        },
+        "hdrPath": {
+          "type": "string",
+          "description": "Path to HDR environment map file"
+        },
+        "lights": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Light"
+          },
+          "description": "Array of light sources"
+        }
+      },
+      "required": ["name", "intensity", "background"]
+    },
+    "Light": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["point", "directional", "ambient", "spot"],
+          "description": "Type of light source"
+        },
+        "name": {
+          "type": "string",
+          "description": "Name of the light"
+        },
+        "position": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 3,
+          "maxItems": 3,
+          "description": "Position [x, y, z] for point/directional lights"
+        },
+        "intensity": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Light intensity"
+        },
+        "color": {
+          "type": "string",
+          "pattern": "^#[0-9A-Fa-f]{6}$",
+          "description": "Light color in hex format"
+        },
+        "castShadow": {
+          "type": "boolean",
+          "description": "Whether this light casts shadows"
+        }
+      },
+      "required": ["type", "intensity", "color"]
+    }
+  }
+}

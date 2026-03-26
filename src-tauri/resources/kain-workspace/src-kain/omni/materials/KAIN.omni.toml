@@ -1,0 +1,39 @@
+# KAIN Omni Manifest - Full-Stack PBR Material System
+# One .kn file -> TypeScript UI + Rust Backend + SPIR-V Shader
+
+[project]
+entry = "material_system.kn"
+build_dir = "dist"
+
+[import_resolution]
+inline_kain_imports = true
+search_roots = []
+
+# Target 1: TypeScript React Component (Frontend UI)
+[[targets]]
+kind = "ts"
+output = "dist/MaterialEditor.tsx"
+
+# Target 2: Rust Backend (Tauri Command + wgpu)
+[[targets]]
+kind = "rust"
+output = "dist/material_backend.rs"
+
+# Target 3: SPIR-V Compute Shader (GPU)
+[[targets]]
+kind = "spirv"
+output = "dist/material_pbr_standard.spv"
+
+# Target 4: GPU Artifacts Bundle (Rust + SPIR-V + Reflection)
+[[targets]]
+kind = "rust_bundle"
+output = "dist/material_gpu_bundle.rs"
+
+[targets.rust_bundle]
+output = "dist/gpu_bundle"
+artifacts = ["source", "shader_host", "shader_reflection", "spirv"]
+
+# Target 5: KainScript (No-compile JS for quick testing)
+[[targets]]
+kind = "ks"
+output = "dist/material_editor.ks"

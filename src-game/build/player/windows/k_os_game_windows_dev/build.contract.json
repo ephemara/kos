@@ -1,0 +1,71 @@
+{
+  "artifact_name": "k_os_game_windows_dev",
+  "bundle": {
+    "contract_asset": "build.contract.json",
+    "copy_runtime_dlls": false,
+    "include_pdb": true
+  },
+  "cooked_dir": "M:/K_OS\\src-game/build/cooked/windows",
+  "kind": "build_contract",
+  "output_dir": "M:/K_OS\\src-game/build/player/windows",
+  "package_asset": "M:/K_OS\\src-game/assets/packaging/windows.build.toml",
+  "provenance": {
+    "hash_algorithm": "sha256",
+    "registry_versions": [
+      {
+        "asset_path": "M:/K_OS\\src-game/assets/gameplay/input.registry.toml",
+        "registry_kind": "input_bindings",
+        "sha256": "37a707e2c1c650d3aff8ac0eb4b9fbefdd2641cc8879a77bff7bab026cf8d66f",
+        "version": "1"
+      },
+      {
+        "asset_path": "M:/K_OS\\src-game/assets/gameplay/tags.registry.toml",
+        "registry_kind": "gameplay_tags",
+        "sha256": "2c9773de1815c4d9cbd6d04c3e7753d717f6e61f4f7b3f3bc5be67e85d61f7af",
+        "version": "1"
+      },
+      {
+        "asset_path": "M:/K_OS\\src-game/assets/gameplay/actors.registry.toml",
+        "registry_kind": "actor_archetypes",
+        "sha256": "24037af79054c50d9eb0f8d04436231913170abc734401e642b4be354a5e7e0b",
+        "version": "1"
+      },
+      {
+        "asset_path": "M:/K_OS\\src-game/assets/gameplay/cameras.registry.toml",
+        "registry_kind": "camera_rigs",
+        "sha256": "8515a8e2ebef2459fd78fb704f150cb3a1f2ea655ccd1a9c776fb7a116109994",
+        "version": "1"
+      },
+      {
+        "asset_path": "M:/K_OS\\src-game/assets/gameplay/visual_scripts.registry.toml",
+        "registry_kind": "visual_scripting",
+        "sha256": "7016b12caa6050227ef1016858e0657b57130fddae324bfa10479bdea940af27",
+        "version": "1"
+      }
+    ],
+    "source_assets": [
+      {
+        "kind": "package",
+        "path": "M:/K_OS\\src-game/assets/packaging/windows.build.toml",
+        "sha256": "93f642d70cda3fcf50ba3bec946e51cd1d233c91dbdf020cd8840ba162bff3b0"
+      },
+      {
+        "kind": "runtime_executable",
+        "path": "M:/K_OS\\src-game/build/player/windows\\k_os_game_windows_dev\\k_os_game_windows_dev.exe",
+        "sha256": "ec8cbe39db71936de7ad7b2339f7a217b9762e3201b3776fc66de6587c4b574f"
+      }
+    ],
+    "source_contracts": [
+      {
+        "path": "M:/K_OS\\src-game/build/cooked/windows\\cook.contract.json",
+        "sha256": "99f843f42ff60e7f51f0ef137e262e773f82a6c32a07d6c5aa6a913109eaf167"
+      }
+    ]
+  },
+  "runtime": {
+    "bootstrap": "bevy_pipeline",
+    "entry_profile": "runtime_play",
+    "executable": "k_os_game_windows_dev.exe"
+  },
+  "target_platform": "windows"
+}

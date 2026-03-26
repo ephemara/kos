@@ -1,0 +1,32 @@
+{
+  "id": "crystal_growth",
+  "name": "Crystal Growth",
+  "category": "Sculpt/Organic",
+  "tags": ["organic", "crystal", "geode", "formation"],
+  "kernel": "stamp",
+  "params": {
+    "radius": 0.07,
+    "strength": 0.6,
+    "hardness": 0.8,
+    "spacing": 0.05,
+    "lazy_radius": 0.0,
+    "subtract": false,
+    "front_faces_only": true,
+    "accumulate": true,
+    "jitter_position": 0.02,
+    "jitter_rotation": 0.7,
+    "jitter_strength": 0.1,
+    "falloff_type": "sharp",
+    "extras": {
+      "crystal_type": "quartz",
+      "facet_angle": 60.0,
+      "growth_direction": "radial"
+    }
+  },
+  "textures": {},
+  "pressure_strength": "hard",
+  "pressure_radius": null,
+  "speed_radius": null,
+  "tilt_rotation": null,
+  "entry_fade_dabs": 2
+}

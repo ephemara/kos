@@ -1,0 +1,26 @@
+version = "1"
+registry_kind = "gameplay_tags"
+
+[domains.actor]
+values = [
+  "actor.player",
+  "actor.npc",
+  "actor.enemy",
+  "actor.interactable"
+]
+
+[domains.camera]
+values = [
+  "camera.follow",
+  "camera.cinematic",
+  "camera.debug",
+  "camera.dialogue"
+]
+
+[domains.state]
+values = [
+  "state.airborne",
+  "state.grounded",
+  "state.stunned",
+  "state.dialogue"
+]

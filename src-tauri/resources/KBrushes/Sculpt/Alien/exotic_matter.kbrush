@@ -1,0 +1,32 @@
+{
+  "id": "exotic_matter",
+  "name": "Exotic Matter",
+  "category": "Sculpt/Alien",
+  "tags": ["alien", "exotic", "matter", "negative_energy"],
+  "kernel": "stamp",
+  "params": {
+    "radius": 0.08,
+    "strength": -0.3,
+    "hardness": 0.2,
+    "spacing": 0.04,
+    "lazy_radius": 0.02,
+    "subtract": false,
+    "front_faces_only": true,
+    "accumulate": true,
+    "jitter_position": 0.04,
+    "jitter_rotation": 0.8,
+    "jitter_strength": 0.25,
+    "falloff_type": "gaussian",
+    "extras": {
+      "energy_density": -1.0,
+      "casimir_effect": 0.7,
+      "stability_factor": 0.3
+    }
+  },
+  "textures": {},
+  "pressure_strength": "soft",
+  "pressure_radius": "soft",
+  "speed_radius": null,
+  "tilt_rotation": null,
+  "entry_fade_dabs": 5
+}

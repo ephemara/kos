@@ -1,0 +1,25 @@
+{
+  "domain": "shader",
+  "builder": "shader_builder",
+  "kainscript_entry": "src-kain/domains/shader/shader_runtime_profiles.ks",
+  "profiles": [
+    {
+      "id": "surface_pbr",
+      "label": "Surface PBR",
+      "domain_target": "materials",
+      "kernel": "shader_builder_kernel"
+    },
+    {
+      "id": "post_tonemap",
+      "label": "Post Tonemap",
+      "domain_target": "renderer",
+      "kernel": "shader_builder_kernel"
+    }
+  ],
+  "targets": [
+    "spirv",
+    "rust_bundle",
+    "ts",
+    "ks"
+  ]
+}

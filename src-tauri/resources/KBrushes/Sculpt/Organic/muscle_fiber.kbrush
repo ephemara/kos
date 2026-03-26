@@ -1,0 +1,32 @@
+{
+  "id": "muscle_fiber",
+  "name": "Muscle Fiber",
+  "category": "Sculpt/Organic",
+  "tags": ["organic", "muscle", "fiber", "anatomy"],
+  "kernel": "grab",
+  "params": {
+    "radius": 0.1,
+    "strength": 0.6,
+    "hardness": 0.3,
+    "spacing": 0.02,
+    "lazy_radius": 0.03,
+    "subtract": false,
+    "front_faces_only": true,
+    "accumulate": false,
+    "jitter_position": 0.01,
+    "jitter_rotation": 0.1,
+    "jitter_strength": 0.05,
+    "falloff_type": "gaussian",
+    "extras": {
+      "fiber_direction": 1.0,
+      "fiber_twist": 0.2,
+      "muscle_bunch": 0.5
+    }
+  },
+  "textures": {},
+  "pressure_strength": "soft",
+  "pressure_radius": "soft",
+  "speed_radius": null,
+  "tilt_rotation": null,
+  "entry_fade_dabs": 3
+}

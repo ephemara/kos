@@ -1,0 +1,38 @@
+[package]
+name = "zen"
+version = "0.1.0"
+edition = "2021"
+description = "Zen native renderer MVP for K_OS"
+
+[[bin]]
+name = "zen"
+path = "src/main.rs"
+
+[dependencies]
+bytemuck = { version = "1.20", features = ["derive"] }
+egui = "0.32"
+egui_dock = { version = "0.17", features = ["serde"] }
+egui-winit = "0.32"
+egui_wgpu_backend = "0.35"
+glam = "0.30"
+kain-core = { path = "../../../Code/Kain/crates/kain-core" }
+kain-ui = { path = "../../../Code/Kain/crates/kain-ui" }
+k-os-asset-pipeline = { path = "../k-os-asset-pipeline" }
+k-os-kain = { path = "../k-os-kain" }
+k-os-workspace-registry = { path = "../k-os-workspace-registry" }
+k-os-renderer = { path = "../k-os-renderer" }
+log = "0.4"
+naga = { version = "26", features = ["spv-in", "wgsl-out"] }
+pollster = "0.4"
+rfd = "0.15"
+serde = { version = "1.0", features = ["derive"] }
+toml = "0.8"
+wgpu = "26"
+winit = "0.30"
+zen-core = { path = "../zen-core" }
+zen-editor = { path = "../zen-editor" }
+zen-host = { path = "../zen-host" }
+zen-kain-api = { path = "../zen-kain-api" }
+zen-kain-modules = { path = "../zen-kain-modules" }
+zen-runtime = { path = "../zen-runtime" }
+zen-scene = { path = "../zen-scene" }

@@ -1,0 +1,87 @@
+﻿cargo :     Blocking waiting 
+for file lock on build 
+directory
+At line:1 char:1
++ cargo build 
+--message-format short 2>&1 
+| Out-File -FilePath 
+build_er ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~
+    + CategoryInfo           
+   : NotSpecified: (    Blo  
+  cking wa...build directo   
+ ry:String) [], RemoteExc    
+eption
+    + FullyQualifiedErrorId  
+   : NativeCommandError
+ 
+warning: k-os-backend@0.1.0: 
+warning: k-os-backend@0.1.0: 
+≡ƒôü SENTRY: 2 files not 
+documented in DIRECTORY.md:
+warning: k-os-backend@0.1.0: 
+  [PY]   src-python\kos\scrip
+ts\dynamesh_remesh.py
+warning: k-os-backend@0.1.0: 
+  [PY]   src-python\kos\scrip
+ts\hello.py
+warning: k-os-backend@0.1.0: 
+warning: k-os-backend@0.1.0: 
+Consider adding these to 
+DIRECTORY.md for AI agent 
+clarity.
+warning: k-os-backend@0.1.0: 
+   Compiling k-os-backend 
+v0.1.0 (C:\Users\Admin\Deskto
+p\K_OSNew\src-tauri)
+warning: k-os-backend@0.1.0: 
+warning: k-os-backend@0.1.0: 
+≡ƒôü SENTRY: 2 files not 
+documented in DIRECTORY.md:
+warning: k-os-backend@0.1.0: 
+  [PY]   src-python\kos\scrip
+ts\dynamesh_remesh.py
+warning: k-os-backend@0.1.0: 
+  [PY]   src-python\kos\scrip
+ts\hello.py
+warning: k-os-backend@0.1.0: 
+warning: k-os-backend@0.1.0: 
+Consider adding these to 
+DIRECTORY.md for AI agent 
+clarity.
+warning: k-os-backend@0.1.0: 
+error: failed to remove file 
+`C:\Users\Admin\Desktop\K_OSN
+ew\src-tauri\target\debug\k-o
+s-bevy.exe`
+
+Caused by:
+  Access is denied. (os 
+error 5)
+warning: build failed, 
+waiting for other jobs to 
+finish...
+error: linking with 
+`rust-lld.exe` failed: exit 
+code: 1
+warning: k-os-backend@0.1.0: 
+warning: k-os-backend@0.1.0: 
+≡ƒôü SENTRY: 2 files not 
+documented in DIRECTORY.md:
+warning: k-os-backend@0.1.0: 
+  [PY]   src-python\kos\scrip
+ts\dynamesh_remesh.py
+warning: k-os-backend@0.1.0: 
+  [PY]   src-python\kos\scrip
+ts\hello.py
+warning: k-os-backend@0.1.0: 
+warning: k-os-backend@0.1.0: 
+Consider adding these to 
+DIRECTORY.md for AI agent 
+clarity.
+warning: k-os-backend@0.1.0: 
+error: could not compile 
+`k-os-backend` (bin 
+"k-os-backend") due to 1 
+previous error

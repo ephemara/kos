@@ -1,0 +1,20 @@
+[package]
+name = "k-os-eval"
+version = "0.1.0"
+edition = "2021"
+description = "K_OS dependency graph and evaluation scheduler"
+
+[lib]
+name = "k_os_eval"
+path = "src/lib.rs"
+
+[dependencies]
+serde = { version = "1.0", features = ["derive"] }
+thiserror = "2.0"
+k-os-scene = { path = "../k-os-scene" }
+k-os-mesh-processing = { path = "../k-os-mesh-processing" }
+glam = "0.30"
+log = "0.4"
+nalgebra = "0.33"
+nalgebra-sparse = "0.10"
+rayon = "1.10"

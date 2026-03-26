@@ -1,0 +1,88 @@
+version = "1"
+registry_kind = "camera_rigs"
+
+[[rigs]]
+id = "player.follow.third_person"
+mode = "spring_arm"
+target_offset = [0.0, 1.7, 0.0]
+arm_length = 4.5
+collision_probe_radius = 0.2
+look_sensitivity = [0.9, 0.8]
+
+[[rigs]]
+id = "cinematic.spline.preview"
+mode = "rail"
+default_path = "paths/intro_cam_a"
+blend_seconds = 0.8
+
+[[rigs]]
+id = "debug.freefly"
+mode = "freefly"
+move_speed = 8.0
+boost_multiplier = 4.0
+
+[runtime_view]
+apply_to_host_camera = true
+fallback_focus = [0.0, 1.5, 0.0]
+fallback_arm_length = 6.0
+spring_arm_height_ratio = 0.24
+rail_height_offset = 1.35
+rail_distance_scale = 0.62
+freefly_height_offset = 1.2
+freefly_distance_scale = 0.18
+dispatch_intensity_radius_scale = 0.2
+dispatch_intensity_height_scale = 0.45
+
+[action_projection]
+
+[[action_projection.routes]]
+agent = "hero.default"
+phase = "sense"
+gameplay_action_prefix = "perception.scan_targets"
+target_rig = "player.follow.third_person"
+blend_seconds = 0.18
+priority = 120
+
+[[action_projection.routes]]
+agent = "hero.default"
+phase = "act"
+gameplay_action_prefix = "combat.attack."
+target_rig = "cinematic.spline.preview"
+blend_seconds = 0.9
+priority = 420
+
+[[action_projection.routes]]
+agent = "npc.vendor"
+phase = "act"
+gameplay_action_prefix = "interaction.vendor."
+target_rig = "cinematic.spline.preview"
+blend_seconds = 0.65
+priority = 300
+
+[[action_projection.routes]]
+phase = "recover"
+gameplay_action_prefix = "locomotion.recovery."
+target_rig = "player.follow.third_person"
+blend_seconds = 0.25
+priority = 80
+
+[sequencer_projection]
+
+[[sequencer_projection.routes]]
+binding_target_prefix = "camera.rig.cinematic."
+target_rig = "cinematic.spline.preview"
+blend_seconds = 1.05
+min_intensity = 0.35
+priority = 420
+
+[[sequencer_projection.routes]]
+binding_target_prefix = "timeline.track.camera"
+target_rig = "cinematic.spline.preview"
+blend_seconds = 0.8
+priority = 180
+
+[[sequencer_projection.routes]]
+binding_target_prefix = "timeline.track.event"
+target_rig = "player.follow.third_person"
+blend_seconds = 0.2
+priority = 60

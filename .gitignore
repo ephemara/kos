@@ -1,0 +1,79 @@
+# ===========================
+# K_OS .gitignore
+# ===========================
+
+# === Node/npm ===
+node_modules/
+dist/
+dist-ssr/
+.vite/
+*.local
+src-python/
+
+# === Logs ===
+logs/
+/nodez
+nodez/ 
+*/nodez
+*.log
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+
+# === Rust/Cargo ===
+target/
+src-tauri/target/
+crates/*/target/
+
+# === Python ===
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+*.egg-info/
+
+# === IDE ===
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.swp
+*.swo
+*.exe
+*/dist
+*.sw?
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+.trae/
+archive/
+
+# === OS ===
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# === Secrets (never commit) ===
+.env
+.env.local
+*.key
+*.pem
+
+# === Non-essential directories ===
+IMPORTS/
+KOSBEVY/
+.cargo/
+
+# === Build artifacts ===
+*.wasm
+pkg/
+*.spv
+
+# === Lock files (optional - keep Cargo.lock for reproducible builds) ===
+# package-lock.json  # Uncomment if you don't want to track npm lockfile
+
+# === Agent/AI artifacts ===
+.gemini/
+
+*.spv

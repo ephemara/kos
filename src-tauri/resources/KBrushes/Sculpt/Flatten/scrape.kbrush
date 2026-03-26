@@ -1,0 +1,27 @@
+{
+  "id": "scrape",
+  "name": "Scrape",
+  "category": "Sculpt/Flatten",
+  "tags": ["sculpt", "scrape", "flatten", "peaks"],
+  "kernel": "flatten",
+  "params": {
+    "radius": 0.1,
+    "strength": 0.55,
+    "hardness": 0.6,
+    "spacing": 0.04,
+    "lazy_radius": 0.0,
+    "subtract": true,
+    "front_faces_only": true,
+    "accumulate": false,
+    "jitter_position": 0.0,
+    "jitter_rotation": 0.0,
+    "jitter_strength": 0.0,
+    "extras": {
+      "scrape_peaks_only": 1.0
+    }
+  },
+  "textures": {},
+  "pressure_strength": "linear",
+  "speed_radius": null,
+  "tilt_rotation": null
+}

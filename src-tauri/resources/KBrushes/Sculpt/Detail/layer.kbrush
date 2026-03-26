@@ -1,0 +1,27 @@
+{
+  "id": "layer",
+  "name": "Layer",
+  "category": "Sculpt/Detail",
+  "tags": ["sculpt", "layer", "height", "uniform"],
+  "kernel": "stamp",
+  "params": {
+    "radius": 0.1,
+    "strength": 0.5,
+    "hardness": 0.4,
+    "spacing": 0.04,
+    "lazy_radius": 0.0,
+    "subtract": false,
+    "front_faces_only": true,
+    "accumulate": false,
+    "jitter_position": 0.0,
+    "jitter_rotation": 0.0,
+    "jitter_strength": 0.0,
+    "extras": {
+      "layer_height": 0.02
+    }
+  },
+  "textures": {},
+  "pressure_strength": "linear",
+  "speed_radius": null,
+  "tilt_rotation": null
+}

@@ -1,0 +1,32 @@
+{
+  "id": "membrane_brane",
+  "name": "Membrane Brane",
+  "category": "Sculpt/Alien",
+  "tags": ["alien", "membrane", "brane", "multiverse"],
+  "kernel": "custom",
+  "params": {
+    "radius": 0.12,
+    "strength": 0.3,
+    "hardness": 0.1,
+    "spacing": 0.05,
+    "lazy_radius": 0.04,
+    "subtract": false,
+    "front_faces_only": false,
+    "accumulate": true,
+    "jitter_position": 0.04,
+    "jitter_rotation": 0.7,
+    "jitter_strength": 0.25,
+    "falloff_type": "smooth",
+    "extras": {
+      "brane_tension": 1e19,
+      "bulk_dimension": 10,
+      "collision_energy": 1e16
+    }
+  },
+  "textures": {},
+  "pressure_strength": "soft",
+  "pressure_radius": "soft",
+  "speed_radius": null,
+  "tilt_rotation": null,
+  "entry_fade_dabs": 7
+}

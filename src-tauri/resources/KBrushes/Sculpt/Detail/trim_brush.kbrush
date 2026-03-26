@@ -1,0 +1,31 @@
+{
+  "id": "trim_brush",
+  "name": "Trim Brush",
+  "category": "Sculpt/Detail",
+  "tags": ["sculpt", "trim", "flatten", "cut"],
+  "kernel": "flatten",
+  "params": {
+    "radius": 0.08,
+    "strength": 0.8,
+    "hardness": 0.7,
+    "spacing": 0.04,
+    "lazy_radius": 0.0,
+    "subtract": false,
+    "front_faces_only": true,
+    "accumulate": false,
+    "jitter_position": 0.0,
+    "jitter_rotation": 0.0,
+    "jitter_strength": 0.0,
+    "falloff_type": "sharp",
+    "extras": {
+      "trim_angle": 45.0,
+      "preserve_edges": false
+    }
+  },
+  "textures": {},
+  "pressure_strength": "hard",
+  "pressure_radius": null,
+  "speed_radius": null,
+  "tilt_rotation": null,
+  "entry_fade_dabs": 1
+}

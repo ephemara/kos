@@ -1,0 +1,2 @@
+fn signal_kernel_id() -> Int with Pure:
+    1

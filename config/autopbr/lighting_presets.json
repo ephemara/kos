@@ -1,0 +1,107 @@
+{
+  "presets": [
+    {
+      "id": "studio",
+      "name": "Studio",
+      "description": "Three-point studio lighting with soft key, fill, and rim lights",
+      "hdr_environment": "studio_neutral.hdr",
+      "intensity": 0.3,
+      "rotation": 0,
+      "additional_lights": [
+        {
+          "type": "area",
+          "position": [2, 3, 2],
+          "direction": [-1, -1, -1],
+          "intensity": 5000,
+          "color_temperature": 5500,
+          "area_width": 2.0,
+          "area_height": 2.0
+        },
+        {
+          "type": "area",
+          "position": [-2, 2, 2],
+          "direction": [1, -1, -1],
+          "intensity": 2000,
+          "color_temperature": 6500,
+          "area_width": 3.0,
+          "area_height": 3.0
+        },
+        {
+          "type": "point",
+          "position": [0, 2, -3],
+          "direction": [0, 0, 0],
+          "intensity": 3000,
+          "color_temperature": 7000
+        }
+      ]
+    },
+    {
+      "id": "outdoor",
+      "name": "Outdoor",
+      "description": "Natural outdoor lighting with sun and sky",
+      "hdr_environment": "outdoor_sky.hdr",
+      "intensity": 1.0,
+      "rotation": 45,
+      "additional_lights": [
+        {
+          "type": "directional",
+          "position": [0, 0, 0],
+          "direction": [0.3, -0.8, 0.5],
+          "intensity": 100000,
+          "color_temperature": 5800
+        }
+      ]
+    },
+    {
+      "id": "indoor",
+      "name": "Indoor",
+      "description": "Soft indoor ambient lighting",
+      "hdr_environment": "indoor_ambient.hdr",
+      "intensity": 0.8,
+      "rotation": 0,
+      "additional_lights": [
+        {
+          "type": "point",
+          "position": [0, 3, 0],
+          "direction": [0, 0, 0],
+          "intensity": 2000,
+          "color_temperature": 3000
+        }
+      ]
+    },
+    {
+      "id": "sunset",
+      "name": "Sunset",
+      "description": "Warm sunset lighting with golden hour colors",
+      "hdr_environment": "sunset_golden.hdr",
+      "intensity": 1.2,
+      "rotation": 180,
+      "additional_lights": [
+        {
+          "type": "directional",
+          "position": [0, 0, 0],
+          "direction": [0.7, -0.3, 0.6],
+          "intensity": 50000,
+          "color_temperature": 3500
+        }
+      ]
+    },
+    {
+      "id": "night",
+      "name": "Night",
+      "description": "Cool night lighting with moonlight",
+      "hdr_environment": "night_sky.hdr",
+      "intensity": 0.2,
+      "rotation": 90,
+      "additional_lights": [
+        {
+          "type": "directional",
+          "position": [0, 0, 0],
+          "direction": [-0.2, -0.9, 0.4],
+          "intensity": 5000,
+          "color_temperature": 4100
+        }
+      ]
+    }
+  ]
+}

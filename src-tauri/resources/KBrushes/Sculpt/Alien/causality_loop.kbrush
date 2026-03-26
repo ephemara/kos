@@ -1,0 +1,32 @@
+{
+  "id": "causality_loop",
+  "name": "Causality Loop",
+  "category": "Sculpt/Alien",
+  "tags": ["alien", "causality", "loop", "paradox"],
+  "kernel": "custom",
+  "params": {
+    "radius": 0.08,
+    "strength": 0.6,
+    "hardness": 0.25,
+    "spacing": 0.03,
+    "lazy_radius": 0.03,
+    "subtract": false,
+    "front_faces_only": false,
+    "accumulate": true,
+    "jitter_position": 0.05,
+    "jitter_rotation": 0.9,
+    "jitter_strength": 0.3,
+    "falloff_type": "gaussian",
+    "extras": {
+      "loop_depth": 3,
+      "paradox_stability": 0.4,
+      "temporal_anchor": 0.7
+    }
+  },
+  "textures": {},
+  "pressure_strength": "soft",
+  "pressure_radius": "soft",
+  "speed_radius": null,
+  "tilt_rotation": null,
+  "entry_fade_dabs": 5
+}

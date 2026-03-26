@@ -1,0 +1,31 @@
+{
+  "id": "layer_brush",
+  "name": "Layer Brush",
+  "category": "Sculpt/Clay",
+  "tags": ["sculpt", "layer", "height", "limited"],
+  "kernel": "stamp",
+  "params": {
+    "radius": 0.12,
+    "strength": 0.6,
+    "hardness": 0.4,
+    "spacing": 0.06,
+    "lazy_radius": 0.01,
+    "subtract": false,
+    "front_faces_only": true,
+    "accumulate": true,
+    "jitter_position": 0.0,
+    "jitter_rotation": 0.0,
+    "jitter_strength": 0.0,
+    "falloff_type": "flat",
+    "extras": {
+      "height_limit": 0.05,
+      "preserve_below": true
+    }
+  },
+  "textures": {},
+  "pressure_strength": "linear",
+  "pressure_radius": null,
+  "speed_radius": null,
+  "tilt_rotation": null,
+  "entry_fade_dabs": 3
+}

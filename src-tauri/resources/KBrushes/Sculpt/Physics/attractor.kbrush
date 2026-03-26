@@ -1,0 +1,28 @@
+{
+  "id": "attractor",
+  "name": "Attractor",
+  "category": "Sculpt/Physics",
+  "tags": ["sculpt", "physics", "attractor", "magnet"],
+  "kernel": "physics",
+  "params": {
+    "radius": 0.25,
+    "strength": 0.4,
+    "hardness": 0.5,
+    "spacing": 0.05,
+    "lazy_radius": 0.0,
+    "subtract": false,
+    "front_faces_only": false,
+    "accumulate": false,
+    "jitter_position": 0.0,
+    "jitter_rotation": 0.0,
+    "jitter_strength": 0.0,
+    "extras": {
+      "entry_point": 0.0,
+      "power": 1.5
+    }
+  },
+  "textures": {},
+  "pressure_strength": "soft",
+  "speed_radius": null,
+  "tilt_rotation": null
+}

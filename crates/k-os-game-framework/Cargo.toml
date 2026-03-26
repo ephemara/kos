@@ -1,0 +1,14 @@
+[package]
+name = "k-os-game-framework"
+version = "0.1.0"
+edition = "2021"
+description = "K_OS Game framework ownership for bootstrap state, gameplay registry ingest, and game-facing runtime state contracts"
+
+[lib]
+name = "k_os_game_framework"
+path = "src/lib.rs"
+
+[dependencies]
+bevy_ecs = "0.17"
+k-os-game-runtime = { path = "../k-os-game-runtime" }
+toml = "0.8"

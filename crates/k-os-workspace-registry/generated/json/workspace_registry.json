@@ -1,0 +1,3473 @@
+{
+  "registry_version": 1,
+  "workspace_root": ".",
+  "package_count": 47,
+  "local_dependency_edge_count": 99,
+  "aggregator_packages": [
+    "k-os-backend",
+    "k-os-bevy",
+    "zen"
+  ],
+  "data_sources": [
+    "cargo metadata --format-version 1 --no-deps",
+    "workspace.metadata.kos",
+    "package.metadata.kos",
+    "k-os-kain manifests",
+    "zen manifests"
+  ],
+  "packages": [
+    {
+      "name": "k-os-animation",
+      "version": "0.1.0",
+      "description": "K_OS native animation asset and clip metadata types",
+      "manifest_path": "crates/k-os-animation/Cargo.toml",
+      "package_path": "crates/k-os-animation",
+      "target_names": [
+        "k_os_animation"
+      ],
+      "target_kinds": [
+        "lib"
+      ],
+      "features": [],
+      "workspace_dependencies": [],
+      "local_dependency_count": 0,
+      "roles": [
+        "library"
+      ],
+      "capabilities": [
+        "k-os"
+      ],
+      "hosts": [],
+      "artifact_ids": [],
+      "artifact_count": 0,
+      "notes": [],
+      "metadata_sources": [
+        "cargo_metadata",
+        "workspace_metadata.inference"
+      ],
+      "is_aggregator": false
+    },
+    {
+      "name": "k-os-asset-pipeline",
+      "version": "0.1.0",
+      "description": "K_OS Asset Pipeline - Unified asset import/export/processing with format detection, caching, and extensible trait-based architecture",
+      "manifest_path": "crates/k-os-asset-pipeline/Cargo.toml",
+      "package_path": "crates/k-os-asset-pipeline",
+      "target_names": [
+        "integration_tests",
+        "k_os_asset_pipeline",
+        "property_tests"
+      ],
+      "target_kinds": [
+        "lib",
+        "test"
+      ],
+      "features": [
+        "default"
+      ],
+      "workspace_dependencies": [],
+      "local_dependency_count": 0,
+      "roles": [
+        "library"
+      ],
+      "capabilities": [
+        "k-os"
+      ],
+      "hosts": [],
+      "artifact_ids": [],
+      "artifact_count": 0,
+      "notes": [],
+      "metadata_sources": [
+        "cargo_metadata",
+        "workspace_metadata.inference"
+      ],
+      "is_aggregator": false
+    },
+    {
+      "name": "k-os-backend",
+      "version": "0.1.0",
+      "description": "K_OS Tauri Backend - Thin Proxy to Owner Crates",
+      "manifest_path": "src-tauri/Cargo.toml",
+      "package_path": "src-tauri",
+      "target_names": [
+        "build-script-build",
+        "k-os-backend"
+      ],
+      "target_kinds": [
+        "bin",
+        "custom-build"
+      ],
+      "features": [],
+      "workspace_dependencies": [
+        "k-os-baking",
+        "k-os-brushes",
+        "k-os-config",
+        "k-os-eval",
+        "k-os-external",
+        "k-os-gpu-pipeline",
+        "k-os-hdr",
+        "k-os-io",
+        "k-os-kain",
+        "k-os-material",
+        "k-os-mesh",
+        "k-os-mesh-processing",
+        "k-os-photogrammetry",
+        "k-os-renderer",
+        "k-os-rig",
+        "k-os-scatter",
+        "k-os-scene",
+        "k-os-scene-runtime",
+        "k-os-sculpt",
+        "k-os-sim",
+        "k-os-workspace-registry",
+        "transform-gizmo",
+        "zen-mocap-engine"
+      ],
+      "local_dependency_count": 23,
+      "roles": [
+        "aggregator",
+        "binary",
+        "host",
+        "tauri-backend"
+      ],
+      "capabilities": [
+        "build-script",
+        "gpu",
+        "ipc-proxy",
+        "k-os",
+        "kain",
+        "workspace-host"
+      ],
+      "hosts": [
+        "backend"
+      ],
+      "artifact_ids": [],
+      "artifact_count": 0,
+      "notes": [],
+      "metadata_sources": [
+        "cargo_metadata",
+        "workspace_metadata.inference",
+        "workspace_metadata.override"
+      ],
+      "is_aggregator": true
+    },
+    {
+      "name": "k-os-baking",
+      "version": "0.1.0",
+      "description": "K_OS Texture Baking System - GPU-accelerated texture baking with ray tracing for normal maps, AO, curvature, and more",
+      "manifest_path": "crates/k-os-baking/Cargo.toml",
+      "package_path": "crates/k-os-baking",
+      "target_names": [
+        "baking_bench",
+        "k_os_baking",
+        "property_tests",
+        "unit_tests"
+      ],
+      "target_kinds": [
+        "bench",
+        "lib",
+        "test"
+      ],
+      "features": [],
+      "workspace_dependencies": [],
+      "local_dependency_count": 0,
+      "roles": [
+        "library"
+      ],
+      "capabilities": [
+        "gpu",
+        "k-os"
+      ],
+      "hosts": [],
+      "artifact_ids": [],
+      "artifact_count": 0,
+      "notes": [],
+      "metadata_sources": [
+        "cargo_metadata",
+        "workspace_metadata.inference"
+      ],
+      "is_aggregator": false
+    },
+    {
+      "name": "k-os-bevy",
+      "version": "0.1.0",
+      "description": "K_OS Bevy Renderer - High-Performance 3D Viewport",
+      "manifest_path": "crates/k-os-bevy/Cargo.toml",
+      "package_path": "crates/k-os-bevy",
+      "target_names": [
+        "k-os-bevy"
+      ],
+      "target_kinds": [
+        "bin"
+      ],
+      "features": [],
+      "workspace_dependencies": [
+        "k-os-brushes",
+        "k-os-game-ai",
+        "k-os-game-camera",
+        "k-os-game-framework",
+        "k-os-game-input",
+        "k-os-game-play",
+        "k-os-game-runtime",
+        "k-os-game-sequencer",
+        "k-os-gpu-pipeline",
+        "k-os-mesh",
+        "k-os-sculpt",
+        "k-os-workspace-registry"
+      ],
+      "local_dependency_count": 12,
+      "roles": [
+        "aggregator",
+        "binary",
+        "host",
+        "viewport"
+      ],
+      "capabilities": [
+        "bevy-renderer",
+        "gpu",
+        "k-os",
+        "workspace-host"
+      ],
+      "hosts": [
+        "bevy"
+      ],
+      "artifact_ids": [],
+      "artifact_count": 0,
+      "notes": [],
+      "metadata_sources": [
+        "cargo_metadata",
+        "workspace_metadata.inference",
+        "workspace_metadata.override"
+      ],
+      "is_aggregator": true
+    },
+    {
+      "name": "k-os-brushes",
+      "version": "0.1.0",
+      "description": "K_OS brush asset and kernel ownership boundary",
+      "manifest_path": "crates/k-os-brushes/Cargo.toml",
+      "package_path": "crates/k-os-brushes",
+      "target_names": [
+        "k_os_brushes"
+      ],
+      "target_kinds": [
+        "lib"
+      ],
+      "features": [],
+      "workspace_dependencies": [
+        "k-os-gpu-pipeline"
+      ],
+      "local_dependency_count": 1,
+      "roles": [
+        "library"
+      ],
+      "capabilities": [
+        "gpu",
+        "k-os"
+      ],
+      "hosts": [
+        "backend"
+      ],
+      "artifact_ids": [],
+      "artifact_count": 0,
+      "notes": [],
+      "metadata_sources": [
+        "cargo_metadata",
+        "workspace_metadata.inference"
+      ],
+      "is_aggregator": false
+    },
+    {
+      "name": "k-os-config",
+      "version": "0.1.0",
+      "description": "K_OS configuration domain owner",
+      "manifest_path": "crates/k-os-config/Cargo.toml",
+      "package_path": "crates/k-os-config",
+      "target_names": [
+        "k_os_config"
+      ],
+      "target_kinds": [
+        "lib"
+      ],
+      "features": [
+        "default",
+        "tauri-commands"
+      ],
+      "workspace_dependencies": [],
+      "local_dependency_count": 0,
+      "roles": [
+        "library"
+      ],
+      "capabilities": [
+        "k-os"
+      ],
+      "hosts": [
+        "backend"
+      ],
+      "artifact_ids": [],
+      "artifact_count": 0,
+      "notes": [],
+      "metadata_sources": [
+        "cargo_metadata",
+        "workspace_metadata.inference"
+      ],
+      "is_aggregator": false
+    },
+    {
+      "name": "k-os-eval",
+      "version": "0.1.0",
+      "description": "K_OS dependency graph and evaluation scheduler",
+      "manifest_path": "crates/k-os-eval/Cargo.toml",
+      "package_path": "crates/k-os-eval",
+      "target_names": [
+        "k_os_eval"
+      ],
+      "target_kinds": [
+        "lib"
+      ],
+      "features": [],
+      "workspace_dependencies": [
+        "k-os-mesh-processing",
+        "k-os-scene"
+      ],
+      "local_dependency_count": 2,
+      "roles": [
+        "library"
+      ],
+      "capabilities": [
+        "k-os"
+      ],
+      "hosts": [],
+      "artifact_ids": [],
+      "artifact_count": 0,
+      "notes": [],
+      "metadata_sources": [
+        "cargo_metadata",
+        "workspace_metadata.inference"
+      ],
+      "is_aggregator": false
+    },
+    {
+      "name": "k-os-external",
+      "version": "0.1.0",
+      "description": "K_OS external tool integration owner",
+      "manifest_path": "crates/k-os-external/Cargo.toml",
+      "package_path": "crates/k-os-external",
+      "target_names": [
+        "k_os_external"
+      ],
+      "target_kinds": [
+        "lib"
+      ],
+      "features": [
+        "default",
+        "tauri-commands"
+      ],
+      "workspace_dependencies": [],
+      "local_dependency_count": 0,
+      "roles": [
+        "library"
+      ],
+      "capabilities": [
+        "k-os"
+      ],
+      "hosts": [
+        "backend"
+      ],
+      "artifact_ids": [],
+      "artifact_count": 0,
+      "notes": [],
+      "metadata_sources": [
+        "cargo_metadata",
+        "workspace_metadata.inference"
+      ],
+      "is_aggregator": false
+    },
+    {
+      "name": "k-os-game-ai",
+      "version": "0.1.0",
+      "description": "K_OS Game AI ownership for registry-driven agent/state-tree runtime projection",
+      "manifest_path": "crates/k-os-game-ai/Cargo.toml",
+      "package_path": "crates/k-os-game-ai",
+      "target_names": [
+        "k_os_game_ai"
+      ],
+      "target_kinds": [
+        "lib"
+      ],
+      "features": [],
+      "workspace_dependencies": [
+        "k-os-game-framework"
+      ],
+      "local_dependency_count": 1,
+      "roles": [
+        "game-module",
+        "library"
+      ],
+      "capabilities": [
+        "game",
+        "k-os"
+      ],
+      "hosts": [],
+      "artifact_ids": [],
+      "artifact_count": 0,
+      "notes": [],
+      "metadata_sources": [
+        "cargo_metadata",
+        "workspace_metadata.inference"
+      ],
+      "is_aggregator": false
+    },
+    {
+      "name": "k-os-game-camera",
+      "version": "0.1.0",
+      "description": "K_OS Game camera ownership for registry-driven rig projection and gameplay-action camera routing",
+      "manifest_path": "crates/k-os-game-camera/Cargo.toml",
+      "package_path": "crates/k-os-game-camera",
+      "target_names": [
+        "k_os_game_camera"
+      ],
+      "target_kinds": [
+        "lib"
+      ],
+      "features": [],
+      "workspace_dependencies": [
+        "k-os-game-framework"
+      ],
+      "local_dependency_count": 1,
+      "roles": [
+        "game-module",
+        "library"
+      ],
+      "capabilities": [
+        "game",
+        "k-os"
+      ],
+      "hosts": [],
+      "artifact_ids": [],
+      "artifact_count": 0,
+      "notes": [],
+      "metadata_sources": [
+        "cargo_metadata",
+        "workspace_metadata.inference"
+      ],
+      "is_aggregator": false
+    },
+    {
+      "name": "k-os-game-framework",
+      "version": "0.1.0",
+      "description": "K_OS Game framework ownership for bootstrap state, gameplay registry ingest, and game-facing runtime state contracts",
+      "manifest_path": "crates/k-os-game-framework/Cargo.toml",
+      "package_path": "crates/k-os-game-framework",
+      "target_names": [
+        "k_os_game_framework"
+      ],
+      "target_kinds": [
+        "lib"
+      ],
+      "features": [],
+      "workspace_dependencies": [
+        "k-os-game-runtime"
+      ],
+      "local_dependency_count": 1,
+      "roles": [
+        "game-module",
+        "library"
+      ],
+      "capabilities": [
+        "game",
+        "k-os"
+      ],
+      "hosts": [],
+      "artifact_ids": [],
+      "artifact_count": 0,
+      "notes": [],
+      "metadata_sources": [
+        "cargo_metadata",
+        "workspace_metadata.inference"
+      ],
+      "is_aggregator": false
+    },
+    {
+      "name": "k-os-game-input",
+      "version": "0.1.0",
+      "description": "K_OS Game input ownership for registry-driven action maps, camera-coupled policy, and gameplay-action input projection",
+      "manifest_path": "crates/k-os-game-input/Cargo.toml",
+      "package_path": "crates/k-os-game-input",
+      "target_names": [
+        "k_os_game_input"
+      ],
+      "target_kinds": [
+        "lib"
+      ],
+      "features": [],
+      "workspace_dependencies": [
+        "k-os-game-camera",
+        "k-os-game-framework"
+      ],
+      "local_dependency_count": 2,
+      "roles": [
+        "game-module",
+        "library"
+      ],
+      "capabilities": [
+        "game",
+        "k-os"
+      ],
+      "hosts": [],
+      "artifact_ids": [],
+      "artifact_count": 0,
+      "notes": [],
+      "metadata_sources": [
+        "cargo_metadata",
+        "workspace_metadata.inference"
+      ],
+      "is_aggregator": false
+    },
+    {
+      "name": "k-os-game-play",
+      "version": "0.1.0",
+      "description": "K_OS Game gameplay ownership for runtime gameplay bindings, readiness policy, and gameplay-facing registry projection",
+      "manifest_path": "crates/k-os-game-play/Cargo.toml",
+      "package_path": "crates/k-os-game-play",
+      "target_names": [
+        "k_os_game_play"
+      ],
+      "target_kinds": [
+        "lib"
+      ],
+      "features": [],
+      "workspace_dependencies": [
+        "k-os-game-ai",
+        "k-os-game-framework",
+        "k-os-game-input",
+        "k-os-game-runtime"
+      ],
+      "local_dependency_count": 4,
+      "roles": [
+        "game-module",
+        "library"
+      ],
+      "capabilities": [
+        "game",
+        "k-os"
+      ],
+      "hosts": [],
+      "artifact_ids": [],
+      "artifact_count": 0,
+      "notes": [],
+      "metadata_sources": [
+        "cargo_metadata",
+        "workspace_metadata.inference"
+      ],
+      "is_aggregator": false
+    },
+    {
+      "name": "k-os-game-runtime",
+      "version": "0.1.0",
+      "description": "Data-driven K_OS game runtime pipeline manifest and planning",
+      "manifest_path": "crates/k-os-game-runtime/Cargo.toml",
+      "package_path": "crates/k-os-game-runtime",
+      "target_names": [
+        "k_os_game_runtime"
+      ],
+      "target_kinds": [
+        "lib"
+      ],
+      "features": [],
+      "workspace_dependencies": [],
+      "local_dependency_count": 0,
+      "roles": [
+        "game-module",
+        "library",
+        "manifest-owner",
+        "runtime-schema"
+      ],
+      "capabilities": [
+        "game",
+        "k-os",
+        "pipeline-manifest-schema",
+        "registry-compatibility",
+        "runtime-policy"
+      ],
+      "hosts": [
+        "backend",
+        "bevy"
+      ],
+      "artifact_ids": [],
+      "artifact_count": 0,
+      "notes": [],
+      "metadata_sources": [
+        "cargo_metadata",
+        "workspace_metadata.inference",
+        "workspace_metadata.override"
+      ],
+      "is_aggregator": false
+    },
+    {
+      "name": "k-os-game-sequencer",
+      "version": "0.1.0",
+      "description": "K_OS Game sequencer ownership for registry-driven timeline projection and gameplay-action playback routing",
+      "manifest_path": "crates/k-os-game-sequencer/Cargo.toml",
+      "package_path": "crates/k-os-game-sequencer",
+      "target_names": [
+        "k_os_game_sequencer"
+      ],
+      "target_kinds": [
+        "lib"
+      ],
+      "features": [],
+      "workspace_dependencies": [
+        "k-os-game-camera",
+        "k-os-game-framework"
+      ],
+      "local_dependency_count": 2,
+      "roles": [
+        "game-module",
+        "library"
+      ],
+      "capabilities": [
+        "game",
+        "k-os"
+      ],
+      "hosts": [],
+      "artifact_ids": [],
+      "artifact_count": 0,
+      "notes": [],
+      "metadata_sources": [
+        "cargo_metadata",
+        "workspace_metadata.inference"
+      ],
+      "is_aggregator": false
+    },
+    {
+      "name": "k-os-gpu-pipeline",
+      "version": "0.1.0",
+      "description": "K_OS GPU Pipeline Manager - Centralized GPU compute pipeline management with caching, buffer pooling, and performance monitoring",
+      "manifest_path": "crates/k-os-gpu-pipeline/Cargo.toml",
+      "package_path": "crates/k-os-gpu-pipeline",
+      "target_names": [
+        "integration_tests",
+        "k_os_gpu_pipeline",
+        "property_tests"
+      ],
+      "target_kinds": [
+        "lib",
+        "test"
+      ],
+      "features": [],
+      "workspace_dependencies": [
+        "k-os-eval",
+        "k-os-kain",
+        "k-os-scene"
+      ],
+      "local_dependency_count": 3,
+      "roles": [
+        "library"
+      ],
+      "capabilities": [
+        "compute-pipeline",
+        "gpu",
+        "k-os",
+        "kain",
+        "shader-dispatch"
+      ],
+      "hosts": [
+        "backend",
+        "bevy",
+        "zen"
+      ],
+      "artifact_ids": [],
+      "artifact_count": 0,
+      "notes": [],
+      "metadata_sources": [
+        "cargo_metadata",
+        "workspace_metadata.inference",
+        "workspace_metadata.override"
+      ],
+      "is_aggregator": false
+    },
+    {
+      "name": "k-os-hdr",
+      "version": "0.1.0",
+      "description": "K_OS HDR capture and tone-mapping domain",
+      "manifest_path": "crates/k-os-hdr/Cargo.toml",
+      "package_path": "crates/k-os-hdr",
+      "target_names": [
+        "k_os_hdr"
+      ],
+      "target_kinds": [
+        "lib"
+      ],
+      "features": [],
+      "workspace_dependencies": [
+        "k-os-gpu-pipeline"
+      ],
+      "local_dependency_count": 1,
+      "roles": [
+        "library"
+      ],
+      "capabilities": [
+        "gpu",
+        "k-os"
+      ],
+      "hosts": [],
+      "artifact_ids": [],
+      "artifact_count": 0,
+      "notes": [],
+      "metadata_sources": [
+        "cargo_metadata",
+        "workspace_metadata.inference"
+      ],
+      "is_aggregator": false
+    },
+    {
+      "name": "k-os-io",
+      "version": "0.1.0",
+      "description": "K_OS IO domain crate - ownership boundary for storage and import/export workflows",
+      "manifest_path": "crates/k-os-io/Cargo.toml",
+      "package_path": "crates/k-os-io",
+      "target_names": [
+        "k_os_io"
+      ],
+      "target_kinds": [
+        "lib"
+      ],
+      "features": [],
+      "workspace_dependencies": [
+        "k-os-material"
+      ],
+      "local_dependency_count": 1,
+      "roles": [
+        "library"
+      ],
+      "capabilities": [
+        "k-os"
+      ],
+      "hosts": [
+        "backend"
+      ],
+      "artifact_ids": [],
+      "artifact_count": 0,
+      "notes": [],
+      "metadata_sources": [
+        "cargo_metadata",
+        "workspace_metadata.inference"
+      ],
+      "is_aggregator": false
+    },
+    {
+      "name": "k-os-kain",
+      "version": "0.1.0",
+      "description": "K_OS KAIN source registry and domain metadata",
+      "manifest_path": "crates/k-os-kain/Cargo.toml",
+      "package_path": "crates/k-os-kain",
+      "target_names": [
+        "build-script-build",
+        "k_os_kain"
+      ],
+      "target_kinds": [
+        "custom-build",
+        "lib"
+      ],
+      "features": [],
+      "workspace_dependencies": [],
+      "local_dependency_count": 0,
+      "roles": [
+        "artifact-provider",
+        "library",
+        "registry"
+      ],
+      "capabilities": [
+        "artifact-provider",
+        "build-script",
+        "domain-metadata",
+        "gpu",
+        "k-os",
+        "kain",
+        "runtime-app-registry",
+        "spirv-source-registry"
+      ],
+      "hosts": [
+        "backend",
+        "zen"
+      ],
+      "artifact_ids": [
+        "brush_builder",
+        "brush_builder_kernel",
+        "desktop_automation",
+        "fluid_builder",
+        "fluid_builder_kernel",
+        "ik_core",
+        "ik_thecomet",
+        "kainscript_builder",
+        "kainscript_builder_kernel",
+        "kiss_fftr",
+        "linmath",
+        "material_builder",
+        "material_pbr_standard",
+        "mocap_audio_motion",
+        "mocap_blend",
+        "mocap_cloth_sim",
+        "mocap_contact_weld",
+        "mocap_crowd",
+        "mocap_denoise",
+        "mocap_facial_blend",
+        "mocap_hand_fk",
+        "mocap_ik_reach",
+        "mocap_livelink",
+        "mocap_mirror",
+        "mocap_physics",
+        "mocap_pose_match",
+        "mocap_pose_normalize",
+        "mocap_retarget",
+        "mocap_skeleton",
+        "mocap_spring_follow",
+        "mocap_stabilize_root",
+        "mocap_supermotion_livelink",
+        "mocap_velocity_smooth",
+        "mograph_supermotion",
+        "paint_surface_filter",
+        "par_easings",
+        "perlin_noise",
+        "pico",
+        "preprocess",
+        "procedural_builder",
+        "procedural_builder_kernel",
+        "renderer_surface_pass",
+        "renderer_zen_atmosphere",
+        "sculpt_engine_layer_accumulate",
+        "sculpt_engine_surface_drag",
+        "sculpt_physics_attractor",
+        "sculpt_physics_elastic",
+        "sculpt_physics_gravity_drop",
+        "sculpt_physics_inflate_pulse",
+        "sculpt_physics_magnet",
+        "sculpt_physics_turbulence",
+        "sculpt_physics_vortex",
+        "sculpt_physics_wind",
+        "sculpt_stamp_blob",
+        "sculpt_stamp_clay",
+        "sculpt_stamp_crease",
+        "sculpt_stamp_flatten",
+        "sculpt_stamp_hpolish",
+        "sculpt_stamp_inflate",
+        "sculpt_stamp_layer",
+        "sculpt_stamp_main",
+        "sculpt_stamp_scrape",
+        "shader_builder",
+        "shader_builder_kernel",
+        "signal_kernel",
+        "suite_shell",
+        "viewport_bridge"
+      ],
+      "artifact_count": 67,
+      "notes": [],
+      "metadata_sources": [
+        "cargo_metadata",
+        "manifest_extraction",
+        "workspace_metadata.inference",
+        "workspace_metadata.override"
+      ],
+      "is_aggregator": false
+    },
+    {
+      "name": "k-os-material",
+      "version": "0.1.0",
+      "description": "K_OS Material System - PBR materials with texture management, presets, and serialization",
+      "manifest_path": "crates/k-os-material/Cargo.toml",
+      "package_path": "crates/k-os-material",
+      "target_names": [
+        "k_os_material",
+        "property_tests",
+        "unit_tests"
+      ],
+      "target_kinds": [
+        "lib",
+        "test"
+      ],
+      "features": [],
+      "workspace_dependencies": [
+        "k-os-gpu-pipeline"
+      ],
+      "local_dependency_count": 1,
+      "roles": [
+        "library"
+      ],
+      "capabilities": [
+        "gpu",
+        "k-os"
+      ],
+      "hosts": [],
+      "artifact_ids": [],
+      "artifact_count": 0,
+      "notes": [],
+      "metadata_sources": [
+        "cargo_metadata",
+        "workspace_metadata.inference"
+      ],
+      "is_aggregator": false
+    },
+    {
+      "name": "k-os-mesh",
+      "version": "0.1.0",
+      "description": "K_OS mesh domain compatibility surface",
+      "manifest_path": "crates/k-os-mesh/Cargo.toml",
+      "package_path": "crates/k-os-mesh",
+      "target_names": [
+        "k_os_mesh"
+      ],
+      "target_kinds": [
+        "lib"
+      ],
+      "features": [
+        "atlas",
+        "default"
+      ],
+      "workspace_dependencies": [],
+      "local_dependency_count": 0,
+      "roles": [
+        "library"
+      ],
+      "capabilities": [
+        "k-os"
+      ],
+      "hosts": [],
+      "artifact_ids": [],
+      "artifact_count": 0,
+      "notes": [],
+      "metadata_sources": [
+        "cargo_metadata",
+        "workspace_metadata.inference"
+      ],
+      "is_aggregator": false
+    },
+    {
+      "name": "k-os-mesh-processing",
+      "version": "0.1.0",
+      "description": "K_OS Mesh Processing - Advanced mesh operations including decimation, smoothing, subdivision, repair, analysis, and UV unwrapping",
+      "manifest_path": "crates/k-os-mesh-processing/Cargo.toml",
+      "package_path": "crates/k-os-mesh-processing",
+      "target_names": [
+        "k_os_mesh_processing",
+        "mesh_processing_bench",
+        "property_tests",
+        "unit_tests"
+      ],
+      "target_kinds": [
+        "bench",
+        "lib",
+        "test"
+      ],
+      "features": [],
+      "workspace_dependencies": [],
+      "local_dependency_count": 0,
+      "roles": [
+        "library"
+      ],
+      "capabilities": [
+        "k-os"
+      ],
+      "hosts": [],
+      "artifact_ids": [],
+      "artifact_count": 0,
+      "notes": [],
+      "metadata_sources": [
+        "cargo_metadata",
+        "workspace_metadata.inference"
+      ],
+      "is_aggregator": false
+    },
+    {
+      "name": "k-os-photogrammetry",
+      "version": "0.1.0",
+      "description": "K_OS photogrammetry reconstruction domain",
+      "manifest_path": "crates/k-os-photogrammetry/Cargo.toml",
+      "package_path": "crates/k-os-photogrammetry",
+      "target_names": [
+        "k_os_photogrammetry"
+      ],
+      "target_kinds": [
+        "lib"
+      ],
+      "features": [
+        "default",
+        "photogrammetry"
+      ],
+      "workspace_dependencies": [
+        "k-os-gpu-pipeline"
+      ],
+      "local_dependency_count": 1,
+      "roles": [
+        "library"
+      ],
+      "capabilities": [
+        "gpu",
+        "k-os"
+      ],
+      "hosts": [],
+      "artifact_ids": [],
+      "artifact_count": 0,
+      "notes": [],
+      "metadata_sources": [
+        "cargo_metadata",
+        "workspace_metadata.inference"
+      ],
+      "is_aggregator": false
+    },
+    {
+      "name": "k-os-plugin",
+      "version": "0.1.0",
+      "description": "K_OS Dynamic Plugin System - Dynamic library loading with API versioning, sandboxing, and resource limits",
+      "manifest_path": "crates/k-os-plugin/Cargo.toml",
+      "package_path": "crates/k-os-plugin",
+      "target_names": [
+        "integration_tests",
+        "k_os_plugin",
+        "property_tests",
+        "unit_tests"
+      ],
+      "target_kinds": [
+        "lib",
+        "test"
+      ],
+      "features": [],
+      "workspace_dependencies": [],
+      "local_dependency_count": 0,
+      "roles": [
+        "library"
+      ],
+      "capabilities": [
+        "k-os"
+      ],
+      "hosts": [],
+      "artifact_ids": [],
+      "artifact_count": 0,
+      "notes": [],
+      "metadata_sources": [
+        "cargo_metadata",
+        "workspace_metadata.inference"
+      ],
+      "is_aggregator": false
+    },
+    {
+      "name": "k-os-renderer",
+      "version": "0.1.0",
+      "description": "",
+      "manifest_path": "crates/k-os-renderer/Cargo.toml",
+      "package_path": "crates/k-os-renderer",
+      "target_names": [
+        "k_os_renderer"
+      ],
+      "target_kinds": [
+        "lib"
+      ],
+      "features": [],
+      "workspace_dependencies": [
+        "k-os-eval",
+        "k-os-gpu-pipeline",
+        "k-os-kain",
+        "k-os-mesh-processing",
+        "k-os-scene"
+      ],
+      "local_dependency_count": 5,
+      "roles": [
+        "library"
+      ],
+      "capabilities": [
+        "gpu",
+        "k-os",
+        "kain"
+      ],
+      "hosts": [],
+      "artifact_ids": [],
+      "artifact_count": 0,
+      "notes": [],
+      "metadata_sources": [
+        "cargo_metadata",
+        "workspace_metadata.inference"
+      ],
+      "is_aggregator": false
+    },
+    {
+      "name": "k-os-rig",
+      "version": "0.1.0",
+      "description": "K_OS rigging domain compatibility surface",
+      "manifest_path": "crates/k-os-rig/Cargo.toml",
+      "package_path": "crates/k-os-rig",
+      "target_names": [
+        "k_os_rig"
+      ],
+      "target_kinds": [
+        "lib"
+      ],
+      "features": [],
+      "workspace_dependencies": [],
+      "local_dependency_count": 0,
+      "roles": [
+        "library"
+      ],
+      "capabilities": [
+        "k-os"
+      ],
+      "hosts": [],
+      "artifact_ids": [],
+      "artifact_count": 0,
+      "notes": [],
+      "metadata_sources": [
+        "cargo_metadata",
+        "workspace_metadata.inference"
+      ],
+      "is_aggregator": false
+    },
+    {
+      "name": "k-os-scatter",
+      "version": "0.1.0",
+      "description": "K_OS scatter domain",
+      "manifest_path": "crates/k-os-scatter/Cargo.toml",
+      "package_path": "crates/k-os-scatter",
+      "target_names": [
+        "k_os_scatter"
+      ],
+      "target_kinds": [
+        "lib"
+      ],
+      "features": [
+        "default",
+        "physics"
+      ],
+      "workspace_dependencies": [],
+      "local_dependency_count": 0,
+      "roles": [
+        "library"
+      ],
+      "capabilities": [
+        "k-os"
+      ],
+      "hosts": [
+        "backend"
+      ],
+      "artifact_ids": [],
+      "artifact_count": 0,
+      "notes": [],
+      "metadata_sources": [
+        "cargo_metadata",
+        "workspace_metadata.inference"
+      ],
+      "is_aggregator": false
+    },
+    {
+      "name": "k-os-scene",
+      "version": "0.1.0",
+      "description": "K_OS canonical scene data layer backed by bevy_ecs",
+      "manifest_path": "crates/k-os-scene/Cargo.toml",
+      "package_path": "crates/k-os-scene",
+      "target_names": [
+        "k_os_scene"
+      ],
+      "target_kinds": [
+        "lib"
+      ],
+      "features": [],
+      "workspace_dependencies": [],
+      "local_dependency_count": 0,
+      "roles": [
+        "library"
+      ],
+      "capabilities": [
+        "k-os"
+      ],
+      "hosts": [],
+      "artifact_ids": [],
+      "artifact_count": 0,
+      "notes": [],
+      "metadata_sources": [
+        "cargo_metadata",
+        "workspace_metadata.inference"
+      ],
+      "is_aggregator": false
+    },
+    {
+      "name": "k-os-scene-runtime",
+      "version": "0.1.0",
+      "description": "K_OS scene runtime ownership for shared mesh state and viewport bridge data",
+      "manifest_path": "crates/k-os-scene-runtime/Cargo.toml",
+      "package_path": "crates/k-os-scene-runtime",
+      "target_names": [
+        "k_os_scene_runtime"
+      ],
+      "target_kinds": [
+        "lib"
+      ],
+      "features": [],
+      "workspace_dependencies": [
+        "k-os-animation",
+        "k-os-eval",
+        "k-os-gpu-pipeline",
+        "k-os-scene"
+      ],
+      "local_dependency_count": 4,
+      "roles": [
+        "library"
+      ],
+      "capabilities": [
+        "gpu",
+        "k-os"
+      ],
+      "hosts": [],
+      "artifact_ids": [],
+      "artifact_count": 0,
+      "notes": [],
+      "metadata_sources": [
+        "cargo_metadata",
+        "workspace_metadata.inference"
+      ],
+      "is_aggregator": false
+    },
+    {
+      "name": "k-os-sculpt",
+      "version": "0.1.0",
+      "description": "K_OS sculpting domain crate - ownership boundary for brushes, masking, and sculpt workflows",
+      "manifest_path": "crates/k-os-sculpt/Cargo.toml",
+      "package_path": "crates/k-os-sculpt",
+      "target_names": [
+        "k_os_sculpt"
+      ],
+      "target_kinds": [
+        "lib"
+      ],
+      "features": [
+        "default",
+        "physics"
+      ],
+      "workspace_dependencies": [
+        "k-os-brushes",
+        "k-os-eval",
+        "k-os-gpu-pipeline",
+        "k-os-scene",
+        "k-os-scene-runtime",
+        "k-os-sim"
+      ],
+      "local_dependency_count": 6,
+      "roles": [
+        "library"
+      ],
+      "capabilities": [
+        "gpu",
+        "k-os",
+        "mesh-edit",
+        "sculpt",
+        "stroke-application"
+      ],
+      "hosts": [
+        "backend",
+        "bevy"
+      ],
+      "artifact_ids": [],
+      "artifact_count": 0,
+      "notes": [],
+      "metadata_sources": [
+        "cargo_metadata",
+        "workspace_metadata.inference",
+        "workspace_metadata.override"
+      ],
+      "is_aggregator": false
+    },
+    {
+      "name": "k-os-sim",
+      "version": "0.1.0",
+      "description": "K_OS simulation domain crate - ownership boundary for CFD, fluid, physics, and quantum workflows",
+      "manifest_path": "crates/k-os-sim/Cargo.toml",
+      "package_path": "crates/k-os-sim",
+      "target_names": [
+        "k_os_sim"
+      ],
+      "target_kinds": [
+        "lib"
+      ],
+      "features": [
+        "default",
+        "tauri-commands"
+      ],
+      "workspace_dependencies": [],
+      "local_dependency_count": 0,
+      "roles": [
+        "library"
+      ],
+      "capabilities": [
+        "k-os"
+      ],
+      "hosts": [
+        "backend"
+      ],
+      "artifact_ids": [],
+      "artifact_count": 0,
+      "notes": [],
+      "metadata_sources": [
+        "cargo_metadata",
+        "workspace_metadata.inference"
+      ],
+      "is_aggregator": false
+    },
+    {
+      "name": "k-os-undo",
+      "version": "0.1.0",
+      "description": "K_OS Universal Undo/Redo System - Memory-aware undo/redo management with action merging and compression",
+      "manifest_path": "crates/k-os-undo/Cargo.toml",
+      "package_path": "crates/k-os-undo",
+      "target_names": [
+        "integration_tests",
+        "k_os_undo",
+        "property_tests"
+      ],
+      "target_kinds": [
+        "lib",
+        "test"
+      ],
+      "features": [],
+      "workspace_dependencies": [],
+      "local_dependency_count": 0,
+      "roles": [
+        "library"
+      ],
+      "capabilities": [
+        "k-os"
+      ],
+      "hosts": [],
+      "artifact_ids": [],
+      "artifact_count": 0,
+      "notes": [],
+      "metadata_sources": [
+        "cargo_metadata",
+        "workspace_metadata.inference"
+      ],
+      "is_aggregator": false
+    },
+    {
+      "name": "k-os-wasm",
+      "version": "0.1.0",
+      "description": "",
+      "manifest_path": "crates/k-os-wasm/Cargo.toml",
+      "package_path": "crates/k-os-wasm",
+      "target_names": [
+        "k_os_wasm"
+      ],
+      "target_kinds": [
+        "cdylib",
+        "rlib"
+      ],
+      "features": [],
+      "workspace_dependencies": [
+        "k-os-brushes",
+        "k-os-gpu-pipeline",
+        "k-os-mesh",
+        "k-os-sculpt"
+      ],
+      "local_dependency_count": 4,
+      "roles": [],
+      "capabilities": [
+        "gpu",
+        "k-os"
+      ],
+      "hosts": [],
+      "artifact_ids": [],
+      "artifact_count": 0,
+      "notes": [],
+      "metadata_sources": [
+        "cargo_metadata",
+        "workspace_metadata.inference"
+      ],
+      "is_aggregator": false
+    },
+    {
+      "name": "k-os-workspace-registry",
+      "version": "0.1.0",
+      "description": "Workspace-wide data-driven crate registry generated from Cargo metadata and existing K_OS manifests",
+      "manifest_path": "crates/k-os-workspace-registry/Cargo.toml",
+      "package_path": "crates/k-os-workspace-registry",
+      "target_names": [
+        "build-script-build",
+        "k_os_workspace_registry"
+      ],
+      "target_kinds": [
+        "custom-build",
+        "lib"
+      ],
+      "features": [],
+      "workspace_dependencies": [],
+      "local_dependency_count": 0,
+      "roles": [
+        "library",
+        "registry",
+        "workspace-metadata"
+      ],
+      "capabilities": [
+        "build-script",
+        "cargo-metadata-registry",
+        "k-os",
+        "manifest-extraction",
+        "workspace-proof"
+      ],
+      "hosts": [
+        "backend",
+        "bevy",
+        "zen"
+      ],
+      "artifact_ids": [],
+      "artifact_count": 0,
+      "notes": [],
+      "metadata_sources": [
+        "cargo_metadata",
+        "workspace_metadata.inference",
+        "workspace_metadata.override"
+      ],
+      "is_aggregator": false
+    },
+    {
+      "name": "transform-gizmo",
+      "version": "0.1.0",
+      "description": "3D transformation gizmo",
+      "manifest_path": "crates/k-os-gizmo/Cargo.toml",
+      "package_path": "crates/k-os-gizmo",
+      "target_names": [
+        "transform_gizmo"
+      ],
+      "target_kinds": [
+        "lib"
+      ],
+      "features": [],
+      "workspace_dependencies": [],
+      "local_dependency_count": 0,
+      "roles": [
+        "library"
+      ],
+      "capabilities": [],
+      "hosts": [],
+      "artifact_ids": [],
+      "artifact_count": 0,
+      "notes": [],
+      "metadata_sources": [
+        "cargo_metadata"
+      ],
+      "is_aggregator": false
+    },
+    {
+      "name": "zen",
+      "version": "0.1.0",
+      "description": "Zen native renderer MVP for K_OS",
+      "manifest_path": "crates/zen/Cargo.toml",
+      "package_path": "crates/zen",
+      "target_names": [
+        "zen"
+      ],
+      "target_kinds": [
+        "bin"
+      ],
+      "features": [],
+      "workspace_dependencies": [
+        "k-os-asset-pipeline",
+        "k-os-kain",
+        "k-os-renderer",
+        "k-os-workspace-registry",
+        "zen-core",
+        "zen-editor",
+        "zen-host",
+        "zen-kain-api",
+        "zen-kain-modules",
+        "zen-runtime",
+        "zen-scene"
+      ],
+      "local_dependency_count": 11,
+      "roles": [
+        "aggregator",
+        "binary",
+        "editor-shell",
+        "host"
+      ],
+      "capabilities": [
+        "artifact-provider",
+        "gpu",
+        "kain",
+        "kain-ui-host",
+        "native-renderer",
+        "workspace-host",
+        "zen"
+      ],
+      "hosts": [
+        "zen"
+      ],
+      "artifact_ids": [
+        "engine.host_api",
+        "engine.kain",
+        "engine.runtime",
+        "engine.timeline",
+        "renderer_zen_atmosphere",
+        "runtime.edit",
+        "runtime.play",
+        "runtime.simulate",
+        "scene.clear_selection",
+        "scene.focus_selection",
+        "scene.frame_scene",
+        "scene.objects",
+        "scene.select_next",
+        "scene.select_previous",
+        "scene.selection",
+        "scene.spawn_box",
+        "scene.viewport",
+        "shell.reload",
+        "zen.shell.main"
+      ],
+      "artifact_count": 19,
+      "notes": [],
+      "metadata_sources": [
+        "cargo_metadata",
+        "manifest_extraction",
+        "workspace_metadata.inference",
+        "workspace_metadata.override"
+      ],
+      "is_aggregator": true
+    },
+    {
+      "name": "zen-assets",
+      "version": "0.1.0",
+      "description": "Zen asset catalog and import metadata contracts",
+      "manifest_path": "crates/zen-assets/Cargo.toml",
+      "package_path": "crates/zen-assets",
+      "target_names": [
+        "zen_assets"
+      ],
+      "target_kinds": [
+        "lib"
+      ],
+      "features": [],
+      "workspace_dependencies": [],
+      "local_dependency_count": 0,
+      "roles": [
+        "library"
+      ],
+      "capabilities": [
+        "zen"
+      ],
+      "hosts": [
+        "zen"
+      ],
+      "artifact_ids": [],
+      "artifact_count": 0,
+      "notes": [],
+      "metadata_sources": [
+        "cargo_metadata",
+        "workspace_metadata.inference"
+      ],
+      "is_aggregator": false
+    },
+    {
+      "name": "zen-core",
+      "version": "0.1.0",
+      "description": "Core commands, events, and IDs for the Zen platform",
+      "manifest_path": "crates/zen-core/Cargo.toml",
+      "package_path": "crates/zen-core",
+      "target_names": [
+        "zen_core"
+      ],
+      "target_kinds": [
+        "lib"
+      ],
+      "features": [],
+      "workspace_dependencies": [],
+      "local_dependency_count": 0,
+      "roles": [
+        "library"
+      ],
+      "capabilities": [
+        "zen"
+      ],
+      "hosts": [
+        "zen"
+      ],
+      "artifact_ids": [],
+      "artifact_count": 0,
+      "notes": [],
+      "metadata_sources": [
+        "cargo_metadata",
+        "workspace_metadata.inference"
+      ],
+      "is_aggregator": false
+    },
+    {
+      "name": "zen-editor",
+      "version": "0.1.0",
+      "description": "Zen editor session state, layouts, and docking metadata",
+      "manifest_path": "crates/zen-editor/Cargo.toml",
+      "package_path": "crates/zen-editor",
+      "target_names": [
+        "zen_editor"
+      ],
+      "target_kinds": [
+        "lib"
+      ],
+      "features": [],
+      "workspace_dependencies": [
+        "k-os-kain",
+        "zen-core"
+      ],
+      "local_dependency_count": 2,
+      "roles": [
+        "library"
+      ],
+      "capabilities": [
+        "kain",
+        "zen"
+      ],
+      "hosts": [
+        "zen"
+      ],
+      "artifact_ids": [],
+      "artifact_count": 0,
+      "notes": [],
+      "metadata_sources": [
+        "cargo_metadata",
+        "workspace_metadata.inference"
+      ],
+      "is_aggregator": false
+    },
+    {
+      "name": "zen-host",
+      "version": "0.1.0",
+      "description": "Zen native host widget/action registry and manifest loader",
+      "manifest_path": "crates/zen-host/Cargo.toml",
+      "package_path": "crates/zen-host",
+      "target_names": [
+        "zen_host"
+      ],
+      "target_kinds": [
+        "lib"
+      ],
+      "features": [],
+      "workspace_dependencies": [
+        "k-os-kain",
+        "zen-core"
+      ],
+      "local_dependency_count": 2,
+      "roles": [
+        "library"
+      ],
+      "capabilities": [
+        "kain",
+        "zen"
+      ],
+      "hosts": [
+        "zen"
+      ],
+      "artifact_ids": [],
+      "artifact_count": 0,
+      "notes": [],
+      "metadata_sources": [
+        "cargo_metadata",
+        "workspace_metadata.inference"
+      ],
+      "is_aggregator": false
+    },
+    {
+      "name": "zen-kain-api",
+      "version": "0.1.0",
+      "description": "Generated Zen-to-Kain contract surface and export helpers",
+      "manifest_path": "crates/zen-kain-api/Cargo.toml",
+      "package_path": "crates/zen-kain-api",
+      "target_names": [
+        "zen_kain_api"
+      ],
+      "target_kinds": [
+        "lib"
+      ],
+      "features": [],
+      "workspace_dependencies": [
+        "zen-host",
+        "zen-kain-modules"
+      ],
+      "local_dependency_count": 2,
+      "roles": [
+        "library"
+      ],
+      "capabilities": [
+        "kain",
+        "zen"
+      ],
+      "hosts": [
+        "zen"
+      ],
+      "artifact_ids": [],
+      "artifact_count": 0,
+      "notes": [],
+      "metadata_sources": [
+        "cargo_metadata",
+        "workspace_metadata.inference"
+      ],
+      "is_aggregator": false
+    },
+    {
+      "name": "zen-kain-modules",
+      "version": "0.1.0",
+      "description": "Data-driven Kain shell and module registry for Zen",
+      "manifest_path": "crates/zen-kain-modules/Cargo.toml",
+      "package_path": "crates/zen-kain-modules",
+      "target_names": [
+        "zen_kain_modules"
+      ],
+      "target_kinds": [
+        "lib"
+      ],
+      "features": [],
+      "workspace_dependencies": [
+        "k-os-kain"
+      ],
+      "local_dependency_count": 1,
+      "roles": [
+        "library"
+      ],
+      "capabilities": [
+        "kain",
+        "zen"
+      ],
+      "hosts": [
+        "zen"
+      ],
+      "artifact_ids": [],
+      "artifact_count": 0,
+      "notes": [],
+      "metadata_sources": [
+        "cargo_metadata",
+        "workspace_metadata.inference"
+      ],
+      "is_aggregator": false
+    },
+    {
+      "name": "zen-mocap-engine",
+      "version": "0.1.0",
+      "description": "ZenMocap GPU-accelerated real-time pose inference, IK solving, and DCC broadcasting engine",
+      "manifest_path": "crates/zen-mocap-engine/Cargo.toml",
+      "package_path": "crates/zen-mocap-engine",
+      "target_names": [
+        "gpu_spv_pipeline_integration",
+        "integration",
+        "pipeline_integration_test",
+        "zen_mocap_engine"
+      ],
+      "target_kinds": [
+        "lib",
+        "test"
+      ],
+      "features": [
+        "cuda",
+        "default",
+        "gpu-chain",
+        "kain-generated",
+        "tauri-commands",
+        "tensorrt"
+      ],
+      "workspace_dependencies": [
+        "k-os-kain",
+        "k-os-rig"
+      ],
+      "local_dependency_count": 2,
+      "roles": [
+        "library"
+      ],
+      "capabilities": [
+        "gpu",
+        "kain",
+        "zen"
+      ],
+      "hosts": [
+        "backend",
+        "zen"
+      ],
+      "artifact_ids": [],
+      "artifact_count": 0,
+      "notes": [],
+      "metadata_sources": [
+        "cargo_metadata",
+        "workspace_metadata.inference"
+      ],
+      "is_aggregator": false
+    },
+    {
+      "name": "zen-render",
+      "version": "0.1.0",
+      "description": "Zen renderer profile and frame graph metadata contracts",
+      "manifest_path": "crates/zen-render/Cargo.toml",
+      "package_path": "crates/zen-render",
+      "target_names": [
+        "zen_render"
+      ],
+      "target_kinds": [
+        "lib"
+      ],
+      "features": [],
+      "workspace_dependencies": [],
+      "local_dependency_count": 0,
+      "roles": [
+        "library"
+      ],
+      "capabilities": [
+        "zen"
+      ],
+      "hosts": [
+        "zen"
+      ],
+      "artifact_ids": [],
+      "artifact_count": 0,
+      "notes": [],
+      "metadata_sources": [
+        "cargo_metadata",
+        "workspace_metadata.inference"
+      ],
+      "is_aggregator": false
+    },
+    {
+      "name": "zen-runtime",
+      "version": "0.1.0",
+      "description": "Zen runtime session, command dispatch, and play-mode orchestration",
+      "manifest_path": "crates/zen-runtime/Cargo.toml",
+      "package_path": "crates/zen-runtime",
+      "target_names": [
+        "zen_runtime"
+      ],
+      "target_kinds": [
+        "lib"
+      ],
+      "features": [],
+      "workspace_dependencies": [
+        "zen-core",
+        "zen-scene"
+      ],
+      "local_dependency_count": 2,
+      "roles": [
+        "library"
+      ],
+      "capabilities": [
+        "zen"
+      ],
+      "hosts": [
+        "zen"
+      ],
+      "artifact_ids": [],
+      "artifact_count": 0,
+      "notes": [],
+      "metadata_sources": [
+        "cargo_metadata",
+        "workspace_metadata.inference"
+      ],
+      "is_aggregator": false
+    },
+    {
+      "name": "zen-scene",
+      "version": "0.1.0",
+      "description": "Zen scene graph primitives and viewport render mesh generation",
+      "manifest_path": "crates/zen-scene/Cargo.toml",
+      "package_path": "crates/zen-scene",
+      "target_names": [
+        "zen_scene"
+      ],
+      "target_kinds": [
+        "lib"
+      ],
+      "features": [],
+      "workspace_dependencies": [
+        "k-os-asset-pipeline",
+        "k-os-scene"
+      ],
+      "local_dependency_count": 2,
+      "roles": [
+        "library"
+      ],
+      "capabilities": [
+        "gpu",
+        "zen"
+      ],
+      "hosts": [
+        "zen"
+      ],
+      "artifact_ids": [],
+      "artifact_count": 0,
+      "notes": [],
+      "metadata_sources": [
+        "cargo_metadata",
+        "workspace_metadata.inference"
+      ],
+      "is_aggregator": false
+    }
+  ],
+  "external_manifests": [
+    {
+      "key": "kain_runtime_apps",
+      "owner_package": "k-os-kain",
+      "relative_path": "crates/k-os-kain/manifests/runtime_apps.json",
+      "format": "json",
+      "item_count": 10,
+      "item_ids": [
+        "suite_shell",
+        "desktop_automation",
+        "shader_builder",
+        "brush_builder",
+        "kainscript_builder",
+        "material_builder",
+        "fluid_builder",
+        "procedural_builder",
+        "signal_kernel",
+        "viewport_bridge"
+      ]
+    },
+    {
+      "key": "kain_spirv_sources",
+      "owner_package": "k-os-kain",
+      "relative_path": "crates/k-os-kain/manifests/sources.json",
+      "format": "json",
+      "item_count": 57,
+      "item_ids": [
+        "fluid_builder_kernel",
+        "brush_builder_kernel",
+        "shader_builder_kernel",
+        "procedural_builder_kernel",
+        "kainscript_builder_kernel",
+        "sculpt_physics_attractor",
+        "sculpt_physics_elastic",
+        "sculpt_physics_gravity_drop",
+        "sculpt_physics_inflate_pulse",
+        "sculpt_physics_magnet",
+        "sculpt_physics_turbulence",
+        "sculpt_physics_vortex",
+        "sculpt_physics_wind",
+        "sculpt_stamp_blob",
+        "sculpt_stamp_clay",
+        "sculpt_stamp_crease",
+        "sculpt_stamp_flatten",
+        "sculpt_stamp_hpolish",
+        "sculpt_stamp_inflate",
+        "sculpt_stamp_layer",
+        "sculpt_stamp_main",
+        "sculpt_stamp_scrape",
+        "sculpt_engine_surface_drag",
+        "sculpt_engine_layer_accumulate",
+        "mocap_audio_motion",
+        "mocap_blend",
+        "mocap_cloth_sim",
+        "mocap_contact_weld",
+        "mocap_crowd",
+        "mocap_denoise",
+        "mocap_facial_blend",
+        "mocap_hand_fk",
+        "mocap_ik_reach",
+        "mocap_livelink",
+        "mocap_mirror",
+        "mocap_physics",
+        "mocap_pose_match",
+        "mocap_pose_normalize",
+        "mocap_retarget",
+        "mocap_skeleton",
+        "mocap_spring_follow",
+        "mocap_stabilize_root",
+        "mocap_supermotion_livelink",
+        "mocap_velocity_smooth",
+        "mograph_supermotion",
+        "preprocess",
+        "ik_core",
+        "ik_thecomet",
+        "kiss_fftr",
+        "linmath",
+        "par_easings",
+        "perlin_noise",
+        "pico",
+        "paint_surface_filter",
+        "renderer_surface_pass",
+        "renderer_zen_atmosphere",
+        "material_pbr_standard"
+      ]
+    },
+    {
+      "key": "zen_host_api",
+      "owner_package": "zen",
+      "relative_path": "crates/zen/resources/host_api.toml",
+      "format": "toml",
+      "item_count": 17,
+      "item_ids": [
+        "engine.host_api",
+        "engine.kain",
+        "engine.runtime",
+        "engine.timeline",
+        "runtime.edit",
+        "runtime.play",
+        "runtime.simulate",
+        "scene.clear_selection",
+        "scene.focus_selection",
+        "scene.frame_scene",
+        "scene.objects",
+        "scene.select_next",
+        "scene.select_previous",
+        "scene.selection",
+        "scene.spawn_box",
+        "scene.viewport",
+        "shell.reload"
+      ]
+    },
+    {
+      "key": "zen_modules",
+      "owner_package": "zen",
+      "relative_path": "crates/zen/resources/modules.toml",
+      "format": "toml",
+      "item_count": 1,
+      "item_ids": [
+        "zen.shell.main"
+      ]
+    },
+    {
+      "key": "zen_runtime",
+      "owner_package": "zen",
+      "relative_path": "crates/zen/resources/runtime.toml",
+      "format": "toml",
+      "item_count": 6,
+      "item_ids": [
+        "crates/zen/resources/modules.toml",
+        "crates/zen/resources/workspace_ui.toml",
+        "crates/zen/resources/theme.toml",
+        "crates/zen/resources/host_api.toml",
+        "active_shell:zen.shell.main",
+        "post_shader:renderer_zen_atmosphere"
+      ]
+    }
+  ],
+  "artifacts": [
+    {
+      "id": "brush_builder",
+      "label": "Brush Builder",
+      "kind": "runtime_app",
+      "owner_package": "k-os-kain",
+      "manifest_key": "kain_runtime_apps",
+      "source_path": "src-kain/apps/brush_builder/main.kn",
+      "compiled_path": "crates/k-os-kain/generated/runtime/ts/brush_builder/main.ts",
+      "namespace": "brush_builder",
+      "runtime_kind": "tauri_frontend",
+      "host_kind": "tauri",
+      "domain": "",
+      "tags": [
+        "js",
+        "ks",
+        "ts"
+      ]
+    },
+    {
+      "id": "desktop_automation",
+      "label": "Desktop Automation",
+      "kind": "runtime_app",
+      "owner_package": "k-os-kain",
+      "manifest_key": "kain_runtime_apps",
+      "source_path": "src-kain/scripts/desktop_automation/main.kn",
+      "compiled_path": "crates/k-os-kain/generated/runtime/ks/desktop_automation/main.ks",
+      "namespace": "desktop_automation",
+      "runtime_kind": "desktop_script",
+      "host_kind": "tauri",
+      "domain": "",
+      "tags": [
+        "js",
+        "ks"
+      ]
+    },
+    {
+      "id": "fluid_builder",
+      "label": "Fluid Builder",
+      "kind": "runtime_app",
+      "owner_package": "k-os-kain",
+      "manifest_key": "kain_runtime_apps",
+      "source_path": "src-kain/apps/fluid_builder/main.kn",
+      "compiled_path": "crates/k-os-kain/generated/runtime/ts/fluid_builder/main.ts",
+      "namespace": "fluid_builder",
+      "runtime_kind": "tauri_frontend",
+      "host_kind": "tauri",
+      "domain": "",
+      "tags": [
+        "js",
+        "ks",
+        "ts"
+      ]
+    },
+    {
+      "id": "kainscript_builder",
+      "label": "KainScript Builder",
+      "kind": "runtime_app",
+      "owner_package": "k-os-kain",
+      "manifest_key": "kain_runtime_apps",
+      "source_path": "src-kain/apps/kainscript_builder/main.kn",
+      "compiled_path": "crates/k-os-kain/generated/runtime/ts/kainscript_builder/main.ts",
+      "namespace": "kainscript_builder",
+      "runtime_kind": "tauri_frontend",
+      "host_kind": "tauri",
+      "domain": "",
+      "tags": [
+        "js",
+        "ks",
+        "ts"
+      ]
+    },
+    {
+      "id": "material_builder",
+      "label": "Material Builder",
+      "kind": "runtime_app",
+      "owner_package": "k-os-kain",
+      "manifest_key": "kain_runtime_apps",
+      "source_path": "src-kain/apps/material_builder/main.kn",
+      "compiled_path": "crates/k-os-kain/generated/runtime/ts/material_builder/main.ts",
+      "namespace": "material_builder",
+      "runtime_kind": "tauri_frontend",
+      "host_kind": "tauri",
+      "domain": "",
+      "tags": [
+        "js",
+        "ks",
+        "ts"
+      ]
+    },
+    {
+      "id": "procedural_builder",
+      "label": "Procedural Builder",
+      "kind": "runtime_app",
+      "owner_package": "k-os-kain",
+      "manifest_key": "kain_runtime_apps",
+      "source_path": "src-kain/apps/procedural_builder/main.kn",
+      "compiled_path": "crates/k-os-kain/generated/runtime/ts/procedural_builder/main.ts",
+      "namespace": "procedural_builder",
+      "runtime_kind": "tauri_frontend",
+      "host_kind": "tauri",
+      "domain": "",
+      "tags": [
+        "js",
+        "ks",
+        "ts"
+      ]
+    },
+    {
+      "id": "shader_builder",
+      "label": "Shader Builder",
+      "kind": "runtime_app",
+      "owner_package": "k-os-kain",
+      "manifest_key": "kain_runtime_apps",
+      "source_path": "src-kain/apps/shader_builder/main.kn",
+      "compiled_path": "crates/k-os-kain/generated/runtime/ts/shader_builder/main.ts",
+      "namespace": "shader_builder",
+      "runtime_kind": "tauri_frontend",
+      "host_kind": "tauri",
+      "domain": "",
+      "tags": [
+        "js",
+        "ks",
+        "ts"
+      ]
+    },
+    {
+      "id": "signal_kernel",
+      "label": "Signal Kernel",
+      "kind": "runtime_app",
+      "owner_package": "k-os-kain",
+      "manifest_key": "kain_runtime_apps",
+      "source_path": "src-kain/kernels/signal_kernel/main.kn",
+      "compiled_path": "crates/k-os-kain/generated/runtime/wasm/signal_kernel/main.wasm",
+      "namespace": "signal_kernel",
+      "runtime_kind": "compute_kernel",
+      "host_kind": "wasm_runtime",
+      "domain": "",
+      "tags": [
+        "ts",
+        "wasm"
+      ]
+    },
+    {
+      "id": "suite_shell",
+      "label": "Suite Shell",
+      "kind": "runtime_app",
+      "owner_package": "k-os-kain",
+      "manifest_key": "kain_runtime_apps",
+      "source_path": "src-kain/apps/suite_shell/main.kn",
+      "compiled_path": "crates/k-os-kain/generated/runtime/ts/suite_shell/main.ts",
+      "namespace": "suite_shell",
+      "runtime_kind": "tauri_frontend",
+      "host_kind": "tauri",
+      "domain": "",
+      "tags": [
+        "js",
+        "ks",
+        "ts"
+      ]
+    },
+    {
+      "id": "viewport_bridge",
+      "label": "Viewport Bridge",
+      "kind": "runtime_app",
+      "owner_package": "k-os-kain",
+      "manifest_key": "kain_runtime_apps",
+      "source_path": "src-kain/hybrid/viewport_bridge/main.kn",
+      "compiled_path": "crates/k-os-kain/generated/runtime/hybrid/viewport_bridge/module.hybrid",
+      "namespace": "viewport_bridge",
+      "runtime_kind": "hybrid_module",
+      "host_kind": "hybrid",
+      "domain": "",
+      "tags": [
+        "hybrid",
+        "ts",
+        "wasm"
+      ]
+    },
+    {
+      "id": "brush_builder_kernel",
+      "label": "Brush Builder Kernel",
+      "kind": "source",
+      "owner_package": "k-os-kain",
+      "manifest_key": "kain_spirv_sources",
+      "source_path": "crates/k-os-kain/domains/brush/brush_builder_kernel.kn",
+      "compiled_path": "",
+      "namespace": "",
+      "runtime_kind": "",
+      "host_kind": "",
+      "domain": "brush",
+      "tags": [
+        "brush",
+        "source"
+      ]
+    },
+    {
+      "id": "fluid_builder_kernel",
+      "label": "Fluid Builder Kernel",
+      "kind": "source",
+      "owner_package": "k-os-kain",
+      "manifest_key": "kain_spirv_sources",
+      "source_path": "crates/k-os-kain/domains/fluid/fluid_builder_kernel.kn",
+      "compiled_path": "",
+      "namespace": "",
+      "runtime_kind": "",
+      "host_kind": "",
+      "domain": "fluid",
+      "tags": [
+        "fluid",
+        "source"
+      ]
+    },
+    {
+      "id": "ik_core",
+      "label": "Ik Core",
+      "kind": "source",
+      "owner_package": "k-os-kain",
+      "manifest_key": "kain_spirv_sources",
+      "source_path": "crates/k-os-kain/imports/c/zen_mocap_engine/ik_core.kn",
+      "compiled_path": "",
+      "namespace": "",
+      "runtime_kind": "",
+      "host_kind": "",
+      "domain": "imports",
+      "tags": [
+        "imports",
+        "source"
+      ]
+    },
+    {
+      "id": "ik_thecomet",
+      "label": "Ik Thecomet",
+      "kind": "source",
+      "owner_package": "k-os-kain",
+      "manifest_key": "kain_spirv_sources",
+      "source_path": "crates/k-os-kain/imports/c/zen_mocap_engine/ik_thecomet.kn",
+      "compiled_path": "",
+      "namespace": "",
+      "runtime_kind": "",
+      "host_kind": "",
+      "domain": "imports",
+      "tags": [
+        "imports",
+        "source"
+      ]
+    },
+    {
+      "id": "kainscript_builder_kernel",
+      "label": "KainScript Builder Kernel",
+      "kind": "source",
+      "owner_package": "k-os-kain",
+      "manifest_key": "kain_spirv_sources",
+      "source_path": "crates/k-os-kain/domains/kainscript/kainscript_builder_kernel.kn",
+      "compiled_path": "",
+      "namespace": "",
+      "runtime_kind": "",
+      "host_kind": "",
+      "domain": "kainscript",
+      "tags": [
+        "kainscript",
+        "source"
+      ]
+    },
+    {
+      "id": "kiss_fftr",
+      "label": "Kiss Fftr",
+      "kind": "source",
+      "owner_package": "k-os-kain",
+      "manifest_key": "kain_spirv_sources",
+      "source_path": "crates/k-os-kain/imports/c/zen_mocap_engine/kiss_fftr.kn",
+      "compiled_path": "",
+      "namespace": "",
+      "runtime_kind": "",
+      "host_kind": "",
+      "domain": "imports",
+      "tags": [
+        "imports",
+        "source"
+      ]
+    },
+    {
+      "id": "linmath",
+      "label": "Linmath",
+      "kind": "source",
+      "owner_package": "k-os-kain",
+      "manifest_key": "kain_spirv_sources",
+      "source_path": "crates/k-os-kain/imports/c/zen_mocap_engine/linmath.kn",
+      "compiled_path": "",
+      "namespace": "",
+      "runtime_kind": "",
+      "host_kind": "",
+      "domain": "imports",
+      "tags": [
+        "imports",
+        "source"
+      ]
+    },
+    {
+      "id": "par_easings",
+      "label": "Par Easings",
+      "kind": "source",
+      "owner_package": "k-os-kain",
+      "manifest_key": "kain_spirv_sources",
+      "source_path": "crates/k-os-kain/imports/c/zen_mocap_engine/par_easings.kn",
+      "compiled_path": "",
+      "namespace": "",
+      "runtime_kind": "",
+      "host_kind": "",
+      "domain": "imports",
+      "tags": [
+        "imports",
+        "source"
+      ]
+    },
+    {
+      "id": "perlin_noise",
+      "label": "Perlin Noise",
+      "kind": "source",
+      "owner_package": "k-os-kain",
+      "manifest_key": "kain_spirv_sources",
+      "source_path": "crates/k-os-kain/imports/c/zen_mocap_engine/perlin_noise.kn",
+      "compiled_path": "",
+      "namespace": "",
+      "runtime_kind": "",
+      "host_kind": "",
+      "domain": "imports",
+      "tags": [
+        "imports",
+        "source"
+      ]
+    },
+    {
+      "id": "pico",
+      "label": "Pico",
+      "kind": "source",
+      "owner_package": "k-os-kain",
+      "manifest_key": "kain_spirv_sources",
+      "source_path": "crates/k-os-kain/imports/c/zen_mocap_engine/pico.kn",
+      "compiled_path": "",
+      "namespace": "",
+      "runtime_kind": "",
+      "host_kind": "",
+      "domain": "imports",
+      "tags": [
+        "imports",
+        "source"
+      ]
+    },
+    {
+      "id": "procedural_builder_kernel",
+      "label": "Procedural Builder Kernel",
+      "kind": "source",
+      "owner_package": "k-os-kain",
+      "manifest_key": "kain_spirv_sources",
+      "source_path": "crates/k-os-kain/domains/procedural/procedural_builder_kernel.kn",
+      "compiled_path": "",
+      "namespace": "",
+      "runtime_kind": "",
+      "host_kind": "",
+      "domain": "procedural",
+      "tags": [
+        "procedural",
+        "source"
+      ]
+    },
+    {
+      "id": "shader_builder_kernel",
+      "label": "Shader Builder Kernel",
+      "kind": "source",
+      "owner_package": "k-os-kain",
+      "manifest_key": "kain_spirv_sources",
+      "source_path": "crates/k-os-kain/domains/shader/shader_builder_kernel.kn",
+      "compiled_path": "",
+      "namespace": "",
+      "runtime_kind": "",
+      "host_kind": "",
+      "domain": "shader",
+      "tags": [
+        "shader",
+        "source"
+      ]
+    },
+    {
+      "id": "material_pbr_standard",
+      "label": "Material PBR Standard",
+      "kind": "spirv_shader",
+      "owner_package": "k-os-kain",
+      "manifest_key": "kain_spirv_sources",
+      "source_path": "crates/k-os-kain/domains/materials/material_pbr_standard.kn",
+      "compiled_path": "crates/k-os-kain/generated/spv/materials/material_pbr_standard.spv",
+      "namespace": "",
+      "runtime_kind": "",
+      "host_kind": "",
+      "domain": "materials",
+      "tags": [
+        "materials",
+        "spirv"
+      ]
+    },
+    {
+      "id": "mocap_audio_motion",
+      "label": "Mocap Audio Motion",
+      "kind": "spirv_shader",
+      "owner_package": "k-os-kain",
+      "manifest_key": "kain_spirv_sources",
+      "source_path": "crates/k-os-kain/domains/supermotion/mocap_audio_motion.kn",
+      "compiled_path": "crates/k-os-kain/generated/spv/supermotion/mocap_audio_motion.spv",
+      "namespace": "",
+      "runtime_kind": "",
+      "host_kind": "",
+      "domain": "supermotion",
+      "tags": [
+        "spirv",
+        "supermotion"
+      ]
+    },
+    {
+      "id": "mocap_blend",
+      "label": "Mocap Blend",
+      "kind": "spirv_shader",
+      "owner_package": "k-os-kain",
+      "manifest_key": "kain_spirv_sources",
+      "source_path": "crates/k-os-kain/domains/supermotion/mocap_blend.kn",
+      "compiled_path": "crates/k-os-kain/generated/spv/supermotion/mocap_blend.spv",
+      "namespace": "",
+      "runtime_kind": "",
+      "host_kind": "",
+      "domain": "supermotion",
+      "tags": [
+        "spirv",
+        "supermotion"
+      ]
+    },
+    {
+      "id": "mocap_cloth_sim",
+      "label": "Mocap Cloth Sim",
+      "kind": "spirv_shader",
+      "owner_package": "k-os-kain",
+      "manifest_key": "kain_spirv_sources",
+      "source_path": "crates/k-os-kain/domains/supermotion/mocap_cloth_sim.kn",
+      "compiled_path": "crates/k-os-kain/generated/spv/supermotion/mocap_cloth_sim.spv",
+      "namespace": "",
+      "runtime_kind": "",
+      "host_kind": "",
+      "domain": "supermotion",
+      "tags": [
+        "spirv",
+        "supermotion"
+      ]
+    },
+    {
+      "id": "mocap_contact_weld",
+      "label": "Mocap Contact Weld",
+      "kind": "spirv_shader",
+      "owner_package": "k-os-kain",
+      "manifest_key": "kain_spirv_sources",
+      "source_path": "crates/k-os-kain/domains/supermotion/mocap_contact_weld.kn",
+      "compiled_path": "crates/k-os-kain/generated/spv/supermotion/mocap_contact_weld.spv",
+      "namespace": "",
+      "runtime_kind": "",
+      "host_kind": "",
+      "domain": "supermotion",
+      "tags": [
+        "spirv",
+        "supermotion"
+      ]
+    },
+    {
+      "id": "mocap_crowd",
+      "label": "Mocap Crowd",
+      "kind": "spirv_shader",
+      "owner_package": "k-os-kain",
+      "manifest_key": "kain_spirv_sources",
+      "source_path": "crates/k-os-kain/domains/supermotion/mocap_crowd.kn",
+      "compiled_path": "crates/k-os-kain/generated/spv/supermotion/mocap_crowd.spv",
+      "namespace": "",
+      "runtime_kind": "",
+      "host_kind": "",
+      "domain": "supermotion",
+      "tags": [
+        "spirv",
+        "supermotion"
+      ]
+    },
+    {
+      "id": "mocap_denoise",
+      "label": "Mocap Denoise",
+      "kind": "spirv_shader",
+      "owner_package": "k-os-kain",
+      "manifest_key": "kain_spirv_sources",
+      "source_path": "crates/k-os-kain/domains/supermotion/mocap_denoise.kn",
+      "compiled_path": "crates/k-os-kain/generated/spv/supermotion/mocap_denoise.spv",
+      "namespace": "",
+      "runtime_kind": "",
+      "host_kind": "",
+      "domain": "supermotion",
+      "tags": [
+        "spirv",
+        "supermotion"
+      ]
+    },
+    {
+      "id": "mocap_facial_blend",
+      "label": "Mocap Facial Blend",
+      "kind": "spirv_shader",
+      "owner_package": "k-os-kain",
+      "manifest_key": "kain_spirv_sources",
+      "source_path": "crates/k-os-kain/domains/supermotion/mocap_facial_blend.kn",
+      "compiled_path": "crates/k-os-kain/generated/spv/supermotion/mocap_facial_blend.spv",
+      "namespace": "",
+      "runtime_kind": "",
+      "host_kind": "",
+      "domain": "supermotion",
+      "tags": [
+        "spirv",
+        "supermotion"
+      ]
+    },
+    {
+      "id": "mocap_hand_fk",
+      "label": "Mocap Hand Fk",
+      "kind": "spirv_shader",
+      "owner_package": "k-os-kain",
+      "manifest_key": "kain_spirv_sources",
+      "source_path": "crates/k-os-kain/domains/supermotion/mocap_hand_fk.kn",
+      "compiled_path": "crates/k-os-kain/generated/spv/supermotion/mocap_hand_fk.spv",
+      "namespace": "",
+      "runtime_kind": "",
+      "host_kind": "",
+      "domain": "supermotion",
+      "tags": [
+        "spirv",
+        "supermotion"
+      ]
+    },
+    {
+      "id": "mocap_ik_reach",
+      "label": "Mocap Ik Reach",
+      "kind": "spirv_shader",
+      "owner_package": "k-os-kain",
+      "manifest_key": "kain_spirv_sources",
+      "source_path": "crates/k-os-kain/domains/supermotion/mocap_ik_reach.kn",
+      "compiled_path": "crates/k-os-kain/generated/spv/supermotion/mocap_ik_reach.spv",
+      "namespace": "",
+      "runtime_kind": "",
+      "host_kind": "",
+      "domain": "supermotion",
+      "tags": [
+        "spirv",
+        "supermotion"
+      ]
+    },
+    {
+      "id": "mocap_livelink",
+      "label": "Mocap Livelink",
+      "kind": "spirv_shader",
+      "owner_package": "k-os-kain",
+      "manifest_key": "kain_spirv_sources",
+      "source_path": "crates/k-os-kain/domains/supermotion/mocap_livelink.kn",
+      "compiled_path": "crates/k-os-kain/generated/spv/supermotion/mocap_livelink.spv",
+      "namespace": "",
+      "runtime_kind": "",
+      "host_kind": "",
+      "domain": "supermotion",
+      "tags": [
+        "spirv",
+        "supermotion"
+      ]
+    },
+    {
+      "id": "mocap_mirror",
+      "label": "Mocap Mirror",
+      "kind": "spirv_shader",
+      "owner_package": "k-os-kain",
+      "manifest_key": "kain_spirv_sources",
+      "source_path": "crates/k-os-kain/domains/supermotion/mocap_mirror.kn",
+      "compiled_path": "crates/k-os-kain/generated/spv/supermotion/mocap_mirror.spv",
+      "namespace": "",
+      "runtime_kind": "",
+      "host_kind": "",
+      "domain": "supermotion",
+      "tags": [
+        "spirv",
+        "supermotion"
+      ]
+    },
+    {
+      "id": "mocap_physics",
+      "label": "Mocap Physics",
+      "kind": "spirv_shader",
+      "owner_package": "k-os-kain",
+      "manifest_key": "kain_spirv_sources",
+      "source_path": "crates/k-os-kain/domains/supermotion/mocap_physics.kn",
+      "compiled_path": "crates/k-os-kain/generated/spv/supermotion/mocap_physics.spv",
+      "namespace": "",
+      "runtime_kind": "",
+      "host_kind": "",
+      "domain": "supermotion",
+      "tags": [
+        "spirv",
+        "supermotion"
+      ]
+    },
+    {
+      "id": "mocap_pose_match",
+      "label": "Mocap Pose Match",
+      "kind": "spirv_shader",
+      "owner_package": "k-os-kain",
+      "manifest_key": "kain_spirv_sources",
+      "source_path": "crates/k-os-kain/domains/supermotion/mocap_pose_match.kn",
+      "compiled_path": "crates/k-os-kain/generated/spv/supermotion/mocap_pose_match.spv",
+      "namespace": "",
+      "runtime_kind": "",
+      "host_kind": "",
+      "domain": "supermotion",
+      "tags": [
+        "spirv",
+        "supermotion"
+      ]
+    },
+    {
+      "id": "mocap_pose_normalize",
+      "label": "Mocap Pose Normalize",
+      "kind": "spirv_shader",
+      "owner_package": "k-os-kain",
+      "manifest_key": "kain_spirv_sources",
+      "source_path": "crates/k-os-kain/domains/supermotion/mocap_pose_normalize.kn",
+      "compiled_path": "crates/k-os-kain/generated/spv/supermotion/mocap_pose_normalize.spv",
+      "namespace": "",
+      "runtime_kind": "",
+      "host_kind": "",
+      "domain": "supermotion",
+      "tags": [
+        "spirv",
+        "supermotion"
+      ]
+    },
+    {
+      "id": "mocap_retarget",
+      "label": "Mocap Retarget",
+      "kind": "spirv_shader",
+      "owner_package": "k-os-kain",
+      "manifest_key": "kain_spirv_sources",
+      "source_path": "crates/k-os-kain/domains/supermotion/mocap_retarget.kn",
+      "compiled_path": "crates/k-os-kain/generated/spv/supermotion/mocap_retarget.spv",
+      "namespace": "",
+      "runtime_kind": "",
+      "host_kind": "",
+      "domain": "supermotion",
+      "tags": [
+        "spirv",
+        "supermotion"
+      ]
+    },
+    {
+      "id": "mocap_skeleton",
+      "label": "Mocap Skeleton",
+      "kind": "spirv_shader",
+      "owner_package": "k-os-kain",
+      "manifest_key": "kain_spirv_sources",
+      "source_path": "crates/k-os-kain/domains/supermotion/mocap_skeleton.kn",
+      "compiled_path": "crates/k-os-kain/generated/spv/supermotion/mocap_skeleton.spv",
+      "namespace": "",
+      "runtime_kind": "",
+      "host_kind": "",
+      "domain": "supermotion",
+      "tags": [
+        "spirv",
+        "supermotion"
+      ]
+    },
+    {
+      "id": "mocap_spring_follow",
+      "label": "Mocap Spring Follow",
+      "kind": "spirv_shader",
+      "owner_package": "k-os-kain",
+      "manifest_key": "kain_spirv_sources",
+      "source_path": "crates/k-os-kain/domains/supermotion/mocap_spring_follow.kn",
+      "compiled_path": "crates/k-os-kain/generated/spv/supermotion/mocap_spring_follow.spv",
+      "namespace": "",
+      "runtime_kind": "",
+      "host_kind": "",
+      "domain": "supermotion",
+      "tags": [
+        "spirv",
+        "supermotion"
+      ]
+    },
+    {
+      "id": "mocap_stabilize_root",
+      "label": "Mocap Stabilize Root",
+      "kind": "spirv_shader",
+      "owner_package": "k-os-kain",
+      "manifest_key": "kain_spirv_sources",
+      "source_path": "crates/k-os-kain/domains/supermotion/mocap_stabilize_root.kn",
+      "compiled_path": "crates/k-os-kain/generated/spv/supermotion/mocap_stabilize_root.spv",
+      "namespace": "",
+      "runtime_kind": "",
+      "host_kind": "",
+      "domain": "supermotion",
+      "tags": [
+        "spirv",
+        "supermotion"
+      ]
+    },
+    {
+      "id": "mocap_supermotion_livelink",
+      "label": "Mocap Supermotion Livelink",
+      "kind": "spirv_shader",
+      "owner_package": "k-os-kain",
+      "manifest_key": "kain_spirv_sources",
+      "source_path": "crates/k-os-kain/domains/supermotion/mocap_supermotion_livelink.kn",
+      "compiled_path": "crates/k-os-kain/generated/spv/supermotion/mocap_supermotion_livelink.spv",
+      "namespace": "",
+      "runtime_kind": "",
+      "host_kind": "",
+      "domain": "supermotion",
+      "tags": [
+        "spirv",
+        "supermotion"
+      ]
+    },
+    {
+      "id": "mocap_velocity_smooth",
+      "label": "Mocap Velocity Smooth",
+      "kind": "spirv_shader",
+      "owner_package": "k-os-kain",
+      "manifest_key": "kain_spirv_sources",
+      "source_path": "crates/k-os-kain/domains/supermotion/mocap_velocity_smooth.kn",
+      "compiled_path": "crates/k-os-kain/generated/spv/supermotion/mocap_velocity_smooth.spv",
+      "namespace": "",
+      "runtime_kind": "",
+      "host_kind": "",
+      "domain": "supermotion",
+      "tags": [
+        "spirv",
+        "supermotion"
+      ]
+    },
+    {
+      "id": "mograph_supermotion",
+      "label": "Mograph Supermotion",
+      "kind": "spirv_shader",
+      "owner_package": "k-os-kain",
+      "manifest_key": "kain_spirv_sources",
+      "source_path": "crates/k-os-kain/domains/supermotion/mograph_supermotion.kn",
+      "compiled_path": "crates/k-os-kain/generated/spv/supermotion/mograph_supermotion.spv",
+      "namespace": "",
+      "runtime_kind": "",
+      "host_kind": "",
+      "domain": "supermotion",
+      "tags": [
+        "spirv",
+        "supermotion"
+      ]
+    },
+    {
+      "id": "paint_surface_filter",
+      "label": "Paint Surface Filter",
+      "kind": "spirv_shader",
+      "owner_package": "k-os-kain",
+      "manifest_key": "kain_spirv_sources",
+      "source_path": "crates/k-os-kain/domains/paint/paint_surface_filter.kn",
+      "compiled_path": "crates/k-os-kain/generated/spv/paint/paint_surface_filter.spv",
+      "namespace": "",
+      "runtime_kind": "",
+      "host_kind": "",
+      "domain": "paint",
+      "tags": [
+        "paint",
+        "spirv"
+      ]
+    },
+    {
+      "id": "preprocess",
+      "label": "Preprocess",
+      "kind": "spirv_shader",
+      "owner_package": "k-os-kain",
+      "manifest_key": "kain_spirv_sources",
+      "source_path": "crates/k-os-kain/domains/supermotion/preprocess.kn",
+      "compiled_path": "crates/k-os-kain/generated/spv/supermotion/preprocess.spv",
+      "namespace": "",
+      "runtime_kind": "",
+      "host_kind": "",
+      "domain": "supermotion",
+      "tags": [
+        "spirv",
+        "supermotion"
+      ]
+    },
+    {
+      "id": "renderer_surface_pass",
+      "label": "Renderer Surface Pass",
+      "kind": "spirv_shader",
+      "owner_package": "k-os-kain",
+      "manifest_key": "kain_spirv_sources",
+      "source_path": "crates/k-os-kain/domains/renderer/renderer_surface_pass.kn",
+      "compiled_path": "crates/k-os-kain/generated/spv/renderer/renderer_surface_pass.spv",
+      "namespace": "",
+      "runtime_kind": "",
+      "host_kind": "",
+      "domain": "renderer",
+      "tags": [
+        "renderer",
+        "spirv"
+      ]
+    },
+    {
+      "id": "renderer_zen_atmosphere",
+      "label": "Renderer Zen Atmosphere",
+      "kind": "spirv_shader",
+      "owner_package": "k-os-kain",
+      "manifest_key": "kain_spirv_sources",
+      "source_path": "crates/k-os-kain/domains/renderer/renderer_zen_atmosphere.kn",
+      "compiled_path": "crates/k-os-kain/generated/spv/renderer/renderer_zen_atmosphere.spv",
+      "namespace": "",
+      "runtime_kind": "",
+      "host_kind": "",
+      "domain": "renderer",
+      "tags": [
+        "renderer",
+        "spirv"
+      ]
+    },
+    {
+      "id": "sculpt_engine_layer_accumulate",
+      "label": "Sculpt Engine Layer Accumulate",
+      "kind": "spirv_shader",
+      "owner_package": "k-os-kain",
+      "manifest_key": "kain_spirv_sources",
+      "source_path": "crates/k-os-kain/domains/sculpting_engine/sculpt_engine_layer_accumulate.kn",
+      "compiled_path": "crates/k-os-kain/generated/spv/sculpting_engine/sculpt_engine_layer_accumulate.spv",
+      "namespace": "",
+      "runtime_kind": "",
+      "host_kind": "",
+      "domain": "sculpting_engine",
+      "tags": [
+        "sculpting_engine",
+        "spirv"
+      ]
+    },
+    {
+      "id": "sculpt_engine_surface_drag",
+      "label": "Sculpt Engine Surface Drag",
+      "kind": "spirv_shader",
+      "owner_package": "k-os-kain",
+      "manifest_key": "kain_spirv_sources",
+      "source_path": "crates/k-os-kain/domains/sculpting_engine/sculpt_engine_surface_drag.kn",
+      "compiled_path": "crates/k-os-kain/generated/spv/sculpting_engine/sculpt_engine_surface_drag.spv",
+      "namespace": "",
+      "runtime_kind": "",
+      "host_kind": "",
+      "domain": "sculpting_engine",
+      "tags": [
+        "sculpting_engine",
+        "spirv"
+      ]
+    },
+    {
+      "id": "sculpt_physics_attractor",
+      "label": "Sculpt Physics Attractor",
+      "kind": "spirv_shader",
+      "owner_package": "k-os-kain",
+      "manifest_key": "kain_spirv_sources",
+      "source_path": "crates/k-os-kain/domains/sculpting/sculpt_physics_attractor.kn",
+      "compiled_path": "crates/k-os-kain/generated/spv/sculpting/sculpt_physics_attractor.spv",
+      "namespace": "",
+      "runtime_kind": "",
+      "host_kind": "",
+      "domain": "sculpting",
+      "tags": [
+        "sculpting",
+        "spirv"
+      ]
+    },
+    {
+      "id": "sculpt_physics_elastic",
+      "label": "Sculpt Physics Elastic",
+      "kind": "spirv_shader",
+      "owner_package": "k-os-kain",
+      "manifest_key": "kain_spirv_sources",
+      "source_path": "crates/k-os-kain/domains/sculpting/sculpt_physics_elastic.kn",
+      "compiled_path": "crates/k-os-kain/generated/spv/sculpting/sculpt_physics_elastic.spv",
+      "namespace": "",
+      "runtime_kind": "",
+      "host_kind": "",
+      "domain": "sculpting",
+      "tags": [
+        "sculpting",
+        "spirv"
+      ]
+    },
+    {
+      "id": "sculpt_physics_gravity_drop",
+      "label": "Sculpt Physics Gravity Drop",
+      "kind": "spirv_shader",
+      "owner_package": "k-os-kain",
+      "manifest_key": "kain_spirv_sources",
+      "source_path": "crates/k-os-kain/domains/sculpting/sculpt_physics_gravity_drop.kn",
+      "compiled_path": "crates/k-os-kain/generated/spv/sculpting/sculpt_physics_gravity_drop.spv",
+      "namespace": "",
+      "runtime_kind": "",
+      "host_kind": "",
+      "domain": "sculpting",
+      "tags": [
+        "sculpting",
+        "spirv"
+      ]
+    },
+    {
+      "id": "sculpt_physics_inflate_pulse",
+      "label": "Sculpt Physics Inflate Pulse",
+      "kind": "spirv_shader",
+      "owner_package": "k-os-kain",
+      "manifest_key": "kain_spirv_sources",
+      "source_path": "crates/k-os-kain/domains/sculpting/sculpt_physics_inflate_pulse.kn",
+      "compiled_path": "crates/k-os-kain/generated/spv/sculpting/sculpt_physics_inflate_pulse.spv",
+      "namespace": "",
+      "runtime_kind": "",
+      "host_kind": "",
+      "domain": "sculpting",
+      "tags": [
+        "sculpting",
+        "spirv"
+      ]
+    },
+    {
+      "id": "sculpt_physics_magnet",
+      "label": "Sculpt Physics Magnet",
+      "kind": "spirv_shader",
+      "owner_package": "k-os-kain",
+      "manifest_key": "kain_spirv_sources",
+      "source_path": "crates/k-os-kain/domains/sculpting/sculpt_physics_magnet.kn",
+      "compiled_path": "crates/k-os-kain/generated/spv/sculpting/sculpt_physics_magnet.spv",
+      "namespace": "",
+      "runtime_kind": "",
+      "host_kind": "",
+      "domain": "sculpting",
+      "tags": [
+        "sculpting",
+        "spirv"
+      ]
+    },
+    {
+      "id": "sculpt_physics_turbulence",
+      "label": "Sculpt Physics Turbulence",
+      "kind": "spirv_shader",
+      "owner_package": "k-os-kain",
+      "manifest_key": "kain_spirv_sources",
+      "source_path": "crates/k-os-kain/domains/sculpting/sculpt_physics_turbulence.kn",
+      "compiled_path": "crates/k-os-kain/generated/spv/sculpting/sculpt_physics_turbulence.spv",
+      "namespace": "",
+      "runtime_kind": "",
+      "host_kind": "",
+      "domain": "sculpting",
+      "tags": [
+        "sculpting",
+        "spirv"
+      ]
+    },
+    {
+      "id": "sculpt_physics_vortex",
+      "label": "Sculpt Physics Vortex",
+      "kind": "spirv_shader",
+      "owner_package": "k-os-kain",
+      "manifest_key": "kain_spirv_sources",
+      "source_path": "crates/k-os-kain/domains/sculpting/sculpt_physics_vortex.kn",
+      "compiled_path": "crates/k-os-kain/generated/spv/sculpting/sculpt_physics_vortex.spv",
+      "namespace": "",
+      "runtime_kind": "",
+      "host_kind": "",
+      "domain": "sculpting",
+      "tags": [
+        "sculpting",
+        "spirv"
+      ]
+    },
+    {
+      "id": "sculpt_physics_wind",
+      "label": "Sculpt Physics Wind",
+      "kind": "spirv_shader",
+      "owner_package": "k-os-kain",
+      "manifest_key": "kain_spirv_sources",
+      "source_path": "crates/k-os-kain/domains/sculpting/sculpt_physics_wind.kn",
+      "compiled_path": "crates/k-os-kain/generated/spv/sculpting/sculpt_physics_wind.spv",
+      "namespace": "",
+      "runtime_kind": "",
+      "host_kind": "",
+      "domain": "sculpting",
+      "tags": [
+        "sculpting",
+        "spirv"
+      ]
+    },
+    {
+      "id": "sculpt_stamp_blob",
+      "label": "Sculpt Stamp Blob",
+      "kind": "spirv_shader",
+      "owner_package": "k-os-kain",
+      "manifest_key": "kain_spirv_sources",
+      "source_path": "crates/k-os-kain/domains/sculpting/sculpt_stamp_blob.kn",
+      "compiled_path": "crates/k-os-kain/generated/spv/sculpting/sculpt_stamp_blob.spv",
+      "namespace": "",
+      "runtime_kind": "",
+      "host_kind": "",
+      "domain": "sculpting",
+      "tags": [
+        "sculpting",
+        "spirv"
+      ]
+    },
+    {
+      "id": "sculpt_stamp_clay",
+      "label": "Sculpt Stamp Clay",
+      "kind": "spirv_shader",
+      "owner_package": "k-os-kain",
+      "manifest_key": "kain_spirv_sources",
+      "source_path": "crates/k-os-kain/domains/sculpting/sculpt_stamp_clay.kn",
+      "compiled_path": "crates/k-os-kain/generated/spv/sculpting/sculpt_stamp_clay.spv",
+      "namespace": "",
+      "runtime_kind": "",
+      "host_kind": "",
+      "domain": "sculpting",
+      "tags": [
+        "sculpting",
+        "spirv"
+      ]
+    },
+    {
+      "id": "sculpt_stamp_crease",
+      "label": "Sculpt Stamp Crease",
+      "kind": "spirv_shader",
+      "owner_package": "k-os-kain",
+      "manifest_key": "kain_spirv_sources",
+      "source_path": "crates/k-os-kain/domains/sculpting/sculpt_stamp_crease.kn",
+      "compiled_path": "crates/k-os-kain/generated/spv/sculpting/sculpt_stamp_crease.spv",
+      "namespace": "",
+      "runtime_kind": "",
+      "host_kind": "",
+      "domain": "sculpting",
+      "tags": [
+        "sculpting",
+        "spirv"
+      ]
+    },
+    {
+      "id": "sculpt_stamp_flatten",
+      "label": "Sculpt Stamp Flatten",
+      "kind": "spirv_shader",
+      "owner_package": "k-os-kain",
+      "manifest_key": "kain_spirv_sources",
+      "source_path": "crates/k-os-kain/domains/sculpting/sculpt_stamp_flatten.kn",
+      "compiled_path": "crates/k-os-kain/generated/spv/sculpting/sculpt_stamp_flatten.spv",
+      "namespace": "",
+      "runtime_kind": "",
+      "host_kind": "",
+      "domain": "sculpting",
+      "tags": [
+        "sculpting",
+        "spirv"
+      ]
+    },
+    {
+      "id": "sculpt_stamp_hpolish",
+      "label": "Sculpt Stamp Hpolish",
+      "kind": "spirv_shader",
+      "owner_package": "k-os-kain",
+      "manifest_key": "kain_spirv_sources",
+      "source_path": "crates/k-os-kain/domains/sculpting/sculpt_stamp_hpolish.kn",
+      "compiled_path": "crates/k-os-kain/generated/spv/sculpting/sculpt_stamp_hpolish.spv",
+      "namespace": "",
+      "runtime_kind": "",
+      "host_kind": "",
+      "domain": "sculpting",
+      "tags": [
+        "sculpting",
+        "spirv"
+      ]
+    },
+    {
+      "id": "sculpt_stamp_inflate",
+      "label": "Sculpt Stamp Inflate",
+      "kind": "spirv_shader",
+      "owner_package": "k-os-kain",
+      "manifest_key": "kain_spirv_sources",
+      "source_path": "crates/k-os-kain/domains/sculpting/sculpt_stamp_inflate.kn",
+      "compiled_path": "crates/k-os-kain/generated/spv/sculpting/sculpt_stamp_inflate.spv",
+      "namespace": "",
+      "runtime_kind": "",
+      "host_kind": "",
+      "domain": "sculpting",
+      "tags": [
+        "sculpting",
+        "spirv"
+      ]
+    },
+    {
+      "id": "sculpt_stamp_layer",
+      "label": "Sculpt Stamp Layer",
+      "kind": "spirv_shader",
+      "owner_package": "k-os-kain",
+      "manifest_key": "kain_spirv_sources",
+      "source_path": "crates/k-os-kain/domains/sculpting/sculpt_stamp_layer.kn",
+      "compiled_path": "crates/k-os-kain/generated/spv/sculpting/sculpt_stamp_layer.spv",
+      "namespace": "",
+      "runtime_kind": "",
+      "host_kind": "",
+      "domain": "sculpting",
+      "tags": [
+        "sculpting",
+        "spirv"
+      ]
+    },
+    {
+      "id": "sculpt_stamp_main",
+      "label": "Sculpt Stamp Main",
+      "kind": "spirv_shader",
+      "owner_package": "k-os-kain",
+      "manifest_key": "kain_spirv_sources",
+      "source_path": "crates/k-os-kain/domains/sculpting/sculpt_stamp_main.kn",
+      "compiled_path": "crates/k-os-kain/generated/spv/sculpting/sculpt_stamp_main.spv",
+      "namespace": "",
+      "runtime_kind": "",
+      "host_kind": "",
+      "domain": "sculpting",
+      "tags": [
+        "sculpting",
+        "spirv"
+      ]
+    },
+    {
+      "id": "sculpt_stamp_scrape",
+      "label": "Sculpt Stamp Scrape",
+      "kind": "spirv_shader",
+      "owner_package": "k-os-kain",
+      "manifest_key": "kain_spirv_sources",
+      "source_path": "crates/k-os-kain/domains/sculpting/sculpt_stamp_scrape.kn",
+      "compiled_path": "crates/k-os-kain/generated/spv/sculpting/sculpt_stamp_scrape.spv",
+      "namespace": "",
+      "runtime_kind": "",
+      "host_kind": "",
+      "domain": "sculpting",
+      "tags": [
+        "sculpting",
+        "spirv"
+      ]
+    },
+    {
+      "id": "runtime.edit",
+      "label": "Edit",
+      "kind": "zen_host_action",
+      "owner_package": "zen",
+      "manifest_key": "zen_host_api",
+      "source_path": "crates/zen/resources/host_api.toml",
+      "compiled_path": "",
+      "namespace": "runtime_set_edit_mode",
+      "runtime_kind": "",
+      "host_kind": "zen",
+      "domain": "host_api",
+      "tags": []
+    },
+    {
+      "id": "runtime.play",
+      "label": "Play",
+      "kind": "zen_host_action",
+      "owner_package": "zen",
+      "manifest_key": "zen_host_api",
+      "source_path": "crates/zen/resources/host_api.toml",
+      "compiled_path": "",
+      "namespace": "runtime_set_play_mode",
+      "runtime_kind": "",
+      "host_kind": "zen",
+      "domain": "host_api",
+      "tags": []
+    },
+    {
+      "id": "runtime.simulate",
+      "label": "Simulate",
+      "kind": "zen_host_action",
+      "owner_package": "zen",
+      "manifest_key": "zen_host_api",
+      "source_path": "crates/zen/resources/host_api.toml",
+      "compiled_path": "",
+      "namespace": "runtime_set_simulate_mode",
+      "runtime_kind": "",
+      "host_kind": "zen",
+      "domain": "host_api",
+      "tags": []
+    },
+    {
+      "id": "scene.clear_selection",
+      "label": "Clear Selection",
+      "kind": "zen_host_action",
+      "owner_package": "zen",
+      "manifest_key": "zen_host_api",
+      "source_path": "crates/zen/resources/host_api.toml",
+      "compiled_path": "",
+      "namespace": "scene_clear_selection",
+      "runtime_kind": "",
+      "host_kind": "zen",
+      "domain": "host_api",
+      "tags": []
+    },
+    {
+      "id": "scene.focus_selection",
+      "label": "Focus Selected",
+      "kind": "zen_host_action",
+      "owner_package": "zen",
+      "manifest_key": "zen_host_api",
+      "source_path": "crates/zen/resources/host_api.toml",
+      "compiled_path": "",
+      "namespace": "camera_focus_selection",
+      "runtime_kind": "",
+      "host_kind": "zen",
+      "domain": "host_api",
+      "tags": []
+    },
+    {
+      "id": "scene.frame_scene",
+      "label": "Frame Scene",
+      "kind": "zen_host_action",
+      "owner_package": "zen",
+      "manifest_key": "zen_host_api",
+      "source_path": "crates/zen/resources/host_api.toml",
+      "compiled_path": "",
+      "namespace": "camera_frame_scene",
+      "runtime_kind": "",
+      "host_kind": "zen",
+      "domain": "host_api",
+      "tags": []
+    },
+    {
+      "id": "scene.select_next",
+      "label": "Next Object",
+      "kind": "zen_host_action",
+      "owner_package": "zen",
+      "manifest_key": "zen_host_api",
+      "source_path": "crates/zen/resources/host_api.toml",
+      "compiled_path": "",
+      "namespace": "scene_select_next",
+      "runtime_kind": "",
+      "host_kind": "zen",
+      "domain": "host_api",
+      "tags": []
+    },
+    {
+      "id": "scene.select_previous",
+      "label": "Previous Object",
+      "kind": "zen_host_action",
+      "owner_package": "zen",
+      "manifest_key": "zen_host_api",
+      "source_path": "crates/zen/resources/host_api.toml",
+      "compiled_path": "",
+      "namespace": "scene_select_previous",
+      "runtime_kind": "",
+      "host_kind": "zen",
+      "domain": "host_api",
+      "tags": []
+    },
+    {
+      "id": "scene.spawn_box",
+      "label": "Spawn Box",
+      "kind": "zen_host_action",
+      "owner_package": "zen",
+      "manifest_key": "zen_host_api",
+      "source_path": "crates/zen/resources/host_api.toml",
+      "compiled_path": "",
+      "namespace": "scene_spawn_box",
+      "runtime_kind": "",
+      "host_kind": "zen",
+      "domain": "host_api",
+      "tags": []
+    },
+    {
+      "id": "shell.reload",
+      "label": "Reload Shell",
+      "kind": "zen_host_action",
+      "owner_package": "zen",
+      "manifest_key": "zen_host_api",
+      "source_path": "crates/zen/resources/host_api.toml",
+      "compiled_path": "",
+      "namespace": "reload_shell",
+      "runtime_kind": "",
+      "host_kind": "zen",
+      "domain": "host_api",
+      "tags": []
+    },
+    {
+      "id": "engine.host_api",
+      "label": "Host API",
+      "kind": "zen_host_binding",
+      "owner_package": "zen",
+      "manifest_key": "zen_host_api",
+      "source_path": "crates/zen/resources/host_api.toml",
+      "compiled_path": "",
+      "namespace": "engine_host_api",
+      "runtime_kind": "",
+      "host_kind": "zen",
+      "domain": "host_api",
+      "tags": [
+        "inspector"
+      ]
+    },
+    {
+      "id": "engine.kain",
+      "label": "Kain Runtime",
+      "kind": "zen_host_binding",
+      "owner_package": "zen",
+      "manifest_key": "zen_host_api",
+      "source_path": "crates/zen/resources/host_api.toml",
+      "compiled_path": "",
+      "namespace": "engine_kain",
+      "runtime_kind": "",
+      "host_kind": "zen",
+      "domain": "host_api",
+      "tags": [
+        "graph"
+      ]
+    },
+    {
+      "id": "engine.runtime",
+      "label": "Engine Runtime",
+      "kind": "zen_host_binding",
+      "owner_package": "zen",
+      "manifest_key": "zen_host_api",
+      "source_path": "crates/zen/resources/host_api.toml",
+      "compiled_path": "",
+      "namespace": "engine_runtime",
+      "runtime_kind": "",
+      "host_kind": "zen",
+      "domain": "host_api",
+      "tags": [
+        "inspector"
+      ]
+    },
+    {
+      "id": "engine.timeline",
+      "label": "Engine Timeline",
+      "kind": "zen_host_binding",
+      "owner_package": "zen",
+      "manifest_key": "zen_host_api",
+      "source_path": "crates/zen/resources/host_api.toml",
+      "compiled_path": "",
+      "namespace": "engine_timeline",
+      "runtime_kind": "",
+      "host_kind": "zen",
+      "domain": "host_api",
+      "tags": [
+        "timeline"
+      ]
+    },
+    {
+      "id": "scene.objects",
+      "label": "Scene Objects",
+      "kind": "zen_host_binding",
+      "owner_package": "zen",
+      "manifest_key": "zen_host_api",
+      "source_path": "crates/zen/resources/host_api.toml",
+      "compiled_path": "",
+      "namespace": "scene_objects",
+      "runtime_kind": "",
+      "host_kind": "zen",
+      "domain": "host_api",
+      "tags": [
+        "tree"
+      ]
+    },
+    {
+      "id": "scene.selection",
+      "label": "Scene Selection",
+      "kind": "zen_host_binding",
+      "owner_package": "zen",
+      "manifest_key": "zen_host_api",
+      "source_path": "crates/zen/resources/host_api.toml",
+      "compiled_path": "",
+      "namespace": "scene_selection",
+      "runtime_kind": "",
+      "host_kind": "zen",
+      "domain": "host_api",
+      "tags": [
+        "inspector"
+      ]
+    },
+    {
+      "id": "scene.viewport",
+      "label": "Universal Viewport",
+      "kind": "zen_host_binding",
+      "owner_package": "zen",
+      "manifest_key": "zen_host_api",
+      "source_path": "crates/zen/resources/host_api.toml",
+      "compiled_path": "",
+      "namespace": "scene_viewport",
+      "runtime_kind": "",
+      "host_kind": "zen",
+      "domain": "host_api",
+      "tags": [
+        "viewport3d"
+      ]
+    },
+    {
+      "id": "renderer_zen_atmosphere",
+      "label": "Zen Post Process Shader",
+      "kind": "zen_post_process_shader",
+      "owner_package": "zen",
+      "manifest_key": "zen_runtime",
+      "source_path": "crates/k-os-kain/domains/renderer/renderer_zen_atmosphere.kn",
+      "compiled_path": "crates/k-os-kain/generated/spv/renderer/renderer_zen_atmosphere.spv",
+      "namespace": "",
+      "runtime_kind": "",
+      "host_kind": "zen",
+      "domain": "renderer",
+      "tags": [
+        "post-process"
+      ]
+    },
+    {
+      "id": "zen.shell.main",
+      "label": "Zen Shell",
+      "kind": "zen_shell",
+      "owner_package": "zen",
+      "manifest_key": "zen_modules",
+      "source_path": "crates/zen/resources/zen_shell.kn",
+      "compiled_path": "",
+      "namespace": "App",
+      "runtime_kind": "",
+      "host_kind": "zen",
+      "domain": "ui",
+      "tags": [
+        "default",
+        "editor",
+        "universal"
+      ]
+    }
+  ]
+}

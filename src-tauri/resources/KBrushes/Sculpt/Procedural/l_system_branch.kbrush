@@ -1,0 +1,33 @@
+{
+  "id": "l_system_branch",
+  "name": "L-System Branch",
+  "category": "Sculpt/Procedural",
+  "tags": ["procedural", "l_system", "branch", "tree"],
+  "kernel": "stamp",
+  "params": {
+    "radius": 0.06,
+    "strength": 0.5,
+    "hardness": 0.4,
+    "spacing": 0.03,
+    "lazy_radius": 0.01,
+    "subtract": false,
+    "front_faces_only": true,
+    "accumulate": true,
+    "jitter_position": 0.01,
+    "jitter_rotation": 0.4,
+    "jitter_strength": 0.05,
+    "falloff_type": "smooth",
+    "extras": {
+      "axiom": "F",
+      "rules": "F->[+F]F[-F]F",
+      "iterations": 4,
+      "angle": 25.0
+    }
+  },
+  "textures": {},
+  "pressure_strength": "soft",
+  "pressure_radius": "soft",
+  "speed_radius": null,
+  "tilt_rotation": null,
+  "entry_fade_dabs": 4
+}

@@ -1,0 +1,15 @@
+[[origin_source_bindings]]
+origin_id = "sequencer-ui"
+event_source_id = "sequencer-ui"
+
+[[origin_source_bindings]]
+origin_id = "hotkey"
+event_source_id = "sequencer-ui"
+
+[[origin_source_bindings]]
+origin_id = "import"
+event_source_id = "take-import"
+
+[[origin_source_bindings]]
+origin_id = "automation"
+event_source_id = "automation-replay"

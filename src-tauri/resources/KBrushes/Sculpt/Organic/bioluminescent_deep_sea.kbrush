@@ -1,0 +1,32 @@
+{
+  "id": "bioluminescent_deep_sea",
+  "name": "Bioluminescent Deep Sea",
+  "category": "Sculpt/Organic",
+  "tags": ["organic", "bioluminescent", "deep", "sea"],
+  "kernel": "stamp",
+  "params": {
+    "radius": 0.05,
+    "strength": 0.3,
+    "hardness": 0.2,
+    "spacing": 0.03,
+    "lazy_radius": 0.01,
+    "subtract": false,
+    "front_faces_only": true,
+    "accumulate": true,
+    "jitter_position": 0.04,
+    "jitter_rotation": 0.8,
+    "jitter_strength": 0.2,
+    "falloff_type": "gaussian",
+    "extras": {
+      "glow_color": "blue",
+      "pulse_pattern": "slow",
+      "depth_adaptation": 0.9
+    }
+  },
+  "textures": {},
+  "pressure_strength": "soft",
+  "pressure_radius": "soft",
+  "speed_radius": null,
+  "tilt_rotation": null,
+  "entry_fade_dabs": 5
+}

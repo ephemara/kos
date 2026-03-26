@@ -1,0 +1,33 @@
+{
+  "id": "reaction_diffusion",
+  "name": "Reaction Diffusion",
+  "category": "Sculpt/Procedural",
+  "tags": ["procedural", "reaction", "diffusion", "spots"],
+  "kernel": "stamp",
+  "params": {
+    "radius": 0.08,
+    "strength": 0.35,
+    "hardness": 0.3,
+    "spacing": 0.04,
+    "lazy_radius": 0.01,
+    "subtract": false,
+    "front_faces_only": true,
+    "accumulate": true,
+    "jitter_position": 0.02,
+    "jitter_rotation": 0.6,
+    "jitter_strength": 0.1,
+    "falloff_type": "gaussian",
+    "extras": {
+      "feed_rate": 0.055,
+      "kill_rate": 0.062,
+      "diffusion_a": 1.0,
+      "diffusion_b": 0.5
+    }
+  },
+  "textures": {},
+  "pressure_strength": "soft",
+  "pressure_radius": "soft",
+  "speed_radius": null,
+  "tilt_rotation": null,
+  "entry_fade_dabs": 5
+}

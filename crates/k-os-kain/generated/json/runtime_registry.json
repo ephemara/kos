@@ -1,0 +1,214 @@
+[
+  {
+    "host_kind": "tauri",
+    "id": "brush_builder",
+    "label": "Brush Builder",
+    "namespace": "brush_builder",
+    "outputs": [
+      {
+        "path": "crates/k-os-kain/generated/runtime/ts/brush_builder/main.ts",
+        "target": "ts"
+      },
+      {
+        "path": "crates/k-os-kain/generated/runtime/js/brush_builder/main.js",
+        "target": "js"
+      },
+      {
+        "path": "crates/k-os-kain/generated/runtime/ks/brush_builder/main.ks",
+        "target": "ks"
+      }
+    ],
+    "runtime_kind": "tauri_frontend",
+    "source_path": "src-kain/apps/brush_builder/main.kn"
+  },
+  {
+    "host_kind": "tauri",
+    "id": "desktop_automation",
+    "label": "Desktop Automation",
+    "namespace": "desktop_automation",
+    "outputs": [
+      {
+        "path": "crates/k-os-kain/generated/runtime/ks/desktop_automation/main.ks",
+        "target": "ks"
+      },
+      {
+        "path": "crates/k-os-kain/generated/runtime/js/desktop_automation/main.js",
+        "target": "js"
+      }
+    ],
+    "runtime_kind": "desktop_script",
+    "source_path": "src-kain/scripts/desktop_automation/main.kn"
+  },
+  {
+    "host_kind": "tauri",
+    "id": "fluid_builder",
+    "label": "Fluid Builder",
+    "namespace": "fluid_builder",
+    "outputs": [
+      {
+        "path": "crates/k-os-kain/generated/runtime/ts/fluid_builder/main.ts",
+        "target": "ts"
+      },
+      {
+        "path": "crates/k-os-kain/generated/runtime/js/fluid_builder/main.js",
+        "target": "js"
+      },
+      {
+        "path": "crates/k-os-kain/generated/runtime/ks/fluid_builder/main.ks",
+        "target": "ks"
+      }
+    ],
+    "runtime_kind": "tauri_frontend",
+    "source_path": "src-kain/apps/fluid_builder/main.kn"
+  },
+  {
+    "host_kind": "tauri",
+    "id": "kainscript_builder",
+    "label": "KainScript Builder",
+    "namespace": "kainscript_builder",
+    "outputs": [
+      {
+        "path": "crates/k-os-kain/generated/runtime/ts/kainscript_builder/main.ts",
+        "target": "ts"
+      },
+      {
+        "path": "crates/k-os-kain/generated/runtime/js/kainscript_builder/main.js",
+        "target": "js"
+      },
+      {
+        "path": "crates/k-os-kain/generated/runtime/ks/kainscript_builder/main.ks",
+        "target": "ks"
+      }
+    ],
+    "runtime_kind": "tauri_frontend",
+    "source_path": "src-kain/apps/kainscript_builder/main.kn"
+  },
+  {
+    "host_kind": "tauri",
+    "id": "material_builder",
+    "label": "Material Builder",
+    "namespace": "material_builder",
+    "outputs": [
+      {
+        "path": "crates/k-os-kain/generated/runtime/ts/material_builder/main.ts",
+        "target": "ts"
+      },
+      {
+        "path": "crates/k-os-kain/generated/runtime/js/material_builder/main.js",
+        "target": "js"
+      },
+      {
+        "path": "crates/k-os-kain/generated/runtime/ks/material_builder/main.ks",
+        "target": "ks"
+      }
+    ],
+    "runtime_kind": "tauri_frontend",
+    "source_path": "src-kain/apps/material_builder/main.kn"
+  },
+  {
+    "host_kind": "tauri",
+    "id": "procedural_builder",
+    "label": "Procedural Builder",
+    "namespace": "procedural_builder",
+    "outputs": [
+      {
+        "path": "crates/k-os-kain/generated/runtime/ts/procedural_builder/main.ts",
+        "target": "ts"
+      },
+      {
+        "path": "crates/k-os-kain/generated/runtime/js/procedural_builder/main.js",
+        "target": "js"
+      },
+      {
+        "path": "crates/k-os-kain/generated/runtime/ks/procedural_builder/main.ks",
+        "target": "ks"
+      }
+    ],
+    "runtime_kind": "tauri_frontend",
+    "source_path": "src-kain/apps/procedural_builder/main.kn"
+  },
+  {
+    "host_kind": "tauri",
+    "id": "shader_builder",
+    "label": "Shader Builder",
+    "namespace": "shader_builder",
+    "outputs": [
+      {
+        "path": "crates/k-os-kain/generated/runtime/ts/shader_builder/main.ts",
+        "target": "ts"
+      },
+      {
+        "path": "crates/k-os-kain/generated/runtime/js/shader_builder/main.js",
+        "target": "js"
+      },
+      {
+        "path": "crates/k-os-kain/generated/runtime/ks/shader_builder/main.ks",
+        "target": "ks"
+      }
+    ],
+    "runtime_kind": "tauri_frontend",
+    "source_path": "src-kain/apps/shader_builder/main.kn"
+  },
+  {
+    "host_kind": "wasm_runtime",
+    "id": "signal_kernel",
+    "label": "Signal Kernel",
+    "namespace": "signal_kernel",
+    "outputs": [
+      {
+        "path": "crates/k-os-kain/generated/runtime/wasm/signal_kernel/main.wasm",
+        "target": "wasm"
+      },
+      {
+        "path": "crates/k-os-kain/generated/runtime/ts/signal_kernel/bindings.ts",
+        "target": "ts"
+      }
+    ],
+    "runtime_kind": "compute_kernel",
+    "source_path": "src-kain/kernels/signal_kernel/main.kn"
+  },
+  {
+    "host_kind": "tauri",
+    "id": "suite_shell",
+    "label": "Suite Shell",
+    "namespace": "suite_shell",
+    "outputs": [
+      {
+        "path": "crates/k-os-kain/generated/runtime/ts/suite_shell/main.ts",
+        "target": "ts"
+      },
+      {
+        "path": "crates/k-os-kain/generated/runtime/js/suite_shell/main.js",
+        "target": "js"
+      },
+      {
+        "path": "crates/k-os-kain/generated/runtime/ks/suite_shell/main.ks",
+        "target": "ks"
+      }
+    ],
+    "runtime_kind": "tauri_frontend",
+    "source_path": "src-kain/apps/suite_shell/main.kn"
+  },
+  {
+    "host_kind": "hybrid",
+    "id": "viewport_bridge",
+    "label": "Viewport Bridge",
+    "namespace": "viewport_bridge",
+    "outputs": [
+      {
+        "path": "crates/k-os-kain/generated/runtime/hybrid/viewport_bridge/module.hybrid",
+        "target": "hybrid"
+      },
+      {
+        "path": "crates/k-os-kain/generated/runtime/wasm/viewport_bridge/module.wasm",
+        "target": "wasm"
+      },
+      {
+        "path": "crates/k-os-kain/generated/runtime/ts/viewport_bridge/bindings.ts",
+        "target": "ts"
+      }
+    ],
+    "runtime_kind": "hybrid_module",
+    "source_path": "src-kain/hybrid/viewport_bridge/main.kn"
+  }
+]

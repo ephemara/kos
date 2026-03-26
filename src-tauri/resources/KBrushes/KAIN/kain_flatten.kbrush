@@ -1,0 +1,30 @@
+{
+  "id": "kain_flatten",
+  "name": "KAIN Flatten",
+  "category": "KAIN/Stamp",
+  "tags": ["kain", "flatten", "smooth", "spirv"],
+  "icon": "📏",
+  "kernel": {
+    "family": "spirv",
+    "shader": "stamp_flatten"
+  },
+  "params": {
+    "radius": 0.18,
+    "strength": 0.7,
+    "hardness": 0.4,
+    "spacing": 0.09,
+    "accumulate": true,
+    "subtract": false,
+    "front_faces_only": true,
+    "alpha_enabled": false,
+    "alpha_scale": 1.0,
+    "jitter_position": 0.0,
+    "jitter_rotation": 0.0,
+    "jitter_strength": 0.0,
+    "random_seed": 0.0,
+    "pressure_curve_idx": 0,
+    "speed_curve_idx": 0,
+    "tilt_curve_idx": 0
+  },
+  "textures": {}
+}

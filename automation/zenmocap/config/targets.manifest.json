@@ -1,0 +1,74 @@
+{
+  "focusAreas": [
+    {
+      "id": "animator-ui",
+      "label": "Animator UI and authoring tools",
+      "roots": [
+        "M:\\K_OS\\src-mocap\\features\\Sequencer",
+        "M:\\K_OS\\src-mocap\\shared\\shell",
+        "M:\\K_OS\\src-mocap\\lib\\animation"
+      ],
+      "successSignals": [
+        "Keyframe editing grows more explicit",
+        "Timeline and take editing become more production-usable",
+        "UI avoids one-off hardcoded behaviors when a manifest/registry can own the data"
+      ]
+    },
+    {
+      "id": "mocap-runtime",
+      "label": "Real-time mocap runtime",
+      "roots": [
+        "M:\\K_OS\\src-mocap\\features\\ZenMocap",
+        "M:\\K_OS\\src-mocap\\features\\webcam",
+        "M:\\K_OS\\crates\\zen-mocap-engine\\src"
+      ],
+      "successSignals": [
+        "Inference-to-viewport flow gets more robust",
+        "Capture, retarget, and take handling regress less often",
+        "State transitions become clearer and easier to test"
+      ]
+    },
+    {
+      "id": "engine-crate-growth",
+      "label": "Zen mocap engine crate growth",
+      "roots": [
+        "M:\\K_OS\\crates\\zen-mocap-engine\\src",
+        "M:\\K_OS\\crates\\zen-mocap-engine\\tests",
+        "M:\\K_OS\\crates\\zen-mocap-engine\\resources"
+      ],
+      "successSignals": [
+        "Owner crate becomes the real home for motion runtime logic",
+        "Tests improve around take/session/inference/gpu integration",
+        "Engine contracts are easier for the frontend to consume"
+      ]
+    },
+    {
+      "id": "kain-supermotion",
+      "label": "Kain and omni supermotion pipeline",
+      "roots": [
+        "M:\\K_OS\\crates\\k-os-kain",
+        "M:\\K_OS\\src-kain\\omni",
+        "M:\\K_OS\\src-kain"
+      ],
+      "successSignals": [
+        "ZenMocap shader/runtime generation is more manifest-driven",
+        "Kain sources and outputs are easier to reason about",
+        "Omni pipeline becomes a real feeder for mocap features"
+      ]
+    },
+    {
+      "id": "docs-and-operability",
+      "label": "Loop docs, changelog, and operational clarity",
+      "roots": [
+        "M:\\K_OS\\automation\\zenmocap",
+        "M:\\K_OS\\automation\\docs",
+        "M:\\K_OS\\docs"
+      ],
+      "successSignals": [
+        "Every run leaves behind enough truth for the next run to continue",
+        "Folder ownership and feature wiring are documented",
+        "Change trail is easy to audit"
+      ]
+    }
+  ]
+}

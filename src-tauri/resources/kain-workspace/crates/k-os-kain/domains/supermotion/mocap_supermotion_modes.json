@@ -1,0 +1,27 @@
+{
+  "shader": "mocap_supermotion_livelink",
+  "version": 1,
+  "param_channels": {
+    "a": ["x", "y", "z", "w(step)"],
+    "b": ["x", "y", "z", "w"],
+    "c": ["x", "y", "z", "w"]
+  },
+  "modes": [
+    { "id": 0, "name": "passthrough" },
+    { "id": 1, "name": "velocity_tail" },
+    { "id": 2, "name": "drag" },
+    { "id": 3, "name": "foot_lock" },
+    { "id": 4, "name": "spiral_stabilize" },
+    { "id": 5, "name": "jitter_kill" },
+    { "id": 6, "name": "aim_up" },
+    { "id": 7, "name": "swing" },
+    { "id": 8, "name": "lean" },
+    { "id": 9, "name": "vortex" },
+    { "id": 10, "name": "shock" },
+    { "id": 11, "name": "pose_noise" },
+    { "id": 12, "name": "magnet_root" },
+    { "id": 13, "name": "breathe_chain" },
+    { "id": 14, "name": "floor_snap" },
+    { "id": 15, "name": "overdrive" }
+  ]
+}

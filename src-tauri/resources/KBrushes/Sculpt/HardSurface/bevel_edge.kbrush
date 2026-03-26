@@ -1,0 +1,32 @@
+{
+  "id": "bevel_edge",
+  "name": "Bevel Edge",
+  "category": "Sculpt/HardSurface",
+  "tags": ["hardsurface", "bevel", "edge", "chamfer"],
+  "kernel": "flatten",
+  "params": {
+    "radius": 0.05,
+    "strength": 0.7,
+    "hardness": 0.6,
+    "spacing": 0.02,
+    "lazy_radius": 0.0,
+    "subtract": false,
+    "front_faces_only": true,
+    "accumulate": false,
+    "jitter_position": 0.0,
+    "jitter_rotation": 0.0,
+    "jitter_strength": 0.0,
+    "falloff_type": "flat",
+    "extras": {
+      "bevel_width": 0.1,
+      "edge_detection": 1.0,
+      "bevel_segments": 3
+    }
+  },
+  "textures": {},
+  "pressure_strength": "linear",
+  "pressure_radius": null,
+  "speed_radius": null,
+  "tilt_rotation": null,
+  "entry_fade_dabs": 1
+}

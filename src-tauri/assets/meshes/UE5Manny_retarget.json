@@ -1,0 +1,86 @@
+{
+    "id": "ue5_manny",
+    "label": "UE5 Manny",
+    "file": "UE5Manny.glb",
+    "scale": 1.0,
+    "forward_axis": "x",
+    "yaw_offset_deg": 90,
+    "up_axis": "z",
+    "joints": [
+        {
+            "coco": "left_hip",
+            "bone": "thigh_l_072",
+            "mode": "direction"
+        },
+        {
+            "coco": "right_hip",
+            "bone": "thigh_r_064",
+            "mode": "direction"
+        },
+        {
+            "coco": "left_knee",
+            "bone": "calf_l_073",
+            "mode": "direction"
+        },
+        {
+            "coco": "right_knee",
+            "bone": "calf_r_065",
+            "mode": "direction"
+        },
+        {
+            "coco": "left_ankle",
+            "bone": "foot_l_074",
+            "mode": "direction"
+        },
+        {
+            "coco": "right_ankle",
+            "bone": "foot_r_066",
+            "mode": "direction"
+        },
+        {
+            "coco": "left_shoulder",
+            "bone": "upperarm_l_012",
+            "mode": "direction"
+        },
+        {
+            "coco": "right_shoulder",
+            "bone": "upperarm_r_038",
+            "mode": "direction"
+        },
+        {
+            "coco": "left_elbow",
+            "bone": "lowerarm_l_013",
+            "mode": "direction"
+        },
+        {
+            "coco": "right_elbow",
+            "bone": "lowerarm_r_039",
+            "mode": "direction"
+        },
+        {
+            "coco": "left_wrist",
+            "bone": "hand_l_016",
+            "mode": "direction"
+        },
+        {
+            "coco": "right_wrist",
+            "bone": "hand_r_042",
+            "mode": "direction"
+        },
+        {
+            "coco": "nose",
+            "bone": "head_010",
+            "mode": "direction"
+        }
+    ],
+    "root_bone": "pelvis_02",
+    "root_coco": "mid_hip",
+    "spine_bones": [
+        "spine_01_03",
+        "spine_02_04",
+        "spine_03_05",
+        "spine_04_06",
+        "spine_05_07"
+    ],
+    "rest_pose": "a_pose"
+}

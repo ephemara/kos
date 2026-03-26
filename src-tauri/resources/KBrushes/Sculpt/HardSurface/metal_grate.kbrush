@@ -1,0 +1,32 @@
+{
+  "id": "metal_grate",
+  "name": "Metal Grate",
+  "category": "Sculpt/HardSurface",
+  "tags": ["hardsurface", "grate", "mesh", "industrial"],
+  "kernel": "pinch",
+  "params": {
+    "radius": 0.05,
+    "strength": 0.4,
+    "hardness": 0.9,
+    "spacing": 0.04,
+    "lazy_radius": 0.0,
+    "subtract": true,
+    "front_faces_only": true,
+    "accumulate": true,
+    "jitter_position": 0.0,
+    "jitter_rotation": 0.0,
+    "jitter_strength": 0.0,
+    "falloff_type": "flat",
+    "extras": {
+      "grate_spacing": 0.03,
+      "bar_thickness": 0.01,
+      "cross_pattern": true
+    }
+  },
+  "textures": {},
+  "pressure_strength": "linear",
+  "pressure_radius": null,
+  "speed_radius": null,
+  "tilt_rotation": null,
+  "entry_fade_dabs": 2
+}

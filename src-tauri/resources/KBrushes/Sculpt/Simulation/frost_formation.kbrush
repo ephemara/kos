@@ -1,0 +1,32 @@
+{
+  "id": "frost_formation",
+  "name": "Frost Formation",
+  "category": "Sculpt/Simulation",
+  "tags": ["simulation", "frost", "ice", "crystal"],
+  "kernel": "stamp",
+  "params": {
+    "radius": 0.05,
+    "strength": 0.3,
+    "hardness": 0.6,
+    "spacing": 0.03,
+    "lazy_radius": 0.0,
+    "subtract": false,
+    "front_faces_only": true,
+    "accumulate": true,
+    "jitter_position": 0.02,
+    "jitter_rotation": 0.8,
+    "jitter_strength": 0.1,
+    "falloff_type": "sharp",
+    "extras": {
+      "crystal_pattern": "fern",
+      "humidity": 0.8,
+      "freezing_point": 0.0
+    }
+  },
+  "textures": {},
+  "pressure_strength": "soft",
+  "pressure_radius": null,
+  "speed_radius": null,
+  "tilt_rotation": null,
+  "entry_fade_dabs": 3
+}

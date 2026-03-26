@@ -1,0 +1,27 @@
+# KAIN Omni Manifest - Procedural Builder
+# Data-driven procedural content pipeline for geometry and brush systems.
+
+[project]
+entry = "procedural_builder.kn"
+build_dir = "dist"
+
+[import_resolution]
+inline_kain_imports = true
+search_roots = []
+
+[[targets]]
+kind = "spirv"
+output = "dist/procedural_builder.spv"
+
+[[targets]]
+kind = "rust_bundle"
+output = "dist/procedural_builder_bundle"
+artifacts = ["source", "shader_host", "shader_reflection", "spirv"]
+
+[[targets]]
+kind = "ts"
+output = "dist/ProceduralBuilderBindings.ts"
+
+[[targets]]
+kind = "ks"
+output = "dist/procedural_builder.ks"

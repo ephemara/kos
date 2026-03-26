@@ -1,0 +1,32 @@
+{
+  "id": "nebula_cloud",
+  "name": "Nebula Cloud",
+  "category": "Sculpt/Alien",
+  "tags": ["alien", "nebula", "cloud", "cosmic"],
+  "kernel": "stamp",
+  "params": {
+    "radius": 0.2,
+    "strength": 0.3,
+    "hardness": 0.1,
+    "spacing": 0.08,
+    "lazy_radius": 0.05,
+    "subtract": false,
+    "front_faces_only": true,
+    "accumulate": true,
+    "jitter_position": 0.06,
+    "jitter_rotation": 1.0,
+    "jitter_strength": 0.4,
+    "falloff_type": "gaussian",
+    "extras": {
+      "gas_density": 0.4,
+      "stellar_nursery": 0.7,
+      "ionization_front": 0.5
+    }
+  },
+  "textures": {},
+  "pressure_strength": "soft",
+  "pressure_radius": "soft",
+  "speed_radius": null,
+  "tilt_rotation": null,
+  "entry_fade_dabs": 10
+}

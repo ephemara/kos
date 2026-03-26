@@ -1,0 +1,32 @@
+{
+  "id": "string_vibration",
+  "name": "String Vibration",
+  "category": "Sculpt/Alien",
+  "tags": ["alien", "string", "vibration", "theory"],
+  "kernel": "grab",
+  "params": {
+    "radius": 0.07,
+    "strength": 0.5,
+    "hardness": 0.2,
+    "spacing": 0.02,
+    "lazy_radius": 0.02,
+    "subtract": false,
+    "front_faces_only": false,
+    "accumulate": false,
+    "jitter_position": 0.03,
+    "jitter_rotation": 0.6,
+    "jitter_strength": 0.2,
+    "falloff_type": "gaussian",
+    "extras": {
+      "string_tension": 1e12,
+      "vibrational_mode": "harmonic",
+      "compactification": 0.01
+    }
+  },
+  "textures": {},
+  "pressure_strength": "soft",
+  "pressure_radius": "soft",
+  "speed_radius": null,
+  "tilt_rotation": null,
+  "entry_fade_dabs": 4
+}

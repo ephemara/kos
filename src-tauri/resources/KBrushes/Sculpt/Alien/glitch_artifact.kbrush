@@ -1,0 +1,32 @@
+{
+  "id": "glitch_artifact",
+  "name": "Glitch Artifact",
+  "category": "Sculpt/Alien",
+  "tags": ["alien", "glitch", "digital", "artifact"],
+  "kernel": "custom",
+  "params": {
+    "radius": 0.06,
+    "strength": 0.5,
+    "hardness": 0.1,
+    "spacing": 0.02,
+    "lazy_radius": 0.0,
+    "subtract": false,
+    "front_faces_only": true,
+    "accumulate": true,
+    "jitter_position": 0.05,
+    "jitter_rotation": 1.0,
+    "jitter_strength": 0.3,
+    "falloff_type": "flat",
+    "extras": {
+      "pixel_size": 0.01,
+      "corruption_level": 0.8,
+      "data_loss": 0.4
+    }
+  },
+  "textures": {},
+  "pressure_strength": "constant",
+  "pressure_radius": null,
+  "speed_radius": null,
+  "tilt_rotation": null,
+  "entry_fade_dabs": 1
+}

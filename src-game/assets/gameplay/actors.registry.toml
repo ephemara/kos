@@ -1,0 +1,53 @@
+version = "1"
+registry_kind = "actor_archetypes"
+
+[[archetypes]]
+id = "hero.default"
+tags = ["actor.player", "state.grounded"]
+input_context = "player.default"
+default_camera_rig = "player.follow.third_person"
+components = ["transform", "movement", "inventory", "health"]
+
+[[archetypes]]
+id = "camera.anchor.default"
+tags = ["camera.follow"]
+components = ["transform"]
+
+[[archetypes]]
+id = "npc.vendor"
+tags = ["actor.npc", "actor.interactable"]
+components = ["transform", "dialogue", "inventory"]
+
+[ai_action_projection]
+
+[[ai_action_projection.routes]]
+agent = "hero.default"
+phase = "sense"
+decision_prefix = "selector.combat_root::sense"
+gameplay_action = "perception.scan_targets"
+input_action = "player.look"
+camera_rig = "player.follow.third_person"
+priority = 100
+
+[[ai_action_projection.routes]]
+agent = "hero.default"
+phase = "act"
+decision_prefix = "hero.attack."
+gameplay_action = "combat.attack.primary_target"
+input_action = "player.interact"
+camera_rig = "player.follow.third_person"
+priority = 300
+
+[[ai_action_projection.routes]]
+agent = "npc.vendor"
+phase = "act"
+decision_prefix = "vendor.serve."
+gameplay_action = "interaction.vendor.serve_customer"
+priority = 250
+
+[[ai_action_projection.routes]]
+decision_prefix = "selector.combat_root::recover"
+gameplay_action = "locomotion.recovery.step"
+input_action = "player.move"
+camera_rig = "player.follow.third_person"
+priority = 50

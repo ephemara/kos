@@ -1,0 +1,14 @@
+// Fluid builder domain source seed.
+// Runtime wiring comes from manifests/runtime_apps.json and src-kain/omni/fluid_builder.
+
+struct FluidBrushKernelConfig:
+    preset_id: String
+    viscosity: Float
+    pressure_gain: Float
+
+fn default_fluid_brush_kernel_config() -> FluidBrushKernelConfig with Pure:
+    let config = FluidBrushKernelConfig()
+    config.preset_id = "water_smooth"
+    config.viscosity = 0.15
+    config.pressure_gain = 0.75
+    config

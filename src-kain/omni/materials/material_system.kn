@@ -1,0 +1,611 @@
+// Full-Stack PBR Material System
+// One file -> TypeScript UI + Rust Backend + SPIR-V Shader
+// Compile with: kain omni build
+
+// ============================================================================
+// SHARED TYPES (used by all targets)
+// ============================================================================
+
+struct Vec2:
+    x: Float
+    y: Float
+
+struct Vec3:
+    x: Float
+    y: Float
+    z: Float
+
+struct Vec4:
+    x: Float
+    y: Float
+    z: Float
+    w: Float
+
+struct PbrMaterialParams:
+    base_color: Vec4
+    metallic_factor: Float
+    roughness_factor: Float
+    emissive_strength: Float
+    normal_strength: Float
+    ao_strength: Float
+
+struct SceneParams:
+    camera_position: Vec4
+    sun_direction: Vec4
+    sun_color: Vec4
+    sun_intensity: Float
+    ambient_color: Vec3
+    env_top: Vec4
+    env_mid: Vec4
+    env_bottom: Vec4
+    fog_color: Vec4
+    fog_density: Float
+
+struct ViewportParams:
+    width: UInt
+    height: UInt
+
+struct MaterialTextureDescriptor:
+    label: String
+    source_path: String
+    srgb: Bool
+    channel_count: UInt
+
+struct MaterialSamplerState:
+    address_mode_u: UInt
+    address_mode_v: UInt
+    mag_filter: UInt
+    min_filter: UInt
+    mipmap_filter: UInt
+
+struct MaterialTextureSet:
+    albedo: MaterialTextureDescriptor
+    normal: MaterialTextureDescriptor
+    metallic: MaterialTextureDescriptor
+    roughness: MaterialTextureDescriptor
+    ao: MaterialTextureDescriptor
+    emissive: MaterialTextureDescriptor
+    texture_sampler: MaterialSamplerState
+
+struct MaterialRenderSettings:
+    alpha_cutoff: Float
+    double_sided: Bool
+    cast_shadows: Bool
+    receive_shadows: Bool
+
+struct MaterialInstance:
+    material_id: String
+    name: String
+    params: PbrMaterialParams
+    textures: MaterialTextureSet
+    render_settings: MaterialRenderSettings
+
+struct MaterialPipelineConfig:
+    enable_normal_mapping: Bool
+    enable_ao: Bool
+    enable_emissive: Bool
+    high_quality: Bool
+    workgroup_size_x: UInt
+    workgroup_size_y: UInt
+
+struct WgpuDevice:
+    handle: Ptr<Unit>
+
+struct WgpuQueue:
+    handle: Ptr<Unit>
+
+struct WgpuBuffer:
+    handle: Ptr<Unit>
+    size: UInt
+    usage: UInt
+
+struct WgpuTexture:
+    handle: Ptr<Unit>
+    width: UInt
+    height: UInt
+    format: UInt
+
+struct WgpuSampler:
+    handle: Ptr<Unit>
+
+struct WgpuBindGroup:
+    handle: Ptr<Unit>
+
+struct WgpuBindGroupLayout:
+    handle: Ptr<Unit>
+
+struct WgpuPipelineLayout:
+    handle: Ptr<Unit>
+
+struct WgpuComputePipeline:
+    handle: Ptr<Unit>
+    shader_module: Ptr<Unit>
+
+struct WgpuCommandEncoder:
+    handle: Ptr<Unit>
+
+struct WgpuComputePass:
+    handle: Ptr<Unit>
+
+struct PbrGpuTextureSet:
+    albedo: WgpuTexture
+    normal: WgpuTexture
+    metallic: WgpuTexture
+    roughness: WgpuTexture
+    ao: WgpuTexture
+    emissive: WgpuTexture
+    texture_sampler: WgpuSampler
+
+struct GBuffer:
+    positions: Array<Vec4>
+    normals: Array<Vec4>
+    uvs: Array<Vec4>
+    tangents: Array<Vec4>
+
+struct MaterialRuntime:
+    device: WgpuDevice
+    queue: WgpuQueue
+    pipeline: WgpuComputePipeline
+    bind_group_layout: WgpuBindGroupLayout
+    pipeline_layout: WgpuPipelineLayout
+    config: MaterialPipelineConfig
+    positions_buffer: WgpuBuffer
+    normals_buffer: WgpuBuffer
+    uvs_buffer: WgpuBuffer
+    tangents_buffer: WgpuBuffer
+    color_output_buffer: WgpuBuffer
+    material_params_buffer: WgpuBuffer
+    scene_params_buffer: WgpuBuffer
+    viewport_params_buffer: WgpuBuffer
+    textures: PbrGpuTextureSet
+    bind_group: Option<WgpuBindGroup>
+
+// ============================================================================
+// HELPER FUNCTIONS
+// ============================================================================
+
+fn vec2(x: Float, y: Float) -> Vec2:
+    let v = Vec2()
+    v.x = x
+    v.y = y
+    return v
+
+fn vec3(x: Float, y: Float, z: Float) -> Vec3:
+    let v = Vec3()
+    v.x = x
+    v.y = y
+    v.z = z
+    return v
+
+fn vec4(x: Float, y: Float, z: Float, w: Float) -> Vec4:
+    let v = Vec4()
+    v.x = x
+    v.y = y
+    v.z = z
+    v.w = w
+    return v
+
+fn create_default_material() -> PbrMaterialParams:
+    let params = PbrMaterialParams()
+    params.base_color = vec4(0.8, 0.8, 0.8, 1.0)
+    params.metallic_factor = 0.5
+    params.roughness_factor = 0.5
+    params.emissive_strength = 0.0
+    params.normal_strength = 1.0
+    params.ao_strength = 1.0
+    return params
+
+fn create_default_scene() -> SceneParams:
+    let params = SceneParams()
+    params.camera_position = vec4(0.0, 0.0, 5.0, 1.0)
+    params.sun_direction = vec4(0.0, 1.0, 0.0, 0.0)
+    params.sun_color = vec4(1.0, 1.0, 1.0, 1.0)
+    params.sun_intensity = 1.0
+    params.ambient_color = vec3(0.1, 0.1, 0.1)
+    params.env_top = vec4(0.3, 0.4, 0.6, 1.0)
+    params.env_mid = vec4(0.2, 0.25, 0.3, 1.0)
+    params.env_bottom = vec4(0.04, 0.05, 0.08, 1.0)
+    params.fog_color = vec4(0.05, 0.07, 0.1, 1.0)
+    params.fog_density = 0.05
+    return params
+
+fn create_default_viewport() -> ViewportParams:
+    let params = ViewportParams()
+    params.width = 1920
+    params.height = 1080
+    return params
+
+fn create_texture_descriptor(label: String, source_path: String, srgb: Bool, channel_count: UInt) -> MaterialTextureDescriptor:
+    let descriptor = MaterialTextureDescriptor()
+    descriptor.label = label
+    descriptor.source_path = source_path
+    descriptor.srgb = srgb
+    descriptor.channel_count = channel_count
+    return descriptor
+
+fn create_default_sampler_state() -> MaterialSamplerState:
+    let sampler_state = MaterialSamplerState()
+    sampler_state.address_mode_u = 0
+    sampler_state.address_mode_v = 0
+    sampler_state.mag_filter = 1
+    sampler_state.min_filter = 1
+    sampler_state.mipmap_filter = 1
+    return sampler_state
+
+fn create_default_textures() -> MaterialTextureSet:
+    let textures = MaterialTextureSet()
+    textures.albedo = create_texture_descriptor("albedo", "materials/default/albedo.png", true, 4)
+    textures.normal = create_texture_descriptor("normal", "materials/default/normal.png", false, 4)
+    textures.metallic = create_texture_descriptor("metallic", "materials/default/metallic.png", false, 1)
+    textures.roughness = create_texture_descriptor("roughness", "materials/default/roughness.png", false, 1)
+    textures.ao = create_texture_descriptor("ao", "materials/default/ao.png", false, 1)
+    textures.emissive = create_texture_descriptor("emissive", "materials/default/emissive.png", true, 4)
+    textures.texture_sampler = create_default_sampler_state()
+    return textures
+
+fn create_default_render_settings() -> MaterialRenderSettings:
+    let settings = MaterialRenderSettings()
+    settings.alpha_cutoff = 0.0
+    settings.double_sided = false
+    settings.cast_shadows = true
+    settings.receive_shadows = true
+    return settings
+
+fn create_default_material_instance() -> MaterialInstance:
+    let material = MaterialInstance()
+    material.material_id = "MAT_DEFAULT"
+    material.name = "Default Omni Material"
+    material.params = create_default_material()
+    material.textures = create_default_textures()
+    material.render_settings = create_default_render_settings()
+    return material
+
+fn create_default_pipeline_config() -> MaterialPipelineConfig:
+    let config = MaterialPipelineConfig()
+    config.enable_normal_mapping = true
+    config.enable_ao = true
+    config.enable_emissive = true
+    config.high_quality = false
+    config.workgroup_size_x = 8
+    config.workgroup_size_y = 8
+    return config
+
+// ============================================================================
+// TYPESCRIPT UI COMPONENT (React + Tauri)
+// ============================================================================
+
+component MaterialEditor() with Reactive:
+    state material: MaterialInstance = create_default_material_instance()
+    state scene: SceneParams = create_default_scene()
+    state viewport: ViewportParams = create_default_viewport()
+    state config: MaterialPipelineConfig = create_default_pipeline_config()
+    state isRendering: Bool = false
+    state renderResult: String = ""
+
+    fn handle_render():
+        isRendering = true
+        renderResult = "rendering " + material.name
+        isRendering = false
+
+    fn handle_metallic_change(e: Any):
+        material.params.metallic_factor = 0.5
+
+    fn handle_roughness_change(e: Any):
+        material.params.roughness_factor = 0.5
+
+    fn handle_emissive_change(e: Any):
+        material.params.emissive_strength = 0.0
+
+    render <div className="material-editor"><h1>PBR Material Editor</h1><div className="controls"><div className="control-group"><label>Metallic</label><input type="range" min="0" max="1" step="0.01" onChange={handle_metallic_change} /></div><div className="control-group"><label>Roughness</label><input type="range" min="0" max="1" step="0.01" onChange={handle_roughness_change} /></div><div className="control-group"><label>Emissive</label><input type="range" min="0" max="10" step="0.1" onChange={handle_emissive_change} /></div><button onClick={handle_render}>{if isRendering: "Rendering..." else: "Render"}</button></div><div className="preview"><p>{renderResult}</p></div></div>
+
+// ============================================================================
+// RUST BACKEND (Tauri Command + wgpu Integration)
+// ============================================================================
+
+@extern
+fn invoke_tauri(command: String, material: MaterialInstance, scene: SceneParams, viewport: ViewportParams, config: MaterialPipelineConfig) -> String
+
+fn create_material_runtime(device: WgpuDevice, queue: WgpuQueue, spirv_bytes: Array<UInt>, config: MaterialPipelineConfig) -> MaterialRuntime:
+    let shader_module = create_shader_module(device, spirv_bytes)
+    let bind_group_layout = create_bind_group_layout(device)
+    let pipeline_layout = create_pipeline_layout(device, bind_group_layout)
+    let pipeline = create_compute_pipeline(device, shader_module, pipeline_layout, config)
+    let runtime = MaterialRuntime()
+    runtime.device = device
+    runtime.queue = queue
+    runtime.pipeline = pipeline
+    runtime.bind_group_layout = bind_group_layout
+    runtime.pipeline_layout = pipeline_layout
+    runtime.config = config
+    runtime.positions_buffer = create_empty_buffer()
+    runtime.normals_buffer = create_empty_buffer()
+    runtime.uvs_buffer = create_empty_buffer()
+    runtime.tangents_buffer = create_empty_buffer()
+    runtime.color_output_buffer = create_empty_buffer()
+    runtime.material_params_buffer = create_empty_buffer()
+    runtime.scene_params_buffer = create_empty_buffer()
+    runtime.viewport_params_buffer = create_empty_buffer()
+    runtime.textures = create_default_gpu_textures(device)
+    runtime.bind_group = None
+    return runtime
+
+impl MaterialRuntime:
+    fn upload_gbuffer(self, positions: Array<Vec4>, normals: Array<Vec4>, uvs: Array<Vec4>, tangents: Array<Vec4>):
+        self.positions_buffer = create_storage_buffer_vec4(self.device, self.queue, positions)
+        self.normals_buffer = create_storage_buffer_vec4(self.device, self.queue, normals)
+        self.uvs_buffer = create_storage_buffer_vec4(self.device, self.queue, uvs)
+        self.tangents_buffer = create_storage_buffer_vec4(self.device, self.queue, tangents)
+
+    fn upload_material_params(self, params: PbrMaterialParams):
+        self.material_params_buffer = create_uniform_buffer_material(self.device, self.queue, params)
+
+    fn upload_scene_params(self, params: SceneParams):
+        self.scene_params_buffer = create_uniform_buffer_scene(self.device, self.queue, params)
+
+    fn upload_viewport_params(self, params: ViewportParams):
+        self.viewport_params_buffer = create_uniform_buffer_viewport(self.device, self.queue, params)
+        let pixel_count = params.width * params.height
+        self.color_output_buffer = create_output_buffer(self.device, pixel_count)
+
+    fn upload_material_instance(self, material: MaterialInstance):
+        self.upload_material_params(material.params)
+        self.textures = load_material_textures(self.device, material.textures)
+
+    fn build_bind_group(self):
+        let bind_group = create_material_bind_group(self.device, self.bind_group_layout, self.positions_buffer, self.normals_buffer, self.uvs_buffer, self.tangents_buffer, self.textures, self.material_params_buffer, self.scene_params_buffer, self.viewport_params_buffer, self.color_output_buffer)
+        self.bind_group = Some(bind_group)
+
+    fn execute(self, viewport_width: UInt, viewport_height: UInt) -> Array<Vec4>:
+        match self.bind_group:
+            None =>
+                self.build_bind_group()
+            _ =>
+                let __empty = 0
+        let encoder = create_command_encoder(self.device)
+        let compute_pass_handle = begin_compute_pass(encoder)
+        set_pipeline(compute_pass_handle, self.pipeline)
+        set_bind_group(compute_pass_handle, 0, self.bind_group)
+        let workgroup_count_x = (viewport_width + self.config.workgroup_size_x - 1) / self.config.workgroup_size_x
+        let workgroup_count_y = (viewport_height + self.config.workgroup_size_y - 1) / self.config.workgroup_size_y
+        dispatch_workgroups(compute_pass_handle, workgroup_count_x, workgroup_count_y, 1)
+        end_compute_pass(compute_pass_handle)
+        let command_buffer = finish_encoder(encoder)
+        submit_command_buffer(self.queue, command_buffer)
+        return read_buffer_vec4(self.device, self.queue, self.color_output_buffer, viewport_width * viewport_height)
+
+fn render_material_backend(material: MaterialInstance, scene: SceneParams, viewport: ViewportParams, config: MaterialPipelineConfig) -> String with IO:
+    let device = create_wgpu_device()
+    let queue = create_wgpu_queue()
+    let spirv_bytes = load_spirv_shader("material_pbr_standard.spv")
+    let runtime = create_material_runtime(device, queue, spirv_bytes, config)
+    runtime.upload_material_instance(material)
+    runtime.upload_scene_params(scene)
+    runtime.upload_viewport_params(viewport)
+    let gbuffer = generate_test_gbuffer(viewport.width, viewport.height)
+    runtime.upload_gbuffer(gbuffer.positions, gbuffer.normals, gbuffer.uvs, gbuffer.tangents)
+    let result = runtime.execute(viewport.width, viewport.height)
+    return save_render_to_base64(result, viewport.width, viewport.height)
+
+@extern
+fn create_wgpu_device() -> WgpuDevice
+
+@extern
+fn create_wgpu_queue() -> WgpuQueue
+
+@extern
+fn load_spirv_shader(path: String) -> Array<UInt>
+
+@extern
+fn generate_test_gbuffer(width: UInt, height: UInt) -> GBuffer
+
+@extern
+fn save_render_to_base64(pixels: Array<Vec4>, width: UInt, height: UInt) -> String
+
+@extern
+fn create_shader_module(device: WgpuDevice, spirv_bytes: Array<UInt>) -> Ptr<Unit>
+
+@extern
+fn create_bind_group_layout(device: WgpuDevice) -> WgpuBindGroupLayout
+
+@extern
+fn create_pipeline_layout(device: WgpuDevice, layout: WgpuBindGroupLayout) -> WgpuPipelineLayout
+
+@extern
+fn create_compute_pipeline(device: WgpuDevice, shader: Ptr<Unit>, layout: WgpuPipelineLayout, config: MaterialPipelineConfig) -> WgpuComputePipeline
+
+@extern
+fn create_empty_buffer() -> WgpuBuffer
+
+@extern
+fn create_storage_buffer_vec4(device: WgpuDevice, queue: WgpuQueue, data: Array<Vec4>) -> WgpuBuffer
+
+@extern
+fn create_uniform_buffer_material(device: WgpuDevice, queue: WgpuQueue, data: PbrMaterialParams) -> WgpuBuffer
+
+@extern
+fn create_uniform_buffer_scene(device: WgpuDevice, queue: WgpuQueue, data: SceneParams) -> WgpuBuffer
+
+@extern
+fn create_uniform_buffer_viewport(device: WgpuDevice, queue: WgpuQueue, data: ViewportParams) -> WgpuBuffer
+
+@extern
+fn create_output_buffer(device: WgpuDevice, pixel_count: UInt) -> WgpuBuffer
+
+@extern
+fn create_default_gpu_textures(device: WgpuDevice) -> PbrGpuTextureSet
+
+@extern
+fn load_material_textures(device: WgpuDevice, textures: MaterialTextureSet) -> PbrGpuTextureSet
+
+@extern
+fn create_material_bind_group(device: WgpuDevice, layout: WgpuBindGroupLayout, positions: WgpuBuffer, normals: WgpuBuffer, uvs: WgpuBuffer, tangents: WgpuBuffer, textures: PbrGpuTextureSet, material_params: WgpuBuffer, scene_params: WgpuBuffer, viewport_params: WgpuBuffer, output: WgpuBuffer) -> WgpuBindGroup
+
+@extern
+fn create_command_encoder(device: WgpuDevice) -> WgpuCommandEncoder
+
+@extern
+fn begin_compute_pass(encoder: WgpuCommandEncoder) -> WgpuComputePass
+
+@extern
+fn set_pipeline(compute_pass_handle: WgpuComputePass, pipeline: WgpuComputePipeline)
+
+@extern
+fn set_bind_group(compute_pass_handle: WgpuComputePass, index: UInt, bind_group: Option<WgpuBindGroup>)
+
+@extern
+fn dispatch_workgroups(compute_pass_handle: WgpuComputePass, x: UInt, y: UInt, z: UInt)
+
+@extern
+fn end_compute_pass(compute_pass_handle: WgpuComputePass)
+
+@extern
+fn finish_encoder(encoder: WgpuCommandEncoder) -> Ptr<Unit>
+
+@extern
+fn submit_command_buffer(queue: WgpuQueue, command_buffer: Ptr<Unit>)
+
+@extern
+fn read_buffer_vec4(device: WgpuDevice, queue: WgpuQueue, buffer: WgpuBuffer, count: UInt) -> Array<Vec4>
+
+// ============================================================================
+// GPU SHADER (SPIR-V Compute Shader)
+// ============================================================================
+
+shader compute material_pbr_standard(id: UVec3) -> Vec4:
+    uniform positions: StorageBuffer<Vec4> @0
+    uniform normals: StorageBuffer<Vec4> @1
+    uniform uvs: StorageBuffer<Vec4> @2
+    uniform tangents: StorageBuffer<Vec4> @3
+    uniform albedo_map: Sampler2D @4
+    uniform normal_map: Sampler2D @5
+    uniform metallic_map: Sampler2D @6
+    uniform roughness_map: Sampler2D @7
+    uniform ao_map: Sampler2D @8
+    uniform emissive_map: Sampler2D @9
+    uniform base_color: Vec4 @10
+    uniform metallic_factor: Float @11
+    uniform roughness_factor: Float @12
+    uniform emissive_strength: Float @13
+    uniform normal_strength: Float @14
+    uniform ao_strength: Float @15
+    uniform camera_position: Vec4 @16
+    uniform sun_direction: Vec4 @17
+    uniform sun_color: Vec4 @18
+    uniform sun_intensity: Float @19
+    uniform ambient_color: Vec3 @20
+    uniform env_top: Vec4 @21
+    uniform env_mid: Vec4 @22
+    uniform env_bottom: Vec4 @23
+    uniform fog_color: Vec4 @24
+    uniform fog_density: Float @25
+    uniform viewport_width: UInt @26
+    uniform viewport_height: UInt @27
+    uniform color_out: StorageBuffer<Vec4> @28
+    uniform CFG_ENABLE_NORMAL_MAPPING: UInt @100
+    uniform CFG_ENABLE_AO: UInt @101
+    uniform CFG_ENABLE_EMISSIVE: UInt @102
+    uniform CFG_HIGH_QUALITY: UInt @103
+    uniform LOCAL_SIZE_X: UInt @104
+    uniform LOCAL_SIZE_Y: UInt @105
+    
+    let pixel_x = id.x
+    let pixel_y = id.y
+    let pixel_index = pixel_y * viewport_width + pixel_x
+    
+    if pixel_x >= viewport_width:
+        return vec4(0.0, 0.0, 0.0, 0.0)
+    if pixel_y >= viewport_height:
+        return vec4(0.0, 0.0, 0.0, 0.0)
+    
+    let position = positions[pixel_index]
+    let normal_packed = normals[pixel_index]
+    let uv_packed = uvs[pixel_index]
+    let tangent_packed = tangents[pixel_index]
+    
+    let world_pos = vec3(position.x, position.y, position.z)
+    let world_normal = normalize(vec3(normal_packed.x, normal_packed.y, normal_packed.z))
+    let uv = vec2(uv_packed.x, uv_packed.y)
+    let world_tangent = normalize(vec3(tangent_packed.x, tangent_packed.y, tangent_packed.z))
+    let bitangent_sign = tangent_packed.w
+    
+    let albedo_sample = sample(albedo_map, uv)
+    let albedo = albedo_sample.rgb * base_color.rgb
+    let alpha = albedo_sample.a * base_color.a
+    
+    let metallic_value = sample(metallic_map, uv).r * metallic_factor
+    let roughness_value = sample(roughness_map, uv).r * roughness_factor
+    
+    var mapped_normal = world_normal
+    if CFG_ENABLE_NORMAL_MAPPING:
+        let tangent_normal_packed = sample(normal_map, uv).rgb
+        let unpacked = tangent_normal_packed * 2.0 - 1.0
+        let tangent_normal = normalize(vec3(unpacked.x * normal_strength, unpacked.y * normal_strength, unpacked.z))
+        let bitangent = cross(world_normal, world_tangent) * bitangent_sign
+        let tbn_x = world_tangent * tangent_normal.x
+        let tbn_y = bitangent * tangent_normal.y
+        let tbn_z = world_normal * tangent_normal.z
+        mapped_normal = normalize(tbn_x + tbn_y + tbn_z)
+    
+    var ao_value = 1.0
+    if CFG_ENABLE_AO:
+        ao_value = mix(1.0, sample(ao_map, uv).r, ao_strength)
+    
+    var emissive = vec3(0.0, 0.0, 0.0)
+    if CFG_ENABLE_EMISSIVE:
+        emissive = sample(emissive_map, uv).rgb * emissive_strength
+    
+    let view_dir = normalize(vec3(camera_position.x, camera_position.y, camera_position.z) - world_pos)
+    let dielectric_f0 = vec3(0.04, 0.04, 0.04)
+    let f0 = mix(dielectric_f0, albedo, metallic_value)
+    
+    let light_dir = normalize(vec3(sun_direction.x, sun_direction.y, sun_direction.z))
+    let halfway = normalize(view_dir + light_dir)
+    
+    let n_dot_l = max(dot(mapped_normal, light_dir), 0.0)
+    let n_dot_v = max(dot(mapped_normal, view_dir), 0.0)
+    let n_dot_h = max(dot(mapped_normal, halfway), 0.0)
+    let v_dot_h = max(dot(view_dir, halfway), 0.0)
+    
+    let fresnel_power = pow(clamp(1.0 - v_dot_h, 0.0, 1.0), 5.0)
+    let f = f0 + (vec3(1.0, 1.0, 1.0) - f0) * fresnel_power
+    
+    let a = roughness_value * roughness_value
+    let a2 = a * a
+    let n_dot_h2 = n_dot_h * n_dot_h
+    let denom_inner = n_dot_h2 * (a2 - 1.0) + 1.0
+    let d = a2 / max(3.14159265 * denom_inner * denom_inner, 0.0001)
+    
+    let r = roughness_value + 1.0
+    let k = (r * r) / 8.0
+    let ggx_v = n_dot_v / (n_dot_v * (1.0 - k) + k)
+    let ggx_l = n_dot_l / (n_dot_l * (1.0 - k) + k)
+    let g = ggx_v * ggx_l
+    
+    let numerator = d * g * f
+    let denominator = 4.0 * n_dot_v * n_dot_l + 0.0001
+    let specular = numerator / denominator
+    
+    let ks = f
+    let kd = (vec3(1.0, 1.0, 1.0) - ks) * (1.0 - metallic_value)
+    
+    let radiance = vec3(sun_color.x, sun_color.y, sun_color.z) * sun_intensity
+    let lo = (kd * albedo / 3.14159265 + specular) * radiance * n_dot_l
+
+    let env_blend = clamp(mapped_normal.y * 0.5 + 0.5, 0.0, 1.0)
+    let env_low = mix(vec3(env_bottom.x, env_bottom.y, env_bottom.z), vec3(env_mid.x, env_mid.y, env_mid.z), env_blend)
+    let env_high = mix(vec3(env_mid.x, env_mid.y, env_mid.z), vec3(env_top.x, env_top.y, env_top.z), env_blend)
+    let env_color = mix(env_low, env_high, env_blend)
+    let ambient = (ambient_color + env_color) * albedo * ao_value
+    var final_color = ambient + lo + emissive
+
+    let view_distance = max(length(vec3(camera_position.x, camera_position.y, camera_position.z) - world_pos), 0.0)
+    let fog_factor = clamp(view_distance * fog_density, 0.0, 1.0)
+    final_color = mix(final_color, vec3(fog_color.x, fog_color.y, fog_color.z), fog_factor)
+
+    if CFG_HIGH_QUALITY:
+        final_color = final_color * mix(1.0, ao_value, 0.5)
+    
+    let output = vec4(final_color.x, final_color.y, final_color.z, alpha)
+    color_out[pixel_index] = output
+    
+    return output

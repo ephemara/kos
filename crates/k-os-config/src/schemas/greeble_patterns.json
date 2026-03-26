@@ -1,0 +1,318 @@
+[
+  {
+    "id": "scifi_panels",
+    "name": "Sci-Fi Panels",
+    "category": "sci-fi",
+    "description": "Rectangular panels with varied depths, typical of sci-fi surfaces",
+    "primitives": [
+      {
+        "type": "box",
+        "probability": 0.7,
+        "scaleRange": {
+          "min": [0.05, 0.01, 0.05],
+          "max": [0.2, 0.05, 0.2]
+        },
+        "rotationRange": {
+          "min": [0.0, 0.0, 0.0],
+          "max": [0.0, 90.0, 0.0]
+        }
+      },
+      {
+        "type": "box",
+        "probability": 0.3,
+        "scaleRange": {
+          "min": [0.02, 0.02, 0.02],
+          "max": [0.08, 0.08, 0.08]
+        }
+      }
+    ]
+  },
+  {
+    "id": "scifi_vents",
+    "name": "Sci-Fi Vents",
+    "category": "sci-fi",
+    "description": "Cylindrical vents and pipes for technical surfaces",
+    "primitives": [
+      {
+        "type": "cylinder",
+        "probability": 0.6,
+        "scaleRange": {
+          "min": [0.02, 0.05, 0.02],
+          "max": [0.05, 0.15, 0.05]
+        },
+        "rotationRange": {
+          "min": [0.0, 0.0, 0.0],
+          "max": [0.0, 360.0, 0.0]
+        }
+      },
+      {
+        "type": "box",
+        "probability": 0.4,
+        "scaleRange": {
+          "min": [0.03, 0.01, 0.03],
+          "max": [0.1, 0.03, 0.1]
+        }
+      }
+    ]
+  },
+  {
+    "id": "scifi_antennas",
+    "name": "Sci-Fi Antennas",
+    "category": "sci-fi",
+    "description": "Thin vertical elements like antennas and sensors",
+    "primitives": [
+      {
+        "type": "cylinder",
+        "probability": 0.5,
+        "scaleRange": {
+          "min": [0.005, 0.1, 0.005],
+          "max": [0.015, 0.3, 0.015]
+        }
+      },
+      {
+        "type": "sphere",
+        "probability": 0.3,
+        "scaleRange": {
+          "min": [0.01, 0.01, 0.01],
+          "max": [0.03, 0.03, 0.03]
+        }
+      },
+      {
+        "type": "box",
+        "probability": 0.2,
+        "scaleRange": {
+          "min": [0.01, 0.05, 0.01],
+          "max": [0.03, 0.15, 0.03]
+        }
+      }
+    ]
+  },
+  {
+    "id": "industrial_pipes",
+    "name": "Industrial Pipes",
+    "category": "industrial",
+    "description": "Heavy industrial piping and conduits",
+    "primitives": [
+      {
+        "type": "cylinder",
+        "probability": 0.8,
+        "scaleRange": {
+          "min": [0.03, 0.1, 0.03],
+          "max": [0.08, 0.4, 0.08]
+        },
+        "rotationRange": {
+          "min": [0.0, 0.0, 0.0],
+          "max": [90.0, 360.0, 90.0]
+        }
+      },
+      {
+        "type": "box",
+        "probability": 0.2,
+        "scaleRange": {
+          "min": [0.05, 0.05, 0.05],
+          "max": [0.12, 0.12, 0.12]
+        }
+      }
+    ]
+  },
+  {
+    "id": "industrial_bolts",
+    "name": "Industrial Bolts",
+    "category": "industrial",
+    "description": "Small bolts and rivets for mechanical surfaces",
+    "primitives": [
+      {
+        "type": "cylinder",
+        "probability": 0.9,
+        "scaleRange": {
+          "min": [0.005, 0.005, 0.005],
+          "max": [0.015, 0.02, 0.015]
+        }
+      },
+      {
+        "type": "sphere",
+        "probability": 0.1,
+        "scaleRange": {
+          "min": [0.005, 0.005, 0.005],
+          "max": [0.012, 0.012, 0.012]
+        }
+      }
+    ]
+  },
+  {
+    "id": "industrial_grates",
+    "name": "Industrial Grates",
+    "category": "industrial",
+    "description": "Grid-like grating patterns",
+    "primitives": [
+      {
+        "type": "box",
+        "probability": 1.0,
+        "scaleRange": {
+          "min": [0.08, 0.005, 0.01],
+          "max": [0.15, 0.015, 0.02]
+        },
+        "rotationRange": {
+          "min": [0.0, 0.0, 0.0],
+          "max": [0.0, 90.0, 0.0]
+        }
+      }
+    ]
+  },
+  {
+    "id": "organic_barnacles",
+    "name": "Organic Barnacles",
+    "category": "organic",
+    "description": "Clustered organic growths like barnacles",
+    "primitives": [
+      {
+        "type": "sphere",
+        "probability": 0.7,
+        "scaleRange": {
+          "min": [0.01, 0.01, 0.01],
+          "max": [0.04, 0.04, 0.04]
+        }
+      },
+      {
+        "type": "cylinder",
+        "probability": 0.3,
+        "scaleRange": {
+          "min": [0.008, 0.015, 0.008],
+          "max": [0.025, 0.05, 0.025]
+        },
+        "rotationRange": {
+          "min": [-30.0, 0.0, -30.0],
+          "max": [30.0, 360.0, 30.0]
+        }
+      }
+    ]
+  },
+  {
+    "id": "organic_crystals",
+    "name": "Organic Crystals",
+    "category": "organic",
+    "description": "Crystal-like protrusions with angular shapes",
+    "primitives": [
+      {
+        "type": "box",
+        "probability": 0.6,
+        "scaleRange": {
+          "min": [0.02, 0.05, 0.02],
+          "max": [0.05, 0.15, 0.05]
+        },
+        "rotationRange": {
+          "min": [-45.0, 0.0, -45.0],
+          "max": [45.0, 360.0, 45.0]
+        }
+      },
+      {
+        "type": "cylinder",
+        "probability": 0.4,
+        "scaleRange": {
+          "min": [0.015, 0.04, 0.015],
+          "max": [0.04, 0.12, 0.04]
+        },
+        "rotationRange": {
+          "min": [-30.0, 0.0, -30.0],
+          "max": [30.0, 360.0, 30.0]
+        }
+      }
+    ]
+  },
+  {
+    "id": "organic_spikes",
+    "name": "Organic Spikes",
+    "category": "organic",
+    "description": "Sharp spikes and thorns",
+    "primitives": [
+      {
+        "type": "cylinder",
+        "probability": 1.0,
+        "scaleRange": {
+          "min": [0.005, 0.03, 0.005],
+          "max": [0.015, 0.1, 0.015]
+        },
+        "rotationRange": {
+          "min": [-20.0, 0.0, -20.0],
+          "max": [20.0, 360.0, 20.0]
+        }
+      }
+    ]
+  },
+  {
+    "id": "architectural_windows",
+    "name": "Architectural Windows",
+    "category": "architectural",
+    "description": "Window-like rectangular insets",
+    "primitives": [
+      {
+        "type": "box",
+        "probability": 0.9,
+        "scaleRange": {
+          "min": [0.08, 0.12, 0.02],
+          "max": [0.15, 0.25, 0.05]
+        }
+      },
+      {
+        "type": "box",
+        "probability": 0.1,
+        "scaleRange": {
+          "min": [0.05, 0.05, 0.01],
+          "max": [0.1, 0.1, 0.03]
+        }
+      }
+    ]
+  },
+  {
+    "id": "architectural_columns",
+    "name": "Architectural Columns",
+    "category": "architectural",
+    "description": "Vertical column elements",
+    "primitives": [
+      {
+        "type": "cylinder",
+        "probability": 0.8,
+        "scaleRange": {
+          "min": [0.03, 0.2, 0.03],
+          "max": [0.06, 0.5, 0.06]
+        }
+      },
+      {
+        "type": "box",
+        "probability": 0.2,
+        "scaleRange": {
+          "min": [0.04, 0.15, 0.04],
+          "max": [0.08, 0.4, 0.08]
+        }
+      }
+    ]
+  },
+  {
+    "id": "tech_circuits",
+    "name": "Tech Circuits",
+    "category": "tech",
+    "description": "Circuit board-like patterns",
+    "primitives": [
+      {
+        "type": "box",
+        "probability": 0.7,
+        "scaleRange": {
+          "min": [0.01, 0.001, 0.03],
+          "max": [0.02, 0.003, 0.1]
+        },
+        "rotationRange": {
+          "min": [0.0, 0.0, 0.0],
+          "max": [0.0, 90.0, 0.0]
+        }
+      },
+      {
+        "type": "cylinder",
+        "probability": 0.3,
+        "scaleRange": {
+          "min": [0.003, 0.002, 0.003],
+          "max": [0.008, 0.005, 0.008]
+        }
+      }
+    ]
+  }
+]

@@ -1,0 +1,12 @@
+[timeline]
+name = "Master Timeline"
+fps = 24
+duration_frames = 240
+
+[[tracks]]
+name = "Camera"
+kind = "transform"
+
+[[tracks]]
+name = "Zen Core"
+kind = "transform"

@@ -1,0 +1,32 @@
+{
+  "id": "quantum_tunnel",
+  "name": "Quantum Tunnel",
+  "category": "Sculpt/Alien",
+  "tags": ["alien", "quantum", "tunnel", "teleport"],
+  "kernel": "custom",
+  "params": {
+    "radius": 0.08,
+    "strength": 0.6,
+    "hardness": 0.1,
+    "spacing": 0.02,
+    "lazy_radius": 0.03,
+    "subtract": false,
+    "front_faces_only": false,
+    "accumulate": true,
+    "jitter_position": 0.05,
+    "jitter_rotation": 0.9,
+    "jitter_strength": 0.35,
+    "falloff_type": "smooth",
+    "extras": {
+      "tunnel_probability": 0.5,
+      "wave_function": 0.8,
+      "decoherence_time": 0.1
+    }
+  },
+  "textures": {},
+  "pressure_strength": "soft",
+  "pressure_radius": "soft",
+  "speed_radius": null,
+  "tilt_rotation": null,
+  "entry_fade_dabs": 5
+}

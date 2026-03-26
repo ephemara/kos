@@ -1,0 +1,27 @@
+# KAIN Omni Manifest - Fluid Builder
+# Data-driven fluid brush + shader pipeline for suite integration.
+
+[project]
+entry = "fluid_builder.kn"
+build_dir = "dist"
+
+[import_resolution]
+inline_kain_imports = true
+search_roots = []
+
+[[targets]]
+kind = "spirv"
+output = "dist/fluid_builder.spv"
+
+[[targets]]
+kind = "rust_bundle"
+output = "dist/fluid_builder_bundle"
+artifacts = ["source", "shader_host", "shader_reflection", "spirv"]
+
+[[targets]]
+kind = "ts"
+output = "dist/FluidBuilderBindings.ts"
+
+[[targets]]
+kind = "ks"
+output = "dist/fluid_builder.ks"

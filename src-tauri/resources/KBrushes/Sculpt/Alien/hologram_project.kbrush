@@ -1,0 +1,32 @@
+{
+  "id": "hologram_project",
+  "name": "Hologram Project",
+  "category": "Sculpt/Alien",
+  "tags": ["alien", "hologram", "projection", "light"],
+  "kernel": "custom",
+  "params": {
+    "radius": 0.1,
+    "strength": 0.3,
+    "hardness": 0.1,
+    "spacing": 0.04,
+    "lazy_radius": 0.02,
+    "subtract": false,
+    "front_faces_only": true,
+    "accumulate": true,
+    "jitter_position": 0.03,
+    "jitter_rotation": 0.5,
+    "jitter_strength": 0.2,
+    "falloff_type": "gaussian",
+    "extras": {
+      "scanline_density": 50.0,
+      "flicker_rate": 0.3,
+      "transparency": 0.7
+    }
+  },
+  "textures": {},
+  "pressure_strength": "soft",
+  "pressure_radius": "soft",
+  "speed_radius": null,
+  "tilt_rotation": null,
+  "entry_fade_dabs": 4
+}

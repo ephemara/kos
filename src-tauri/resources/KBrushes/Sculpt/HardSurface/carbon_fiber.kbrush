@@ -1,0 +1,32 @@
+{
+  "id": "carbon_fiber",
+  "name": "Carbon Fiber",
+  "category": "Sculpt/HardSurface",
+  "tags": ["hardsurface", "carbon", "fiber", "weave"],
+  "kernel": "stamp",
+  "params": {
+    "radius": 0.06,
+    "strength": 0.3,
+    "hardness": 0.6,
+    "spacing": 0.04,
+    "lazy_radius": 0.0,
+    "subtract": false,
+    "front_faces_only": true,
+    "accumulate": true,
+    "jitter_position": 0.0,
+    "jitter_rotation": 0.0,
+    "jitter_strength": 0.0,
+    "falloff_type": "smooth",
+    "extras": {
+      "weave_pattern": "twill",
+      "fiber_thickness": 0.02,
+      "weave_angle": 45.0
+    }
+  },
+  "textures": {},
+  "pressure_strength": "linear",
+  "pressure_radius": null,
+  "speed_radius": null,
+  "tilt_rotation": null,
+  "entry_fade_dabs": 4
+}

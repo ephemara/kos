@@ -1,0 +1,32 @@
+{
+  "id": "leaf_venation",
+  "name": "Leaf Venation",
+  "category": "Sculpt/Organic",
+  "tags": ["organic", "leaf", "venation", "botanical"],
+  "kernel": "pinch",
+  "params": {
+    "radius": 0.06,
+    "strength": 0.4,
+    "hardness": 0.5,
+    "spacing": 0.03,
+    "lazy_radius": 0.01,
+    "subtract": true,
+    "front_faces_only": true,
+    "accumulate": true,
+    "jitter_position": 0.01,
+    "jitter_rotation": 0.3,
+    "jitter_strength": 0.0,
+    "falloff_type": "smooth",
+    "extras": {
+      "vein_pattern": "dichotomous",
+      "secondary_veins": 0.6,
+      "leaf_thickness": 0.2
+    }
+  },
+  "textures": {},
+  "pressure_strength": "soft",
+  "pressure_radius": "soft",
+  "speed_radius": null,
+  "tilt_rotation": null,
+  "entry_fade_dabs": 3
+}

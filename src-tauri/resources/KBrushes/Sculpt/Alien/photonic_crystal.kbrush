@@ -1,0 +1,32 @@
+{
+  "id": "photonic_crystal",
+  "name": "Photonic Crystal",
+  "category": "Sculpt/Alien",
+  "tags": ["alien", "photonic", "crystal", "light"],
+  "kernel": "stamp",
+  "params": {
+    "radius": 0.06,
+    "strength": 0.45,
+    "hardness": 0.85,
+    "spacing": 0.03,
+    "lazy_radius": 0.0,
+    "subtract": false,
+    "front_faces_only": true,
+    "accumulate": true,
+    "jitter_position": 0.01,
+    "jitter_rotation": 0.3,
+    "jitter_strength": 0.05,
+    "falloff_type": "sharp",
+    "extras": {
+      "band_gap": "visible",
+      "refractive_index": 2.5,
+      "lattice_constant": 0.5
+    }
+  },
+  "textures": {},
+  "pressure_strength": "hard",
+  "pressure_radius": null,
+  "speed_radius": null,
+  "tilt_rotation": null,
+  "entry_fade_dabs": 2
+}

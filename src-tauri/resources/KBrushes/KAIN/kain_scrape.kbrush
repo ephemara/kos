@@ -1,0 +1,30 @@
+{
+  "id": "kain_scrape",
+  "name": "KAIN Scrape",
+  "category": "KAIN/Stamp",
+  "tags": ["kain", "scrape", "subtract", "spirv"],
+  "icon": "🔪",
+  "kernel": {
+    "family": "spirv",
+    "shader": "stamp_scrape"
+  },
+  "params": {
+    "radius": 0.14,
+    "strength": 0.7,
+    "hardness": 0.55,
+    "spacing": 0.08,
+    "accumulate": true,
+    "subtract": true,
+    "front_faces_only": true,
+    "alpha_enabled": false,
+    "alpha_scale": 1.0,
+    "jitter_position": 0.0,
+    "jitter_rotation": 0.0,
+    "jitter_strength": 0.0,
+    "random_seed": 0.0,
+    "pressure_curve_idx": 0,
+    "speed_curve_idx": 0,
+    "tilt_curve_idx": 0
+  },
+  "textures": {}
+}

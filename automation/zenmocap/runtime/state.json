@@ -1,0 +1,57 @@
+{
+    "pipelineId":  "zenmocap-closed-loop",
+    "currentTurn":  1,
+    "cycleLength":  6,
+    "lastPreparedRunId":  "20260311-050909-turn-001-discovery-architecture",
+    "lastCompletedRunId":  null,
+    "lastAgentId":  "scope-architect",
+    "lastPhaseId":  "discovery-architecture",
+    "lastStatus":  "prepared",
+    "activeFocusAreaIds":  [
+                               "mocap-runtime",
+                               "animator-ui",
+                               "engine-crate-growth",
+                               "kain-supermotion"
+                           ],
+    "carryForward":  [
+                         "ZenMocap still needs a much more robust animator and keyframe system.",
+                         "Closed-loop runs should keep improving both standalone ZenMocap behavior and shared K_OS-backed crate ownership.",
+                         "Validation belongs on every 5th turn and documentation belongs on every 6th turn."
+                     ],
+    "priorityThemes":  [
+                           "Animator depth",
+                           "Keyframe authoring",
+                           "Engine hardening",
+                           "Kain omni integration",
+                           "Shader/runtime quality",
+                           "Closed-loop self-documentation"
+                       ],
+    "blockers":  [
+
+                 ],
+    "recentChanges":  [
+
+                      ],
+    "recentTouchedPaths":  [
+
+                           ],
+    "nextRecommendations":  [
+
+                            ],
+    "lastVerification":  {
+                             "turn":  null,
+                             "runId":  null,
+                             "result":  "not-run",
+                             "commands":  [
+
+                                          ]
+                         },
+    "lastDocumentation":  {
+                              "turn":  null,
+                              "runId":  null,
+                              "artifacts":  [
+
+                                            ]
+                          }
+}
+

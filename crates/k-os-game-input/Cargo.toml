@@ -1,0 +1,15 @@
+[package]
+name = "k-os-game-input"
+version = "0.1.0"
+edition = "2021"
+description = "K_OS Game input ownership for registry-driven action maps, camera-coupled policy, and gameplay-action input projection"
+
+[lib]
+name = "k_os_game_input"
+path = "src/lib.rs"
+
+[dependencies]
+bevy_ecs = "0.17"
+k-os-game-camera = { path = "../k-os-game-camera" }
+k-os-game-framework = { path = "../k-os-game-framework" }
+toml = "0.8"

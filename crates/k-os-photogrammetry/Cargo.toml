@@ -1,0 +1,25 @@
+[package]
+name = "k-os-photogrammetry"
+version = "0.1.0"
+edition = "2021"
+description = "K_OS photogrammetry reconstruction domain"
+
+[lib]
+name = "k_os_photogrammetry"
+path = "src/lib.rs"
+
+[features]
+default = []
+photogrammetry = ["dep:akaze"]
+
+[dependencies]
+akaze = { version = "0.5", optional = true }
+anyhow = "1.0"
+image23 = { package = "image", version = "0.23" }
+k-os-gpu-pipeline = { path = "../k-os-gpu-pipeline" }
+kdtree = "0.7"
+log = "0.4"
+nalgebra = { version = "0.33", features = ["serde-serialize"] }
+rand = "0.8"
+rayon = "1.10"
+serde = { version = "1.0", features = ["derive"] }

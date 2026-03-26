@@ -1,0 +1,6 @@
+component WaterSurface():
+    render <panel title="Material Graph">
+        base_color = [0.18, 0.36, 0.62]
+        roughness = 0.22
+        metallic = 0.04
+        normal_strength = 0.7

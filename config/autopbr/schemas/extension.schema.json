@@ -1,0 +1,85 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://k-os.dev/schemas/autopbr/extension.schema.json",
+  "title": "AutoPBRExtension",
+  "description": "KAutoPBR plugin extension manifest",
+  "type": "object",
+  "required": ["id", "name", "version", "author", "extension_type", "capabilities"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9-]+$",
+      "minLength": 3,
+      "maxLength": 64,
+      "description": "Unique extension identifier (kebab-case)"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256,
+      "description": "Human-readable extension name"
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$",
+      "description": "Semantic version (e.g., 1.0.0)"
+    },
+    "author": {
+      "type": "string",
+      "maxLength": 256,
+      "description": "Extension author"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 2048,
+      "description": "Extension description"
+    },
+    "extension_type": {
+      "type": "string",
+      "enum": [
+        "Filter",
+        "Generator",
+        "MaterialProcessor",
+        "ExportFormat",
+        "ImportFormat",
+        "AnimationEffect",
+        "Theme",
+        "Shader",
+        "Command"
+      ],
+      "description": "Type of extension"
+    },
+    "capabilities": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "MaterialAccess",
+          "LayerAccess",
+          "GpuCompute",
+          "FileIO",
+          "Network",
+          "AppApi"
+        ]
+      },
+      "minItems": 1,
+      "uniqueItems": true,
+      "description": "Required capabilities for the extension"
+    },
+    "entry_point": {
+      "type": "string",
+      "description": "Path to extension entry point (relative to extension root)"
+    },
+    "dependencies": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      },
+      "description": "Extension dependencies with version constraints"
+    },
+    "settings": {
+      "type": "object",
+      "description": "Extension-specific settings schema"
+    }
+  }
+}

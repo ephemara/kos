@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "shader": "mocap_supermotion_livelink",
+  "target": "ui_controls",
+  "notes": "All params map to params_a/b/c lanes in mocap_supermotion_livelink.kn.",
+  "global_params": [
+    { "key": "a.w", "label": "Joint Phase Step", "min": 0.0, "max": 1.0, "default": 0.01, "tooltip": "Per-joint phase offset in the chain." },
+    { "key": "global_intensity", "label": "Global Intensity", "min": 0.0, "max": 4.0, "default": 1.0, "tooltip": "Scales noise-sensitive modes." },
+    { "key": "floor_y", "label": "Floor Y", "min": -500.0, "max": 500.0, "default": 0.0, "tooltip": "Floor plane height for lock/snap modes." }
+  ],
+  "mode_ui": [
+    { "id": 0, "name": "passthrough", "group": "base", "params": [] },
+    { "id": 1, "name": "velocity_tail", "group": "stabilize", "params": [{ "key": "a.x", "label": "Lag", "min": 0.0, "max": 3.0, "default": 0.2 }] },
+    { "id": 2, "name": "drag", "group": "stabilize", "params": [{ "key": "a.x", "label": "Drag Strength", "min": 0.0, "max": 8.0, "default": 1.0 }] },
+    { "id": 3, "name": "foot_lock", "group": "stabilize", "params": [{ "key": "a.x", "label": "Speed Threshold", "min": 0.0, "max": 3.0, "default": 0.2 }, { "key": "b.x", "label": "Foot Offset Y", "min": -20.0, "max": 20.0, "default": 0.0 }] },
+    { "id": 4, "name": "spiral_stabilize", "group": "style", "params": [{ "key": "a.x", "label": "Spin Speed", "min": 0.0, "max": 20.0, "default": 2.0 }, { "key": "a.y", "label": "Radius", "min": 0.0, "max": 20.0, "default": 0.5 }, { "key": "b.x", "label": "Forward Blend", "min": 0.0, "max": 2.0, "default": 0.5 }] },
+    { "id": 5, "name": "jitter_kill", "group": "stabilize", "params": [{ "key": "a.x", "label": "Anti-Jitter", "min": 0.0, "max": 8.0, "default": 2.0 }, { "key": "b.x", "label": "Residual Noise", "min": 0.0, "max": 1.0, "default": 0.05 }] },
+    { "id": 6, "name": "aim_up", "group": "orientation", "params": [{ "key": "a.x", "label": "Up Bias", "min": -2.0, "max": 2.0, "default": 0.25 }] },
+    { "id": 7, "name": "swing", "group": "style", "params": [{ "key": "a.x", "label": "Swing Speed", "min": 0.0, "max": 20.0, "default": 2.0 }, { "key": "a.y", "label": "Swing Radius", "min": 0.0, "max": 20.0, "default": 0.5 }, { "key": "b.x", "label": "Phase", "min": 0.0, "max": 2.0, "default": 0.1 }, { "key": "b.y", "label": "Lift", "min": 0.0, "max": 10.0, "default": 0.3 }] },
+    { "id": 8, "name": "lean", "group": "orientation", "params": [{ "key": "a.x", "label": "Lean Gain", "min": -4.0, "max": 4.0, "default": 0.5 }, { "key": "b.x", "label": "Lean Clamp", "min": 0.0, "max": 2.0, "default": 0.8 }] },
+    { "id": 9, "name": "vortex", "group": "style", "params": [{ "key": "a.x", "label": "Vortex Pull", "min": -3.0, "max": 3.0, "default": 0.2 }, { "key": "b.x", "label": "Forward Twist", "min": -3.0, "max": 3.0, "default": 0.2 }] },
+    { "id": 10, "name": "shock", "group": "style", "params": [{ "key": "a.x", "label": "Pulse Speed", "min": 0.0, "max": 30.0, "default": 6.0 }, { "key": "a.y", "label": "Impulse", "min": 0.0, "max": 5.0, "default": 0.4 }, { "key": "b.x", "label": "Damping", "min": 0.0, "max": 10.0, "default": 2.0 }] },
+    { "id": 11, "name": "pose_noise", "group": "style", "params": [{ "key": "a.x", "label": "Noise Amp", "min": 0.0, "max": 2.0, "default": 0.05 }] },
+    { "id": 12, "name": "magnet_root", "group": "stabilize", "params": [{ "key": "a.x", "label": "Root Pull", "min": 0.0, "max": 2.0, "default": 0.2 }] },
+    { "id": 13, "name": "breathe_chain", "group": "style", "params": [{ "key": "a.x", "label": "Breath Speed", "min": 0.0, "max": 12.0, "default": 1.0 }, { "key": "a.y", "label": "Breath Amp", "min": 0.0, "max": 5.0, "default": 0.2 }, { "key": "b.x", "label": "Phase Step", "min": 0.0, "max": 2.0, "default": 0.15 }] },
+    { "id": 14, "name": "floor_snap", "group": "stabilize", "params": [{ "key": "a.x", "label": "Snap Margin", "min": 0.0, "max": 20.0, "default": 1.0 }] },
+    { "id": 15, "name": "overdrive", "group": "ultra", "params": [{ "key": "a.x", "label": "Drive Speed", "min": 0.0, "max": 30.0, "default": 8.0 }, { "key": "a.y", "label": "Drive Gain", "min": 0.0, "max": 5.0, "default": 1.0 }, { "key": "b.x", "label": "Velocity Gain", "min": 0.0, "max": 5.0, "default": 0.5 }, { "key": "c.x", "label": "Forward Gain", "min": 0.0, "max": 3.0, "default": 0.5 }] }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "id": "strange_attractor",
+  "name": "Strange Attractor",
+  "category": "Sculpt/Procedural",
+  "tags": ["procedural", "attractor", "chaos", "lorenz"],
+  "kernel": "grab",
+  "params": {
+    "radius": 0.1,
+    "strength": 0.6,
+    "hardness": 0.2,
+    "spacing": 0.02,
+    "lazy_radius": 0.03,
+    "subtract": false,
+    "front_faces_only": true,
+    "accumulate": false,
+    "jitter_position": 0.04,
+    "jitter_rotation": 0.7,
+    "jitter_strength": 0.25,
+    "falloff_type": "smooth",
+    "extras": {
+      "attractor_type": "lorenz",
+      "sigma": 10.0,
+      "rho": 28.0,
+      "beta": 2.667
+    }
+  },
+  "textures": {},
+  "pressure_strength": "soft",
+  "pressure_radius": "soft",
+  "speed_radius": null,
+  "tilt_rotation": null,
+  "entry_fade_dabs": 6
+}

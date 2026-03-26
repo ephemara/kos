@@ -1,0 +1,7 @@
+# Seeds for failure cases proptest has generated in the past. It is
+# automatically read and these particular cases re-run before any
+# novel cases are generated.
+#
+# It is recommended to check this file in to source control so that
+# everyone who runs the test benefits from these saved cases.
+cc ae27a5b25147fe8e6885590069be9b3ce882cbc9caed83271d03c60818e3f69d # shrinks to actions = [Add(AddAction { amount: 81 }), Multiply(MultiplyAction { factor: -8, old_value: 0 }), Multiply(MultiplyAction { factor: -6, old_value: 0 }), Multiply(MultiplyAction { factor: 10, old_value: 0 }), Multiply(MultiplyAction { factor: -4, old_value: 0 }), Multiply(MultiplyAction { factor: 8, old_value: 0 }), Multiply(MultiplyAction { factor: 4, old_value: 0 }), Multiply(MultiplyAction { factor: 9, old_value: 0 }), Multiply(MultiplyAction { factor: 8, old_value: 0 }), Multiply(MultiplyAction { factor: 6, old_value: 0 })]

@@ -1,0 +1,34 @@
+{
+  "$schema": "../schemas/animation.schema.json",
+  "name": "Breathing Effect",
+  "description": "Gentle expansion and contraction for organic or living materials. Simulates natural breathing motion through subtle height displacement and roughness variation. Perfect for alien organisms, living walls, bio-mechanical surfaces, or any material that should feel alive. Creates a slow, rhythmic pulse that suggests respiration.",
+  "category": "Organic",
+  "tags": ["breathing", "organic", "life", "subtle", "animation", "alien", "bio", "living"],
+  "author": "K_OS Team",
+  "version": 1,
+  "duration": 4.0,
+  "loop_mode": "Loop",
+  "tracks": [
+    {
+      "parameter": "HeightOffset",
+      "animation_type": {
+        "Keyframe": {
+          "keyframes": [
+            { "time": 0.0, "value": 0.0 },
+            { "time": 2.0, "value": 0.05 },
+            { "time": 4.0, "value": 0.0 }
+          ],
+          "interpolation": "EaseInOut"
+        }
+      }
+    },
+    {
+      "parameter": "Roughness",
+      "animation_type": {
+        "Procedural": {
+          "expression": "0.5 + sin(t * 1.57) * 0.1"
+        }
+      }
+    }
+  ]
+}

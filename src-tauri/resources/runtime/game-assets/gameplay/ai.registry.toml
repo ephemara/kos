@@ -1,0 +1,40 @@
+version = "1"
+registry_kind = "ai_agents"
+
+[runtime_tick]
+phase_order = ["sense", "plan", "act", "recover"]
+default_blackboard_value_template = "{agent}:{phase}:{decision}:{key}:tick-{tick}"
+
+[[state_trees]]
+id = "hero.combat.default"
+root = "selector.combat_root"
+
+[[state_trees]]
+id = "npc.vendor.idle"
+root = "sequence.vendor_idle_root"
+
+[blackboards.hero]
+keys = ["target_entity", "combat_state", "last_seen_position"]
+
+[blackboards.vendor]
+keys = ["shop_open", "current_customer", "greeting_variant"]
+
+[[agents]]
+id = "hero.default"
+state_tree = "hero.combat.default"
+blackboard = "blackboards.hero"
+
+[[agents]]
+id = "npc.vendor"
+state_tree = "npc.vendor.idle"
+blackboard = "blackboards.vendor"
+
+[[decision_overrides]]
+agent = "hero.default"
+phase = "act"
+decision = "hero.attack.primary_target"
+
+[[decision_overrides]]
+agent = "npc.vendor"
+phase = "act"
+decision = "vendor.serve.active_customer"

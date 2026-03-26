@@ -1,0 +1,7 @@
+# Seeds for failure cases proptest has generated in the past. It is
+# automatically read and these particular cases re-run before any
+# novel cases are generated.
+#
+# It is recommended to check this file in to source control so that
+# everyone who runs the test benefits from these saved cases.
+cc 6090619e5cd5f8ff6b73d65e882090b176796d3df5cbf2eef65819fb7a6dea49 # shrinks to mesh = Mesh { vertices: [Vec3(0.0, 0.0, 0.0), Vec3(0.0, 0.0, -2.6849658), Vec3(0.0, -1.4059877, 0.0), Vec3(0.0, 0.0, 1.5439407)], indices: [0, 1, 2, 0, 2, 3], normals: None, uvs: None, colors: None }, ratio = 0.1

@@ -1,0 +1,528 @@
+{
+  "scoring_formula": "score = (callable_count * 4) + (reexport_count * 2) + item_count",
+  "package_count": 47,
+  "packages": [
+    {
+      "package_name": "k-os-material",
+      "score": 1532,
+      "priority": "critical",
+      "item_count": 404,
+      "callable_count": 253,
+      "reexport_count": 58,
+      "notes": [
+        "callable surface is very large",
+        "reexport layer is heavy",
+        "overall public surface is broad"
+      ]
+    },
+    {
+      "package_name": "k-os-gpu-pipeline",
+      "score": 1440,
+      "priority": "critical",
+      "item_count": 448,
+      "callable_count": 174,
+      "reexport_count": 148,
+      "notes": [
+        "callable surface is very large",
+        "reexport layer is heavy",
+        "overall public surface is broad"
+      ]
+    },
+    {
+      "package_name": "k-os-io",
+      "score": 741,
+      "priority": "high",
+      "item_count": 245,
+      "callable_count": 95,
+      "reexport_count": 58,
+      "notes": [
+        "reexport layer is heavy",
+        "overall public surface is broad"
+      ]
+    },
+    {
+      "package_name": "zen-mocap-engine",
+      "score": 696,
+      "priority": "high",
+      "item_count": 258,
+      "callable_count": 96,
+      "reexport_count": 27,
+      "notes": [
+        "overall public surface is broad"
+      ]
+    },
+    {
+      "package_name": "k-os-brushes",
+      "score": 508,
+      "priority": "medium",
+      "item_count": 176,
+      "callable_count": 75,
+      "reexport_count": 16,
+      "notes": [
+        "public surface is comparatively contained"
+      ]
+    },
+    {
+      "package_name": "k-os-sculpt",
+      "score": 408,
+      "priority": "medium",
+      "item_count": 112,
+      "callable_count": 60,
+      "reexport_count": 28,
+      "notes": [
+        "public surface is comparatively contained"
+      ]
+    },
+    {
+      "package_name": "k-os-baking",
+      "score": 397,
+      "priority": "medium",
+      "item_count": 107,
+      "callable_count": 62,
+      "reexport_count": 21,
+      "notes": [
+        "public surface is comparatively contained"
+      ]
+    },
+    {
+      "package_name": "k-os-sim",
+      "score": 389,
+      "priority": "medium",
+      "item_count": 101,
+      "callable_count": 64,
+      "reexport_count": 16,
+      "notes": [
+        "public surface is comparatively contained"
+      ]
+    },
+    {
+      "package_name": "k-os-config",
+      "score": 367,
+      "priority": "medium",
+      "item_count": 101,
+      "callable_count": 63,
+      "reexport_count": 7,
+      "notes": [
+        "public surface is comparatively contained"
+      ]
+    },
+    {
+      "package_name": "k-os-mesh-processing",
+      "score": 349,
+      "priority": "medium",
+      "item_count": 89,
+      "callable_count": 63,
+      "reexport_count": 4,
+      "notes": [
+        "public surface is comparatively contained"
+      ]
+    },
+    {
+      "package_name": "k-os-renderer",
+      "score": 320,
+      "priority": "medium",
+      "item_count": 86,
+      "callable_count": 41,
+      "reexport_count": 35,
+      "notes": [
+        "public surface is comparatively contained"
+      ]
+    },
+    {
+      "package_name": "k-os-asset-pipeline",
+      "score": 303,
+      "priority": "medium",
+      "item_count": 105,
+      "callable_count": 41,
+      "reexport_count": 17,
+      "notes": [
+        "public surface is comparatively contained"
+      ]
+    },
+    {
+      "package_name": "k-os-plugin",
+      "score": 303,
+      "priority": "medium",
+      "item_count": 77,
+      "callable_count": 53,
+      "reexport_count": 7,
+      "notes": [
+        "public surface is comparatively contained"
+      ]
+    },
+    {
+      "package_name": "k-os-mesh",
+      "score": 255,
+      "priority": "medium",
+      "item_count": 73,
+      "callable_count": 28,
+      "reexport_count": 35,
+      "notes": [
+        "public surface is comparatively contained"
+      ]
+    },
+    {
+      "package_name": "k-os-kain",
+      "score": 249,
+      "priority": "low",
+      "item_count": 65,
+      "callable_count": 46,
+      "reexport_count": 0,
+      "notes": [
+        "public surface is comparatively contained"
+      ]
+    },
+    {
+      "package_name": "k-os-photogrammetry",
+      "score": 217,
+      "priority": "low",
+      "item_count": 83,
+      "callable_count": 23,
+      "reexport_count": 21,
+      "notes": [
+        "public surface is comparatively contained"
+      ]
+    },
+    {
+      "package_name": "k-os-rig",
+      "score": 208,
+      "priority": "low",
+      "item_count": 60,
+      "callable_count": 24,
+      "reexport_count": 26,
+      "notes": [
+        "public surface is comparatively contained"
+      ]
+    },
+    {
+      "package_name": "transform-gizmo",
+      "score": 206,
+      "priority": "low",
+      "item_count": 68,
+      "callable_count": 20,
+      "reexport_count": 29,
+      "notes": [
+        "public surface is comparatively contained"
+      ]
+    },
+    {
+      "package_name": "k-os-eval",
+      "score": 160,
+      "priority": "low",
+      "item_count": 48,
+      "callable_count": 28,
+      "reexport_count": 0,
+      "notes": [
+        "public surface is comparatively contained"
+      ]
+    },
+    {
+      "package_name": "k-os-undo",
+      "score": 156,
+      "priority": "low",
+      "item_count": 42,
+      "callable_count": 25,
+      "reexport_count": 7,
+      "notes": [
+        "public surface is comparatively contained"
+      ]
+    },
+    {
+      "package_name": "k-os-hdr",
+      "score": 116,
+      "priority": "low",
+      "item_count": 34,
+      "callable_count": 20,
+      "reexport_count": 1,
+      "notes": [
+        "public surface is comparatively contained"
+      ]
+    },
+    {
+      "package_name": "zen-editor",
+      "score": 115,
+      "priority": "low",
+      "item_count": 35,
+      "callable_count": 20,
+      "reexport_count": 0,
+      "notes": [
+        "public surface is comparatively contained"
+      ]
+    },
+    {
+      "package_name": "k-os-workspace-registry",
+      "score": 110,
+      "priority": "low",
+      "item_count": 34,
+      "callable_count": 19,
+      "reexport_count": 0,
+      "notes": [
+        "public surface is comparatively contained"
+      ]
+    },
+    {
+      "package_name": "zen-scene",
+      "score": 103,
+      "priority": "low",
+      "item_count": 27,
+      "callable_count": 19,
+      "reexport_count": 0,
+      "notes": [
+        "public surface is comparatively contained"
+      ]
+    },
+    {
+      "package_name": "k-os-scene-runtime",
+      "score": 81,
+      "priority": "low",
+      "item_count": 21,
+      "callable_count": 15,
+      "reexport_count": 0,
+      "notes": [
+        "public surface is comparatively contained"
+      ]
+    },
+    {
+      "package_name": "k-os-game-play",
+      "score": 78,
+      "priority": "low",
+      "item_count": 26,
+      "callable_count": 13,
+      "reexport_count": 0,
+      "notes": [
+        "public surface is comparatively contained"
+      ]
+    },
+    {
+      "package_name": "k-os-game-runtime",
+      "score": 68,
+      "priority": "low",
+      "item_count": 36,
+      "callable_count": 8,
+      "reexport_count": 0,
+      "notes": [
+        "public surface is comparatively contained"
+      ]
+    },
+    {
+      "package_name": "k-os-wasm",
+      "score": 65,
+      "priority": "low",
+      "item_count": 13,
+      "callable_count": 13,
+      "reexport_count": 0,
+      "notes": [
+        "public surface is comparatively contained"
+      ]
+    },
+    {
+      "package_name": "k-os-scatter",
+      "score": 46,
+      "priority": "low",
+      "item_count": 10,
+      "callable_count": 9,
+      "reexport_count": 0,
+      "notes": [
+        "public surface is comparatively contained"
+      ]
+    },
+    {
+      "package_name": "zen-core",
+      "score": 42,
+      "priority": "low",
+      "item_count": 14,
+      "callable_count": 7,
+      "reexport_count": 0,
+      "notes": [
+        "public surface is comparatively contained"
+      ]
+    },
+    {
+      "package_name": "k-os-external",
+      "score": 34,
+      "priority": "low",
+      "item_count": 12,
+      "callable_count": 3,
+      "reexport_count": 5,
+      "notes": [
+        "public surface is comparatively contained"
+      ]
+    },
+    {
+      "package_name": "zen-host",
+      "score": 34,
+      "priority": "low",
+      "item_count": 10,
+      "callable_count": 6,
+      "reexport_count": 0,
+      "notes": [
+        "public surface is comparatively contained"
+      ]
+    },
+    {
+      "package_name": "zen-kain-modules",
+      "score": 28,
+      "priority": "low",
+      "item_count": 8,
+      "callable_count": 5,
+      "reexport_count": 0,
+      "notes": [
+        "public surface is comparatively contained"
+      ]
+    },
+    {
+      "package_name": "k-os-game-framework",
+      "score": 27,
+      "priority": "low",
+      "item_count": 11,
+      "callable_count": 4,
+      "reexport_count": 0,
+      "notes": [
+        "public surface is comparatively contained"
+      ]
+    },
+    {
+      "package_name": "zen-runtime",
+      "score": 27,
+      "priority": "low",
+      "item_count": 7,
+      "callable_count": 5,
+      "reexport_count": 0,
+      "notes": [
+        "public surface is comparatively contained"
+      ]
+    },
+    {
+      "package_name": "k-os-bevy",
+      "score": 21,
+      "priority": "low",
+      "item_count": 9,
+      "callable_count": 0,
+      "reexport_count": 6,
+      "notes": [
+        "public surface is comparatively contained"
+      ]
+    },
+    {
+      "package_name": "k-os-game-camera",
+      "score": 19,
+      "priority": "low",
+      "item_count": 7,
+      "callable_count": 3,
+      "reexport_count": 0,
+      "notes": [
+        "public surface is comparatively contained"
+      ]
+    },
+    {
+      "package_name": "k-os-game-input",
+      "score": 14,
+      "priority": "low",
+      "item_count": 6,
+      "callable_count": 2,
+      "reexport_count": 0,
+      "notes": [
+        "public surface is comparatively contained"
+      ]
+    },
+    {
+      "package_name": "k-os-game-sequencer",
+      "score": 14,
+      "priority": "low",
+      "item_count": 6,
+      "callable_count": 2,
+      "reexport_count": 0,
+      "notes": [
+        "public surface is comparatively contained"
+      ]
+    },
+    {
+      "package_name": "zen-kain-api",
+      "score": 14,
+      "priority": "low",
+      "item_count": 6,
+      "callable_count": 2,
+      "reexport_count": 0,
+      "notes": [
+        "public surface is comparatively contained"
+      ]
+    },
+    {
+      "package_name": "k-os-game-ai",
+      "score": 12,
+      "priority": "low",
+      "item_count": 4,
+      "callable_count": 2,
+      "reexport_count": 0,
+      "notes": [
+        "public surface is comparatively contained"
+      ]
+    },
+    {
+      "package_name": "k-os-scene",
+      "score": 9,
+      "priority": "low",
+      "item_count": 3,
+      "callable_count": 0,
+      "reexport_count": 3,
+      "notes": [
+        "public surface is comparatively contained"
+      ]
+    },
+    {
+      "package_name": "k-os-animation",
+      "score": 7,
+      "priority": "low",
+      "item_count": 3,
+      "callable_count": 1,
+      "reexport_count": 0,
+      "notes": [
+        "public surface is comparatively contained"
+      ]
+    },
+    {
+      "package_name": "zen-assets",
+      "score": 7,
+      "priority": "low",
+      "item_count": 3,
+      "callable_count": 1,
+      "reexport_count": 0,
+      "notes": [
+        "public surface is comparatively contained"
+      ]
+    },
+    {
+      "package_name": "zen-render",
+      "score": 2,
+      "priority": "low",
+      "item_count": 2,
+      "callable_count": 0,
+      "reexport_count": 0,
+      "notes": [
+        "public surface is comparatively contained"
+      ]
+    },
+    {
+      "package_name": "k-os-backend",
+      "score": 0,
+      "priority": "low",
+      "item_count": 0,
+      "callable_count": 0,
+      "reexport_count": 0,
+      "notes": [
+        "public surface is comparatively contained"
+      ]
+    },
+    {
+      "package_name": "zen",
+      "score": 0,
+      "priority": "low",
+      "item_count": 0,
+      "callable_count": 0,
+      "reexport_count": 0,
+      "notes": [
+        "public surface is comparatively contained"
+      ]
+    }
+  ]
+}

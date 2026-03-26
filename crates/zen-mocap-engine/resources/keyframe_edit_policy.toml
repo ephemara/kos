@@ -1,0 +1,40 @@
+[frame_bounds]
+min = 0
+max = 216000
+
+[[interpolation_modes]]
+id = "linear"
+enabled = true
+
+[[interpolation_modes]]
+id = "ease-in"
+enabled = true
+
+[[interpolation_modes]]
+id = "ease-out"
+enabled = true
+
+[[interpolation_modes]]
+id = "ease-in-out"
+enabled = true
+
+[[interpolation_modes]]
+id = "step"
+enabled = true
+
+[[operations]]
+id = "upsert"
+enabled = true
+
+[[operations]]
+id = "remove"
+enabled = true
+
+[[operations]]
+id = "move"
+enabled = true
+allow_frame_overwrite = false
+
+[[operations]]
+id = "scale-range"
+enabled = false

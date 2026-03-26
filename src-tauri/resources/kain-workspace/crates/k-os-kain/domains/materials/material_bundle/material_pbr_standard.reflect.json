@@ -1,0 +1,228 @@
+{
+  "shaders": [
+    {
+      "name": "material_pbr_standard",
+      "stage": "compute",
+      "entry_point": "material_pbr_standard",
+      "inputs": [
+        {
+          "name": "id",
+          "ty": "UVec3"
+        }
+      ],
+      "bindings": [
+        {
+          "name": "positions",
+          "binding": 0,
+          "descriptor_set": 0,
+          "ty": "StorageBuffer<Vec4>",
+          "kind": "storage_buffer"
+        },
+        {
+          "name": "normals",
+          "binding": 1,
+          "descriptor_set": 0,
+          "ty": "StorageBuffer<Vec4>",
+          "kind": "storage_buffer"
+        },
+        {
+          "name": "uvs",
+          "binding": 2,
+          "descriptor_set": 0,
+          "ty": "StorageBuffer<Vec4>",
+          "kind": "storage_buffer"
+        },
+        {
+          "name": "tangents",
+          "binding": 3,
+          "descriptor_set": 0,
+          "ty": "StorageBuffer<Vec4>",
+          "kind": "storage_buffer"
+        },
+        {
+          "name": "albedo_map",
+          "binding": 4,
+          "descriptor_set": 0,
+          "ty": "Sampler2D",
+          "kind": "sampler2_d"
+        },
+        {
+          "name": "normal_map",
+          "binding": 5,
+          "descriptor_set": 0,
+          "ty": "Sampler2D",
+          "kind": "sampler2_d"
+        },
+        {
+          "name": "metallic_map",
+          "binding": 6,
+          "descriptor_set": 0,
+          "ty": "Sampler2D",
+          "kind": "sampler2_d"
+        },
+        {
+          "name": "roughness_map",
+          "binding": 7,
+          "descriptor_set": 0,
+          "ty": "Sampler2D",
+          "kind": "sampler2_d"
+        },
+        {
+          "name": "ao_map",
+          "binding": 8,
+          "descriptor_set": 0,
+          "ty": "Sampler2D",
+          "kind": "sampler2_d"
+        },
+        {
+          "name": "emissive_map",
+          "binding": 9,
+          "descriptor_set": 0,
+          "ty": "Sampler2D",
+          "kind": "sampler2_d"
+        },
+        {
+          "name": "base_color",
+          "binding": 10,
+          "descriptor_set": 0,
+          "ty": "Vec4",
+          "kind": "uniform"
+        },
+        {
+          "name": "metallic_factor",
+          "binding": 11,
+          "descriptor_set": 0,
+          "ty": "Float",
+          "kind": "uniform"
+        },
+        {
+          "name": "roughness_factor",
+          "binding": 12,
+          "descriptor_set": 0,
+          "ty": "Float",
+          "kind": "uniform"
+        },
+        {
+          "name": "emissive_strength",
+          "binding": 13,
+          "descriptor_set": 0,
+          "ty": "Float",
+          "kind": "uniform"
+        },
+        {
+          "name": "normal_strength",
+          "binding": 14,
+          "descriptor_set": 0,
+          "ty": "Float",
+          "kind": "uniform"
+        },
+        {
+          "name": "ao_strength",
+          "binding": 15,
+          "descriptor_set": 0,
+          "ty": "Float",
+          "kind": "uniform"
+        },
+        {
+          "name": "camera_position",
+          "binding": 16,
+          "descriptor_set": 0,
+          "ty": "Vec4",
+          "kind": "uniform"
+        },
+        {
+          "name": "sun_direction",
+          "binding": 17,
+          "descriptor_set": 0,
+          "ty": "Vec4",
+          "kind": "uniform"
+        },
+        {
+          "name": "sun_color",
+          "binding": 18,
+          "descriptor_set": 0,
+          "ty": "Vec4",
+          "kind": "uniform"
+        },
+        {
+          "name": "sun_intensity",
+          "binding": 19,
+          "descriptor_set": 0,
+          "ty": "Float",
+          "kind": "uniform"
+        },
+        {
+          "name": "ambient_color",
+          "binding": 20,
+          "descriptor_set": 0,
+          "ty": "Vec3",
+          "kind": "uniform"
+        },
+        {
+          "name": "viewport_width",
+          "binding": 21,
+          "descriptor_set": 0,
+          "ty": "UInt",
+          "kind": "uniform"
+        },
+        {
+          "name": "viewport_height",
+          "binding": 22,
+          "descriptor_set": 0,
+          "ty": "UInt",
+          "kind": "uniform"
+        },
+        {
+          "name": "color_out",
+          "binding": 23,
+          "descriptor_set": 0,
+          "ty": "StorageBuffer<Vec4>",
+          "kind": "storage_buffer"
+        },
+        {
+          "name": "CFG_ENABLE_NORMAL_MAPPING",
+          "binding": 100,
+          "descriptor_set": 0,
+          "ty": "UInt",
+          "kind": "specialization_constant"
+        },
+        {
+          "name": "CFG_ENABLE_AO",
+          "binding": 101,
+          "descriptor_set": 0,
+          "ty": "UInt",
+          "kind": "specialization_constant"
+        },
+        {
+          "name": "CFG_ENABLE_EMISSIVE",
+          "binding": 102,
+          "descriptor_set": 0,
+          "ty": "UInt",
+          "kind": "specialization_constant"
+        },
+        {
+          "name": "CFG_HIGH_QUALITY",
+          "binding": 103,
+          "descriptor_set": 0,
+          "ty": "UInt",
+          "kind": "specialization_constant"
+        },
+        {
+          "name": "LOCAL_SIZE_X",
+          "binding": 104,
+          "descriptor_set": 0,
+          "ty": "UInt",
+          "kind": "local_size"
+        },
+        {
+          "name": "LOCAL_SIZE_Y",
+          "binding": 105,
+          "descriptor_set": 0,
+          "ty": "UInt",
+          "kind": "local_size"
+        }
+      ],
+      "output_type": "Vec4"
+    }
+  ]
+}

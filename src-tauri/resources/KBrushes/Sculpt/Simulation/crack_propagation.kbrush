@@ -1,0 +1,32 @@
+{
+  "id": "crack_propagation",
+  "name": "Crack Propagation",
+  "category": "Sculpt/Simulation",
+  "tags": ["simulation", "crack", "fracture", "stress"],
+  "kernel": "pinch",
+  "params": {
+    "radius": 0.04,
+    "strength": 0.6,
+    "hardness": 0.9,
+    "spacing": 0.015,
+    "lazy_radius": 0.0,
+    "subtract": true,
+    "front_faces_only": true,
+    "accumulate": true,
+    "jitter_position": 0.01,
+    "jitter_rotation": 0.3,
+    "jitter_strength": 0.0,
+    "falloff_type": "sharp",
+    "extras": {
+      "crack_width": 0.005,
+      "branch_probability": 0.4,
+      "stress_concentration": 0.8
+    }
+  },
+  "textures": {},
+  "pressure_strength": "hard",
+  "pressure_radius": null,
+  "speed_radius": null,
+  "tilt_rotation": null,
+  "entry_fade_dabs": 1
+}

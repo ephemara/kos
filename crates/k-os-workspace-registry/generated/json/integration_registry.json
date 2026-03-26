@@ -1,0 +1,1089 @@
+{
+  "package_count": 47,
+  "host_api_count": 3,
+  "integration_count": 28,
+  "internal_count": 16,
+  "packages": [
+    {
+      "package_name": "k-os-animation",
+      "stability_tier": "internal",
+      "capabilities": [
+        "k-os"
+      ],
+      "adapter_targets": [],
+      "recommended_entrypoints": [
+        "crate::AnimationClipAsset",
+        "crate::AnimationSourceKind"
+      ],
+      "pressure_priority": "low",
+      "pressure_score": 7,
+      "notes": [
+        "prefer indirect use through curated adapters",
+        "public surface is comparatively contained"
+      ]
+    },
+    {
+      "package_name": "k-os-asset-pipeline",
+      "stability_tier": "internal",
+      "capabilities": [
+        "k-os"
+      ],
+      "adapter_targets": [],
+      "recommended_entrypoints": [
+        "crate::Asset",
+        "crate::AssetData",
+        "crate::AssetError",
+        "crate::AssetExporter",
+        "crate::AssetImporter",
+        "crate::AssetPipeline"
+      ],
+      "pressure_priority": "medium",
+      "pressure_score": 303,
+      "notes": [
+        "prefer indirect use through curated adapters",
+        "public surface is comparatively contained"
+      ]
+    },
+    {
+      "package_name": "k-os-backend",
+      "stability_tier": "host-api",
+      "capabilities": [
+        "build-script",
+        "gpu",
+        "ipc-proxy",
+        "k-os",
+        "kain",
+        "workspace-host"
+      ],
+      "adapter_targets": [
+        "tauri"
+      ],
+      "recommended_entrypoints": [],
+      "pressure_priority": "low",
+      "pressure_score": 0,
+      "notes": [
+        "intended as a top-level host-facing surface",
+        "public surface is comparatively contained"
+      ]
+    },
+    {
+      "package_name": "k-os-baking",
+      "stability_tier": "integration",
+      "capabilities": [
+        "gpu",
+        "k-os"
+      ],
+      "adapter_targets": [
+        "external"
+      ],
+      "recommended_entrypoints": [
+        "crate::Aabb",
+        "crate::AoBaker",
+        "crate::BakeMesh",
+        "crate::BakeSettings",
+        "crate::BakingError",
+        "crate::BakingSystem"
+      ],
+      "pressure_priority": "medium",
+      "pressure_score": 397,
+      "notes": [
+        "intended for adapter and cross-system composition",
+        "public surface is comparatively contained"
+      ]
+    },
+    {
+      "package_name": "k-os-bevy",
+      "stability_tier": "host-api",
+      "capabilities": [
+        "bevy-renderer",
+        "gpu",
+        "k-os",
+        "workspace-host"
+      ],
+      "adapter_targets": [
+        "bevy"
+      ],
+      "recommended_entrypoints": [
+        "crate::ImportGltfEvent"
+      ],
+      "pressure_priority": "low",
+      "pressure_score": 21,
+      "notes": [
+        "intended as a top-level host-facing surface",
+        "public surface is comparatively contained"
+      ]
+    },
+    {
+      "package_name": "k-os-brushes",
+      "stability_tier": "integration",
+      "capabilities": [
+        "gpu",
+        "k-os"
+      ],
+      "adapter_targets": [
+        "external",
+        "tauri"
+      ],
+      "recommended_entrypoints": [
+        "crate::AlphaSlot",
+        "crate::BRUSH_LIBRARY",
+        "crate::BrushCurve",
+        "crate::BrushKernel",
+        "crate::BrushParams",
+        "crate::BrushParamsGpu"
+      ],
+      "pressure_priority": "medium",
+      "pressure_score": 508,
+      "notes": [
+        "intended for adapter and cross-system composition",
+        "public surface is comparatively contained"
+      ]
+    },
+    {
+      "package_name": "k-os-config",
+      "stability_tier": "integration",
+      "capabilities": [
+        "k-os"
+      ],
+      "adapter_targets": [
+        "external",
+        "tauri"
+      ],
+      "recommended_entrypoints": [
+        "crate::*"
+      ],
+      "pressure_priority": "medium",
+      "pressure_score": 367,
+      "notes": [
+        "intended for adapter and cross-system composition",
+        "public surface is comparatively contained"
+      ]
+    },
+    {
+      "package_name": "k-os-eval",
+      "stability_tier": "internal",
+      "capabilities": [
+        "k-os"
+      ],
+      "adapter_targets": [],
+      "recommended_entrypoints": [
+        "crate::DirtyReason",
+        "crate::EvalContext",
+        "crate::EvalError",
+        "crate::EvalGraph",
+        "crate::NodeId",
+        "crate::linalg::BenchmarkResult"
+      ],
+      "pressure_priority": "low",
+      "pressure_score": 160,
+      "notes": [
+        "prefer indirect use through curated adapters",
+        "public surface is comparatively contained"
+      ]
+    },
+    {
+      "package_name": "k-os-external",
+      "stability_tier": "integration",
+      "capabilities": [
+        "k-os"
+      ],
+      "adapter_targets": [
+        "external",
+        "tauri"
+      ],
+      "recommended_entrypoints": [
+        "crate::*"
+      ],
+      "pressure_priority": "low",
+      "pressure_score": 34,
+      "notes": [
+        "intended for adapter and cross-system composition",
+        "public surface is comparatively contained"
+      ]
+    },
+    {
+      "package_name": "k-os-game-ai",
+      "stability_tier": "internal",
+      "capabilities": [
+        "game",
+        "k-os"
+      ],
+      "adapter_targets": [],
+      "recommended_entrypoints": [
+        "crate::derive_ai_decision_runtime_state",
+        "crate::derive_ai_runtime_state"
+      ],
+      "pressure_priority": "low",
+      "pressure_score": 12,
+      "notes": [
+        "prefer indirect use through curated adapters",
+        "public surface is comparatively contained"
+      ]
+    },
+    {
+      "package_name": "k-os-game-camera",
+      "stability_tier": "internal",
+      "capabilities": [
+        "game",
+        "k-os"
+      ],
+      "adapter_targets": [],
+      "recommended_entrypoints": [
+        "crate::derive_runtime_camera_dispatch_state",
+        "crate::derive_runtime_camera_state",
+        "crate::derive_runtime_camera_view_state"
+      ],
+      "pressure_priority": "low",
+      "pressure_score": 19,
+      "notes": [
+        "prefer indirect use through curated adapters",
+        "public surface is comparatively contained"
+      ]
+    },
+    {
+      "package_name": "k-os-game-framework",
+      "stability_tier": "internal",
+      "capabilities": [
+        "game",
+        "k-os"
+      ],
+      "adapter_targets": [],
+      "recommended_entrypoints": [
+        "crate::build_game_product_launch_preset_matrix",
+        "crate::ingest_data_registry_stage_results",
+        "crate::resolve_game_product_launch_preset"
+      ],
+      "pressure_priority": "low",
+      "pressure_score": 27,
+      "notes": [
+        "prefer indirect use through curated adapters",
+        "public surface is comparatively contained"
+      ]
+    },
+    {
+      "package_name": "k-os-game-input",
+      "stability_tier": "internal",
+      "capabilities": [
+        "game",
+        "k-os"
+      ],
+      "adapter_targets": [],
+      "recommended_entrypoints": [
+        "crate::apply_host_input_frame",
+        "crate::derive_runtime_input_state"
+      ],
+      "pressure_priority": "low",
+      "pressure_score": 14,
+      "notes": [
+        "prefer indirect use through curated adapters",
+        "public surface is comparatively contained"
+      ]
+    },
+    {
+      "package_name": "k-os-game-play",
+      "stability_tier": "internal",
+      "capabilities": [
+        "game",
+        "k-os"
+      ],
+      "adapter_targets": [],
+      "recommended_entrypoints": [
+        "crate::derive_execution_application_state",
+        "crate::derive_execution_command_state",
+        "crate::derive_execution_effects_state",
+        "crate::derive_execution_transport_backend_state",
+        "crate::derive_execution_transport_state",
+        "crate::derive_runtime_action_bindings"
+      ],
+      "pressure_priority": "low",
+      "pressure_score": 78,
+      "notes": [
+        "prefer indirect use through curated adapters",
+        "public surface is comparatively contained"
+      ]
+    },
+    {
+      "package_name": "k-os-game-runtime",
+      "stability_tier": "integration",
+      "capabilities": [
+        "game",
+        "k-os",
+        "pipeline-manifest-schema",
+        "registry-compatibility",
+        "runtime-policy"
+      ],
+      "adapter_targets": [
+        "bevy",
+        "external",
+        "tauri"
+      ],
+      "recommended_entrypoints": [
+        "crate::build_execution_plan",
+        "crate::execute_plan_with_builtin_adapters",
+        "crate::load_manifest_from_file",
+        "crate::run_preflight_checks"
+      ],
+      "pressure_priority": "low",
+      "pressure_score": 68,
+      "notes": [
+        "intended for adapter and cross-system composition",
+        "public surface is comparatively contained"
+      ]
+    },
+    {
+      "package_name": "k-os-game-sequencer",
+      "stability_tier": "internal",
+      "capabilities": [
+        "game",
+        "k-os"
+      ],
+      "adapter_targets": [],
+      "recommended_entrypoints": [
+        "crate::derive_runtime_sequencer_state",
+        "crate::derive_runtime_track_dispatch_state"
+      ],
+      "pressure_priority": "low",
+      "pressure_score": 14,
+      "notes": [
+        "prefer indirect use through curated adapters",
+        "public surface is comparatively contained"
+      ]
+    },
+    {
+      "package_name": "k-os-gpu-pipeline",
+      "stability_tier": "integration",
+      "capabilities": [
+        "compute-pipeline",
+        "gpu",
+        "k-os",
+        "kain",
+        "shader-dispatch"
+      ],
+      "adapter_targets": [
+        "bevy",
+        "external",
+        "tauri",
+        "zen"
+      ],
+      "recommended_entrypoints": [
+        "crate::GpuComputeDevice",
+        "crate::GpuMeshBridge",
+        "crate::GpuNormalCompute",
+        "crate::GpuSculptCompute",
+        "crate::gpu"
+      ],
+      "pressure_priority": "critical",
+      "pressure_score": 1440,
+      "notes": [
+        "callable surface is very large",
+        "intended for adapter and cross-system composition",
+        "overall public surface is broad",
+        "reexport layer is heavy"
+      ]
+    },
+    {
+      "package_name": "k-os-hdr",
+      "stability_tier": "integration",
+      "capabilities": [
+        "gpu",
+        "k-os"
+      ],
+      "adapter_targets": [
+        "external"
+      ],
+      "recommended_entrypoints": [
+        "crate::*"
+      ],
+      "pressure_priority": "low",
+      "pressure_score": 116,
+      "notes": [
+        "intended for adapter and cross-system composition",
+        "public surface is comparatively contained"
+      ]
+    },
+    {
+      "package_name": "k-os-io",
+      "stability_tier": "integration",
+      "capabilities": [
+        "k-os"
+      ],
+      "adapter_targets": [
+        "external",
+        "tauri"
+      ],
+      "recommended_entrypoints": [
+        "crate::Asset",
+        "crate::AssetHandle",
+        "crate::AssetMetadata",
+        "crate::AssetQuery",
+        "crate::AssetType",
+        "crate::StorageBackend"
+      ],
+      "pressure_priority": "high",
+      "pressure_score": 741,
+      "notes": [
+        "intended for adapter and cross-system composition",
+        "overall public surface is broad",
+        "reexport layer is heavy"
+      ]
+    },
+    {
+      "package_name": "k-os-kain",
+      "stability_tier": "integration",
+      "capabilities": [
+        "artifact-provider",
+        "build-script",
+        "domain-metadata",
+        "gpu",
+        "k-os",
+        "kain",
+        "runtime-app-registry",
+        "spirv-source-registry"
+      ],
+      "adapter_targets": [
+        "external",
+        "tauri",
+        "zen"
+      ],
+      "recommended_entrypoints": [
+        "crate::build_file",
+        "crate::compile_source",
+        "crate::generated_runtime_app_by_id",
+        "crate::generated_spirv_by_id",
+        "crate::list_runtime_apps",
+        "crate::list_sources"
+      ],
+      "pressure_priority": "low",
+      "pressure_score": 249,
+      "notes": [
+        "intended for adapter and cross-system composition",
+        "public surface is comparatively contained"
+      ]
+    },
+    {
+      "package_name": "k-os-material",
+      "stability_tier": "integration",
+      "capabilities": [
+        "gpu",
+        "k-os"
+      ],
+      "adapter_targets": [
+        "external"
+      ],
+      "recommended_entrypoints": [
+        "crate::AlphaMode",
+        "crate::ClearcoatExtension",
+        "crate::Material",
+        "crate::MaterialError",
+        "crate::MaterialLibrary",
+        "crate::MaterialPreset"
+      ],
+      "pressure_priority": "critical",
+      "pressure_score": 1532,
+      "notes": [
+        "callable surface is very large",
+        "intended for adapter and cross-system composition",
+        "overall public surface is broad",
+        "reexport layer is heavy"
+      ]
+    },
+    {
+      "package_name": "k-os-mesh",
+      "stability_tier": "internal",
+      "capabilities": [
+        "k-os"
+      ],
+      "adapter_targets": [],
+      "recommended_entrypoints": [
+        "crate::AtlasResult",
+        "crate::ClassificationResult",
+        "crate::OptimizeMeshResult",
+        "crate::PrimitiveParams",
+        "crate::PrimitiveResult",
+        "crate::SimplifyResult"
+      ],
+      "pressure_priority": "medium",
+      "pressure_score": 255,
+      "notes": [
+        "prefer indirect use through curated adapters",
+        "public surface is comparatively contained"
+      ]
+    },
+    {
+      "package_name": "k-os-mesh-processing",
+      "stability_tier": "internal",
+      "capabilities": [
+        "k-os"
+      ],
+      "adapter_targets": [],
+      "recommended_entrypoints": [
+        "crate::Mesh",
+        "crate::MeshError",
+        "crate::Result",
+        "crate::Vertex"
+      ],
+      "pressure_priority": "medium",
+      "pressure_score": 349,
+      "notes": [
+        "prefer indirect use through curated adapters",
+        "public surface is comparatively contained"
+      ]
+    },
+    {
+      "package_name": "k-os-photogrammetry",
+      "stability_tier": "integration",
+      "capabilities": [
+        "gpu",
+        "k-os"
+      ],
+      "adapter_targets": [
+        "external"
+      ],
+      "recommended_entrypoints": [
+        "crate::*"
+      ],
+      "pressure_priority": "low",
+      "pressure_score": 217,
+      "notes": [
+        "intended for adapter and cross-system composition",
+        "public surface is comparatively contained"
+      ]
+    },
+    {
+      "package_name": "k-os-plugin",
+      "stability_tier": "internal",
+      "capabilities": [
+        "k-os"
+      ],
+      "adapter_targets": [],
+      "recommended_entrypoints": [
+        "crate::Plugin",
+        "crate::PluginContext",
+        "crate::PluginError",
+        "crate::PluginManager",
+        "crate::ResourceLimits",
+        "crate::ResourceMonitor"
+      ],
+      "pressure_priority": "medium",
+      "pressure_score": 303,
+      "notes": [
+        "prefer indirect use through curated adapters",
+        "public surface is comparatively contained"
+      ]
+    },
+    {
+      "package_name": "k-os-renderer",
+      "stability_tier": "integration",
+      "capabilities": [
+        "gpu",
+        "k-os",
+        "kain"
+      ],
+      "adapter_targets": [
+        "external"
+      ],
+      "recommended_entrypoints": [
+        "crate::BridgeError",
+        "crate::CameraState",
+        "crate::DirectRendererUploadBridge",
+        "crate::DispatchTopology",
+        "crate::DrawPacket",
+        "crate::EvaluatedMeshSource"
+      ],
+      "pressure_priority": "medium",
+      "pressure_score": 320,
+      "notes": [
+        "intended for adapter and cross-system composition",
+        "public surface is comparatively contained"
+      ]
+    },
+    {
+      "package_name": "k-os-rig",
+      "stability_tier": "internal",
+      "capabilities": [
+        "k-os"
+      ],
+      "adapter_targets": [],
+      "recommended_entrypoints": [
+        "crate::Bone",
+        "crate::IKChainDef",
+        "crate::IKSolveResult",
+        "crate::Skeleton",
+        "crate::SkinWeights",
+        "crate::commands::Bone"
+      ],
+      "pressure_priority": "low",
+      "pressure_score": 208,
+      "notes": [
+        "prefer indirect use through curated adapters",
+        "public surface is comparatively contained"
+      ]
+    },
+    {
+      "package_name": "k-os-scatter",
+      "stability_tier": "integration",
+      "capabilities": [
+        "k-os"
+      ],
+      "adapter_targets": [
+        "external",
+        "tauri"
+      ],
+      "recommended_entrypoints": [
+        "crate::cluster_scatter",
+        "crate::fibonacci_spiral_scatter",
+        "crate::halton_scatter",
+        "crate::organic_scatter",
+        "crate::physics_drop_scatter",
+        "crate::poisson_disk_scatter"
+      ],
+      "pressure_priority": "low",
+      "pressure_score": 46,
+      "notes": [
+        "intended for adapter and cross-system composition",
+        "public surface is comparatively contained"
+      ]
+    },
+    {
+      "package_name": "k-os-scene",
+      "stability_tier": "internal",
+      "capabilities": [
+        "k-os"
+      ],
+      "adapter_targets": [],
+      "recommended_entrypoints": [
+        "crate::*"
+      ],
+      "pressure_priority": "low",
+      "pressure_score": 9,
+      "notes": [
+        "prefer indirect use through curated adapters",
+        "public surface is comparatively contained"
+      ]
+    },
+    {
+      "package_name": "k-os-scene-runtime",
+      "stability_tier": "integration",
+      "capabilities": [
+        "gpu",
+        "k-os"
+      ],
+      "adapter_targets": [
+        "external"
+      ],
+      "recommended_entrypoints": [
+        "crate::mesh_state::SharedMesh",
+        "crate::mesh_state::SharedMeshInfo",
+        "crate::mesh_state::dispose_shared_mesh",
+        "crate::mesh_state::dispose_shared_mesh_cmd",
+        "crate::mesh_state::evaluate_viewport_bridge_summary",
+        "crate::mesh_state::evaluate_viewport_payload"
+      ],
+      "pressure_priority": "low",
+      "pressure_score": 81,
+      "notes": [
+        "intended for adapter and cross-system composition",
+        "public surface is comparatively contained"
+      ]
+    },
+    {
+      "package_name": "k-os-sculpt",
+      "stability_tier": "integration",
+      "capabilities": [
+        "gpu",
+        "k-os",
+        "mesh-edit",
+        "sculpt",
+        "stroke-application"
+      ],
+      "adapter_targets": [
+        "bevy",
+        "external",
+        "tauri"
+      ],
+      "recommended_entrypoints": [
+        "crate::commands::apply_brush",
+        "crate::commands::apply_brush_spirv",
+        "crate::commands::get_sculpt_viewport_payload",
+        "crate::commands::init_sculpt_mesh"
+      ],
+      "pressure_priority": "medium",
+      "pressure_score": 408,
+      "notes": [
+        "intended for adapter and cross-system composition",
+        "public surface is comparatively contained"
+      ]
+    },
+    {
+      "package_name": "k-os-sim",
+      "stability_tier": "integration",
+      "capabilities": [
+        "k-os"
+      ],
+      "adapter_targets": [
+        "external",
+        "tauri"
+      ],
+      "recommended_entrypoints": [
+        "crate::FLUID_SIMS",
+        "crate::cfd_add_source",
+        "crate::cfd_create",
+        "crate::cfd_dispose",
+        "crate::cfd_get_density_field",
+        "crate::cfd_get_velocity_field"
+      ],
+      "pressure_priority": "medium",
+      "pressure_score": 389,
+      "notes": [
+        "intended for adapter and cross-system composition",
+        "public surface is comparatively contained"
+      ]
+    },
+    {
+      "package_name": "k-os-undo",
+      "stability_tier": "internal",
+      "capabilities": [
+        "k-os"
+      ],
+      "adapter_targets": [],
+      "recommended_entrypoints": [
+        "crate::CompressibleAction",
+        "crate::Result",
+        "crate::SharedUndoManager",
+        "crate::UndoError",
+        "crate::UndoManager",
+        "crate::UndoManagerConfig"
+      ],
+      "pressure_priority": "low",
+      "pressure_score": 156,
+      "notes": [
+        "prefer indirect use through curated adapters",
+        "public surface is comparatively contained"
+      ]
+    },
+    {
+      "package_name": "k-os-wasm",
+      "stability_tier": "integration",
+      "capabilities": [
+        "gpu",
+        "k-os"
+      ],
+      "adapter_targets": [
+        "external"
+      ],
+      "recommended_entrypoints": [
+        "crate::init_gpu",
+        "crate::painter_dispose",
+        "crate::painter_init",
+        "crate::painter_reset",
+        "crate::painter_update",
+        "crate::raycast"
+      ],
+      "pressure_priority": "low",
+      "pressure_score": 65,
+      "notes": [
+        "intended for adapter and cross-system composition",
+        "public surface is comparatively contained"
+      ]
+    },
+    {
+      "package_name": "k-os-workspace-registry",
+      "stability_tier": "integration",
+      "capabilities": [
+        "build-script",
+        "cargo-metadata-registry",
+        "k-os",
+        "manifest-extraction",
+        "workspace-proof"
+      ],
+      "adapter_targets": [
+        "bevy",
+        "external",
+        "tauri",
+        "zen"
+      ],
+      "recommended_entrypoints": [
+        "crate::api_bloat_pressure_report",
+        "crate::public_api_registry",
+        "crate::workspace_registry"
+      ],
+      "pressure_priority": "low",
+      "pressure_score": 110,
+      "notes": [
+        "intended for adapter and cross-system composition",
+        "public surface is comparatively contained"
+      ]
+    },
+    {
+      "package_name": "transform-gizmo",
+      "stability_tier": "internal",
+      "capabilities": [],
+      "adapter_targets": [],
+      "recommended_entrypoints": [
+        "crate::*"
+      ],
+      "pressure_priority": "low",
+      "pressure_score": 206,
+      "notes": [
+        "prefer indirect use through curated adapters",
+        "public surface is comparatively contained"
+      ]
+    },
+    {
+      "package_name": "zen",
+      "stability_tier": "host-api",
+      "capabilities": [
+        "artifact-provider",
+        "gpu",
+        "kain",
+        "kain-ui-host",
+        "native-renderer",
+        "workspace-host",
+        "zen"
+      ],
+      "adapter_targets": [
+        "zen"
+      ],
+      "recommended_entrypoints": [],
+      "pressure_priority": "low",
+      "pressure_score": 0,
+      "notes": [
+        "intended as a top-level host-facing surface",
+        "public surface is comparatively contained"
+      ]
+    },
+    {
+      "package_name": "zen-assets",
+      "stability_tier": "integration",
+      "capabilities": [
+        "zen"
+      ],
+      "adapter_targets": [
+        "external",
+        "zen"
+      ],
+      "recommended_entrypoints": [
+        "crate::ZenAssetCatalog",
+        "crate::ZenAssetRoot"
+      ],
+      "pressure_priority": "low",
+      "pressure_score": 7,
+      "notes": [
+        "intended for adapter and cross-system composition",
+        "public surface is comparatively contained"
+      ]
+    },
+    {
+      "package_name": "zen-core",
+      "stability_tier": "integration",
+      "capabilities": [
+        "zen"
+      ],
+      "adapter_targets": [
+        "external",
+        "zen"
+      ],
+      "recommended_entrypoints": [
+        "crate::command_label"
+      ],
+      "pressure_priority": "low",
+      "pressure_score": 42,
+      "notes": [
+        "intended for adapter and cross-system composition",
+        "public surface is comparatively contained"
+      ]
+    },
+    {
+      "package_name": "zen-editor",
+      "stability_tier": "integration",
+      "capabilities": [
+        "kain",
+        "zen"
+      ],
+      "adapter_targets": [
+        "external",
+        "zen"
+      ],
+      "recommended_entrypoints": [
+        "crate::load_editor_session",
+        "crate::load_persisted_dock_state",
+        "crate::load_user_layouts",
+        "crate::persist_dock_state",
+        "crate::persist_editor_session",
+        "crate::persist_user_layouts"
+      ],
+      "pressure_priority": "low",
+      "pressure_score": 115,
+      "notes": [
+        "intended for adapter and cross-system composition",
+        "public surface is comparatively contained"
+      ]
+    },
+    {
+      "package_name": "zen-host",
+      "stability_tier": "integration",
+      "capabilities": [
+        "kain",
+        "zen"
+      ],
+      "adapter_targets": [
+        "external",
+        "zen"
+      ],
+      "recommended_entrypoints": [
+        "crate::ZenHostAction",
+        "crate::ZenHostApi",
+        "crate::ZenHostBinding",
+        "crate::ZenHostBindingKind"
+      ],
+      "pressure_priority": "low",
+      "pressure_score": 34,
+      "notes": [
+        "intended for adapter and cross-system composition",
+        "public surface is comparatively contained"
+      ]
+    },
+    {
+      "package_name": "zen-kain-api",
+      "stability_tier": "integration",
+      "capabilities": [
+        "kain",
+        "zen"
+      ],
+      "adapter_targets": [
+        "external",
+        "zen"
+      ],
+      "recommended_entrypoints": [
+        "crate::ZenKainActionContract",
+        "crate::ZenKainBindingContract",
+        "crate::ZenKainContract",
+        "crate::ZenKainShellContract"
+      ],
+      "pressure_priority": "low",
+      "pressure_score": 14,
+      "notes": [
+        "intended for adapter and cross-system composition",
+        "public surface is comparatively contained"
+      ]
+    },
+    {
+      "package_name": "zen-kain-modules",
+      "stability_tier": "integration",
+      "capabilities": [
+        "kain",
+        "zen"
+      ],
+      "adapter_targets": [
+        "external",
+        "zen"
+      ],
+      "recommended_entrypoints": [
+        "crate::ZenKainModuleRegistry",
+        "crate::ZenResolvedShell",
+        "crate::ZenShellModule"
+      ],
+      "pressure_priority": "low",
+      "pressure_score": 28,
+      "notes": [
+        "intended for adapter and cross-system composition",
+        "public surface is comparatively contained"
+      ]
+    },
+    {
+      "package_name": "zen-mocap-engine",
+      "stability_tier": "integration",
+      "capabilities": [
+        "gpu",
+        "kain",
+        "zen"
+      ],
+      "adapter_targets": [
+        "external",
+        "tauri",
+        "zen"
+      ],
+      "recommended_entrypoints": [
+        "crate::JointFrame",
+        "crate::MocapSession",
+        "crate::PipelineEvent",
+        "crate::PipelineStats",
+        "crate::SessionConfig"
+      ],
+      "pressure_priority": "high",
+      "pressure_score": 696,
+      "notes": [
+        "intended for adapter and cross-system composition",
+        "overall public surface is broad"
+      ]
+    },
+    {
+      "package_name": "zen-render",
+      "stability_tier": "integration",
+      "capabilities": [
+        "zen"
+      ],
+      "adapter_targets": [
+        "external",
+        "zen"
+      ],
+      "recommended_entrypoints": [
+        "crate::ZenRenderPass",
+        "crate::ZenRenderProfile"
+      ],
+      "pressure_priority": "low",
+      "pressure_score": 2,
+      "notes": [
+        "intended for adapter and cross-system composition",
+        "public surface is comparatively contained"
+      ]
+    },
+    {
+      "package_name": "zen-runtime",
+      "stability_tier": "integration",
+      "capabilities": [
+        "zen"
+      ],
+      "adapter_targets": [
+        "external",
+        "zen"
+      ],
+      "recommended_entrypoints": [
+        "crate::ZenDispatchResult",
+        "crate::ZenRuntimeSession"
+      ],
+      "pressure_priority": "low",
+      "pressure_score": 27,
+      "notes": [
+        "intended for adapter and cross-system composition",
+        "public surface is comparatively contained"
+      ]
+    },
+    {
+      "package_name": "zen-scene",
+      "stability_tier": "integration",
+      "capabilities": [
+        "gpu",
+        "zen"
+      ],
+      "adapter_targets": [
+        "external",
+        "zen"
+      ],
+      "recommended_entrypoints": [
+        "crate::SceneFocusTarget",
+        "crate::SceneImportReport",
+        "crate::SceneMesh",
+        "crate::SceneObjectEntry",
+        "crate::SelectedObjectDetails",
+        "crate::SelectedObjectSummary"
+      ],
+      "pressure_priority": "low",
+      "pressure_score": 103,
+      "notes": [
+        "intended for adapter and cross-system composition",
+        "public surface is comparatively contained"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,98 @@
+{
+  "cook": {
+    "compression": "zstd",
+    "contract_asset": "cook.contract.json",
+    "include_debug_names": true,
+    "strip_editor_only": false
+  },
+  "inputs": [
+    "M:/K_OS\\src-game/assets/scenes/sandbox.kscene",
+    "M:/K_OS\\src-game/assets/narrative/intro.kgraph",
+    "M:/K_OS\\src-game/assets/gameplay/input.registry.toml",
+    "M:/K_OS\\src-game/assets/gameplay/tags.registry.toml",
+    "M:/K_OS\\src-game/assets/gameplay/actors.registry.toml",
+    "M:/K_OS\\src-game/assets/gameplay/cameras.registry.toml",
+    "M:/K_OS\\src-game/assets/gameplay/visual_scripts.registry.toml"
+  ],
+  "kind": "cook_contract",
+  "output_dir": "M:/K_OS\\src-game/build/cooked/windows",
+  "provenance": {
+    "hash_algorithm": "sha256",
+    "registry_versions": [
+      {
+        "asset_path": "M:/K_OS\\src-game/assets/gameplay/input.registry.toml",
+        "registry_kind": "input_bindings",
+        "sha256": "37a707e2c1c650d3aff8ac0eb4b9fbefdd2641cc8879a77bff7bab026cf8d66f",
+        "version": "1"
+      },
+      {
+        "asset_path": "M:/K_OS\\src-game/assets/gameplay/tags.registry.toml",
+        "registry_kind": "gameplay_tags",
+        "sha256": "2c9773de1815c4d9cbd6d04c3e7753d717f6e61f4f7b3f3bc5be67e85d61f7af",
+        "version": "1"
+      },
+      {
+        "asset_path": "M:/K_OS\\src-game/assets/gameplay/actors.registry.toml",
+        "registry_kind": "actor_archetypes",
+        "sha256": "24037af79054c50d9eb0f8d04436231913170abc734401e642b4be354a5e7e0b",
+        "version": "1"
+      },
+      {
+        "asset_path": "M:/K_OS\\src-game/assets/gameplay/cameras.registry.toml",
+        "registry_kind": "camera_rigs",
+        "sha256": "8515a8e2ebef2459fd78fb704f150cb3a1f2ea655ccd1a9c776fb7a116109994",
+        "version": "1"
+      },
+      {
+        "asset_path": "M:/K_OS\\src-game/assets/gameplay/visual_scripts.registry.toml",
+        "registry_kind": "visual_scripting",
+        "sha256": "7016b12caa6050227ef1016858e0657b57130fddae324bfa10479bdea940af27",
+        "version": "1"
+      }
+    ],
+    "source_assets": [
+      {
+        "kind": "recipe",
+        "path": "M:/K_OS\\src-game/assets/packaging/windows.cook.toml",
+        "sha256": "8c2744c9f8bacdc198757754e09e0b310e2f957acd1587fc3240cf32eb0f2b7e"
+      },
+      {
+        "kind": "input",
+        "path": "M:/K_OS\\src-game/assets/scenes/sandbox.kscene",
+        "sha256": "52147be86fc4c76958839dc4306acbcd58608006ec20d5bf6f3d90215872b171"
+      },
+      {
+        "kind": "input",
+        "path": "M:/K_OS\\src-game/assets/narrative/intro.kgraph",
+        "sha256": "0e7c064455e313132e4452cd3d6a2093881159fc371c899006ad8ab7fac25034"
+      },
+      {
+        "kind": "input",
+        "path": "M:/K_OS\\src-game/assets/gameplay/input.registry.toml",
+        "sha256": "37a707e2c1c650d3aff8ac0eb4b9fbefdd2641cc8879a77bff7bab026cf8d66f"
+      },
+      {
+        "kind": "input",
+        "path": "M:/K_OS\\src-game/assets/gameplay/tags.registry.toml",
+        "sha256": "2c9773de1815c4d9cbd6d04c3e7753d717f6e61f4f7b3f3bc5be67e85d61f7af"
+      },
+      {
+        "kind": "input",
+        "path": "M:/K_OS\\src-game/assets/gameplay/actors.registry.toml",
+        "sha256": "24037af79054c50d9eb0f8d04436231913170abc734401e642b4be354a5e7e0b"
+      },
+      {
+        "kind": "input",
+        "path": "M:/K_OS\\src-game/assets/gameplay/cameras.registry.toml",
+        "sha256": "8515a8e2ebef2459fd78fb704f150cb3a1f2ea655ccd1a9c776fb7a116109994"
+      },
+      {
+        "kind": "input",
+        "path": "M:/K_OS\\src-game/assets/gameplay/visual_scripts.registry.toml",
+        "sha256": "7016b12caa6050227ef1016858e0657b57130fddae324bfa10479bdea940af27"
+      }
+    ]
+  },
+  "recipe_asset": "M:/K_OS\\src-game/assets/packaging/windows.cook.toml",
+  "target_platform": "windows"
+}

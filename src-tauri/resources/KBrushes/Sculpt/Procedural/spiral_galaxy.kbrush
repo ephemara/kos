@@ -1,0 +1,32 @@
+{
+  "id": "spiral_galaxy",
+  "name": "Spiral Galaxy",
+  "category": "Sculpt/Procedural",
+  "tags": ["procedural", "spiral", "galaxy", "cosmic"],
+  "kernel": "grab",
+  "params": {
+    "radius": 0.2,
+    "strength": 0.6,
+    "hardness": 0.2,
+    "spacing": 0.03,
+    "lazy_radius": 0.05,
+    "subtract": false,
+    "front_faces_only": true,
+    "accumulate": false,
+    "jitter_position": 0.02,
+    "jitter_rotation": 0.4,
+    "jitter_strength": 0.1,
+    "falloff_type": "smooth",
+    "extras": {
+      "spiral_arms": 3,
+      "rotation_speed": 0.5,
+      "galaxy_density": 0.8
+    }
+  },
+  "textures": {},
+  "pressure_strength": "soft",
+  "pressure_radius": "soft",
+  "speed_radius": null,
+  "tilt_rotation": null,
+  "entry_fade_dabs": 6
+}

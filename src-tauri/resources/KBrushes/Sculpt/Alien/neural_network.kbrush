@@ -1,0 +1,32 @@
+{
+  "id": "neural_network",
+  "name": "Neural Network",
+  "category": "Sculpt/Alien",
+  "tags": ["alien", "neural", "network", "synthetic"],
+  "kernel": "custom",
+  "params": {
+    "radius": 0.06,
+    "strength": 0.4,
+    "hardness": 0.3,
+    "spacing": 0.03,
+    "lazy_radius": 0.01,
+    "subtract": false,
+    "front_faces_only": true,
+    "accumulate": true,
+    "jitter_position": 0.02,
+    "jitter_rotation": 0.5,
+    "jitter_strength": 0.1,
+    "falloff_type": "smooth",
+    "extras": {
+      "neuron_density": 0.7,
+      "synapse_strength": 0.8,
+      "activation_function": "relu"
+    }
+  },
+  "textures": {},
+  "pressure_strength": "soft",
+  "pressure_radius": "soft",
+  "speed_radius": null,
+  "tilt_rotation": null,
+  "entry_fade_dabs": 4
+}

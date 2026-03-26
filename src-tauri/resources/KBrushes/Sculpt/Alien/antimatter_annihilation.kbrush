@@ -1,0 +1,32 @@
+{
+  "id": "antimatter_annihilation",
+  "name": "Antimatter Annihilation",
+  "category": "Sculpt/Alien",
+  "tags": ["alien", "antimatter", "annihilation", "energy"],
+  "kernel": "custom",
+  "params": {
+    "radius": 0.09,
+    "strength": 1.0,
+    "hardness": 0.02,
+    "spacing": 0.015,
+    "lazy_radius": 0.03,
+    "subtract": false,
+    "front_faces_only": false,
+    "accumulate": false,
+    "jitter_position": 0.04,
+    "jitter_rotation": 0.9,
+    "jitter_strength": 0.4,
+    "falloff_type": "sharp",
+    "extras": {
+      "matter_ratio": 1.0,
+      "energy_release": 9e16,
+      "photon_production": 0.9
+    }
+  },
+  "textures": {},
+  "pressure_strength": "hard",
+  "pressure_radius": null,
+  "speed_radius": null,
+  "tilt_rotation": null,
+  "entry_fade_dabs": 1
+}

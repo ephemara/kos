@@ -1,0 +1,24 @@
+[package]
+name = "kos-proto"
+version = "0.1.0"
+edition = "2021"
+description = "K-OS shared protocol for Bevy <-> Tauri <-> React communication"
+
+[dependencies]
+# Automatic binary serialization (needs to support serde_json::Value)
+bincode = "1.3"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"  # For dynamic props in KRUE
+
+# TypeScript type generation (React gets types automatically)
+ts-rs = { version = "10", features = ["serde-compat", "serde-json-impl"] }
+
+# Bevy compatibility (optional, only when used in Bevy)
+bevy = { version = "0.17", default-features = false, optional = true }
+
+[features]
+default = []
+bevy = ["dep:bevy"]
+
+[dev-dependencies]
+# For testing

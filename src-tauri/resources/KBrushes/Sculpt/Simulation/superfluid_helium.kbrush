@@ -1,0 +1,32 @@
+{
+  "id": "superfluid_helium",
+  "name": "Superfluid Helium",
+  "category": "Sculpt/Simulation",
+  "tags": ["simulation", "superfluid", "helium", "quantum"],
+  "kernel": "grab",
+  "params": {
+    "radius": 0.07,
+    "strength": 0.4,
+    "hardness": 0.05,
+    "spacing": 0.02,
+    "lazy_radius": 0.03,
+    "subtract": false,
+    "front_faces_only": true,
+    "accumulate": false,
+    "jitter_position": 0.02,
+    "jitter_rotation": 0.5,
+    "jitter_strength": 0.25,
+    "falloff_type": "gaussian",
+    "extras": {
+      "critical_temperature": 2.17,
+      "zero_viscosity": 1.0,
+      "fountain_effect": 0.8
+    }
+  },
+  "textures": {},
+  "pressure_strength": "soft",
+  "pressure_radius": "soft",
+  "speed_radius": null,
+  "tilt_rotation": null,
+  "entry_fade_dabs": 5
+}

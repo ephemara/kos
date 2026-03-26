@@ -1,0 +1,32 @@
+{
+  "id": "clone_stamp",
+  "name": "Clone Stamp",
+  "category": "Sculpt/Utility",
+  "tags": ["utility", "clone", "stamp", "copy"],
+  "kernel": "custom",
+  "params": {
+    "radius": 0.08,
+    "strength": 0.7,
+    "hardness": 0.5,
+    "spacing": 0.04,
+    "lazy_radius": 0.0,
+    "subtract": false,
+    "front_faces_only": true,
+    "accumulate": false,
+    "jitter_position": 0.0,
+    "jitter_rotation": 0.0,
+    "jitter_strength": 0.0,
+    "falloff_type": "gaussian",
+    "extras": {
+      "source_offset": [0.1, 0.0, 0.0],
+      "blend_mode": "normal",
+      "sample_depth": true
+    }
+  },
+  "textures": {},
+  "pressure_strength": "soft",
+  "pressure_radius": "soft",
+  "speed_radius": null,
+  "tilt_rotation": null,
+  "entry_fade_dabs": 2
+}

@@ -1,0 +1,13 @@
+# Photogrammetry Pipeline Requirements
+# Install with: pip install -r requirements-photogrammetry.txt
+
+# Core mesh processing
+open3d>=0.18.0
+
+# Numerical operations
+numpy>=1.24.0
+
+# Optional: Advanced features
+# scipy>=1.11.0        # For advanced optimization
+# scikit-image>=0.21.0 # For image processing
+# opencv-python>=4.8.0 # Alternative to AKAZE (if needed)

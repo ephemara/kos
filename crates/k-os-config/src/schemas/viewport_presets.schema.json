@@ -1,0 +1,104 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://kos.dev/schemas/viewport_presets.json",
+  "title": "Viewport Preset Configuration",
+  "description": "Configuration schema for DCC Suite viewport presets",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "required": ["id", "name"],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the viewport preset",
+        "pattern": "^[a-z0-9_-]+$"
+      },
+      "name": {
+        "type": "string",
+        "description": "Display name for the viewport preset",
+        "minLength": 1
+      },
+      "gridSize": {
+        "type": "number",
+        "description": "Grid size in world units",
+        "minimum": 0.1,
+        "maximum": 1000.0,
+        "default": 10.0
+      },
+      "gridDivisions": {
+        "type": "integer",
+        "description": "Number of grid divisions",
+        "minimum": 1,
+        "maximum": 100,
+        "default": 10
+      },
+      "cameraDistance": {
+        "type": "number",
+        "description": "Default camera distance from origin",
+        "minimum": 0.1,
+        "maximum": 1000.0,
+        "default": 5.0
+      },
+      "cameraFov": {
+        "type": "number",
+        "description": "Camera field of view in degrees",
+        "minimum": 10.0,
+        "maximum": 120.0,
+        "default": 60.0
+      },
+      "lighting": {
+        "type": "object",
+        "description": "Lighting configuration",
+        "properties": {
+          "ambient": {
+            "type": "number",
+            "description": "Ambient light intensity (0.0 to 1.0)",
+            "minimum": 0.0,
+            "maximum": 1.0,
+            "default": 0.3
+          },
+          "directional": {
+            "type": "object",
+            "description": "Directional light configuration",
+            "properties": {
+              "intensity": {
+                "type": "number",
+                "description": "Directional light intensity",
+                "minimum": 0.0,
+                "maximum": 10.0,
+                "default": 1.0
+              },
+              "direction": {
+                "type": "array",
+                "description": "Light direction vector [x, y, z]",
+                "items": {
+                  "type": "number"
+                },
+                "minItems": 3,
+                "maxItems": 3,
+                "default": [0.5, -1.0, 0.5]
+              },
+              "color": {
+                "type": "array",
+                "description": "Light color [r, g, b]",
+                "items": {
+                  "type": "number",
+                  "minimum": 0.0,
+                  "maximum": 1.0
+                },
+                "minItems": 3,
+                "maxItems": 3,
+                "default": [1.0, 1.0, 1.0]
+              }
+            }
+          },
+          "shadows": {
+            "type": "boolean",
+            "description": "Enable shadow rendering",
+            "default": true
+          }
+        }
+      }
+    }
+  }
+}

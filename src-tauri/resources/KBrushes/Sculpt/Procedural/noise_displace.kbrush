@@ -1,0 +1,32 @@
+{
+  "id": "noise_displace",
+  "name": "Noise Displace",
+  "category": "Sculpt/Procedural",
+  "tags": ["procedural", "noise", "displace", "random"],
+  "kernel": "stamp",
+  "params": {
+    "radius": 0.08,
+    "strength": 0.5,
+    "hardness": 0.4,
+    "spacing": 0.04,
+    "lazy_radius": 0.01,
+    "subtract": false,
+    "front_faces_only": true,
+    "accumulate": true,
+    "jitter_position": 0.03,
+    "jitter_rotation": 0.5,
+    "jitter_strength": 0.2,
+    "falloff_type": "gaussian",
+    "extras": {
+      "noise_type": "perlin",
+      "noise_scale": 10.0,
+      "noise_octaves": 4
+    }
+  },
+  "textures": {},
+  "pressure_strength": "soft",
+  "pressure_radius": "soft",
+  "speed_radius": null,
+  "tilt_rotation": null,
+  "entry_fade_dabs": 3
+}

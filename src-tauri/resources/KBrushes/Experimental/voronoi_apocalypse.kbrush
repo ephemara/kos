@@ -1,0 +1,18 @@
+{
+  "id": "voronoi_apocalypse",
+  "name": "VORONOI APOCALYPSE",
+  "category": "Experimental",
+  "tags": ["extreme", "voronoi", "destruction", "cap-breaking"],
+  "kernel": "voronoi_shatter",
+  "params": {
+    "radius": 0.5,
+    "strength": 10.0,
+    "hardness": 1.0,
+    "spacing": 0.01,
+    "extras": {
+      "extra0": 0.02,
+      "extra1": 3.0,
+      "extra2": 0.5
+    }
+  }
+}

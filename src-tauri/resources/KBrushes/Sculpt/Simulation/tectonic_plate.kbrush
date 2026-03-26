@@ -1,0 +1,32 @@
+{
+  "id": "tectonic_plate",
+  "name": "Tectonic Plate",
+  "category": "Sculpt/Simulation",
+  "tags": ["simulation", "tectonic", "plate", "geological"],
+  "kernel": "grab",
+  "params": {
+    "radius": 0.2,
+    "strength": 0.8,
+    "hardness": 0.4,
+    "spacing": 0.05,
+    "lazy_radius": 0.05,
+    "subtract": false,
+    "front_faces_only": false,
+    "accumulate": false,
+    "jitter_position": 0.01,
+    "jitter_rotation": 0.1,
+    "jitter_strength": 0.05,
+    "falloff_type": "flat",
+    "extras": {
+      "plate_thickness": 0.1,
+      "convection_force": 0.7,
+      "subduction_zone": 0.5
+    }
+  },
+  "textures": {},
+  "pressure_strength": "hard",
+  "pressure_radius": null,
+  "speed_radius": null,
+  "tilt_rotation": null,
+  "entry_fade_dabs": 3
+}

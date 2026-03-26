@@ -1,0 +1,28 @@
+[camera]
+move_speed = 6.0
+boost_multiplier = 3.0
+look_sensitivity = 0.0024
+
+[actions.move_forward]
+keys = ["KeyW", "ArrowUp"]
+
+[actions.move_backward]
+keys = ["KeyS", "ArrowDown"]
+
+[actions.move_left]
+keys = ["KeyA", "ArrowLeft"]
+
+[actions.move_right]
+keys = ["KeyD", "ArrowRight"]
+
+[actions.move_up]
+keys = ["KeyE", "Space"]
+
+[actions.move_down]
+keys = ["KeyQ", "ControlLeft"]
+
+[actions.boost]
+keys = ["ShiftLeft", "ShiftRight"]
+
+[actions.look_modifier]
+keys = ["MouseRight"]

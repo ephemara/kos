@@ -1,0 +1,35 @@
+# Generated from TypeScript source by kain import-ts
+
+fn KScatter(arg_1: Any):
+    let (status, setStatus) = useState("K-SCATTER ONLINE")
+    let (objectCount, setObjectCount) = useState(100)
+    let (scatterRadius, setScatterRadius) = useState(2)
+    let (minScale, setMinScale) = useState(0.05)
+    let (maxScale, setMaxScale) = useState(0.2)
+    let (scatterMode, setScatterMode) = useState("CLOUD")
+    let (weldGeometry, setWeldGeometry) = useState(false)
+    let (autoRotate, setAutoRotate) = useState(false)
+    let (distributionEnabled, setDistributionEnabled) = useState(false)
+    let (isLoading, setIsLoading) = useState(false)
+    let (userScript, setUserScript) = useState(none)
+    let (scriptError, setScriptError) = useState(none)
+    let (activePrimitive, setActivePrimitive) = useState("CUBE")
+    let (activeStorageId, setActiveStorageId) = useState(none)
+    let paletteRef = useRef([])
+    let mountRef = useRef(none)
+    let stageRef = useRef(none)
+    let engine = useRef(none)
+    useEffect(none, [])
+    useEffect(none, [autoRotate])
+    useEffect(none, [sharedState.artifact])
+    let updatePaletteFromPrimitive = none
+    let loadAsBaseMesh = none
+    let updatePaletteFromStorage = none
+    let RUST_MODES = ["POISSON", "FIBONACCI", "SUNFLOWER", "HALTON", "VORONOI", "PHYLLOTAXIS", "CLUSTER", "ORGANIC", "PHYSICS_DROP", "GRAVITY_WELL"]
+    let generateScatterRust = none
+    let generateScatter = none
+    let handleExport = none
+    useGlobalHotkeys(none)
+    useEffect(none, [objectCount, scatterRadius, minScale, maxScale, scatterMode, userScript])
+    return (<AppShell className="bg-[#050505] text-gray-300 font-mono select-none overflow-hidden" menuBar={<AppMenuBar menus={[none, none, none, none]} />} menuBarDefaultOpen={false} topBar={<TopBar objectCount={objectCount} setObjectCount={setObjectCount} scatterRadius={scatterRadius} setScatterRadius={setScatterRadius} minScale={minScale} setMinScale={setMinScale} maxScale={maxScale} setMaxScale={setMaxScale} autoRotate={autoRotate} setAutoRotate={setAutoRotate} weldGeometry={weldGeometry} setWeldGeometry={setWeldGeometry} distributionEnabled={distributionEnabled} setDistributionEnabled={setDistributionEnabled} onUplink={handleExport} />} left={none} right={none}><div className="relative h-full w-full bg-black cursor-crosshair"><div ref={mountRef} className="absolute inset-0 w-full h-full" /><div className="absolute top-20 left-6 flex flex-col gap-2 pointer-events-none"><div className="flex items-center gap-2 text-[10px] font-bold text-pink-500 bg-black/80 px-4 py-2 border-l-2 border-pink-500 shadow-xl backdrop-blur-md"><Activity size={12} className="animate-pulse" />{status}</div><div className="flex items-center gap-2 text-[10px] font-bold text-gray-400 bg-black/60 px-4 py-1 rounded border border-white/10 backdrop-blur-md"><Package size={12} />INSTANCES:{objectCount}</div></div></div></AppShell>)
+

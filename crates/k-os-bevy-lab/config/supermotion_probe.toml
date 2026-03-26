@@ -1,0 +1,19 @@
+shader_id = "mocap_supermotion_livelink"
+modes_path = "../k-os-kain/domains/supermotion/mocap_supermotion_modes.json"
+ui_schema_path = "../k-os-kain/domains/supermotion/mocap_supermotion_ui_schema.json"
+
+joint_count = 24
+default_mode_id = 4
+auto_run = true
+auto_run_hz = 6.0
+
+base_height = -1.5
+chain_spacing = 0.22
+lateral_wave = 0.18
+depth_wave = 0.12
+prev_lag = 0.08
+
+floor_y = -2.5
+global_intensity = 1.0
+random_seed = 0.37
+eps = 0.0001

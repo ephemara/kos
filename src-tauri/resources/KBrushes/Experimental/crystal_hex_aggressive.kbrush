@@ -1,0 +1,18 @@
+{
+  "id": "crystal_hex_aggressive",
+  "name": "Hexagonal Crystal (Aggressive)",
+  "category": "Experimental",
+  "tags": ["crystal", "hexagonal", "aggressive", "gpu"],
+  "kernel": "crystal_growth",
+  "params": {
+    "radius": 0.25,
+    "strength": 2.0,
+    "hardness": 0.8,
+    "spacing": 0.03,
+    "extras": {
+      "extra0": 0.04,
+      "extra1": 1.0,
+      "extra2": 1.0
+    }
+  }
+}

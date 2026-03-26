@@ -1,0 +1,8 @@
+fn brush_builder_name() -> String with Pure:
+    "brush_builder"
+
+fn brush_builder_manifest_path() -> String with Pure:
+    "src-kain/omni/brush_builder/KAIN.omni.toml"
+
+fn brush_builder_registry_path() -> String with Pure:
+    "src-kain/domains/brush/brush_builder_registry.json"

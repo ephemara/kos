@@ -1,0 +1,25 @@
+{
+  "domain": "procedural",
+  "builder": "procedural_builder",
+  "kainscript_entry": "src-kain/domains/procedural/procedural_runtime_profiles.ks",
+  "profiles": [
+    {
+      "id": "terrain_macro_noise",
+      "label": "Terrain Macro Noise",
+      "mode": "heightfield_macro",
+      "shader": "procedural_terrain_height"
+    },
+    {
+      "id": "surface_cell_pattern",
+      "label": "Surface Cell Pattern",
+      "mode": "surface_cells",
+      "shader": "procedural_surface_cells"
+    }
+  ],
+  "targets": [
+    "spirv",
+    "rust_bundle",
+    "ts",
+    "ks"
+  ]
+}

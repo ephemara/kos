@@ -1,0 +1,86 @@
+# K_OS Python Dependencies
+# =========================
+# Massive 3D suite library collection for painting, sculpting, animation, ML, and more
+
+# --- CORE SCIENTIFIC ---
+numpy>=1.24.0                    # Foundation for everything
+scipy>=1.11.0                    # Scientific computing, optimization
+numba>=0.58.0                    # JIT compilation for Python (Rust-like speed)
+
+# --- 3D GEOMETRY & MESH ---
+trimesh>=4.0.0                   # Mesh loading, processing, boolean ops
+open3d>=0.18.0                   # Point clouds, meshes, SLAM, reconstruction
+pymeshlab>=2023.12               # MeshLab Python bindings (remeshing, cleanup)
+pyvista>=0.42.0                  # 3D plotting, mesh analysis
+libigl>=2.5.0                    # Geometry processing (same lib as Blender)
+vedo>=2024.5.0                   # 3D visualization, medical imaging
+meshio>=5.3.0                    # Mesh I/O for many formats
+
+# --- POINT CLOUDS & SCANNING ---
+laspy>=2.5.0                     # LAS/LAZ point cloud files
+plyfile>=1.0.0                   # PLY file format
+pyntcloud>=0.3.0                 # Point cloud analysis
+
+# --- IMAGE & TEXTURE ---
+Pillow>=10.0.0                   # Image processing foundation
+opencv-python>=4.8.0             # Computer vision, image processing
+scikit-image>=0.22.0             # Advanced image processing
+imageio>=2.33.0                  # Image I/O
+colour-science>=0.4.0            # Color science (ACES, spectral)
+
+# --- MACHINE LEARNING & AI ---
+torch>=2.1.0                     # PyTorch - deep learning
+torchvision>=0.16.0              # Vision models, transforms
+transformers>=4.36.0             # Hugging Face - text, image models
+diffusers>=0.25.0                # Stable Diffusion, image generation
+segment-anything>=1.0            # SAM - auto segmentation
+onnxruntime>=1.16.0              # ONNX model inference (fast)
+ultralytics>=8.0.0               # YOLOv8 - object detection
+
+# --- GENERATIVE AI & TEXTURES ---
+controlnet-aux>=0.0.7            # ControlNet preprocessors
+accelerate>=0.25.0               # HuggingFace accelerate
+safetensors>=0.4.0               # Safe model storage
+xformers>=0.0.23                 # Memory-efficient attention
+
+# --- PHYSICS & SIMULATION ---
+taichi>=1.7.0                    # High-perf physics simulation (GPU)
+pymunk>=6.6.0                    # 2D physics
+pybullet>=3.2.0                  # 3D physics, robotics
+
+# --- PROCEDURAL & NOISE ---
+noise>=1.2.2                     # Perlin, simplex noise
+opensimplex>=0.4.0               # OpenSimplex noise
+poisson-disc>=0.2.0              # Poisson disc sampling
+
+# --- ANIMATION & RIGGING ---
+bpy-stubs>=4.0.0                 # Blender Python type hints
+fbx>=0.0.1                       # FBX SDK bindings
+gltflib>=1.0.0                   # glTF library
+
+# --- DATA & SERIALIZATION ---
+msgpack>=1.0.0                   # Fast binary serialization
+orjson>=3.9.0                    # Fastest JSON library
+pyarrow>=14.0.0                  # Apache Arrow (columnar data)
+h5py>=3.10.0                     # HDF5 files (massive datasets)
+zarr>=2.16.0                     # Chunked array storage
+
+# --- MATH & OPTIMIZATION ---
+sympy>=1.12                      # Symbolic math
+cvxpy>=1.4.0                     # Convex optimization
+nlopt>=2.7.0                     # Nonlinear optimization
+
+# --- GPU & PARALLEL ---
+cupy-cuda12x>=13.0.0             # NumPy on CUDA (optional)
+jax[cuda12_pip]>=0.4.0           # Google JAX (optional)
+
+# --- UTILITIES ---
+tqdm>=4.66.0                     # Progress bars
+rich>=13.7.0                     # Beautiful terminal output
+watchdog>=3.0.0                  # File system watcher (hot reload scripts)
+pydantic>=2.5.0                  # Data validation
+httpx>=0.26.0                    # HTTP client (API calls)
+
+# --- IPC & COMMUNICATION ---
+pyzmq>=25.1.0                    # ZeroMQ for fast IPC
+websockets>=12.0                 # WebSocket support

@@ -1,0 +1,103 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://kos.dev/schemas/greeble_patterns.json",
+  "title": "Greeble Pattern Configuration",
+  "description": "Configuration schema for DCC Suite greeble patterns",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "required": ["id", "name", "category", "primitives"],
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "Unique identifier for the greeble pattern",
+        "pattern": "^[a-z0-9_-]+$"
+      },
+      "name": {
+        "type": "string",
+        "description": "Display name for the greeble pattern",
+        "minLength": 1
+      },
+      "category": {
+        "type": "string",
+        "description": "Pattern category (sci-fi, industrial, organic, etc.)",
+        "minLength": 1
+      },
+      "description": {
+        "type": "string",
+        "description": "Optional description of the pattern"
+      },
+      "primitives": {
+        "type": "array",
+        "description": "List of primitives that make up this pattern",
+        "items": {
+          "type": "object",
+          "required": ["type", "probability", "scaleRange"],
+          "properties": {
+            "type": {
+              "type": "string",
+              "description": "Primitive type",
+              "enum": ["box", "cylinder", "sphere", "custom"]
+            },
+            "probability": {
+              "type": "number",
+              "description": "Probability of this primitive appearing (0.0 to 1.0)",
+              "minimum": 0.0,
+              "maximum": 1.0
+            },
+            "scaleRange": {
+              "type": "object",
+              "description": "Scale range for this primitive",
+              "required": ["min", "max"],
+              "properties": {
+                "min": {
+                  "type": "array",
+                  "description": "Minimum scale [x, y, z]",
+                  "items": {
+                    "type": "number",
+                    "minimum": 0.001
+                  },
+                  "minItems": 3,
+                  "maxItems": 3
+                },
+                "max": {
+                  "type": "array",
+                  "description": "Maximum scale [x, y, z]",
+                  "items": {
+                    "type": "number",
+                    "minimum": 0.001
+                  },
+                  "minItems": 3,
+                  "maxItems": 3
+                }
+              }
+            },
+            "rotationRange": {
+              "type": "object",
+              "description": "Optional rotation range in degrees",
+              "properties": {
+                "min": {
+                  "type": "array",
+                  "items": { "type": "number" },
+                  "minItems": 3,
+                  "maxItems": 3
+                },
+                "max": {
+                  "type": "array",
+                  "items": { "type": "number" },
+                  "minItems": 3,
+                  "maxItems": 3
+                }
+              }
+            },
+            "customMesh": {
+              "type": "string",
+              "description": "Path to custom mesh file (for custom type)"
+            }
+          }
+        },
+        "minItems": 1
+      }
+    }
+  }
+}

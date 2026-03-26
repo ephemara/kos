@@ -1,0 +1,138 @@
+[
+  {
+    "id": "modeling",
+    "name": "Modeling",
+    "gridSize": 10.0,
+    "gridDivisions": 10,
+    "cameraDistance": 5.0,
+    "cameraFov": 60.0,
+    "lighting": {
+      "ambient": 0.3,
+      "directional": {
+        "intensity": 1.0,
+        "direction": [0.5, -1.0, 0.5],
+        "color": [1.0, 1.0, 1.0]
+      },
+      "shadows": true
+    }
+  },
+  {
+    "id": "sculpting",
+    "name": "Sculpting",
+    "gridSize": 5.0,
+    "gridDivisions": 5,
+    "cameraDistance": 3.0,
+    "cameraFov": 50.0,
+    "lighting": {
+      "ambient": 0.4,
+      "directional": {
+        "intensity": 1.2,
+        "direction": [0.3, -1.0, 0.3],
+        "color": [1.0, 0.98, 0.95]
+      },
+      "shadows": true
+    }
+  },
+  {
+    "id": "painting",
+    "name": "Painting",
+    "gridSize": 5.0,
+    "gridDivisions": 5,
+    "cameraDistance": 3.5,
+    "cameraFov": 55.0,
+    "lighting": {
+      "ambient": 0.5,
+      "directional": {
+        "intensity": 1.0,
+        "direction": [0.0, -1.0, 0.2],
+        "color": [1.0, 1.0, 1.0]
+      },
+      "shadows": false
+    }
+  },
+  {
+    "id": "animation",
+    "name": "Animation",
+    "gridSize": 10.0,
+    "gridDivisions": 10,
+    "cameraDistance": 8.0,
+    "cameraFov": 65.0,
+    "lighting": {
+      "ambient": 0.25,
+      "directional": {
+        "intensity": 1.1,
+        "direction": [0.6, -0.8, 0.4],
+        "color": [1.0, 1.0, 1.0]
+      },
+      "shadows": true
+    }
+  },
+  {
+    "id": "rendering",
+    "name": "Rendering",
+    "gridSize": 10.0,
+    "gridDivisions": 10,
+    "cameraDistance": 6.0,
+    "cameraFov": 50.0,
+    "lighting": {
+      "ambient": 0.2,
+      "directional": {
+        "intensity": 1.5,
+        "direction": [0.7, -1.0, 0.3],
+        "color": [1.0, 0.95, 0.9]
+      },
+      "shadows": true
+    }
+  },
+  {
+    "id": "technical",
+    "name": "Technical",
+    "gridSize": 1.0,
+    "gridDivisions": 10,
+    "cameraDistance": 4.0,
+    "cameraFov": 45.0,
+    "lighting": {
+      "ambient": 0.6,
+      "directional": {
+        "intensity": 0.8,
+        "direction": [0.0, -1.0, 0.0],
+        "color": [1.0, 1.0, 1.0]
+      },
+      "shadows": false
+    }
+  },
+  {
+    "id": "closeup",
+    "name": "Close-up",
+    "gridSize": 2.0,
+    "gridDivisions": 10,
+    "cameraDistance": 1.5,
+    "cameraFov": 40.0,
+    "lighting": {
+      "ambient": 0.45,
+      "directional": {
+        "intensity": 1.3,
+        "direction": [0.2, -0.9, 0.4],
+        "color": [1.0, 1.0, 1.0]
+      },
+      "shadows": true
+    }
+  },
+  {
+    "id": "wide",
+    "name": "Wide View",
+    "gridSize": 50.0,
+    "gridDivisions": 10,
+    "cameraDistance": 20.0,
+    "cameraFov": 75.0,
+    "lighting": {
+      "ambient": 0.3,
+      "directional": {
+        "intensity": 1.0,
+        "direction": [0.5, -1.0, 0.5],
+        "color": [1.0, 1.0, 1.0]
+      },
+      "shadows": true
+    }
+  }
+]

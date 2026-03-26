@@ -1,0 +1,32 @@
+{
+  "id": "threaded_bolt",
+  "name": "Threaded Bolt",
+  "category": "Sculpt/HardSurface",
+  "tags": ["hardsurface", "thread", "bolt", "mechanical"],
+  "kernel": "pinch",
+  "params": {
+    "radius": 0.04,
+    "strength": 0.5,
+    "hardness": 0.8,
+    "spacing": 0.01,
+    "lazy_radius": 0.0,
+    "subtract": true,
+    "front_faces_only": true,
+    "accumulate": true,
+    "jitter_position": 0.0,
+    "jitter_rotation": 0.0,
+    "jitter_strength": 0.0,
+    "falloff_type": "sharp",
+    "extras": {
+      "thread_pitch": 0.005,
+      "thread_depth": 0.02,
+      "thread_profile": "metric"
+    }
+  },
+  "textures": {},
+  "pressure_strength": "hard",
+  "pressure_radius": null,
+  "speed_radius": null,
+  "tilt_rotation": null,
+  "entry_fade_dabs": 0
+}

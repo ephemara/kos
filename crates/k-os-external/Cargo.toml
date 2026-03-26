@@ -1,0 +1,19 @@
+[package]
+name = "k-os-external"
+version = "0.1.0"
+edition = "2021"
+description = "K_OS external tool integration owner"
+
+[lib]
+name = "k_os_external"
+path = "src/lib.rs"
+
+[features]
+default = ["tauri-commands"]
+tauri-commands = ["dep:tauri"]
+
+[dependencies]
+tauri = { version = "2", optional = true }
+glam = { version = "0.30", features = ["serde", "bytemuck"] }
+log = "0.4"
+serde = { version = "1.0", features = ["derive"] }

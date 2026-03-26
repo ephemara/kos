@@ -1,0 +1,28 @@
+{
+  "id": "cloth",
+  "name": "Cloth",
+  "category": "Sculpt/Physics",
+  "tags": ["sculpt", "cloth", "fabric", "simulation"],
+  "kernel": "sim_cloth",
+  "params": {
+    "radius": 0.2,
+    "strength": 0.3,
+    "hardness": 0.4,
+    "spacing": 0.1,
+    "lazy_radius": 0.0,
+    "subtract": false,
+    "front_faces_only": false,
+    "accumulate": false,
+    "jitter_position": 0.0,
+    "jitter_rotation": 0.0,
+    "jitter_strength": 0.0,
+    "extras": {
+      "stiffness": 0.5,
+      "damping": 0.8
+    }
+  },
+  "textures": {},
+  "pressure_strength": "soft",
+  "speed_radius": null,
+  "tilt_rotation": null
+}

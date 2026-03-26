@@ -1,0 +1,247 @@
+version = "1"
+
+[product]
+id = "k_os_game"
+name = "K_OS Game"
+
+[profiles.editor_preview]
+runtime_host = "bevy"
+renderer_contract = "k-os-renderer"
+ui_shell = "react_tauri"
+features = ["live_reload", "narrative", "viewport_tools", "data_registries"]
+
+[profiles.runtime_play]
+runtime_host = "bevy"
+renderer_contract = "k-os-renderer"
+ui_shell = "bevy_egui"
+features = ["play_mode", "remote_inspect", "data_registries"]
+
+[runtime_policy]
+required_registry_kinds = ["input_bindings", "gameplay_tags", "actor_archetypes", "ai_agents", "camera_rigs", "sequencer_timelines", "visual_scripting"]
+strict_readiness = true
+
+[preflight]
+workspace_root = "M:/K_OS"
+required_paths = [
+  "src-game/assets/scenes/sandbox.kscene",
+  "src-game/assets/narrative/intro.kgraph",
+  "src-game/assets/gameplay/input.registry.toml",
+  "src-game/assets/gameplay/tags.registry.toml",
+  "src-game/assets/gameplay/actors.registry.toml",
+  "src-game/assets/gameplay/ai.registry.toml",
+  "src-game/assets/gameplay/cameras.registry.toml",
+  "src-game/assets/gameplay/sequencer.registry.toml",
+  "src-game/assets/gameplay/visual_scripts.registry.toml",
+  "src-game/scripts"
+]
+fail_on_missing = false
+
+[runner]
+strict_adapter_binding = true
+default_adapter_prefix = "k_os.game.adapter::"
+
+[runner.adapters]
+scene = "k_os.game.adapter::scene_loader_v1"
+kain_hot_reload = "k_os.game.adapter::kain_hot_reload_v1"
+narrative_graph = "k_os.game.adapter::narrative_graph_v1"
+data_registry = "k_os.game.adapter::data_registry_loader_v1"
+cook = "k_os.game.adapter::cook_v1"
+build = "k_os.game.adapter::build_v1"
+export = "k_os.game.adapter::export_v1"
+
+[data_registry]
+strict_schema = true
+
+[data_registry.schemas.input_bindings]
+expected_version = "1"
+supported_versions = ["1"]
+required_tables = ["contexts", "action_projection", "input_host", "input_policy", "runtime_execution", "runtime_execution_apply", "runtime_execution_effects", "runtime_execution_transport", "runtime_execution_transport_backends"]
+
+[data_registry.schemas.gameplay_tags]
+expected_version = "1"
+supported_versions = ["1"]
+required_tables = ["domains"]
+
+[data_registry.schemas.actor_archetypes]
+expected_version = "1"
+supported_versions = ["1"]
+required_tables = ["archetypes", "ai_action_projection"]
+
+[data_registry.schemas.ai_agents]
+expected_version = "1"
+supported_versions = ["1"]
+required_tables = ["state_trees", "blackboards", "agents"]
+
+[data_registry.schemas.camera_rigs]
+expected_version = "1"
+supported_versions = ["1"]
+required_tables = ["rigs", "runtime_view", "action_projection", "sequencer_projection"]
+
+[data_registry.schemas.sequencer_timelines]
+expected_version = "1"
+supported_versions = ["1"]
+required_tables = ["timelines", "action_projection", "playback_policy", "runtime_dispatch"]
+
+[data_registry.schemas.visual_scripting]
+expected_version = "2"
+supported_versions = ["1", "2"]
+required_tables = ["graphs"]
+migration_hook = "k_os.game.migrations::visual_scripting_v1_to_v2"
+
+[stage_schemas]
+strict_schema = true
+
+[stage_schemas.schemas.scene]
+expected_version = "1"
+supported_versions = ["1"]
+required_fields = ["scene_asset", "scene_format"]
+
+[stage_schemas.schemas.kain_hot_reload]
+expected_version = "1"
+supported_versions = ["1"]
+required_fields = ["source_registry", "watch_roots", "target"]
+
+[stage_schemas.schemas.narrative_graph]
+expected_version = "1"
+supported_versions = ["1"]
+required_fields = ["graph_asset", "entry_node", "evaluate_via"]
+
+[stage_schemas.schemas.cook]
+expected_version = "1"
+supported_versions = ["1"]
+required_fields = ["recipe_asset", "output_dir", "target_platform"]
+
+[stage_schemas.schemas.build]
+expected_version = "1"
+supported_versions = ["1"]
+required_fields = ["package_asset", "output_dir", "artifact_name", "target_platform"]
+
+[stage_schemas.schemas.export]
+expected_version = "1"
+supported_versions = ["1"]
+required_fields = ["package_asset", "source_dir", "export_path", "package_format"]
+
+[[stages]]
+id = "scene_bootstrap"
+kind = "scene"
+profile = "editor_preview"
+scene_asset = "src-game/assets/scenes/sandbox.kscene"
+scene_format = "k_os_scene_v1"
+enable_hot_reload = true
+schema_version = "1"
+
+[[stages]]
+id = "kain_hot_reload"
+kind = "kain_hot_reload"
+profile = "editor_preview"
+depends_on = ["scene_bootstrap"]
+source_registry = "crates/k-os-kain/domains/supermotion"
+watch_roots = ["src-game/scripts", "src-kain/domains"]
+debounce_ms = 120
+target = "gameplay"
+schema_version = "1"
+
+[[stages]]
+id = "input_bindings_registry"
+kind = "data_registry"
+profile = "editor_preview"
+depends_on = ["scene_bootstrap"]
+registry_kind = "input_bindings"
+registry_asset = "src-game/assets/gameplay/input.registry.toml"
+merge_strategy = "replace"
+
+[[stages]]
+id = "gameplay_tags_registry"
+kind = "data_registry"
+profile = "editor_preview"
+depends_on = ["input_bindings_registry"]
+registry_kind = "gameplay_tags"
+registry_asset = "src-game/assets/gameplay/tags.registry.toml"
+merge_strategy = "append_unique"
+
+[[stages]]
+id = "actor_archetypes_registry"
+kind = "data_registry"
+profile = "editor_preview"
+depends_on = ["gameplay_tags_registry"]
+registry_kind = "actor_archetypes"
+registry_asset = "src-game/assets/gameplay/actors.registry.toml"
+merge_strategy = "replace"
+
+[[stages]]
+id = "camera_rigs_registry"
+kind = "data_registry"
+profile = "editor_preview"
+depends_on = ["ai_agents_registry"]
+registry_kind = "camera_rigs"
+registry_asset = "src-game/assets/gameplay/cameras.registry.toml"
+merge_strategy = "replace"
+
+[[stages]]
+id = "sequencer_timelines_registry"
+kind = "data_registry"
+profile = "editor_preview"
+depends_on = ["camera_rigs_registry"]
+registry_kind = "sequencer_timelines"
+registry_asset = "src-game/assets/gameplay/sequencer.registry.toml"
+merge_strategy = "replace"
+
+[[stages]]
+id = "ai_agents_registry"
+kind = "data_registry"
+profile = "editor_preview"
+depends_on = ["actor_archetypes_registry"]
+registry_kind = "ai_agents"
+registry_asset = "src-game/assets/gameplay/ai.registry.toml"
+merge_strategy = "replace"
+
+[[stages]]
+id = "visual_scripting_registry"
+kind = "data_registry"
+profile = "editor_preview"
+depends_on = ["sequencer_timelines_registry", "kain_hot_reload"]
+registry_kind = "visual_scripting"
+registry_asset = "src-game/assets/gameplay/visual_scripts.registry.toml"
+merge_strategy = "append_unique"
+
+[[stages]]
+id = "narrative_graph"
+kind = "narrative_graph"
+profile = "runtime_play"
+depends_on = ["visual_scripting_registry", "gameplay_tags_registry"]
+graph_asset = "src-game/assets/narrative/intro.kgraph"
+entry_node = "boot"
+evaluate_via = "k-os-eval"
+schema_version = "1"
+
+[[stages]]
+id = "cook_windows_content"
+kind = "cook"
+profile = "runtime_play"
+depends_on = ["narrative_graph", "visual_scripting_registry"]
+recipe_asset = "src-game/assets/packaging/windows.cook.toml"
+output_dir = "src-game/build/cooked/windows"
+target_platform = "windows"
+schema_version = "1"
+
+[[stages]]
+id = "build_windows_player"
+kind = "build"
+profile = "runtime_play"
+depends_on = ["cook_windows_content"]
+package_asset = "src-game/assets/packaging/windows.build.toml"
+output_dir = "src-game/build/player/windows"
+artifact_name = "k_os_game_windows_dev"
+target_platform = "windows"
+schema_version = "1"
+
+[[stages]]
+id = "export_windows_bundle"
+kind = "export"
+profile = "runtime_play"
+depends_on = ["build_windows_player"]
+package_asset = "src-game/assets/packaging/windows.export.toml"
+source_dir = "src-game/build/player/windows"
+export_path = "dist/game/k_os_game_windows_dev.zip"
+package_format = "zip"
+schema_version = "1"

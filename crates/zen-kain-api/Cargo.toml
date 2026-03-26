@@ -1,0 +1,11 @@
+[package]
+name = "zen-kain-api"
+version = "0.1.0"
+edition = "2021"
+description = "Generated Zen-to-Kain contract surface and export helpers"
+
+[dependencies]
+serde = { version = "1.0", features = ["derive"] }
+toml = "0.8"
+zen-host = { path = "../zen-host" }
+zen-kain-modules = { path = "../zen-kain-modules" }

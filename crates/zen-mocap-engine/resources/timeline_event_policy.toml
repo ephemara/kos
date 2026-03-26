@@ -1,0 +1,23 @@
+max_events_per_take = 50000
+max_events_per_track = 10000
+require_monotonic_timestamp_ms = true
+
+[session_frame_bounds]
+min = 0
+max = 216000
+
+[[sources]]
+id = "sequencer-ui"
+enabled = true
+
+[[sources]]
+id = "take-import"
+enabled = true
+
+[[sources]]
+id = "automation-replay"
+enabled = true
+
+[[sources]]
+id = "legacy-replay"
+enabled = false

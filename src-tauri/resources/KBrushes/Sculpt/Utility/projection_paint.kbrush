@@ -1,0 +1,32 @@
+{
+  "id": "projection_paint",
+  "name": "Projection Paint",
+  "category": "Sculpt/Utility",
+  "tags": ["utility", "projection", "paint", "texture"],
+  "kernel": "custom",
+  "params": {
+    "radius": 0.12,
+    "strength": 0.6,
+    "hardness": 0.4,
+    "spacing": 0.05,
+    "lazy_radius": 0.01,
+    "subtract": false,
+    "front_faces_only": true,
+    "accumulate": true,
+    "jitter_position": 0.0,
+    "jitter_rotation": 0.0,
+    "jitter_strength": 0.0,
+    "falloff_type": "smooth",
+    "extras": {
+      "camera_source": "active",
+      "orthographic": false,
+      "depth_aware": true
+    }
+  },
+  "textures": {},
+  "pressure_strength": "soft",
+  "pressure_radius": "soft",
+  "speed_radius": null,
+  "tilt_rotation": null,
+  "entry_fade_dabs": 3
+}

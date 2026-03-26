@@ -1,0 +1,32 @@
+{
+  "id": "greeble_nurnies",
+  "name": "Greeble Nurnies",
+  "category": "Sculpt/HardSurface",
+  "tags": ["hardsurface", "greeble", "nurnies", "detail"],
+  "kernel": "stamp",
+  "params": {
+    "radius": 0.04,
+    "strength": 0.6,
+    "hardness": 0.7,
+    "spacing": 0.03,
+    "lazy_radius": 0.0,
+    "subtract": false,
+    "front_faces_only": true,
+    "accumulate": true,
+    "jitter_position": 0.03,
+    "jitter_rotation": 0.9,
+    "jitter_strength": 0.2,
+    "falloff_type": "flat",
+    "extras": {
+      "greeble_density": 0.8,
+      "tech_complexity": 0.7,
+      "panel_variation": 0.5
+    }
+  },
+  "textures": {},
+  "pressure_strength": "linear",
+  "pressure_radius": null,
+  "speed_radius": null,
+  "tilt_rotation": null,
+  "entry_fade_dabs": 2
+}

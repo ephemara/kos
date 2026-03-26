@@ -1,0 +1,54 @@
+# ZenMocap rig topology manifest
+#
+# Maps keypoint layouts to a reusable topology profile for GPU chain setup.
+# This keeps session runtime logic data-driven and ready for additional model families.
+
+[[bindings]]
+keypoints = 17
+profile_id = "coco17_live_v1"
+
+[[profiles]]
+id = "coco17_live_v1"
+keypoints = 17
+description = "COCO-17 live retarget profile used by YOLO11 pose models."
+live_retarget_enabled = true
+live_retarget_required_joint_indices = [9, 10, 7, 8, 13, 14, 11, 12]
+live_retarget_min_reliable_joints = 4
+parents = [
+  -1,
+  0,
+  0,
+  1,
+  2,
+  -1,
+  -1,
+  5,
+  6,
+  7,
+  8,
+  5,
+  6,
+  11,
+  12,
+  13,
+  14,
+]
+rest_lengths = [
+  0.05,
+  0.04,
+  0.04,
+  0.08,
+  0.08,
+  0.0,
+  0.0,
+  0.28,
+  0.28,
+  0.25,
+  0.25,
+  0.30,
+  0.30,
+  0.42,
+  0.42,
+  0.40,
+  0.40,
+]

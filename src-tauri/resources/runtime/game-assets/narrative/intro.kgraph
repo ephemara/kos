@@ -1,0 +1,32 @@
+{
+  "schema": "k_os_narrative_graph_v1",
+  "graph_id": "intro",
+  "entry_node": "boot",
+  "nodes": [
+    {
+      "id": "boot",
+      "kind": "emit_event",
+      "payload": {
+        "event": "game.session.start"
+      },
+      "next": "spawn_player"
+    },
+    {
+      "id": "spawn_player",
+      "kind": "spawn_actor",
+      "payload": {
+        "archetype": "hero.default",
+        "spawn_point": "player_spawn"
+      },
+      "next": "handoff_input"
+    },
+    {
+      "id": "handoff_input",
+      "kind": "activate_input_context",
+      "payload": {
+        "context": "player.default"
+      },
+      "next": null
+    }
+  ]
+}

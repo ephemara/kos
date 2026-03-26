@@ -1,0 +1,149 @@
+{
+  "$schema": "./storage_registry_schema.json",
+  "version": "1.0.0",
+  "backends": [
+    {
+      "name": "primary",
+      "backend_type": "rocksdb",
+      "priority": 1,
+      "config": {
+        "path": "./storage/rocksdb",
+        "compression": "zstd",
+        "write_buffer_size_mb": 64,
+        "max_open_files": 1000,
+        "enable_statistics": true
+      }
+    },
+    {
+      "name": "memory_cache",
+      "backend_type": "memory",
+      "priority": 2,
+      "config": {
+        "max_size_mb": 4096
+      }
+    }
+  ],
+  "cache_policy": {
+    "eviction_strategy": "lru",
+    "size_limit_bytes": 4294967296,
+    "gpu_size_limit_bytes": 2147483648,
+    "prefetch_enabled": true,
+    "prefetch_depth": 2
+  },
+  "compression_policies": [
+    {
+      "asset_type": "Mesh",
+      "enabled": true,
+      "algorithm": "gpu_quantize",
+      "level": 1,
+      "min_size_bytes": 10240
+    },
+    {
+      "asset_type": "Texture",
+      "enabled": true,
+      "algorithm": "bc7",
+      "level": 2,
+      "min_size_bytes": 102400
+    },
+    {
+      "asset_type": "Animation",
+      "enabled": true,
+      "algorithm": "zstd",
+      "level": 3,
+      "min_size_bytes": 4096
+    },
+    {
+      "asset_type": "Material",
+      "enabled": false,
+      "algorithm": "none",
+      "level": 0,
+      "min_size_bytes": 0
+    },
+    {
+      "asset_type": "SceneGraph",
+      "enabled": true,
+      "algorithm": "lz4",
+      "level": 1,
+      "min_size_bytes": 4096
+    },
+    {
+      "asset_type": "BinaryBlob",
+      "enabled": true,
+      "algorithm": "zstd",
+      "level": 5,
+      "min_size_bytes": 1048576
+    }
+  ],
+  "entanglement_policy": {
+    "auto_dedupe": true,
+    "min_size_bytes": 1048576,
+    "hash_algorithm": "blake3",
+    "gc_interval_secs": 3600,
+    "gc_orphan_age_secs": 86400
+  },
+  "retention_policies": [
+    {
+      "asset_type": "Mesh",
+      "policy": "keep_last_n",
+      "value": 10
+    },
+    {
+      "asset_type": "Texture",
+      "policy": "keep_last_n",
+      "value": 5
+    },
+    {
+      "asset_type": "Animation",
+      "policy": "keep_last_n",
+      "value": 20
+    },
+    {
+      "asset_type": "Material",
+      "policy": "keep_all",
+      "value": null
+    },
+    {
+      "asset_type": "SceneGraph",
+      "policy": "keep_since",
+      "value": 2592000
+    },
+    {
+      "asset_type": "BinaryBlob",
+      "policy": "keep_last_n",
+      "value": 3
+    }
+  ],
+  "deletion_policies": [
+    {
+      "asset_type": "Mesh",
+      "policy": "prevent_if_dependents"
+    },
+    {
+      "asset_type": "Texture",
+      "policy": "cascade"
+    },
+    {
+      "asset_type": "Animation",
+      "policy": "orphan"
+    },
+    {
+      "asset_type": "Material",
+      "policy": "prevent_if_dependents"
+    },
+    {
+      "asset_type": "SceneGraph",
+      "policy": "cascade"
+    },
+    {
+      "asset_type": "BinaryBlob",
+      "policy": "orphan"
+    }
+  ],
+  "performance_thresholds": {
+    "store_latency_ms": 10,
+    "retrieve_latency_ms": 50,
+    "cache_retrieve_latency_ms": 1,
+    "compression_throughput_mbps": 500,
+    "target_cache_hit_rate": 0.8
+  }
+}

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>K_OS | Raw Dog</title>
+  <link rel="stylesheet" href="./style.css" />
+  <!-- GOLDEN LAYOUT -->
+  <!-- GOLDEN LAYOUT -->
+  <script src="./vendor/jquery.js"></script>
+  <link type="text/css" rel="stylesheet" href="./vendor/golden-layout-base.css" />
+  <link type="text/css" rel="stylesheet" href="./vendor/golden-layout-dark-theme.css" />
+  <script src="./vendor/golden-layout.js"></script>
+  <!-- Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Global Features -->
+  <script type="module" src="./features/notifications.js"></script>
+</head>
+
+<body>
+  <!-- 1. The Rendering Canvas (WGPU/Three.js) -->
+  <canvas id="kos-canvas"></canvas>
+
+  <!-- 2. The App Shell (Overlay) -->
+  <div id="ui-layer">
+
+    <!-- Top Bar -->
+    <header id="top-bar">
+      <div class="logo-area">
+        <div class="logo-icon">K</div>
+        <span class="logo-text">K_OS</span>
+      </div>
+
+      <nav id="app-switcher">
+        <!-- Dynamic App Tabs Generated Here -->
+      </nav>
+
+      <div class="window-controls">
+        <button id="win-min" class="win-btn">-</button>
+        <button id="win-max" class="win-btn">□</button>
+        <button id="win-close" class="win-btn">×</button>
+      </div>
+    </header>
+
+    <!-- Main Workspace (Golden Layout Root) -->
+    <main id="dock-root"></main>
+
+    <!-- Bottom Bar: Status / Timeline -->
+    <footer id="bottom-bar">
+      <div id="status-msg">READY</div>
+      <div id="timeline-scrubber">
+        <!-- Timeline scrubber -->
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- 3. Modals / Floating Windows -->
+  <div id="k-content-browser" class="modal hidden">
+    <!-- Asset Browser UI -->
+    <div class="modal-content glass-panel">
+      <header>
+        <h2>ASSET BROWSER</h2>
+        <button onclick="document.getElementById('k-content-browser').classList.add('hidden')">×</button>
+      </header>
+      <div class="browser-grid" id="asset-grid"></div>
+    </div>
+  </div>
+
+  <!-- Entry Point -->
+  <script type="module" src="./main.js"></script>
+</body>
+
+</html>

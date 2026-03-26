@@ -1,0 +1,13 @@
+version = "1"
+target_platform = "windows"
+cooked_dir = "src-game/build/cooked/windows"
+
+[runtime]
+executable = "k_os_game_windows_dev.exe"
+bootstrap = "bevy_pipeline"
+entry_profile = "runtime_play"
+
+[bundle]
+include_pdb = true
+copy_runtime_dlls = false
+contract_asset = "build.contract.json"
