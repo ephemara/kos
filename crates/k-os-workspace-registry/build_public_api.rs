@@ -77,10 +77,22 @@ pub fn collect_public_api_registry(
 
     PublicApiRegistryDocument {
         package_count: package_records.len(),
-        total_item_count: package_records.iter().map(|package| package.item_count).sum(),
-        total_function_count: package_records.iter().map(|package| package.function_count).sum(),
-        total_method_count: package_records.iter().map(|package| package.method_count).sum(),
-        total_reexport_count: package_records.iter().map(|package| package.reexport_count).sum(),
+        total_item_count: package_records
+            .iter()
+            .map(|package| package.item_count)
+            .sum(),
+        total_function_count: package_records
+            .iter()
+            .map(|package| package.function_count)
+            .sum(),
+        total_method_count: package_records
+            .iter()
+            .map(|package| package.method_count)
+            .sum(),
+        total_reexport_count: package_records
+            .iter()
+            .map(|package| package.reexport_count)
+            .sum(),
         packages: package_records,
     }
 }
@@ -93,9 +105,19 @@ pub fn render_public_api_summary(document: &PublicApiRegistryDocument) -> String
     writeln!(output).unwrap();
     writeln!(output, "- Packages scanned: {}", document.package_count).unwrap();
     writeln!(output, "- Public API items: {}", document.total_item_count).unwrap();
-    writeln!(output, "- Public functions: {}", document.total_function_count).unwrap();
+    writeln!(
+        output,
+        "- Public functions: {}",
+        document.total_function_count
+    )
+    .unwrap();
     writeln!(output, "- Public methods: {}", document.total_method_count).unwrap();
-    writeln!(output, "- Public reexports: {}", document.total_reexport_count).unwrap();
+    writeln!(
+        output,
+        "- Public reexports: {}",
+        document.total_reexport_count
+    )
+    .unwrap();
     writeln!(output).unwrap();
 
     writeln!(output, "## Top Public Surfaces").unwrap();
@@ -138,8 +160,8 @@ pub fn derive_api_bloat_pressure_report(
     });
 
     ApiBloatPressureReport {
-        scoring_formula:
-            "score = (callable_count * 4) + (reexport_count * 2) + item_count".to_string(),
+        scoring_formula: "score = (callable_count * 4) + (reexport_count * 2) + item_count"
+            .to_string(),
         package_count: packages.len(),
         packages,
     }
@@ -241,9 +263,7 @@ fn collect_package_public_api(
     })
 }
 
-fn derive_api_bloat_pressure_record(
-    package: &PublicApiPackageRecord,
-) -> ApiBloatPressureRecord {
+fn derive_api_bloat_pressure_record(package: &PublicApiPackageRecord) -> ApiBloatPressureRecord {
     let callable_count = package.function_count + package.method_count;
     let score = (callable_count * 4) + (package.reexport_count * 2) + package.item_count;
     let priority = if score >= 1000 {
@@ -385,7 +405,9 @@ impl<'a> PublicApiCollector<'a> {
                     "",
                 );
             }
-            Item::Enum(item_enum) if current_scope_public && is_public_visibility(&item_enum.vis) => {
+            Item::Enum(item_enum)
+                if current_scope_public && is_public_visibility(&item_enum.vis) =>
+            {
                 self.push_item(
                     target_name,
                     target_kind,
@@ -429,7 +451,9 @@ impl<'a> PublicApiCollector<'a> {
                     }
                 }
             }
-            Item::Type(item_type) if current_scope_public && is_public_visibility(&item_type.vis) => {
+            Item::Type(item_type)
+                if current_scope_public && is_public_visibility(&item_type.vis) =>
+            {
                 self.push_item(
                     target_name,
                     target_kind,
@@ -543,7 +567,9 @@ impl<'a> PublicApiCollector<'a> {
                         );
                     }
                 } else if child_is_public {
-                    if let Some(module_file_path) = resolve_module_file(file_path, &item_mod.ident.to_string()) {
+                    if let Some(module_file_path) =
+                        resolve_module_file(file_path, &item_mod.ident.to_string())
+                    {
                         self.scan_file(
                             &module_file_path,
                             target_name,

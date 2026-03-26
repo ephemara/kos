@@ -302,9 +302,7 @@ pub fn integration_contract_for_package(
         .find(|package| package.package_name == package_name)
 }
 
-pub fn adapter_manifest_for_target(
-    adapter_target: &str,
-) -> Option<&'static AdapterManifestRecord> {
+pub fn adapter_manifest_for_target(adapter_target: &str) -> Option<&'static AdapterManifestRecord> {
     adapter_manifests()
         .adapters
         .iter()

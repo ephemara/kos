@@ -1,5 +1,5 @@
-mod build_public_api;
 mod build_integration;
+mod build_public_api;
 
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
@@ -190,22 +190,21 @@ fn main() {
     let integration_proof_path = proof_root.join("integration_registry_summary.md");
     let adapter_json_path = json_root.join("adapter_manifests.json");
     let adapter_proof_path = proof_root.join("adapter_manifests_summary.md");
-    let json_content =
-        serde_json::to_string_pretty(&registry_document).expect("serialize workspace registry")
-            + "\n";
+    let json_content = serde_json::to_string_pretty(&registry_document)
+        .expect("serialize workspace registry")
+        + "\n";
     let proof_content = render_proof_summary(&registry_document);
     let public_api_document =
         build_public_api::collect_public_api_registry(&workspace_root, &cargo_metadata.packages);
-    let public_api_json_content =
-        serde_json::to_string_pretty(&public_api_document).expect("serialize public api registry")
-            + "\n";
+    let public_api_json_content = serde_json::to_string_pretty(&public_api_document)
+        .expect("serialize public api registry")
+        + "\n";
     let public_api_proof_content =
         build_public_api::render_public_api_summary(&public_api_document);
-    let api_bloat_report =
-        build_public_api::derive_api_bloat_pressure_report(&public_api_document);
-    let api_bloat_json_content =
-        serde_json::to_string_pretty(&api_bloat_report).expect("serialize api bloat pressure")
-            + "\n";
+    let api_bloat_report = build_public_api::derive_api_bloat_pressure_report(&public_api_document);
+    let api_bloat_json_content = serde_json::to_string_pretty(&api_bloat_report)
+        .expect("serialize api bloat pressure")
+        + "\n";
     let api_bloat_proof_content =
         build_public_api::render_api_bloat_pressure_summary(&api_bloat_report);
     let integration_registry = build_integration::build_integration_registry(
@@ -220,9 +219,9 @@ fn main() {
     let integration_proof_content =
         build_integration::render_integration_registry_summary(&integration_registry);
     let adapter_manifests = build_integration::build_adapter_manifests(&integration_registry);
-    let adapter_json_content =
-        serde_json::to_string_pretty(&adapter_manifests).expect("serialize adapter manifests")
-            + "\n";
+    let adapter_json_content = serde_json::to_string_pretty(&adapter_manifests)
+        .expect("serialize adapter manifests")
+        + "\n";
     let adapter_proof_content =
         build_integration::render_adapter_manifests_summary(&adapter_manifests);
 
@@ -263,9 +262,7 @@ impl WorkspaceConfig {
                 items
                     .iter()
                     .filter_map(|(key, value)| {
-                        value
-                            .as_str()
-                            .map(|path| (key.clone(), path.to_string()))
+                        value.as_str().map(|path| (key.clone(), path.to_string()))
                     })
                     .collect::<BTreeMap<_, _>>()
             })
@@ -351,7 +348,10 @@ fn locate_workspace_manifest() -> PathBuf {
             return manifest_path;
         }
     }
-    panic!("failed to locate workspace Cargo.toml from {}", current_dir.display());
+    panic!(
+        "failed to locate workspace Cargo.toml from {}",
+        current_dir.display()
+    );
 }
 
 fn load_cargo_metadata(workspace_manifest: &Path) -> CargoMetadataDocument {
@@ -473,7 +473,10 @@ fn build_package_records(
             metadata_sources.insert("workspace_metadata.inference".to_string());
         }
 
-        let is_aggregator = config.aggregator_packages.iter().any(|name| name == &package.name)
+        let is_aggregator = config
+            .aggregator_packages
+            .iter()
+            .any(|name| name == &package.name)
             || (workspace_dependencies.len() >= config.inference.aggregator_threshold
                 && target_kinds.iter().any(|kind| kind == "bin"));
         if is_aggregator {
@@ -638,8 +641,14 @@ fn load_kain_spirv_sources_manifest(
             .and_then(Value::as_str)
             .map(str::to_string)
             .unwrap_or_else(|| title_case(id));
-        let target = item.get("target").and_then(Value::as_str).unwrap_or("artifact");
-        let domain = item.get("domain").and_then(Value::as_str).unwrap_or_default();
+        let target = item
+            .get("target")
+            .and_then(Value::as_str)
+            .unwrap_or("artifact");
+        let domain = item
+            .get("domain")
+            .and_then(Value::as_str)
+            .unwrap_or_default();
         let source_path = item
             .get("source_path")
             .and_then(Value::as_str)
@@ -1008,16 +1017,36 @@ fn render_proof_summary(document: &WorkspaceRegistryDocument) -> String {
     writeln!(output, "# Workspace Registry Proof").unwrap();
     writeln!(output).unwrap();
     writeln!(output, "- Registry version: {}", document.registry_version).unwrap();
-    writeln!(output, "- Workspace package count: {}", document.package_count).unwrap();
+    writeln!(
+        output,
+        "- Workspace package count: {}",
+        document.package_count
+    )
+    .unwrap();
     writeln!(
         output,
         "- Workspace-local dependency edges: {}",
         document.local_dependency_edge_count
     )
     .unwrap();
-    writeln!(output, "- Aggregators: {}", document.aggregator_packages.join(", ")).unwrap();
-    writeln!(output, "- External manifests: {}", document.external_manifests.len()).unwrap();
-    writeln!(output, "- Extracted artifacts: {}", document.artifacts.len()).unwrap();
+    writeln!(
+        output,
+        "- Aggregators: {}",
+        document.aggregator_packages.join(", ")
+    )
+    .unwrap();
+    writeln!(
+        output,
+        "- External manifests: {}",
+        document.external_manifests.len()
+    )
+    .unwrap();
+    writeln!(
+        output,
+        "- Extracted artifacts: {}",
+        document.artifacts.len()
+    )
+    .unwrap();
     writeln!(output).unwrap();
 
     writeln!(output, "## External Manifests").unwrap();
@@ -1025,10 +1054,7 @@ fn render_proof_summary(document: &WorkspaceRegistryDocument) -> String {
         writeln!(
             output,
             "- `{}` -> `{}` (owner `{}`, {} items)",
-            manifest.key,
-            manifest.relative_path,
-            manifest.owner_package,
-            manifest.item_count
+            manifest.key, manifest.relative_path, manifest.owner_package, manifest.item_count
         )
         .unwrap();
     }
@@ -1173,14 +1199,7 @@ fn path_format(path: &str) -> String {
 fn string_vec(value: Option<&Value>) -> Vec<String> {
     value
         .and_then(Value::as_array)
-        .map(|items| {
-            unique_strings(
-                items
-                    .iter()
-                    .filter_map(Value::as_str)
-                    .map(str::to_string),
-            )
-        })
+        .map(|items| unique_strings(items.iter().filter_map(Value::as_str).map(str::to_string)))
         .unwrap_or_default()
 }
 

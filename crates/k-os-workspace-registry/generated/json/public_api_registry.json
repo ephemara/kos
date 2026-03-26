@@ -29622,7 +29622,7 @@
           "source_kind": "definition",
           "module_path": "crate",
           "item_path": "crate::adapter_manifest_for_target",
-          "signature": "fn adapter_manifest_for_target (adapter_target : & str ,) -> Option < & 'static AdapterManifestRecord >",
+          "signature": "fn adapter_manifest_for_target (adapter_target : & str) -> Option < & 'static AdapterManifestRecord >",
           "file_path": "crates/k-os-workspace-registry/src/lib.rs",
           "owner_type": ""
         },

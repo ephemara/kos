@@ -34,6 +34,7 @@ MATH: nalgebra + glam
 | `k-os-renderer` | Native viewport session contract, camera/state handling, selection cache, and renderer service thread boundary | `use k_os_renderer::{RendererService, ViewportHandle, ViewportConfig};` |
 | `k-os-gizmo` | Native transform-gizmo interaction core for session-based translate/rotate/scale updates and viewport-space draw data generation | `use k_os_gizmo::prelude::{Gizmo, GizmoConfig, GizmoInteraction, GizmoResult};` |
 | `k-os-kain` | KAIN workspace owner: manifest-driven source registry, domain directories, compile helpers, and SPIR-V validation for `crates/k-os-kain/domains/*` | `use k_os_kain::{KainSourceAsset, list_sources, domain_dir};` |
+| `k-os-workspace-registry` | Generated workspace composition registry: Cargo metadata, public API index, integration tiers, adapter manifests, and host-facing crate discovery | `use k_os_workspace_registry::{workspace_registry, integration_registry, adapter_manifests};` |
 | `k-os-animation` | Native animation asset metadata and clip representations | `use k_os_animation::{AnimationClipAsset, AnimationSourceKind};` |
 | `k-os-brushes` | Brush asset, curve, kernel-registry, and brush-library ownership boundary during migration out of engine | `use k_os_brushes::{KBrushAsset, BRUSH_LIBRARY, KERNEL_REGISTRY};` |
 | `k-os-config` | App configuration and registry boundary for runtime settings, schema loading, and command-facing config access | `use k_os_config::registry;` |

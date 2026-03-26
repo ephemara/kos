@@ -1,5 +1,42 @@
 # Memory
 
+## 2026-03-26: Tauri registry host commands
+
+### What changed
+
+Added a dedicated Tauri command module at [`M:\K_OS\src-tauri\src\commands\registry.rs`](M:\K_OS\src-tauri\src\commands\registry.rs) and registered it from [`M:\K_OS\src-tauri\src\main.rs`](M:\K_OS\src-tauri\src\main.rs). The backend can now expose the generated composition layer to frontend or host-side consumers without hardcoding crate wiring in JavaScript or React.
+
+The command module currently exposes:
+
+- workspace summary
+- adapter target listing
+- adapter manifest lookup by target
+- integration contract lookup by package
+- filtered integration contract listing
+- public API summary lookup by package
+
+Updated [`M:\K_OS\docs\CARGO_ARSENAL.md`](M:\K_OS\docs\CARGO_ARSENAL.md) to document the `k-os-workspace-registry` dependency because `src-tauri/build.rs` blocks backend builds when undocumented Rust crates are present in the Tauri manifest.
+
+### Durable findings
+
+- The fastest safe way to consume the new registry in Tauri is plain typed `serde` payloads, not `tauri-specta`. There is no active Specta wiring in the live `src-tauri` source yet, only stale or backup references.
+- `cargo check -p k-os-backend` now succeeds with the new registry command module in place.
+- `src-tauri/build.rs` is enforcing dependency documentation parity against `docs/CARGO_ARSENAL.md`, so any future Tauri-side crate addition must update that doc first or the build will fail before regular compile errors surface.
+
+### Design decision
+
+The host integration pass stays intentionally narrow: surface the generated composition data through Tauri first, then layer stronger frontend typing or Specta export on top later if the command set stabilizes.
+
+This keeps the registry authoritative while avoiding a second refactor on the host command layer right now.
+
+### Next recommended step
+
+Use the new Tauri registry commands to replace a few hardcoded frontend assumptions first:
+
+1. Read adapter manifests for `tauri` instead of hardcoding integration-visible crate lists.
+2. Use per-package integration contracts to drive feature panels, capability browsers, or host-side crate pickers.
+3. If the command shapes settle, add `specta` only to generate TypeScript bindings for these already-stable registry commands rather than for the entire backend command surface.
+
 ## 2026-03-25: Workspace registry implementation
 
 ### What changed

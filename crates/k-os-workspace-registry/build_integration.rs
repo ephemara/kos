@@ -141,7 +141,12 @@ pub fn render_integration_registry_summary(document: &IntegrationRegistryDocumen
     writeln!(output).unwrap();
     writeln!(output, "- Packages: {}", document.package_count).unwrap();
     writeln!(output, "- Host API packages: {}", document.host_api_count).unwrap();
-    writeln!(output, "- Integration packages: {}", document.integration_count).unwrap();
+    writeln!(
+        output,
+        "- Integration packages: {}",
+        document.integration_count
+    )
+    .unwrap();
     writeln!(output, "- Internal packages: {}", document.internal_count).unwrap();
     writeln!(output).unwrap();
 
@@ -182,8 +187,7 @@ pub fn render_adapter_manifests_summary(document: &AdapterManifestsDocument) -> 
         writeln!(
             output,
             "- `{}`: {} packages",
-            adapter.adapter_target,
-            adapter.package_count
+            adapter.adapter_target, adapter.package_count
         )
         .unwrap();
     }
@@ -315,7 +319,12 @@ fn infer_recommended_entrypoints(
     let fallback_items = public_api
         .items
         .iter()
-        .filter(|item| matches!(item.kind.as_str(), "function" | "reexport" | "struct" | "enum"))
+        .filter(|item| {
+            matches!(
+                item.kind.as_str(),
+                "function" | "reexport" | "struct" | "enum"
+            )
+        })
         .map(|item| item.item_path.clone())
         .collect::<Vec<_>>();
 

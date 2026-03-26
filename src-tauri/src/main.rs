@@ -729,6 +729,13 @@ fn main() {
             commands::math::solve_cg,
             commands::math::sparse_multiply,
             commands::math::benchmark_cg,
+            // === WORKSPACE REGISTRY ===
+            commands::registry::registry_get_workspace_summary,
+            commands::registry::registry_list_adapter_targets,
+            commands::registry::registry_get_adapter_manifest,
+            commands::registry::registry_get_integration_contract,
+            commands::registry::registry_list_integration_contracts,
+            commands::registry::registry_get_public_api_summary,
             // === SCULPTING ===
             commands::sculpt::init_sculpt_mesh,
             commands::sculpt::init_sculpt_mesh_binary,

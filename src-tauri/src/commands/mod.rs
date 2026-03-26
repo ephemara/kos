@@ -12,6 +12,7 @@ pub mod hdr;
 pub mod io_paths;
 pub mod math;
 pub mod mesh_ops;
+pub mod registry;
 pub mod rigging;
 pub mod scatter;
 pub mod scene_mesh;
