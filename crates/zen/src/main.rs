@@ -5,6 +5,7 @@ mod input;
 mod kain_runtime;
 mod kain_ui_host;
 mod post;
+mod renderer_session;
 mod theme;
 
 use bytemuck::{Pod, Zeroable};
@@ -15,6 +16,7 @@ use glam::{Mat4, Vec3};
 use input::{Action, InputBindings, InputState, InputTrigger};
 use kain_runtime::KainRuntime;
 use kain_ui_host::{ZenKainUiHost, ZenViewportHud};
+use renderer_session::ZenRendererSession;
 use post::ZenPostProcessor;
 use std::fs;
 use std::io::Write;
@@ -31,7 +33,7 @@ use winit::keyboard::PhysicalKey;
 use winit::window::{CursorGrabMode, Window, WindowAttributes};
 use zen_core::{ZenCommand, ZenCommandEnvelope, ZenCommandSource, ZenEvent, ZenTransactionId};
 use zen_runtime::ZenRuntimeSession;
-use zen_scene::{SceneMesh, Vertex, ZenScene};
+use zen_scene::{Vertex, ZenScene};
 
 const SCENE_SHADER_WGSL: &str = r#"
 struct CameraUniform {
@@ -645,10 +647,6 @@ struct ZenState {
     background_bind_group: Option<wgpu::BindGroup>,
     shadow_pipeline: wgpu::RenderPipeline,
     render_pipeline: wgpu::RenderPipeline,
-    vertex_buffer: wgpu::Buffer,
-    index_buffer: wgpu::Buffer,
-    index_count: u32,
-    vertex_count: u32,
     camera_buffer: wgpu::Buffer,
     shadow_camera_bind_group: wgpu::BindGroup,
     camera_bind_group: wgpu::BindGroup,
@@ -664,6 +662,7 @@ struct ZenState {
     started_at: Instant,
     runtime_config: RuntimeConfig,
     scene: ZenScene,
+    renderer_session: ZenRendererSession,
     runtime: ZenRuntimeSession,
     last_cursor_position: Option<(f32, f32)>,
     ui: ZenUi,
@@ -727,9 +726,6 @@ impl ZenState {
         let bindings = InputBindings::load()?;
         let camera = FlyCamera::new(&runtime_config.camera);
         let scene = ZenScene::new_default();
-        let render_mesh = scene.build_render_mesh()?;
-        let (vertex_buffer, index_buffer, index_count, vertex_count) =
-            create_scene_buffers(&device, &render_mesh);
 
         let camera_uniform = CameraUniform {
             view_proj: camera
@@ -989,6 +985,18 @@ impl ZenState {
         let viewport_target = ViewportTarget::new(&device, size);
         let post_processor =
             ZenPostProcessor::new(&device, runtime_config.renderer.post.clone(), size);
+        let mut renderer_session = ZenRendererSession::new();
+        renderer_session
+            .sync_scene(
+                &device,
+                &scene,
+                viewport_target.size,
+                &runtime_config.renderer,
+            )
+            .map_err(|err| format!("Failed to initialize shared renderer session: {err}"))?;
+        renderer_session
+            .sync_camera(&camera)
+            .map_err(|err| format!("Failed to initialize renderer camera: {err}"))?;
         let background_bind_group = post_processor.output_view().map(|view| {
             device.create_bind_group(&wgpu::BindGroupDescriptor {
                 label: Some("zen-background-bind-group"),
@@ -1017,10 +1025,6 @@ impl ZenState {
             background_bind_group,
             shadow_pipeline,
             render_pipeline,
-            vertex_buffer,
-            index_buffer,
-            index_count,
-            vertex_count,
             camera_buffer,
             shadow_camera_bind_group,
             camera_bind_group,
@@ -1036,6 +1040,7 @@ impl ZenState {
             started_at: Instant::now(),
             runtime_config: runtime_config.clone(),
             scene,
+            renderer_session,
             runtime: ZenRuntimeSession::new(),
             last_cursor_position: None,
             ui,
@@ -1082,14 +1087,18 @@ impl ZenState {
         self.last_frame = now;
 
         self.camera.update(dt, &self.input_state, &self.bindings);
+        let (vertex_count, index_count) = self.renderer_session.scene_counts();
         self.kain_runtime.tick(
             &self.device,
             &self.queue,
             self.viewport_target.size.width,
             self.viewport_target.size.height,
-            self.vertex_count,
-            self.index_count,
+            vertex_count,
+            index_count,
         );
+        if let Err(err) = self.renderer_session.sync_camera(&self.camera) {
+            eprintln!("{err}");
+        }
         self.update_camera_uniform();
 
         if now.duration_since(self.last_title_update) >= Duration::from_millis(600) {
@@ -1115,10 +1124,11 @@ impl ZenState {
                 })
                 .unwrap_or_else(|| "sel none".to_string());
             self.window.set_title(&format!(
-                "{} // mode {:?} // {} // {} // {} // cam {:.1}, {:.1}, {:.1}",
+                "{} // mode {:?} // {} // {} // {} // {} // cam {:.1}, {:.1}, {:.1}",
                 self.runtime_config.window.title,
                 self.runtime.play_mode(),
                 self.kain_runtime.title_suffix(),
+                self.renderer_session.status_suffix(),
                 self.post_processor.status(),
                 selection,
                 self.camera.position.x,
@@ -1215,8 +1225,25 @@ impl ZenState {
             .viewport_request_size()
             .map(|size| PhysicalSize::new(size[0].max(1), size[1].max(1)))
             .unwrap_or(self.viewport_target.size);
+        let viewport_size_changed = self.viewport_target.size != requested_viewport;
         self.ensure_viewport_target(requested_viewport);
+        if viewport_size_changed {
+            if let Err(err) = self.renderer_session.sync_scene(
+                &self.device,
+                &self.scene,
+                self.viewport_target.size,
+                &self.runtime_config.renderer,
+            ) {
+                return Err(err);
+            }
+        }
         self.update_camera_uniform();
+
+        let Some((vertex_buffer, index_buffer, index_count, vertex_count)) =
+            self.renderer_session.scene_geometry()
+        else {
+            return Err("Zen shared renderer geometry not initialized".to_string());
+        };
 
         let clear_color = self.ui.theme.surface_clear_color();
         let mut encoder = self
@@ -1254,9 +1281,9 @@ impl ZenState {
             });
             shadow_pass.set_pipeline(&self.shadow_pipeline);
             shadow_pass.set_bind_group(0, &self.shadow_camera_bind_group, &[]);
-            shadow_pass.set_vertex_buffer(0, self.vertex_buffer.slice(..));
-            shadow_pass.set_index_buffer(self.index_buffer.slice(..), wgpu::IndexFormat::Uint32);
-            shadow_pass.draw_indexed(0..self.index_count, 0, 0..1);
+            shadow_pass.set_vertex_buffer(0, vertex_buffer.slice(..));
+            shadow_pass.set_index_buffer(index_buffer.slice(..), wgpu::IndexFormat::Uint32);
+            shadow_pass.draw_indexed(0..index_count, 0, 0..1);
         }
 
         let has_background = self.background_bind_group.is_some();
@@ -1310,9 +1337,9 @@ impl ZenState {
             });
             render_pass.set_pipeline(&self.render_pipeline);
             render_pass.set_bind_group(0, &self.camera_bind_group, &[]);
-            render_pass.set_vertex_buffer(0, self.vertex_buffer.slice(..));
-            render_pass.set_index_buffer(self.index_buffer.slice(..), wgpu::IndexFormat::Uint32);
-            render_pass.draw_indexed(0..self.index_count, 0, 0..1);
+            render_pass.set_vertex_buffer(0, vertex_buffer.slice(..));
+            render_pass.set_index_buffer(index_buffer.slice(..), wgpu::IndexFormat::Uint32);
+            render_pass.draw_indexed(0..index_count, 0, 0..1);
         }
 
         {
@@ -1340,8 +1367,8 @@ impl ZenState {
         let hud = ZenViewportHud {
             camera_position: self.camera.position.to_array(),
             camera_forward: self.camera.forward().to_array(),
-            vertex_count: self.vertex_count,
-            index_count: self.index_count,
+            vertex_count,
+            index_count,
             viewport_texture_id: Some(viewport_texture_id),
             viewport_extent: [
                 self.viewport_target.size.width,
@@ -1362,7 +1389,7 @@ impl ZenState {
             &kain_status,
         )?;
         if overlay_changed {
-            self.rebuild_scene_buffers()?;
+            self.sync_shared_renderer_scene()?;
         }
 
         self.queue.submit(std::iter::once(encoder.finish()));
@@ -1398,27 +1425,40 @@ impl ZenState {
             .dolly(amount * self.bindings.camera.move_speed * 0.3);
     }
 
-    fn rebuild_scene_buffers(&mut self) -> Result<(), String> {
-        let scene_mesh = self.scene.build_render_mesh()?;
-        let (vertex_buffer, index_buffer, index_count, vertex_count) =
-            create_scene_buffers(&self.device, &scene_mesh);
-        self.vertex_buffer = vertex_buffer;
-        self.index_buffer = index_buffer;
-        self.index_count = index_count;
-        self.vertex_count = vertex_count;
-        Ok(())
+    fn sync_shared_renderer_scene(&mut self) -> Result<(), String> {
+        self.renderer_session.sync_scene(
+                &self.device,
+                &self.scene,
+                self.viewport_target.size,
+                &self.runtime_config.renderer,
+        )
     }
 
     fn handle_primary_click(&mut self) -> Result<(), String> {
         let Some(cursor) = self.last_cursor_position else {
             return Ok(());
         };
-        let Some((origin, direction)) = self.screen_ray(cursor) else {
+        let Some(ndc) = self.screen_ndc(cursor) else {
             return Ok(());
         };
-        let selection = self.scene.pick(origin, direction);
-        if self.scene.select(selection) {
-            self.rebuild_scene_buffers()?;
+        let selection = self
+            .renderer_session
+            .request_selection(ndc)
+            .ok()
+            .and_then(|result| result.hit.then_some(result.mesh_handle))
+            .flatten()
+            .or_else(|| {
+                let Some((origin, direction)) = self.screen_ray(cursor) else {
+                    return None;
+                };
+                self.scene.pick(origin, direction).map(|handle| handle.raw())
+            });
+        let changed = match selection {
+            Some(handle_raw) => self.scene.select_raw_handle(handle_raw),
+            None => self.scene.clear_selection(),
+        };
+        if changed {
+            self.sync_shared_renderer_scene()?;
         }
         Ok(())
     }
@@ -1464,7 +1504,7 @@ impl ZenState {
         match self.runtime.dispatch(&mut self.scene, envelope) {
             Ok(result) => {
                 if result.scene_dirty {
-                    if let Err(err) = self.rebuild_scene_buffers() {
+                    if let Err(err) = self.sync_shared_renderer_scene() {
                         eprintln!("{err}");
                     }
                 }
@@ -1519,28 +1559,29 @@ impl ZenState {
             Some((near, direction))
         }
     }
-}
 
-fn create_scene_buffers(
-    device: &wgpu::Device,
-    mesh: &SceneMesh,
-) -> (wgpu::Buffer, wgpu::Buffer, u32, u32) {
-    let vertex_buffer = device.create_buffer_init(&wgpu::util::BufferInitDescriptor {
-        label: Some("zen-vertex-buffer"),
-        contents: bytemuck::cast_slice(&mesh.vertices),
-        usage: wgpu::BufferUsages::VERTEX,
-    });
-    let index_buffer = device.create_buffer_init(&wgpu::util::BufferInitDescriptor {
-        label: Some("zen-index-buffer"),
-        contents: bytemuck::cast_slice(&mesh.indices),
-        usage: wgpu::BufferUsages::INDEX,
-    });
-    (
-        vertex_buffer,
-        index_buffer,
-        mesh.indices.len() as u32,
-        mesh.vertices.len() as u32,
-    )
+    fn screen_ndc(&self, cursor: (f32, f32)) -> Option<[f32; 2]> {
+        let viewport_rect = self.ui.viewport_rect_pixels()?;
+        if self.viewport_target.size.width == 0 || self.viewport_target.size.height == 0 {
+            return None;
+        }
+
+        let scale_factor = self.window.scale_factor() as f32;
+        let cursor_px = (cursor.0 * scale_factor, cursor.1 * scale_factor);
+        if cursor_px.0 < viewport_rect[0]
+            || cursor_px.1 < viewport_rect[1]
+            || cursor_px.0 > viewport_rect[0] + viewport_rect[2]
+            || cursor_px.1 > viewport_rect[1] + viewport_rect[3]
+        {
+            return None;
+        }
+
+        let local_x = cursor_px.0 - viewport_rect[0];
+        let local_y = cursor_px.1 - viewport_rect[1];
+        let ndc_x = (local_x / viewport_rect[2].max(1.0)) * 2.0 - 1.0;
+        let ndc_y = 1.0 - (local_y / viewport_rect[3].max(1.0)) * 2.0;
+        Some([ndc_x, ndc_y])
+    }
 }
 
 #[derive(Default)]

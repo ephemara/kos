@@ -1,5 +1,122 @@
 # Memory
 
+## 2026-03-26: Scribe renderer unification docs handoff
+
+### What changed
+
+Claimed and completed the `Scribe` lane in [`M:\K_OS\Swarm\glass-foundry-zen-kain-native-pipeline.md`](M:\K_OS\Swarm\glass-foundry-zen-kain-native-pipeline.md).
+
+Added the operator-facing guide at [`M:\K_OS\docs\zen_renderer_operator_guide.md`](M:\K_OS\docs\zen_renderer_operator_guide.md) and updated [`M:\K_OS\ARCHITECTURE.md`](M:\K_OS\ARCHITECTURE.md) so future agents can see the current Zen renderer migration state without rediscovering it from code.
+
+The new docs record that Zen is currently hybrid:
+
+- [`M:\K_OS\crates\zen\src\renderer_session.rs`](M:\K_OS\crates\zen\src\renderer_session.rs) already uses `k-os-renderer::RendererService` for viewport creation, camera updates, redraws, mesh sync, and selection requests
+- the same module still builds host-local `SceneGeometry` from `ZenScene::build_render_mesh()`
+- [`M:\K_OS\crates\zen\src\main.rs`](M:\K_OS\crates\zen\src\main.rs) still carries inline WGSL shader ownership and local renderer responsibilities that Atlas identified as migration targets
+- [`M:\K_OS\crates\zen\src\kain_ui_host.rs`](M:\K_OS\crates\zen\src\kain_ui_host.rs) remains the operator shell for workspace layout, documents, host actions, asset import, and Kain status
+
+### Durable findings
+
+- The highest-value documentation gap was not the target architecture anymore; Atlas and Vector had already covered that. The missing durable piece was an operator-level statement of the current hybrid runtime reality and which files/contracts are authoritative during migration.
+- Zen host workflow is already strongly manifest-driven through `workspace_ui.toml` and `host_api.toml`, so future integration work should avoid rebuilding those decisions in code or UI literals.
+- A future agent can now distinguish three documentation layers quickly:
+  - boundary proposal
+  - host contract surface
+  - operator/runtime guide
+
+### Next recommended step
+
+Keep `Forge` as the critical path. Once its renderer cutover changes land, update the operator guide and architecture note again before `Sweep` removes the remaining duplicate Zen renderer path.
+
+## 2026-03-26: Forge renderer-session cutover
+
+### What changed
+
+Claimed the `Forge` lane in [`M:\K_OS\Swarm\glass-foundry-zen-kain-native-pipeline.md`](M:\K_OS\Swarm\glass-foundry-zen-kain-native-pipeline.md) and moved the Zen host's scene-to-render ownership into a dedicated session module at [`M:\K_OS\crates\zen\src\renderer_session.rs`](M:\K_OS\crates\zen\src\renderer_session.rs).
+
+The cutover added:
+
+- a shared `RendererService`-backed Zen session
+- an explicit scene payload bridge from [`M:\K_OS\crates\zen-scene\src\lib.rs`](M:\K_OS\crates\zen-scene\src\lib.rs) via `SceneRenderPayload`
+- session-owned scene geometry buffers for the local presentation seam
+- selection and camera forwarding through the shared renderer contract
+- a narrow compatibility path in [`M:\K_OS\crates\zen\src\main.rs`](M:\K_OS\crates\zen\src\main.rs) for post-processing and egui presentation
+
+### Durable findings
+
+- Zen no longer owns scene-buffer creation directly in `main.rs`; that responsibility now sits in the renderer session.
+- The shared renderer service is now the source of truth for camera, selection, and frame stats in the Zen host loop where possible.
+- The final bridge step now mirrors Zen scene data into `k-os-scene-runtime` before calling `evaluate_viewport_payload`, so the viewport payload evaluation path is canonical instead of host-local.
+- `zen-scene` still provides host-side scene extraction, but the evaluated payload is now owned by scene-runtime rather than by Zen itself.
+- The remaining host-local work in Zen is intentionally the presentation/post seam, not the scene sync contract.
+
+### Verification
+
+- `cargo check -p zen` passed after the cutover.
+
+### Next recommended step
+
+Let `Delta` consume the new session boundary from the host side and keep `Aegis` focused on proving that the remaining presentation seam does not regress selection, stats, or viewport redraw behavior.
+
+## 2026-03-26: Active swarm for Zen native renderer unification
+
+### What changed
+
+Created an active swarm plan at [`M:\K_OS\Swarm\glass-foundry-zen-kain-native-pipeline.md`](M:\K_OS\Swarm\glass-foundry-zen-kain-native-pipeline.md) to coordinate the large push for:
+
+- unifying Zen's native 3D renderer around the shared `k-os-renderer` + `k-os-eval` + `k-os-scene-runtime` path
+- wiring more of the workspace crate surface into Zen through registry-driven host contracts
+- landing a Kain-backed DCC integration path without preserving permanent duplicate renderer ownership in `crates/zen`
+
+The swarm uses the full 8-lane roster:
+
+- `Sovereign`
+- `Atlas`
+- `Forge`
+- `Vector`
+- `Delta`
+- `Aegis`
+- `Scribe`
+- `Sweep`
+
+### Durable findings
+
+- The largest architectural risk in this program is not crate discovery anymore; it is duplicate renderer ownership. Zen already has enough registry, manifest, and host-shell structure to act as the composition root, but `crates/zen/src/main.rs` still carries a parallel renderer implementation.
+- The swarm is intentionally organized around one decisive move: Zen should become the native host over the shared renderer/eval/scene-runtime pipeline, not remain a second renderer with partial shared-crate adoption.
+- Cleanup is intentionally deferred into `Sweep` and starts blocked. The migration should prove the shared path first, then delete obsolete host-local renderer code.
+- The Atlas lane is now complete. The durable boundary proposal lives in [`M:\K_OS\docs\zen_renderer_unification.md`](M:\K_OS\docs\zen_renderer_unification.md) and defines the exact ownership split between `zen`, `k-os-renderer`, `k-os-eval`, `k-os-scene-runtime`, and `k-os-kain`.
+
+### Next recommended step
+
+Start `Forge` and `Vector` in parallel. `Forge` should own the shared Zen renderer session, scene-runtime bridge, and viewport cutover. `Vector` should own the registry/contract surface that tells Zen which crates and entrypoints it should consume. `Delta` should begin only after those two lanes have stabilized the renderer backbone and the host/tool contract surface.
+
+## 2026-03-26: Vector contract surface note for Zen integration
+
+### What changed
+
+Claimed the `Vector` lane in [`M:\K_OS\Swarm\glass-foundry-zen-kain-native-pipeline.md`](M:\K_OS\Swarm\glass-foundry-zen-kain-native-pipeline.md) and landed a durable Zen-facing contract note at [`M:\K_OS\docs\zen_contract_surface.md`](M:\K_OS\docs\zen_contract_surface.md).
+
+The note captures the stable host/integration/internal split for Zen consumption and names the registry lookups Delta should use:
+
+- `workspace_registry()`
+- `integration_registry()`
+- `adapter_manifests()`
+- `adapter_manifest_for_target("zen")`
+- `integration_contract_for_package("zen-host")`
+- `integration_contract_for_package("zen-kain-api")`
+- `integration_contract_for_package("zen-kain-modules")`
+- `packages_for_host("zen")`
+
+### Durable findings
+
+- The generated registry already had the Zen tiering and recommended entrypoints that Vector needed, so the remaining work was to make the contract legible and durable for Delta and Scribe.
+- `zen-host` and `zen-kain-api` are the best stable host-facing contract surfaces for Zen tool integration right now.
+- The right consumption model is still “generated registry plus explicit recommended entrypoints,” not “walk arbitrary public items at the host boundary.”
+
+### Next recommended step
+
+Hand the new contract note to `Delta` so it can wire Zen host/UI/tool surfaces against the registry-driven contract rather than adding fresh hardcoded discovery logic.
+
 ## 2026-03-26: Specta expansion for Kain and viewport contracts
 
 ### What changed

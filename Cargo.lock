@@ -14394,6 +14394,8 @@ dependencies = [
  "k-os-asset-pipeline",
  "k-os-kain",
  "k-os-renderer",
+ "k-os-scene",
+ "k-os-scene-runtime",
  "k-os-workspace-registry",
  "kain-core",
  "kain-ui",

@@ -316,8 +316,8 @@
             "crate::mesh_state::SharedMeshInfo",
             "crate::mesh_state::dispose_shared_mesh",
             "crate::mesh_state::dispose_shared_mesh_cmd",
-            "crate::mesh_state::evaluate_viewport_bridge_summary",
-            "crate::mesh_state::evaluate_viewport_payload"
+            "crate::mesh_state::dispose_shared_mesh_for_source",
+            "crate::mesh_state::evaluate_viewport_bridge_summary"
           ],
           "pressure_priority": "low"
         },
@@ -526,8 +526,8 @@
             "crate::SceneImportReport",
             "crate::SceneMesh",
             "crate::SceneObjectEntry",
-            "crate::SelectedObjectDetails",
-            "crate::SelectedObjectSummary"
+            "crate::SceneRenderPayload",
+            "crate::SelectedObjectDetails"
           ],
           "pressure_priority": "low"
         }
@@ -967,8 +967,8 @@
             "crate::SceneImportReport",
             "crate::SceneMesh",
             "crate::SceneObjectEntry",
-            "crate::SelectedObjectDetails",
-            "crate::SelectedObjectSummary"
+            "crate::SceneRenderPayload",
+            "crate::SelectedObjectDetails"
           ],
           "pressure_priority": "low"
         }

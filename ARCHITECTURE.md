@@ -56,6 +56,8 @@ The Tauri boundary now has three shared contract modules:
 
 `src-tauri/build.rs` exports those contracts through Specta into [`M:\K_OS\src-frontend\generated\tauriRegistry.gen.ts`](M:\K_OS\src-frontend\generated\tauriRegistry.gen.ts), so the frontend can consume typed registry, Kain, and viewport commands without hand-maintaining TS interfaces.
 
+The durable Zen-facing contract note is [`M:\K_OS\docs\zen_contract_surface.md`](M:\K_OS\docs\zen_contract_surface.md). It defines the stable host/integration/internal split for Zen consumption and points Delta at the registry lookups and entrypoints it should use instead of rediscovering crates manually.
+
 ### Bevy
 
 [`M:\K_OS\crates\k-os-bevy\Cargo.toml`](M:\K_OS\crates\k-os-bevy\Cargo.toml) is an experimental host that aggregates renderer, sculpt, GPU, and gameplay crates directly.
@@ -63,6 +65,10 @@ The Tauri boundary now has three shared contract modules:
 ### Zen
 
 [`M:\K_OS\crates\zen\Cargo.toml`](M:\K_OS\crates\zen\Cargo.toml) is a native host that composes Kain, renderer, asset pipeline, and the `zen-*` crates.
+
+Zen's current native renderer cutover now lives in [`M:\K_OS\crates\zen\src\renderer_session.rs`](M:\K_OS\crates\zen\src\renderer_session.rs). That session owns the shared `k-os-renderer` service, mirrors Zen scene data into `k-os-scene-runtime` as the canonical eval bridge, forwards camera state, handles selection requests, and caches scene geometry, while [`M:\K_OS\crates\zen\src\main.rs`](M:\K_OS\crates\zen\src\main.rs) keeps the surface/presentation/post seam.
+
+[`M:\K_OS\crates\zen-scene\src\lib.rs`](M:\K_OS\crates\zen-scene\src\lib.rs) still exposes a scene payload bridge helper for host extraction, but the actual viewport payload evaluation now flows through [`M:\K_OS\crates\k-os-scene-runtime\src\mesh_state.rs`](M:\K_OS\crates\k-os-scene-runtime\src\mesh_state.rs).
 
 ## Existing Data-Driven Systems
 
@@ -146,6 +152,26 @@ From a workspace-only dependency audit:
 
 That means the safest place to centralize future wiring is the composition layer, not the leaf crates.
 
+## Zen Renderer Unification Status
+
+The active renderer migration is documented in:
+
+- [`M:\K_OS\docs\zen_renderer_unification.md`](M:\K_OS\docs\zen_renderer_unification.md)
+- [`M:\K_OS\docs\zen_contract_surface.md`](M:\K_OS\docs\zen_contract_surface.md)
+- [`M:\K_OS\docs\zen_renderer_operator_guide.md`](M:\K_OS\docs\zen_renderer_operator_guide.md)
+
+The target model is:
+
+- `zen` owns the native shell, input, viewport presentation, and operator workflow
+- `k-os-scene-runtime` owns canonical scene/runtime state for renderer-facing sync
+- `k-os-eval` owns viewport payload derivation
+- `k-os-renderer` owns viewport lifecycle, mesh sync, selection, stats, and render execution
+- `zen-host`, `zen-kain-api`, and `zen-kain-modules` define the host/tool contract surfaces
+
+The current implementation is still hybrid. [`M:\K_OS\crates\zen\src\renderer_session.rs`](M:\K_OS\crates\zen\src\renderer_session.rs) already syncs `SceneRenderPayload` data into `k-os-renderer::RendererService`, but it still builds host-local `SceneGeometry` buffers from `ZenScene::build_render_mesh()` for presentation and count reporting. [`M:\K_OS\crates\zen\src\main.rs`](M:\K_OS\crates\zen\src\main.rs) also still contains inline WGSL shader ownership and local render-path responsibilities Atlas identified for removal.
+
+For future work, treat Zen's renderer migration as a cutover problem, not a greenfield renderer design problem. The job is to finish moving Zen onto the shared renderer path and then delete the duplicate host-local path.
+
 ## Recommended Wiring Direction
 
 Do not try to make crates dynamically discover Rust dependencies at runtime.
@@ -172,6 +198,7 @@ Good candidates for metadata and generated registry ownership:
 - [`M:\K_OS\src-kain`](M:\K_OS\src-kain): Kain sources outside crate-local manifests
 - [`M:\K_OS\config`](M:\K_OS\config): repo-level config
 - [`M:\K_OS\docs`](M:\K_OS\docs): broader docs
+- [`M:\K_OS\Swarm`](M:\K_OS\Swarm): active multi-agent execution plans and lane state
 
 ## Common CLI
 
@@ -191,14 +218,17 @@ Testing and heavy validation should still follow the repo conversation rule: ask
 - Do not assume host crates are the right place for new logic. Prefer pushing ownership down into a domain crate and surfacing it through composition data.
 - Avoid adding new string-literal crate IDs or hardcoded asset paths when a manifest or schema already exists nearby.
 - `k-os-plugin` exists, but dynamic library loading is not the easiest first answer for this workspace. Static Cargo composition plus generated registries is simpler and safer for the current architecture.
+- Zen's `renderer_session.rs` should be treated as the current ownership boundary for scene-to-render sync. If you need draw data or selection in Zen, use that session instead of rebuilding scene buffers directly in `main.rs`.
 - `cargo metadata` is the fastest reliable way to inspect the workspace graph; use `--format-version 1`.
 - `public_api_registry.json` is now the closest thing this workspace has to generated headers. Use it when you need to answer “what is callable from this crate?” before reaching for global `rg` on `pub fn`.
 - `api_bloat_pressure.json` is the cleanup-priority layer on top of the raw public API index. Use it to decide where crate-root curation and `pub(crate)` tightening will buy the most relief first.
 - `integration_registry.json` is the curated composition layer. It assigns each crate a stability tier and recommended entrypoints so integrators do not have to consume the full raw public surface.
 - `adapter_manifests.json` projects the curated composition layer into host-oriented adapter targets. Right now the generated targets are `tauri`, `bevy`, `zen`, and `external`.
+- Zen renderer work now has three durable references with different roles: the boundary proposal in [`M:\K_OS\docs\zen_renderer_unification.md`](M:\K_OS\docs\zen_renderer_unification.md), the host contract note in [`M:\K_OS\docs\zen_contract_surface.md`](M:\K_OS\docs\zen_contract_surface.md), and the operator-facing runtime guide in [`M:\K_OS\docs\zen_renderer_operator_guide.md`](M:\K_OS\docs\zen_renderer_operator_guide.md).
 - `src-tauri/build.rs` enforces crate documentation parity against [`M:\K_OS\docs\CARGO_ARSENAL.md`](M:\K_OS\docs\CARGO_ARSENAL.md). Any new Tauri dependency added to [`M:\K_OS\src-tauri\Cargo.toml`](M:\K_OS\src-tauri\Cargo.toml) must also be documented there or `cargo check -p k-os-backend` will fail before Rust compilation finishes.
 - `src-tauri/build.rs` now also generates [`M:\K_OS\src-frontend\generated\tauriRegistry.gen.ts`](M:\K_OS\src-frontend\generated\tauriRegistry.gen.ts). Despite the filename, it now contains registry, Kain, and viewport bindings. If the file looks stale, rebuild the backend with `cargo check -p k-os-backend` instead of editing the generated TS directly.
 - The generated Tauri wrappers should use camelCase argument names for command parameters even when the Rust function arguments are snake_case. Keep nested payload DTO field naming aligned with the Rust serde contract, but do not hand-write snake_case top-level invoke keys in frontend code.
 - The workspace root manifest is virtual, so a root `build.rs` will not run. Shared generation work must live in a real package like `k-os-workspace-registry`.
 - Builds of `k-os-backend`, `k-os-bevy`, and `zen` now regenerate the workspace registry because they depend on `k-os-workspace-registry`, but arbitrary leaf-crate builds will not. If universal pre-build sync becomes necessary, add an `xtask` or wrapper command rather than trying to force it through the virtual workspace root.
 - `DIRECTORY.md` is helpful background, but it is not the authoritative Rust workspace contract. Check manifests and crate entrypoints directly before changing wiring.
+- The `Scribe` lane in a swarm should keep structural docs synchronized with the active swarm handoff docs. If Zen renderer ownership changes materially, update `ARCHITECTURE.md`, `memory.md`, and the operator guide together so future agents do not reconstruct the migration state from code alone.

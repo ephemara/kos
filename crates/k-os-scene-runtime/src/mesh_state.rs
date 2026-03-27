@@ -84,6 +84,8 @@ impl SharedMesh {
 lazy_static::lazy_static! {
     pub static ref SHARED_MESHES: Arc<RwLock<HashMap<u64, SharedMesh>>> =
         Arc::new(RwLock::new(HashMap::new()));
+    pub static ref SHARED_SOURCE_ALIASES: Arc<RwLock<HashMap<u64, SharedMeshHandle>>> =
+        Arc::new(RwLock::new(HashMap::new()));
     pub static ref NEXT_SHARED_HANDLE: Arc<RwLock<u64>> = Arc::new(RwLock::new(1));
     pub static ref SCENE_WORLD: Arc<RwLock<SceneWorld>> = Arc::new(RwLock::new(SceneWorld::new()));
 }
@@ -125,11 +127,82 @@ pub fn register_shared_mesh(
     handle
 }
 
+pub fn sync_shared_mesh_for_source(
+    source_handle: MeshHandle,
+    positions: Vec<f32>,
+    normals: Vec<f32>,
+    indices: Vec<u32>,
+) -> Result<SharedMeshHandle, String> {
+    let source_raw = source_handle.raw();
+    if let Some(shared_handle) = SHARED_SOURCE_ALIASES
+        .read()
+        .unwrap()
+        .get(&source_raw)
+        .copied()
+    {
+        let mesh_handle = {
+            let meshes = SHARED_MESHES.read().unwrap();
+            meshes
+                .get(&shared_handle)
+                .map(|mesh| mesh.mesh_handle)
+                .ok_or_else(|| {
+                    format!(
+                        "shared mesh alias {} points at missing mesh {}",
+                        source_raw, shared_handle
+                    )
+                })?
+        };
+
+        {
+            let mut scene = SCENE_WORLD.write().unwrap();
+            scene
+                .update_mesh_source(mesh_handle, positions.clone(), indices.clone(), Some(normals))
+                .map_err(|err| err.to_string())?;
+        }
+
+        {
+            let mut meshes = SHARED_MESHES.write().unwrap();
+            if let Some(mesh) = meshes.get_mut(&shared_handle) {
+                mesh.vertex_count = positions.len() / 3;
+                mesh.face_count = indices.len() / 3;
+                mesh.mark_dirty();
+                mesh.bridge_summary = evaluate_viewport_bridge_summary(mesh.mesh_handle).ok();
+            }
+        }
+
+        return Ok(shared_handle);
+    }
+
+    let shared_handle = register_shared_mesh(positions, normals, indices);
+    SHARED_SOURCE_ALIASES
+        .write()
+        .unwrap()
+        .insert(source_raw, shared_handle);
+    Ok(shared_handle)
+}
+
 pub fn dispose_shared_mesh(handle: SharedMeshHandle) {
     let mut meshes = SHARED_MESHES.write().unwrap();
     if meshes.remove(&handle).is_some() {
         log::info!("[SharedMesh] Disposed mesh {}", handle);
     }
+}
+
+pub fn dispose_shared_mesh_for_source(source_handle: MeshHandle) {
+    let source_raw = source_handle.raw();
+    let shared_handle = SHARED_SOURCE_ALIASES.write().unwrap().remove(&source_raw);
+    if let Some(shared_handle) = shared_handle {
+        dispose_shared_mesh(shared_handle);
+    }
+}
+
+pub fn shared_mesh_scene_handle(shared_handle: SharedMeshHandle) -> Result<MeshHandle, String> {
+    SHARED_MESHES
+        .read()
+        .unwrap()
+        .get(&shared_handle)
+        .map(|mesh| mesh.mesh_handle)
+        .ok_or_else(|| format!("shared mesh not found: {}", shared_handle))
 }
 
 pub fn mark_mesh_dirty(handle: SharedMeshHandle) {

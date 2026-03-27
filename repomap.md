@@ -372,6 +372,7 @@ Companion artifacts:
             └── 📂 weight
                 └── 📂 engine
                 └── 📂 ui
+        └── 📂 generated
         └── 📂 hooks
             └── 📂 __tests__
         └── 📂 kain
@@ -668,6 +669,8 @@ Companion artifacts:
             └── 📂 commands
             └── 📂 mocap
                 └── 📂 utils
+    └── 📂 Swarm
+        └── 📂 completed
     └── 📂 test-docgen
         └── 📂 frontend
             └── 📂 ui

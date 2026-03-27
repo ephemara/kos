@@ -250,6 +250,17 @@
       ]
     },
     {
+      "package_name": "zen-scene",
+      "score": 114,
+      "priority": "low",
+      "item_count": 30,
+      "callable_count": 21,
+      "reexport_count": 0,
+      "notes": [
+        "public surface is comparatively contained"
+      ]
+    },
+    {
       "package_name": "k-os-workspace-registry",
       "score": 110,
       "priority": "low",
@@ -261,22 +272,11 @@
       ]
     },
     {
-      "package_name": "zen-scene",
-      "score": 103,
-      "priority": "low",
-      "item_count": 27,
-      "callable_count": 19,
-      "reexport_count": 0,
-      "notes": [
-        "public surface is comparatively contained"
-      ]
-    },
-    {
       "package_name": "k-os-scene-runtime",
-      "score": 81,
+      "score": 96,
       "priority": "low",
-      "item_count": 21,
-      "callable_count": 15,
+      "item_count": 24,
+      "callable_count": 18,
       "reexport_count": 0,
       "notes": [
         "public surface is comparatively contained"

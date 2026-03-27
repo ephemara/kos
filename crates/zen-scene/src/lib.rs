@@ -1,7 +1,9 @@
 use bytemuck::{Pod, Zeroable};
 use glam::{Mat4, Quat, Vec3};
 use k_os_asset_pipeline::asset::{Asset, AssetData, MeshData, SceneData, SceneNode};
-use k_os_scene::{MeshHandle, SceneParentComponent, SceneTransformComponent, SceneWorld};
+use k_os_scene::{
+    MeshHandle, SceneParentComponent, SceneTransformComponent, SceneWorld, ShadingMode,
+};
 use std::collections::{HashMap, HashSet};
 
 #[repr(C)]
@@ -72,6 +74,15 @@ pub struct SceneFocusTarget {
 pub struct SceneImportReport {
     pub label: String,
     pub imported_objects: usize,
+}
+
+#[derive(Clone, Debug)]
+pub struct SceneRenderPayload {
+    pub mesh_handle: MeshHandle,
+    pub positions: Vec<f32>,
+    pub normals: Vec<f32>,
+    pub indices: Vec<u32>,
+    pub shading_mode: ShadingMode,
 }
 
 #[derive(Clone, Copy, Debug)]
@@ -371,6 +382,59 @@ impl ZenScene {
         }
 
         Ok(SceneMesh { vertices, indices })
+    }
+
+    pub fn bridge_sources(&self) -> Result<Vec<SceneRenderPayload>, String> {
+        let mut payloads = Vec::new();
+
+        for handle in self.sorted_handles() {
+            let source = self.world.mesh_source(handle).map_err(|err| {
+                format!("Failed to fetch mesh source for {}: {err}", handle.raw())
+            })?;
+            let viewport_state = self
+                .world
+                .viewport_state(handle)
+                .map_err(|err| format!("Failed to fetch viewport state for {}: {err}", handle.raw()))?;
+            let world = self.world_transform(handle, &mut HashSet::new())?;
+            let normal_transform = world.inverse().transpose();
+
+            let mut positions = Vec::with_capacity(source.positions.len());
+            for position in source.positions.chunks_exact(3) {
+                let local = Vec3::new(position[0], position[1], position[2]);
+                let world_position = world.transform_point3(local);
+                positions.extend_from_slice(&world_position.to_array());
+            }
+
+            let normals = source
+                .normals
+                .as_ref()
+                .map(|values| {
+                    let mut transformed = Vec::with_capacity(values.len());
+                    for normal in values.chunks_exact(3) {
+                        let local = Vec3::new(normal[0], normal[1], normal[2]);
+                        let world_normal = normal_transform
+                            .transform_vector3(local)
+                            .normalize_or_zero();
+                        transformed.extend_from_slice(&world_normal.to_array());
+                    }
+                    transformed
+                })
+                .unwrap_or_else(|| vec![0.0; positions.len()]);
+
+            payloads.push(SceneRenderPayload {
+                mesh_handle: handle,
+                positions,
+                normals,
+                indices: source.indices.as_ref().to_vec(),
+                shading_mode: viewport_state.shading_mode,
+            });
+        }
+
+        Ok(payloads)
+    }
+
+    pub fn render_payloads(&self) -> Result<Vec<SceneRenderPayload>, String> {
+        self.bridge_sources()
     }
 
     pub fn pick(&self, ray_origin: Vec3, ray_direction: Vec3) -> Option<MeshHandle> {

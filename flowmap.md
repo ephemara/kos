@@ -1,7 +1,7 @@
 # K_OS Flow Map
 
 - Directory: `M:\K_OS`
-- Generated (UTC): `2026-03-26T20:02:25.916456+00:00`
+- Generated (UTC): `2026-03-27T04:00:21.686982+00:00`
 - Languages: `JSON, Markdown, Python, Rust, TOML, TSX, TypeScript`
 - Entry files: `src-frontend/App.tsx, src-tauri/src/main.rs, Cargo.toml, src-tauri/Cargo.toml`
 - Manifests: `cargo, cargo, npm, cargo, npm, cargo, cargo, cargo, cargo, cargo, cargo, cargo`
@@ -56,7 +56,7 @@ flowchart LR
 
 ## Manifest Summary
 - `Cargo.toml`: cargo, workspace members: 45, deps: 0
-- `src-tauri/Cargo.toml`: cargo, deps: 41
+- `src-tauri/Cargo.toml`: cargo, deps: 42
 - `package.json`: npm, deps: 152, scripts: 19
 - `test-docgen/Cargo.toml`: cargo, deps: 3
 - `public/wasm/package.json`: npm, deps: 0, scripts: 0

@@ -19,6 +19,8 @@ kain-core = { path = "../../../Code/Kain/crates/kain-core" }
 kain-ui = { path = "../../../Code/Kain/crates/kain-ui" }
 k-os-asset-pipeline = { path = "../k-os-asset-pipeline" }
 k-os-kain = { path = "../k-os-kain" }
+k-os-scene = { path = "../k-os-scene" }
+k-os-scene-runtime = { path = "../k-os-scene-runtime" }
 k-os-workspace-registry = { path = "../k-os-workspace-registry" }
 k-os-renderer = { path = "../k-os-renderer" }
 log = "0.4"
