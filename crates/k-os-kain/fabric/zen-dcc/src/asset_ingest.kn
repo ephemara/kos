@@ -1,0 +1,9 @@
+struct ZenAssetIngestOutputs:
+    asset_ingest_report: String
+
+fn main() -> ZenAssetIngestOutputs:
+    let settings = fabric_inputs.python_seed.project_settings
+    let report = "asset-ingest:" + settings.project_name + ":source=" + settings.asset_source + ":packs=" + str(settings.runtime_pack_count) + ":surface=" + settings.shell_surface
+    return ZenAssetIngestOutputs {
+        asset_ingest_report: report
+    }

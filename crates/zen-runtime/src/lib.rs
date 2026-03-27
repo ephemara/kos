@@ -51,6 +51,15 @@ impl ZenRuntimeSession {
                     ZenEvent::ShellReloadRequested { transaction_id },
                 );
             }
+            ZenCommand::FabricRunIntent { intent_id } => {
+                push_event(
+                    &mut result,
+                    ZenEvent::FabricIntentRequested {
+                        transaction_id,
+                        intent_id: intent_id.clone(),
+                    },
+                );
+            }
             ZenCommand::SceneSpawnWorkspaceBox => {
                 if scene.spawn_workspace_box() {
                     mark_scene_changed(

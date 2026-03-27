@@ -33,5 +33,5 @@ name = "viewport_seed"
 kind = "value"
 
 [reports]
-directory = ".kain/fabric/reports"
+directory = ".kain/fabric/intents/project_bootstrap"
 emit_jsonl_events = true

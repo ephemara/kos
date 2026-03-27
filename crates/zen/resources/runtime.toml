@@ -33,6 +33,8 @@ show_runtime_inspector = false
 [kain.fabric]
 enabled = true
 manifest_path = "crates/k-os-kain/fabric/zen-dcc/KAIN.fabric.toml"
+intent_registry_path = "crates/k-os-kain/fabric/zen-dcc/config/fabric_intents.json"
+scene_dirty_intents = ["material.bake_preview", "topology.rebuild"]
 
 [renderer]
 shadow_map_size = 2048

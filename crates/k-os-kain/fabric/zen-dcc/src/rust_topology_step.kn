@@ -1,0 +1,14 @@
+use rust::zen_dcc_fabric_runtime
+use std::interop::bridge
+
+fn main() -> String:
+    let tensor_features = fabric_inputs.zen_dcc_seed.tensor_features
+    let feature_info = interop_shared_buffer_info(tensor_features)
+    let feature_bytes = interop_shared_buffer_bytes(tensor_features)
+    let checksum = graph_checksum(feature_bytes)
+    return build_topology_report(
+        feature_info.byte_length,
+        checksum,
+        fabric_inputs.zen_dcc_seed.scene_graph_document,
+        fabric_inputs.zen_dcc_seed.preview_session_report,
+    )

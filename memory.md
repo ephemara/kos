@@ -4,20 +4,22 @@
 
 ### What changed
 
-Started the actual Zen-side embed for Kain Fabric instead of keeping Fabric only as an architecture recommendation.
+Moved the Zen Fabric embed from a single configured-manifest panel into a real intent-driven native pipeline.
 
-Added a host-local Fabric service at `M:\K_OS\crates\zen\src\fabric.rs`, extended Zen runtime config with a dedicated `[kain.fabric]` section, added a native `workspace.fabric` shell tab plus `engine.fabric` host binding, and created the first default Zen Fabric workspace at `M:\K_OS\crates\k-os-kain\fabric\zen-dcc`.
+Extended the host-local Fabric service at `M:\K_OS\crates\zen\src\fabric.rs` so it now loads an intent registry, resolves lane-specific `fabric/intents/*.fabric.toml` graphs, handles `FabricRunIntent` runtime commands, and auto-runs configured Fabric lanes on scene-dirty events. Added native host actions for bootstrap, ingest, material bake, topology rebuild, and publish, then expanded the default Zen Fabric workspace at `M:\K_OS\crates\k-os-kain\fabric\zen-dcc` with real Python, Kain, GPU, Rust, and Node steps.
 
 ### Durable findings
 
 - The right framing is "Fabric is a native Zen subsystem" rather than "Fabric is an optional external sidecar." Zen can embed Fabric deeply without giving up ownership of the viewport loop.
 - The host/service split matters. `crates/zen` should own manifest resolution, run triggers, session/report caching, and panel presentation, while upstream `kain-host` continues to own execution of `KAIN.fabric.toml`.
-- A small default workspace under `k-os-kain/fabric/zen-dcc` is a better bootstrap than waiting for a perfect giant DCC graph. It gives the native panel a real executable manifest immediately and creates the path for later ingest, bake, topology, publish, and tensor graphs.
+- The best Zen-side trigger seam is `ZenCommand -> ZenEvent -> ZenFabricService`, not direct UI callbacks. That keeps Fabric intent execution reachable from host actions, command palette picks, and future non-UI runtime triggers without duplicating glue.
+- A registry-driven workspace under `k-os-kain/fabric/zen-dcc` is the right shape for Zen DCC. `config/fabric_intents.json` plus `fabric/intents/*.fabric.toml` lets the shell stay data-driven while the runtime mix under `src/`, `scripts/`, `shaders/`, and `local_crate/` grows over time.
+- The current embedded workspace now proves five runtime lanes locally: `python`, `kain`, `gpu_compute`, `rust_crate`, and `node`. The `c_abi` lane should be added once ZenDCC has a concrete local DLL owner instead of pointing at a placeholder native artifact.
 - The ownership rule still holds: Zen owns viewport and operator workflow; Fabric owns cross-runtime orchestration; owner crates keep domain semantics. Embedding Fabric more deeply should reduce glue code, not move scene/viewport truth into scripts.
 
 ### Next recommended step
 
-Expand the embedded workspace beyond bootstrap by adding intent graphs for asset ingest, material bake preview, topology rebuild, and publish, then connect selected Zen actions and dirty-state transitions to those intents. Keep hot interactive viewport paths off the Fabric execution loop unless a specific lane proves it can meet latency requirements.
+Decide which Zen runtime events should map to additional Fabric auto lanes beyond the current scene-dirty material/topology hooks, then add a real local `c_abi` owner if sculpt/filter native kernels should become first-class parts of the embedded Zen DCC pipeline. Keep hot interactive viewport paths off the Fabric execution loop unless a specific lane proves it can meet latency requirements.
 
 ## 2026-03-27: Fabric adoption assessment for Zen DCC
 

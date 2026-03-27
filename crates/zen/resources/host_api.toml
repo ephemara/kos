@@ -9,6 +9,36 @@ description = "Recompile and reload the active Kain shell document."
 behavior = "reload_shell"
 
 [[actions]]
+key = "fabric.bootstrap"
+label = "Fabric Bootstrap"
+description = "Run the embedded Zen DCC Fabric bootstrap intent."
+behavior = "fabric_run_intent:project.bootstrap"
+
+[[actions]]
+key = "fabric.asset_ingest"
+label = "Fabric Asset Ingest"
+description = "Run the asset ingest Fabric lane for the embedded Zen DCC workspace."
+behavior = "fabric_run_intent:asset.ingest"
+
+[[actions]]
+key = "fabric.material_bake"
+label = "Fabric Material Bake"
+description = "Run the material preview bake Fabric lane for the embedded Zen DCC workspace."
+behavior = "fabric_run_intent:material.bake_preview"
+
+[[actions]]
+key = "fabric.topology_rebuild"
+label = "Fabric Topology Rebuild"
+description = "Run the topology rebuild Fabric lane for the embedded Zen DCC workspace."
+behavior = "fabric_run_intent:topology.rebuild"
+
+[[actions]]
+key = "fabric.publish_package"
+label = "Fabric Publish Package"
+description = "Run the publish/package Fabric lane for the embedded Zen DCC workspace."
+behavior = "fabric_run_intent:publish.package"
+
+[[actions]]
 key = "scene.spawn_box"
 label = "Spawn Box"
 description = "Spawn a new workspace box into the active Zen scene."

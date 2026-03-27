@@ -406,6 +406,12 @@ pub fn zen_dcc_fabric_manifest_path() -> PathBuf {
     zen_dcc_fabric_dir().join("KAIN.fabric.toml")
 }
 
+pub fn zen_dcc_fabric_intent_registry_path() -> PathBuf {
+    zen_dcc_fabric_dir()
+        .join("config")
+        .join("fabric_intents.json")
+}
+
 pub fn manifest_path() -> PathBuf {
     workspace_root().join(SOURCE_MANIFEST_PATH)
 }

@@ -2,7 +2,7 @@ version = 1
 
 [workspace]
 root = "."
-search_roots = ["src", "scripts", "shaders", "local_crate"]
+search_roots = ["src", "scripts"]
 
 [[requires]]
 key = "session.local"
@@ -19,19 +19,15 @@ name = "project_settings"
 kind = "value"
 
 [[steps]]
-id = "zen_bootstrap"
+id = "asset_ingest_session"
 runtime = "kain"
-entry = "src/bootstrap.kn"
+entry = "src/asset_ingest.kn"
 depends_on = ["python_seed"]
 
 [[steps.outputs]]
-name = "session_summary"
-kind = "value"
-
-[[steps.outputs]]
-name = "viewport_seed"
+name = "asset_ingest_report"
 kind = "value"
 
 [reports]
-directory = ".kain/fabric/reports"
+directory = ".kain/fabric/intents/asset_ingest"
 emit_jsonl_events = true

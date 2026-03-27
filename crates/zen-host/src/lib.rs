@@ -168,7 +168,18 @@ fn parse_host_api(source: &str, source_label: String) -> Result<ZenHostApi, Stri
 }
 
 fn parse_action_behavior(value: &str) -> Result<ZenCommand, String> {
-    match value.trim() {
+    let trimmed = value.trim();
+    if let Some(intent_id) = trimmed.strip_prefix("fabric_run_intent:") {
+        let intent_id = intent_id.trim();
+        if intent_id.is_empty() {
+            return Err("Fabric host action behavior is missing an intent id".to_string());
+        }
+        return Ok(ZenCommand::FabricRunIntent {
+            intent_id: intent_id.to_string(),
+        });
+    }
+
+    match trimmed {
         "reload_shell" => Ok(ZenCommand::ShellReload),
         "scene_spawn_box" => Ok(ZenCommand::SceneSpawnWorkspaceBox),
         "scene_select_next" => Ok(ZenCommand::SceneSelectRelative { step: 1 }),

@@ -135,6 +135,11 @@ actions = [
   "runtime.edit",
   "runtime.simulate",
   "runtime.play",
+  "fabric.bootstrap",
+  "fabric.asset_ingest",
+  "fabric.material_bake",
+  "fabric.topology_rebuild",
+  "fabric.publish_package",
   "scene.focus_selection",
   "scene.frame_scene",
   "scene.spawn_box",
@@ -198,6 +203,13 @@ key = "workspace.fabric"
 title = "Fabric"
 kind = "fabric"
 binding = "engine.fabric"
+actions = [
+  "fabric.bootstrap",
+  "fabric.asset_ingest",
+  "fabric.material_bake",
+  "fabric.topology_rebuild",
+  "fabric.publish_package",
+]
 closable = true
 default_open = false
 

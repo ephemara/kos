@@ -607,6 +607,7 @@ impl ZenKainUiHost {
         scene: &mut ZenScene,
         runtime: &mut ZenRuntimeSession,
         camera: &mut FlyCamera,
+        fabric_service: &mut ZenFabricService,
     ) -> UiActionResult {
         match selection {
             CommandPaletteSelection::HostAction(action_key) => execute_ui_action(
@@ -616,6 +617,7 @@ impl ZenKainUiHost {
                 scene,
                 runtime,
                 camera,
+                fabric_service,
             ),
             CommandPaletteSelection::Feature(feature_key) => {
                 self.open_feature_tab(&feature_key);
@@ -750,7 +752,7 @@ impl ZenKainUiHost {
         let mut palette_scene_changed = false;
         let mut palette_reload_requested = false;
         if let Some(selection) = palette_action {
-            let result = self.apply_palette_selection(selection, scene, runtime, camera);
+            let result = self.apply_palette_selection(selection, scene, runtime, camera, fabric_service);
             palette_scene_changed = result.scene_changed;
             palette_reload_requested = result.reload_requested;
         }
@@ -1767,6 +1769,7 @@ fn draw_action_strip(
                                     scene,
                                     runtime,
                                     camera,
+                                    fabric_service,
                                 );
                                 *scene_changed |= result.scene_changed;
                                 *requested_reload |= result.reload_requested;
@@ -1900,6 +1903,7 @@ fn draw_runtime_inspector(
                         scene,
                         runtime,
                         camera,
+                        fabric_service,
                     );
                     *scene_changed |= result.scene_changed;
                     *requested_reload |= result.reload_requested;
@@ -2184,6 +2188,80 @@ fn draw_fabric_panel(
 
     ui.separator();
     ui.label(
+        RichText::new("Intent Registry")
+            .strong()
+            .color(theme.palette.text_secondary),
+    );
+    ui.monospace(fabric_service.configured_intent_registry_path());
+    match fabric_service.resolved_intent_registry_path() {
+        Some(path) => {
+            ui.small(format!("resolved: {}", path.display()));
+            ui.small(format!("exists: {}", path.exists()));
+        }
+        None => {
+            ui.small("resolved: unavailable");
+        }
+    }
+    if !fabric_service.scene_dirty_intents().is_empty() {
+        ui.small(format!(
+            "scene-dirty intents: {}",
+            fabric_service.scene_dirty_intents().join(", ")
+        ));
+    }
+
+    if let Some(error) = fabric_service.intent_registry_error() {
+        ui.colored_label(theme.palette.warning, error);
+    } else if !fabric_service.intent_profiles().is_empty() {
+        ui.add_space(6.0);
+        ui.label(
+            RichText::new("Available Intents")
+                .strong()
+                .color(theme.palette.text_secondary),
+        );
+        for intent in fabric_service.intent_profiles().to_vec() {
+            ui.group(|ui| {
+                ui.horizontal_wrapped(|ui| {
+                    ui.label(
+                        RichText::new(format!("{} [{}]", intent.label, intent.lane))
+                            .strong()
+                            .color(theme.palette.text_primary),
+                    );
+                    if ui
+                        .add_enabled(
+                            fabric_service.enabled(),
+                            egui::Button::new(format!("Run {}", intent.id)),
+                        )
+                        .clicked()
+                    {
+                        match fabric_service.run_intent(&intent.id) {
+                            Ok(result) => {
+                                *activity_status = format!(
+                                    "fabric intent {} // session {} // {:?} // {} steps",
+                                    intent.id,
+                                    result.session_id,
+                                    result.status,
+                                    result.step_results.len()
+                                );
+                            }
+                            Err(err) => {
+                                *activity_status = err;
+                            }
+                        }
+                    }
+                });
+                ui.small(intent.summary.as_str());
+                ui.small(format!("graph: {}", intent.graph));
+                ui.small(format!("debounce: {} ms", intent.debounce_ms));
+                if !intent.produces.is_empty() {
+                    ui.small(format!("produces: {}", intent.produces.join(", ")));
+                }
+            });
+            ui.add_space(4.0);
+        }
+    }
+
+    ui.separator();
+    ui.label(
         RichText::new("Configured Manifest")
             .strong()
             .color(theme.palette.text_secondary),
@@ -2216,6 +2294,9 @@ fn draw_fabric_panel(
                 .strong()
                 .color(theme.palette.text_secondary),
         );
+        if let Some(run_label) = fabric_service.last_run_label() {
+            ui.small(format!("run: {run_label}"));
+        }
         ui.monospace(format!("session: {}", result.session_id));
         ui.small(format!("status: {:?}", result.status));
         ui.small(format!("report: {}", result.report_path.display()));
@@ -3080,6 +3161,11 @@ struct UiActionResult {
     reload_requested: bool,
 }
 
+struct UiRuntimeEventResult {
+    reload_requested: bool,
+    fabric_status: Option<String>,
+}
+
 fn execute_ui_action(
     host_api: &ZenHostApi,
     activity_status: &mut String,
@@ -3087,6 +3173,7 @@ fn execute_ui_action(
     scene: &mut ZenScene,
     runtime: &mut ZenRuntimeSession,
     camera: &mut FlyCamera,
+    fabric_service: &mut ZenFabricService,
 ) -> UiActionResult {
     let Some((command, action_label)) = action_key
         .and_then(|key| host_api.action(key))
@@ -3110,15 +3197,18 @@ fn execute_ui_action(
     );
     match runtime.dispatch(scene, envelope) {
         Ok(result) => {
-            let reload_requested = apply_runtime_events(scene, camera, &result.events);
-            *activity_status = format!(
-                "executed {} // mode {:?}",
-                action_label.to_ascii_lowercase(),
-                runtime.play_mode()
-            );
+            let runtime_events =
+                apply_runtime_events(scene, camera, fabric_service, &result.events);
+            *activity_status = runtime_events.fabric_status.unwrap_or_else(|| {
+                format!(
+                    "executed {} // mode {:?}",
+                    action_label.to_ascii_lowercase(),
+                    runtime.play_mode()
+                )
+            });
             UiActionResult {
                 scene_changed: result.scene_dirty,
-                reload_requested,
+                reload_requested: runtime_events.reload_requested,
             }
         }
         Err(err) => {
@@ -3131,7 +3221,12 @@ fn execute_ui_action(
     }
 }
 
-fn apply_runtime_events(scene: &ZenScene, camera: &mut FlyCamera, events: &[ZenEvent]) -> bool {
+fn apply_runtime_events(
+    scene: &ZenScene,
+    camera: &mut FlyCamera,
+    fabric_service: &mut ZenFabricService,
+    events: &[ZenEvent],
+) -> UiRuntimeEventResult {
     let mut reload_requested = false;
     for event in events {
         match event {
@@ -3147,11 +3242,20 @@ fn apply_runtime_events(scene: &ZenScene, camera: &mut FlyCamera, events: &[ZenE
                 }
             }
             ZenEvent::SceneChanged { .. }
+            | ZenEvent::FabricIntentRequested { .. }
             | ZenEvent::SelectionChanged { .. }
             | ZenEvent::PlayModeChanged { .. } => {}
         }
     }
-    reload_requested
+    let fabric_messages = fabric_service.apply_runtime_events(events);
+    UiRuntimeEventResult {
+        reload_requested,
+        fabric_status: if fabric_messages.is_empty() {
+            None
+        } else {
+            Some(fabric_messages.join(" | "))
+        },
+    }
 }
 
 fn contract_status(host_api: &ZenHostApi, modules: &ZenKainModuleRegistry) -> String {

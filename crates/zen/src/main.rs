@@ -1528,10 +1528,14 @@ impl ZenState {
                 ZenEvent::CameraFocusRequested { .. } => self.focus_selected(),
                 ZenEvent::CameraFrameRequested { .. } => self.frame_scene(),
                 ZenEvent::ShellReloadRequested { .. }
+                | ZenEvent::FabricIntentRequested { .. }
                 | ZenEvent::SceneChanged { .. }
                 | ZenEvent::SelectionChanged { .. }
                 | ZenEvent::PlayModeChanged { .. } => {}
             }
+        }
+        for message in self.fabric_service.apply_runtime_events(events) {
+            eprintln!("{message}");
         }
     }
 

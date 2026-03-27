@@ -55,6 +55,11 @@ members = [
 ]
 resolver = "2"
 
+[workspace.dependencies]
+# Keep local uuid consumers aligned on a single workspace release that still
+# satisfies newer Bevy crates pulled in by the experimental host lane.
+uuid = { version = "=1.19.0" }
+
 # Shared profile settings for faster builds
 [profile.dev]
 incremental = false         # Stops Windows 'anon' symbol corruption

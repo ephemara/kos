@@ -14,6 +14,8 @@ The clean split is:
 
 That split matches both repos better than trying to make Fabric the app host or trying to keep Zen as a hand-wired shell with no orchestration spine.
 
+The current K_OS embed now goes beyond theory: `crates/zen` reads an intent registry from `crates/k-os-kain/fabric/zen-dcc/config/fabric_intents.json`, exposes native host actions for the first Zen DCC Fabric lanes, and auto-runs selected intents on scene-dirty transitions through the normal Zen command/event path.
+
 ## What Is Actually Shipped In Kain
 
 Fabric in `M:\Code\Kain` is not just a design note anymore.

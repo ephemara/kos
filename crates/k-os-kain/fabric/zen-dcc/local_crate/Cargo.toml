@@ -1,0 +1,10 @@
+[package]
+name = "zen_dcc_fabric_runtime"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+name = "zen_dcc_fabric_runtime"
+crate-type = ["rlib"]
+
+[workspace]

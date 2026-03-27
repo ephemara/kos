@@ -1,0 +1,53 @@
+version = 1
+
+[workspace]
+root = "."
+search_roots = ["src", "scripts", "local_crate"]
+
+[[requires]]
+key = "session.local"
+version = 1
+optional = false
+
+[[steps]]
+id = "python_seed"
+runtime = "python"
+entry = "scripts/python_seed.py"
+
+[[steps.outputs]]
+name = "project_settings"
+kind = "value"
+
+[[steps]]
+id = "zen_dcc_seed"
+runtime = "kain"
+entry = "src/seed.kn"
+depends_on = ["python_seed"]
+
+[[steps.outputs]]
+name = "scene_graph_document"
+kind = "value"
+
+[[steps.outputs]]
+name = "tensor_features"
+kind = "shared_buffer"
+
+[[steps.outputs]]
+name = "preview_session_report"
+kind = "value"
+
+[[steps]]
+id = "topology_analyzer"
+runtime = "rust_crate"
+entry = "src/rust_topology_step.kn"
+crate_name = "zen_dcc_fabric_runtime"
+manifest_path = "local_crate/Cargo.toml"
+depends_on = ["zen_dcc_seed"]
+
+[[steps.outputs]]
+name = "topology_report"
+kind = "value"
+
+[reports]
+directory = ".kain/fabric/intents/topology_rebuild"
+emit_jsonl_events = true

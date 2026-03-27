@@ -34,6 +34,7 @@ pub enum ZenPlayMode {
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub enum ZenCommand {
     ShellReload,
+    FabricRunIntent { intent_id: String },
     SceneSpawnWorkspaceBox,
     SceneSelectRelative { step: isize },
     SceneClearSelection,
@@ -79,6 +80,10 @@ pub enum ZenEvent {
     ShellReloadRequested {
         transaction_id: ZenTransactionId,
     },
+    FabricIntentRequested {
+        transaction_id: ZenTransactionId,
+        intent_id: String,
+    },
     CameraFocusRequested {
         transaction_id: ZenTransactionId,
     },
@@ -118,6 +123,7 @@ impl ZenCommandBus {
 pub fn command_label(command: &ZenCommand) -> &'static str {
     match command {
         ZenCommand::ShellReload => "reload shell",
+        ZenCommand::FabricRunIntent { .. } => "run fabric intent",
         ZenCommand::SceneSpawnWorkspaceBox => "spawn workspace box",
         ZenCommand::SceneSelectRelative { step } if *step >= 0 => "select next object",
         ZenCommand::SceneSelectRelative { .. } => "select previous object",

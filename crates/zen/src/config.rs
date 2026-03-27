@@ -58,6 +58,8 @@ pub struct KainUiConfig {
 pub struct KainFabricConfig {
     pub enabled: bool,
     pub manifest_path: String,
+    pub intent_registry_path: String,
+    pub scene_dirty_intents: Vec<String>,
 }
 
 #[derive(Debug, Clone)]
@@ -157,6 +159,8 @@ struct KainUiConfigFile {
 struct KainFabricConfigFile {
     enabled: Option<bool>,
     manifest_path: Option<String>,
+    intent_registry_path: Option<String>,
+    scene_dirty_intents: Option<Vec<String>>,
 }
 
 #[derive(Debug, Deserialize)]
@@ -375,6 +379,13 @@ fn parse_kain_fabric_config(parsed: Option<KainFabricConfigFile>) -> KainFabricC
     let parsed = parsed.unwrap_or(KainFabricConfigFile {
         enabled: Some(true),
         manifest_path: Some("crates/k-os-kain/fabric/zen-dcc/KAIN.fabric.toml".to_string()),
+        intent_registry_path: Some(
+            "crates/k-os-kain/fabric/zen-dcc/config/fabric_intents.json".to_string(),
+        ),
+        scene_dirty_intents: Some(vec![
+            "material.bake_preview".to_string(),
+            "topology.rebuild".to_string(),
+        ]),
     });
 
     KainFabricConfig {
@@ -385,6 +396,24 @@ fn parse_kain_fabric_config(parsed: Option<KainFabricConfigFile>) -> KainFabricC
             .filter(|value| !value.trim().is_empty())
             .unwrap_or("crates/k-os-kain/fabric/zen-dcc/KAIN.fabric.toml")
             .to_string(),
+        intent_registry_path: parsed
+            .intent_registry_path
+            .as_deref()
+            .filter(|value| !value.trim().is_empty())
+            .unwrap_or("crates/k-os-kain/fabric/zen-dcc/config/fabric_intents.json")
+            .to_string(),
+        scene_dirty_intents: parsed
+            .scene_dirty_intents
+            .unwrap_or_else(|| {
+                vec![
+                    "material.bake_preview".to_string(),
+                    "topology.rebuild".to_string(),
+                ]
+            })
+            .into_iter()
+            .map(|intent_id| intent_id.trim().to_string())
+            .filter(|intent_id| !intent_id.is_empty())
+            .collect(),
     }
 }
 
@@ -403,6 +432,7 @@ mod tests {
         assert!(!config.kain.ui.active_shell.is_empty());
         assert!(!config.kain.ui.host_api_path.is_empty());
         assert!(!config.kain.fabric.manifest_path.is_empty());
+        assert!(!config.kain.fabric.intent_registry_path.is_empty());
         assert!(config.renderer.shadow_map_size >= 512);
         assert!(config.renderer.grid_intensity >= 0.0);
         assert!(!config.renderer.post.shader_id.is_empty());
