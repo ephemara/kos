@@ -1079,7 +1079,7 @@
         "crate::SelectedObjectDetails"
       ],
       "pressure_priority": "low",
-      "pressure_score": 114,
+      "pressure_score": 109,
       "notes": [
         "intended for adapter and cross-system composition",
         "public surface is comparatively contained"

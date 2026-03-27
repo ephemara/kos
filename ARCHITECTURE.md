@@ -119,11 +119,11 @@ This crate is the composition layer above Cargo. It does not replace Cargo linki
 The current generated snapshot proves:
 
 - 47 workspace packages
-- 99 workspace-local dependency edges
+- 101 workspace-local dependency edges
 - 5 extracted external manifests
 - 86 extracted artifacts
 - 47 scanned public API packages
-- 3,079 public API items
+- 3,100 public API items
 - 575 public reexports
 - 2 current `critical` API cleanup candidates:
   - `k-os-material`

@@ -1,8 +1,8 @@
 {
   "package_count": 47,
-  "total_item_count": 3101,
+  "total_item_count": 3100,
   "total_function_count": 464,
-  "total_method_count": 1054,
+  "total_method_count": 1053,
   "total_reexport_count": 575,
   "packages": [
     {
@@ -26226,7 +26226,7 @@
           "source_kind": "definition",
           "module_path": "crate::mesh_state",
           "item_path": "crate::mesh_state::SharedMeshInfo",
-          "signature": "# [derive (Debug , Clone , Serialize , Deserialize)] pub struct SharedMeshInfo { pub handle : u64 , pub vertex_count : usize , pub face_count : usize , pub is_dirty : bool , pub bridge_ready : bool , pub bridge_position_bytes : usize , pub bridge_normal_bytes : usize , pub bridge_index_bytes : usize , }",
+          "signature": "# [derive (Debug , Clone , Serialize , Deserialize)] pub struct SharedMeshInfo { pub handle : u64 , pub vertex_count : usize , pub face_count : usize , pub is_dirty : bool , pub bridge_ready : bool , pub bridge_position_bytes : usize , pub bridge_normal_bytes : usize , pub bridge_index_bytes : usize , pub shading_mode : ShadingMode , }",
           "file_path": "crates/k-os-scene-runtime/src/mesh_state.rs",
           "owner_type": ""
         },
@@ -26358,7 +26358,7 @@
           "source_kind": "definition",
           "module_path": "crate::mesh_state",
           "item_path": "crate::mesh_state::register_shared_mesh",
-          "signature": "fn register_shared_mesh (positions : Vec < f32 > , normals : Vec < f32 > , indices : Vec < u32 > ,) -> SharedMeshHandle",
+          "signature": "fn register_shared_mesh (positions : Vec < f32 > , normals : Vec < f32 > , indices : Vec < u32 > , viewport_state : ViewportStateComponent ,) -> SharedMeshHandle",
           "file_path": "crates/k-os-scene-runtime/src/mesh_state.rs",
           "owner_type": ""
         },
@@ -26391,7 +26391,7 @@
           "source_kind": "definition",
           "module_path": "crate::mesh_state",
           "item_path": "crate::mesh_state::sync_shared_mesh_for_source",
-          "signature": "fn sync_shared_mesh_for_source (source_handle : MeshHandle , positions : Vec < f32 > , normals : Vec < f32 > , indices : Vec < u32 > ,) -> Result < SharedMeshHandle , String >",
+          "signature": "fn sync_shared_mesh_for_source (source_handle : MeshHandle , positions : Vec < f32 > , normals : Vec < f32 > , indices : Vec < u32 > , viewport_state : ViewportStateComponent ,) -> Result < SharedMeshHandle , String >",
           "file_path": "crates/k-os-scene-runtime/src/mesh_state.rs",
           "owner_type": ""
         },
@@ -30971,7 +30971,7 @@
           "source_kind": "definition",
           "module_path": "crate",
           "item_path": "crate::ZenUiFeatureKind",
-          "signature": "# [derive (Debug , Clone , Serialize , Deserialize)] pub enum ZenUiFeatureKind { ActionStrip , Viewport , SceneTree , SelectionInspector , RuntimeInspector , Timeline , HostApi , KainStatus , DocumentContext , FileEditor , }",
+          "signature": "# [derive (Debug , Clone , Serialize , Deserialize)] pub enum ZenUiFeatureKind { ActionStrip , Viewport , SceneTree , SelectionInspector , RuntimeInspector , Timeline , HostApi , Registry , KainStatus , DocumentContext , FileEditor , }",
           "file_path": "crates/zen-editor/src/lib.rs",
           "owner_type": ""
         },
@@ -34576,9 +34576,9 @@
           "src_path": "crates/zen-scene/src/lib.rs"
         }
       ],
-      "item_count": 30,
+      "item_count": 29,
       "function_count": 0,
-      "method_count": 21,
+      "method_count": 20,
       "reexport_count": 0,
       "items": [
         {
@@ -34632,7 +34632,7 @@
           "source_kind": "definition",
           "module_path": "crate",
           "item_path": "crate::SceneRenderPayload",
-          "signature": "# [derive (Clone , Debug)] pub struct SceneRenderPayload { pub mesh_handle : MeshHandle , pub positions : Vec < f32 > , pub normals : Vec < f32 > , pub indices : Vec < u32 > , pub shading_mode : ShadingMode , }",
+          "signature": "# [derive (Clone , Debug)] pub struct SceneRenderPayload { pub mesh_handle : MeshHandle , pub positions : Vec < f32 > , pub normals : Vec < f32 > , pub indices : Vec < u32 > , pub viewport_state : ViewportStateComponent , }",
           "file_path": "crates/zen-scene/src/lib.rs",
           "owner_type": ""
         },
@@ -34798,17 +34798,6 @@
           "module_path": "crate",
           "item_path": "crate::rename_selected",
           "signature": "fn rename_selected (& mut self , new_name : String) -> Result < bool , String >",
-          "file_path": "crates/zen-scene/src/lib.rs",
-          "owner_type": "ZenScene"
-        },
-        {
-          "target_name": "zen_scene",
-          "target_kind": "lib",
-          "kind": "method",
-          "source_kind": "definition",
-          "module_path": "crate",
-          "item_path": "crate::render_payloads",
-          "signature": "fn render_payloads (& self) -> Result < Vec < SceneRenderPayload > , String >",
           "file_path": "crates/zen-scene/src/lib.rs",
           "owner_type": "ZenScene"
         },

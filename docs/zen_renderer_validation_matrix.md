@@ -23,7 +23,7 @@ Use it to decide whether the shared renderer path is stable enough to keep advan
 ### Payload correctness
 
 - Positions, normals, and indices must survive the Zen scene bridge into scene-runtime before renderer sync.
-- The evaluated viewport payload is the canonical payload source, not `zen-scene::render_payloads()` or any other host-local draw builder.
+- The evaluated viewport payload is the canonical payload source, not any host-local draw builder.
 
 ### Mesh counts
 

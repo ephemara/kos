@@ -434,10 +434,6 @@ impl ZenScene {
         Ok(payloads)
     }
 
-    pub fn render_payloads(&self) -> Result<Vec<SceneRenderPayload>, String> {
-        self.bridge_sources()
-    }
-
     pub fn pick(&self, ray_origin: Vec3, ray_direction: Vec3) -> Option<MeshHandle> {
         let mut best: Option<(f32, MeshHandle)> = None;
 

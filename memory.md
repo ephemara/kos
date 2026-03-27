@@ -264,13 +264,13 @@ Added `workspace.metadata.kos` to [`M:\K_OS\Cargo.toml`](M:\K_OS\Cargo.toml) to 
   - [`M:\K_OS\crates\k-os-workspace-registry\generated\proof\adapter_manifests_summary.md`](M:\K_OS\crates\k-os-workspace-registry\generated\proof\adapter_manifests_summary.md)
 - Current generated proof counts are:
   - 47 workspace packages
-  - 99 workspace-local dependency edges
+  - 101 workspace-local dependency edges
   - 5 extracted external manifests
   - 86 extracted artifacts
   - 47 scanned public API packages
-  - 3,079 public API items
-  - 452 public functions
-  - 1,052 public methods
+  - 3,100 public API items
+  - 464 public functions
+  - 1,053 public methods
   - 575 public reexports
 - Extracted manifest sources currently include:
   - `k-os-kain` `sources.json`
@@ -330,7 +330,7 @@ Added durable workspace notes in [`M:\K_OS\ARCHITECTURE.md`](M:\K_OS\ARCHITECTUR
 
 ### Durable findings
 
-- The Rust workspace currently has 47 workspace packages and about 99 workspace-local dependency edges.
+- The Rust workspace currently has 47 workspace packages and about 101 workspace-local dependency edges.
 - The main aggregators are:
   - `k-os-backend`
   - `k-os-bevy`

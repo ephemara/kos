@@ -124,7 +124,7 @@
 ## Lane: Delta
 
 - Role: Integration lane for Zen host wiring, Kain shell/tool surfaces, adapter consumption, and editor workflow glue.
-- Status: in_progress
+- Status: done
 - Claimed By: Delta
 - Claimed At: 2026-03-27 00:16 -04:00
 - Depends On: Forge, Vector
@@ -135,11 +135,12 @@
 - Task List:
   - [x] Rewire Zen host bindings and workspace features so the viewport, runtime, and tool panes consume the shared renderer/runtime contracts.
   - [x] Connect registry-driven package and tool discovery into Zen where hardcoded wiring still exists.
-  - [ ] Ensure imported assets and scene documents flow into the canonical scene/eval/renderer pipeline rather than only the old host-local path.
+  - [x] Ensure imported assets and scene documents flow into the canonical scene/eval/renderer pipeline rather than only the old host-local path.
   - [x] Tighten Kain shell and host API integration so renderer/runtime/tool status surfaces reflect the new backend reality.
   - [x] Preserve operator UX in the native shell during migration, including layout state, selection surfaces, and inspector behavior.
 - Notes:
   - Delta should avoid creating a second integration abstraction. Consume the shared contracts from Vector and Forge.
+  - Review accepted the asset/document-flow item because `kain_ui_host.rs` imports through `scene.import_asset(...)`, and Forge's `renderer_session.rs` mirrors `scene.bridge_sources()` into scene-runtime before canonical payload evaluation.
 
 ## Lane: Aegis
 
@@ -185,9 +186,9 @@
 ## Lane: Sweep
 
 - Role: Cleanup, codemods, dead-code removal, finish-pass consistency, and leftover edge handling.
-- Status: blocked
-- Claimed By: unclaimed
-- Claimed At: unclaimed
+- Status: in_progress
+- Claimed By: Sweep
+- Claimed At: 2026-03-27 00:40 EDT
 - Depends On: Forge, Delta, Aegis
 - Deliverables:
   - Duplicate renderer code reduced or removed from Zen
@@ -195,9 +196,14 @@
   - Final consistency pass across manifests, entrypoints, and crate exports
 - Task List:
   - [ ] Remove obsolete host-local renderer code that is superseded by the shared pipeline.
-  - [ ] Delete or narrow temporary compatibility shims that survive the cutover.
-  - [ ] Normalize imports, module boundaries, and generated artifacts touched during the migration.
-  - [ ] Trim stale registry metadata, dead entrypoints, or misleading host comments left behind by the transition.
-  - [ ] Prepare the final finish-pass checklist for Sovereign before archive.
+  - [x] Delete or narrow temporary compatibility shims that survive the cutover.
+  - [x] Normalize imports, module boundaries, and generated artifacts touched during the migration.
+  - [x] Trim stale registry metadata, dead entrypoints, or misleading host comments left behind by the transition.
+  - [x] Prepare the final finish-pass checklist for Sovereign before archive.
 - Notes:
-  - Sweep starts blocked because cleanup quality depends on Forge, Delta, and Aegis proving the final path first.
+  - Sweep cleaned the dead `zen-scene::render_payloads()` shim, regenerated the workspace-registry proof artifacts after the `SceneRenderPayload` shape change, and normalized the affected docs/memory counts.
+  - The remaining open cleanup item is the live host-local renderer code in `zen`; it is intentionally still present because this sweep did not own the larger renderer retirement decision.
+  - Sovereign archive gates:
+    - confirm the host-local renderer retirement decision
+    - verify generated registry proof counts after the final cleanup pass
+    - archive the swarm once the remaining renderer ownership split is either removed or explicitly accepted
