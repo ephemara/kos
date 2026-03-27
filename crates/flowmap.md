@@ -1,7 +1,7 @@
 # K_OS/crates Flow Map
 
 - Directory: `M:\K_OS\crates`
-- Generated (UTC): `2026-03-27T04:00:21.853441+00:00`
+- Generated (UTC): `2026-03-27T20:00:27.321994+00:00`
 - Languages: `JSON, Markdown, Rust, TOML`
 - Entry files: `zen/src/main.rs, k-os-bevy/src/main.rs, k-os-bevy-lab/src/main.rs, zen-scene/src/lib.rs`
 - Manifests: `cargo, cargo, cargo, cargo, cargo, cargo, cargo, cargo, cargo, cargo, cargo, cargo`

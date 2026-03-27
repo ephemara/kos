@@ -347,6 +347,20 @@ impl SceneWorld {
             .ok_or(SceneError::MeshHandleNotFound(handle))
     }
 
+    pub fn update_viewport_state(
+        &mut self,
+        handle: MeshHandle,
+        viewport_state: ViewportStateComponent,
+    ) -> Result<(), SceneError> {
+        let entity = *self
+            .mesh_entities
+            .get(&handle)
+            .ok_or(SceneError::MeshHandleNotFound(handle))?;
+
+        self.world.entity_mut(entity).insert(viewport_state);
+        Ok(())
+    }
+
     pub fn update_mesh_positions_partial(
         &mut self,
         handle: MeshHandle,

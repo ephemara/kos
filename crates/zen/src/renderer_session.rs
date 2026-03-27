@@ -61,6 +61,7 @@ impl ZenRendererSession {
                 payload.positions,
                 payload.normals,
                 payload.indices,
+                payload.viewport_state,
             )?;
             let runtime_mesh_handle =
                 k_os_scene_runtime::mesh_state::shared_mesh_scene_handle(shared_handle)?;

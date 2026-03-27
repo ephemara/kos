@@ -47,7 +47,12 @@ viewport_layout = "lookdev"
 center_tabs = ["workspace.viewport.perspective", "workspace.viewport.runtime"]
 left_tabs = ["workspace.outliner", "workspace.documents"]
 right_tabs = ["workspace.selection", "workspace.runtime", "workspace.kain"]
-bottom_tabs = ["workspace.file_editor", "workspace.timeline", "workspace.host_api"]
+bottom_tabs = [
+  "workspace.file_editor",
+  "workspace.timeline",
+  "workspace.host_api",
+  "workspace.registry",
+]
 left_ratio = 0.16
 right_ratio = 0.22
 bottom_ratio = 0.24
@@ -188,6 +193,13 @@ closable = true
 default_open = false
 
 [[features]]
+key = "workspace.registry"
+title = "Registry"
+kind = "registry"
+closable = true
+default_open = false
+
+[[features]]
 key = "workspace.kain"
 title = "Kain Status"
 kind = "kain_status"
@@ -199,7 +211,7 @@ default_open = false
 center_tabs = ["workspace.viewport.perspective"]
 left_tabs = ["workspace.outliner", "workspace.documents"]
 right_tabs = ["workspace.selection", "workspace.runtime"]
-bottom_tabs = ["workspace.file_editor", "workspace.timeline"]
+bottom_tabs = ["workspace.file_editor", "workspace.timeline", "workspace.registry"]
 left_ratio = 0.16
 right_ratio = 0.2
 bottom_ratio = 0.22

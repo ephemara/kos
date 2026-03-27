@@ -5,6 +5,10 @@ use egui::{Color32, RichText, Stroke, Vec2, WidgetText};
 use egui_dock::{DockArea, DockState, TabViewer};
 use k_os_asset_pipeline::importers::{GltfImporter, ObjImporter};
 use k_os_asset_pipeline::AssetPipeline;
+use k_os_workspace_registry::{
+    adapter_manifest_for_target, adapter_manifests, integration_contract_for_package,
+    integration_registry, packages_for_host, workspace_registry,
+};
 use kain_core::{build_ui_output_from_source, render_ui_output_debug};
 use std::collections::hash_map::DefaultHasher;
 use std::collections::{HashMap, HashSet};
@@ -70,6 +74,7 @@ struct DocumentEditorBuffer {
 enum CommandPaletteSelection {
     HostAction(String),
     Feature(String),
+    RegistryPackage(String),
     Document(String),
     Preset(String),
     UserLayout(String),
@@ -105,6 +110,7 @@ pub(crate) struct ZenKainUiHost {
     host_api_status: String,
     module_status: String,
     contract_status: String,
+    registry_status: String,
     workspace_status: String,
     activity_status: String,
     import_status: String,
@@ -171,6 +177,7 @@ impl ZenKainUiHost {
             host_api_status: host_api.summary(),
             module_status: module_registry.summary(),
             contract_status: contract_status(&host_api, &module_registry),
+            registry_status: registry_status(),
             workspace_status: workspace_summary(&workspace),
             host_api,
             module_registry,
@@ -302,6 +309,7 @@ impl ZenKainUiHost {
         }
 
         self.contract_status = contract_status(&self.host_api, &self.module_registry);
+        self.registry_status = registry_status();
 
         let resolved_shell = load_shell_source(&self.config, &self.module_registry);
         let root_component = resolved_shell
@@ -618,6 +626,14 @@ impl ZenKainUiHost {
                     reload_requested: false,
                 }
             }
+            CommandPaletteSelection::RegistryPackage(package_name) => {
+                self.open_feature_tab("workspace.registry");
+                self.activity_status = format!("opened registry package {}", package_name);
+                UiActionResult {
+                    scene_changed: false,
+                    reload_requested: false,
+                }
+            }
             CommandPaletteSelection::Document(document_key) => {
                 self.select_document(&document_key);
                 UiActionResult {
@@ -699,6 +715,7 @@ impl ZenKainUiHost {
                     ui.label(self.host_api_status.clone());
                     ui.label(self.module_status.clone());
                     ui.label(self.contract_status.clone());
+                    ui.label(self.registry_status.clone());
                     ui.label(self.shell_status.clone());
                     ui.separator();
                     ui.code(self.debug_tree.clone());
@@ -739,6 +756,7 @@ impl ZenKainUiHost {
         let host_api_status = self.host_api_status.clone();
         let module_status = self.module_status.clone();
         let contract_status = self.contract_status.clone();
+        let registry_status = self.registry_status.clone();
         let shell_status = self.shell_status.clone();
         let source_label = self.source_label.clone();
         let debug_tree = self.debug_tree.clone();
@@ -775,6 +793,7 @@ impl ZenKainUiHost {
             host_api_status: &host_api_status,
             module_status: &module_status,
             contract_status: &contract_status,
+            registry_status: &registry_status,
             import_status: &import_status,
             debug_tree: &debug_tree,
             scene_changed: palette_scene_changed,
@@ -796,6 +815,7 @@ impl ZenKainUiHost {
                     viewer.activity_status,
                     &shell_status,
                     &contract_status,
+                    &registry_status,
                     kain_status,
                 );
             });
@@ -859,6 +879,7 @@ struct ZenDockViewer<'a> {
     host_api_status: &'a str,
     module_status: &'a str,
     contract_status: &'a str,
+    registry_status: &'a str,
     import_status: &'a str,
     debug_tree: &'a str,
     scene_changed: bool,
@@ -996,9 +1017,23 @@ impl<'a> ZenDockViewer<'a> {
                         egui::ScrollArea::vertical()
                             .id_salt(("host-api", feature.key.as_str()))
                             .show(ui, |ui| {
-                                draw_host_api_inspector(ui, self.theme, self.host_api);
+                                draw_host_api_inspector(
+                                    ui,
+                                    self.theme,
+                                    self.host_api,
+                                    self.registry_status,
+                                );
                             });
                     }
+                });
+            }
+            ZenUiFeatureKind::Registry => {
+                draw_feature_panel(ui, self.theme, feature, false, |ui| {
+                    egui::ScrollArea::vertical()
+                        .id_salt(("registry", feature.key.as_str()))
+                        .show(ui, |ui| {
+                            draw_registry_inspector(ui, self.theme, feature, self.registry_status);
+                        });
                 });
             }
             ZenUiFeatureKind::KainStatus => {
@@ -1022,6 +1057,7 @@ impl<'a> ZenDockViewer<'a> {
                                     self.host_api_status,
                                     self.module_status,
                                     self.contract_status,
+                                    self.registry_status,
                                     self.debug_tree,
                                 );
                             });
@@ -1155,6 +1191,7 @@ fn render_workspace_statusbar(
     activity_status: &str,
     shell_status: &str,
     contract_status: &str,
+    registry_status: &str,
     kain_status: &str,
 ) {
     ui.horizontal_wrapped(|ui| {
@@ -1174,6 +1211,12 @@ fn render_workspace_statusbar(
             RichText::new(contract_status)
                 .small()
                 .color(ui.style().visuals.hyperlink_color),
+        );
+        ui.separator();
+        ui.label(
+            RichText::new(registry_status)
+                .small()
+                .color(ui.style().visuals.text_color()),
         );
         ui.separator();
         ui.label(
@@ -1281,21 +1324,50 @@ fn draw_command_palette(
                             .contains(&query_lower)
                 })
                 .collect::<Vec<_>>();
+            let matching_registry_packages = packages_for_host("zen")
+                .into_iter()
+                .filter(|package| {
+                    query_lower.is_empty()
+                        || package.name.to_ascii_lowercase().contains(&query_lower)
+                        || package
+                            .description
+                            .to_ascii_lowercase()
+                            .contains(&query_lower)
+                        || package
+                            .roles
+                            .iter()
+                            .any(|role| role.to_ascii_lowercase().contains(&query_lower))
+                        || package
+                            .capabilities
+                            .iter()
+                            .any(|capability| capability.to_ascii_lowercase().contains(&query_lower))
+                        || package
+                            .hosts
+                            .iter()
+                            .any(|host| host.to_ascii_lowercase().contains(&query_lower))
+                        || package
+                            .notes
+                            .iter()
+                            .any(|note| note.to_ascii_lowercase().contains(&query_lower))
+                })
+                .collect::<Vec<_>>();
             let result_count = matching_actions.len()
                 + matching_features.len()
                 + matching_documents.len()
                 + matching_presets.len()
-                + matching_user_layouts.len();
+                + matching_user_layouts.len()
+                + matching_registry_packages.len();
 
             ui.label(
                 RichText::new(format!(
-                    "{} results // actions {} // tabs {} // docs {} // presets {} // user layouts {}",
+                    "{} results // actions {} // tabs {} // docs {} // presets {} // user layouts {} // registry {}",
                     result_count,
                     matching_actions.len(),
                     matching_features.len(),
                     matching_documents.len(),
                     matching_presets.len(),
-                    matching_user_layouts.len()
+                    matching_user_layouts.len(),
+                    matching_registry_packages.len()
                 ))
                 .small()
                 .color(theme.palette.text_muted),
@@ -1488,6 +1560,57 @@ fn draw_command_palette(
                         }
                         ui.label(
                             RichText::new(format!("layout {}", layout.viewport_layout))
+                            .small()
+                            .color(theme.palette.text_muted),
+                        );
+                        ui.add_space(4.0);
+                    }
+                }
+
+                if !matching_registry_packages.is_empty() {
+                    ui.separator();
+                    ui.label(
+                        RichText::new("Registry Packages")
+                            .strong()
+                            .color(theme.palette.text_secondary),
+                    );
+                    for package in matching_registry_packages {
+                        let details = integration_contract_for_package(&package.name)
+                            .map(|contract| {
+                                format!(
+                                    "{} // {} // {} entrypoints",
+                                    contract.stability_tier,
+                                    contract.pressure_priority,
+                                    contract.recommended_entrypoints.len()
+                                )
+                            })
+                            .unwrap_or_else(|| "untracked contract".to_string());
+                        if ui
+                            .add(
+                                egui::Button::new(
+                                    RichText::new(format!(
+                                        "{}  ({})",
+                                        package.name, package.description
+                                    ))
+                                    .color(theme.palette.text_primary),
+                                )
+                                .fill(theme.palette.panel_bg_alt)
+                                .stroke(Stroke::new(1.0, theme.palette.border_subtle)),
+                            )
+                            .clicked()
+                        {
+                            chosen = Some(CommandPaletteSelection::RegistryPackage(
+                                package.name.clone(),
+                            ));
+                            close_after_select = true;
+                        }
+                        ui.label(
+                            RichText::new(format!(
+                                "{} // hosts {} // caps {}",
+                                details,
+                                package.hosts.join(", "),
+                                package.capabilities.join(", ")
+                            ))
                             .small()
                             .color(theme.palette.text_muted),
                         );
@@ -1786,7 +1909,12 @@ fn draw_runtime_inspector(
     );
 }
 
-fn draw_host_api_inspector(ui: &mut egui::Ui, theme: &ZenUiTheme, host_api: &ZenHostApi) {
+fn draw_host_api_inspector(
+    ui: &mut egui::Ui,
+    theme: &ZenUiTheme,
+    host_api: &ZenHostApi,
+    registry_status: &str,
+) {
     ui.label(
         RichText::new(host_api.summary())
             .small()
@@ -1844,6 +1972,142 @@ fn draw_host_api_inspector(ui: &mut egui::Ui, theme: &ZenUiTheme, host_api: &Zen
             );
         });
         ui.small(&binding.description);
+        ui.add_space(6.0);
+    }
+    ui.separator();
+    ui.label(
+        RichText::new("Generated Registry")
+            .strong()
+            .color(theme.palette.text_secondary),
+    );
+    ui.monospace(registry_status);
+    if let Some(adapter) = adapter_manifest_for_target("zen") {
+        ui.label(
+            RichText::new(format!(
+                "zen adapter {} packages // {} bindings",
+                adapter.package_count,
+                adapter.packages.len()
+            ))
+            .small()
+            .color(theme.palette.text_muted),
+        );
+    }
+}
+
+fn draw_registry_inspector(
+    ui: &mut egui::Ui,
+    theme: &ZenUiTheme,
+    feature: &ZenUiFeature,
+    registry_status: &str,
+) {
+    ui.label(
+        RichText::new(feature.title.clone())
+            .strong()
+            .color(theme.palette.text_primary),
+    );
+    ui.monospace(registry_status);
+    ui.separator();
+
+    let workspace = workspace_registry();
+    let integration = integration_registry();
+    let adapters = adapter_manifests();
+    let zen_packages = packages_for_host("zen");
+
+    ui.label(
+        RichText::new("Workspace Registry")
+            .strong()
+            .color(theme.palette.text_secondary),
+    );
+    ui.monospace(format!(
+        "{} packages // {} edges // {} artifacts // {} aggregators",
+        workspace.package_count,
+        workspace.local_dependency_edge_count,
+        workspace.artifacts.len(),
+        workspace.aggregator_packages.len()
+    ));
+    ui.monospace(format!(
+        "integration {} host-api // {} integration // {} internal",
+        integration.host_api_count, integration.integration_count, integration.internal_count
+    ));
+    ui.monospace(format!("adapter targets {}", adapters.adapter_count));
+
+    if let Some(zen_adapter) = adapter_manifest_for_target("zen") {
+        ui.separator();
+        ui.label(
+            RichText::new("Zen Adapter")
+                .strong()
+                .color(theme.palette.text_secondary),
+        );
+        ui.monospace(format!(
+            "{} packages // {} bindings",
+            zen_adapter.package_count,
+            zen_adapter.packages.len()
+        ));
+        for package in &zen_adapter.packages {
+            ui.label(
+                RichText::new(format!(
+                    "{} // {} // {}",
+                    package.package_name, package.stability_tier, package.pressure_priority
+                ))
+                .small()
+                .color(theme.palette.text_primary),
+            );
+            ui.small(package.capabilities.join(", "));
+            if !package.recommended_entrypoints.is_empty() {
+                ui.small(format!(
+                    "entrypoints: {}",
+                    package.recommended_entrypoints.join(", ")
+                ));
+            }
+            ui.add_space(4.0);
+        }
+    }
+
+    ui.separator();
+    ui.label(
+        RichText::new("Zen Host Packages")
+            .strong()
+            .color(theme.palette.text_secondary),
+    );
+    ui.monospace(format!(
+        "{} packages discovered for host zen",
+        zen_packages.len()
+    ));
+    for package in zen_packages {
+        let contract = integration_contract_for_package(&package.name);
+        ui.label(
+            RichText::new(format!("{} // {}", package.name, package.description))
+                .small()
+                .color(theme.palette.text_primary),
+        );
+        ui.small(format!(
+            "roles: {}",
+            if package.roles.is_empty() {
+                "none".to_string()
+            } else {
+                package.roles.join(", ")
+            }
+        ));
+        ui.small(format!(
+            "caps: {}",
+            if package.capabilities.is_empty() {
+                "none".to_string()
+            } else {
+                package.capabilities.join(", ")
+            }
+        ));
+        if let Some(contract) = contract {
+            ui.small(format!(
+                "{} // {} // score {}",
+                contract.stability_tier, contract.pressure_priority, contract.pressure_score
+            ));
+            if !contract.recommended_entrypoints.is_empty() {
+                ui.small(format!(
+                    "entrypoints: {}",
+                    contract.recommended_entrypoints.join(", ")
+                ));
+            }
+        }
         ui.add_space(6.0);
     }
 }
@@ -2600,6 +2864,7 @@ fn draw_kain_status_panel(
     host_api_status: &str,
     module_status: &str,
     contract_status: &str,
+    registry_status: &str,
     debug_tree: &str,
 ) {
     ui.label(
@@ -2612,6 +2877,7 @@ fn draw_kain_status_panel(
     ui.monospace(host_api_status);
     ui.monospace(module_status);
     ui.monospace(contract_status);
+    ui.monospace(registry_status);
     if !debug_tree.trim().is_empty() {
         ui.separator();
         ui.label(
@@ -2740,6 +3006,26 @@ fn contract_status(host_api: &ZenHostApi, modules: &ZenKainModuleRegistry) -> St
         .emit_toml()
         .map(|contract| format!("contract {} bytes", contract.len()))
         .unwrap_or_else(|err| format!("contract unavailable: {err}"))
+}
+
+fn registry_status() -> String {
+    let workspace = workspace_registry();
+    let integration = integration_registry();
+    let zen_packages = packages_for_host("zen");
+    let zen_adapter_packages = adapter_manifest_for_target("zen")
+        .map(|adapter| adapter.package_count)
+        .unwrap_or(0);
+    format!(
+        "registry {} packages // {} edges // {} artifacts // zen {} packages // adapters {} // integration {} host-api / {} integration / {} internal",
+        workspace.package_count,
+        workspace.local_dependency_edge_count,
+        workspace.artifacts.len(),
+        zen_packages.len(),
+        zen_adapter_packages,
+        integration.host_api_count,
+        integration.integration_count,
+        integration.internal_count
+    )
 }
 
 fn build_asset_pipeline() -> Result<AssetPipeline, String> {

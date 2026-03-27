@@ -97,6 +97,7 @@
 - Notes:
   - Shared renderer/session ownership now lives in `crates/zen/src/renderer_session.rs`.
   - `main.rs` keeps presentation/post responsibility; scene sync, canonical scene-runtime eval, camera forwarding, and selection are routed through the session.
+  - The final mirror contract also carries viewport state into `k-os-scene-runtime`, so the canonical eval path preserves Zen shading mode rather than defaulting mirrored meshes to `Solid`.
 
 ## Lane: Vector
 
@@ -123,42 +124,43 @@
 ## Lane: Delta
 
 - Role: Integration lane for Zen host wiring, Kain shell/tool surfaces, adapter consumption, and editor workflow glue.
-- Status: ready
-- Claimed By: unclaimed
-- Claimed At: unclaimed
+- Status: in_progress
+- Claimed By: Delta
+- Claimed At: 2026-03-27 00:16 -04:00
 - Depends On: Forge, Vector
 - Deliverables:
   - Zen host integration wired to the new renderer path and registry contracts
   - DCC-style tool surfaces connected through host bindings, manifests, and Kain modules
   - Asset import and workspace UI flows targeting the canonical viewport/runtime path
 - Task List:
-  - [ ] Rewire Zen host bindings and workspace features so the viewport, runtime, and tool panes consume the shared renderer/runtime contracts.
-  - [ ] Connect registry-driven package and tool discovery into Zen where hardcoded wiring still exists.
+  - [x] Rewire Zen host bindings and workspace features so the viewport, runtime, and tool panes consume the shared renderer/runtime contracts.
+  - [x] Connect registry-driven package and tool discovery into Zen where hardcoded wiring still exists.
   - [ ] Ensure imported assets and scene documents flow into the canonical scene/eval/renderer pipeline rather than only the old host-local path.
-  - [ ] Tighten Kain shell and host API integration so renderer/runtime/tool status surfaces reflect the new backend reality.
-  - [ ] Preserve operator UX in the native shell during migration, including layout state, selection surfaces, and inspector behavior.
+  - [x] Tighten Kain shell and host API integration so renderer/runtime/tool status surfaces reflect the new backend reality.
+  - [x] Preserve operator UX in the native shell during migration, including layout state, selection surfaces, and inspector behavior.
 - Notes:
   - Delta should avoid creating a second integration abstraction. Consume the shared contracts from Vector and Forge.
 
 ## Lane: Aegis
 
 - Role: Validation strategy, invariants, regression analysis, rollout gates, and proof planning.
-- Status: ready
-- Claimed By: unclaimed
-- Claimed At: unclaimed
+- Status: done
+- Claimed By: Aegis
+- Claimed At: 2026-03-27 00:17 -04:00
 - Depends On: Forge
 - Deliverables:
   - Validation matrix for renderer cutover
   - Invariant checklist for mesh sync, selection, viewport stats, and Kain dispatch behavior
   - Lightweight proof plan consistent with no-test-mode constraints
 - Task List:
-  - [ ] Define the minimum proof set for Zen renderer cutover without relying on broad test suites.
-  - [ ] Record invariants for payload correctness, mesh counts, selection routing, redraw behavior, and runtime stats before and after migration.
-  - [ ] Identify likely regression zones including normals, post-processing handoff, threaded renderer service behavior, and viewport texture presentation.
-  - [ ] Add instrumentation or verification hooks where the current code is too opaque to validate safely.
-  - [ ] Produce rollout criteria that Sovereign can use to approve deletion of duplicate renderer code.
+  - [x] Define the minimum proof set for Zen renderer cutover without relying on broad test suites.
+  - [x] Record invariants for payload correctness, mesh counts, selection routing, redraw behavior, and runtime stats before and after migration.
+  - [x] Identify likely regression zones including normals, post-processing handoff, threaded renderer service behavior, and viewport texture presentation.
+  - [x] Add instrumentation or verification hooks where the current code is too opaque to validate safely.
+  - [x] Produce rollout criteria that Sovereign can use to approve deletion of duplicate renderer code.
 - Notes:
   - This lane owns believable proof, not maximal proof.
+  - Validation matrix lives at `docs/zen_renderer_validation_matrix.md`.
 
 ## Lane: Scribe
 

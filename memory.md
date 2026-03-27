@@ -1,5 +1,21 @@
 # Memory
 
+## 2026-03-27: Delta Zen registry surface and package discovery
+
+### What changed
+
+Expanded the Zen shell integration lane so [`M:\K_OS\crates\zen\src\kain_ui_host.rs`](M:\K_OS\crates\zen\src\kain_ui_host.rs) now surfaces the generated workspace registry directly inside the native UI. Zen now has a dedicated `workspace.registry` feature tab, the command palette can surface registry-backed package discovery for the Zen host, and the diagnostics/status surfaces report the generated registry summary alongside the existing host API, module, contract, and shell status.
+
+### Durable findings
+
+- Registry consumption in Zen should stay generated and query-driven, not hand-curated. The new shell surface reads `k-os-workspace-registry` directly rather than duplicating crate discovery logic in the host.
+- `workspace.registry` is the right kind of shell surface for this layer: it is a discovery and composition tab, not another host API abstraction.
+- The Kain status and shell diagnostics should continue to show the registry summary so operators can see the current composition surface without opening separate tooling.
+
+### Next recommended step
+
+Let later lanes keep using the registry pane as the host-facing discovery source, and only add more shell-specific registry affordances if a real operator workflow needs them.
+
 ## 2026-03-26: Scribe renderer unification docs handoff
 
 ### What changed
@@ -47,6 +63,8 @@ The cutover added:
 - Zen no longer owns scene-buffer creation directly in `main.rs`; that responsibility now sits in the renderer session.
 - The shared renderer service is now the source of truth for camera, selection, and frame stats in the Zen host loop where possible.
 - The final bridge step now mirrors Zen scene data into `k-os-scene-runtime` before calling `evaluate_viewport_payload`, so the viewport payload evaluation path is canonical instead of host-local.
+- The scene-runtime mirror contract now carries `ViewportStateComponent` alongside geometry, so `evaluate_viewport_payload` preserves Zen viewport shading mode instead of falling back to the scene-runtime default.
+- `SharedMeshInfo` now exposes the mirrored shading mode as a lightweight proof hook, which Aegis can use to confirm the mirrored runtime state without broad tests.
 - `zen-scene` still provides host-side scene extraction, but the evaluated payload is now owned by scene-runtime rather than by Zen itself.
 - The remaining host-local work in Zen is intentionally the presentation/post seam, not the scene sync contract.
 
@@ -422,3 +440,21 @@ Do a focused modernization pass in this order:
 2. If it should model full capability, expand `KainCliTarget` and related host contracts to match upstream `CompileTarget` where K_OS intends to support those lanes.
 3. Reconcile `sources.json`, `runtime_apps.json`, and generated output directories so registry data reflects actual available artifacts.
 4. Add an explicit “supported in K_OS” layer if the workspace should only expose a subset of upstream Kain. That is better than letting partial support masquerade as canonical support.
+
+## 2026-03-27: Aegis renderer validation matrix
+
+### What changed
+
+Claimed the `Aegis` lane in [`M:\K_OS\Swarm\glass-foundry-zen-kain-native-pipeline.md`](M:\K_OS\Swarm\glass-foundry-zen-kain-native-pipeline.md) and wrote the durable validation matrix at [`M:\K_OS\docs\zen_renderer_validation_matrix.md`](M:\K_OS\docs\zen_renderer_validation_matrix.md).
+
+Added a lightweight runtime proof hook by exposing mirrored viewport shading mode through `SharedMeshInfo` in [`M:\K_OS\crates\k-os-scene-runtime\src\mesh_state.rs`](M:\K_OS\crates\k-os-scene-runtime\src\mesh_state.rs). That gives operators and future agents a direct way to check whether the mirror contract preserved Zen viewport state without relying on broad tests.
+
+### Durable findings
+
+- The minimum believable proof set for the Zen renderer cutover is now documented in one place: payload canonicalization, selection routing, redraw behavior, runtime stats, and shading-mode preservation.
+- The most likely remaining regression zones are normals, post-processing handoff, threaded renderer-service behavior, and viewport texture presentation.
+- The rollout gate should stay conservative until the validation matrix and the runtime proof hook both agree that the hybrid seam is only presentation-only.
+
+### Next recommended step
+
+Use [`M:\K_OS\docs\zen_renderer_validation_matrix.md`](M:\K_OS\docs\zen_renderer_validation_matrix.md) as the operator-facing gate before any work removes the duplicate Zen-local renderer path.

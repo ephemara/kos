@@ -34,7 +34,8 @@ When deciding which surfaces are authoritative, use this order:
 1. [`M:\K_OS\docs\zen_renderer_unification.md`](M:\K_OS\docs\zen_renderer_unification.md) for crate ownership and migration cut points
 2. [`M:\K_OS\docs\zen_contract_surface.md`](M:\K_OS\docs\zen_contract_surface.md) for stable host-facing crate and registry contracts
 3. [`M:\K_OS\crates\k-os-workspace-registry\generated\json\integration_registry.json`](M:\K_OS\crates\k-os-workspace-registry\generated\json\integration_registry.json) and [`M:\K_OS\crates\k-os-workspace-registry\generated\json\adapter_manifests.json`](M:\K_OS\crates\k-os-workspace-registry\generated\json\adapter_manifests.json) for generated composition truth
-4. Zen source code for current implementation gaps and temporary seams
+4. [`M:\K_OS\docs\zen_renderer_validation_matrix.md`](M:\K_OS\docs\zen_renderer_validation_matrix.md) for the minimum proof set and rollout gate
+5. Zen source code for current implementation gaps and temporary seams
 
 Do not treat arbitrary deep public APIs as the host contract just because Rust makes them visible.
 
@@ -85,5 +86,6 @@ Treat Kain as an augmentation and tool/runtime layer, not the owner of base view
 ## Recommended Next Checks
 
 - Compare any new Zen viewport work against this guide and [`M:\K_OS\docs\zen_renderer_unification.md`](M:\K_OS\docs\zen_renderer_unification.md) before expanding the host-local path.
+- Use [`M:\K_OS\docs\zen_renderer_validation_matrix.md`](M:\K_OS\docs\zen_renderer_validation_matrix.md) when you need believable proof without broad test suites.
 - Keep `ARCHITECTURE.md`, `memory.md`, and this guide aligned whenever the cutover materially advances.
 - Use swarm plans in [`M:\K_OS\Swarm`](M:\K_OS\Swarm) as the live control plane for who owns the next migration step.

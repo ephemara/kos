@@ -2,7 +2,8 @@ use bytemuck::{Pod, Zeroable};
 use glam::{Mat4, Quat, Vec3};
 use k_os_asset_pipeline::asset::{Asset, AssetData, MeshData, SceneData, SceneNode};
 use k_os_scene::{
-    MeshHandle, SceneParentComponent, SceneTransformComponent, SceneWorld, ShadingMode,
+    MeshHandle, SceneParentComponent, SceneTransformComponent, SceneWorld,
+    ViewportStateComponent,
 };
 use std::collections::{HashMap, HashSet};
 
@@ -82,7 +83,7 @@ pub struct SceneRenderPayload {
     pub positions: Vec<f32>,
     pub normals: Vec<f32>,
     pub indices: Vec<u32>,
-    pub shading_mode: ShadingMode,
+    pub viewport_state: ViewportStateComponent,
 }
 
 #[derive(Clone, Copy, Debug)]
@@ -426,7 +427,7 @@ impl ZenScene {
                 positions,
                 normals,
                 indices: source.indices.as_ref().to_vec(),
-                shading_mode: viewport_state.shading_mode,
+                viewport_state,
             });
         }
 

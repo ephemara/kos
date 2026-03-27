@@ -8,7 +8,7 @@ use k_os_eval::mesh_pipeline::{
 };
 use k_os_eval::{EvalContext, EvalGraph};
 use k_os_gpu_pipeline::{GpuMeshBridge, GpuMeshUploadSummary};
-use k_os_scene::{MeshHandle, SceneWorld};
+use k_os_scene::{MeshHandle, SceneWorld, ShadingMode, ViewportStateComponent};
 use parry3d::math::{Point, Real};
 use parry3d::shape::TriMesh;
 use serde::{Deserialize, Serialize};
@@ -96,6 +96,7 @@ pub fn register_shared_mesh(
     positions: Vec<f32>,
     normals: Vec<f32>,
     indices: Vec<u32>,
+    viewport_state: ViewportStateComponent,
 ) -> SharedMeshHandle {
     let handle = {
         let mut next = NEXT_SHARED_HANDLE.write().unwrap();
@@ -106,7 +107,11 @@ pub fn register_shared_mesh(
 
     let mesh_handle = {
         let mut scene = SCENE_WORLD.write().unwrap();
-        scene.create_mesh(positions, indices, Some(normals))
+        let mesh_handle = scene.create_mesh(positions, indices, Some(normals));
+        scene
+            .update_viewport_state(mesh_handle, viewport_state)
+            .expect("registered mesh viewport state must update");
+        mesh_handle
     };
 
     let source = {
@@ -132,6 +137,7 @@ pub fn sync_shared_mesh_for_source(
     positions: Vec<f32>,
     normals: Vec<f32>,
     indices: Vec<u32>,
+    viewport_state: ViewportStateComponent,
 ) -> Result<SharedMeshHandle, String> {
     let source_raw = source_handle.raw();
     if let Some(shared_handle) = SHARED_SOURCE_ALIASES
@@ -158,6 +164,9 @@ pub fn sync_shared_mesh_for_source(
             scene
                 .update_mesh_source(mesh_handle, positions.clone(), indices.clone(), Some(normals))
                 .map_err(|err| err.to_string())?;
+            scene
+                .update_viewport_state(mesh_handle, viewport_state)
+                .map_err(|err| err.to_string())?;
         }
 
         {
@@ -173,7 +182,7 @@ pub fn sync_shared_mesh_for_source(
         return Ok(shared_handle);
     }
 
-    let shared_handle = register_shared_mesh(positions, normals, indices);
+    let shared_handle = register_shared_mesh(positions, normals, indices, viewport_state);
     SHARED_SOURCE_ALIASES
         .write()
         .unwrap()
@@ -261,6 +270,7 @@ pub struct SharedMeshInfo {
     pub bridge_position_bytes: usize,
     pub bridge_normal_bytes: usize,
     pub bridge_index_bytes: usize,
+    pub shading_mode: ShadingMode,
 }
 
 pub fn evaluate_viewport_payload(
@@ -308,7 +318,12 @@ pub fn evaluate_viewport_bridge_summary(
 pub fn register_shared_mesh_cmd(positions: Vec<f32>, indices: Vec<u32>) -> Result<u64, String> {
     let vertex_count = positions.len() / 3;
     let normals = vec![0.0_f32; vertex_count * 3];
-    Ok(register_shared_mesh(positions, normals, indices))
+    Ok(register_shared_mesh(
+        positions,
+        normals,
+        indices,
+        ViewportStateComponent::default(),
+    ))
 }
 
 pub fn dispose_shared_mesh_cmd(handle: u64) -> Result<(), String> {
@@ -318,6 +333,7 @@ pub fn dispose_shared_mesh_cmd(handle: u64) -> Result<(), String> {
 
 pub fn get_shared_meshes_info() -> Result<Vec<SharedMeshInfo>, String> {
     let meshes = SHARED_MESHES.read().unwrap();
+    let scene = SCENE_WORLD.read().unwrap();
     Ok(meshes
         .iter()
         .map(|(handle, mesh)| SharedMeshInfo {
@@ -338,6 +354,10 @@ pub fn get_shared_meshes_info() -> Result<Vec<SharedMeshInfo>, String> {
                 .bridge_summary
                 .map(|summary| summary.index_bytes)
                 .unwrap_or_default(),
+            shading_mode: scene
+                .viewport_state(mesh.mesh_handle)
+                .map(|viewport| viewport.shading_mode)
+                .unwrap_or(ShadingMode::Solid),
         })
         .collect())
 }
