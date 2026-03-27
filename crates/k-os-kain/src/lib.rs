@@ -387,6 +387,25 @@ pub fn generated_runtime_json_registry_path() -> PathBuf {
     generated_dir().join("json").join("runtime_registry.json")
 }
 
+pub fn fabric_dir() -> PathBuf {
+    workspace_root()
+        .join("crates")
+        .join("k-os-kain")
+        .join("fabric")
+}
+
+pub fn fabric_workspace_dir(workspace_name: &str) -> PathBuf {
+    fabric_dir().join(workspace_name)
+}
+
+pub fn zen_dcc_fabric_dir() -> PathBuf {
+    fabric_workspace_dir("zen-dcc")
+}
+
+pub fn zen_dcc_fabric_manifest_path() -> PathBuf {
+    zen_dcc_fabric_dir().join("KAIN.fabric.toml")
+}
+
 pub fn manifest_path() -> PathBuf {
     workspace_root().join(SOURCE_MANIFEST_PATH)
 }

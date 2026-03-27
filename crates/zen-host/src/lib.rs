@@ -39,6 +39,7 @@ pub enum ZenHostBindingKind {
     SceneViewport,
     EngineRuntime,
     EngineKain,
+    EngineFabric,
     EngineTimeline,
     EngineHostApi,
 }
@@ -195,6 +196,7 @@ fn parse_binding_handler(value: &str) -> Result<ZenHostBindingKind, String> {
         "scene_viewport" => Ok(ZenHostBindingKind::SceneViewport),
         "engine_runtime" => Ok(ZenHostBindingKind::EngineRuntime),
         "engine_kain" => Ok(ZenHostBindingKind::EngineKain),
+        "engine_fabric" => Ok(ZenHostBindingKind::EngineFabric),
         "engine_timeline" => Ok(ZenHostBindingKind::EngineTimeline),
         "engine_host_api" => Ok(ZenHostBindingKind::EngineHostApi),
         other => Err(format!("Unsupported Zen host binding handler '{other}'")),

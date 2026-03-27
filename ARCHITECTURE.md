@@ -68,9 +68,11 @@ The durable Zen-facing contract note is [`M:\K_OS\docs\zen_contract_surface.md`]
 
 Zen's current native renderer cutover now lives in [`M:\K_OS\crates\zen\src\renderer_session.rs`](M:\K_OS\crates\zen\src\renderer_session.rs). That session owns the shared `k-os-renderer` service, mirrors Zen scene data into `k-os-scene-runtime` as the canonical eval bridge, forwards camera state, handles selection requests, and caches scene geometry, while [`M:\K_OS\crates\zen\src\main.rs`](M:\K_OS\crates\zen\src\main.rs) keeps the surface/presentation/post seam.
 
+Zen now also embeds a first-class Fabric service in [`M:\K_OS\crates\zen\src\fabric.rs`](M:\K_OS\crates\zen\src\fabric.rs). This service resolves and executes a configured `KAIN.fabric.toml` through upstream `kain-host`, caches the latest session/report metadata, and exposes recent event logs to the native shell. The current default embedded workspace lives under [`M:\K_OS\crates\k-os-kain\fabric\zen-dcc`](M:\K_OS\crates\k-os-kain\fabric\zen-dcc).
+
 [`M:\K_OS\crates\zen-scene\src\lib.rs`](M:\K_OS\crates\zen-scene\src\lib.rs) still exposes a scene payload bridge helper for host extraction, but the actual viewport payload evaluation now flows through [`M:\K_OS\crates\k-os-scene-runtime\src\mesh_state.rs`](M:\K_OS\crates\k-os-scene-runtime\src\mesh_state.rs).
 
-Zen's native shell now also exposes a generated registry surface in [`M:\K_OS\crates\zen\src\kain_ui_host.rs`](M:\K_OS\crates\zen\src\kain_ui_host.rs). The command palette and a dedicated `workspace.registry` tab read [`M:\K_OS\crates\k-os-workspace-registry`](M:\K_OS\crates\k-os-workspace-registry) directly so the shell can discover Zen-facing packages, adapter manifests, and recommended entrypoints without hand-curated crate lists.
+Zen's native shell now also exposes a generated registry surface and an embedded Fabric panel in [`M:\K_OS\crates\zen\src\kain_ui_host.rs`](M:\K_OS\crates\zen\src\kain_ui_host.rs). The command palette and dedicated `workspace.registry` and `workspace.fabric` tabs read generated registry data plus Fabric session/report state directly so the shell can discover Zen-facing packages and inspect orchestration work without hand-curated crate lists.
 
 ## Existing Data-Driven Systems
 
@@ -86,6 +88,9 @@ Several parts of the repo already use manifests and registries instead of hardco
 - Zen loads runtime, host API, and UI manifests:
   - [`M:\K_OS\crates\zen\src\config.rs`](M:\K_OS\crates\zen\src\config.rs)
   - [`M:\K_OS\crates\zen\resources\runtime.toml`](M:\K_OS\crates\zen\resources\runtime.toml)
+- Zen now also loads embedded Fabric configuration from the runtime manifest and resolves the default workspace under:
+  - [`M:\K_OS\crates\zen\resources\runtime.toml`](M:\K_OS\crates\zen\resources\runtime.toml)
+  - [`M:\K_OS\crates\k-os-kain\fabric\zen-dcc\KAIN.fabric.toml`](M:\K_OS\crates\k-os-kain\fabric\zen-dcc\KAIN.fabric.toml)
 
 ## Workspace Registry
 
@@ -166,6 +171,7 @@ The active renderer migration is documented in:
 The target model is:
 
 - `zen` owns the native shell, input, viewport presentation, and operator workflow
+- embedded Fabric in `zen` owns cross-runtime orchestration, intent execution, report/session emission, and mixed-runtime pipeline inspection
 - `k-os-scene-runtime` owns canonical scene/runtime state for renderer-facing sync
 - `k-os-eval` owns viewport payload derivation
 - `k-os-renderer` owns viewport lifecycle, mesh sync, selection, stats, and render execution

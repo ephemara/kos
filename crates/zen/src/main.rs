@@ -1,6 +1,7 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
 mod config;
+mod fabric;
 mod input;
 mod kain_runtime;
 mod kain_ui_host;
@@ -12,6 +13,7 @@ use bytemuck::{Pod, Zeroable};
 use config::{CameraConfig, RendererConfig, RuntimeConfig};
 use egui_wgpu_backend::{RenderPass as EguiRenderPass, ScreenDescriptor};
 use egui_winit::State as EguiWinitState;
+use fabric::ZenFabricService;
 use glam::{Mat4, Vec3};
 use input::{Action, InputBindings, InputState, InputTrigger};
 use kain_runtime::KainRuntime;
@@ -593,6 +595,7 @@ impl ZenUi {
         scene: &mut ZenScene,
         runtime: &mut ZenRuntimeSession,
         camera: &mut FlyCamera,
+        fabric_service: &mut ZenFabricService,
         renderer_config: &mut RendererConfig,
         hud: ZenViewportHud,
         kain_status: &str,
@@ -607,6 +610,7 @@ impl ZenUi {
                 scene,
                 runtime,
                 camera,
+                fabric_service,
                 renderer_config,
                 hud,
                 kain_status,
@@ -664,6 +668,7 @@ struct ZenState {
     scene: ZenScene,
     renderer_session: ZenRendererSession,
     runtime: ZenRuntimeSession,
+    fabric_service: ZenFabricService,
     last_cursor_position: Option<(f32, f32)>,
     ui: ZenUi,
     post_processor: ZenPostProcessor,
@@ -1013,6 +1018,7 @@ impl ZenState {
             surface_config.format,
             &runtime_config,
         )?;
+        let fabric_service = ZenFabricService::new(runtime_config.kain.fabric.clone());
         let mut state = Self {
             window,
             surface,
@@ -1042,6 +1048,7 @@ impl ZenState {
             scene,
             renderer_session,
             runtime: ZenRuntimeSession::new(),
+            fabric_service,
             last_cursor_position: None,
             ui,
             post_processor,
@@ -1384,6 +1391,7 @@ impl ZenState {
             &mut self.scene,
             &mut self.runtime,
             &mut self.camera,
+            &mut self.fabric_service,
             &mut self.runtime_config.renderer,
             hud,
             &kain_status,

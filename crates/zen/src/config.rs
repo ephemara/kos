@@ -37,6 +37,7 @@ pub struct KainConfig {
     pub enable_dispatch: bool,
     pub dispatch_interval_frames: u64,
     pub ui: KainUiConfig,
+    pub fabric: KainFabricConfig,
 }
 
 #[derive(Debug, Clone)]
@@ -51,6 +52,12 @@ pub struct KainUiConfig {
     pub host_api_path: String,
     pub root_component: String,
     pub show_runtime_inspector: bool,
+}
+
+#[derive(Debug, Clone)]
+pub struct KainFabricConfig {
+    pub enabled: bool,
+    pub manifest_path: String,
 }
 
 #[derive(Debug, Clone)]
@@ -128,6 +135,7 @@ struct KainConfigFile {
     enable_dispatch: bool,
     dispatch_interval_frames: u64,
     ui: Option<KainUiConfigFile>,
+    fabric: Option<KainFabricConfigFile>,
 }
 
 #[derive(Debug, Deserialize)]
@@ -143,6 +151,12 @@ struct KainUiConfigFile {
     host_api_path: Option<String>,
     root_component: Option<String>,
     show_runtime_inspector: bool,
+}
+
+#[derive(Debug, Deserialize)]
+struct KainFabricConfigFile {
+    enabled: Option<bool>,
+    manifest_path: Option<String>,
 }
 
 #[derive(Debug, Deserialize)]
@@ -245,6 +259,7 @@ fn parse_runtime_config(source: &str) -> Result<RuntimeConfig, String> {
             enable_dispatch: parsed.kain.enable_dispatch,
             dispatch_interval_frames: parsed.kain.dispatch_interval_frames.max(1),
             ui: parse_kain_ui_config(parsed.kain.ui),
+            fabric: parse_kain_fabric_config(parsed.kain.fabric),
         },
         renderer: RendererConfig {
             shadow_map_size: parsed.renderer.shadow_map_size.clamp(512, 4096),
@@ -356,6 +371,23 @@ fn parse_kain_ui_config(parsed: Option<KainUiConfigFile>) -> KainUiConfig {
     }
 }
 
+fn parse_kain_fabric_config(parsed: Option<KainFabricConfigFile>) -> KainFabricConfig {
+    let parsed = parsed.unwrap_or(KainFabricConfigFile {
+        enabled: Some(true),
+        manifest_path: Some("crates/k-os-kain/fabric/zen-dcc/KAIN.fabric.toml".to_string()),
+    });
+
+    KainFabricConfig {
+        enabled: parsed.enabled.unwrap_or(true),
+        manifest_path: parsed
+            .manifest_path
+            .as_deref()
+            .filter(|value| !value.trim().is_empty())
+            .unwrap_or("crates/k-os-kain/fabric/zen-dcc/KAIN.fabric.toml")
+            .to_string(),
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -370,6 +402,7 @@ mod tests {
         assert!(!config.kain.ui.modules_manifest_path.is_empty());
         assert!(!config.kain.ui.active_shell.is_empty());
         assert!(!config.kain.ui.host_api_path.is_empty());
+        assert!(!config.kain.fabric.manifest_path.is_empty());
         assert!(config.renderer.shadow_map_size >= 512);
         assert!(config.renderer.grid_intensity >= 0.0);
         assert!(!config.renderer.post.shader_id.is_empty());

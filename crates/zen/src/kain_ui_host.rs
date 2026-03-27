@@ -1,4 +1,5 @@
 use crate::config::{KainUiConfig, RendererConfig};
+use crate::fabric::ZenFabricService;
 use crate::theme::{resolve_source_path, ZenUiTheme};
 use crate::FlyCamera;
 use egui::{Color32, RichText, Stroke, Vec2, WidgetText};
@@ -690,6 +691,7 @@ impl ZenKainUiHost {
         scene: &mut ZenScene,
         runtime: &mut ZenRuntimeSession,
         camera: &mut FlyCamera,
+        fabric_service: &mut ZenFabricService,
         renderer: &mut RendererConfig,
         hud: ZenViewportHud,
         kain_status: &str,
@@ -782,6 +784,7 @@ impl ZenKainUiHost {
             scene,
             runtime,
             camera,
+            fabric_service,
             renderer,
             hud,
             kain_status,
@@ -816,6 +819,7 @@ impl ZenKainUiHost {
                     &shell_status,
                     &contract_status,
                     &registry_status,
+                    viewer.fabric_service.status_summary(),
                     kain_status,
                 );
             });
@@ -868,6 +872,7 @@ struct ZenDockViewer<'a> {
     scene: &'a mut ZenScene,
     runtime: &'a mut ZenRuntimeSession,
     camera: &'a mut FlyCamera,
+    fabric_service: &'a mut ZenFabricService,
     renderer: &'a mut RendererConfig,
     hud: ZenViewportHud,
     kain_status: &'a str,
@@ -1064,6 +1069,28 @@ impl<'a> ZenDockViewer<'a> {
                     }
                 });
             }
+            ZenUiFeatureKind::Fabric => {
+                draw_feature_panel(ui, self.theme, feature, false, |ui| {
+                    if validate_binding(
+                        ui,
+                        self.theme,
+                        self.host_api,
+                        feature,
+                        ZenHostBindingKind::EngineFabric,
+                    ) {
+                        egui::ScrollArea::vertical()
+                            .id_salt(("fabric", feature.key.as_str()))
+                            .show(ui, |ui| {
+                                draw_fabric_panel(
+                                    ui,
+                                    self.theme,
+                                    self.fabric_service,
+                                    self.activity_status,
+                                );
+                            });
+                    }
+                });
+            }
             ZenUiFeatureKind::DocumentContext => {
                 draw_feature_panel(ui, self.theme, feature, false, |ui| {
                     egui::ScrollArea::vertical()
@@ -1192,6 +1219,7 @@ fn render_workspace_statusbar(
     shell_status: &str,
     contract_status: &str,
     registry_status: &str,
+    fabric_status: &str,
     kain_status: &str,
 ) {
     ui.horizontal_wrapped(|ui| {
@@ -1217,6 +1245,12 @@ fn render_workspace_statusbar(
             RichText::new(registry_status)
                 .small()
                 .color(ui.style().visuals.text_color()),
+        );
+        ui.separator();
+        ui.label(
+            RichText::new(fabric_status)
+                .small()
+                .color(ui.style().visuals.hyperlink_color),
         );
         ui.separator();
         ui.label(
@@ -2109,6 +2143,125 @@ fn draw_registry_inspector(
             }
         }
         ui.add_space(6.0);
+    }
+}
+
+fn draw_fabric_panel(
+    ui: &mut egui::Ui,
+    theme: &ZenUiTheme,
+    fabric_service: &mut ZenFabricService,
+    activity_status: &mut String,
+) {
+    ui.horizontal_wrapped(|ui| {
+        ui.label(
+            RichText::new(fabric_service.status_summary())
+                .strong()
+                .color(theme.palette.text_primary),
+        );
+        if ui.button("Refresh").clicked() {
+            fabric_service.refresh_status();
+            *activity_status = "fabric status refreshed".to_string();
+        }
+        if ui
+            .add_enabled(fabric_service.enabled(), egui::Button::new("Run Configured Manifest"))
+            .clicked()
+        {
+            match fabric_service.run_configured_manifest() {
+                Ok(result) => {
+                    *activity_status = format!(
+                        "fabric session {} // {:?} // {} steps",
+                        result.session_id,
+                        result.status,
+                        result.step_results.len()
+                    );
+                }
+                Err(err) => {
+                    *activity_status = err;
+                }
+            }
+        }
+    });
+
+    ui.separator();
+    ui.label(
+        RichText::new("Configured Manifest")
+            .strong()
+            .color(theme.palette.text_secondary),
+    );
+    ui.monospace(fabric_service.configured_manifest_path());
+    match fabric_service.resolved_manifest_path() {
+        Some(path) => {
+            ui.small(format!("resolved: {}", path.display()));
+            ui.small(format!("exists: {}", path.exists()));
+        }
+        None => {
+            ui.small("resolved: unavailable");
+        }
+    }
+
+    if let Some(error) = fabric_service.last_error() {
+        ui.separator();
+        ui.label(
+            RichText::new("Last Error")
+                .strong()
+                .color(theme.palette.danger),
+        );
+        ui.colored_label(theme.palette.danger, error);
+    }
+
+    if let Some(result) = fabric_service.last_result() {
+        ui.separator();
+        ui.label(
+            RichText::new("Latest Session")
+                .strong()
+                .color(theme.palette.text_secondary),
+        );
+        ui.monospace(format!("session: {}", result.session_id));
+        ui.small(format!("status: {:?}", result.status));
+        ui.small(format!("report: {}", result.report_path.display()));
+        ui.small(format!("lock: {}", result.lock_path.display()));
+        if let Some(events_path) = &result.events_path {
+            ui.small(format!("events: {}", events_path.display()));
+        }
+
+        ui.add_space(6.0);
+        ui.label(
+            RichText::new("Step Results")
+                .strong()
+                .color(theme.palette.text_secondary),
+        );
+        for step in &result.step_results {
+            ui.label(
+                RichText::new(format!(
+                    "{} // {:?} // {:?} // {} outputs",
+                    step.id,
+                    step.runtime,
+                    step.status,
+                    step.outputs.len()
+                ))
+                .small()
+                .color(theme.palette.text_primary),
+            );
+            if let Some(adapter) = &step.adapter {
+                ui.small(format!("adapter: {adapter}"));
+            }
+            if let Some(error) = &step.error {
+                ui.small(format!("error: {} // {}", error.code, error.message));
+            }
+            ui.add_space(4.0);
+        }
+    }
+
+    if !fabric_service.recent_events().is_empty() {
+        ui.separator();
+        ui.label(
+            RichText::new("Recent Events")
+                .strong()
+                .color(theme.palette.text_secondary),
+        );
+        for event in fabric_service.recent_events() {
+            ui.monospace(event);
+        }
     }
 }
 

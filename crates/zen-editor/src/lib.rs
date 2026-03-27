@@ -56,6 +56,7 @@ pub enum ZenUiFeatureKind {
     HostApi,
     Registry,
     KainStatus,
+    Fabric,
     DocumentContext,
     FileEditor,
 }
@@ -377,6 +378,7 @@ impl ZenUiFeatureKind {
             "host_api" => Ok(Self::HostApi),
             "registry" => Ok(Self::Registry),
             "kain_status" => Ok(Self::KainStatus),
+            "fabric" => Ok(Self::Fabric),
             "document_context" => Ok(Self::DocumentContext),
             "file_editor" => Ok(Self::FileEditor),
             other => Err(format!("Unsupported Zen UI feature kind '{other}'")),

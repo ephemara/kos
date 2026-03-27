@@ -51,6 +51,7 @@ bottom_tabs = [
   "workspace.file_editor",
   "workspace.timeline",
   "workspace.host_api",
+  "workspace.fabric",
   "workspace.registry",
 ]
 left_ratio = 0.16
@@ -193,6 +194,14 @@ closable = true
 default_open = false
 
 [[features]]
+key = "workspace.fabric"
+title = "Fabric"
+kind = "fabric"
+binding = "engine.fabric"
+closable = true
+default_open = false
+
+[[features]]
 key = "workspace.registry"
 title = "Registry"
 kind = "registry"
@@ -211,7 +220,7 @@ default_open = false
 center_tabs = ["workspace.viewport.perspective"]
 left_tabs = ["workspace.outliner", "workspace.documents"]
 right_tabs = ["workspace.selection", "workspace.runtime"]
-bottom_tabs = ["workspace.file_editor", "workspace.timeline", "workspace.registry"]
+bottom_tabs = ["workspace.file_editor", "workspace.timeline", "workspace.fabric", "workspace.registry"]
 left_ratio = 0.16
 right_ratio = 0.2
 bottom_ratio = 0.22
