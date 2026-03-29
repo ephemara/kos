@@ -1,0 +1,1144 @@
+# Generated from Rust source by kain import-rust
+# Project Ouroboros — Rust → KAIN → Rust
+
+enum AssetType:
+    Mesh
+    Texture
+    Material
+    Animation
+    Scene
+    Unknown
+
+struct Asset:
+    id: String
+    asset_type: AssetType
+    source_path: std::path::PathBuf
+    data: AssetData
+    metadata: Map<String, String>
+    thumbnail: Option<std::path::PathBuf>
+
+enum AssetData:
+    Mesh(MeshData)
+    Texture(TextureData)
+    Material(MaterialData)
+    Animation(AnimationData)
+    Scene(SceneData)
+    Raw(Array<u8>)
+
+struct MeshData:
+    positions: Array<f32>
+    normals: Option<Array<f32>>
+    tangents: Option<Array<f32>>
+    uvs: Option<Array<f32>>
+    colors: Option<Array<f32>>
+    indices: Option<Array<u32>>
+    submeshes: Array<(u32, u32, Option<usize>)>
+
+struct TextureData:
+    width: u32
+    height: u32
+    format: TextureFormat
+    data: Array<u8>
+    mip_levels: u32
+
+enum TextureFormat:
+    R8
+    Rg8
+    Rgb8
+    Rgba8
+    R16
+    Rg16
+    Rgb16
+    Rgba16
+    R32F
+    Rg32F
+    Rgb32F
+    Rgba32F
+
+struct MaterialData:
+    name: String
+    base_color: Array<f32>
+    metallic: f32
+    roughness: f32
+    emissive: Array<f32>
+    textures: Map<String, std::path::PathBuf>
+
+struct AnimationData:
+    name: String
+    duration: f32
+    channels: Array<AnimationChannel>
+
+struct AnimationChannel:
+    target: String
+    channel_type: AnimationChannelType
+    times: Array<f32>
+    values: Array<f32>
+
+enum AnimationChannelType:
+    Translation
+    Rotation
+    Scale
+
+struct SceneData:
+    name: String
+    nodes: Array<SceneNode>
+    meshes: Array<MeshData>
+    materials: Array<MaterialData>
+
+struct SceneNode:
+    name: String
+    transform: Array<f32>
+    mesh_index: Option<usize>
+    children: Array<SceneNode>
+
+impl Asset:
+    fn new_(id: String, asset_type: AssetType, source_path: std::path::PathBuf, data: AssetData) -> Self:
+        # <expr>
+
+    fn add_metadata(_self: &mut Self, key: String, value: String):
+        # <expr>
+
+    fn get_metadata(_self: &Self, key: &String) -> Option<&String>:
+        # <expr>
+
+
+struct AssetCache:
+    cache_dir: std::path::PathBuf
+    memory_cache: Map<String, crate::asset::Asset>
+
+impl AssetCache:
+    fn new_(cache_dir: std::path::PathBuf) -> Result<Self, Error>:
+        # <expr>
+        # <expr>
+
+    fn get(_self: &Self, path: &std::path::Path) -> Result<Option<crate::asset::Asset>, Error>:
+        let current_hash = # <expr>
+        # <expr>
+        let cache_path = # <expr>
+        # <expr>
+
+    fn put(_self: &Self, asset: &crate::asset::Asset) -> Result<(), Error>:
+        let hash = # <expr>
+        # <expr>
+        let cache_path = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn clear(_self: &Self) -> Result<(), Error>:
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn stats(_self: &Self) -> CacheStats:
+        let memory_count = # <expr>
+        let disk_count = # <expr>
+        # <expr>
+
+    fn get_cache_path(_self: &Self, hash: &String) -> std::path::PathBuf:
+        # <expr>
+
+    fn save_to_disk(_self: &Self, asset: &crate::asset::Asset, path: &std::path::Path) -> Result<(), Error>:
+        let json = # <expr>
+        # <expr>
+        # <expr>
+
+    fn load_from_disk(_self: &Self, path: &std::path::Path) -> Result<crate::asset::Asset, Error>:
+        let json = # <expr>
+        let asset = # <expr>
+        # <expr>
+
+
+struct CacheStats:
+    memory_entries: usize
+    disk_entries: usize
+
+mod tests:
+    fn test_cache_put_get():
+        let temp_dir = # <expr>
+        let cache = # <expr>
+        let asset = # <expr>
+        # <expr>
+        let cached = # <expr>
+        # <expr>
+
+    fn test_cache_clear():
+        let temp_dir = # <expr>
+        let cache = # <expr>
+        let asset = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+
+mod tests:
+    fn create_test_obj_file(path: &std::path::PathBuf):
+        let obj_content = "\nv 0.0 0.0 0.0\nv 1.0 0.0 0.0\nv 0.0 1.0 0.0\nf 1 2 3\n"
+        # <expr>
+
+    fn test_cache_hit_returns_cached_asset():
+        let temp_dir = # <expr>
+        let pipeline = # <expr>
+        # <expr>
+        let obj_path = # <expr>
+        # <expr>
+        let asset1 = # <expr>
+        let asset2 = # <expr>
+        # <expr>
+
+    fn test_cache_miss_triggers_import():
+        let temp_dir = # <expr>
+        let cache = # <expr>
+        let obj_path = # <expr>
+        # <expr>
+        let result = # <expr>
+        # <expr>
+
+    fn test_file_modification_invalidates_cache():
+        let temp_dir = # <expr>
+        let pipeline = # <expr>
+        # <expr>
+        let obj_path = # <expr>
+        # <expr>
+        let asset1 = # <expr>
+        let hash1 = # <expr>
+        # <expr>
+        let modified_content = "\nv 0.0 0.0 0.0\nv 1.0 0.0 0.0\nv 0.0 1.0 0.0\nv 1.0 1.0 0.0\nf 1 2 3\nf 2 3 4\n"
+        # <expr>
+        let asset2 = # <expr>
+        let hash2 = # <expr>
+        # <expr>
+
+    fn test_cache_respects_file_hash():
+        let temp_dir = # <expr>
+        let cache = # <expr>
+        let obj_path = # <expr>
+        # <expr>
+        let hash = # <expr>
+        let mesh_data = # <expr>
+        let asset = # <expr>
+        # <expr>
+        let cached = # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_cache_can_be_cleared():
+        let temp_dir = # <expr>
+        let pipeline = # <expr>
+        # <expr>
+        let obj_path = # <expr>
+        # <expr>
+        # <expr>
+        let stats_before = # <expr>
+        # <expr>
+        # <expr>
+        let stats_after = # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_cache_memory_and_disk():
+        let temp_dir = # <expr>
+        let cache = # <expr>
+        let mesh_data = # <expr>
+        let asset = # <expr>
+        # <expr>
+        let stats = # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_cache_disk_persistence():
+        let temp_dir = # <expr>
+        let cache_dir = # <expr>
+        # <expr>
+        let cache2 = # <expr>
+        let stats = # <expr>
+        # <expr>
+
+    fn test_cache_multiple_assets():
+        let temp_dir = # <expr>
+        let cache = # <expr>
+        # <expr>
+        let stats = # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_cache_get_nonexistent_file():
+        let temp_dir = # <expr>
+        let cache = # <expr>
+        let result = # <expr>
+        # <expr>
+
+    fn test_cache_corrupted_disk_cache():
+        let temp_dir = # <expr>
+        let cache_dir = # <expr>
+        let cache = # <expr>
+        let corrupted_path = # <expr>
+        # <expr>
+        let stats = # <expr>
+        # <expr>
+
+    fn test_pipeline_cache_integration():
+        let temp_dir = # <expr>
+        let pipeline = # <expr>
+        # <expr>
+        let obj_path = # <expr>
+        # <expr>
+        let start = # <expr>
+        let asset1_2 = # <expr>
+        let first_duration = # <expr>
+        let start = # <expr>
+        let asset2_2 = # <expr>
+        let second_duration = # <expr>
+        # <expr>
+
+    fn test_cache_with_identical_content_different_paths():
+        let temp_dir = # <expr>
+        let pipeline = # <expr>
+        # <expr>
+        let obj_path1 = # <expr>
+        let obj_path2 = # <expr>
+        # <expr>
+        # <expr>
+        let asset1 = # <expr>
+        let asset2 = # <expr>
+        # <expr>
+
+    fn test_cache_stats_accuracy():
+        let temp_dir = # <expr>
+        let cache = # <expr>
+        let initial_stats = # <expr>
+        # <expr>
+        # <expr>
+        let mesh_data = # <expr>
+        let asset = # <expr>
+        # <expr>
+        let after_stats = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        let final_stats = # <expr>
+        # <expr>
+        # <expr>
+
+
+enum AssetError:
+    UnsupportedFormat { extension: String, supported: String }
+    ImportFailed { path: std::path::PathBuf, source: anyhow::Error }
+    ExportFailed { path: std::path::PathBuf, source: anyhow::Error }
+    ProcessingFailed(String)
+    ThumbnailFailed(String)
+    MetadataFailed(String)
+    CacheError(String)
+    FileNotFound(std::path::PathBuf)
+    InvalidAsset(String)
+    Io(std::io::Error)
+    ImageError(image::ImageError)
+    SerializationError(serde_json::Error)
+
+struct ImageExporter:
+    pass
+
+impl ImageExporter:
+    fn new_() -> Self:
+        Self_
+
+
+impl crate::pipeline::AssetExporter for ImageExporter:
+    fn supported_formats(_self: &Self) -> Array<&String>:
+        # <expr>
+
+    fn export_(_self: &Self, asset: &crate::asset::Asset, path: &std::path::Path) -> Result<(), Error>:
+        let texture_data = # <expr>
+        let img = # <expr>
+        # <expr>
+        # <expr>
+
+    fn name(_self: &Self) -> &String:
+        "ImageExporter"
+
+
+impl Default for ImageExporter:
+    fn default_() -> Self:
+        # <expr>
+
+
+struct ObjExporter:
+    pass
+
+impl ObjExporter:
+    fn new_() -> Self:
+        Self_
+
+
+impl crate::pipeline::AssetExporter for ObjExporter:
+    fn supported_formats(_self: &Self) -> Array<&String>:
+        # <expr>
+
+    fn export_(_self: &Self, asset: &crate::asset::Asset, path: &std::path::Path) -> Result<(), Error>:
+        let mesh_data = # <expr>
+        let mut file = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn name(_self: &Self) -> &String:
+        "ObjExporter"
+
+
+impl Default for ObjExporter:
+    fn default_() -> Self:
+        # <expr>
+
+
+mod tests:
+    fn test_detect_format_by_extension():
+        let temp_dir = # <expr>
+        let pipeline = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_case_insensitive_extension():
+        let temp_dir = # <expr>
+        let pipeline = # <expr>
+        # <expr>
+
+    fn test_multiple_extensions_same_format():
+        let temp_dir = # <expr>
+        let pipeline = # <expr>
+        # <expr>
+
+    fn test_unknown_format_error():
+        let temp_dir = # <expr>
+        let pipeline = # <expr>
+        let test_file = # <expr>
+        # <expr>
+        let result = # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_no_extension_error():
+        let temp_dir = # <expr>
+        let pipeline = # <expr>
+        let test_file = # <expr>
+        # <expr>
+        let result = # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_list_supported_formats():
+        let temp_dir = # <expr>
+        let pipeline = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        let test_file = # <expr>
+        # <expr>
+        let result = # <expr>
+        # <expr>
+
+    fn test_importer_name():
+        # <stmt>
+        let obj_importer = # <expr>
+        # <expr>
+        let gltf_importer = # <expr>
+        # <expr>
+        let image_importer = # <expr>
+        # <expr>
+
+    fn test_exporter_name():
+        # <stmt>
+        let obj_exporter = # <expr>
+        # <expr>
+        let image_exporter = # <expr>
+        # <expr>
+
+
+fn hash_file(path: &std::path::Path) -> Result<String, Error>:
+    let file = # <expr>
+    let mut reader = # <expr>
+    let mut hasher = # <expr>
+    let mut buffer = # <expr>
+    # <expr>
+    # <expr>
+
+fn hash_bytes(data: &Slice<u8>) -> String:
+    # <expr>
+
+mod tests:
+    fn test_hash_file():
+        let mut temp_file = # <expr>
+        # <expr>
+        # <expr>
+        let hash = # <expr>
+        # <expr>
+
+    fn test_hash_bytes():
+        let hash = # <expr>
+        # <expr>
+        let hash2 = # <expr>
+        # <expr>
+        let hash3 = # <expr>
+        # <expr>
+
+
+mod tests:
+    fn create_test_mesh() -> crate::asset::MeshData:
+        # <expr>
+
+    fn test_obj_import():
+        let temp_dir = # <expr>
+        let obj_path = # <expr>
+        let obj_content = "\n# Test OBJ\nv 0.0 0.0 0.0\nv 1.0 0.0 0.0\nv 0.0 1.0 0.0\nvn 0.0 0.0 1.0\nvn 0.0 0.0 1.0\nvn 0.0 0.0 1.0\nvt 0.0 0.0\nvt 1.0 0.0\nvt 0.0 1.0\nf 1/1/1 2/2/2 3/3/3\n"
+        # <expr>
+        let importer = # <expr>
+        let asset = # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_obj_export():
+        let temp_dir = # <expr>
+        let obj_path = # <expr>
+        let mesh_data = # <expr>
+        let asset = # <expr>
+        let exporter = # <expr>
+        # <expr>
+        # <expr>
+        let content = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_obj_round_trip():
+        let temp_dir = # <expr>
+        let obj_path = # <expr>
+        let mesh_data = # <expr>
+        let original_asset = # <expr>
+        let exporter = # <expr>
+        # <expr>
+        let importer = # <expr>
+        let imported_asset = # <expr>
+        # <expr>
+
+    fn test_image_import_png():
+        let temp_dir = # <expr>
+        let png_path = # <expr>
+        let img = # <expr>
+        # <expr>
+        let importer = # <expr>
+        let asset = # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_image_export_png():
+        let temp_dir = # <expr>
+        let png_path = # <expr>
+        let texture_data = # <expr>
+        let asset = # <expr>
+        let exporter = # <expr>
+        # <expr>
+        # <expr>
+        let img = # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_image_round_trip():
+        let temp_dir = # <expr>
+        let png_path = # <expr>
+        let img = # <expr>
+        # <expr>
+        let importer = # <expr>
+        let imported = # <expr>
+        let export_path = # <expr>
+        let exporter = # <expr>
+        # <expr>
+        let reimported = # <expr>
+        # <expr>
+
+    fn test_obj_export_without_normals():
+        let temp_dir = # <expr>
+        let obj_path = # <expr>
+        let mesh_data = # <expr>
+        let asset = # <expr>
+        let exporter = # <expr>
+        # <expr>
+        let content = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_obj_export_with_uvs_only():
+        let temp_dir = # <expr>
+        let obj_path = # <expr>
+        let mesh_data = # <expr>
+        let asset = # <expr>
+        let exporter = # <expr>
+        # <expr>
+        let content = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_import_nonexistent_file():
+        let importer = # <expr>
+        let result = # <expr>
+        # <expr>
+
+    fn test_export_invalid_asset_type():
+        let temp_dir = # <expr>
+        let obj_path = # <expr>
+        let texture_data = # <expr>
+        let asset = # <expr>
+        let exporter = # <expr>
+        let result = # <expr>
+        # <expr>
+
+
+struct GltfImporter:
+    pass
+
+impl GltfImporter:
+    fn new_() -> Self:
+        Self_
+
+    fn import_mesh(_self: &Self, mesh: &gltf::Mesh, buffers: &Slice<gltf::buffer::Data>) -> Result<crate::asset::MeshData, Error>:
+        let primitive = # <expr>
+        let reader = # <expr>
+        let positions = # <expr>
+        let normals = # <expr>
+        let uvs = # <expr>
+        let indices = # <expr>
+        let tangents = # <expr>
+        let colors = # <expr>
+        let index_count = # <expr>
+        # <expr>
+
+    fn import_node(_self: &Self, node: &gltf::Node, buffers: &Slice<gltf::buffer::Data>) -> Result<crate::asset::SceneNode, Error>:
+        let transform = # <expr>
+        let transform_flat: Array<f32> = # <expr>
+        let mesh_index = # <expr>
+        let children = # <expr>
+        # <expr>
+
+
+impl crate::pipeline::AssetImporter for GltfImporter:
+    fn supported_extensions(_self: &Self) -> Array<&String>:
+        # <expr>
+
+    fn import(_self: &Self, path: &std::path::Path) -> Result<crate::asset::Asset, Error>:
+        let _ = # <expr>
+        let scene = # <expr>
+        let meshes = # <expr>
+        let nodes = # <expr>
+        let scene_data = # <expr>
+        let mut asset = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn name(_self: &Self) -> &String:
+        "GltfImporter"
+
+
+impl Default for GltfImporter:
+    fn default_() -> Self:
+        # <expr>
+
+
+struct ImageImporter:
+    pass
+
+impl ImageImporter:
+    fn new_() -> Self:
+        Self_
+
+    fn detect_format(img: &image::DynamicImage) -> crate::asset::TextureFormat:
+        # <stmt>
+        # <expr>
+
+
+impl crate::pipeline::AssetImporter for ImageImporter:
+    fn supported_extensions(_self: &Self) -> Array<&String>:
+        # <expr>
+
+    fn import(_self: &Self, path: &std::path::Path) -> Result<crate::asset::Asset, Error>:
+        let img = # <expr>
+        let _ = # <expr>
+        let format = # <expr>
+        let rgba = # <expr>
+        let data = # <expr>
+        let texture_data = # <expr>
+        let mut asset = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn name(_self: &Self) -> &String:
+        "ImageImporter"
+
+
+impl Default for ImageImporter:
+    fn default_() -> Self:
+        # <expr>
+
+
+struct ObjImporter:
+    pass
+
+impl ObjImporter:
+    fn new_() -> Self:
+        Self_
+
+
+impl crate::pipeline::AssetImporter for ObjImporter:
+    fn supported_extensions(_self: &Self) -> Array<&String>:
+        # <expr>
+
+    fn import(_self: &Self, path: &std::path::Path) -> Result<crate::asset::Asset, Error>:
+        let _ = # <expr>
+        # <expr>
+        let model = # <expr>
+        let mesh = # <expr>
+        let positions = # <expr>
+        let normals = # <expr>
+        let uvs = # <expr>
+        let indices = # <expr>
+        let mesh_data = # <expr>
+        let mut asset = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn name(_self: &Self) -> &String:
+        "ObjImporter"
+
+
+impl Default for ObjImporter:
+    fn default_() -> Self:
+        # <expr>
+
+
+struct AssetMetadata:
+    data: Map<String, String>
+
+impl AssetMetadata:
+    fn new_() -> Self:
+        # <expr>
+
+    fn insert(_self: &mut Self, key: String, value: String):
+        # <expr>
+
+    fn get(_self: &Self, key: &String) -> Option<&String>:
+        # <expr>
+
+
+impl Default for AssetMetadata:
+    fn default_() -> Self:
+        # <expr>
+
+
+trait AssetImporter:
+    fn supported_extensions(_self: &Self) -> Array<&String>:
+        pass
+    fn import(_self: &Self, path: &std::path::Path) -> Result<crate::asset::Asset, Error>:
+        pass
+    fn name(_self: &Self) -> &String:
+        pass
+
+trait AssetExporter:
+    fn supported_formats(_self: &Self) -> Array<&String>:
+        pass
+    fn export_(_self: &Self, asset: &crate::asset::Asset, path: &std::path::Path) -> Result<(), Error>:
+        pass
+    fn name(_self: &Self) -> &String:
+        pass
+
+trait AssetProcessor:
+    fn process(_self: &Self, asset: &mut crate::asset::Asset) -> Result<(), Error>:
+        pass
+    fn name(_self: &Self) -> &String:
+        pass
+    fn should_process(_self: &Self, asset: &crate::asset::Asset) -> Bool:
+        pass
+
+struct AssetPipeline:
+    cache: crate::cache::AssetCache
+    importers: Map<String, impl AssetImporter>
+    exporters: Map<String, impl AssetExporter>
+    processors: Array<impl AssetProcessor>
+
+impl AssetPipeline:
+    fn new_(cache_dir: std::path::PathBuf) -> Result<Self, Error>:
+        let cache = # <expr>
+        # <expr>
+
+    fn register_importer(_self: &Self, importer: impl AssetImporter):
+        let mut importers = # <expr>
+        # <expr>
+
+    fn register_exporter(_self: &Self, exporter: impl AssetExporter):
+        let mut exporters = # <expr>
+        # <expr>
+
+    fn register_processor(_self: &Self, processor: impl AssetProcessor):
+        # <expr>
+        # <expr>
+
+    fn import(_self: &Self, path: &std::path::Path) -> Result<crate::asset::Asset, Error>:
+        # <expr>
+        # <expr>
+        let extension = # <expr>
+        let importer = # <expr>
+        let importer = # <expr>
+        # <expr>
+        let mut asset = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn export_(_self: &Self, asset: &crate::asset::Asset, path: &std::path::Path, format: &String) -> Result<(), Error>:
+        let format = # <expr>
+        let exporter = # <expr>
+        let exporter = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn process(_self: &Self, asset: &mut crate::asset::Asset) -> Result<(), Error>:
+        let processors = # <expr>
+        # <expr>
+        # <expr>
+
+    fn clear_cache(_self: &Self) -> Result<(), Error>:
+        # <expr>
+
+    fn cache_stats(_self: &Self) -> crate::cache::CacheStats:
+        # <expr>
+
+    fn list_supported_import_formats(_self: &Self) -> String:
+        let importers = # <expr>
+        let mut formats: Array<_> = # <expr>
+        # <expr>
+        # <expr>
+
+    fn list_supported_export_formats(_self: &Self) -> String:
+        let exporters = # <expr>
+        let mut formats: Array<_> = # <expr>
+        # <expr>
+        # <expr>
+
+
+mod tests:
+    struct TestImporter:
+        pass
+
+    impl AssetImporter for TestImporter:
+        fn supported_extensions(_self: &Self) -> Array<&String>:
+            # <expr>
+
+        fn import(_self: &Self, path: &std::path::Path) -> Result<crate::asset::Asset, Error>:
+            # <expr>
+
+        fn name(_self: &Self) -> &String:
+            "TestImporter"
+
+
+    fn test_register_importer():
+        let temp_dir = # <expr>
+        let pipeline = # <expr>
+        # <expr>
+        let importers = # <expr>
+        # <expr>
+
+
+mod tests:
+    fn create_test_mesh_asset() -> crate::asset::Asset:
+        let mesh_data = # <expr>
+        # <expr>
+
+    fn create_test_texture_asset() -> crate::asset::Asset:
+        let texture_data = # <expr>
+        # <expr>
+
+    fn test_validation_processor_valid_mesh():
+        let mut asset = # <expr>
+        let processor = # <expr>
+        let result = # <expr>
+        # <expr>
+
+    fn test_validation_processor_empty_positions():
+        let mesh_data = # <expr>
+        let mut asset = # <expr>
+        let processor = # <expr>
+        let result = # <expr>
+        # <expr>
+
+    fn test_validation_processor_mismatched_normals():
+        let mesh_data = # <expr>
+        let mut asset = # <expr>
+        let processor = # <expr>
+        let result = # <expr>
+        # <expr>
+
+    fn test_validation_processor_invalid_indices():
+        let mesh_data = # <expr>
+        let mut asset = # <expr>
+        let processor = # <expr>
+        let result = # <expr>
+        # <expr>
+
+    fn test_validation_processor_valid_texture():
+        let mut asset = # <expr>
+        let processor = # <expr>
+        let result = # <expr>
+        # <expr>
+
+    fn test_validation_processor_invalid_texture_data():
+        let texture_data = # <expr>
+        let mut asset = # <expr>
+        let processor = # <expr>
+        let result = # <expr>
+        # <expr>
+
+    fn test_metadata_processor_mesh():
+        let mut asset = # <expr>
+        let processor = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_metadata_processor_texture():
+        let mut asset = # <expr>
+        let processor = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_thumbnail_processor_texture():
+        let temp_dir = # <expr>
+        let mut asset = # <expr>
+        let processor = # <expr>
+        # <expr>
+        # <expr>
+        let thumbnail_path = # <expr>
+        # <expr>
+
+    fn test_thumbnail_processor_mesh():
+        let temp_dir = # <expr>
+        let mut asset = # <expr>
+        let processor = # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_processor_should_process():
+        let asset = # <expr>
+        let validation_processor = # <expr>
+        # <expr>
+        let metadata_processor = # <expr>
+        # <expr>
+        let temp_dir = # <expr>
+        let thumbnail_processor = # <expr>
+        # <expr>
+
+    fn test_multiple_processors_in_order():
+        let temp_dir = # <expr>
+        let pipeline = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        let mut asset = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_processor_chain_stops_on_error():
+        let temp_dir = # <expr>
+        let pipeline = # <expr>
+        # <expr>
+        # <expr>
+        let mesh_data = # <expr>
+        let mut asset = # <expr>
+        let result = # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_processor_names():
+        let validation = # <expr>
+        # <expr>
+        let metadata = # <expr>
+        # <expr>
+        let temp_dir = # <expr>
+        let thumbnail = # <expr>
+        # <expr>
+
+    fn test_validation_processor_non_triangular_indices():
+        let mesh_data = # <expr>
+        let mut asset = # <expr>
+        let processor = # <expr>
+        let result = # <expr>
+        # <expr>
+
+    fn test_metadata_processor_preserves_existing_metadata():
+        let mut asset = # <expr>
+        # <expr>
+        let processor = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+
+struct MetadataProcessor:
+    pass
+
+impl MetadataProcessor:
+    fn new_() -> Self:
+        Self_
+
+    fn extract_mesh_metadata(_self: &Self, asset: &mut crate::asset::Asset):
+        # <expr>
+
+    fn extract_texture_metadata(_self: &Self, asset: &mut crate::asset::Asset):
+        # <expr>
+
+    fn extract_scene_metadata(_self: &Self, asset: &mut crate::asset::Asset):
+        # <expr>
+
+
+impl crate::pipeline::AssetProcessor for MetadataProcessor:
+    fn process(_self: &Self, asset: &mut crate::asset::Asset) -> Result<(), Error>:
+        # <expr>
+        # <expr>
+
+    fn name(_self: &Self) -> &String:
+        "MetadataProcessor"
+
+    fn should_process(_self: &Self, _asset: &crate::asset::Asset) -> Bool:
+        true
+
+
+impl Default for MetadataProcessor:
+    fn default_() -> Self:
+        # <expr>
+
+
+struct ThumbnailProcessor:
+    thumbnail_dir: std::path::PathBuf
+    thumbnail_size: u32
+
+impl ThumbnailProcessor:
+    fn new_(thumbnail_dir: std::path::PathBuf, thumbnail_size: u32) -> Self:
+        # <expr>
+        # <expr>
+
+    fn generate_texture_thumbnail(_self: &Self, asset: &mut crate::asset::Asset) -> Result<(), Error>:
+        # <expr>
+        # <expr>
+
+    fn generate_mesh_thumbnail(_self: &Self, asset: &mut crate::asset::Asset) -> Result<(), Error>:
+        let thumbnail = # <expr>
+        let thumbnail_path = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn generate_scene_thumbnail(_self: &Self, asset: &mut crate::asset::Asset) -> Result<(), Error>:
+        let thumbnail = # <expr>
+        let thumbnail_path = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn create_placeholder_thumbnail(_self: &Self, _text: &String) -> image::RgbaImage:
+        let mut img = # <expr>
+        # <expr>
+        img
+
+
+impl crate::pipeline::AssetProcessor for ThumbnailProcessor:
+    fn process(_self: &Self, asset: &mut crate::asset::Asset) -> Result<(), Error>:
+        # <expr>
+
+    fn name(_self: &Self) -> &String:
+        "ThumbnailProcessor"
+
+    fn should_process(_self: &Self, asset: &crate::asset::Asset) -> Bool:
+        # <expr>
+
+
+struct ValidationProcessor:
+    pass
+
+impl ValidationProcessor:
+    fn new_() -> Self:
+        Self_
+
+    fn validate_mesh(_self: &Self, asset: &crate::asset::Asset) -> Result<(), Error>:
+        # <expr>
+        # <expr>
+
+    fn validate_texture(_self: &Self, asset: &crate::asset::Asset) -> Result<(), Error>:
+        # <expr>
+        # <expr>
+
+    fn validate_scene(_self: &Self, asset: &crate::asset::Asset) -> Result<(), Error>:
+        # <expr>
+        # <expr>
+
+
+impl crate::pipeline::AssetProcessor for ValidationProcessor:
+    fn process(_self: &Self, asset: &mut crate::asset::Asset) -> Result<(), Error>:
+        # <expr>
+
+    fn name(_self: &Self) -> &String:
+        "ValidationProcessor"
+
+    fn should_process(_self: &Self, _asset: &crate::asset::Asset) -> Bool:
+        true
+
+
+impl Default for ValidationProcessor:
+    fn default_() -> Self:
+        # <expr>
+
+
+fn generate_thumbnail(image_path: &std::path::Path, size: u32) -> Result<image::RgbaImage, Error>:
+    let img = # <expr>
+    let thumbnail = # <expr>
+    # <expr>
+
+fn save_thumbnail(thumbnail: &image::RgbaImage, output_path: &std::path::Path) -> Result<(), Error>:
+    # <expr>
+    # <expr>
+

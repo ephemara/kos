@@ -1,0 +1,653 @@
+# Generated from Rust source by kain import-rust
+# Project Ouroboros — Rust → KAIN → Rust
+
+mod bridge:
+    enum BridgeError:
+        PayloadUnavailable { mesh: u64, reason: String }
+        GpuUploadFailed { mesh: u64, reason: String }
+        Renderer(crate::RendererError)
+
+    impl From for crate::RendererError:
+        fn from(value: BridgeError) -> Self:
+            # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+
+
+    trait EvaluatedMeshSource:
+        fn viewport_payload(_self: &Self, mesh: k_os_scene::MeshHandle) -> Result<k_os_eval::mesh_pipeline::ViewportBufferPayload, BridgeError>:
+            # missing Rust trait default body lowered to pass (placeholder retained)
+
+    trait RendererUploadBridge:
+        fn sync_mesh(_self: &Self, renderer: &mut crate::Renderer, viewport: crate::ViewportHandle, mesh: k_os_scene::MeshHandle) -> Result<crate::RenderMeshHandle, BridgeError>:
+            # missing Rust trait default body lowered to pass (placeholder retained)
+        fn mark_mesh_dirty(_self: &Self, renderer: &mut crate::Renderer, mesh: k_os_scene::MeshHandle) -> usize:
+            # missing Rust trait default body lowered to pass (placeholder retained)
+
+    struct DirectRendererUploadBridge:
+        # LOSSY LOWERING: empty Rust struct lowered to pass
+
+    impl RendererUploadBridge for DirectRendererUploadBridge:
+        fn sync_mesh(_self: &Self, _renderer: &mut crate::Renderer, viewport: crate::ViewportHandle, mesh: k_os_scene::MeshHandle) -> Result<crate::RenderMeshHandle, BridgeError>:
+            let _ = mesh
+            let _ = viewport
+            # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+
+        fn mark_mesh_dirty(_self: &Self, renderer: &mut crate::Renderer, mesh: k_os_scene::MeshHandle) -> usize:
+            # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+
+
+    struct PipelineRendererUploadBridge:
+        source: impl EvaluatedMeshSource
+        manager: k_os_gpu_pipeline::GPUPipelineManager
+        buffers: Map<crate::RenderMeshHandle, k_os_gpu_pipeline::GpuMeshBufferHandles>
+        last_uploads: Map<crate::RenderMeshHandle, k_os_gpu_pipeline::GpuMeshUploadPlan>
+
+    impl PipelineRendererUploadBridge:
+        fn new_(device: wgpu::Device, queue: wgpu::Queue, source: impl EvaluatedMeshSource) -> Self:
+            # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+
+
+    impl RendererUploadBridge for PipelineRendererUploadBridge:
+        fn sync_mesh(_self: &Self, renderer: &mut crate::Renderer, viewport: crate::ViewportHandle, mesh: k_os_scene::MeshHandle) -> Result<crate::RenderMeshHandle, BridgeError>:
+            let payload = # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+            let upload_plan = # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+            let render_mesh = # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+            let mut manager = # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+            let mut handles = # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+            let required_position = # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+            let required_normal = # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+            let required_index = # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+            let needs_realloc = # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+            # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+            # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+            # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+
+        fn mark_mesh_dirty(_self: &Self, renderer: &mut crate::Renderer, mesh: k_os_scene::MeshHandle) -> usize:
+            # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+
+
+    fn sync_mesh_from_source(renderer: &mut crate::Renderer, viewport: crate::ViewportHandle, mesh: k_os_scene::MeshHandle, source: &impl EvaluatedMeshSource) -> Result<crate::RenderMeshHandle, BridgeError>:
+        let payload = # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+        # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+
+
+mod camera:
+    fn validate_camera(camera: &crate::types::CameraState) -> Result<(), crate::types::RendererError>:
+        # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+        # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+        # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+        let up = # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+        # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+        # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+
+
+fn request_gpu_device() -> Option<(wgpu::Device, wgpu::Queue)>:
+    # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+
+struct Renderer:
+    device: Option<wgpu::Device>
+    queue: Option<wgpu::Queue>
+    render_graph: render_graph::RenderGraph
+    viewports: Map<types::ViewportHandle, viewport::ViewportRuntime>
+    meshes: Map<types::RenderMeshHandle, mesh::RenderMeshRuntime>
+    scene_to_render: Map<k_os_scene::MeshHandle, Array<types::RenderMeshHandle>>
+    selection_cache: Map<k_os_scene::MeshHandle, picking::MeshSelectionCache>
+
+impl Renderer:
+    fn new_(device: wgpu::Device, queue: wgpu::Queue) -> Self:
+        # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+
+    fn with_optional_gpu() -> Self:
+        # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+
+    fn headless() -> Self:
+        # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+
+    fn render_graph(_self: &Self) -> &render_graph::RenderGraph:
+        # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+
+    fn is_gpu_enabled(_self: &Self) -> Bool:
+        # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+
+    fn gpu_device_queue(_self: &Self) -> Option<(wgpu::Device, wgpu::Queue)>:
+        # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+
+    fn viewport_context(_self: &Self, viewport: types::ViewportHandle) -> Result<render_graph::RenderGraphExecutionContext, types::RendererError>:
+        let runtime = # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+        let _ = # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+        let allow_gpu_dispatch = # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+        # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+
+    fn viewport_mesh_totals(_self: &Self, viewport: types::ViewportHandle) -> Result<(u32, u32, u64, u64), types::RendererError>:
+        # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+        let mut vertex_count = 0
+        let mut index_count = 0
+        let mut gpu_upload_bytes = 0
+        let mut gpu_memory_bytes = 0
+        # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+        # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+
+    fn current_frame_stats(_self: &Self, viewport: types::ViewportHandle) -> Result<types::FrameStats, types::RendererError>:
+        let _ = # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+        # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+
+    fn execute_viewport(_self: &mut Self, viewport: types::ViewportHandle) -> Result<Option<render_graph::RenderGraphExecutionReport>, types::RendererError>:
+        let redraw_requested = # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+        # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+        let device = # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+        let queue = # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+        let context = # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+        # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+        let report = # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+        # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+        # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+
+    fn create_viewport(_self: &mut Self, config: types::ViewportConfig) -> Result<types::ViewportHandle, types::RendererError>:
+        # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+        # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+        # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+        let handle = # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+        # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+        # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+
+    fn dispose_viewport(_self: &mut Self, viewport: types::ViewportHandle) -> Result<(), types::RendererError>:
+        let runtime = # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+        let attached = # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+        # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+        # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+        # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+
+    fn attach_mesh(_self: &mut Self, viewport: types::ViewportHandle, mesh: k_os_scene::MeshHandle) -> Result<types::RenderMeshHandle, types::RendererError>:
+        let viewport_runtime = # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+        # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+        let handle = # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+        # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+        # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+        # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+
+    fn detach_mesh(_self: &mut Self, viewport: types::ViewportHandle, render_mesh: types::RenderMeshHandle) -> Result<(), types::RendererError>:
+        let mesh = # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+        # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+        # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+        let mut remove_scene_entry = false
+        # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+        # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+        # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+
+    fn set_camera(_self: &mut Self, viewport: types::ViewportHandle, camera: types::CameraState) -> Result<(), types::RendererError>:
+        # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+        let viewport_runtime = # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+        # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+        # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+        # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+
+    fn request_redraw(_self: &mut Self, viewport: types::ViewportHandle) -> Result<(), types::RendererError>:
+        let viewport_runtime = # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+        # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+        # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+
+    fn request_selection(_self: &mut Self, viewport: types::ViewportHandle, ndc: Array<f32>) -> Result<types::SelectionResult, types::RendererError>:
+        let runtime = # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+        let camera = # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+        # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+        # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+
+    fn draw_call_count(_self: &Self, viewport: types::ViewportHandle) -> Result<u32, types::RendererError>:
+        let runtime = # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+        # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+
+    fn attached_meshes(_self: &Self, viewport: types::ViewportHandle) -> Result<Array<k_os_scene::MeshHandle>, types::RendererError>:
+        let runtime = # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+        # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+
+    fn redraw_requested_viewports(_self: &Self) -> Array<types::ViewportHandle>:
+        # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+
+    fn mark_mesh_dirty(_self: &mut Self, mesh: k_os_scene::MeshHandle) -> usize:
+        let mut touched = 0
+        # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+        touched
+
+    fn set_render_mesh_upload_bytes(_self: &mut Self, render_mesh: types::RenderMeshHandle, gpu_upload_bytes: u64) -> Result<(), types::RendererError>:
+        let runtime = # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+        # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+        # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+
+    fn sync_mesh_from_source(_self: &mut Self, viewport: types::ViewportHandle, mesh: k_os_scene::MeshHandle, source: &impl EvaluatedMeshSource) -> Result<types::RenderMeshHandle, bridge::BridgeError>:
+        # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+
+    fn sync_viewport_payload(_self: &mut Self, viewport: types::ViewportHandle, payload: k_os_eval::mesh_pipeline::ViewportBufferPayload) -> Result<types::RenderMeshHandle, types::RendererError>:
+        # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+        let payload_version = # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+        let scene_mesh = # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+        let estimated_bytes = # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+        let render_mesh = # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+        let associated_render_meshes = # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+        # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+        # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+        let rebuild = # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+        # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+        # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+        # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+
+
+mod mesh:
+    struct RenderMeshRuntime:
+        handle: crate::types::RenderMeshHandle
+        scene_mesh: k_os_scene::MeshHandle
+        viewport: types::ViewportHandle
+        dirty: Bool
+        payload_version: Option<u64>
+        vertex_count: u32
+        index_count: u32
+        gpu_upload_bytes: u64
+
+
+mod picking:
+    struct MeshSelectionCache:
+        mesh_handle: k_os_scene::MeshHandle
+        version: u64
+        bvh: k_os_mesh_processing::spatial::MeshBVH
+
+    fn payload_version(payload: &k_os_eval::mesh_pipeline::ViewportBufferPayload) -> u64:
+        let mut hasher = # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+        # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+        # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+        # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+        # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+        # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+        # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+
+    fn build_selection_cache(payload: &k_os_eval::mesh_pipeline::ViewportBufferPayload) -> Result<MeshSelectionCache, crate::types::RendererError>:
+        let vertices = # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+        let mesh = # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+        let bvh = # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+        # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+
+    fn pick(camera: &crate::types::CameraState, ndc: Array<f32>, selection: &MeshSelectionCache) -> Result<crate::types::SelectionResult, crate::types::RendererError>:
+        let origin = # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+        let target = # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+        let up = # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+        let view = # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+        let distance = # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+        let projection = # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+        let inv_view_proj = # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+        let near = # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+        let far = # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+        let near_world = # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+        let far_world = # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+        let direction = # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+        # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+        let hit = # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+        # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+
+
+mod render_graph:
+    struct DrawPacket:
+        render_mesh: crate::types::RenderMeshHandle
+        vertex_count: u32
+        index_count: u32
+
+    enum RenderPassKind:
+        CullFrustum
+        SurfacePass
+        NormalsRecon
+        NormalsNormalize
+        PickingRay
+        WireframeEdges
+        ScreenComposite
+        HyperResolve
+
+    impl RenderPassKind:
+        fn as_str(_self: Self) -> &String:
+            # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+
+
+    struct RendererShaderBinding:
+        pass_: RenderPassKind
+        shader_id: &String
+        asset: &k_os_kain::GeneratedSpirvAsset
+
+    enum RenderMetric:
+        ViewportWidth
+        ViewportHeight
+        VertexCount
+        IndexCount
+        FaceCount
+        InstanceCount
+
+    enum DispatchTopology:
+        Fixed(u32, u32, u32)
+        Linear(RenderMetric)
+        Grid2D(RenderMetric, RenderMetric)
+
+    enum ResourceExtent:
+        Single
+        VertexCount
+        IndexCount
+        FaceCount
+        FaceCountTimesSix
+        ViewportPixels
+        InstanceCount
+
+    enum ResourceDataType:
+        Vec4
+        U32
+        F32
+
+    enum RenderResourceUsage:
+        Uniform
+        StorageRead
+        StorageReadWrite
+
+    enum ResourceInit:
+        Zero
+        U32(RenderMetric)
+        F32(f32)
+        Vec4(Array<f32>)
+
+    struct RenderResourceBinding:
+        label: &String
+        binding: u32
+        usage: RenderResourceUsage
+        data_type: ResourceDataType
+        extent: ResourceExtent
+        init: ResourceInit
+
+    struct RenderPassNode:
+        kind: RenderPassKind
+        shader_id: &String
+        entry_point: &String
+        dispatch: DispatchTopology
+        resources: &Slice<RenderResourceBinding>
+
+    struct RenderGraphExecutionContext:
+        viewport_width: u32
+        viewport_height: u32
+        vertex_count: u32
+        index_count: u32
+        face_count: u32
+        instance_count: u32
+        shading_mode: crate::types::ShadingMode
+        allow_gpu_dispatch: Bool
+
+    impl RenderGraphExecutionContext:
+        fn metric(_self: Self, metric: RenderMetric) -> u32:
+            # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+
+
+    struct RenderGraphExecutionReport:
+        duration: std::time::Duration
+        compiled_pipelines: u32
+        prepared_passes: Array<RenderPassKind>
+        dispatched_passes: Array<RenderPassKind>
+        allocated_bytes: u64
+
+    struct RenderGraph:
+        passes: Array<RenderPassNode>
+        pipelines: Map<RenderPassKind, wgpu::ComputePipeline>
+
+    fn build_renderer_shader_catalog() -> Map<RenderPassKind, RendererShaderBinding>:
+        let renderer_assets = # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+        let asset_ids: Map<&String, &k_os_kain::GeneratedSpirvAsset> = # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+        # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+
+    fn build_passes() -> Array<RenderPassNode>:
+        # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+
+    fn renderer_shader_catalog() -> &Map<RenderPassKind, RendererShaderBinding>:
+        # LOSSY LOWERING: unsupported Rust statement lowered as placeholder; inspect source AST
+        # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+
+    fn renderer_shader_for_pass(pass: RenderPassKind) -> Option<&RendererShaderBinding>:
+        # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+
+    fn renderer_shader_by_id(shader_id: &String) -> Option<RendererShaderBinding>:
+        let binding = # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+        # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+
+    impl Default for RenderGraph:
+        fn default_() -> Self:
+            # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+
+
+    impl RenderGraph:
+        fn pass_count(_self: &Self) -> usize:
+            # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+
+        fn shader_bindings(_self: &Self) -> Array<&RendererShaderBinding>:
+            # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+
+        fn validate_catalog(_self: &Self) -> Array<&String>:
+            # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+
+        fn execute(_self: &mut Self, device: &wgpu::Device, queue: &wgpu::Queue, ctx: &RenderGraphExecutionContext) -> Result<RenderGraphExecutionReport, String>:
+            let start = # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+            let mut compiled_pipelines = 0
+            let mut prepared_passes = # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+            let mut dispatched_passes = # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+            let mut allocated_bytes = 0
+            # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+            # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+
+
+    fn compile_pipeline(device: &wgpu::Device, pass: &RenderPassNode) -> Result<wgpu::ComputePipeline, String>:
+        let binding = # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+        # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+        let wgsl = # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+        let module = # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+        # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+
+    struct PreparedPassResources:
+        bind_group: wgpu::BindGroup
+        buffers: Array<wgpu::Buffer>
+        allocated_bytes: u64
+
+    fn build_resources_for_pass(device: &wgpu::Device, layout: &wgpu::BindGroupLayout, pass: &RenderPassNode, ctx: &RenderGraphExecutionContext) -> Result<PreparedPassResources, String>:
+        let mut buffers = # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+        let mut allocated_bytes = 0
+        # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+        let entries: Array<wgpu::BindGroupEntry<_>> = # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+        let bind_group = # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+        # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+
+    fn spirv_to_wgsl(bytes: &Slice<u8>) -> Result<String, String>:
+        let module = # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+        let info = # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+        # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+
+    fn initial_buffer_bytes(resource: RenderResourceBinding, ctx: &RenderGraphExecutionContext) -> Array<u8>:
+        # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+
+    fn uniform_bytes(init: ResourceInit, ctx: &RenderGraphExecutionContext) -> Array<u8>:
+        let mut bytes = # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+        # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+        bytes
+
+    fn storage_size_bytes(resource: RenderResourceBinding, ctx: &RenderGraphExecutionContext) -> u64:
+        let count = # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+        let stride = # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+        # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+
+    fn resolve_dispatch(dispatch: DispatchTopology, ctx: &RenderGraphExecutionContext) -> (u32, u32, u32):
+        # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+
+    fn has_renderer_shader(shader_id: &String) -> Bool:
+        # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+
+
+mod service:
+    enum MeshSyncFailureMode:
+        SoftContinue
+        HardFail
+
+    fn report_mesh_sync_error(mode: MeshSyncFailureMode, viewport: crate::types::ViewportHandle, mesh: k_os_scene::MeshHandle, error: &crate::types::RendererError):
+        let mode_label = # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+        # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+
+    struct RendererService:
+        sender: crossbeam_channel::Sender<RendererCommand>
+        stats: Map<crate::types::ViewportHandle, crate::types::FrameStats>
+
+    enum RendererCommand:
+        CreateViewport { config: crate::types::ViewportConfig, reply: sync::mpsc::Sender<Result<crate::types::ViewportHandle, crate::types::RendererError>> }
+        DisposeViewport { viewport: crate::types::ViewportHandle, reply: sync::mpsc::Sender<Result<(), crate::types::RendererError>> }
+        AttachMesh { viewport: crate::types::ViewportHandle, mesh: k_os_scene::MeshHandle, reply: sync::mpsc::Sender<Result<types::RenderMeshHandle, crate::types::RendererError>> }
+        DetachMesh { viewport: crate::types::ViewportHandle, render_mesh: types::RenderMeshHandle, reply: sync::mpsc::Sender<Result<(), crate::types::RendererError>> }
+        SetCamera { viewport: crate::types::ViewportHandle, camera: crate::types::CameraState, reply: sync::mpsc::Sender<Result<(), crate::types::RendererError>> }
+        RequestRedraw { viewport: crate::types::ViewportHandle, reply: sync::mpsc::Sender<Result<(), crate::types::RendererError>> }
+        RequestSelection { viewport: crate::types::ViewportHandle, ndc: Array<f32>, reply: sync::mpsc::Sender<Result<crate::types::SelectionResult, crate::types::RendererError>> }
+        SyncViewportPayload { viewport: crate::types::ViewportHandle, payload: k_os_eval::mesh_pipeline::ViewportBufferPayload, reply: sync::mpsc::Sender<Result<types::RenderMeshHandle, crate::types::RendererError>> }
+        SyncMeshFromSource { viewport: crate::types::ViewportHandle, mesh: k_os_scene::MeshHandle, reply: sync::mpsc::Sender<Result<types::RenderMeshHandle, crate::types::RendererError>> }
+        MarkMeshDirty { mesh: k_os_scene::MeshHandle, reply: sync::mpsc::Sender<Result<usize, crate::types::RendererError>> }
+
+    fn spawn_headless_service() -> RendererService:
+        # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+
+    fn spawn_headless_service_with_source(mesh_source: Option<impl EvaluatedMeshSource>) -> RendererService:
+        # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+
+    fn spawn_headless_service_with_source_and_bridge(mesh_source: Option<impl EvaluatedMeshSource>, upload_bridge: Option<impl RendererUploadBridge>) -> RendererService:
+        let _ = # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+        let stats = # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+        let stats_thread = # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+        # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+        # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+
+    impl RendererService:
+        fn create_viewport(_self: &Self, config: crate::types::ViewportConfig) -> Result<crate::types::ViewportHandle, crate::types::RendererError>:
+            let _ = # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+            # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+            # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+
+        fn dispose_viewport(_self: &Self, viewport: crate::types::ViewportHandle) -> Result<(), crate::types::RendererError>:
+            let _ = # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+            # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+            # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+
+        fn attach_mesh(_self: &Self, viewport: crate::types::ViewportHandle, mesh: k_os_scene::MeshHandle) -> Result<types::RenderMeshHandle, crate::types::RendererError>:
+            let _ = # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+            # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+            # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+
+        fn detach_mesh(_self: &Self, viewport: crate::types::ViewportHandle, render_mesh: types::RenderMeshHandle) -> Result<(), crate::types::RendererError>:
+            let _ = # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+            # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+            # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+
+        fn set_camera(_self: &Self, viewport: crate::types::ViewportHandle, camera: crate::types::CameraState) -> Result<(), crate::types::RendererError>:
+            let _ = # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+            # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+            # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+
+        fn request_redraw(_self: &Self, viewport: crate::types::ViewportHandle) -> Result<(), crate::types::RendererError>:
+            let _ = # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+            # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+            # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+
+        fn request_selection(_self: &Self, viewport: crate::types::ViewportHandle, ndc: Array<f32>) -> Result<crate::types::SelectionResult, crate::types::RendererError>:
+            let _ = # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+            # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+            # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+
+        fn get_stats(_self: &Self, viewport: crate::types::ViewportHandle) -> Result<crate::types::FrameStats, crate::types::RendererError>:
+            # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+
+        fn sync_viewport_payload(_self: &Self, viewport: crate::types::ViewportHandle, payload: k_os_eval::mesh_pipeline::ViewportBufferPayload) -> Result<types::RenderMeshHandle, crate::types::RendererError>:
+            let _ = # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+            # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+            # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+
+        fn sync_mesh_from_source(_self: &Self, viewport: crate::types::ViewportHandle, mesh: k_os_scene::MeshHandle) -> Result<types::RenderMeshHandle, crate::types::RendererError>:
+            let _ = # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+            # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+            # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+
+        fn mark_mesh_dirty(_self: &Self, mesh: k_os_scene::MeshHandle) -> Result<usize, crate::types::RendererError>:
+            let _ = # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+            # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+            # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+
+
+    fn service_loop(receiver: crossbeam_channel::Receiver<RendererCommand>, stats: Map<crate::types::ViewportHandle, crate::types::FrameStats>, mesh_source: Option<impl EvaluatedMeshSource>, upload_bridge: Option<impl RendererUploadBridge>):
+        let mut renderer = # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+        let upload_bridge = # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+        let mut dirty_meshes: Set<k_os_scene::MeshHandle> = # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+        # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+
+
+mod types:
+    enum RendererMode:
+        Native
+        ThreeFallback
+
+    enum ShadingMode:
+        Solid
+        Wireframe
+
+    struct ViewportConfig:
+        width: u32
+        height: u32
+        shading_mode: ShadingMode
+        background_color: Array<f32>
+        enable_selection: Bool
+        enable_shadows: Bool
+        msaa_samples: u32
+        renderer_mode: RendererMode
+
+    struct CameraState:
+        position: Array<f32>
+        target: Array<f32>
+        up: Array<f32>
+        fov_degrees: f32
+        near: f32
+        far: f32
+
+    struct SelectionResult:
+        hit: Bool
+        mesh_handle: Option<u64>
+        face_index: Option<u32>
+        position: Option<Array<f32>>
+        normal: Option<Array<f32>>
+        distance: Option<f32>
+
+    impl SelectionResult:
+        fn no_hit() -> Self:
+            # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+
+
+    struct FrameStats:
+        frame_time_ms: f32
+        fps: f32
+        vertex_count: u32
+        face_count: u32
+        draw_calls: u32
+        mesh_sync_time_ms: f32
+        selection_latency_ms: f32
+        gpu_upload_bytes: u64
+        gpu_memory_bytes: u64
+
+    impl Default for FrameStats:
+        fn default_() -> Self:
+            # LOSSY LOWERING: unsupported Rust expression lowered as placeholder; inspect source AST
+
+
+    enum RendererError:
+        ServiceUnavailable
+        ViewportNotFound(u64)
+        RenderMeshNotFound(u64)
+        ViewportLimitExceeded
+        InvalidConfig(String)
+        InvalidCamera(String)
+        MeshSyncFailed(String)
+        RenderExecutionFailed(String)
+
+
+mod viewport:
+    struct ViewportRuntime:
+        handle: crate::types::ViewportHandle
+        config: crate::types::ViewportConfig
+        camera: Option<crate::types::CameraState>
+        redraw_requested: Bool
+        attached_meshes: Array<k_os_scene::MeshHandle>
+
+

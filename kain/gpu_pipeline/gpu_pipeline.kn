@@ -1,0 +1,3139 @@
+# Generated from Rust source by kain import-rust
+# Project Ouroboros — Rust → KAIN → Rust
+
+struct AtlasInitResult:
+    handle: u64
+    vertex_count: usize
+
+struct AtlasProjectResult:
+    uvs: Array<f32>
+    time_ms: f64
+
+struct AtlasPackResult:
+    uvs: Array<f32>
+    island_count: usize
+    time_ms: f64
+
+fn gpu_atlas_init(positions: Array<f32>, normals: Array<f32>) -> Result<AtlasInitResult, String>:
+    let vertex_count = # <expr>
+    let normals = # <expr>
+    let handle = # <expr>
+    # <expr>
+
+fn gpu_atlas_project(handle: u64, mode: String, scale: Option<f32>, offset_u: Option<f32>, offset_v: Option<f32>) -> Result<AtlasProjectResult, String>:
+    let start = # <expr>
+    let uvs = # <expr>
+    let time_ms = # <expr>
+    # <expr>
+
+fn gpu_atlas_dispose(handle: u64) -> Result<(), String>:
+    # <expr>
+
+fn gpu_atlas_project_oneshot(positions: Array<f32>, normals: Array<f32>, mode: String, scale: Option<f32>, offset_u: Option<f32>, offset_v: Option<f32>) -> Result<AtlasProjectResult, String>:
+    let start = # <expr>
+    let normals = # <expr>
+    let handle = # <expr>
+    let uvs = # <expr>
+    # <expr>
+    let time_ms = # <expr>
+    # <expr>
+    # <expr>
+
+fn gpu_atlas_pack(uvs: Array<f32>, indices: Array<u32>, padding: Option<f32>) -> Result<AtlasPackResult, String>:
+    let start = # <expr>
+    let _ = # <expr>
+    let island_count = # <expr>
+    let packed_uvs = # <expr>
+    let time_ms = # <expr>
+    # <expr>
+    # <expr>
+
+fn generate_flat_normals(positions: &Slice<f32>) -> Array<f32>:
+    let vertex_count = # <expr>
+    let mut normals = # <expr>
+    # <expr>
+    normals
+
+struct Island:
+    min_u: f32
+    min_v: f32
+    max_u: f32
+    max_v: f32
+    offset_u: f32
+    offset_v: f32
+    packed: u32
+    padding: u32
+
+impl Island:
+    fn new_(min_u: f32, min_v: f32, max_u: f32, max_v: f32) -> Self:
+        # <expr>
+
+    fn width(_self: &Self) -> f32:
+        # <expr>
+
+    fn height(_self: &Self) -> f32:
+        # <expr>
+
+    fn area(_self: &Self) -> f32:
+        # <expr>
+
+
+struct PackParams:
+    island_count: u32
+    padding_2: f32
+    target_size: f32
+    padding: u32
+
+struct GpuAtlasPacker:
+    islands: Array<Island>
+    pipeline: wgpu::ComputePipeline
+    bind_group_layout: wgpu::BindGroupLayout
+
+impl GpuAtlasPacker:
+    fn new_(device: &wgpu::Device) -> Self:
+        let shader_source = # <expr>
+        let shader_module = # <expr>
+        let bind_group_layout = # <expr>
+        let pipeline_layout = # <expr>
+        let pipeline = # <expr>
+        # <expr>
+
+    fn pack(_self: &mut Self, device: &wgpu::Device, queue: &wgpu::Queue, islands: Array<Island>, padding: f32) -> Array<Island>:
+        # <expr>
+        let start = # <expr>
+        let island_count = # <expr>
+        let mut sorted_islands = # <expr>
+        # <expr>
+        let params = # <expr>
+        let params_buffer = # <expr>
+        # <expr>
+        let islands_size = # <expr>
+        let islands_buffer = # <expr>
+        # <expr>
+        let staging_buffer = # <expr>
+        let bind_group = # <expr>
+        let mut encoder = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        let buffer_slice = # <expr>
+        let _ = # <expr>
+        # <expr>
+        let _ = # <expr>
+        # <expr>
+        let data = # <expr>
+        let result: Array<Island> = # <expr>
+        # <expr>
+        # <expr>
+        let elapsed = # <expr>
+        let packed_count = # <expr>
+        # <expr>
+        result
+
+
+fn detect_islands(uvs: &Slice<f32>, indices: &Slice<u32>) -> (Array<u32>, Array<Island>):
+    # <stmt>
+    # <stmt>
+    let vertex_count = # <expr>
+    # <expr>
+    let mut adjacency: Array<Set<usize>> = # <expr>
+    # <expr>
+    let mut island_ids = # <expr>
+    let mut islands: Array<Island> = # <expr>
+    let mut current_island = 0
+    # <expr>
+    # <expr>
+
+fn apply_island_offsets(uvs: &mut Slice<f32>, island_ids: &Slice<u32>, packed_islands: &Slice<Island>):
+    let vertex_count = # <expr>
+    # <expr>
+
+fn get_packer(device: &wgpu::Device) -> parking_lot::MutexGuard<static, Option<GpuAtlasPacker>>:
+    let mut guard = # <expr>
+    # <expr>
+    guard
+
+fn pack_islands_gpu(uvs: &Slice<f32>, indices: &Slice<u32>, padding: f32) -> Result<Array<f32>, String>:
+    let start = # <expr>
+    let _ = # <expr>
+    # <expr>
+    # <expr>
+    let gpu = # <expr>
+    let gpu_lock = # <expr>
+    let mut packer_guard = # <expr>
+    let packer = # <expr>
+    let packed_islands = # <expr>
+    let mut result_uvs = # <expr>
+    # <expr>
+    let elapsed = # <expr>
+    # <expr>
+    # <expr>
+
+enum ProjectionMode:
+    Box
+    PlanarX
+    PlanarY
+    PlanarZ
+    Cylindrical
+    Spherical
+
+impl ProjectionMode:
+    fn from_str(s: &String) -> Self:
+        # <expr>
+
+
+struct ProjectParams:
+    mode: u32
+    vertex_count: u32
+    scale: f32
+    offset_u: f32
+    offset_v: f32
+    padding: u32
+
+struct GpuAtlasProjector:
+    vertex_count: u32
+    positions_buffer: wgpu::Buffer
+    normals_buffer: wgpu::Buffer
+    uvs_buffer: wgpu::Buffer
+    params_buffer: wgpu::Buffer
+    pipeline: wgpu::ComputePipeline
+    bind_group: wgpu::BindGroup
+
+impl GpuAtlasProjector:
+    fn new_(device: &wgpu::Device, positions: &Slice<f32>, normals: &Slice<f32>) -> Result<Self, String>:
+        let vertex_count = # <expr>
+        # <expr>
+        # <expr>
+        let shader_source = # <expr>
+        let shader_module = # <expr>
+        let positions_buffer = # <expr>
+        let normals_buffer = # <expr>
+        let uv_size = # <expr>
+        let uvs_buffer = # <expr>
+        let params_buffer = # <expr>
+        let bind_group_layout = # <expr>
+        let bind_group = # <expr>
+        let pipeline_layout = # <expr>
+        let pipeline = # <expr>
+        # <expr>
+
+    fn upload_mesh(_self: &Self, queue: &wgpu::Queue, positions: &Slice<f32>, normals: &Slice<f32>):
+        # <expr>
+        # <expr>
+
+    fn project(_self: &Self, device: &wgpu::Device, queue: &wgpu::Queue, mode: ProjectionMode, scale: f32, offset_u: f32, offset_v: f32) -> Array<f32>:
+        let start = # <expr>
+        let params = # <expr>
+        # <expr>
+        let uv_size = # <expr>
+        let staging_buffer = # <expr>
+        let mut encoder = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        let buffer_slice = # <expr>
+        let _ = # <expr>
+        # <expr>
+        let _ = # <expr>
+        # <expr>
+        let data = # <expr>
+        let uvs: Array<f32> = # <expr>
+        # <expr>
+        # <expr>
+        let elapsed = # <expr>
+        # <expr>
+        uvs
+
+
+fn create_instance(positions: &Slice<f32>, normals: &Slice<f32>) -> Result<u64, String>:
+    let gpu = # <expr>
+    let gpu_lock = # <expr>
+    let projector = # <expr>
+    # <expr>
+    let handle = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+
+fn project_instance(handle: u64, mode: &String, scale: f32, offset_u: f32, offset_v: f32) -> Result<Array<f32>, String>:
+    let gpu = # <expr>
+    let gpu_lock = # <expr>
+    let instances = # <expr>
+    let projector = # <expr>
+    let mode = # <expr>
+    # <expr>
+
+fn dispose_instance(handle: u64) -> Result<(), String>:
+    let removed = # <expr>
+    # <expr>
+
+struct AlphaTexture:
+    texture: wgpu::Texture
+    view: wgpu::TextureView
+    sampler_: wgpu::Sampler
+    width: u32
+    height: u32
+    name: String
+    bind_group_layout: wgpu::BindGroupLayout
+    bind_group: wgpu::BindGroup
+
+struct AlphaInfo:
+    handle: AlphaHandle
+    name: String
+    width: u32
+    height: u32
+    source: AlphaSource
+    preview: Option<String>
+
+enum AlphaSource:
+    File { path: String }
+    Embedded { id: String }
+    Procedural { generator: String, params: Map<String, f32> }
+
+struct AlphaTexturePool:
+    textures: Map<AlphaHandle, AlphaTexture>
+    metadata: Map<AlphaHandle, AlphaInfo>
+    next_handle: AlphaHandle
+    initialized: Bool
+
+impl AlphaTexturePool:
+    fn new_() -> Self:
+        # <expr>
+
+    fn ensure_initialized(_self: &mut Self) -> Result<(), String>:
+        # <expr>
+        let gpu = # <expr>
+        # <expr>
+        # <expr>
+
+    fn load_from_bytes(_self: &mut Self, bytes: &Slice<u8>, name: &String, source: AlphaSource) -> Result<AlphaHandle, String>:
+        # <expr>
+        let img = # <expr>
+        # <expr>
+
+    fn load_from_image(_self: &mut Self, img: image::DynamicImage, name: &String, source: AlphaSource) -> Result<AlphaHandle, String>:
+        # <expr>
+        let gpu_2 = # <expr>
+        let gpu_lock = # <expr>
+        let device = # <expr>
+        let queue = # <expr>
+        let gray = # <expr>
+        let _ = # <expr>
+        let preview = # <expr>
+        let texture = # <expr>
+        # <expr>
+        let view = # <expr>
+        let sampler_ = # <expr>
+        let bind_group_layout = # <expr>
+        let bind_group = # <expr>
+        let handle = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn get(_self: &Self, handle: AlphaHandle) -> Option<&AlphaTexture>:
+        # <expr>
+
+    fn get_info(_self: &Self, handle: AlphaHandle) -> Option<&AlphaInfo>:
+        # <expr>
+
+    fn list(_self: &Self) -> Array<AlphaInfo>:
+        # <expr>
+
+    fn dispose(_self: &mut Self, handle: AlphaHandle) -> Bool:
+        let removed_tex = # <expr>
+        let removed_meta = # <expr>
+        # <expr>
+
+    fn get_bind_group(_self: &Self, handle: AlphaHandle) -> Option<&wgpu::BindGroup>:
+        # <expr>
+
+    fn get_bind_group_layout(_self: &Self, handle: AlphaHandle) -> Option<&wgpu::BindGroupLayout>:
+        # <expr>
+
+    fn get_texture_view_and_sampler(_self: &Self, handle: AlphaHandle) -> Option<(&wgpu::TextureView, &wgpu::Sampler)>:
+        # <expr>
+
+
+impl Default for AlphaTexturePool:
+    fn default_() -> Self:
+        # <expr>
+
+
+fn load_alpha_from_file(path: String, name: Option<String>) -> Result<AlphaInfo, String>:
+    let bytes = # <expr>
+    let alpha_name = # <expr>
+    let mut pool = # <expr>
+    let handle = # <expr>
+    # <expr>
+
+fn load_alpha_from_base64(data: String, name: String) -> Result<AlphaInfo, String>:
+    # <stmt>
+    let bytes = # <expr>
+    let mut pool = # <expr>
+    let handle = # <expr>
+    # <expr>
+
+fn list_alphas() -> Array<AlphaInfo>:
+    # <expr>
+
+fn dispose_alpha(handle: AlphaHandle) -> Bool:
+    # <expr>
+
+fn get_alpha_info(handle: AlphaHandle) -> Option<AlphaInfo>:
+    # <expr>
+
+fn generate_preview_base64(gray: &image::GrayImage) -> Option<String>:
+    # <stmt>
+    # <stmt>
+    let thumbnail = # <expr>
+    let mut png_bytes = # <expr>
+    # <expr>
+    let b64 = # <expr>
+    # <expr>
+
+enum ProceduralType:
+    Perlin
+    Voronoi
+    Bricks
+    Dots
+    Radial
+    Circle
+    Square
+    Diamond
+
+struct ProceduralParams:
+    proc_type: ProceduralType
+    size: u32
+    params: Map<String, f32>
+
+impl Default for ProceduralParams:
+    fn default_() -> Self:
+        # <expr>
+
+
+fn generate_procedural(params: ProceduralParams) -> Result<super::alpha_pool::AlphaHandle, String>:
+    let size = # <expr>
+    let mut pixels = # <expr>
+    # <expr>
+    let img = # <expr>
+    let dynamic_img = # <expr>
+    let name = # <expr>
+    let source = # <expr>
+    let mut pool = # <expr>
+    # <expr>
+
+fn generate_radial(pixels: &mut Slice<u8>, size: u32, params: &Map<String, f32>):
+    let falloff = # <expr>
+    let center = # <expr>
+    let max_dist = center
+    # <expr>
+
+fn generate_circle(pixels: &mut Slice<u8>, size: u32, params: &Map<String, f32>):
+    let edge_softness = # <expr>
+    let center = # <expr>
+    let radius = # <expr>
+    # <expr>
+
+fn generate_square(pixels: &mut Slice<u8>, size: u32, params: &Map<String, f32>):
+    let edge_softness = # <expr>
+    let padding = # <expr>
+    # <expr>
+
+fn generate_diamond(pixels: &mut Slice<u8>, size: u32, params: &Map<String, f32>):
+    let edge_softness = # <expr>
+    let center = # <expr>
+    let radius = # <expr>
+    # <expr>
+
+fn generate_perlin(pixels: &mut Slice<u8>, size: u32, params: &Map<String, f32>):
+    # <stmt>
+    # <stmt>
+    let scale = # <expr>
+    let octaves = # <expr>
+    let seed = # <expr>
+    let perlin = # <expr>
+    # <expr>
+
+fn generate_voronoi(pixels: &mut Slice<u8>, size: u32, params: &Map<String, f32>):
+    # <stmt>
+    let cell_count = # <expr>
+    let edge_width = # <expr>
+    let seed = # <expr>
+    let mut rng = # <expr>
+    let centers: Array<(f32, f32)> = # <expr>
+    # <expr>
+
+fn generate_bricks(pixels: &mut Slice<u8>, size: u32, params: &Map<String, f32>):
+    let brick_width = # <expr>
+    let brick_height = # <expr>
+    let mortar = # <expr>
+    let bw = # <expr>
+    let bh = # <expr>
+    let mw = # <expr>
+    # <expr>
+
+fn generate_dots(pixels: &mut Slice<u8>, size: u32, params: &Map<String, f32>):
+    let dot_size = # <expr>
+    let spacing = # <expr>
+    let dot_radius = # <expr>
+    let cell_size = # <expr>
+    # <expr>
+
+fn generate_procedural_alpha(proc_type: String, size: u32, params: Option<Map<String, f32>>) -> Result<super::alpha_pool::AlphaInfo, String>:
+    let ptype = # <expr>
+    let handle = # <expr>
+    # <expr>
+
+struct BufferPoolConfig:
+    max_buffers_per_bucket: usize
+    max_pool_memory: u64
+    size_bucket_granularity: u64
+
+impl Default for BufferPoolConfig:
+    fn default_() -> Self:
+        # <expr>
+
+
+struct PooledBuffer:
+    buffer: wgpu::Buffer
+    size: u64
+    usage: wgpu::BufferUsages
+
+struct BufferPool:
+    config: BufferPoolConfig
+    pools: Map<(u64, wgpu::BufferUsages), Array<PooledBuffer>>
+    current_memory: u64
+
+impl BufferPool:
+    fn new_(config: BufferPoolConfig) -> Self:
+        # <expr>
+
+    fn get_buffer(_self: &Self, device: &wgpu::Device, size: u64, usage: wgpu::BufferUsages) -> Result<wgpu::Buffer, Error>:
+        # <expr>
+        let bucket = # <expr>
+        let key = # <expr>
+        let mut pools = # <expr>
+        # <expr>
+        # <expr>
+        let actual_size = bucket
+        let buffer = # <expr>
+        # <expr>
+        # <expr>
+
+    fn return_buffer(_self: &Self, buffer: wgpu::Buffer):
+        let size = # <expr>
+        let usage = # <expr>
+        let bucket = # <expr>
+        let key = # <expr>
+        let mut pools = # <expr>
+        let mut current_memory = # <expr>
+        # <expr>
+        let buffer_list = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn clear(_self: &Self):
+        let mut pools = # <expr>
+        # <expr>
+        let mut current_memory = # <expr>
+        # <expr>
+        # <expr>
+
+    fn len(_self: &Self) -> usize:
+        let pools = # <expr>
+        # <expr>
+
+    fn is_empty(_self: &Self) -> Bool:
+        # <expr>
+
+    fn current_memory(_self: &Self) -> u64:
+        # <expr>
+
+    fn size_to_bucket(_self: &Self, size: u64) -> u64:
+        let granularity = # <expr>
+        # <expr>
+
+
+mod tests:
+    fn test_size_to_bucket():
+        let config = # <expr>
+        let pool = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_size_to_bucket_edge_cases():
+        let config = # <expr>
+        let pool = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_buffer_pool_config_default():
+        let config = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_buffer_pool_creation():
+        let config = # <expr>
+        let pool = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_buffer_pool_clear():
+        let pool = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_invalid_buffer_size():
+        let pool_2 = # <expr>
+
+
+fn register_gpu_error_handler(handler: impl Fn):
+    let _ = # <expr>
+
+fn dispatch_gpu_error(message: String, context: String):
+    # <expr>
+
+fn required_limits() -> wgpu::Limits:
+    # <expr>
+
+struct GpuComputeDevice:
+    device: wgpu::Device
+    queue: wgpu::Queue
+    adapter_info: wgpu::AdapterInfo
+    force_sync: Bool
+
+impl GpuComputeDevice:
+    fn init() -> Result<Self, String>:
+        # <expr>
+        let guard = # <expr>
+        # <expr>
+        let instance = # <expr>
+        let adapter = # <expr>
+        let adapter_info = # <expr>
+        # <expr>
+        let _ = # <expr>
+        # <expr>
+        let force_sync = # <expr>
+        let gpu = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn init() -> Result<Self, String>:
+        let instance = # <expr>
+        let adapter = # <expr>
+        let adapter_info = # <expr>
+        let _ = # <expr>
+        let gpu = # <expr>
+        # <expr>
+        # <expr>
+
+    fn get() -> Self:
+        # <expr>
+
+    fn get() -> Self:
+        # <expr>
+
+    fn try_get() -> Option<Self>:
+        # <expr>
+
+    fn try_get() -> Option<Self>:
+        # <expr>
+
+    fn get_or_init_blocking() -> Result<Self, String>:
+        # <expr>
+        # <expr>
+
+    fn get_or_init_blocking() -> Result<Self, String>:
+        # <expr>
+
+    fn init_from_bevy(device: &wgpu::Device, queue: &wgpu::Queue) -> Result<Self, String>:
+        # <expr>
+        let guard = # <expr>
+        # <expr>
+        let force_sync = # <expr>
+        let gpu = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn submit_and_sync(_self: &Self, command_buffer: wgpu::CommandBuffer):
+        # <expr>
+        # <expr>
+
+    fn submit_many_and_sync(_self: &Self, command_buffers: impl IntoIterator):
+        # <expr>
+        # <expr>
+
+    fn new_mock() -> Self:
+        # <expr>
+
+
+enum GPUPipelineError:
+    ShaderCompilationError { shader_name: String, message: String }
+    ShaderNotFound { path: String }
+    PipelineCreationError(String)
+    BufferAllocationError { size: u64, usage: String }
+    OutOfMemory { requested: u64, available: u64 }
+    InvalidBufferSize { size: u64 }
+    HotReloadError(String)
+    FileWatcherError(notify::Error)
+    IoError(std::io::Error)
+    WgpuError(String)
+
+impl From for GPUPipelineError:
+    fn from(err: wgpu::Error) -> Self:
+        # <expr>
+
+
+mod tests:
+    fn test_shader_compilation_error_display():
+        let error = # <expr>
+        let display = # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_shader_not_found_error_display():
+        let error = # <expr>
+        let display = # <expr>
+        # <expr>
+
+    fn test_invalid_buffer_size_error():
+        let error = # <expr>
+        let display = # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_out_of_memory_error():
+        let error = # <expr>
+        let display = # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_buffer_allocation_error():
+        let error = # <expr>
+        let display = # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_pipeline_creation_error():
+        let error = # <expr>
+        let display = # <expr>
+        # <expr>
+
+    fn test_hot_reload_error():
+        let error = # <expr>
+        let display = # <expr>
+        # <expr>
+
+    fn test_wgpu_error():
+        let error = # <expr>
+        let display = # <expr>
+        # <expr>
+
+    fn test_error_is_send_sync():
+        # <stmt>
+        # <expr>
+
+
+struct ShaderHotReloader:
+    shader_dir: std::path::PathBuf
+    watcher: notify::RecommendedWatcher
+    receiver: std::sync::mpsc::Receiver<Result<notify::Event, Error>>
+    last_modified: Map<String, std::time::SystemTime>
+
+impl ShaderHotReloader:
+    fn new_(shader_dir: std::path::PathBuf) -> Result<Self, Error>:
+        # <expr>
+        let _ = # <expr>
+        let mut watcher = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn check_for_updates(_self: &mut Self, shader_name: &String) -> Result<Bool, Error>:
+        let shader_path = # <expr>
+        let receiver = # <expr>
+        # <expr>
+        # <expr>
+        let last_modified = # <expr>
+        # <expr>
+        # <expr>
+
+    fn extract_shader_name(_self: &Self, path: &std::path::Path) -> Option<String>:
+        # <expr>
+        # <expr>
+
+    fn shader_dir(_self: &Self) -> &std::path::Path:
+        # <expr>
+
+
+mod tests:
+    fn test_hot_reloader_creation() -> Result<(), Error>:
+        let temp_dir = # <expr>
+        let shader_dir = # <expr>
+        let reloader = # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_shader_name_extraction() -> Result<(), Error>:
+        let temp_dir = # <expr>
+        let shader_dir = # <expr>
+        let reloader = # <expr>
+        let shader_path = # <expr>
+        let name = # <expr>
+        # <expr>
+        let non_shader_path = # <expr>
+        let name = # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_shader_name_extraction_edge_cases() -> Result<(), Error>:
+        let temp_dir = # <expr>
+        let shader_dir = # <expr>
+        let reloader = # <expr>
+        let shader_path = # <expr>
+        let name = # <expr>
+        # <expr>
+        let no_ext_path = # <expr>
+        let name = # <expr>
+        # <expr>
+        let wrong_ext_path = # <expr>
+        let name = # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_nonexistent_directory():
+        let result = # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_check_for_updates_no_file() -> Result<(), Error>:
+        let temp_dir = # <expr>
+        let shader_dir = # <expr>
+        let mut reloader = # <expr>
+        let updated = # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_shader_modification_detection() -> Result<(), Error>:
+        let temp_dir = # <expr>
+        let shader_dir = # <expr>
+        let mut reloader = # <expr>
+        let shader_path = # <expr>
+        # <expr>
+        # <expr>
+        let _ = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        let updated_2 = # <expr>
+        # <expr>
+
+    fn test_multiple_shaders() -> Result<(), Error>:
+        let temp_dir = # <expr>
+        let shader_dir = # <expr>
+        let mut reloader = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        let updated1 = # <expr>
+        let updated2 = # <expr>
+        let updated3 = # <expr>
+        let _ = # <expr>
+        # <expr>
+
+
+mod gpu:
+
+struct GPUPipelineManager:
+    device: wgpu::Device
+    queue: wgpu::Queue
+    pipeline_cache: pipeline_cache::PipelineCache
+    buffer_pool: buffer_pool::BufferPool
+    performance_monitor: performance::PerformanceMonitor
+    hot_reloader: Option<hot_reload::ShaderHotReloader>
+
+impl GPUPipelineManager:
+    fn new_(device: wgpu::Device, queue: wgpu::Queue) -> Self:
+        # <expr>
+
+    fn with_config(device: wgpu::Device, queue: wgpu::Queue, buffer_config: buffer_pool::BufferPoolConfig) -> Self:
+        # <expr>
+
+    fn enable_hot_reload(_self: &mut Self, shader_dir: impl Into<std::path::PathBuf>) -> Result<(), Error>:
+        let hot_reloader = # <expr>
+        # <expr>
+        # <expr>
+
+    fn get_or_create_pipeline(_self: &mut Self, shader_name: &String) -> Result<&wgpu::ComputePipeline, Error>:
+        # <expr>
+        # <expr>
+
+    fn execute_compute(_self: &Self, pipeline: &wgpu::ComputePipeline, workgroups: (u32, u32, u32)) -> Result<(), Error>:
+        let mut encoder = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn upload_bytes(_self: &Self, buffer: &wgpu::Buffer, offset: u64, data: &Slice<u8>) -> Result<(), Error>:
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn upload_bytes_with_staging(_self: &Self, buffer: &wgpu::Buffer, offset: u64, data: &Slice<u8>) -> Result<(), Error>:
+        # <expr>
+        let staging = # <expr>
+        let mut encoder = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn get_buffer(_self: &mut Self, size: u64, usage: wgpu::BufferUsages) -> Result<wgpu::Buffer, Error>:
+        let buffer = # <expr>
+        # <expr>
+        # <expr>
+
+    fn return_buffer(_self: &mut Self, buffer: wgpu::Buffer):
+        let size = # <expr>
+        # <expr>
+        # <expr>
+
+    fn get_performance_stats(_self: &Self) -> performance::PerformanceStats:
+        # <expr>
+
+    fn clear_pipeline_cache(_self: &mut Self):
+        # <expr>
+
+    fn clear_buffer_pool(_self: &mut Self):
+        # <expr>
+
+    fn cached_pipeline_count(_self: &Self) -> usize:
+        # <expr>
+
+    fn pooled_buffer_count(_self: &Self) -> usize:
+        # <expr>
+
+
+mod tests:
+    fn test_manager_creation():
+        pass
+
+
+struct GpuMeshUploadPlan:
+    positions_bytes: Array<u8>
+    normals_bytes: Array<u8>
+    indices_bytes: Array<u8>
+    vertex_count: usize
+    index_count: usize
+
+struct GpuMeshUploadSummary:
+    position_bytes: usize
+    normal_bytes: usize
+    index_bytes: usize
+    vertex_count: usize
+    index_count: usize
+
+struct GpuMeshBufferHandles:
+    positions: wgpu::Buffer
+    normals: wgpu::Buffer
+    indices: wgpu::Buffer
+
+struct GpuMeshBufferSizing:
+    position_bytes: u64
+    normal_bytes: u64
+    index_bytes: u64
+
+struct GpuMeshBufferGrowthPolicy:
+    growth_factor_numerator: u64
+    growth_factor_denominator: u64
+    min_headroom_bytes: u64
+
+impl Default for GpuMeshBufferGrowthPolicy:
+    fn default_() -> Self:
+        # <expr>
+
+
+struct GpuUploadRange:
+    offset: u64
+    bytes: Array<u8>
+
+struct GpuMeshPartialUploadPlan:
+    position_update: Option<GpuUploadRange>
+    normal_update: Option<GpuUploadRange>
+    index_update: Option<GpuUploadRange>
+
+struct GpuMeshBridge:
+    pass
+
+impl GpuMeshBridge:
+    fn plan_from_viewport_payload(payload: &k_os_eval::mesh_pipeline::ViewportBufferPayload) -> GpuMeshUploadPlan:
+        # <expr>
+
+    fn summarize(plan: &GpuMeshUploadPlan) -> GpuMeshUploadSummary:
+        # <expr>
+
+    fn allocate_buffers(manager: &mut crate::GPUPipelineManager, plan: &GpuMeshUploadPlan) -> Result<GpuMeshBufferHandles, Error>:
+        # <expr>
+
+    fn allocate_buffers_with_sizing(manager: &mut crate::GPUPipelineManager, sizing: GpuMeshBufferSizing) -> Result<GpuMeshBufferHandles, Error>:
+        let positions = # <expr>
+        let normals = # <expr>
+        let indices = # <expr>
+        # <expr>
+
+    fn upload_plan(manager: &crate::GPUPipelineManager, buffers: &GpuMeshBufferHandles, plan: &GpuMeshUploadPlan) -> Result<(), Error>:
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn build_partial_upload_plan(previous: Option<&GpuMeshUploadPlan>, current: &GpuMeshUploadPlan) -> GpuMeshPartialUploadPlan:
+        let previous_positions = # <expr>
+        let previous_normals = # <expr>
+        let previous_indices = # <expr>
+        # <expr>
+
+    fn upload_partial_plan(manager: &crate::GPUPipelineManager, buffers: &GpuMeshBufferHandles, partial: &GpuMeshPartialUploadPlan) -> Result<usize, Error>:
+        let mut uploaded_bytes = 0
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+
+fn next_buffer_capacity_with_policy(required: u64, current: Option<u64>, policy: GpuMeshBufferGrowthPolicy) -> u64:
+    let required = # <expr>
+    # <expr>
+
+fn next_buffer_capacity(required: u64, current: Option<u64>) -> u64:
+    # <expr>
+
+fn changed_range(previous: Option<&Slice<u8>>, current: &Slice<u8>) -> Option<GpuUploadRange>:
+    let previous = # <expr>
+    # <expr>
+    let min_len = # <expr>
+    let mut prefix = 0
+    # <expr>
+    let mut suffix = 0
+    # <expr>
+    let end = # <expr>
+    # <expr>
+    # <expr>
+
+mod tests:
+    fn creates_upload_plan_from_viewport_payload():
+        let payload = # <expr>
+        let plan = # <expr>
+        let summary = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn partial_upload_plan_is_none_when_payload_is_identical():
+        let previous = # <expr>
+        let current = # <expr>
+        let partial = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn partial_upload_plan_is_full_when_no_previous_payload_exists():
+        let current = # <expr>
+        let partial = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn partial_upload_plan_uploads_only_changed_middle_range():
+        let previous = # <expr>
+        let current = # <expr>
+        let partial = # <expr>
+        # <expr>
+
+    fn next_capacity_keeps_existing_when_large_enough():
+        # <expr>
+
+    fn next_capacity_adds_headroom_for_new_allocations():
+        # <expr>
+
+    fn next_capacity_grows_past_required_when_existing_is_too_small():
+        let next = # <expr>
+        # <expr>
+
+    fn next_capacity_with_policy_uses_typed_contract():
+        let policy = # <expr>
+        # <expr>
+
+
+struct NormalParams:
+    face_count: u32
+    vertex_count: u32
+    candidate_count: u32
+    dirty_faces_count: u32
+
+struct GpuNormalCompute:
+    clear_pipeline: wgpu::ComputePipeline
+    accumulate_pipeline: wgpu::ComputePipeline
+    normalize_pipeline: wgpu::ComputePipeline
+    bind_group_layout: wgpu::BindGroupLayout
+
+impl GpuNormalCompute:
+    fn new_(device: &wgpu::Device) -> Self:
+        let shader = # <expr>
+        let bind_group_layout = # <expr>
+        let pipeline_layout = # <expr>
+        let clear_pipeline = # <expr>
+        let accumulate_pipeline = # <expr>
+        let normalize_pipeline = # <expr>
+        # <expr>
+
+    fn encode_recalculate_normals(_self: &Self, device: &wgpu::Device, encoder: &mut wgpu::CommandEncoder, buffers: &GpuNormalBuffers, params: NormalParams):
+        # <expr>
+        let params_buffer = # <expr>
+        let bind_group = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+
+struct GpuNormalBuffers:
+    positions: wgpu::Buffer
+    indices: wgpu::Buffer
+    candidates: wgpu::Buffer
+    normals_fixed: wgpu::Buffer
+    normals_out: wgpu::Buffer
+    dirty_mask: wgpu::Buffer
+    dirty_faces: wgpu::Buffer
+    vertex_count: u32
+    face_count: u32
+
+impl GpuNormalBuffers:
+    fn new_(device: &wgpu::Device, positions_buffer: &wgpu::Buffer, indices: &Slice<u32>, vertex_count: u32, max_candidates: u32) -> Self:
+        let face_count = # <expr>
+        let indices_buffer = # <expr>
+        let candidates_buffer = # <expr>
+        let normals_fixed_buffer = # <expr>
+        let normals_out_buffer = # <expr>
+        let mask_words = # <expr>
+        let dirty_mask_buffer = # <expr>
+        let max_dirty_faces = # <expr>
+        let dirty_faces_buffer = # <expr>
+        # <expr>
+
+    fn from_existing_positions(device: &wgpu::Device, indices: &Slice<u32>, vertex_count: u32, max_candidates: u32) -> (wgpu::Buffer, wgpu::Buffer, wgpu::Buffer, wgpu::Buffer, u32):
+        let face_count = # <expr>
+        let indices_buffer = # <expr>
+        let normals_fixed_buffer = # <expr>
+        let normals_out_buffer = # <expr>
+        let mask_words = # <expr>
+        let dirty_mask_buffer = # <expr>
+        let _ = max_candidates
+        # <expr>
+
+
+mod tests:
+    fn test_normal_params_size():
+        # <expr>
+
+
+struct PerformanceStats:
+    total_memory_bytes: u64
+    peak_memory_bytes: u64
+    buffer_allocations: u64
+    buffer_deallocations: u64
+    pipeline_compilations: u64
+    total_compilation_time: std::time::Duration
+    compute_dispatches: u64
+    avg_frame_time_ms: f32
+    fps: f32
+
+impl Default for PerformanceStats:
+    fn default_() -> Self:
+        # <expr>
+
+
+struct PerformanceMonitor:
+    stats: PerformanceStats
+    frame_times: Array<std::time::Duration>
+    last_frame_time: std::time::Instant
+
+impl PerformanceMonitor:
+    fn new_() -> Self:
+        # <expr>
+
+    fn record_buffer_allocation(_self: &Self, size: u64):
+        let mut stats = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn record_buffer_deallocation(_self: &Self, size: u64):
+        let mut stats = # <expr>
+        # <expr>
+        # <expr>
+
+    fn record_pipeline_compilation(_self: &Self, duration: std::time::Duration):
+        let mut stats = # <expr>
+        # <expr>
+        # <expr>
+
+    fn record_compute_dispatch(_self: &Self):
+        let mut stats = # <expr>
+        # <expr>
+
+    fn record_frame(_self: &Self):
+        let now = # <expr>
+        let mut last_frame = # <expr>
+        let frame_time = # <expr>
+        # <expr>
+        let mut frame_times = # <expr>
+        # <expr>
+        # <expr>
+        let avg_frame_time = # <expr>
+        let mut stats = # <expr>
+        # <expr>
+        # <expr>
+
+    fn get_stats(_self: &Self) -> PerformanceStats:
+        # <expr>
+
+    fn reset(_self: &Self):
+        let mut stats = # <expr>
+        # <expr>
+        let mut frame_times = # <expr>
+        # <expr>
+
+    fn current_memory(_self: &Self) -> u64:
+        # <expr>
+
+    fn peak_memory(_self: &Self) -> u64:
+        # <expr>
+
+    fn fps(_self: &Self) -> f32:
+        # <expr>
+
+    fn is_performance_degraded(_self: &Self) -> Bool:
+        let stats = # <expr>
+        # <expr>
+
+    fn is_memory_high(_self: &Self, threshold_bytes: u64) -> Bool:
+        # <expr>
+
+
+impl Default for PerformanceMonitor:
+    fn default_() -> Self:
+        # <expr>
+
+
+mod tests:
+    fn test_buffer_tracking():
+        let monitor = # <expr>
+        # <expr>
+        # <expr>
+        let stats = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        let stats = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_buffer_tracking_underflow():
+        let monitor = # <expr>
+        # <expr>
+        let stats = # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_peak_memory_tracking():
+        let monitor = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_frame_tracking():
+        let monitor = # <expr>
+        # <expr>
+        let stats = # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_frame_tracking_window():
+        let monitor = # <expr>
+        # <expr>
+        let stats = # <expr>
+        # <expr>
+
+    fn test_pipeline_compilation_tracking():
+        let monitor = # <expr>
+        # <expr>
+        # <expr>
+        let stats = # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_compute_dispatch_tracking():
+        let monitor = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        let stats = # <expr>
+        # <expr>
+
+    fn test_reset():
+        let monitor = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        let stats = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_performance_degraded():
+        let monitor = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_memory_high_threshold():
+        let monitor = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_default_stats():
+        let stats = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_default_monitor():
+        let monitor = # <expr>
+        let stats = # <expr>
+        # <expr>
+
+
+struct PipelineCache:
+    device: wgpu::Device
+    cache: Map<String, wgpu::ComputePipeline>
+    shader_sources: Map<String, String>
+
+impl PipelineCache:
+    fn new_(device: wgpu::Device) -> Self:
+        # <expr>
+
+    fn get_or_create(_self: &Self, shader_name: &String) -> Result<&wgpu::ComputePipeline, Error>:
+        # <expr>
+        let pipeline = # <expr>
+        let pipeline_arc = # <expr>
+        # <expr>
+        # <expr>
+
+    fn compile_pipeline(_self: &Self, shader_name: &String) -> Result<wgpu::ComputePipeline, Error>:
+        let shader_source = # <expr>
+        let shader_module = # <expr>
+        let pipeline = # <expr>
+        # <expr>
+        # <expr>
+
+    fn load_shader_source(_self: &Self, shader_name: &String) -> Result<String, Error>:
+        # <expr>
+        let shader_path = # <expr>
+        # <expr>
+
+    fn register_shader_source(_self: &Self, name: impl Into<String>, source: impl Into<String>):
+        let mut sources = # <expr>
+        # <expr>
+
+    fn invalidate(_self: &Self, shader_name: &String):
+        let mut cache = # <expr>
+        # <expr>
+        # <expr>
+
+    fn clear(_self: &Self):
+        let mut cache = # <expr>
+        # <expr>
+        # <expr>
+
+    fn len(_self: &Self) -> usize:
+        let cache = # <expr>
+        # <expr>
+
+    fn is_empty(_self: &Self) -> Bool:
+        # <expr>
+
+    fn cached_names(_self: &Self) -> Array<String>:
+        let cache = # <expr>
+        # <expr>
+
+
+mod tests:
+    fn test_shader_source_registration():
+        pass
+
+    fn test_pipeline_cache_creation():
+        pass
+
+    fn test_cached_names_empty():
+        pass
+
+
+struct GpuTriangle:
+    a: Array<f32>
+    b: Array<f32>
+    c: Array<f32>
+
+struct SdfBuildParams:
+    grid_min: Array<f32>
+    grid_max: Array<f32>
+    resolution: u32
+    triangle_count: u32
+    cell_size: f32
+    pad: u32
+
+struct GpuDynameshParams:
+    resolution: u32
+    smooth_steps: u32
+    padding: f32
+    iso_level: f32
+    vertex_smooth: u32
+
+impl Default for GpuDynameshParams:
+    fn default_() -> Self:
+        # <expr>
+
+
+struct GpuDynameshResult:
+    positions: Array<f32>
+    indices: Array<u32>
+    normals: Array<f32>
+    time_ms: f64
+    stats: GpuDynameshStats
+
+struct GpuDynameshStats:
+    original_vertices: usize
+    original_triangles: usize
+    output_vertices: usize
+    output_triangles: usize
+    grid_resolution: u32
+    sdf_build_ms: f64
+    sdf_smooth_ms: f64
+    marching_cubes_ms: f64
+    vertex_smooth_ms: f64
+    gpu_used: Bool
+
+struct GpuDynameshEngine:
+    sdf_build_pipeline: wgpu::ComputePipeline
+    sdf_smooth_pipeline: wgpu::ComputePipeline
+    sdf_build_layout: wgpu::BindGroupLayout
+    sdf_smooth_layout: wgpu::BindGroupLayout
+    params_buffer: wgpu::Buffer
+    workgroup_size: u32
+
+impl GpuDynameshEngine:
+    fn new_(device: &wgpu::Device) -> Self:
+        let workgroup_size = 4
+        let build_shader = # <expr>
+        let smooth_shader = # <expr>
+        let sdf_build_layout = # <expr>
+        let sdf_smooth_layout = # <expr>
+        let sdf_build_pipeline = # <expr>
+        let sdf_smooth_pipeline = # <expr>
+        let params_buffer = # <expr>
+        # <expr>
+
+    fn remesh(_self: &Self, device: &wgpu::Device, queue: &wgpu::Queue, positions: &Slice<f32>, indices: &Slice<u32>, params: &GpuDynameshParams) -> Result<GpuDynameshResult, String>:
+        let total_start = # <expr>
+        # <expr>
+        # <expr>
+        let vertex_count = # <expr>
+        let triangle_count = # <expr>
+        # <expr>
+        let target_resolution = # <expr>
+        let auto_resolution = # <expr>
+        let effective_resolution = # <expr>
+        let max_work = 50000000
+        let voxel_count = # <expr>
+        let total_work = # <expr>
+        let final_resolution = # <expr>
+        let params = # <expr>
+        let _ = # <expr>
+        let extent = # <expr>
+        let max_dim = # <expr>
+        let padding = # <expr>
+        let grid_min = # <expr>
+        let grid_max = # <expr>
+        let grid_extent = # <expr>
+        let cell_size = # <expr>
+        let gpu_triangles: Array<GpuTriangle> = # <expr>
+        let sdf_build_start = # <expr>
+        let res = # <expr>
+        let grid_size = # <expr>
+        let triangles_buffer = # <expr>
+        let sdf_init: Array<f32> = # <expr>
+        let sdf_buffer_a = # <expr>
+        let sdf_buffer_b = # <expr>
+        let staging_buffer = # <expr>
+        let build_params = # <expr>
+        # <expr>
+        let sdf_build_bind_group = # <expr>
+        let mut encoder = # <expr>
+        # <expr>
+        # <expr>
+        let _ = # <expr>
+        let sdf_build_ms = # <expr>
+        let sdf_smooth_start = # <expr>
+        let mut current_sdf = # <expr>
+        let mut next_sdf = # <expr>
+        # <expr>
+        let sdf_smooth_ms = # <expr>
+        let mc_start = # <expr>
+        let mut encoder = # <expr>
+        # <expr>
+        # <expr>
+        let sdf_values = # <expr>
+        let _ = # <expr>
+        let mc_ms = # <expr>
+        let filter_start = # <expr>
+        let _ = # <expr>
+        let filter_ms = # <expr>
+        let smooth_start = # <expr>
+        let mut world_positions = filtered_positions
+        let final_indices = filtered_indices
+        # <expr>
+        let normals = # <expr>
+        let smooth_ms = # <expr>
+        let total_ms = # <expr>
+        let output_vertices = # <expr>
+        let output_triangles = # <expr>
+        # <expr>
+
+
+fn compute_aabb(positions: &Slice<f32>) -> Result<(glam::Vec3, glam::Vec3), String>:
+    # <expr>
+    let mut min = # <expr>
+    let mut max = # <expr>
+    # <expr>
+    # <expr>
+
+fn laplacian_smooth_mesh(positions: &mut Slice<f32>, indices: &Slice<u32>, iterations: u32):
+    let vc = # <expr>
+    # <expr>
+
+fn compute_normals_from_faces(positions: &Slice<f32>, indices: &Slice<u32>) -> Array<f32>:
+    let vc = # <expr>
+    let mut normals = # <expr>
+    # <expr>
+    # <expr>
+    normals
+
+fn filter_small_components(positions: &Slice<f32>, indices: &Slice<u32>, min_ratio: f32) -> (Array<f32>, Array<u32>):
+    # <expr>
+    let vertex_count = # <expr>
+    let triangle_count = # <expr>
+    let mut parent: Array<usize> = # <expr>
+    let mut rank: Array<usize> = # <expr>
+    # <stmt>
+    # <stmt>
+    # <expr>
+    let mut component_sizes: Map<usize, usize> = # <expr>
+    # <expr>
+    let min_triangles = # <expr>
+    let large_roots: Set<usize> = # <expr>
+    # <expr>
+    let mut kept_triangles: Array<Array<u32>> = # <expr>
+    let mut used_vertices: Set<usize> = # <expr>
+    # <expr>
+    let mut new_positions: Array<f32> = # <expr>
+    let mut vertex_remap: Map<usize, u32> = # <expr>
+    let mut sorted_verts: Array<usize> = # <expr>
+    # <expr>
+    # <expr>
+    let new_indices: Array<u32> = # <expr>
+    # <expr>
+
+fn run_marching_cubes(sdf: &Slice<f32>, res: usize, grid_min: glam::Vec3, cell_size: f32, iso: f32) -> (Array<f32>, Array<u32>):
+    let mut positions = # <expr>
+    let mut indices = # <expr>
+    let idx = # <expr>
+    let pos = # <expr>
+    # <expr>
+    # <expr>
+
+mod wasm_dynamesh:
+
+fn get_or_init_dynamesh_engine() -> Result<GpuDynameshEngine, String>:
+    # <expr>
+    # <expr>
+
+fn gpu_dynamesh(positions: Array<f32>, indices: Array<u32>, params: Option<GpuDynameshParams>) -> Result<GpuDynameshResult, String>:
+    let p = # <expr>
+    let engine = # <expr>
+    let gpu = # <expr>
+    let gpu_lock = # <expr>
+    let engine_lock = # <expr>
+    let result = # <expr>
+    result
+
+fn gpu_dynamesh_benchmark(vertex_count: u32, resolution: u32) -> Result<GpuDynameshStats, String>:
+    # <stmt>
+    let mut rng = # <expr>
+    let mut positions = # <expr>
+    # <expr>
+    let indices: Array<u32> = # <expr>
+    # <expr>
+
+mod normals:
+
+mod sculpt:
+
+mod spirv_loader:
+
+struct GpuPbrParams:
+    normal_strength: f32
+    roughness_base: f32
+    roughness_contrast: f32
+    roughness_invert: Bool
+    metallic_base: f32
+    metallic_contrast: f32
+    edge_wear: f32
+    cavity_dirt: f32
+    dust: f32
+    grunge: f32
+    ao_intensity: f32
+    ao_radius: f32
+    height_contrast: f32
+    emissive_threshold: f32
+    make_seamless: Bool
+    seamless_blend: f32
+
+fn default_normal_strength() -> f32:
+    1
+
+fn default_roughness_base() -> f32:
+    0.5
+
+fn default_one() -> f32:
+    1
+
+fn default_ao_intensity() -> f32:
+    0.8
+
+fn default_ao_radius() -> f32:
+    8
+
+fn default_blend_size() -> f32:
+    0.15
+
+impl Default for GpuPbrParams:
+    fn default_() -> Self:
+        # <expr>
+
+
+struct PbrUniforms:
+    width: u32
+    height: u32
+    normal_strength: f32
+    roughness_base: f32
+    roughness_contrast: f32
+    roughness_invert: u32
+    metallic_base: f32
+    metallic_contrast: f32
+    edge_wear: f32
+    cavity_dirt: f32
+    dust: f32
+    grunge: f32
+    ao_intensity: f32
+    ao_radius: f32
+    height_contrast: f32
+    emissive_threshold: f32
+    make_seamless: u32
+    seamless_blend: f32
+    seed: u32
+    padding: u32
+
+struct GpuPbrResult:
+    base: String
+    normal: String
+    roughness: String
+    metallic: String
+    ao: String
+    height: String
+    curvature: String
+    emissive: Option<String>
+    time_ms: f64
+
+struct GpuPbrEngine:
+    preprocess_pipeline: wgpu::ComputePipeline
+    grayscale_pipeline: wgpu::ComputePipeline
+    normal_pipeline: wgpu::ComputePipeline
+    curvature_pipeline: wgpu::ComputePipeline
+    roughness_pipeline: wgpu::ComputePipeline
+    metallic_pipeline: wgpu::ComputePipeline
+    ao_pipeline: wgpu::ComputePipeline
+    height_pipeline: wgpu::ComputePipeline
+    emissive_pipeline: wgpu::ComputePipeline
+    bind_group_layout: wgpu::BindGroupLayout
+
+impl GpuPbrEngine:
+    fn new_(device: &wgpu::Device) -> Self:
+        let shader = # <expr>
+        let bind_group_layout = # <expr>
+        let pipeline_layout = # <expr>
+        let create_pipeline = # <expr>
+        # <expr>
+
+    fn generate(_self: &Self, device: &wgpu::Device, queue: &wgpu::Queue, rgba_data: &Slice<u8>, width: u32, height: u32, params: &GpuPbrParams) -> GpuPbrResult:
+        let start = # <expr>
+        let pixel_count = # <expr>
+        let packed_input: Array<u32> = # <expr>
+        let uniforms = # <expr>
+        let uniform_buffer = # <expr>
+        let input_buffer = # <expr>
+        let buffer_size = # <expr>
+        let create_output_buffer = # <expr>
+        let base_buffer = # <expr>
+        let grayscale_buffer = # <expr>
+        let normal_buffer = # <expr>
+        let curvature_buffer = # <expr>
+        let roughness_buffer = # <expr>
+        let metallic_buffer = # <expr>
+        let ao_buffer = # <expr>
+        let height_buffer = # <expr>
+        let emissive_buffer = # <expr>
+        let staging_buffer = # <expr>
+        let workgroups_x = # <expr>
+        let workgroups_y = # <expr>
+        let create_bind_group = # <expr>
+        let dummy_buffer = # <expr>
+        # <expr>
+        let grayscale_f32_size = # <expr>
+        let grayscale_f32_buffer = # <expr>
+        let grayscale_data: Array<f32> = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        let read_buffer = # <expr>
+        let base_rgba = # <expr>
+        let normal_rgba = # <expr>
+        let roughness_rgba = # <expr>
+        let metallic_rgba = # <expr>
+        let ao_rgba = # <expr>
+        let height_rgba = # <expr>
+        let curvature_rgba = # <expr>
+        let emissive_rgba = # <expr>
+        let encode_png = # <expr>
+        let w = width
+        let h = height
+        let do_emissive = # <expr>
+        let _ = # <expr>
+        let emissive = # <expr>
+        # <expr>
+
+
+fn get_or_init_engine(device: &wgpu::Device) -> std::sync::MutexGuard<static, Option<GpuPbrEngine>>:
+    let mut guard = # <expr>
+    # <expr>
+    guard
+
+fn gpu_pbr_generate(image_base64: String, params: GpuPbrParams) -> Result<GpuPbrResult, String>:
+    let image_data = # <expr>
+    # <stmt>
+    let bytes = # <expr>
+    let img = # <expr>
+    let rgba = # <expr>
+    let width = # <expr>
+    let height = # <expr>
+    let raw = # <expr>
+    let gpu = # <expr>
+    let gpu_guard = # <expr>
+    let device = # <expr>
+    let queue = # <expr>
+    let engine_guard = # <expr>
+    let engine = # <expr>
+    # <expr>
+
+fn gpu_pbr_benchmark(width: u32, height: u32) -> Result<GpuPbrResult, String>:
+    let width = # <expr>
+    let height = # <expr>
+    let pixel_count = # <expr>
+    let mut rgba = # <expr>
+    # <expr>
+    let gpu = # <expr>
+    let gpu_guard = # <expr>
+    let device = # <expr>
+    let queue = # <expr>
+    let engine_guard = # <expr>
+    let engine = # <expr>
+    let params = # <expr>
+    # <expr>
+
+struct EdgeKey:
+    field_0: u32
+    field_1: u32
+
+impl EdgeKey:
+    fn new_(a: u32, b: u32) -> Self:
+        # <expr>
+
+
+struct CpuSubdivisionResult:
+    positions: Array<f32>
+    indices: Array<u32>
+    vertex_count: usize
+    face_count: usize
+
+fn cpu_subdivide_loop(positions: &Slice<f32>, indices: &Slice<u32>) -> Result<CpuSubdivisionResult, String>:
+    let vertex_count = # <expr>
+    let face_count = # <expr>
+    # <expr>
+    let mut edge_map: Map<EdgeKey, u32> = # <expr>
+    let mut neighbors: Array<Array<u32>> = # <expr>
+    let mut edge_faces: Map<EdgeKey, Array<u32>> = # <expr>
+    let mut next_edge_idx = 0
+    # <expr>
+    let edge_count = next_edge_idx
+    let new_vertex_count = # <expr>
+    let new_face_count = # <expr>
+    let mut new_positions = # <expr>
+    # <expr>
+    # <expr>
+    let mut new_indices = # <expr>
+    # <expr>
+    # <expr>
+
+mod tests:
+    fn test_cpu_subdivide_simple_triangle():
+        let positions = # <expr>
+        let indices = # <expr>
+        let result = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_cpu_subdivide_quad():
+        let positions = # <expr>
+        let indices = # <expr>
+        let result = # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_cpu_subdivide_empty_mesh():
+        let positions = # <expr>
+        let indices = # <expr>
+        let result = # <expr>
+        # <expr>
+
+
+struct GpuSubdivideResult:
+    positions: Array<f32>
+    normals: Array<f32>
+    indices: Array<u32>
+    vertex_count: usize
+    face_count: usize
+    time_ms: f64
+    topology_ms: f64
+    gpu_ms: f64
+
+struct EdgeKey:
+    field_0: u32
+    field_1: u32
+
+impl EdgeKey:
+    fn new_(a: u32, b: u32) -> Self:
+        # <expr>
+
+
+struct SubdivisionTopology:
+    orig_vertex_count: u32
+    edge_count: u32
+    new_vertex_count: u32
+    new_face_count: u32
+    neighbor_offsets: Array<u32>
+    neighbor_data: Array<u32>
+    face_edge_vertices: Array<u32>
+    edge_endpoints: Array<u32>
+    edge_opposites: Array<u32>
+    new_indices: Array<u32>
+
+impl SubdivisionTopology:
+    fn build(indices: &Slice<u32>, vertex_count: usize) -> Self:
+        let face_count = # <expr>
+        let mut edge_map: Map<EdgeKey, u32> = # <expr>
+        let mut neighbors: Array<Array<u32>> = # <expr>
+        let mut edge_faces: Map<EdgeKey, Array<u32>> = # <expr>
+        let mut next_edge_idx = 0
+        # <expr>
+        let edge_count = next_edge_idx
+        let new_vertex_count = # <expr>
+        let new_face_count = # <expr>
+        let mut neighbor_offsets = # <expr>
+        let mut neighbor_data = # <expr>
+        let mut offset = 0
+        # <expr>
+        # <expr>
+        let mut face_edge_vertices = # <expr>
+        # <expr>
+        let mut edge_endpoints = # <expr>
+        let mut edge_opposites = # <expr>
+        # <expr>
+        let find_opposite = # <expr>
+        # <expr>
+        let mut new_indices = # <expr>
+        # <expr>
+        # <expr>
+
+
+struct GpuSubdivideEngineV2:
+    smooth_original_pipeline: wgpu::ComputePipeline
+    compute_edge_verts_pipeline: wgpu::ComputePipeline
+    bind_group_layout: wgpu::BindGroupLayout
+
+impl GpuSubdivideEngineV2:
+    fn new_(device: &wgpu::Device) -> Self:
+        let bind_group_layout = # <expr>
+        let pipeline_layout = # <expr>
+        let shader = # <expr>
+        let smooth_original_pipeline = # <expr>
+        let compute_edge_verts_pipeline = # <expr>
+        # <expr>
+
+    fn subdivide_with_topology(_self: &Self, device: &wgpu::Device, queue: &wgpu::Queue, positions: &Slice<f32>, indices: &Slice<u32>, topology: &SubdivisionTopology) -> Result<GpuSubdivideResult, String>:
+        let start = # <expr>
+        let positions_in = # <expr>
+        let indices_in = # <expr>
+        let positions_out = # <expr>
+        let neighbor_offsets_buf = # <expr>
+        let neighbor_data_buf = # <expr>
+        let edge_endpoints_buf = # <expr>
+        let edge_opposites_buf = # <expr>
+        # <stmt>
+        let uniforms = # <expr>
+        let uniform_buf = # <expr>
+        let bind_group = # <expr>
+        let mut encoder = # <expr>
+        let workgroup_size = 256
+        # <expr>
+        # <expr>
+        let staging = # <expr>
+        # <expr>
+        # <expr>
+        let _ = # <expr>
+        # <expr>
+        let _ = # <expr>
+        # <expr>
+        let data = # <expr>
+        let new_positions: Array<f32> = # <expr>
+        # <expr>
+        # <expr>
+        let gpu_ms = # <expr>
+        # <expr>
+
+    fn subdivide_once(_self: &Self, device: &wgpu::Device, queue: &wgpu::Queue, positions: &Slice<f32>, indices: &Slice<u32>) -> Result<GpuSubdivideResult, String>:
+        let vertex_count = # <expr>
+        let topology = # <expr>
+        # <expr>
+
+
+fn get_engine_v2() -> Result<GpuSubdivideEngineV2, String>:
+    # <expr>
+    let gpu = # <expr>
+    let gpu_lock = # <expr>
+    let engine = # <expr>
+    let arc = # <expr>
+    # <expr>
+    # <expr>
+
+fn gpu_subdivide_v2(positions: Array<f32>, indices: Array<u32>, levels: u32) -> Result<GpuSubdivideResult, String>:
+    let levels = # <expr>
+    let total_start = # <expr>
+    let _ = # <expr>
+    let engine = # <expr>
+    let engine_lock = # <expr>
+    let mut current_positions = positions
+    let mut current_indices = indices
+    let mut total_topology_ms = 0
+    let mut total_gpu_ms = 0
+    # <expr>
+    let total_ms = # <expr>
+    # <expr>
+
+fn gpu_subdivide_v2_and_register(_positions: Array<f32>, _indices: Array<u32>, _levels: u32) -> Result<(GpuSubdivideResult, u64), String>:
+    # <expr>
+
+struct RayHit:
+    hit: Bool
+    point: Array<f32>
+    normal: Array<f32>
+    uv: Array<f32>
+    distance: f32
+    triangle_id: u32
+    mesh_id: u32
+    time_ms: f64
+
+struct BvhNode:
+    aabb_min: Array<f32>
+    left_or_first: u32
+    aabb_max: Array<f32>
+    right_or_count: u32
+
+impl BvhNode:
+    fn is_leaf(_self: &Self) -> Bool:
+        # <expr>
+
+
+struct GpuTriangle:
+    v0: Array<f32>
+    v1: Array<f32>
+    v2: Array<f32>
+    uv0_uv1: Array<f32>
+    uv2_pad: Array<f32>
+
+struct GpuRay:
+    origin: Array<f32>
+    direction: Array<f32>
+
+struct GpuRayHit:
+    point: Array<f32>
+    normal: Array<f32>
+    uv_mesh: Array<f32>
+
+impl Default for GpuRayHit:
+    fn default_() -> Self:
+        # <expr>
+
+
+struct GpuRaycastMesh:
+    vertex_count: u32
+    triangle_count: u32
+    bvh_node_count: u32
+    triangles_buffer: wgpu::Buffer
+    bvh_nodes_buffer: wgpu::Buffer
+
+struct GpuBvhRaycast:
+    pipeline: wgpu::ComputePipeline
+    bind_group_layout: wgpu::BindGroupLayout
+    ray_buffer: wgpu::Buffer
+    hit_buffer: wgpu::Buffer
+    staging_buffer: wgpu::Buffer
+
+impl GpuBvhRaycast:
+    fn new_(device: &wgpu::Device) -> Self:
+        let shader = # <expr>
+        let bind_group_layout = # <expr>
+        let pipeline_layout = # <expr>
+        let pipeline = # <expr>
+        let ray_buffer = # <expr>
+        let hit_buffer = # <expr>
+        let staging_buffer = # <expr>
+        # <expr>
+
+    fn build_mesh_bvh(_self: &Self, device: &wgpu::Device, positions: &Slice<f32>, indices: &Slice<u32>, uvs: Option<&Slice<f32>>) -> Result<GpuRaycastMesh, String>:
+        let vertex_count = # <expr>
+        let triangle_count = # <expr>
+        let mut triangles = # <expr>
+        # <expr>
+        let bvh_nodes = # <expr>
+        let triangles_buffer = # <expr>
+        let bvh_nodes_buffer = # <expr>
+        # <expr>
+
+    fn build_lbvh(_self: &Self, triangles: &Slice<GpuTriangle>) -> Result<Array<BvhNode>, String>:
+        # <expr>
+        let mut scene_min = # <expr>
+        let mut scene_max = # <expr>
+        # <expr>
+        let mut morton_prims: Array<(u32, usize)> = # <expr>
+        # <expr>
+        let n = # <expr>
+        let mut nodes = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn morton_3d(x: f32, y: f32, z: f32) -> u32:
+        let x = # <expr>
+        let y = # <expr>
+        let z = # <expr>
+        # <expr>
+
+    fn expand_bits(v: u32) -> u32:
+        let mut v = v
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        v
+
+    fn raycast(_self: &Self, device: &wgpu::Device, queue: &wgpu::Queue, mesh: &GpuRaycastMesh, origin: Array<f32>, direction: Array<f32>) -> Result<RayHit, String>:
+        let start = # <expr>
+        let ray = # <expr>
+        # <expr>
+        let bind_group = # <expr>
+        let mut encoder = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        let buffer_slice = # <expr>
+        let _ = # <expr>
+        # <expr>
+        let _ = # <expr>
+        # <expr>
+        let data = # <expr>
+        let gpu_hit: GpuRayHit = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+
+mod wasm_state:
+
+fn gpu_raycast_init(positions: Array<f32>, indices: Array<u32>, uvs: Option<Array<f32>>) -> Result<u64, String>:
+    let gpu = # <expr>
+    let gpu_guard = # <expr>
+    let device = # <expr>
+    let mesh = # <expr>
+    let mesh = # <expr>
+    let handle = # <expr>
+    let handle = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+
+fn gpu_raycast(handle: u64, origin: Array<f32>, direction: Array<f32>) -> Result<RayHit, String>:
+    let gpu = # <expr>
+    let gpu_guard = # <expr>
+    let device = # <expr>
+    let queue = # <expr>
+    # <expr>
+    # <expr>
+
+fn gpu_raycast_dispose(handle: u64) -> Result<(), String>:
+    # <expr>
+    # <expr>
+    # <expr>
+
+struct BrushParams:
+    center: Array<f32>
+    normal: Array<f32>
+    radius: f32
+    strength: f32
+    hardness: f32
+    spacing: f32
+    op: u32
+    subtract: u32
+    front_faces_only: u32
+    accumulate: u32
+    vertex_count: u32
+    candidate_count: u32
+    alpha_enabled: u32
+    alpha_scale: f32
+    jitter_position: f32
+    jitter_rotation: f32
+    jitter_strength: f32
+    random_seed: f32
+    extra0: f32
+    extra1: f32
+    extra2: f32
+    extra3: f32
+    pressure_curve_idx: u32
+    speed_curve_idx: u32
+    tilt_curve_idx: u32
+    pad: u32
+
+impl BrushParams:
+    fn new_(center: Array<f32>, normal: Array<f32>, radius: f32, intensity: f32) -> Self:
+        # <expr>
+
+    fn with_alpha(_self: Self, scale: f32) -> Self:
+        # <expr>
+        # <expr>
+        _self
+
+
+enum SculptOp:
+    Clay
+    Inflate
+    Flatten
+    Pinch
+    Crease
+    Draw
+    Layer
+    Dam
+    HPolish
+    Rake
+    SnakeHook
+    ClayStrips
+    Melt
+    Gravity
+    Twist
+    Repel
+    Magnet
+    Blob
+    Spike
+    Crystallize
+    Terrace
+    Terra
+    Magma
+    Thermal
+    Erode
+    Growth
+    Bloom
+    Elastic
+    VectorField
+    Hologram
+    Attractor
+    Grab
+
+impl From for u32:
+    fn from(v: SculptOp) -> Self:
+        # <expr>
+
+
+struct GpuMeshBuffers:
+    vertex_count: u32
+    face_count: u32
+    positions: wgpu::Buffer
+    normals: wgpu::Buffer
+    indices: Option<wgpu::Buffer>
+    normals_fixed: Option<wgpu::Buffer>
+    dirty_mask: Option<wgpu::Buffer>
+    dirty_faces: Option<wgpu::Buffer>
+
+struct GpuCandidates:
+    count: u32
+    indices: wgpu::Buffer
+
+struct SparsePositionReadback:
+    compact_buffer: wgpu::Buffer
+    max_vertices: u32
+    staging_front: wgpu::Buffer
+    staging_back: wgpu::Buffer
+    front_index: u8
+    back_ready: Bool
+    first_frame: Bool
+
+enum KernelFamily:
+    Stamp
+    Smooth
+    Pinch
+    Grab
+    Flatten
+    Physics
+    Crystal
+
+struct KernelPipelines:
+    pipelines: Map<String, wgpu::ComputePipeline>
+
+struct GpuSculptCompute:
+    pipeline_all: wgpu::ComputePipeline
+    pipeline_candidates: wgpu::ComputePipeline
+    pipeline_compact: wgpu::ComputePipeline
+    bind_group_layout_all: wgpu::BindGroupLayout
+    bind_group_layout_candidates: wgpu::BindGroupLayout
+    bind_group_layout_compact: wgpu::BindGroupLayout
+    bind_group_layout_smooth: wgpu::BindGroupLayout
+    kernel_pipelines: Map<KernelFamily, KernelPipelines>
+    alpha_bind_group_layout: wgpu::BindGroupLayout
+    dummy_alpha_bind_group: wgpu::BindGroup
+    params_buffer: wgpu::Buffer
+    params_buffer_v2: wgpu::Buffer
+    workgroup_size: u32
+
+impl GpuSculptCompute:
+    fn new_(device: &wgpu::Device, queue: &wgpu::Queue) -> Self:
+        let workgroup_size = 256
+        let shader = # <expr>
+        let bind_group_layout_all = # <expr>
+        let bind_group_layout_candidates = # <expr>
+        let bind_group_layout_smooth = # <expr>
+        let bind_group_layout_compact = # <expr>
+        let alpha_bind_group_layout = # <expr>
+        let dummy_texture = # <expr>
+        # <expr>
+        let dummy_view = # <expr>
+        let dummy_sampler = # <expr>
+        let dummy_alpha_bind_group = # <expr>
+        let pipeline_layout_all = # <expr>
+        let pipeline_layout_candidates = # <expr>
+        let pipeline_layout_compact = # <expr>
+        let pipeline_layout_smooth = # <expr>
+        let pipeline_all = # <expr>
+        let pipeline_candidates = # <expr>
+        let pipeline_compact = # <expr>
+        let mut kernel_pipelines: Map<KernelFamily, KernelPipelines> = # <expr>
+        let create_kernel = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        let params_buffer = # <expr>
+        let params_buffer_v2 = # <expr>
+        # <expr>
+
+    fn get_dummy_alpha_bind_group(_self: &Self) -> &wgpu::BindGroup:
+        # <expr>
+
+    fn get_alpha_bind_group_layout(_self: &Self) -> &wgpu::BindGroupLayout:
+        # <expr>
+
+    fn get_kernel_pipeline(_self: &Self, kernel: KernelFamily, entry_point: &String) -> Option<&wgpu::ComputePipeline>:
+        # <expr>
+
+    fn get_params_buffer_v2(_self: &Self) -> &wgpu::Buffer:
+        # <expr>
+
+    fn get_params_buffer(_self: &Self) -> &wgpu::Buffer:
+        # <expr>
+
+    fn load_spirv_pipeline(_self: &Self, device: &wgpu::Device, shader_name: &String) -> Result<wgpu::ComputePipeline, String>:
+        let shader_data = # <expr>
+        # <expr>
+        let module = # <expr>
+        let info = # <expr>
+        let wgsl = # <expr>
+        let shader_module = # <expr>
+        let bind_group_layout = # <expr>
+        let pipeline_layout = # <expr>
+        let pipeline = # <expr>
+        # <expr>
+        # <expr>
+
+    fn encode_apply_brush_spirv(_self: &Self, device: &wgpu::Device, queue: &wgpu::Queue, encoder: &mut wgpu::CommandEncoder, mesh: &GpuMeshBuffers, params: &BrushParams, shader_name: &String, alpha_bind_group: Option<&wgpu::BindGroup>, candidates: Option<&GpuCandidates>) -> Result<(), String>:
+        let pipeline = # <expr>
+        let bind_group = # <expr>
+        # <expr>
+        let mut cpass = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        let workgroups = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn encode_kernel_brush(_self: &Self, device: &wgpu::Device, encoder: &mut wgpu::CommandEncoder, kernel: KernelFamily, entry_point: &String, mesh: &GpuMeshBuffers, candidates_buffer: &wgpu::Buffer, _counter_buffer: &wgpu::Buffer, indirect_buffer: &wgpu::Buffer, params_data: &Slice<u8>, alpha_bind_group: Option<&wgpu::BindGroup>) -> Result<(), String>:
+        let pipeline = # <expr>
+        let bind_group = # <expr>
+        let _ = params_data
+        let mut cpass = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn create_sparse_readback(_self: &Self, device: &wgpu::Device, max_candidates: u32) -> SparsePositionReadback:
+        let buffer_size = # <expr>
+        let compact_buffer = # <expr>
+        let staging_front = # <expr>
+        let staging_back = # <expr>
+        # <expr>
+
+    fn encode_compact_positions(_self: &Self, device: &wgpu::Device, encoder: &mut wgpu::CommandEncoder, positions_buffer: &wgpu::Buffer, normals_buffer: &wgpu::Buffer, candidates_buffer: &wgpu::Buffer, counter_buffer: &wgpu::Buffer, sparse_readback: &SparsePositionReadback, indirect_buffer: &wgpu::Buffer):
+        let bind_group = # <expr>
+        let mut cpass = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn create_candidates(_self: &Self, device: &wgpu::Device, indices: &Slice<u32>) -> GpuCandidates:
+        let indices_buf = # <expr>
+        # <expr>
+
+    fn create_mesh_buffers(_self: &Self, device: &wgpu::Device, positions_xyz: &Slice<f32>, normals_xyz: &Slice<f32>) -> Result<GpuMeshBuffers, String>:
+        # <expr>
+        # <expr>
+        let vertex_count = # <expr>
+        let mut pos4: Array<Array<f32>> = # <expr>
+        let mut nor4: Array<Array<f32>> = # <expr>
+        # <expr>
+        let positions = # <expr>
+        let normals = # <expr>
+        # <expr>
+
+    fn init_normal_buffers(device: &wgpu::Device, mesh: &mut GpuMeshBuffers, indices: &Slice<u32>):
+        let face_count = # <expr>
+        # <expr>
+        let indices_buffer = # <expr>
+        # <expr>
+        let normals_fixed_buffer = # <expr>
+        # <expr>
+        let mask_words = # <expr>
+        let dirty_mask_buffer = # <expr>
+        # <expr>
+        let max_dirty_faces = # <expr>
+        let dirty_faces_buffer = # <expr>
+        # <expr>
+        # <expr>
+
+    fn encode_apply_brush_all(_self: &Self, device: &wgpu::Device, queue: &wgpu::Queue, encoder: &mut wgpu::CommandEncoder, mesh: &GpuMeshBuffers, params: BrushParams, op: SculptOp, alpha_bind_group: Option<&wgpu::BindGroup>):
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        let dummy_counter = # <expr>
+        let dummy_candidates = # <expr>
+        let bind_group = # <expr>
+        let mut cpass = # <expr>
+        # <expr>
+        # <expr>
+        let alpha_bg = # <expr>
+        # <expr>
+        let wg = # <expr>
+        # <expr>
+
+    fn encode_apply_brush_candidates(_self: &Self, device: &wgpu::Device, queue: &wgpu::Queue, encoder: &mut wgpu::CommandEncoder, mesh: &GpuMeshBuffers, candidates: &GpuCandidates, params: BrushParams, op: SculptOp, alpha_bind_group: Option<&wgpu::BindGroup>):
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        let bind_group = # <expr>
+        let mut cpass = # <expr>
+        # <expr>
+        # <expr>
+        let alpha_bg = # <expr>
+        # <expr>
+        let wg = # <expr>
+        # <expr>
+
+    fn encode_apply_brush_indirect(_self: &Self, device: &wgpu::Device, queue: &wgpu::Queue, encoder: &mut wgpu::CommandEncoder, entry_point: &String, mesh: &GpuMeshBuffers, candidates_buffer: &wgpu::Buffer, counter_buffer: &wgpu::Buffer, indirect_buffer: &wgpu::Buffer, params: BrushParams, op: SculptOp, alpha_bind_group: Option<&wgpu::BindGroup>):
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        let bind_group = # <expr>
+        let mut cpass = # <expr>
+        let mut pipeline = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        let alpha_bg = # <expr>
+        # <expr>
+        # <expr>
+
+
+struct GridParams:
+    bounds_min: Array<f32>
+    bounds_max: Array<f32>
+    cell_size: f32
+    grid_dims_x: u32
+    grid_dims_y: u32
+    grid_dims_z: u32
+    vertex_count: u32
+    cell_count: u32
+    pad: Array<u32>
+
+impl GridParams:
+    fn new_(bounds_min: Array<f32>, bounds_max: Array<f32>, cell_size: f32, vertex_count: u32) -> Self:
+        let safe_cell_size = # <expr>
+        let dims_x = # <expr>
+        let dims_y = # <expr>
+        let dims_z = # <expr>
+        let cell_count = # <expr>
+        # <expr>
+
+
+struct QueryParams:
+    center: Array<f32>
+    radius: f32
+    max_candidates: u32
+    pad: Array<u32>
+
+struct GpuSpatialGrid:
+    cell_counts: wgpu::Buffer
+    cell_offsets: wgpu::Buffer
+    vertex_indices: wgpu::Buffer
+    params_buffer: wgpu::Buffer
+    params: GridParams
+    clear_pipeline: wgpu::ComputePipeline
+    count_pipeline: wgpu::ComputePipeline
+    prefix_sum_pipeline: wgpu::ComputePipeline
+    scatter_pipeline: wgpu::ComputePipeline
+    build_bind_group_layout: wgpu::BindGroupLayout
+    query_clear_pipeline: wgpu::ComputePipeline
+    query_sphere_pipeline: wgpu::ComputePipeline
+    query_indirect_pipeline: wgpu::ComputePipeline
+    query_bind_group_layout: wgpu::BindGroupLayout
+    query_params_buffer: wgpu::Buffer
+    candidates_buffer: wgpu::Buffer
+    indirect_buffer: wgpu::Buffer
+    max_candidates: u32
+    counter_buffer: wgpu::Buffer
+
+impl GpuSpatialGrid:
+    fn new_(device: &wgpu::Device, bounds_min: Array<f32>, bounds_max: Array<f32>, cell_size: f32, max_vertices: u32) -> Self:
+        let params = # <expr>
+        let safe_cell_count = # <expr>
+        let safe_vertex_count = # <expr>
+        let cell_counts = # <expr>
+        let cell_offsets = # <expr>
+        let vertex_indices = # <expr>
+        let params_buffer = # <expr>
+        let build_bind_group_layout = # <expr>
+        let query_bind_group_layout = # <expr>
+        let build_shader = # <expr>
+        let query_shader = # <expr>
+        let build_pipeline_layout = # <expr>
+        let query_pipeline_layout = # <expr>
+        let clear_pipeline = # <expr>
+        let count_pipeline = # <expr>
+        let prefix_sum_pipeline = # <expr>
+        let scatter_pipeline = # <expr>
+        let query_clear_pipeline = # <expr>
+        let query_sphere_pipeline = # <expr>
+        let query_indirect_pipeline = # <expr>
+        let max_candidates = # <expr>
+        let query_params_buffer = # <expr>
+        let candidates_buffer = # <expr>
+        let counter_buffer = # <expr>
+        let indirect_buffer = # <expr>
+        # <expr>
+
+    fn cell_count(_self: &Self) -> u32:
+        # <expr>
+
+    fn grid_dims(_self: &Self) -> Array<u32>:
+        # <expr>
+
+    fn encode_build(_self: &Self, device: &wgpu::Device, encoder: &mut wgpu::CommandEncoder, positions_buffer: &wgpu::Buffer):
+        let workgroup_size = 256
+        let vertex_workgroups = # <expr>
+        let cell_workgroups = # <expr>
+        let bind_group = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn build_bind_group_layout(_self: &Self) -> &wgpu::BindGroupLayout:
+        # <expr>
+
+    fn query_bind_group_layout(_self: &Self) -> &wgpu::BindGroupLayout:
+        # <expr>
+
+    fn update_query_params(_self: &Self, queue: &wgpu::Queue, center: Array<f32>, radius: f32):
+        let params = # <expr>
+        # <expr>
+
+    fn encode_query(_self: &Self, device: &wgpu::Device, encoder: &mut wgpu::CommandEncoder, positions_buffer: &wgpu::Buffer):
+        let bind_group = # <expr>
+        # <expr>
+        let query_workgroups = # <expr>
+        # <expr>
+        # <expr>
+
+
+enum KernelFamily:
+    Stamp
+    Physics
+
+struct SpirvShader:
+    name: &String
+    family: KernelFamily
+    bytecode: &Slice<u8>
+
+fn get_shaders_by_family(family: KernelFamily) -> Array<&String>:
+    # <expr>
+
+fn get_shader_count() -> (usize, usize):
+    let stamp_count = # <expr>
+    let physics_count = # <expr>
+    # <expr>
+
+mod tests:
+    fn test_all_shaders_loaded():
+        # <expr>
+        let _ = # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_shader_bytecode_not_empty():
+        # <expr>
+
+    fn test_get_shaders_by_family():
+        let stamp_shaders = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        let physics_shaders = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+
+struct StagingBufferPool:
+    buffers: Map<u64, Array<wgpu::Buffer>>
+    min_size: u64
+
+impl StagingBufferPool:
+    fn new_() -> Self:
+        # <expr>
+
+    fn get_or_create(_self: &mut Self, device: &wgpu::Device, size: u64) -> wgpu::Buffer:
+        let bucket_size = # <expr>
+        # <expr>
+        # <expr>
+
+    fn return_buffer(_self: &mut Self, buffer: wgpu::Buffer, size: u64):
+        let bucket_size = # <expr>
+        # <expr>
+
+    fn bucket_size(_self: &Self, size: u64) -> u64:
+        let size = # <expr>
+        # <expr>
+
+    fn clear(_self: &mut Self):
+        # <expr>
+
+
+impl Default for StagingBufferPool:
+    fn default_() -> Self:
+        # <expr>
+
+
+struct BrushParams:
+    center_uv: Array<f32>
+    radius: f32
+    pad0: f32
+    color: Array<f32>
+    virtual_size: f32
+    tile_size: f32
+    pad1: Array<f32>
+
+struct SvtInstance:
+    engine: super::SvtEngine
+    manager: super::PageTableManager
+    virtual_width: u32
+    virtual_height: u32
+    tile_size: u32
+
+fn next_handle() -> u64:
+    let mut h = # <expr>
+    let handle = # <expr>
+    # <expr>
+    handle
+
+fn svt_init(width: Option<u32>, height: Option<u32>, tile_size: Option<u32>) -> Result<u64, String>:
+    let gpu = # <expr>
+    let gpu_guard = # <expr>
+    let device = # <expr>
+    let width = # <expr>
+    let height = # <expr>
+    let tile_size = # <expr>
+    let engine = # <expr>
+    let manager = # <expr>
+    let instance = # <expr>
+    let handle = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+
+fn svt_stroke(handle: u64, center_uv: Array<f32>, radius: f32, color: Array<f32>) -> Result<(), String>:
+    let gpu = # <expr>
+    let gpu_guard = # <expr>
+    let device = # <expr>
+    let queue = # <expr>
+    let mut registry = # <expr>
+    let instance = # <expr>
+    let tiles_to_load: Array<(f32, f32)> = # <expr>
+    let page_updates = # <expr>
+    let brush_params = # <expr>
+    let params_bytes = # <expr>
+    let mut encoder = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+
+fn svt_read_tile(handle: u64, tile_x: u32, tile_y: u32) -> Result<Array<u8>, String>:
+    let gpu = # <expr>
+    let gpu_guard = # <expr>
+    let device = # <expr>
+    let queue = # <expr>
+    let registry = # <expr>
+    let instance = # <expr>
+    let tile_size = # <expr>
+    let bytes_per_row = # <expr>
+    let padded_bytes_per_row = # <expr>
+    let staging_buffer = # <expr>
+    let mut encoder = # <expr>
+    # <expr>
+    # <expr>
+    let buffer_slice = # <expr>
+    let _ = # <expr>
+    # <expr>
+    let _ = # <expr>
+    # <expr>
+    let data = # <expr>
+    let mut result = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+
+fn svt_export(handle: u64) -> Result<String, String>:
+    let gpu = # <expr>
+    let gpu_guard = # <expr>
+    let device = # <expr>
+    let queue = # <expr>
+    let registry = # <expr>
+    let instance = # <expr>
+    let width = super::engine::PHYSICAL_SIZE
+    let height = super::engine::PHYSICAL_SIZE
+    let bytes_per_row = # <expr>
+    let padded_bytes_per_row = # <expr>
+    let staging_buffer = # <expr>
+    let mut encoder = # <expr>
+    # <expr>
+    # <expr>
+    let buffer_slice = # <expr>
+    let _ = # <expr>
+    # <expr>
+    let _ = # <expr>
+    # <expr>
+    let data = # <expr>
+    let mut pixels = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <stmt>
+    # <stmt>
+    let img: image::ImageBuffer<image::Rgba<u8>, Array<u8>> = # <expr>
+    let mut png_bytes = # <expr>
+    let mut cursor = # <expr>
+    # <expr>
+    # <stmt>
+    # <expr>
+
+fn svt_export_raw(handle: u64) -> Result<Array<u8>, String>:
+    let gpu = # <expr>
+    let gpu_guard = # <expr>
+    let device = # <expr>
+    let queue = # <expr>
+    let registry = # <expr>
+    let instance = # <expr>
+    let width = super::engine::PHYSICAL_SIZE
+    let height = super::engine::PHYSICAL_SIZE
+    let bytes_per_row = # <expr>
+    let padded_bytes_per_row = # <expr>
+    let staging_buffer = # <expr>
+    let mut encoder = # <expr>
+    # <expr>
+    # <expr>
+    let buffer_slice = # <expr>
+    let _ = # <expr>
+    # <expr>
+    let _ = # <expr>
+    # <expr>
+    let data = # <expr>
+    let mut pixels = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+
+fn svt_dispose(handle: u64) -> Result<(), String>:
+    let mut registry = # <expr>
+    # <expr>
+
+fn svt_stats(handle: u64) -> Result<SvtStats, String>:
+    let registry = # <expr>
+    let instance = # <expr>
+    # <expr>
+
+struct SvtStats:
+    virtual_width: u32
+    virtual_height: u32
+    tile_size: u32
+    loaded_tiles: u32
+    max_tiles: u32
+
+struct SvtEngine:
+    page_table_texture: wgpu::Texture
+    page_table_view: wgpu::TextureView
+    physical_texture: wgpu::Texture
+    physical_view: wgpu::TextureView
+    bind_group_layout: wgpu::BindGroupLayout
+    compute_pipeline: wgpu::ComputePipeline
+
+impl SvtEngine:
+    fn new_(device: &wgpu::Device) -> Self:
+        let page_table_texture = # <expr>
+        let page_table_view = # <expr>
+        let physical_texture = # <expr>
+        let physical_view = # <expr>
+        let bind_group_layout = # <expr>
+        let shader = # <expr>
+        let compute_pipeline = # <expr>
+        # <expr>
+
+    fn dispatch_stroke(_self: &Self, device: &wgpu::Device, _queue: &wgpu::Queue, encoder: &mut wgpu::CommandEncoder, brush_params: &Slice<u8>):
+        let brush_buffer = # <expr>
+        let bind_group = # <expr>
+        let mut cpass = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+
+struct PageTableManager:
+    virtual_size: u32
+    physical_size: u32
+    tile_size: u32
+    active_pages: Map<(u32, u32), (u32, u32)>
+    lru_queue: Array<(u32, u32)>
+    free_physical_slots: Array<(u32, u32)>
+
+impl PageTableManager:
+    fn new_(virtual_size: u32, physical_size: u32, tile_size: u32) -> Self:
+        let mut free_physical_slots = # <expr>
+        let physical_tiles = # <expr>
+        # <expr>
+        # <expr>
+
+    fn request_tiles(_self: &mut Self, virtual_uvs: Array<(f32, f32)>) -> Array<PageUpdate>:
+        let mut updates = # <expr>
+        let page_dim = # <expr>
+        # <expr>
+        updates
+
+    fn touch_page(_self: &mut Self, x: u32, y: u32):
+        # <expr>
+        # <expr>
+
+    fn get_physical(_self: &Self, v_page: (u32, u32)) -> Option<(u32, u32)>:
+        # <expr>
+
+    fn loaded_count(_self: &Self) -> usize:
+        # <expr>
+
+    fn capacity(_self: &Self) -> u32:
+        let physical_tiles = # <expr>
+        # <expr>
+
+
+struct PageUpdate:
+    v_page: (u32, u32)
+    p_page: Option<(u32, u32)>
+
+struct SvtPbrInstance:
+    engine: super::pbr_engine::SvtPbrEngine
+    manager: super::PageTableManager
+
+fn next_pbr_handle() -> u64:
+    let mut h = # <expr>
+    let handle = # <expr>
+    # <expr>
+    handle
+
+struct SvtPbrConfig:
+    virtual_width: Option<u32>
+    virtual_height: Option<u32>
+    physical_size: Option<u32>
+    tile_size: Option<u32>
+
+struct PbrStrokeParams:
+    center_uv: Array<f32>
+    radius: f32
+    hardness: f32
+    flow: f32
+    blend_mode: u32
+    albedo_enabled: Bool
+    normal_enabled: Bool
+    roughness_enabled: Bool
+    metalness_enabled: Bool
+    emission_enabled: Bool
+    albedo_color: Array<f32>
+    roughness_value: f32
+    metalness_value: f32
+    emission_color: Array<f32>
+    emission_strength: f32
+
+fn default_hardness() -> f32:
+    0.5
+
+fn default_flow() -> f32:
+    1
+
+fn default_true() -> Bool:
+    true
+
+fn default_white() -> Array<f32>:
+    # <expr>
+
+fn default_half() -> f32:
+    0.5
+
+fn default_emission() -> Array<f32>:
+    # <expr>
+
+struct SvtPbrStats:
+    virtual_width: u32
+    virtual_height: u32
+    physical_size: u32
+    tile_size: u32
+    loaded_tiles: u32
+    max_tiles: u32
+    channels: Array<String>
+
+fn svt_pbr_init(config: Option<SvtPbrConfig>) -> Result<u64, String>:
+    let gpu = # <expr>
+    let gpu_guard = # <expr>
+    let device = # <expr>
+    let queue = # <expr>
+    let config = # <expr>
+    let virtual_width = # <expr>
+    let virtual_height = # <expr>
+    let physical_size = # <expr>
+    let tile_size = # <expr>
+    let engine = # <expr>
+    # <expr>
+    let manager = # <expr>
+    let instance = # <expr>
+    let handle = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+
+fn svt_pbr_stroke(handle: u64, params: PbrStrokeParams) -> Result<(), String>:
+    let gpu = # <expr>
+    let gpu_guard = # <expr>
+    let device = # <expr>
+    let queue = # <expr>
+    let mut registry = # <expr>
+    let instance = # <expr>
+    let r = # <expr>
+    let tiles_to_load: Array<(f32, f32)> = # <expr>
+    let page_updates = # <expr>
+    # <expr>
+    let brush_params = # <expr>
+    let mut encoder = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+
+fn svt_pbr_export_channel(handle: u64, channel: u32) -> Result<Array<u8>, String>:
+    let gpu = # <expr>
+    let gpu_guard = # <expr>
+    let device = # <expr>
+    let queue = # <expr>
+    let registry = # <expr>
+    let instance = # <expr>
+    let channel = # <expr>
+    let _ = # <expr>
+    let physical_size = # <expr>
+    let bytes_per_row = # <expr>
+    let padded_bytes_per_row = # <expr>
+    let staging_buffer = # <expr>
+    let mut encoder = # <expr>
+    # <expr>
+    # <expr>
+    let buffer_slice = # <expr>
+    let _ = # <expr>
+    # <expr>
+    let _ = # <expr>
+    # <expr>
+    let data = # <expr>
+    let mut pixels = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+
+fn svt_pbr_clear_channel(handle: u64, channel: u32) -> Result<(), String>:
+    let gpu = # <expr>
+    let gpu_guard = # <expr>
+    let device = # <expr>
+    let queue = # <expr>
+    let registry = # <expr>
+    let instance = # <expr>
+    let channel = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+
+fn svt_pbr_clear_all(handle: u64) -> Result<(), String>:
+    let gpu = # <expr>
+    let gpu_guard = # <expr>
+    let device = # <expr>
+    let queue = # <expr>
+    let registry = # <expr>
+    let instance = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+
+fn svt_pbr_stats(handle: u64) -> Result<SvtPbrStats, String>:
+    let registry = # <expr>
+    let instance = # <expr>
+    # <expr>
+
+fn svt_pbr_dispose(handle: u64) -> Result<(), String>:
+    let mut registry = # <expr>
+    # <expr>
+
+enum PbrChannel:
+    Albedo
+    Normal
+    Roughness
+    Metalness
+    Emission
+
+impl PbrChannel:
+    fn from_u32(v: u32) -> Option<Self>:
+        # <expr>
+
+    fn default_color(_self: &Self) -> Array<f32>:
+        # <expr>
+
+
+enum BlendMode:
+    Normal
+    Multiply
+    Add
+    Overlay
+    Screen
+
+impl BlendMode:
+    fn from_u32(v: u32) -> Self:
+        # <expr>
+
+
+struct PbrBrushParams:
+    center_uv: Array<f32>
+    radius: f32
+    hardness: f32
+    albedo_enabled: f32
+    normal_enabled: f32
+    roughness_enabled: f32
+    metalness_enabled: f32
+    emission_enabled: f32
+    blend_mode: u32
+    flow: f32
+    pad0: f32
+    albedo_color: Array<f32>
+    normal_color: Array<f32>
+    roughness_value: f32
+    metalness_value: f32
+    emission_strength: f32
+    pad1: f32
+    emission_color: Array<f32>
+    virtual_size: f32
+    tile_size: f32
+    pad2: Array<f32>
+
+impl Default for PbrBrushParams:
+    fn default_() -> Self:
+        # <expr>
+
+
+struct SvtPbrEngine:
+    page_table_texture: wgpu::Texture
+    page_table_view: wgpu::TextureView
+    albedo_texture: wgpu::Texture
+    albedo_view: wgpu::TextureView
+    normal_texture: wgpu::Texture
+    normal_view: wgpu::TextureView
+    roughness_texture: wgpu::Texture
+    roughness_view: wgpu::TextureView
+    metalness_texture: wgpu::Texture
+    metalness_view: wgpu::TextureView
+    emission_texture: wgpu::Texture
+    emission_view: wgpu::TextureView
+    bind_group_layout: wgpu::BindGroupLayout
+    compute_pipeline: wgpu::ComputePipeline
+    virtual_width: u32
+    virtual_height: u32
+    physical_size: u32
+    tile_size: u32
+
+impl SvtPbrEngine:
+    fn new_(device: &wgpu::Device, virtual_width: u32, virtual_height: u32, physical_size: u32, tile_size: u32) -> Self:
+        let page_table_size = # <expr>
+        let page_table_texture = # <expr>
+        let page_table_view = # <expr>
+        let create_physical_texture = # <expr>
+        let _ = # <expr>
+        let _ = # <expr>
+        let _ = # <expr>
+        let _ = # <expr>
+        let _ = # <expr>
+        let bind_group_layout = # <expr>
+        let shader = # <expr>
+        let compute_pipeline = # <expr>
+        # <expr>
+
+    fn get_channel_texture(_self: &Self, channel: PbrChannel) -> (&wgpu::Texture, &wgpu::TextureView):
+        # <expr>
+
+    fn dispatch_stroke(_self: &Self, device: &wgpu::Device, _queue: &wgpu::Queue, encoder: &mut wgpu::CommandEncoder, brush_params: &PbrBrushParams):
+        let params_bytes = # <expr>
+        let brush_buffer = # <expr>
+        let bind_group = # <expr>
+        let mut cpass = # <expr>
+        # <expr>
+        # <expr>
+        let brush_pixels = # <expr>
+        let workgroups = # <expr>
+        # <expr>
+
+    fn clear_channel(_self: &Self, _device: &wgpu::Device, queue: &wgpu::Queue, channel: PbrChannel):
+        let _ = # <expr>
+        let default_color = # <expr>
+        let pixel_count = # <expr>
+        let mut data = # <expr>
+        # <expr>
+        # <expr>
+
+    fn clear_all(_self: &Self, device: &wgpu::Device, queue: &wgpu::Queue):
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+

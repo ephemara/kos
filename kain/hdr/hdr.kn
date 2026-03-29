@@ -1,0 +1,651 @@
+# Generated from Rust source by kain import-rust
+# Project Ouroboros — Rust → KAIN → Rust
+
+fn save_hdr(hdr: &super::HDRImage, path: &std::path::Path) -> Result<(), super::HDRError>:
+    let extension = # <expr>
+    # <expr>
+
+fn load_hdr(path: &std::path::Path) -> Result<super::HDRImage, super::HDRError>:
+    let extension = # <expr>
+    # <expr>
+
+fn save_radiance_rgbe(hdr: &super::HDRImage, path: &std::path::Path) -> Result<(), super::HDRError>:
+    # <stmt>
+    let file = # <expr>
+    let writer = # <expr>
+    let encoder = # <expr>
+    let pixels: Array<image::Rgb<f32>> = # <expr>
+    # <expr>
+    # <expr>
+
+fn load_radiance_rgbe(path: &std::path::Path) -> Result<super::HDRImage, super::HDRError>:
+    # <stmt>
+    let file = # <expr>
+    let reader = # <expr>
+    let decoder = # <expr>
+    let metadata = # <expr>
+    let width = # <expr>
+    let height = # <expr>
+    let bytes_len = # <expr>
+    let mut bytes = # <expr>
+    # <expr>
+    let pixels: Array<image::Rgb<f32>> = # <expr>
+    let mut data = # <expr>
+    # <expr>
+    # <expr>
+
+fn save_openexr(hdr: &super::HDRImage, path: &std::path::Path) -> Result<(), super::HDRError>:
+    # <stmt>
+    let width = # <expr>
+    let height = # <expr>
+    let mut r_channel = # <expr>
+    let mut g_channel = # <expr>
+    let mut b_channel = # <expr>
+    # <expr>
+    let layer = # <expr>
+    let image = # <expr>
+    # <expr>
+    # <expr>
+
+fn load_openexr(path: &std::path::Path) -> Result<super::HDRImage, super::HDRError>:
+    # <stmt>
+    let image = # <expr>
+    let _ = # <expr>
+    # <expr>
+
+mod tests:
+    fn test_rgbe_round_trip():
+        let temp_dir = # <expr>
+        let path = # <expr>
+        let mut hdr = # <expr>
+        # <expr>
+        # <expr>
+        let loaded = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_exr_round_trip():
+        let temp_dir = # <expr>
+        let path = # <expr>
+        let mut hdr = # <expr>
+        # <expr>
+        # <expr>
+        let loaded = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_unsupported_format():
+        let temp_dir = # <expr>
+        let path = # <expr>
+        let hdr = # <expr>
+        # <expr>
+
+    fn test_format_detection():
+        let temp_dir = # <expr>
+        let hdr = # <expr>
+        let hdr_path = # <expr>
+        # <expr>
+        let exr_path = # <expr>
+        # <expr>
+
+
+fn add_light_to_hdr(_gpu_compute: &k_os_gpu_pipeline::device::GpuComputeDevice, hdr: &mut super::HDRImage, light: &super::Light) -> Result<(), super::HDRError>:
+    # <expr>
+    # <expr>
+    let light_color = # <expr>
+    # <expr>
+    # <expr>
+
+fn render_point_light(hdr: &mut super::HDRImage, light: &super::Light, light_color: nalgebra::Vector3<f32>):
+    let samples_per_pixel = 64
+    let width = # <expr>
+    let height = # <expr>
+    let contributions: Array<_> = # <expr>
+    # <expr>
+
+fn render_directional_light(hdr: &mut super::HDRImage, light: &super::Light, light_color: nalgebra::Vector3<f32>):
+    let sun_angular_size = # <expr>
+    let samples_per_pixel = 32
+    let width = # <expr>
+    let height = # <expr>
+    let contributions: Array<_> = # <expr>
+    # <expr>
+
+fn render_area_light(hdr: &mut super::HDRImage, light: &super::Light, light_color: nalgebra::Vector3<f32>, width: f32, height: f32):
+    let samples_per_pixel = 128
+    let hdr_width = # <expr>
+    let hdr_height = # <expr>
+    let normal = # <expr>
+    let tangent = # <expr>
+    let bitangent = # <expr>
+    let contributions: Array<_> = # <expr>
+    # <expr>
+
+fn calculate_point_light_contribution(direction: &nalgebra::Vector3<f32>, light_pos: &nalgebra::Vector3<f32>, intensity: f32, color: &nalgebra::Vector3<f32>) -> nalgebra::Vector3<f32>:
+    let light_radius = 0.1
+    let oc = # <expr>
+    let a = # <expr>
+    let b = # <expr>
+    let c = # <expr>
+    let discriminant = # <expr>
+    # <expr>
+    # <expr>
+
+fn calculate_area_light_contribution(direction: &nalgebra::Vector3<f32>, light_point: &nalgebra::Vector3<f32>, light_normal: &nalgebra::Vector3<f32>, intensity: f32, color: &nalgebra::Vector3<f32>, area: f32) -> nalgebra::Vector3<f32>:
+    let denom = # <expr>
+    # <expr>
+    # <expr>
+
+fn equirectangular_to_direction(u: f32, v: f32) -> nalgebra::Vector3<f32>:
+    let theta = # <expr>
+    let phi = # <expr>
+    let sin_phi = # <expr>
+    let cos_phi = # <expr>
+    let sin_theta = # <expr>
+    let cos_theta = # <expr>
+    # <expr>
+
+fn direction_to_equirectangular(dir: &nalgebra::Vector3<f32>) -> nalgebra::Vector2<f32>:
+    let theta = # <expr>
+    let phi = # <expr>
+    let u = # <expr>
+    let v = # <expr>
+    # <expr>
+
+mod tests:
+    fn test_equirectangular_conversion():
+        let original = # <expr>
+        let uv = # <expr>
+        let converted = # <expr>
+        # <expr>
+
+    fn test_light_validation():
+        let gpu_compute = # <expr>
+        let mut hdr = # <expr>
+        let light = # <expr>
+        # <expr>
+        let mut bad_light = # <expr>
+        # <expr>
+        # <expr>
+        let mut bad_light = # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_point_light_contribution():
+        let direction = # <expr>
+        let light_pos = # <expr>
+        let intensity = 1000
+        let color = # <expr>
+        let contribution = # <expr>
+        # <expr>
+
+
+fn merge_exposures(_gpu_compute: &k_os_gpu_pipeline::device::GpuComputeDevice, input: super::HDRMergeInput) -> Result<super::HDRImage, super::HDRError>:
+    # <expr>
+    # <expr>
+    let expected_size = # <expr>
+    # <expr>
+    let response_curve = # <expr>
+    let hdr_data = # <expr>
+    # <expr>
+
+fn estimate_response_curve(input: &super::HDRMergeInput) -> Result<ResponseCurve, super::HDRError>:
+    let sample_count = # <expr>
+    let sample_step = # <expr>
+    let mut samples_r = # <expr>
+    let mut samples_g = # <expr>
+    let mut samples_b = # <expr>
+    # <expr>
+    let curve_r = # <expr>
+    let curve_g = # <expr>
+    let curve_b = # <expr>
+    # <expr>
+
+fn solve_response_curve(samples: &Slice<(u8, f32)>) -> Array<f32>:
+    let mut curve = # <expr>
+    # <expr>
+    let iterations = 10
+    # <expr>
+    let max_value = # <expr>
+    # <expr>
+    curve
+
+fn weighting_function(pixel_value: u8) -> f32:
+    let z = # <expr>
+    let z_min = 0
+    let z_max = 255
+    let z_mid = 127.5
+    # <expr>
+
+fn smooth_curve(curve: &mut Array<f32>):
+    let window_size = 5
+    let mut smoothed = # <expr>
+    # <expr>
+    # <expr>
+
+fn merge_with_response_curve(input: &super::HDRMergeInput, response_curve: &ResponseCurve) -> Result<Array<f32>, super::HDRError>:
+    let pixel_count = # <expr>
+    let mut hdr_data = # <expr>
+    # <expr>
+    # <expr>
+
+struct ResponseCurve:
+    r: Array<f32>
+    g: Array<f32>
+    b: Array<f32>
+
+mod tests:
+    fn test_weighting_function():
+        # <expr>
+        # <expr>
+        # <expr>
+        let w1 = # <expr>
+        let w2 = # <expr>
+        # <expr>
+
+    fn test_response_curve_estimation():
+        let mut samples = # <expr>
+        # <expr>
+        let curve = # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_merge_validation():
+        let gpu_compute = # <expr>
+        let input = # <expr>
+        # <expr>
+        let input = # <expr>
+        # <expr>
+
+
+struct HDRImage:
+    data: Array<f32>
+    width: u32
+    height: u32
+    format: HDRFormat
+
+enum HDRFormat:
+    RadianceRGBE
+    OpenEXR
+
+struct Light:
+    light_type: LightType
+    position: nalgebra::Vector3<f32>
+    direction: nalgebra::Vector3<f32>
+    intensity: f32
+    color_temperature: f32
+
+enum LightType:
+    Point
+    Directional
+    Area { width: f32, height: f32 }
+
+struct HDRMergeInput:
+    exposures: Array<(Array<u8>, f32)>
+    width: u32
+    height: u32
+
+struct HDRCapture:
+    gpu_compute: k_os_gpu_pipeline::device::GpuComputeDevice
+
+impl HDRCapture:
+    fn new_(gpu_compute: k_os_gpu_pipeline::device::GpuComputeDevice) -> Self:
+        # <expr>
+
+    fn merge_exposures(_self: &Self, input: HDRMergeInput) -> Result<HDRImage, HDRError>:
+        # <expr>
+
+    fn tone_map(_self: &Self, hdr: &HDRImage, method: ToneMappingMethod) -> Result<Array<u8>, HDRError>:
+        # <expr>
+
+    fn add_light(_self: &Self, hdr: &mut HDRImage, light: &Light) -> Result<(), HDRError>:
+        # <expr>
+
+    fn save(_self: &Self, hdr: &HDRImage, path: &std::path::Path) -> Result<(), HDRError>:
+        # <expr>
+
+    fn load(_self: &Self, path: &std::path::Path) -> Result<HDRImage, HDRError>:
+        # <expr>
+
+    fn panorama_to_hdr(_self: &Self, image_data: &Slice<u8>, width: u32, height: u32) -> Result<HDRImage, HDRError>:
+        let pixel_count = # <expr>
+        let mut hdr_data = # <expr>
+        # <expr>
+        # <expr>
+
+    fn srgb_to_linear(srgb: f32) -> f32:
+        # <expr>
+
+
+enum ToneMappingMethod:
+    Reinhard
+    Filmic
+    ACES
+    Uncharted2
+
+enum HDRError:
+    InvalidExposure(f32)
+    InsufficientExposures(usize)
+    DimensionMismatch
+    InvalidIntensity(f32)
+    InvalidColorTemperature(f32)
+    IoError(std::io::Error)
+    ImageError(String)
+    GpuError(String)
+
+impl HDRImage:
+    fn new_(width: u32, height: u32, format: HDRFormat) -> Self:
+        let pixel_count = # <expr>
+        # <expr>
+
+    fn get_pixel(_self: &Self, x: u32, y: u32) -> Option<nalgebra::Vector3<f32>>:
+        # <expr>
+        let idx = # <expr>
+        # <expr>
+
+    fn set_pixel(_self: &mut Self, x: u32, y: u32, color: nalgebra::Vector3<f32>):
+        # <expr>
+        let idx = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn get_luminance(_self: &Self, x: u32, y: u32) -> Option<f32>:
+        # <expr>
+
+
+impl Light:
+    fn point(position: nalgebra::Vector3<f32>, intensity: f32, color_temperature: f32) -> Result<Self, HDRError>:
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn directional(direction: nalgebra::Vector3<f32>, intensity: f32, color_temperature: f32) -> Result<Self, HDRError>:
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn area(position: nalgebra::Vector3<f32>, direction: nalgebra::Vector3<f32>, width: f32, height: f32, intensity: f32, color_temperature: f32) -> Result<Self, HDRError>:
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn get_color(_self: &Self) -> nalgebra::Vector3<f32>:
+        # <expr>
+
+    fn validate_intensity(intensity: f32) -> Result<(), HDRError>:
+        # <expr>
+
+    fn validate_color_temperature(temp: f32) -> Result<(), HDRError>:
+        # <expr>
+
+
+fn kelvin_to_rgb(kelvin: f32) -> nalgebra::Vector3<f32>:
+    let temp = # <expr>
+    let r = # <expr>
+    let g = # <expr>
+    let b = # <expr>
+    # <expr>
+
+mod tests:
+    fn test_hdr_image_creation():
+        let hdr = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_pixel_operations():
+        let mut hdr = # <expr>
+        let color = # <expr>
+        # <expr>
+        let retrieved = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_light_validation():
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_kelvin_to_rgb():
+        let daylight = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        let warm = # <expr>
+        # <expr>
+        # <expr>
+
+
+mod property_tests:
+    fn property_hdr_merge_performance_8k():
+        let gpu_compute = # <expr>
+        let capture = # <expr>
+        let width = 7680
+        let height = 4320
+        let pixel_count = # <expr>
+        let exposures = # <expr>
+        let input = # <expr>
+        let start = # <expr>
+        let result = # <expr>
+        let duration = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+
+mod unit_tests:
+    fn test_exposure_merging_known_inputs():
+        let gpu_compute = # <expr>
+        let capture = # <expr>
+        let width = 4
+        let height = 4
+        let pixel_count = # <expr>
+        let exposures = # <expr>
+        let input = # <expr>
+        let result = # <expr>
+        # <expr>
+        let hdr = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_tone_mapping_algorithms():
+        # <stmt>
+        let mut hdr = # <expr>
+        # <expr>
+        let methods = # <expr>
+        # <expr>
+
+    fn test_light_addition():
+        let gpu_compute = # <expr>
+        let capture = # <expr>
+        let mut hdr = # <expr>
+        let point_light = # <expr>
+        let result = # <expr>
+        # <expr>
+        let has_non_zero = # <expr>
+        # <expr>
+
+    fn test_file_io_round_trip():
+        # <stmt>
+        # <stmt>
+        # <stmt>
+        let temp_dir = # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_panorama_to_hdr():
+        let gpu_compute = # <expr>
+        let capture = # <expr>
+        let width = 32
+        let height = 16
+        let image_data = # <expr>
+        let result = # <expr>
+        # <expr>
+        let hdr = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_light_types():
+        let point = # <expr>
+        # <expr>
+        let point = # <expr>
+        # <expr>
+        let directional = # <expr>
+        # <expr>
+        let directional = # <expr>
+        # <expr>
+        let area = # <expr>
+        # <expr>
+        let area = # <expr>
+        # <expr>
+
+    fn test_light_color_temperature():
+        let daylight = # <expr>
+        let color = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        let warm = # <expr>
+        let color = # <expr>
+        # <expr>
+        # <expr>
+        let cool = # <expr>
+        let color = # <expr>
+        # <expr>
+
+    fn test_hdr_pixel_operations():
+        let mut hdr = # <expr>
+        let color = # <expr>
+        # <expr>
+        let retrieved = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        let luminance = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_insufficient_exposures_error():
+        let gpu_compute = # <expr>
+        let capture = # <expr>
+        let input = # <expr>
+        let result = # <expr>
+        # <expr>
+
+    fn test_invalid_exposure_values():
+        let gpu_compute = # <expr>
+        let capture = # <expr>
+        let input = # <expr>
+        let result = # <expr>
+        # <expr>
+
+    fn test_dimension_mismatch_error():
+        let gpu_compute = # <expr>
+        let capture = # <expr>
+        let input = # <expr>
+        let result = # <expr>
+        # <expr>
+
+
+fn apply_tone_mapping(hdr: &super::HDRImage, method: super::ToneMappingMethod) -> Result<Array<u8>, super::HDRError>:
+    let pixel_count = # <expr>
+    let mut ldr_data = # <expr>
+    # <expr>
+    # <expr>
+
+fn apply_reinhard(hdr: &super::HDRImage, ldr_data: &mut Slice<u8>):
+    let avg_luminance = # <expr>
+    let key = 0.18
+    let scale = # <expr>
+    # <expr>
+
+fn apply_filmic(hdr: &super::HDRImage, ldr_data: &mut Slice<u8>):
+    let exposure_bias = 2
+    # <expr>
+
+fn filmic_curve(x: f32) -> f32:
+    let a = 0.22
+    let b = 0.3
+    let c = 0.1
+    let d = 0.2
+    let e = 0.01
+    let f = 0.3
+    # <expr>
+
+fn apply_aces(hdr: &super::HDRImage, ldr_data: &mut Slice<u8>):
+    # <expr>
+
+fn aces_fitted(x: f32) -> f32:
+    let a = 2.51
+    let b = 0.03
+    let c = 2.43
+    let d = 0.59
+    let e = 0.14
+    # <expr>
+
+fn apply_uncharted2(hdr: &super::HDRImage, ldr_data: &mut Slice<u8>):
+    let exposure_bias = 2
+    let white_point = 11.2
+    let white_scale = # <expr>
+    # <expr>
+
+fn uncharted2_tonemap(x: f32) -> f32:
+    let a = 0.15
+    let b = 0.5
+    let c = 0.1
+    let d = 0.2
+    let e = 0.02
+    let f = 0.3
+    # <expr>
+
+fn calculate_average_luminance(hdr: &super::HDRImage) -> f32:
+    let mut sum = 0
+    let mut count = 0
+    # <expr>
+    # <expr>
+
+fn linear_to_srgb(linear: f32) -> u8:
+    let clamped = # <expr>
+    let srgb = # <expr>
+    # <expr>
+
+fn srgb_to_linear(srgb: u8) -> f32:
+    let normalized = # <expr>
+    # <expr>
+
+mod tests:
+    fn test_linear_srgb_conversion():
+        # <expr>
+
+    fn test_tone_mapping_methods():
+        let mut hdr = # <expr>
+        # <expr>
+        let methods = # <expr>
+        # <expr>
+
+    fn test_filmic_curve():
+        let mut prev = # <expr>
+        # <expr>
+
+    fn test_aces_fitted():
+        # <expr>
+        # <expr>
+        let mut prev = 0
+        # <expr>
+
+    fn test_average_luminance():
+        let mut hdr = # <expr>
+        # <expr>
+        let avg = # <expr>
+        # <expr>
+
+

@@ -1,0 +1,804 @@
+# Generated from Rust source by kain import-rust
+# Project Ouroboros — Rust → KAIN → Rust
+
+struct AnimationBinding:
+    progress_bind: String
+    easing: Easing
+    keyframes: Array<Keyframe>
+
+impl AnimationBinding:
+    fn new_(progress_bind: impl Into<String>) -> Self:
+        # <expr>
+
+    fn with_easing(_self: Self, easing: Easing) -> Self:
+        # <expr>
+        _self
+
+    fn keyframe(_self: Self, at: f32, props: serde_json::Value) -> Self:
+        # <expr>
+        _self
+
+    fn slide_in_left(progress_bind: impl Into<String>, distance: f32) -> Self:
+        # <expr>
+
+    fn fade_in(progress_bind: impl Into<String>) -> Self:
+        # <expr>
+
+    fn scale_up(progress_bind: impl Into<String>) -> Self:
+        # <expr>
+
+
+struct Keyframe:
+    at: f32
+    props: serde_json::Value
+
+enum Easing:
+    Linear
+    EaseIn
+    EaseOut
+    EaseInOut
+    EaseInCubic
+    EaseOutCubic
+    EaseInOutCubic
+    EaseInQuad
+    EaseOutQuad
+    EaseInOutQuad
+    EaseInBack
+    EaseOutBack
+    EaseInOutBack
+    EaseInElastic
+    EaseOutElastic
+    Spring
+
+impl Easing:
+    fn apply(_self: &Self, t: f32) -> f32:
+        let t = # <expr>
+        # <expr>
+
+
+struct AsyncConfig:
+    loading: Option<String>
+    error: Option<String>
+    loading_props: serde_json::Value
+    retry: Option<RetryConfig>
+    timeout_ms: Option<u32>
+
+impl Default for AsyncConfig:
+    fn default_() -> Self:
+        # <expr>
+
+
+impl AsyncConfig:
+    fn simple() -> Self:
+        # <expr>
+
+    fn with_loading(component: impl Into<String>) -> Self:
+        # <expr>
+
+    fn with_retry(max_attempts: u32) -> Self:
+        # <expr>
+
+
+struct RetryConfig:
+    max_attempts: u32
+    delay_ms: u32
+    backoff: BackoffStrategy
+
+impl Default for RetryConfig:
+    fn default_() -> Self:
+        # <expr>
+
+
+enum BackoffStrategy:
+    Fixed
+    Exponential
+    Jitter
+
+enum AsyncValue:
+    Loading
+    Ready(T)
+    Error { message: String }
+
+impl AsyncValue<T>:
+    fn is_loading(_self: &Self) -> Bool:
+        # <expr>
+
+    fn is_ready(_self: &Self) -> Bool:
+        # <expr>
+
+    fn is_error(_self: &Self) -> Bool:
+        # <expr>
+
+    fn get(_self: &Self) -> Option<&T>:
+        # <expr>
+
+
+impl Default for AsyncValue<T>:
+    fn default_() -> Self:
+        Self::Loading
+
+
+struct UiCommand:
+    cmd: String
+    args: serde_json::Value
+    tx: Option<String>
+    seq: u64
+    source: Option<u64>
+
+impl UiCommand:
+    fn new_(cmd: impl Into<String>, seq: u64) -> Self:
+        # <expr>
+
+    fn with_args(_self: Self, args: serde_json::Value) -> Self:
+        # <expr>
+        _self
+
+    fn with_tx(_self: Self, tx: impl Into<String>) -> Self:
+        # <expr>
+        _self
+
+    fn from_source(_self: Self, node_id: u64) -> Self:
+        # <expr>
+        _self
+
+
+struct UiAck:
+    seq: u64
+    result: AckResult
+
+enum AckResult:
+    Ok
+    Error { message: String }
+    Pending
+
+impl UiAck:
+    fn ok(seq: u64) -> Self:
+        # <expr>
+
+    fn error(seq: u64, message: impl Into<String>) -> Self:
+        # <expr>
+
+    fn pending(seq: u64) -> Self:
+        # <expr>
+
+
+struct FocusConfig:
+    tab_index: i32
+    group: Option<String>
+    focusable: Bool
+    trap: Bool
+    auto_focus: Bool
+    restore_focus: Bool
+
+fn default_true() -> Bool:
+    true
+
+impl FocusConfig:
+    fn new_(tab_index: i32) -> Self:
+        # <expr>
+
+    fn not_focusable() -> Self:
+        # <expr>
+
+    fn modal_trap() -> Self:
+        # <expr>
+
+    fn in_group(_self: Self, group: impl Into<String>) -> Self:
+        # <expr>
+        _self
+
+
+struct LayoutStyle:
+    width: LayoutValue
+    height: LayoutValue
+    min_width: Option<LayoutValue>
+    max_width: Option<LayoutValue>
+    min_height: Option<LayoutValue>
+    max_height: Option<LayoutValue>
+    flex_direction: FlexDirection
+    flex_grow: f32
+    flex_shrink: f32
+    gap: f32
+    justify: JustifyContent
+    align: AlignItems
+    padding: EdgeInsets
+    margin: EdgeInsets
+    overflow: Overflow
+    position: Position
+
+fn default_flex_shrink() -> f32:
+    1
+
+impl LayoutStyle:
+    fn row() -> Self:
+        # <expr>
+
+    fn column() -> Self:
+        # <expr>
+
+    fn grow(_self: Self) -> Self:
+        # <expr>
+        _self
+
+    fn gap(_self: Self, gap: f32) -> Self:
+        # <expr>
+        _self
+
+    fn padding(_self: Self, padding: f32) -> Self:
+        # <expr>
+        _self
+
+
+enum LayoutValue:
+    Auto
+    Percent(f32)
+    Pixels(f32)
+    Fill
+
+impl LayoutValue:
+    fn px(v: f32) -> Self:
+        # <expr>
+
+    fn pct(v: f32) -> Self:
+        # <expr>
+
+
+enum FlexDirection:
+    Row
+    Column
+    RowReverse
+    ColumnReverse
+
+enum JustifyContent:
+    Start
+    Center
+    End
+    SpaceBetween
+    SpaceAround
+    SpaceEvenly
+
+enum AlignItems:
+    Stretch
+    Start
+    Center
+    End
+    Baseline
+
+enum Overflow:
+    Visible
+    Hidden
+    Scroll
+    Auto
+
+enum Position:
+    Relative
+    Absolute
+    Fixed
+
+struct EdgeInsets:
+    top: f32
+    right: f32
+    bottom: f32
+    left: f32
+
+impl EdgeInsets:
+    fn all(value: f32) -> Self:
+        # <expr>
+
+    fn xy(x: f32, y: f32) -> Self:
+        # <expr>
+
+    fn new_(top: f32, right: f32, bottom: f32, left: f32) -> Self:
+        # <expr>
+
+
+struct UiNode:
+    id: super::NodeId
+    component_: String
+    parent: Option<super::NodeId>
+    props: serde_json::Value
+    bindings: Map<String, String>
+    commands: Map<String, CommandBinding>
+    layout: Option<super::layout::LayoutStyle>
+    focus: Option<super::focus::FocusConfig>
+    portal: Option<super::portal::PortalConfig>
+    target_slot: Option<String>
+    slots: Option<Array<SlotDefinition>>
+    async_config: Option<super::async_config::AsyncConfig>
+
+impl Default for UiNode:
+    fn default_() -> Self:
+        # <expr>
+
+
+struct CommandBinding:
+    cmd: String
+    args: serde_json::Value
+    debounce_tx: Bool
+
+impl CommandBinding:
+    fn new_(cmd: impl Into<String>) -> Self:
+        # <expr>
+
+    fn with_args(_self: Self, args: serde_json::Value) -> Self:
+        # <expr>
+        _self
+
+    fn debounced(_self: Self) -> Self:
+        # <expr>
+        _self
+
+
+struct SlotDefinition:
+    name: String
+    default_: Option<Array<UiNode>>
+
+impl SlotDefinition:
+    fn new_(name: impl Into<String>) -> Self:
+        # <expr>
+
+    fn with_default(_self: Self, nodes: Array<UiNode>) -> Self:
+        # <expr>
+        _self
+
+
+enum UiPatch:
+    Set { path: String, value: serde_json::Value }
+    SetBatch { updates: Array<(String, serde_json::Value)> }
+    NodeSet { id: super::NodeId, node: super::node::UiNode }
+    NodeRemove { id: super::NodeId }
+    NodeMove { id: super::NodeId, new_parent: super::NodeId, index: usize }
+    NodePropUpdate { id: super::NodeId, props: serde_json::Value }
+    FullSync { bindings: Map<String, serde_json::Value>, nodes: Array<super::node::UiNode>, seq: u64 }
+    FocusChange { node_id: Option<super::NodeId> }
+    UndoStateChange { can_undo: Bool, can_redo: Bool, undo_label: Option<String>, redo_label: Option<String> }
+
+impl UiPatch:
+    fn set(path: impl Into<String>, value: impl Serialize) -> Self:
+        # <expr>
+
+    fn batch(updates: Array<(impl Into<String>, impl Serialize)>) -> Self:
+        # <expr>
+
+    fn node(node: super::node::UiNode) -> Self:
+        # <expr>
+
+    fn remove(id: super::NodeId) -> Self:
+        # <expr>
+
+
+struct UiPatchBatch:
+    patches: Array<UiPatch>
+    seq: u64
+    timestamp: f64
+
+impl UiPatchBatch:
+    fn new_(patches: Array<UiPatch>, seq: u64) -> Self:
+        # <expr>
+
+
+struct PortalConfig:
+    target: PortalTarget
+    z_index: i32
+    position: PortalPosition
+    focus_trap: Bool
+    dismiss_on: Array<DismissTrigger>
+    backdrop: Option<BackdropConfig>
+
+fn default_z_index() -> i32:
+    1000
+
+impl Default for PortalConfig:
+    fn default_() -> Self:
+        # <expr>
+
+
+impl PortalConfig:
+    fn modal() -> Self:
+        # <expr>
+
+    fn tooltip() -> Self:
+        # <expr>
+
+    fn context_menu() -> Self:
+        # <expr>
+
+    fn dropdown(anchor: super::NodeId) -> Self:
+        # <expr>
+
+
+enum PortalTarget:
+    Overlay
+    Tooltip
+    Dropdown
+    Custom(u32)
+
+enum PortalPosition:
+    Fixed { x: f32, y: f32 }
+    Cursor
+    RelativeTo { node_id: super::NodeId, anchor: Anchor }
+    Center
+
+impl Default for PortalPosition:
+    fn default_() -> Self:
+        Self::Center
+
+
+enum Anchor:
+    TopStart
+    TopCenter
+    TopEnd
+    BottomStart
+    BottomCenter
+    BottomEnd
+    StartTop
+    StartCenter
+    StartBottom
+    EndTop
+    EndCenter
+    EndBottom
+
+enum DismissTrigger:
+    ClickOutside
+    Escape
+    FocusLost
+    MouseLeave
+    Timeout { ms: u32 }
+
+struct BackdropConfig:
+    color: Array<f32>
+    dismiss_on_click: Bool
+    blur: Option<f32>
+
+impl Default for BackdropConfig:
+    fn default_() -> Self:
+        # <expr>
+
+
+struct VirtualListConfig:
+    count_bind: String
+    item_height: f32
+    overscan: usize
+    template_: super::node::UiNode
+    items_bind: String
+    scroll_bind: Option<String>
+
+fn default_overscan() -> usize:
+    5
+
+impl VirtualListConfig:
+    fn new_(count_bind: impl Into<String>, items_bind: impl Into<String>, item_height: f32, template: super::node::UiNode) -> Self:
+        # <expr>
+
+    fn with_overscan(_self: Self, overscan: usize) -> Self:
+        # <expr>
+        _self
+
+    fn with_scroll_bind(_self: Self, scroll_bind: impl Into<String>) -> Self:
+        # <expr>
+        _self
+
+
+struct VirtualScrollReport:
+    list_id: u64
+    start_index: usize
+    end_index: usize
+    scroll_top: f32
+    viewport_height: f32
+
+impl VirtualScrollReport:
+    fn visible_range_with_overscan(_self: &Self, overscan: usize, total_count: usize) -> (usize, usize):
+        let start = # <expr>
+        let end = # <expr>
+        # <expr>
+
+
+enum KosMessage:
+    StateSnapshot(KosState)
+    SculptStateUpdate(SculptState)
+    LayerUpdate(LayerHierarchy)
+    BrushLibraryUpdate(BrushLibrary)
+    SetActiveTool(ActiveTool)
+    SwitchBrush { brush_id: String }
+    UpdateBrushSettings { radius: Option<f32>, intensity: Option<f32>, is_add: Option<Bool> }
+    SetSymmetry(SymmetryState)
+    Subdivide
+    Remesh { resolution: u32 }
+    Undo
+    Redo
+    SelectLayer { entity_id: u32, add_to_selection: Bool }
+    ToggleLayerVisibility { entity_id: u32 }
+    ToggleLayerLock { entity_id: u32 }
+    DeleteLayer { entity_id: u32 }
+    RenameLayer { entity_id: u32, name: String }
+    RequestStateSnapshot
+    WindowMove { x: i32, y: i32, width: u32, height: u32 }
+    CursorMove { x: i32, y: i32 }
+    MouseButton { button: u8, pressed: Bool }
+    Scroll { delta_x: f32, delta_y: f32 }
+    SetGizmoVisibility { visible: Bool }
+    SpawnPrimitive { primitive_type: PrimitiveType }
+    ImportGltf { path: String }
+    LogBatch(Array<LogEntry>)
+    GpuError { error: String, category: GpuErrorCategory, context: String, timestamp: f64, error_hash: u64 }
+    SetDebugMode(DebugMode)
+    SetDebugOverlay { overlay: DebugOverlay, enabled: Bool }
+    KrueCommand(crate::krue::UiCommand)
+    KruePatch(crate::krue::UiPatchBatch)
+    KrueAck(crate::krue::UiAck)
+    KrueRequestSync
+    Shutdown
+    Ping
+    Pong
+
+enum PrimitiveType:
+    Cube
+    Sphere
+    Plane
+    Cylinder
+    Torus
+    Monkey
+
+impl KosMessage:
+    fn to_bytes(_self: &Self) -> Array<u8>:
+        # <expr>
+
+    fn from_bytes(bytes: &Slice<u8>) -> Option<Self>:
+        # <expr>
+
+
+impl bevy::prelude::Message for KosMessage:
+    pass
+
+enum KosResponse:
+    Ok
+    Error { message: String }
+    State(KosState)
+    RaycastHit { entity_id: u32, position: Array<f32>, normal: Array<f32> }
+
+impl KosResponse:
+    fn to_bytes(_self: &Self) -> Array<u8>:
+        # <expr>
+
+    fn from_bytes(bytes: &Slice<u8>) -> Option<Self>:
+        # <expr>
+
+
+struct SculptState:
+    active_brush: String
+    radius: f32
+    intensity: f32
+    is_add: Bool
+    symmetry: SymmetryState
+    mesh_stats: MeshStats
+    fps: f32
+
+struct SymmetryState:
+    x: Bool
+    y: Bool
+    z: Bool
+
+struct MeshStats:
+    vertex_count: u32
+    face_count: u32
+    undo_stack_size: u32
+
+struct BrushAsset:
+    id: String
+    name: String
+    category: String
+    kernel: String
+    icon: Option<String>
+
+struct BrushLibrary:
+    brushes: Array<BrushAsset>
+
+enum ActiveTool:
+    Viewport
+    Sculpt
+    Paint
+    Retopo
+
+impl ActiveTool:
+    fn from_str(s: &String) -> Self:
+        # <expr>
+
+    fn as_str(_self: &Self) -> &String:
+        # <expr>
+
+
+struct ViewportState:
+    active_tool: ActiveTool
+    camera_position: Array<f32>
+    camera_target: Array<f32>
+
+struct LayerInfo:
+    entity_id: u32
+    name: String
+    object_type: ObjectType
+    visible: Bool
+    locked: Bool
+    selected: Bool
+
+enum ObjectType:
+    Mesh
+    Light
+    Camera
+    Empty
+    Group
+
+struct LayerHierarchy:
+    layers: Array<LayerInfo>
+    primary_selection: Option<u32>
+
+struct KosState:
+    viewport: ViewportState
+    sculpt: SculptState
+    layers: LayerHierarchy
+    brush_library: BrushLibrary
+    frame: u64
+
+enum LogLevel:
+    Trace
+    Debug
+    Info
+    Warn
+    Error
+
+impl Default for LogLevel:
+    fn default_() -> Self:
+        Self::Info
+
+
+impl LogLevel:
+    fn from_tracing(level: &String) -> Self:
+        # <expr>
+
+
+struct LogEntry:
+    level: LogLevel
+    target: String
+    message: String
+    timestamp: f64
+    frame: Option<u64>
+
+enum GpuErrorCategory:
+    Shader
+    Buffer
+    Texture
+    Pipeline
+    Validation
+    OutOfMemory
+    DeviceLost
+    Other
+
+impl Default for GpuErrorCategory:
+    fn default_() -> Self:
+        Self::Other
+
+
+impl GpuErrorCategory:
+    fn from_error_text(text: &String) -> Self:
+        let lower = # <expr>
+        # <expr>
+
+    fn is_recoverable(_self: &Self) -> Bool:
+        # <expr>
+
+
+enum DebugMode:
+    None
+    Normals
+    ZeroNormals
+    Wireframe
+    All
+
+enum DebugOverlay:
+    Normals
+    ZeroNormals
+    Wireframe
+    BoundingBoxes
+
+struct KosSender:
+    socket: std::net::UdpSocket
+    target: String
+
+impl KosSender:
+    fn new_() -> Result<Self, Error>:
+        let socket = # <expr>
+        # <expr>
+        # <expr>
+
+    fn send_(_self: &Self, msg: &crate::KosMessage) -> Result<usize, Error>:
+        let bytes = # <expr>
+        # <expr>
+
+    fn try_recv(_self: &Self) -> Option<crate::KosMessage>:
+        let mut buf = # <expr>
+        # <expr>
+
+    fn try_clone_socket(_self: &Self) -> Result<std::net::UdpSocket, Error>:
+        # <expr>
+
+
+struct KosReceiver:
+    socket: std::net::UdpSocket
+    buffer: Array<crate::KosMessage>
+
+impl KosReceiver:
+    fn new_() -> Result<Self, Error>:
+        let socket = # <expr>
+        # <expr>
+        # <expr>
+
+    fn poll(_self: &mut Self):
+        let mut buf = # <expr>
+        # <expr>
+
+    fn drain(_self: &mut Self) -> impl Iterator:
+        # <expr>
+
+    fn send_(_self: &Self, msg: &crate::KosMessage) -> Result<usize, Error>:
+        let bytes = # <expr>
+        # <expr>
+
+    fn try_clone_socket(_self: &Self) -> Result<std::net::UdpSocket, Error>:
+        # <expr>
+
+
+struct MessageQueue:
+    messages: Array<crate::KosMessage>
+
+impl MessageQueue:
+    fn new_() -> Self:
+        # <expr>
+
+    fn push(_self: &mut Self, msg: crate::KosMessage):
+        # <expr>
+
+    fn drain(_self: &mut Self) -> impl Iterator:
+        # <expr>
+
+    fn is_empty(_self: &Self) -> Bool:
+        # <expr>
+
+
+mod tests:
+    fn generate_typescript_bindings():
+        # <stmt>
+        # <stmt>
+        # <stmt>
+        let bindings_dir = # <expr>
+        # <expr>
+        let krue_dir = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+

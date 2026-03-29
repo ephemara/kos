@@ -4,6 +4,7 @@ import { AppShell } from '@/ui/shell/AppShell';
 import { AppMenuBar } from '@/ui/shell/AppMenuBar';
 import type { DockTab } from '@/ui/shell/DockPanel';
 import type { NativeViewportSyncSource } from '@/services/nativeViewportBridge';
+import { useViewportStore } from '@/state/stores/viewportStore';
 import {
     getTauriAdapterManifest,
     listTauriIntegrationContracts,
@@ -224,7 +225,9 @@ function NativeViewportOverlay({
 
 export function NativeToolWorkspace({ moduleId, sharedState }: NativeToolWorkspaceProps) {
     const module = NATIVE_TOOL_MODULES[moduleId];
-    const [viewportStatus, setViewportStatus] = React.useState('native viewport staged');
+    const viewportStatus = useViewportStore((state) =>
+        state.activeRequest?.ownerId === moduleId ? state.runtimeStatus : 'NATIVE VIEWPORT STAGED',
+    );
 
     const syncSource = React.useMemo(
         () => buildSyncSource(module, sharedState?.artifact ?? null),
@@ -239,7 +242,6 @@ export function NativeToolWorkspace({ moduleId, sharedState }: NativeToolWorkspa
             captureInput: true,
             hostInputMode: 'camera' as const,
             showDiagnostics: false,
-            onStatusChange: setViewportStatus,
         }),
         [module.id, syncSource],
     );

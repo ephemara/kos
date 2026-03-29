@@ -1,32 +1,59 @@
+import type { NativeViewportSyncSource } from '@/services/nativeViewportBridge';
+import type {
+  FrameStats,
+  RenderMeshHandle,
+  SelectionResult,
+  ViewportHandle,
+} from '@/services/viewportClient';
 import { createStore } from '../createStore';
 
-/**
- * Viewport state for 3D rendering
- */
+export type ViewportHostInputMode = 'none' | 'camera' | 'cursor' | 'camera+cursor';
+export type ViewportRuntimePhase = 'idle' | 'probing' | 'ready' | 'unavailable' | 'failed';
+
+export interface ViewportRequestState {
+  ownerId: string | null;
+  meshHandle: number | null;
+  syncSourceKind: NativeViewportSyncSource['kind'] | null;
+  captureInput: boolean;
+  hostInputMode: ViewportHostInputMode;
+  useSculptHandle: boolean;
+  showDiagnostics: boolean;
+}
+
 export interface ViewportState {
-  /** Camera position */
   cameraPosition: [number, number, number];
-  /** Camera target */
   cameraTarget: [number, number, number];
-  /** Camera FOV */
   fov: number;
-  /** Grid visibility */
   showGrid: boolean;
-  /** Wireframe mode */
   wireframe: boolean;
-  /** Background color */
   backgroundColor: string;
-  /** Actions */
+  nativeAvailabilityChecked: boolean;
+  nativeAvailable: boolean;
+  runtimePhase: ViewportRuntimePhase;
+  runtimeStatus: string;
+  viewportHandle: ViewportHandle | null;
+  renderMeshHandle: RenderMeshHandle | null;
+  frameStats: FrameStats | null;
+  selection: SelectionResult | null;
+  activeRequest: ViewportRequestState | null;
   setCameraPosition: (position: [number, number, number]) => void;
   setCameraTarget: (target: [number, number, number]) => void;
   setFov: (fov: number) => void;
   toggleGrid: () => void;
   toggleWireframe: () => void;
   setBackgroundColor: (color: string) => void;
+  setNativeAvailability: (available: boolean, checked?: boolean) => void;
+  setRuntimeStatus: (status: string) => void;
+  setViewportHandle: (handle: ViewportHandle | null) => void;
+  setRenderMeshHandle: (handle: RenderMeshHandle | null) => void;
+  setFrameStats: (stats: FrameStats | null) => void;
+  setSelection: (selection: SelectionResult | null) => void;
+  setActiveRequest: (request: ViewportRequestState | null) => void;
+  resetSessionState: () => void;
   reset: () => void;
 }
 
-const defaultState = {
+const defaultViewportPreferences = {
   cameraPosition: [5, 5, 5] as [number, number, number],
   cameraTarget: [0, 0, 0] as [number, number, number],
   fov: 50,
@@ -35,14 +62,71 @@ const defaultState = {
   backgroundColor: '#1a1a1a',
 };
 
+const defaultSessionState = {
+  nativeAvailabilityChecked: false,
+  nativeAvailable: false,
+  runtimePhase: 'idle' as ViewportRuntimePhase,
+  runtimeStatus: 'IDLE',
+  viewportHandle: null as ViewportHandle | null,
+  renderMeshHandle: null as RenderMeshHandle | null,
+  frameStats: null as FrameStats | null,
+  selection: null as SelectionResult | null,
+  activeRequest: null as ViewportRequestState | null,
+};
+
+const runtimeStatusRules: Array<{ match: string; phase: ViewportRuntimePhase }> = [
+  { match: 'FAILED', phase: 'failed' },
+  { match: 'UNAVAILABLE', phase: 'unavailable' },
+  { match: 'ATTACH FAILED', phase: 'failed' },
+  { match: 'READY', phase: 'ready' },
+  { match: 'ATTACHED', phase: 'ready' },
+  { match: 'SYNCED', phase: 'ready' },
+  { match: 'INITIALIZING', phase: 'probing' },
+  { match: 'STAGED', phase: 'probing' },
+];
+
+function deriveRuntimePhase(
+  status: string,
+  nativeAvailable: boolean,
+  nativeAvailabilityChecked: boolean,
+): ViewportRuntimePhase {
+  const normalizedStatus = status.trim().toUpperCase();
+  for (const rule of runtimeStatusRules) {
+    if (normalizedStatus.includes(rule.match)) {
+      return rule.phase;
+    }
+  }
+
+  if (nativeAvailabilityChecked && !nativeAvailable) {
+    return 'unavailable';
+  }
+
+  if (nativeAvailabilityChecked && nativeAvailable) {
+    return 'probing';
+  }
+
+  return 'idle';
+}
+
 export const useViewportStore = createStore<ViewportState>(
   {
     name: 'viewport',
     persist: true,
+    persistOptions: {
+      partialize: (state) => ({
+        cameraPosition: state.cameraPosition,
+        cameraTarget: state.cameraTarget,
+        fov: state.fov,
+        showGrid: state.showGrid,
+        wireframe: state.wireframe,
+        backgroundColor: state.backgroundColor,
+      }),
+    },
     devtools: true,
   },
   (set, get) => ({
-    ...defaultState,
+    ...defaultViewportPreferences,
+    ...defaultSessionState,
 
     setCameraPosition: (position) => set({ cameraPosition: position }),
     setCameraTarget: (target) => set({ cameraTarget: target }),
@@ -50,6 +134,29 @@ export const useViewportStore = createStore<ViewportState>(
     toggleGrid: () => set({ showGrid: !get().showGrid }),
     toggleWireframe: () => set({ wireframe: !get().wireframe }),
     setBackgroundColor: (color) => set({ backgroundColor: color }),
-    reset: () => set(defaultState),
-  })
+    setNativeAvailability: (available, checked = true) =>
+      set((state) => ({
+        nativeAvailable: available,
+        nativeAvailabilityChecked: checked,
+        runtimePhase: checked
+          ? deriveRuntimePhase(state.runtimeStatus, available, checked)
+          : 'probing',
+      })),
+    setRuntimeStatus: (status) =>
+      set((state) => ({
+        runtimeStatus: status,
+        runtimePhase: deriveRuntimePhase(
+          status,
+          state.nativeAvailable,
+          state.nativeAvailabilityChecked,
+        ),
+      })),
+    setViewportHandle: (handle) => set({ viewportHandle: handle }),
+    setRenderMeshHandle: (handle) => set({ renderMeshHandle: handle }),
+    setFrameStats: (stats) => set({ frameStats: stats }),
+    setSelection: (selection) => set({ selection }),
+    setActiveRequest: (request) => set({ activeRequest: request }),
+    resetSessionState: () => set(defaultSessionState),
+    reset: () => set({ ...defaultViewportPreferences, ...defaultSessionState }),
+  }),
 );

@@ -1,0 +1,33 @@
+{
+  "input_path": "M:\\K_OS\\crates\\zen-mocap-engine\\src",
+  "output_path": "M:\\K_OS\\kain\\mocap_engine\\mocap_engine.kn",
+  "target": null,
+  "recursive": true,
+  "flat": true,
+  "include_filters": [],
+  "exclude_filters": [],
+  "discovered_files": 32,
+  "imported_files": 28,
+  "skipped_files": 0,
+  "failed_files": [
+    {
+      "file": "M:\\K_OS\\crates\\zen-mocap-engine\\src\\generated\\kiss_fftr.rs",
+      "error": "Failed to parse Rust file: M:\\K_OS\\crates\\zen-mocap-engine\\src\\generated\\kiss_fftr.rs: expected `,`"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\zen-mocap-engine\\src\\generated\\linmath.rs",
+      "error": "Failed to parse Rust file: M:\\K_OS\\crates\\zen-mocap-engine\\src\\generated\\linmath.rs: expected `,`"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\zen-mocap-engine\\src\\generated\\par_easings.rs",
+      "error": "Failed to parse Rust file: M:\\K_OS\\crates\\zen-mocap-engine\\src\\generated\\par_easings.rs: expected `,`"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\zen-mocap-engine\\src\\generated\\perlin.rs",
+      "error": "Failed to parse Rust file: M:\\K_OS\\crates\\zen-mocap-engine\\src\\generated\\perlin.rs: expected `,`"
+    }
+  ],
+  "generated_kain_path": "M:\\K_OS\\kain\\mocap_engine\\mocap_engine.kn",
+  "compiled_output_path": null,
+  "generated_at_utc": "2026-03-29T07:42:13.837732300+00:00"
+}

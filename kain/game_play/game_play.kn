@@ -1,0 +1,855 @@
+# Generated from Rust source by kain import-rust
+# Project Ouroboros — Rust → KAIN → Rust
+
+struct GamePipelineRuntimePolicy:
+    required_registry_kinds: Array<String>
+    strict_readiness: Bool
+
+impl GamePipelineRuntimePolicy:
+    fn from_manifest(manifest: &k_os_game_runtime::PipelineManifest) -> Self:
+        # <expr>
+
+    fn from_manifest_with_env_overrides(manifest: &k_os_game_runtime::PipelineManifest) -> Self:
+        let base = # <expr>
+        # <expr>
+
+    fn from_launch_preset_with_env_overrides(preset: &k_os_game_framework::GameProductLaunchPreset) -> Self:
+        let base = # <expr>
+        # <expr>
+
+    fn apply_env_overrides(base: Self) -> Self:
+        # <expr>
+
+    fn from_env() -> Self:
+        # <expr>
+
+
+enum RuntimeReadinessStatus:
+    Pending
+    Ready
+    Degraded
+
+struct RuntimeReadinessState:
+    status: String
+    detail: String
+
+struct GameExecutionCommandState:
+    ready: Bool
+    status: String
+    detail: String
+    tick_index: u64
+    active_phase: String
+    frame_index: u64
+    routes_loaded: usize
+    agent_commands: Map<String, GameAgentExecutionCommand>
+    issues: Array<String>
+
+impl Default for GameExecutionCommandState:
+    fn default_() -> Self:
+        # <expr>
+
+
+struct GameAgentExecutionCommand:
+    input_action: String
+    command_kind: String
+    active: Bool
+    intensity: f32
+    linear: Array<f32>
+    angular: Array<f32>
+    route_key: String
+
+struct GameExecutionApplicationState:
+    ready: Bool
+    status: String
+    detail: String
+    tick_index: u64
+    active_phase: String
+    frame_index: u64
+    fixed_step_seconds: f32
+    applied_steps: u32
+    agent_applications: Map<String, GameAgentExecutionApplication>
+    issues: Array<String>
+
+impl Default for GameExecutionApplicationState:
+    fn default_() -> Self:
+        # <expr>
+
+
+struct GameAgentExecutionApplication:
+    command_kind: String
+    input_action: String
+    route_key: String
+    steps_applied: u32
+    linear_velocity: Array<f32>
+    angular_velocity: Array<f32>
+    translation_delta: Array<f32>
+    rotation_delta: Array<f32>
+
+struct GameExecutionEffectsState:
+    ready: Bool
+    status: String
+    detail: String
+    tick_index: u64
+    active_phase: String
+    frame_index: u64
+    routes_loaded: usize
+    events_emitted: usize
+    next_sequence: u64
+    events: Array<GameExecutionEffectEvent>
+    issues: Array<String>
+
+impl Default for GameExecutionEffectsState:
+    fn default_() -> Self:
+        # <expr>
+
+
+struct GameExecutionEffectEvent:
+    sequence: u64
+    agent: String
+    command_kind: String
+    input_action: String
+    effect_kind: String
+    replication_channel: String
+    active: Bool
+    intensity: f32
+    linear_velocity: Array<f32>
+    angular_velocity: Array<f32>
+    translation_delta: Array<f32>
+    rotation_delta: Array<f32>
+    route_key: String
+
+struct GameExecutionTransportState:
+    ready: Bool
+    status: String
+    detail: String
+    tick_index: u64
+    active_phase: String
+    frame_index: u64
+    channel_routes_loaded: usize
+    events_ingested: usize
+    journal_retained: usize
+    rollback_floor_sequence: u64
+    replay_fingerprint: String
+    journal: Array<GameExecutionTransportEnvelope>
+    issues: Array<String>
+
+impl Default for GameExecutionTransportState:
+    fn default_() -> Self:
+        # <expr>
+
+
+struct GameExecutionTransportEnvelope:
+    sequence: u64
+    frame_index: u64
+    tick_index: u64
+    agent: String
+    command_kind: String
+    input_action: String
+    effect_kind: String
+    replication_channel: String
+    transport_lane: String
+    transport_reliability: String
+    rollback_enabled: Bool
+    active: Bool
+    intensity: f32
+    translation_delta: Array<f32>
+    rotation_delta: Array<f32>
+    effect_route_key: String
+    transport_route_key: String
+
+struct GameExecutionTransportBackendState:
+    ready: Bool
+    status: String
+    detail: String
+    tick_index: u64
+    active_phase: String
+    frame_index: u64
+    routes_loaded: usize
+    payloads_emitted: usize
+    lanes_emitted: usize
+    exported_through_sequence: u64
+    rollback_floor_sequence: u64
+    backend_fingerprint: String
+    payloads: Array<GameExecutionTransportBackendPayload>
+    issues: Array<String>
+
+impl Default for GameExecutionTransportBackendState:
+    fn default_() -> Self:
+        # <expr>
+
+
+struct GameExecutionTransportBackendPayload:
+    sequence_start: u64
+    sequence_end: u64
+    event_count: usize
+    transport_lane: String
+    transport_reliability: String
+    rollback_enabled: Bool
+    backend_kind: String
+    payload_kind: String
+    agents: Array<String>
+    command_kinds: Array<String>
+    route_key: String
+
+fn runtime_readiness_key(status: RuntimeReadinessStatus) -> &String:
+    # <expr>
+
+fn derive_runtime_registry_bindings(bootstrap_state: &k_os_game_framework::GamePipelineBootstrapState, registry_state: &k_os_game_framework::GameDataRegistryState, policy: &GamePipelineRuntimePolicy) -> k_os_game_framework::GameRuntimeRegistryBindings:
+    let mut bindings = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    let has_missing_required = # <expr>
+    let has_issues = # <expr>
+    let readiness_status = # <expr>
+    # <expr>
+    # <expr>
+    bindings
+
+fn derive_runtime_readiness_state(bootstrap_state: Option<&k_os_game_framework::GamePipelineBootstrapState>, registry_state: Option<&k_os_game_framework::GameDataRegistryState>, policy: Option<&GamePipelineRuntimePolicy>, bindings_state: &k_os_game_framework::GameRuntimeRegistryBindings) -> RuntimeReadinessState:
+    let _ = bootstrap_state
+    # <expr>
+    # <expr>
+    let status = # <expr>
+    # <expr>
+
+fn derive_runtime_action_bindings(registry_state: Option<&k_os_game_framework::GameDataRegistryState>, runtime_bindings: Option<&k_os_game_framework::GameRuntimeRegistryBindings>, ai_decision_state: Option<&k_os_game_ai::GameAiDecisionRuntimeState>) -> k_os_game_framework::GameRuntimeActionBindings:
+    let mut state = # <expr>
+    let _ = ai_decision_state
+    # <expr>
+    # <expr>
+    let _ = registry_state
+    let _ = # <expr>
+    let actor_document = # <expr>
+    let mut issues = # <expr>
+    let routes = # <expr>
+    # <expr>
+    let input_action_ids = # <expr>
+    let available_camera_rigs: Set<String> = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    state
+
+fn derive_execution_command_state(registry_state: Option<&k_os_game_framework::GameDataRegistryState>, intent_state: Option<&k_os_game_input::GameInputIntentState>, previous: Option<&GameExecutionCommandState>) -> GameExecutionCommandState:
+    let mut next = # <expr>
+    # <expr>
+    let _ = registry_state
+    let _ = # <expr>
+    # <expr>
+    let document = # <expr>
+    let routes = # <expr>
+    # <expr>
+    let _ = intent_state
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    let intent_count = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    next
+
+fn derive_execution_application_state(registry_state: Option<&k_os_game_framework::GameDataRegistryState>, command_state: Option<&GameExecutionCommandState>, previous: Option<&GameExecutionApplicationState>) -> GameExecutionApplicationState:
+    let mut next = # <expr>
+    # <expr>
+    let _ = registry_state
+    let _ = # <expr>
+    # <expr>
+    let document = # <expr>
+    let policy = # <expr>
+    # <expr>
+    let _ = command_state
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    let previous_frame = # <expr>
+    let raw_steps = # <expr>
+    let bounded_steps_u64 = # <expr>
+    let bounded_steps = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    let application_count = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    next
+
+fn derive_execution_effects_state(registry_state: Option<&k_os_game_framework::GameDataRegistryState>, command_state: Option<&GameExecutionCommandState>, application_state: Option<&GameExecutionApplicationState>, previous: Option<&GameExecutionEffectsState>) -> GameExecutionEffectsState:
+    let mut next = # <expr>
+    # <expr>
+    let _ = registry_state
+    let _ = # <expr>
+    # <expr>
+    let document = # <expr>
+    let effects_policy = # <expr>
+    # <expr>
+    let _ = command_state
+    let _ = application_state
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    next
+
+fn derive_execution_transport_state(registry_state: Option<&k_os_game_framework::GameDataRegistryState>, effects_state: Option<&GameExecutionEffectsState>, previous: Option<&GameExecutionTransportState>) -> GameExecutionTransportState:
+    let mut next = # <expr>
+    # <expr>
+    let _ = registry_state
+    let _ = # <expr>
+    # <expr>
+    let document = # <expr>
+    let policy = # <expr>
+    # <expr>
+    let _ = effects_state
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    let rollback_min_frame = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    next
+
+fn derive_execution_transport_backend_state(registry_state: Option<&k_os_game_framework::GameDataRegistryState>, transport_state: Option<&GameExecutionTransportState>, previous: Option<&GameExecutionTransportBackendState>) -> GameExecutionTransportBackendState:
+    let mut next = # <expr>
+    # <expr>
+    let _ = registry_state
+    let _ = # <expr>
+    # <expr>
+    let document = # <expr>
+    let policy = # <expr>
+    # <expr>
+    let _ = transport_state
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    let mut lane_groups: Map<(String, String, Bool, String, String, String, usize, u32), Array<GameExecutionTransportEnvelope>> = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    next
+
+struct AiActionRoute:
+    agent: Option<String>
+    phase: Option<String>
+    decision_prefix: String
+    gameplay_action: String
+    input_action: Option<String>
+    camera_rig: Option<String>
+    priority: u32
+
+struct RuntimeExecutionRoute:
+    agent: Option<String>
+    phase: Option<String>
+    input_action: String
+    input_kind: Option<String>
+    command_kind: String
+    vector_space: String
+    linear_scale: f32
+    angular_scale: f32
+    active_only: Bool
+    priority: u32
+
+struct RuntimeExecutionApplyPolicy:
+    fixed_step_seconds: f32
+    max_linear_speed: f32
+    max_angular_speed: f32
+    max_frame_steps: u32
+    inactive_decay: f32
+
+struct RuntimeExecutionEffectsPolicy:
+    max_events_per_frame: u32
+    default_replication_channel: String
+    routes: Array<RuntimeExecutionEffectRoute>
+
+struct RuntimeExecutionEffectRoute:
+    agent: Option<String>
+    phase: Option<String>
+    command_prefix: String
+    effect_kind: String
+    replication_channel: String
+    emit_inactive: Bool
+    priority: u32
+
+struct RuntimeExecutionTransportPolicy:
+    max_journal_events: u32
+    rollback_window_frames: u32
+    default_lane: String
+    default_reliability: String
+    default_rollback: Bool
+    channel_routes: Array<RuntimeExecutionTransportChannelRoute>
+
+struct RuntimeExecutionTransportChannelRoute:
+    channel_prefix: String
+    lane: String
+    reliability: String
+    rollback: Bool
+    priority: u32
+
+struct RuntimeExecutionTransportBackendsPolicy:
+    max_payloads_per_frame: u32
+    default_backend: String
+    default_payload_kind: String
+    default_max_events_per_payload: u32
+    lane_backends: Array<RuntimeExecutionTransportLaneBackendRoute>
+
+struct RuntimeExecutionTransportLaneBackendRoute:
+    lane_prefix: String
+    backend: String
+    payload_kind: String
+    max_events_per_payload: u32
+    priority: u32
+
+impl AiActionRoute:
+    fn matches(_self: &Self, agent: &String, phase: &String, decision: &String) -> Bool:
+        # <expr>
+
+
+impl RuntimeExecutionRoute:
+    fn matches(_self: &Self, agent: &String, phase: &String, input_action: &String, input_kind: &String) -> Bool:
+        # <expr>
+
+
+impl RuntimeExecutionEffectRoute:
+    fn matches(_self: &Self, agent: &String, phase: &String, command_kind: &String) -> Bool:
+        # <expr>
+
+
+impl RuntimeExecutionTransportChannelRoute:
+    fn matches(_self: &Self, channel: &String) -> Bool:
+        # <expr>
+
+
+impl RuntimeExecutionTransportLaneBackendRoute:
+    fn matches(_self: &Self, lane: &String) -> Bool:
+        # <expr>
+
+
+impl Default for RuntimeExecutionApplyPolicy:
+    fn default_() -> Self:
+        # <expr>
+
+
+impl Default for RuntimeExecutionEffectsPolicy:
+    fn default_() -> Self:
+        # <expr>
+
+
+impl Default for RuntimeExecutionTransportPolicy:
+    fn default_() -> Self:
+        # <expr>
+
+
+impl Default for RuntimeExecutionTransportBackendsPolicy:
+    fn default_() -> Self:
+        # <expr>
+
+
+fn parse_env_bool(key: &String) -> Option<Bool>:
+    # <expr>
+
+fn parse_env_csv(key: &String) -> Option<Array<String>>:
+    # <expr>
+
+fn default_required_registry_kinds() -> Array<String>:
+    # <expr>
+
+fn normalize_registry_kinds(kinds: impl IntoIterator) -> Array<String>:
+    let mut normalized = # <expr>
+    # <expr>
+    # <expr>
+
+fn load_registry_document(path: &String) -> Result<toml::value::Table, String>:
+    let raw = # <expr>
+    let parsed = # <expr>
+    # <expr>
+
+fn parse_ai_action_routes(document: &toml::value::Table, issues: &mut Array<String>) -> Array<AiActionRoute>:
+    let mut routes = # <expr>
+    let _ = # <expr>
+    let _ = # <expr>
+    # <expr>
+    routes
+
+fn parse_runtime_execution_routes(document: &toml::value::Table, issues: &mut Array<String>) -> Array<RuntimeExecutionRoute>:
+    let mut routes = # <expr>
+    let _ = # <expr>
+    let _ = # <expr>
+    # <expr>
+    routes
+
+fn parse_runtime_execution_apply_policy(document: &toml::value::Table, issues: &mut Array<String>) -> RuntimeExecutionApplyPolicy:
+    let mut policy = # <expr>
+    let _ = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    policy
+
+fn parse_runtime_execution_effects_policy(document: &toml::value::Table, issues: &mut Array<String>) -> RuntimeExecutionEffectsPolicy:
+    let mut policy = # <expr>
+    let _ = # <expr>
+    # <expr>
+    # <expr>
+    let _ = # <expr>
+    # <expr>
+    policy
+
+fn parse_runtime_execution_transport_policy(document: &toml::value::Table, issues: &mut Array<String>) -> RuntimeExecutionTransportPolicy:
+    let mut policy = # <expr>
+    let _ = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    policy
+
+fn parse_runtime_execution_transport_backends_policy(document: &toml::value::Table, issues: &mut Array<String>) -> RuntimeExecutionTransportBackendsPolicy:
+    let mut policy = # <expr>
+    let _ = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    policy
+
+fn select_runtime_execution_route(routes: &Slice<RuntimeExecutionRoute>, agent: &String, phase: &String, input_action: &String, input_kind: &String) -> Option<(usize, &RuntimeExecutionRoute)>:
+    let mut selected: Option<(usize, &RuntimeExecutionRoute)> = None
+    # <expr>
+    selected
+
+fn select_runtime_execution_effect_route(routes: &Slice<RuntimeExecutionEffectRoute>, agent: &String, phase: &String, command_kind: &String) -> Option<(usize, &RuntimeExecutionEffectRoute)>:
+    let mut selected: Option<(usize, &RuntimeExecutionEffectRoute)> = None
+    # <expr>
+    selected
+
+fn select_runtime_execution_transport_channel_route(routes: &Slice<RuntimeExecutionTransportChannelRoute>, channel: &String) -> Option<(usize, &RuntimeExecutionTransportChannelRoute)>:
+    let mut selected: Option<(usize, &RuntimeExecutionTransportChannelRoute)> = None
+    # <expr>
+    selected
+
+fn select_runtime_execution_transport_lane_backend_route(routes: &Slice<RuntimeExecutionTransportLaneBackendRoute>, lane: &String) -> Option<(usize, &RuntimeExecutionTransportLaneBackendRoute)>:
+    let mut selected: Option<(usize, &RuntimeExecutionTransportLaneBackendRoute)> = None
+    # <expr>
+    selected
+
+fn project_runtime_execution_command(intent: &k_os_game_input::GameAgentInputIntent, route: &RuntimeExecutionRoute) -> GameAgentExecutionCommand:
+    let raw_linear = # <expr>
+    let raw_angular = # <expr>
+    let active = # <expr>
+    let intensity = # <expr>
+    let linear_scale = # <expr>
+    let angular_scale = # <expr>
+    # <expr>
+
+fn parse_toml_f32(value: &toml::Value) -> Option<f32>:
+    # <expr>
+
+fn default_vector_space(command_kind: &String) -> String:
+    # <expr>
+
+fn default_effect_kind(command_prefix: &String) -> String:
+    # <expr>
+
+fn scale_vector(vector: Array<f32>, scale: f32) -> Array<f32>:
+    # <expr>
+
+fn clamp_vector_magnitude(vector: Array<f32>, max_magnitude: f32) -> Array<f32>:
+    let magnitude = # <expr>
+    # <expr>
+
+fn compute_transport_journal_fingerprint(journal: &Slice<GameExecutionTransportEnvelope>) -> String:
+    let mut hash = 1469598103934665603
+    # <expr>
+    # <expr>
+
+fn compute_transport_backend_payload_fingerprint(payloads: &Slice<GameExecutionTransportBackendPayload>) -> String:
+    let mut hash = 1469598103934665603
+    # <expr>
+    # <expr>
+
+fn fnv1a_u64(hash: u64, value: u64) -> u64:
+    # <expr>
+    hash
+
+fn fnv1a_str(hash: u64, value: &String) -> u64:
+    # <expr>
+    hash
+
+fn parse_input_action_ids(registry_state: &k_os_game_framework::GameDataRegistryState, issues: &mut Array<String>) -> Set<String>:
+    let _ = # <expr>
+    let document = # <expr>
+    let _ = # <expr>
+    let mut actions = # <expr>
+    # <expr>
+    actions
+
+fn parse_input_context_action_counts(document: &toml::value::Table) -> Result<Map<String, usize>, String>:
+    let contexts = # <expr>
+    let mut counts = # <expr>
+    # <expr>
+    # <expr>
+
+fn parse_tag_domain_counts(document: &toml::value::Table) -> Result<Map<String, usize>, String>:
+    let domains = # <expr>
+    let mut counts = # <expr>
+    # <expr>
+    # <expr>
+
+fn parse_string_ids_from_array(document: &toml::value::Table, array_key: &String) -> Result<Array<String>, String>:
+    let entries = # <expr>
+    let mut ids = # <expr>
+    # <expr>
+    # <expr>
+
+fn parse_default_player_links(document: &toml::value::Table) -> (Option<String>, Option<String>, Option<String>):
+    let _ = # <expr>
+    let _ = # <expr>
+    let _ = # <expr>
+    let hero_id = # <expr>
+    let input_context = # <expr>
+    let camera_rig = # <expr>
+    # <expr>
+
+mod tests:
+    fn write_temp_registry(name: &String, content: &String) -> String:
+        let nonce = # <expr>
+        let path = # <expr>
+        # <expr>
+        # <expr>
+
+    fn registry_state(actor_path: String, input_path: String) -> k_os_game_framework::GameDataRegistryState:
+        let mut state = # <expr>
+        # <expr>
+        # <expr>
+        state
+
+    fn ai_state(agent: &String, phase: &String, decision: &String) -> k_os_game_ai::GameAiDecisionRuntimeState:
+        let mut state = # <expr>
+        # <expr>
+        state
+
+    fn projects_gameplay_actions_from_ai_decisions():
+        let actor_path = # <expr>
+        let input_path = # <expr>
+        let mut runtime_bindings = # <expr>
+        # <expr>
+        let result = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn degrades_when_no_route_matches_decision():
+        let actor_path = # <expr>
+        let input_path = # <expr>
+        let result = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn stays_pending_when_ai_decision_state_missing():
+        let result = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn derives_runtime_execution_commands_from_input_intents():
+        let input_path = # <expr>
+        let mut intents = # <expr>
+        # <expr>
+        let mut state = # <expr>
+        # <expr>
+        let result = # <expr>
+        # <expr>
+        # <expr>
+        let command = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn execution_projection_degrades_without_matching_route():
+        let input_path = # <expr>
+        let mut intents = # <expr>
+        # <expr>
+        let mut state = # <expr>
+        # <expr>
+        let result = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn applies_execution_commands_with_fixed_step_policy():
+        let input_path = # <expr>
+        let mut registry = # <expr>
+        # <expr>
+        let mut commands = # <expr>
+        # <expr>
+        let result = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        let hero = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn execution_application_decays_inactive_velocity():
+        let input_path = # <expr>
+        let mut registry = # <expr>
+        # <expr>
+        let mut commands = # <expr>
+        # <expr>
+        let mut previous = # <expr>
+        # <expr>
+        let result = # <expr>
+        # <expr>
+        let hero = # <expr>
+        # <expr>
+        # <expr>
+
+    fn derives_execution_effect_events_with_deterministic_sequence():
+        let input_path = # <expr>
+        let mut registry = # <expr>
+        # <expr>
+        let mut commands = # <expr>
+        # <expr>
+        # <expr>
+        let mut applications = # <expr>
+        # <expr>
+        # <expr>
+        let previous = # <expr>
+        let result = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn execution_effects_respect_event_clamp_and_emit_inactive_route():
+        let input_path = # <expr>
+        let mut registry = # <expr>
+        # <expr>
+        let mut commands = # <expr>
+        # <expr>
+        # <expr>
+        let applications = # <expr>
+        let result = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn derives_transport_journal_with_channel_mapping_and_rollback_window():
+        let input_path = # <expr>
+        let mut registry = # <expr>
+        # <expr>
+        let previous = # <expr>
+        let effects = # <expr>
+        let result = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn transport_journal_dedupes_sequence_and_clamps_capacity():
+        let input_path = # <expr>
+        let mut registry = # <expr>
+        # <expr>
+        let previous = # <expr>
+        let effects = # <expr>
+        let result = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn derives_transport_backend_payloads_with_lane_routes():
+        let input_path = # <expr>
+        let mut registry = # <expr>
+        # <expr>
+        let transport = # <expr>
+        let result = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn transport_backend_payloads_resume_from_export_cursor_and_clamp():
+        let input_path = # <expr>
+        let mut registry = # <expr>
+        # <expr>
+        let previous = # <expr>
+        let transport = # <expr>
+        let result = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+

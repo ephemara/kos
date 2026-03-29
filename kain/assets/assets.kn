@@ -1,0 +1,24 @@
+# Generated from Rust source by kain import-rust
+# Project Ouroboros — Rust → KAIN → Rust
+
+struct ZenAssetCatalog:
+    roots: Array<ZenAssetRoot>
+
+struct ZenAssetRoot:
+    key: String
+    path: String
+    tags: Array<String>
+
+impl ZenAssetCatalog:
+    fn parse(source: &String) -> Result<Self, String>:
+        # <expr>
+
+
+mod tests:
+    fn parses_asset_catalog():
+        let source = "\n            [[roots]]\n            key = \"project\"\n            path = \"Content\"\n            tags = [\"source\", \"editable\"]\n        "
+        let catalog = # <expr>
+        # <expr>
+        # <expr>
+
+

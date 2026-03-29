@@ -1,0 +1,330 @@
+# Generated from Rust source by kain import-rust
+# Project Ouroboros — Rust → KAIN → Rust
+
+fn create_biped_skeleton() -> skeleton::Skeleton:
+    # <expr>
+    # <expr>
+
+fn generate_skeleton_from_markers(markers: Array<Array<f32>>) -> skeleton::Skeleton:
+    # <expr>
+    # <expr>
+
+fn fit_skeleton_to_mesh(skeleton: skeleton::Skeleton, mesh_min: Array<f32>, mesh_max: Array<f32>) -> skeleton::Skeleton:
+    # <expr>
+    # <expr>
+    super::skeleton
+
+fn compute_skin_weights_geodesic(vertices: Array<Array<f32>>, triangles: Array<Array<u32>>, bone_positions: Array<Array<f32>>, resolution: u32) -> skinning::SkinWeights:
+    # <expr>
+    # <expr>
+
+fn compute_skin_weights_distance(vertices: Array<Array<f32>>, bone_positions: Array<Array<f32>>) -> skinning::SkinWeights:
+    # <expr>
+    # <expr>
+
+fn solve_ik_fabrik(chain_positions: Array<Array<f32>>, target: Array<f32>, max_iterations: u32, tolerance: f32) -> super::ik::IKSolveResult:
+    # <expr>
+
+fn solve_ik_two_bone(root: Array<f32>, mid: Array<f32>, end: Array<f32>, target: Array<f32>, pole: Array<f32>) -> (Array<f32>, Array<f32>, Array<f32>):
+    # <expr>
+
+fn solve_ik_ccd(chain_positions: Array<Array<f32>>, target: Array<f32>, max_iterations: u32, tolerance: f32) -> super::ik::IKSolveResult:
+    # <expr>
+
+fn update_skeleton_matrices(skeleton: skeleton::Skeleton) -> skeleton::Skeleton:
+    # <expr>
+    super::skeleton
+
+struct IKSolveResult:
+    positions: Array<Array<f32>>
+    converged: Bool
+    iterations_used: u32
+
+fn solve_fabrik(chain_positions: &Slice<Array<f32>>, target: Array<f32>, max_iterations: u32, tolerance: f32) -> IKSolveResult:
+    # <expr>
+    let mut positions: Array<glam::Vec3> = # <expr>
+    let target = # <expr>
+    let root = # <expr>
+    let mut lengths: Array<f32> = # <expr>
+    # <expr>
+    let total_length: f32 = # <expr>
+    let root_to_target = # <expr>
+    # <expr>
+    let mut iterations = 0
+    # <expr>
+    # <expr>
+
+fn solve_two_bone_ik(root: Array<f32>, mid: Array<f32>, end: Array<f32>, target: Array<f32>, pole: Array<f32>) -> (Array<f32>, Array<f32>, Array<f32>):
+    let root = # <expr>
+    let mid = # <expr>
+    let end = # <expr>
+    let target = # <expr>
+    let pole = # <expr>
+    let len_upper = # <expr>
+    let len_lower = # <expr>
+    let len_total = # <expr>
+    let root_to_target = # <expr>
+    let dist = # <expr>
+    # <expr>
+    let cos_angle = # <expr>
+    let angle = # <expr>
+    let dir = # <expr>
+    let pole_dir = # <expr>
+    let right = # <expr>
+    let up = # <expr>
+    let mid_offset = # <expr>
+    let new_mid = # <expr>
+    let new_end = target
+    # <expr>
+
+fn solve_ccd(chain_positions: &Slice<Array<f32>>, target: Array<f32>, max_iterations: u32, tolerance: f32) -> IKSolveResult:
+    let mut positions: Array<glam::Vec3> = # <expr>
+    let target = # <expr>
+    let mut lengths: Array<f32> = # <expr>
+    # <expr>
+    let mut iterations = 0
+    # <expr>
+    # <expr>
+
+struct Bone:
+    name: String
+    parent_index: Option<usize>
+    local_position: Array<f32>
+    local_rotation: Array<f32>
+    world_matrix: Array<f32>
+    is_ik_effector: Bool
+
+impl Bone:
+    fn new_(name: &String, parent_index: Option<usize>, position: Array<f32>) -> Self:
+        # <expr>
+
+    fn with_ik(_self: Self) -> Self:
+        # <expr>
+        _self
+
+    fn get_world_position(_self: &Self) -> glam::Vec3:
+        # <expr>
+
+
+struct IKChainDef:
+    bone_indices: Array<usize>
+    target_position: Array<f32>
+    pole_vector: Array<f32>
+
+struct Skeleton:
+    bones: Array<Bone>
+    ik_chains: Array<IKChainDef>
+
+impl Skeleton:
+    fn new_() -> Self:
+        # <expr>
+
+    fn add_bone(_self: &mut Self, bone: Bone) -> usize:
+        let idx = # <expr>
+        # <expr>
+        idx
+
+    fn update_world_matrices(_self: &mut Self):
+        # <expr>
+
+    fn find_bone(_self: &Self, name: &String) -> Option<usize>:
+        # <expr>
+
+    fn create_biped() -> Self:
+        let mut skel = # <expr>
+        let hips = # <expr>
+        let spine = # <expr>
+        let chest = # <expr>
+        let neck = # <expr>
+        let head = # <expr>
+        let l_shoulder = # <expr>
+        let l_arm = # <expr>
+        let l_forearm = # <expr>
+        let l_hand = # <expr>
+        let r_shoulder = # <expr>
+        let r_arm = # <expr>
+        let r_forearm = # <expr>
+        let r_hand = # <expr>
+        let l_thigh = # <expr>
+        let l_shin = # <expr>
+        let l_foot = # <expr>
+        let r_thigh = # <expr>
+        let r_shin = # <expr>
+        let r_foot = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        skel
+
+
+impl Default for Skeleton:
+    fn default_() -> Self:
+        # <expr>
+
+
+struct SkinWeights:
+    vertex_count: usize
+    bone_indices: Array<u16>
+    bone_weights: Array<f32>
+
+struct VoxelGrid:
+    resolution: usize
+    bounds_min: glam::Vec3
+    bounds_max: glam::Vec3
+    voxel_size: f32
+    data: ndarray::Array3<u8>
+
+impl VoxelGrid:
+    fn new_(resolution: usize, bounds_min: glam::Vec3, bounds_max: glam::Vec3) -> Self:
+        let size = # <expr>
+        let max_dim = # <expr>
+        let voxel_size = # <expr>
+        # <expr>
+
+    fn world_to_voxel(_self: &Self, pos: glam::Vec3) -> (usize, usize, usize):
+        let rel = # <expr>
+        let x = # <expr>
+        let y = # <expr>
+        let z = # <expr>
+        # <expr>
+
+    fn voxel_to_world(_self: &Self, x: usize, y: usize, z: usize) -> glam::Vec3:
+        # <expr>
+
+
+fn compute_geodesic_weights(vertices: &Slice<Array<f32>>, triangles: &Slice<Array<u32>>, bone_positions: &Slice<Array<f32>>, resolution: u32) -> SkinWeights:
+    let resolution = # <expr>
+    let mut min = # <expr>
+    let mut max = # <expr>
+    # <expr>
+    let padding = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    let mut grid = # <expr>
+    # <expr>
+    # <expr>
+    let bone_heat_maps: Array<ndarray::Array3<f32>> = # <expr>
+    # <expr>
+    let weights: Array<(Array<u16>, Array<f32>)> = # <expr>
+    let mut bone_indices = # <expr>
+    let mut bone_weights = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+
+fn voxelize_mesh(grid: &mut VoxelGrid, vertices: &Slice<Array<f32>>, triangles: &Slice<Array<u32>>):
+    # <expr>
+
+fn point_near_triangle(p: glam::Vec3, v0: glam::Vec3, v1: glam::Vec3, v2: glam::Vec3, threshold: f32) -> Bool:
+    let edge1 = # <expr>
+    let edge2 = # <expr>
+    let normal = # <expr>
+    # <expr>
+    let n = # <expr>
+    let dist = # <expr>
+    # <expr>
+
+fn run_heat_diffusion(grid: &VoxelGrid, seed: glam::Vec3, iterations: usize) -> ndarray::Array3<f32>:
+    let res = # <expr>
+    let mut heat = # <expr>
+    let _ = # <expr>
+    # <expr>
+    # <expr>
+    heat
+
+fn sample_weights_at_vertex(grid: &VoxelGrid, pos: glam::Vec3, bone_heat_maps: &Slice<ndarray::Array3<f32>>) -> (Array<u16>, Array<f32>):
+    let _ = # <expr>
+    let mut influences: Array<(u16, f32)> = # <expr>
+    # <expr>
+    let mut indices = # <expr>
+    let mut weights = # <expr>
+    let total: f32 = # <expr>
+    # <expr>
+    # <expr>
+
+fn compute_distance_weights(vertices: &Slice<Array<f32>>, bone_positions: &Slice<Array<f32>>) -> SkinWeights:
+    let mut tree: kiddo::KdTree<f32> = # <expr>
+    # <expr>
+    let weights: Array<(Array<u16>, Array<f32>)> = # <expr>
+    let mut bone_indices = # <expr>
+    let mut bone_weights = # <expr>
+    # <expr>
+    # <expr>
+
+fn solve_skeleton_from_markers(markers: &Array<Array<f32>>) -> super::skeleton::Skeleton:
+    let chin = # <expr>
+    let l_wrist = # <expr>
+    let r_wrist = # <expr>
+    let l_elbow = # <expr>
+    let r_elbow = # <expr>
+    let l_knee = # <expr>
+    let r_knee = # <expr>
+    let hips = # <expr>
+    let mut skel = # <expr>
+    let l_shoulder_est = # <expr>
+    let r_shoulder_est = # <expr>
+    let chest = # <expr>
+    let neck = # <expr>
+    let head = # <expr>
+    let spine = # <expr>
+    let shoulder_width = # <expr>
+    let l_shoulder = # <expr>
+    let r_shoulder = # <expr>
+    let l_arm = # <expr>
+    let r_arm = # <expr>
+    let l_forearm = l_elbow
+    let r_forearm = r_elbow
+    let l_hand = l_wrist
+    let r_hand = r_wrist
+    let hip_width = # <expr>
+    let l_thigh_start = # <expr>
+    let r_thigh_start = # <expr>
+    let l_shin = l_knee
+    let r_shin = r_knee
+    let leg_length = # <expr>
+    let l_foot = # <expr>
+    let r_foot = # <expr>
+    let hips_idx = # <expr>
+    let spine_idx = # <expr>
+    let chest_idx = # <expr>
+    let neck_idx = # <expr>
+    let head_idx = # <expr>
+    let l_shoulder_idx = # <expr>
+    let l_arm_idx = # <expr>
+    let l_forearm_idx = # <expr>
+    let l_hand_idx = # <expr>
+    let r_shoulder_idx = # <expr>
+    let r_arm_idx = # <expr>
+    let r_forearm_idx = # <expr>
+    let r_hand_idx = # <expr>
+    let l_thigh_idx = # <expr>
+    let l_shin_idx = # <expr>
+    let l_foot_idx = # <expr>
+    let r_thigh_idx = # <expr>
+    let r_shin_idx = # <expr>
+    let r_foot_idx = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    skel
+
+fn fit_skeleton_to_bounds(skeleton: &mut super::skeleton::Skeleton, mesh_min: Array<f32>, mesh_max: Array<f32>):
+    let min = # <expr>
+    let max = # <expr>
+    let mesh_height = # <expr>
+    let mesh_center = # <expr>
+    let mut skel_min = # <expr>
+    let mut skel_max = # <expr>
+    # <expr>
+    let skel_height = # <expr>
+    let scale = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+

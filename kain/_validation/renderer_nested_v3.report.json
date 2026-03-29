@@ -1,0 +1,67 @@
+{
+  "input_path": "M:\\K_OS\\crates\\k-os-renderer\\src",
+  "output_path": "M:\\K_OS\\kain\\_validation\\renderer_nested_v3.kn",
+  "target": null,
+  "recursive": true,
+  "flat": false,
+  "include_filters": [],
+  "exclude_filters": [],
+  "discovered_files": 9,
+  "imported_files": 9,
+  "skipped_files": 0,
+  "failed_files": [],
+  "lossy_diagnostics": [
+    {
+      "file": "M:\\K_OS\\crates\\k-os-renderer\\src\\bridge.rs",
+      "diagnostics": [
+        "trait EvaluatedMeshSource supertraits skipped",
+        "trait RendererUploadBridge supertraits skipped",
+        "dyn trait lowered to impl EvaluatedMeshSource (dynamic dispatch semantics narrowed)",
+        "dyn trait lowered to impl EvaluatedMeshSource (dynamic dispatch semantics narrowed)",
+        "dyn trait lowered to impl EvaluatedMeshSource (dynamic dispatch semantics narrowed)"
+      ]
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-renderer\\src\\lib.rs",
+      "diagnostics": [
+        "mod bridge; (external file — import separately)",
+        "mod camera; (external file — import separately)",
+        "mod mesh; (external file — import separately)",
+        "mod picking; (external file — import separately)",
+        "mod render_graph; (external file — import separately)",
+        "mod service; (external file — import separately)",
+        "mod types; (external file — import separately)",
+        "mod viewport; (external file — import separately)",
+        "dyn trait lowered to impl EvaluatedMeshSource (dynamic dispatch semantics narrowed)"
+      ]
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-renderer\\src\\render_graph.rs",
+      "diagnostics": [
+        "array repeat simplified to single-element array"
+      ]
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-renderer\\src\\service.rs",
+      "diagnostics": [
+        "dyn trait lowered to impl EvaluatedMeshSource (dynamic dispatch semantics narrowed)",
+        "dyn trait lowered to impl EvaluatedMeshSource (dynamic dispatch semantics narrowed)",
+        "dyn trait lowered to impl RendererUploadBridge (dynamic dispatch semantics narrowed)",
+        "dyn trait lowered to impl EvaluatedMeshSource (dynamic dispatch semantics narrowed)",
+        "dyn trait lowered to impl RendererUploadBridge (dynamic dispatch semantics narrowed)",
+        "dyn trait lowered to impl RendererUploadBridge (dynamic dispatch semantics narrowed)"
+      ]
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-renderer\\src\\types.rs",
+      "diagnostics": [
+        "macro/extern/foreign item skipped",
+        "macro/extern/foreign item skipped",
+        "macro/extern/foreign item skipped"
+      ]
+    }
+  ],
+  "generated_kain_path": "M:\\K_OS\\kain\\_validation\\renderer_nested_v3.kn",
+  "compiled_output_path": null,
+  "generated_at_utc": "2026-03-29T08:27:11.353670800+00:00"
+}

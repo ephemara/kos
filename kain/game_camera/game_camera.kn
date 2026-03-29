@@ -1,0 +1,373 @@
+# Generated from Rust source by kain import-rust
+# Project Ouroboros — Rust → KAIN → Rust
+
+struct GameCameraRuntimeState:
+    ready: Bool
+    status: String
+    detail: String
+    registry_kind: String
+    registry_version: Option<String>
+    active_rig: Option<String>
+    previous_rig: Option<String>
+    transition_seconds: f32
+    available_rigs: Array<String>
+    rig_modes: Map<String, String>
+    action_routes_loaded: usize
+    selected_route: Option<String>
+    issues: Array<String>
+
+struct GameCameraViewRuntimeState:
+    ready: Bool
+    status: String
+    detail: String
+    active_rig: Option<String>
+    active_mode: Option<String>
+    view_source: String
+    apply_to_host_camera: Bool
+    orbit_focus: Array<f32>
+    orbit_radius: f32
+    camera_translation: Array<f32>
+    blend_seconds: f32
+    issues: Array<String>
+
+impl Default for GameCameraViewRuntimeState:
+    fn default_() -> Self:
+        # <expr>
+
+
+struct GameCameraDispatchState:
+    ready: Bool
+    status: String
+    detail: String
+    registry_kind: String
+    registry_version: Option<String>
+    routes_loaded: usize
+    selected_route: Option<String>
+    selected_track_id: Option<String>
+    selected_binding_target: Option<String>
+    selected_intensity: f32
+    active_rig: Option<String>
+    blend_seconds: Option<f32>
+    issues: Array<String>
+
+impl Default for GameCameraDispatchState:
+    fn default_() -> Self:
+        # <expr>
+
+
+struct GameSequencerCameraDispatchInput:
+    track_id: String
+    binding_target: String
+    route_key: String
+    intensity: f32
+
+fn derive_runtime_camera_dispatch_state(registry_state: Option<&k_os_game_framework::GameDataRegistryState>, sequencer_dispatch_inputs: &Slice<GameSequencerCameraDispatchInput>, previous: Option<&GameCameraDispatchState>) -> GameCameraDispatchState:
+    let mut state = # <expr>
+    let _ = registry_state
+    let _ = # <expr>
+    # <expr>
+    # <expr>
+    let document = # <expr>
+    let _ = # <expr>
+    let available_rigs: Array<String> = # <expr>
+    let routes = # <expr>
+    # <expr>
+    let selected = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    state
+
+impl Default for GameCameraRuntimeState:
+    fn default_() -> Self:
+        # <expr>
+
+
+struct CameraRigRuntimeSpec:
+    mode: String
+    target_offset: Option<Array<f32>>
+    arm_length: Option<f32>
+    default_path: Option<String>
+    move_speed: Option<f32>
+
+struct CameraViewPolicy:
+    apply_to_host_camera: Bool
+    fallback_focus: Array<f32>
+    fallback_arm_length: f32
+    spring_arm_height_ratio: f32
+    rail_height_offset: f32
+    rail_distance_scale: f32
+    freefly_height_offset: f32
+    freefly_distance_scale: f32
+    dispatch_intensity_radius_scale: f32
+    dispatch_intensity_height_scale: f32
+
+impl Default for CameraViewPolicy:
+    fn default_() -> Self:
+        # <expr>
+
+
+fn derive_runtime_camera_view_state(registry_state: Option<&k_os_game_framework::GameDataRegistryState>, camera_state: Option<&GameCameraRuntimeState>, camera_dispatch_state: Option<&GameCameraDispatchState>) -> GameCameraViewRuntimeState:
+    let mut state = # <expr>
+    let _ = registry_state
+    # <expr>
+    let _ = camera_state
+    # <expr>
+    # <expr>
+    # <expr>
+    let _ = # <expr>
+    let document = # <expr>
+    let policy = # <expr>
+    # <expr>
+    let _ = # <expr>
+    let _ = # <expr>
+    let mut orbit_focus = # <expr>
+    let mut orbit_radius = # <expr>
+    let mut dispatch_intensity = 0
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    let translation = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    state
+
+fn derive_runtime_camera_state(registry_state: Option<&k_os_game_framework::GameDataRegistryState>, runtime_bindings: Option<&k_os_game_framework::GameRuntimeRegistryBindings>, action_bindings: Option<&k_os_game_framework::GameRuntimeActionBindings>, dispatch_state: Option<&GameCameraDispatchState>, previous: Option<&GameCameraRuntimeState>) -> GameCameraRuntimeState:
+    let mut state = # <expr>
+    let _ = registry_state
+    let _ = # <expr>
+    # <expr>
+    # <expr>
+    let document = # <expr>
+    let _ = # <expr>
+    # <expr>
+    # <expr>
+    let routes = # <expr>
+    # <expr>
+    let selected = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    state
+
+struct CameraRigActionRoute:
+    agent: Option<String>
+    phase: Option<String>
+    gameplay_action_prefix: String
+    target_rig: String
+    blend_seconds: Option<f32>
+    priority: u32
+
+impl CameraRigActionRoute:
+    fn matches(_self: &Self, agent: &String, phase: &String, action: &String) -> Bool:
+        # <expr>
+
+
+struct SequencerCameraProjectionRoute:
+    binding_target_prefix: String
+    target_rig: String
+    blend_seconds: Option<f32>
+    min_intensity: f32
+    priority: u32
+
+struct SelectedCameraRig:
+    rig: Option<String>
+    route_key: Option<String>
+    blend_seconds: Option<f32>
+
+struct SelectedCameraDispatchRig:
+    rig: Option<String>
+    route_key: Option<String>
+    track_id: Option<String>
+    binding_target: Option<String>
+    intensity: f32
+    blend_seconds: Option<f32>
+
+fn select_sequencer_projection(routes: &Slice<SequencerCameraProjectionRoute>, inputs: &Slice<GameSequencerCameraDispatchInput>, previous: Option<&GameCameraDispatchState>, available_rigs: &Slice<String>) -> SelectedCameraDispatchRig:
+    let mut selected = # <expr>
+    let mut best: Option<(usize, &SequencerCameraProjectionRoute, &GameSequencerCameraDispatchInput)> = None
+    # <expr>
+    # <expr>
+    # <expr>
+    selected
+
+fn select_camera_rig(routes: &Slice<CameraRigActionRoute>, action_bindings: Option<&k_os_game_framework::GameRuntimeActionBindings>, runtime_bindings: Option<&k_os_game_framework::GameRuntimeRegistryBindings>, dispatch_state: Option<&GameCameraDispatchState>, previous: Option<&GameCameraRuntimeState>, available_rigs: &Slice<String>) -> SelectedCameraRig:
+    let mut selected = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    selected
+
+fn load_registry_document(path: &String) -> Result<toml::value::Table, String>:
+    let raw = # <expr>
+    let parsed = # <expr>
+    # <expr>
+
+fn parse_rigs(document: &toml::value::Table, issues: &mut Array<String>) -> (Map<String, String>, Map<String, f32>):
+    let _ = # <expr>
+    let mut rig_modes = # <expr>
+    let mut rig_blends = # <expr>
+    # <expr>
+    # <expr>
+
+fn parse_action_routes(document: &toml::value::Table, issues: &mut Array<String>) -> Array<CameraRigActionRoute>:
+    let mut routes = # <expr>
+    let _ = # <expr>
+    let _ = # <expr>
+    # <expr>
+    routes
+
+fn parse_sequencer_projection_routes(document: &toml::value::Table, issues: &mut Array<String>) -> Array<SequencerCameraProjectionRoute>:
+    let mut routes = # <expr>
+    let _ = # <expr>
+    let _ = # <expr>
+    # <expr>
+    routes
+
+fn parse_rig_runtime_spec(document: &toml::value::Table, active_rig: &String, issues: &mut Array<String>) -> Option<CameraRigRuntimeSpec>:
+    let _ = # <expr>
+    # <expr>
+    None
+
+fn parse_runtime_view_policy(document: &toml::value::Table, issues: &mut Array<String>) -> CameraViewPolicy:
+    let mut policy = # <expr>
+    let _ = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    policy
+
+fn assign_non_negative_f32(table: &toml::value::Table, key: &String, target: &mut f32):
+    # <expr>
+
+fn parse_vec3(value: Option<&toml::Value>) -> Option<Array<f32>>:
+    let list = # <expr>
+    # <expr>
+    let x = # <expr>
+    let y = # <expr>
+    let z = # <expr>
+    # <expr>
+
+fn parse_optional_f32(value: Option<&toml::Value>) -> Option<f32>:
+    # <expr>
+
+fn parse_optional_bool(value: Option<&toml::Value>) -> Option<Bool>:
+    # <expr>
+
+fn stable_seed_angle_radians(seed: &String) -> f32:
+    let mut hash: u64 = 0
+    # <expr>
+    let degrees = # <expr>
+    # <expr>
+
+mod tests:
+    fn write_temp_registry(name: &String, content: &String) -> String:
+        let nonce = # <expr>
+        let path = # <expr>
+        # <expr>
+        # <expr>
+
+    fn camera_registry_state(camera_path: String) -> k_os_game_framework::GameDataRegistryState:
+        let mut state = # <expr>
+        # <expr>
+        state
+
+    fn projects_camera_rig_from_action_route():
+        let camera_path = # <expr>
+        let mut action_bindings = # <expr>
+        # <expr>
+        let previous = # <expr>
+        let result = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn falls_back_to_runtime_default_camera_rig():
+        let camera_path = # <expr>
+        let runtime_bindings = # <expr>
+        let result = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn degrades_when_selected_rig_not_in_registry():
+        let camera_path = # <expr>
+        let mut action_bindings = # <expr>
+        # <expr>
+        let result = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn stays_pending_without_registry_state():
+        let result = # <expr>
+        # <expr>
+        # <expr>
+
+    fn projects_camera_rig_from_sequencer_dispatch_route():
+        let camera_path = # <expr>
+        let dispatch_inputs = # <expr>
+        let dispatch = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        let result = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn camera_dispatch_falls_back_to_previous_rig_when_no_route_matches():
+        let camera_path = # <expr>
+        let previous = # <expr>
+        let dispatch = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn derives_spring_arm_view_from_runtime_policy_and_active_rig():
+        let camera_path = # <expr>
+        let registry_state = # <expr>
+        let camera_state = # <expr>
+        let view = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn derives_rail_view_with_dispatch_intensity_scaling():
+        let camera_path = # <expr>
+        let registry_state = # <expr>
+        let camera_state = # <expr>
+        let dispatch_state = # <expr>
+        let view = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+

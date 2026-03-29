@@ -1,0 +1,335 @@
+# Generated from Rust source by kain import-rust
+# Project Ouroboros — Rust → KAIN → Rust
+
+struct GameInputRuntimeState:
+    ready: Bool
+    status: String
+    detail: String
+    registry_kind: String
+    registry_version: Option<String>
+    tick_index: u64
+    active_phase: String
+    active_context: Option<String>
+    active_camera_rig: Option<String>
+    active_camera_mode: Option<String>
+    available_contexts: Array<String>
+    action_kinds: Map<String, String>
+    action_defaults: Map<String, Array<String>>
+    routes_loaded: usize
+    camera_policy_rules_loaded: usize
+    agent_input_actions: Map<String, String>
+    agent_route_keys: Map<String, String>
+    agent_camera_modes: Map<String, String>
+    agent_action_scales: Map<String, f32>
+    agent_gates: Map<String, String>
+    host_axis_deadzone: f32
+    host_activation_threshold: f32
+    host_max_mouse_delta: f32
+    host_digital_axes: Map<String, Array<f32>>
+    issues: Array<String>
+
+impl Default for GameInputRuntimeState:
+    fn default_() -> Self:
+        # <expr>
+
+
+struct GameHostInputFrame:
+    frame_index: u64
+    digital_pressed: Set<String>
+    axis_2d: Map<String, Array<f32>>
+
+impl Default for GameHostInputFrame:
+    fn default_() -> Self:
+        # <expr>
+
+
+struct GameInputIntentState:
+    ready: Bool
+    status: String
+    detail: String
+    tick_index: u64
+    active_phase: String
+    frame_index: u64
+    agent_intents: Map<String, GameAgentInputIntent>
+    issues: Array<String>
+
+impl Default for GameInputIntentState:
+    fn default_() -> Self:
+        # <expr>
+
+
+struct GameAgentInputIntent:
+    input_action: String
+    input_kind: String
+    active: Bool
+    strength: f32
+    vector_2d: Array<f32>
+    scale: f32
+    route_key: String
+
+fn derive_runtime_input_state(registry_state: Option<&k_os_game_framework::GameDataRegistryState>, runtime_bindings: Option<&k_os_game_framework::GameRuntimeRegistryBindings>, action_bindings: Option<&k_os_game_framework::GameRuntimeActionBindings>, camera_state: Option<&k_os_game_camera::GameCameraRuntimeState>) -> GameInputRuntimeState:
+    let mut state = # <expr>
+    let _ = registry_state
+    let _ = # <expr>
+    # <expr>
+    # <expr>
+    let document = # <expr>
+    let contexts = # <expr>
+    let routes = # <expr>
+    let policy = # <expr>
+    let host_policy = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    let active_context = # <expr>
+    # <expr>
+    let _ = action_bindings
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    let evaluated_agents = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    state
+
+fn apply_host_input_frame(input_state: Option<&GameInputRuntimeState>, host_input: Option<&GameHostInputFrame>, previous: Option<&GameInputIntentState>) -> GameInputIntentState:
+    let mut next = # <expr>
+    # <expr>
+    let _ = input_state
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    let _ = host_input
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    next
+
+struct InputContext:
+    id: String
+    priority: u32
+    actions: Map<String, InputAction>
+
+struct InputAction:
+    kind: String
+    defaults: Array<String>
+
+struct InputActionProjectionRoute:
+    agent: Option<String>
+    phase: Option<String>
+    context: Option<String>
+    gameplay_action_prefix: String
+    input_action: String
+    priority: u32
+
+struct InputPolicyConfig:
+    default_camera_mode: Option<String>
+    camera_mode_aliases: Array<CameraModeAlias>
+    rules: Array<InputPolicyRule>
+
+struct InputHostPolicy:
+    axis_deadzone: f32
+    activation_threshold: f32
+    max_mouse_delta: f32
+    digital_axes: Map<String, Array<f32>>
+
+impl Default for InputHostPolicy:
+    fn default_() -> Self:
+        # <expr>
+
+
+struct CameraModeAlias:
+    rig_prefix: String
+    mode: String
+
+struct InputPolicyRule:
+    agent: Option<String>
+    phase: Option<String>
+    camera_mode: Option<String>
+    gameplay_action_prefix: Option<String>
+    input_action: Option<String>
+    allow: Bool
+    scale: f32
+    reason: Option<String>
+    priority: u32
+
+impl InputActionProjectionRoute:
+    fn matches(_self: &Self, agent: &String, phase: &String, gameplay_action: &String, active_context: &String) -> Bool:
+        # <expr>
+
+
+impl InputPolicyRule:
+    fn matches(_self: &Self, agent: &String, phase: &String, gameplay_action: &String, input_action: &String, camera_mode: &String) -> Bool:
+        # <expr>
+
+
+fn resolve_active_context(runtime_bindings: Option<&k_os_game_framework::GameRuntimeRegistryBindings>, contexts: &Slice<InputContext>, issues: &mut Array<String>) -> &InputContext:
+    # <expr>
+    # <expr>
+
+fn select_projection_route(routes: &Slice<InputActionProjectionRoute>, agent: &String, phase: &String, gameplay_action: &String, active_context: &String) -> Option<(usize, &InputActionProjectionRoute)>:
+    let mut selected: Option<(usize, &InputActionProjectionRoute)> = None
+    # <expr>
+    selected
+
+fn select_policy_rule(rules: &Slice<InputPolicyRule>, agent: &String, phase: &String, gameplay_action: &String, input_action: &String, camera_mode: &String) -> Option<(usize, &InputPolicyRule)>:
+    let mut selected: Option<(usize, &InputPolicyRule)> = None
+    # <expr>
+    selected
+
+fn resolve_camera_mode(active_rig: Option<&String>, aliases: &Slice<CameraModeAlias>) -> Option<String>:
+    let active_rig = # <expr>
+    # <expr>
+
+fn load_registry_document(path: &String) -> Result<toml::value::Table, String>:
+    let raw = # <expr>
+    let parsed = # <expr>
+    # <expr>
+
+fn parse_input_contexts(document: &toml::value::Table, issues: &mut Array<String>) -> Array<InputContext>:
+    let _ = # <expr>
+    let mut contexts = # <expr>
+    # <expr>
+    contexts
+
+fn parse_action_projection_routes(document: &toml::value::Table, issues: &mut Array<String>) -> Array<InputActionProjectionRoute>:
+    let mut routes = # <expr>
+    let _ = # <expr>
+    let _ = # <expr>
+    # <expr>
+    routes
+
+fn parse_input_policy(document: &toml::value::Table, issues: &mut Array<String>) -> InputPolicyConfig:
+    let _ = # <expr>
+    let default_camera_mode = # <expr>
+    let camera_mode_aliases = # <expr>
+    let rules = # <expr>
+    # <expr>
+
+fn parse_input_host_policy(document: &toml::value::Table, issues: &mut Array<String>) -> InputHostPolicy:
+    let _ = # <expr>
+    let mut policy = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    policy
+
+fn parse_camera_mode_aliases(policy_table: &toml::value::Table, issues: &mut Array<String>) -> Array<CameraModeAlias>:
+    let _ = # <expr>
+    let mut aliases = # <expr>
+    # <expr>
+    aliases
+
+fn parse_input_policy_rules(policy_table: &toml::value::Table, issues: &mut Array<String>) -> Array<InputPolicyRule>:
+    let _ = # <expr>
+    let mut rules = # <expr>
+    # <expr>
+    rules
+
+mod tests:
+    fn write_temp_registry(name: &String, content: &String) -> String:
+        let nonce = # <expr>
+        let path = # <expr>
+        # <expr>
+        # <expr>
+
+    fn input_registry_state(input_path: String) -> k_os_game_framework::GameDataRegistryState:
+        let mut state = # <expr>
+        # <expr>
+        state
+
+    fn resolves_agent_input_actions_from_runtime_and_projection_routes():
+        let input_path = # <expr>
+        let runtime_bindings = # <expr>
+        let mut action_bindings = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        let result = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn degrades_when_route_maps_to_missing_input_action():
+        let input_path = # <expr>
+        let mut action_bindings = # <expr>
+        # <expr>
+        let result = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn applies_camera_policy_gate_and_scale_rules():
+        let input_path = # <expr>
+        let mut action_bindings = # <expr>
+        # <expr>
+        let cinematic_camera = # <expr>
+        let gated = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        let default_camera = # <expr>
+        let scaled = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn applies_host_frame_to_axis_intent_using_registry_digital_axis_map():
+        let input_path = # <expr>
+        let mut action_bindings = # <expr>
+        # <expr>
+        # <expr>
+        let runtime_state = # <expr>
+        # <expr>
+        let mut host_frame = # <expr>
+        # <expr>
+        # <expr>
+        let intents = # <expr>
+        # <expr>
+        # <expr>
+        let hero = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn host_input_lane_respects_gates_and_produces_no_intent():
+        let input_path = # <expr>
+        let mut action_bindings = # <expr>
+        # <expr>
+        # <expr>
+        let runtime_state = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        let host_frame = # <expr>
+        let intents = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn stays_pending_without_action_runtime_state():
+        let input_path = # <expr>
+        let result = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+

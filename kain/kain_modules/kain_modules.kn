@@ -1,0 +1,95 @@
+# Generated from Rust source by kain import-rust
+# Project Ouroboros — Rust → KAIN → Rust
+
+struct ZenKainModuleRegistry:
+    source_label: String
+    default_shell: String
+    shells: Array<ZenShellModule>
+
+struct ZenShellModule:
+    key: String
+    label: String
+    source_path: String
+    root_component: String
+    tags: Array<String>
+
+struct ZenResolvedShell:
+    module_key: String
+    label: String
+    source: String
+    root_component: String
+    source_label: String
+    tags: Array<String>
+
+impl ZenKainModuleRegistry:
+    fn load(configured: &String) -> Result<Self, String>:
+        # <expr>
+        # <expr>
+
+    fn default_shell(_self: &Self) -> &String:
+        # <expr>
+
+    fn shells(_self: &Self) -> &Slice<ZenShellModule>:
+        # <expr>
+
+    fn summary(_self: &Self) -> String:
+        # <expr>
+
+    fn resolve_shell(_self: &Self, key: Option<&String>) -> Result<ZenResolvedShell, String>:
+        let selected_key = # <expr>
+        let shell = # <expr>
+        let source = # <expr>
+        # <expr>
+
+
+struct ModuleRegistryFile:
+    registry: ModuleRegistryMetaFile
+    shells: Array<ZenShellModuleFile>
+
+struct ModuleRegistryMetaFile:
+    default_shell: String
+
+struct ZenShellModuleFile:
+    key: String
+    label: String
+    source_path: String
+    root_component: Option<String>
+    tags: Option<Array<String>>
+
+fn parse_registry(source: &String, source_label: String) -> Result<ZenKainModuleRegistry, String>:
+    let parsed: ModuleRegistryFile = # <expr>
+    let mut shells = # <expr>
+    # <expr>
+    # <expr>
+    let default_shell = # <expr>
+    # <expr>
+
+fn load_shell_source(configured: &String) -> Result<String, String>:
+    # <expr>
+    # <expr>
+
+fn source_path_candidates(configured: &String) -> Array<std::path::PathBuf>:
+    let configured_path = # <expr>
+    # <expr>
+    let mut candidates = # <expr>
+    # <expr>
+    # <expr>
+    candidates
+
+fn file_name_or_original(path: &std::path::Path) -> std::path::PathBuf:
+    # <expr>
+
+fn normalized_non_empty(label: &String, value: &String) -> Result<String, String>:
+    let trimmed = # <expr>
+    # <expr>
+
+mod tests:
+    fn parses_default_registry():
+        let registry = # <expr>
+        # <expr>
+        # <expr>
+        let shell = # <expr>
+        # <expr>
+        # <expr>
+
+

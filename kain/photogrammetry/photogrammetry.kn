@@ -1,0 +1,1005 @@
+# Generated from Rust source by kain import-rust
+# Project Ouroboros — Rust → KAIN → Rust
+
+struct FeatureDetector:
+    gpu_compute: k_os_gpu_pipeline::device::GpuComputeDevice
+    akaze: akaze::Akaze
+
+struct FeatureSet:
+    image_index: usize
+    keypoints: Array<Keypoint>
+    descriptors: Array<FeatureDescriptor>
+
+struct Keypoint:
+    x: f32
+    y: f32
+    scale: f32
+    orientation: f32
+    response: f32
+
+enum FeatureDescriptor:
+    Binary(Array<u8>)
+    Float(Array<f32>)
+
+impl FeatureDetector:
+    fn new_(gpu_compute: k_os_gpu_pipeline::device::GpuComputeDevice) -> Result<Self, Error>:
+        let akaze = # <expr>
+        # <expr>
+
+    fn detect(_self: &Self, image: &super::ImageData, max_features: usize) -> Result<FeatureSet, Error>:
+        # <expr>
+        # <expr>
+
+    fn detect_batch(_self: &Self, images: &Slice<super::ImageData>, max_features: usize) -> Result<Array<FeatureSet>, Error>:
+        # <expr>
+        let results: Result<Array<FeatureSet>, Error> = # <expr>
+        let feature_sets = # <expr>
+        let total_features: usize = # <expr>
+        # <expr>
+        # <expr>
+
+    fn detect_with_index(_self: &Self, image: &super::ImageData, max_features: usize, image_index: usize) -> Result<FeatureSet, Error>:
+        # <expr>
+        # <expr>
+
+    fn detect_akaze(_self: &Self, image: &super::ImageData, max_features: usize, image_index: usize) -> Result<FeatureSet, Error>:
+        # <stmt>
+        let gray_image = # <expr>
+        let gray_image = # <expr>
+        let _ = # <expr>
+        let mut keypoints = # <expr>
+        let mut descriptors = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn rgba_to_gray(_self: &Self, image: &super::ImageData) -> Result<image23::GrayImage, Error>:
+        # <stmt>
+        # <stmt>
+        # <stmt>
+        # <stmt>
+        let rgba_image = # <expr>
+        let gray_image = # <expr>
+        # <expr>
+
+
+impl FeatureDescriptor:
+    fn hamming_distance(_self: &Self, other: &Self) -> Option<u32>:
+        # <expr>
+
+    fn euclidean_distance(_self: &Self, other: &Self) -> Option<f32>:
+        # <expr>
+
+
+mod tests:
+    fn test_hamming_distance():
+        let desc1 = # <expr>
+        let desc2 = # <expr>
+        let distance = # <expr>
+        # <expr>
+
+    fn test_euclidean_distance():
+        let desc1 = # <expr>
+        let desc2 = # <expr>
+        let distance = # <expr>
+        # <expr>
+
+
+struct FeatureMatcher:
+    ratio_threshold: f32
+
+struct FeatureMatches:
+    pair_matches: Array<ImagePairMatches>
+
+struct ImagePairMatches:
+    image_a: usize
+    image_b: usize
+    matches: Array<FeatureMatch>
+
+struct FeatureMatch:
+    keypoint_a: usize
+    keypoint_b: usize
+    point_a: Array<f32>
+    point_b: Array<f32>
+    distance: f32
+
+impl FeatureMatcher:
+    fn new_() -> Self:
+        # <expr>
+
+    fn match_features(_self: &Self, feature_sets: &Slice<super::FeatureSet>, min_matches: usize) -> Result<FeatureMatches, Error>:
+        # <expr>
+        let mut pair_matches = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn match_pair(_self: &Self, features_a: &super::FeatureSet, features_b: &super::FeatureSet) -> Result<Array<FeatureMatch>, Error>:
+        let mut matches = # <expr>
+        # <expr>
+        let inlier_matches = # <expr>
+        # <expr>
+
+    fn descriptor_distance(_self: &Self, desc_a: &super::FeatureDescriptor, desc_b: &super::FeatureDescriptor) -> Result<f32, Error>:
+        # <expr>
+
+    fn ransac_filter(_self: &Self, matches: &Slice<FeatureMatch>, keypoints_a: &Slice<super::feature_detection::Keypoint>, keypoints_b: &Slice<super::feature_detection::Keypoint>) -> Result<Array<FeatureMatch>, Error>:
+        # <expr>
+        let max_iterations = 1000
+        let inlier_threshold = 3
+        let mut best_inliers = # <expr>
+        # <stmt>
+        # <stmt>
+        # <stmt>
+        let mut rng = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn estimate_fundamental_matrix(_self: &Self, matches: &Slice<FeatureMatch>) -> Result<nalgebra::Matrix3<f32>, Error>:
+        # <expr>
+
+    fn epipolar_error(_self: &Self, fundamental_matrix: &nalgebra::Matrix3<f32>, kp_a: &super::feature_detection::Keypoint, kp_b: &super::feature_detection::Keypoint) -> f32:
+        let p_a = # <expr>
+        let p_b = # <expr>
+        let fpa = # <expr>
+        let ftpb = # <expr>
+        let numerator = # <expr>
+        let denom = # <expr>
+        # <expr>
+        # <expr>
+
+
+fn normalize_points(points: &Slice<Array<f32>>) -> Result<(Array<Array<f32>>, nalgebra::Matrix3<f32>), Error>:
+    # <expr>
+    let n = # <expr>
+    let centroid_x = # <expr>
+    let centroid_y = # <expr>
+    let mean_distance = # <expr>
+    # <expr>
+    let scale = # <expr>
+    let transform = # <expr>
+    let normalized = # <expr>
+    # <expr>
+
+fn estimate_fundamental_matrix_from_matches(matches: &Slice<FeatureMatch>) -> Result<nalgebra::Matrix3<f32>, Error>:
+    # <expr>
+    let points_a: Array<Array<f32>> = # <expr>
+    let points_b: Array<Array<f32>> = # <expr>
+    let _ = # <expr>
+    let _ = # <expr>
+    let mut a = # <expr>
+    # <expr>
+    let svd = # <expr>
+    let v_t = # <expr>
+    let f_vec = # <expr>
+    let mut f = # <expr>
+    let f_svd = # <expr>
+    let u = # <expr>
+    let v_t = # <expr>
+    let mut singular_values = # <expr>
+    # <expr>
+    let sigma = # <expr>
+    # <expr>
+    # <expr>
+    let fro_norm = # <expr>
+    # <expr>
+    # <expr>
+
+fn enforce_essential_constraints(essential: &nalgebra::Matrix3<f32>) -> Result<nalgebra::Matrix3<f32>, Error>:
+    let svd = # <expr>
+    let u = # <expr>
+    let v_t = # <expr>
+    let s0 = # <expr>
+    let s1 = # <expr>
+    let mean_s = # <expr>
+    # <expr>
+    let sigma = # <expr>
+    # <expr>
+
+fn decompose_essential_matrix(essential: &nalgebra::Matrix3<f32>) -> Result<Array<(nalgebra::Matrix3<f32>, nalgebra::Vector3<f32>)>, Error>:
+    let svd = # <expr>
+    let mut u = # <expr>
+    let mut v_t = # <expr>
+    # <expr>
+    # <expr>
+    let w = # <expr>
+    let w_t = # <expr>
+    let mut r1 = # <expr>
+    let mut r2 = # <expr>
+    # <expr>
+    # <expr>
+    let mut t = # <expr>
+    let t_norm = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+
+fn triangulate_normalized_correspondence(point_a: Array<f32>, point_b: Array<f32>, rotation: &nalgebra::Matrix3<f32>, translation: &nalgebra::Vector3<f32>, k_inv: &nalgebra::Matrix3<f32>) -> Option<nalgebra::Point3<f32>>:
+    let x_a = # <expr>
+    let x_b = # <expr>
+    # <expr>
+    let xa = # <expr>
+    let xb = # <expr>
+    let p1 = # <expr>
+    let p2 = # <expr>
+    let mut a = # <expr>
+    # <expr>
+    let svd = # <expr>
+    let v_t = # <expr>
+    let h = # <expr>
+    let w = # <expr>
+    # <expr>
+    # <expr>
+
+struct CameraPoseEstimator:
+    intrinsics: Option<super::CameraIntrinsics>
+
+impl CameraPoseEstimator:
+    fn new_(intrinsics: Option<super::CameraIntrinsics>) -> Self:
+        # <expr>
+
+    fn estimate_poses(_self: &Self, matches: &FeatureMatches) -> Result<Array<super::CameraPose>, Error>:
+        # <expr>
+        let num_images = # <expr>
+        let mut poses = # <expr>
+        # <expr>
+        # <expr>
+        let valid_poses: Array<super::CameraPose> = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn count_images(_self: &Self, matches: &FeatureMatches) -> usize:
+        let mut max_index = 0
+        # <expr>
+        # <expr>
+
+    fn estimate_relative_pose(_self: &Self, pair: &ImagePairMatches) -> Result<Option<super::CameraPose>, Error>:
+        # <expr>
+        let fundamental = # <expr>
+        let k = # <expr>
+        let k_inv = # <expr>
+        let essential = # <expr>
+        let candidates = # <expr>
+        let mut best_candidate: Option<(nalgebra::Matrix3<f32>, nalgebra::Vector3<f32>)> = None
+        let mut best_cheirality = 0
+        # <expr>
+        let _ = best_candidate
+        # <expr>
+        let camera_center = # <expr>
+        let rotation = # <expr>
+        # <expr>
+
+    fn calibration_matrix(_self: &Self) -> nalgebra::Matrix3<f32>:
+        # <expr>
+
+    fn combine_poses(_self: &Self, base: &super::CameraPose, relative: &super::CameraPose) -> super::CameraPose:
+        let new_position = # <expr>
+        let new_rotation = # <expr>
+        # <expr>
+
+    fn invert_pose(_self: &Self, pose: &super::CameraPose) -> super::CameraPose:
+        let inv_rotation = # <expr>
+        let inv_position = # <expr>
+        # <expr>
+
+
+mod tests:
+    fn keypoint(x: f32, y: f32) -> super::feature_detection::Keypoint:
+        # <expr>
+
+    fn correspondence(keypoint_a: usize, keypoint_b: usize, point_a: Array<f32>, point_b: Array<f32>) -> FeatureMatch:
+        # <expr>
+
+    fn project_point(point_world: nalgebra::Point3<f32>, rotation_world_to_camera: &nalgebra::Matrix3<f32>, camera_center_world: nalgebra::Vector3<f32>, focal_length: f32, principal: (f32, f32)) -> Array<f32>:
+        let camera_point = # <expr>
+        let x = # <expr>
+        let y = # <expr>
+        # <expr>
+
+    fn test_feature_matcher_creation():
+        let matcher = # <expr>
+        # <expr>
+
+    fn test_camera_pose_estimator_creation():
+        let estimator = # <expr>
+        # <expr>
+
+    fn test_estimate_fundamental_matrix_fits_fixture_correspondences():
+        let matcher = # <expr>
+        let matches = # <expr>
+        let f = # <expr>
+        let avg_error = # <expr>
+        # <expr>
+
+    fn test_ransac_filter_handles_outlier_contaminated_set():
+        let matcher = # <expr>
+        let mut keypoints_a = # <expr>
+        let mut keypoints_b = # <expr>
+        let mut matches = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        let inliers = # <expr>
+        # <expr>
+
+    fn test_estimate_relative_pose_recovers_translation_direction_from_fixture():
+        let intrinsics = # <expr>
+        let estimator = # <expr>
+        let rotation_identity = # <expr>
+        let camera_a_center = # <expr>
+        let camera_b_center = # <expr>
+        let points_world = # <expr>
+        let pair_matches = # <expr>
+        let pair = # <expr>
+        let relative = # <expr>
+        let relative_dir = # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_estimate_relative_pose_requires_minimum_correspondences():
+        let estimator = # <expr>
+        let pair = # <expr>
+        # <expr>
+
+    fn test_estimate_fundamental_matrix_rejects_degenerate_correspondences():
+        let matcher = # <expr>
+        let degenerate_matches: Array<FeatureMatch> = # <expr>
+        # <expr>
+
+
+struct MeshGenerator:
+    gpu_compute: k_os_gpu_pipeline::device::GpuComputeDevice
+    config: MeshGenerationConfig
+
+enum MeshGenerationStrategy:
+    TriangleFanCompat
+
+enum SparseCloudFallback:
+    CompatibilityQuad
+    EmptyMesh
+
+struct MeshGenerationConfig:
+    strategy: MeshGenerationStrategy
+    sparse_cloud_fallback: SparseCloudFallback
+
+impl Default for MeshGenerationConfig:
+    fn default_() -> Self:
+        # <expr>
+
+
+struct TriangleMesh:
+    vertices: Array<nalgebra::Point3<f32>>
+    normals: Array<nalgebra::Vector3<f32>>
+    uvs: Array<nalgebra::Point2<f32>>
+    indices: Array<u32>
+
+impl MeshGenerator:
+    fn new_(gpu_compute: k_os_gpu_pipeline::device::GpuComputeDevice) -> Self:
+        # <expr>
+
+    fn with_config(gpu_compute: k_os_gpu_pipeline::device::GpuComputeDevice, config: MeshGenerationConfig) -> Self:
+        # <expr>
+
+    fn generate(_self: &Self, point_cloud: &super::PointCloud, quality: f32) -> Result<TriangleMesh, Error>:
+        # <expr>
+        let selected_indices = # <expr>
+        # <expr>
+        # <expr>
+
+
+fn select_point_indices(point_count: usize, quality: f32) -> Array<usize>:
+    # <expr>
+    let clamped_quality = # <expr>
+    let target = # <expr>
+    let target = # <expr>
+    # <expr>
+    let stride = # <expr>
+    let mut selected = # <expr>
+    let mut idx = 0
+    # <expr>
+    # <expr>
+    selected
+
+fn compatibility_quad() -> TriangleMesh:
+    let vertices = # <expr>
+    let normals = # <expr>
+    let uvs = # <expr>
+    let indices = # <expr>
+    # <expr>
+
+fn empty_mesh() -> TriangleMesh:
+    # <expr>
+
+mod tests:
+    fn test_triangle_mesh_creation():
+        let vertices = # <expr>
+        let normals = # <expr>
+        let uvs = # <expr>
+        let indices = # <expr>
+        let mesh = # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_mesh_generation_uses_point_cloud_geometry():
+        let generator = # <expr>
+        let point_cloud = # <expr>
+        let mesh = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_sparse_cloud_empty_fallback_returns_empty_mesh():
+        let generator = # <expr>
+        let point_cloud = # <expr>
+        let mesh = # <expr>
+        # <expr>
+        # <expr>
+
+
+struct PhotogrammetryPipeline:
+    gpu_compute: k_os_gpu_pipeline::device::GpuComputeDevice
+    feature_detector: feature_detection::FeatureDetector
+    feature_matcher: feature_matching::FeatureMatcher
+    point_cloud_generator: reconstruction::PointCloudGenerator
+    mesh_generator: mesh_generation::MeshGenerator
+    texture_projector: texture_projection::TextureProjector
+    pbr_extractor: pbr_extraction::PBRExtractor
+
+struct PhotogrammetryInput:
+    images: Array<ImageData>
+    camera_intrinsics: Option<CameraIntrinsics>
+    options: ReconstructionOptions
+
+struct ImageData:
+    pixels: Array<u8>
+    width: u32
+    height: u32
+    name: Option<String>
+
+struct CameraIntrinsics:
+    focal_length: f32
+    principal_point: (f32, f32)
+    distortion: Array<f32>
+
+struct ReconstructionOptions:
+    use_gpu: Bool
+    max_features: usize
+    min_matches: usize
+    mesh_quality: f32
+    texture_resolution: u32
+
+impl Default for ReconstructionOptions:
+    fn default_() -> Self:
+        # <expr>
+
+
+struct PhotogrammetryOutput:
+    point_cloud: reconstruction::PointCloud
+    mesh: mesh_generation::TriangleMesh
+    camera_poses: Array<CameraPose>
+    texture_atlas: texture_projection::TextureAtlas
+    pbr_maps: pbr_extraction::PBRMaps
+
+struct CameraPose:
+    position: nalgebra::Point3<f32>
+    rotation: nalgebra::UnitQuaternion<f32>
+    view_matrix: nalgebra::Matrix4<f32>
+    projection_matrix: nalgebra::Matrix4<f32>
+
+impl CameraPose:
+    fn new_(position: nalgebra::Point3<f32>, rotation: nalgebra::UnitQuaternion<f32>) -> Self:
+        let view_matrix = # <expr>
+        let projection_matrix = # <expr>
+        # <expr>
+
+    fn compute_view_matrix(position: &nalgebra::Point3<f32>, rotation: &nalgebra::UnitQuaternion<f32>) -> nalgebra::Matrix4<f32>:
+        let rotation_matrix = # <expr>
+        let mut view = # <expr>
+        # <expr>
+        let translation = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        view
+
+
+impl PhotogrammetryPipeline:
+    fn new_(gpu_compute: k_os_gpu_pipeline::device::GpuComputeDevice) -> Result<Self, Error>:
+        # <expr>
+
+    fn reconstruct(_self: &Self, input: PhotogrammetryInput) -> Result<PhotogrammetryOutput, Error>:
+        # <expr>
+        # <expr>
+        # <expr>
+        let features = # <expr>
+        # <expr>
+        let matches = # <expr>
+        # <expr>
+        let camera_poses = # <expr>
+        # <expr>
+        let point_cloud = # <expr>
+        # <expr>
+        let mesh = # <expr>
+        # <expr>
+        let texture_atlas = # <expr>
+        # <expr>
+        let pbr_maps = # <expr>
+        # <expr>
+        # <expr>
+
+    fn validate_input(input: &PhotogrammetryInput) -> Result<(), Error>:
+        let image_count = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn extract_features(_self: &Self, images: &Slice<ImageData>, options: &ReconstructionOptions) -> Result<Array<feature_detection::FeatureSet>, Error>:
+        # <expr>
+
+    fn match_features(_self: &Self, features: &Slice<feature_detection::FeatureSet>, options: &ReconstructionOptions) -> Result<feature_matching::FeatureMatches, Error>:
+        # <expr>
+
+    fn estimate_camera_poses(_self: &Self, matches: &feature_matching::FeatureMatches, intrinsics: &Option<CameraIntrinsics>) -> Result<Array<CameraPose>, Error>:
+        let estimator = # <expr>
+        # <expr>
+
+    fn triangulate_points(_self: &Self, matches: &feature_matching::FeatureMatches, poses: &Slice<CameraPose>) -> Result<reconstruction::PointCloud, Error>:
+        # <expr>
+
+    fn generate_mesh(_self: &Self, point_cloud: &reconstruction::PointCloud, options: &ReconstructionOptions) -> Result<mesh_generation::TriangleMesh, Error>:
+        # <expr>
+
+    fn project_textures(_self: &Self, mesh: &mesh_generation::TriangleMesh, images: &Slice<ImageData>, poses: &Slice<CameraPose>, options: &ReconstructionOptions) -> Result<texture_projection::TextureAtlas, Error>:
+        # <expr>
+
+    fn extract_pbr_maps(_self: &Self, mesh: &mesh_generation::TriangleMesh, texture: &texture_projection::TextureAtlas) -> Result<pbr_extraction::PBRMaps, Error>:
+        # <expr>
+
+
+mod tests:
+    fn sample_image() -> ImageData:
+        # <expr>
+
+    fn sample_input() -> PhotogrammetryInput:
+        # <expr>
+
+    fn test_reconstruction_options_default():
+        let options = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_camera_pose_creation():
+        let position = # <expr>
+        let rotation = # <expr>
+        let pose = # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_validate_input_accepts_valid_input():
+        let input = # <expr>
+        # <expr>
+
+    fn test_validate_input_rejects_invalid_image_pixel_length():
+        let mut input = # <expr>
+        # <expr>
+        let err = # <expr>
+        # <expr>
+
+    fn test_validate_input_rejects_invalid_texture_resolution():
+        let mut input = # <expr>
+        # <expr>
+        let err = # <expr>
+        # <expr>
+
+    fn fixture_pose(translation_x: f32) -> CameraPose:
+        let mut pose = # <expr>
+        # <expr>
+        pose
+
+    fn test_smoke_non_placeholder_pointcloud_mesh_and_atlas():
+        let poses = # <expr>
+        let matches = # <expr>
+        let point_cloud = # <expr>
+        # <expr>
+        let mesh = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        let image_a = # <expr>
+        let image_b = # <expr>
+        let atlas = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        let unique_rgbs = # <expr>
+        # <expr>
+
+
+struct PBRExtractor:
+    gpu_compute: k_os_gpu_pipeline::device::GpuComputeDevice
+    config: PBRExtractionConfig
+
+struct PBRExtractionConfig:
+    flat_normal_rgb: Array<u8>
+    roughness_base: f32
+    roughness_variance_scale: f32
+    metallic_brightness_threshold: f32
+    metallic_saturation_threshold: f32
+    ao_default: u8
+    height_default: u8
+    validation_contract: PBRMapValidationContract
+
+impl Default for PBRExtractionConfig:
+    fn default_() -> Self:
+        # <expr>
+
+
+enum PBRMapKind:
+    Albedo
+    Normal
+    Roughness
+    Metallic
+    Ao
+    Height
+
+impl PBRMapKind:
+    fn label(_self: Self) -> &String:
+        # <expr>
+
+
+struct TextureValidationRule:
+    channels: u32
+    require_non_uniform: Bool
+
+struct PBRMapValidationContract:
+    rules: Map<PBRMapKind, TextureValidationRule>
+
+impl Default for PBRMapValidationContract:
+    fn default_() -> Self:
+        let mut rules = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+
+struct PBRMaps:
+    albedo: TextureMap
+    normal: TextureMap
+    roughness: TextureMap
+    metallic: TextureMap
+    ao: TextureMap
+    height: TextureMap
+
+struct TextureMap:
+    pixels: Array<u8>
+    width: u32
+    height: u32
+    channels: u32
+
+impl PBRMaps:
+    fn validate_against(_self: &Self, expected_width: u32, expected_height: u32, contract: &PBRMapValidationContract) -> Result<(), Error>:
+        # <expr>
+        # <expr>
+
+    fn map_for(_self: &Self, kind: PBRMapKind) -> &TextureMap:
+        # <expr>
+
+    fn validate_map(label: &String, map: &TextureMap, expected_width: u32, expected_height: u32, rule: &TextureValidationRule) -> Result<(), Error>:
+        # <expr>
+        # <expr>
+        let expected_len = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+
+impl PBRExtractor:
+    fn new_(gpu_compute: k_os_gpu_pipeline::device::GpuComputeDevice) -> Result<Self, Error>:
+        # <expr>
+
+    fn with_config(gpu_compute: k_os_gpu_pipeline::device::GpuComputeDevice, config: PBRExtractionConfig) -> Result<Self, Error>:
+        # <expr>
+
+    fn extract(_self: &Self, mesh: &super::TriangleMesh, texture: &super::TextureAtlas) -> Result<PBRMaps, Error>:
+        # <expr>
+        let width = # <expr>
+        let height = # <expr>
+        let albedo = # <expr>
+        let normal = # <expr>
+        let roughness = # <expr>
+        let metallic = # <expr>
+        let ao = # <expr>
+        let height_map = # <expr>
+        # <expr>
+        let maps = # <expr>
+        # <expr>
+        # <expr>
+
+    fn extract_albedo(_self: &Self, texture: &super::TextureAtlas) -> Result<TextureMap, Error>:
+        let expected_len = # <expr>
+        # <expr>
+        # <expr>
+
+    fn generate_normal_map(_self: &Self, mesh: &super::TriangleMesh, width: u32, height: u32) -> Result<TextureMap, Error>:
+        let texel_count = # <expr>
+        let mut sum_x = # <expr>
+        let mut sum_y = # <expr>
+        let mut sum_z = # <expr>
+        let mut sample_count = # <expr>
+        # <expr>
+        let mut pixels = # <expr>
+        let _ = # <expr>
+        # <expr>
+        # <expr>
+
+    fn estimate_roughness(_self: &Self, texture: &super::TextureAtlas, width: u32, height: u32) -> Result<TextureMap, Error>:
+        let pixel_count = # <expr>
+        let mut luminance = # <expr>
+        let mut sum = 0
+        # <expr>
+        let mean = # <expr>
+        let base = # <expr>
+        let scale = # <expr>
+        let mut pixels = # <expr>
+        # <expr>
+        # <expr>
+
+    fn estimate_metallic(_self: &Self, texture: &super::TextureAtlas, width: u32, height: u32) -> Result<TextureMap, Error>:
+        let pixel_count = # <expr>
+        let brightness_threshold = # <expr>
+        let saturation_threshold = # <expr>
+        let mut pixels = # <expr>
+        # <expr>
+        # <expr>
+
+    fn generate_ao_map(_self: &Self, _mesh: &super::TriangleMesh, width: u32, height: u32) -> Result<TextureMap, Error>:
+        let pixels = # <expr>
+        # <expr>
+
+    fn generate_height_map(_self: &Self, _mesh: &super::TriangleMesh, width: u32, height: u32) -> Result<TextureMap, Error>:
+        let pixels = # <expr>
+        # <expr>
+
+
+fn encode_normal_component(component: f32) -> u8:
+    # <expr>
+
+mod tests:
+    fn sample_texture_rgba() -> super::TextureAtlas:
+        # <expr>
+
+    fn sample_mesh() -> super::TriangleMesh:
+        # <expr>
+
+    fn sample_mesh_with_uv_normals() -> super::TriangleMesh:
+        # <expr>
+
+    fn test_texture_map_creation():
+        let map = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_roughness_estimation_uses_texture_signal():
+        let cfg = # <expr>
+        let extractor = # <expr>
+        let texture = # <expr>
+        let roughness = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_normal_map_generation_uses_mesh_uv_normals():
+        let extractor = # <expr>
+        let mesh = # <expr>
+        let normal = # <expr>
+        # <expr>
+        # <expr>
+        let unique_texels = # <expr>
+        # <expr>
+
+    fn test_normal_map_generation_falls_back_when_mesh_samples_missing():
+        let cfg = # <expr>
+        let extractor = # <expr>
+        let normal = # <expr>
+        # <expr>
+
+    fn test_metallic_estimation_distinguishes_low_saturation_bright_pixels():
+        let cfg = # <expr>
+        let extractor = # <expr>
+        let texture = # <expr>
+        let metallic = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_extract_validates_renderer_contract_success_path():
+        let extractor = # <expr>
+        let texture = # <expr>
+        let maps = # <expr>
+        # <expr>
+
+    fn test_extract_fails_on_contract_channel_mismatch():
+        let mut config = # <expr>
+        # <expr>
+        let extractor = # <expr>
+        let err = # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_extract_fails_on_required_non_uniformity():
+        let mut config = # <expr>
+        # <expr>
+        let extractor = # <expr>
+        let err = # <expr>
+        # <expr>
+        # <expr>
+
+
+struct PointCloudGenerator:
+    gpu_compute: k_os_gpu_pipeline::device::GpuComputeDevice
+
+struct PointCloud:
+    points: Array<nalgebra::Point3<f32>>
+    colors: Array<nalgebra::Vector3<f32>>
+    normals: Array<nalgebra::Vector3<f32>>
+
+impl PointCloudGenerator:
+    fn new_(gpu_compute: k_os_gpu_pipeline::device::GpuComputeDevice) -> Self:
+        # <expr>
+
+    fn triangulate(_self: &Self, matches: &super::FeatureMatches, poses: &Slice<super::CameraPose>) -> Result<PointCloud, Error>:
+        # <expr>
+        let mut points = # <expr>
+        # <expr>
+        let colors = # <expr>
+        let normals = # <expr>
+        # <expr>
+        # <expr>
+
+
+fn projection_for_pose(pose: &super::CameraPose) -> nalgebra::Matrix4<f32>:
+    # <expr>
+
+fn triangulate_dlt(projection_a: &nalgebra::Matrix4<f32>, projection_b: &nalgebra::Matrix4<f32>, point_a: Array<f32>, point_b: Array<f32>) -> Result<nalgebra::Point3<f32>, Error>:
+    let mut a = # <expr>
+    # <expr>
+    let svd = # <expr>
+    let v_t = # <expr>
+    let h = # <expr>
+    let w = # <expr>
+    # <expr>
+    # <expr>
+
+fn reprojection_error(projection: &nalgebra::Matrix4<f32>, point: nalgebra::Point3<f32>, observation: Array<f32>) -> Result<f32, Error>:
+    let homogeneous_point = # <expr>
+    let projected = # <expr>
+    # <expr>
+    let x = # <expr>
+    let y = # <expr>
+    let dx = # <expr>
+    let dy = # <expr>
+    # <expr>
+
+mod tests:
+    fn test_point_cloud_creation():
+        let points = # <expr>
+        let colors = # <expr>
+        let normals = # <expr>
+        let cloud = # <expr>
+        # <expr>
+
+    fn test_pose(translation_x: f32) -> super::CameraPose:
+        let mut pose = # <expr>
+        # <expr>
+        pose
+
+    fn triangulate_dlt_recovers_fixture_point():
+        let projection_a = # <expr>
+        let projection_b = # <expr>
+        let true_point = # <expr>
+        let obs_a = # <expr>
+        let obs_b = # <expr>
+        let estimated = # <expr>
+        let error = # <expr>
+        # <expr>
+
+    fn triangulate_filters_high_reprojection_error_matches():
+        let generator = # <expr>
+        let matches = # <expr>
+        let poses = # <expr>
+        let cloud = # <expr>
+        # <expr>
+
+
+struct TextureProjector:
+    gpu_compute: k_os_gpu_pipeline::device::GpuComputeDevice
+
+struct TextureAtlas:
+    pixels: Array<u8>
+    width: u32
+    height: u32
+
+impl TextureProjector:
+    fn new_(gpu_compute: k_os_gpu_pipeline::device::GpuComputeDevice) -> Result<Self, Error>:
+        # <expr>
+
+    fn project(_self: &Self, mesh: &super::TriangleMesh, images: &Slice<super::ImageData>, poses: &Slice<super::CameraPose>, resolution: u32) -> Result<TextureAtlas, Error>:
+        # <expr>
+        # <expr>
+        # <expr>
+        let blend_weights = # <expr>
+        let pixels = # <expr>
+        # <expr>
+        # <expr>
+
+    fn compute_blend_weights(mesh: &super::TriangleMesh, poses: &Slice<super::CameraPose>, image_count: usize) -> Array<f32>:
+        # <expr>
+        # <expr>
+        let centroid = # <expr>
+        let avg_normal = # <expr>
+        let mut weights = # <expr>
+        # <expr>
+        let weight_sum: f32 = # <expr>
+        # <expr>
+
+    fn build_blended_atlas(images: &Slice<super::ImageData>, resolution: u32, blend_weights: &Slice<f32>) -> Result<Array<u8>, Error>:
+        let atlas_len = # <expr>
+        let mut pixels = # <expr>
+        # <expr>
+        # <expr>
+        let total_weight: f32 = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+
+mod tests:
+    fn test_texture_atlas_creation():
+        let atlas = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_blended_atlas_averages_source_images():
+        let image_a = # <expr>
+        let image_b = # <expr>
+        let atlas = # <expr>
+        # <expr>
+
+    fn test_blended_atlas_rejects_invalid_source_image_length():
+        let bad_image = # <expr>
+        let err = # <expr>
+        # <expr>
+
+    fn test_blended_atlas_respects_pose_weights():
+        let mesh = # <expr>
+        let pose_front = # <expr>
+        let pose_back = # <expr>
+        let weights = # <expr>
+        # <expr>
+        let image_front = # <expr>
+        let image_back = # <expr>
+        let atlas = # <expr>
+        # <expr>
+
+

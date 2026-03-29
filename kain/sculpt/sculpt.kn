@@ -1,0 +1,877 @@
+# Generated from Rust source by kain import-rust
+# Project Ouroboros — Rust → KAIN → Rust
+
+struct InterpolatedPoint:
+    uv: Array<f32>
+    pressure: f32
+    t: f32
+
+fn interpolate_brush_stroke(start_uv: Array<f32>, end_uv: Array<f32>, start_pressure: f32, end_pressure: f32, spacing: f32, brush_size_uv: f32) -> Array<InterpolatedPoint>:
+    let start = # <expr>
+    let end = # <expr>
+    let dist = # <expr>
+    let step_dist = # <expr>
+    let steps = # <expr>
+    # <expr>
+    # <expr>
+
+struct SymmetryConfig:
+    mirror_x: Bool
+    mirror_y: Bool
+    mirror_z: Bool
+    radial_count: u32
+    center: Array<f32>
+
+fn calculate_symmetry_uvs(uv: Array<f32>, config: SymmetryConfig) -> Array<Array<f32>>:
+    let mut results = # <expr>
+    let center = # <expr>
+    let point = # <expr>
+    let mut base_points = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    results
+
+fn batch_symmetry_uvs(uvs: Array<Array<f32>>, config: SymmetryConfig) -> Array<Array<Array<f32>>>:
+    # <expr>
+
+fn get_velocity_grid_rgba(sim_id: u64, resolution: usize) -> Result<Array<f32>, String>:
+    # <stmt>
+    let sims = # <expr>
+    let sim = # <expr>
+    let velocity = # <expr>
+    let pixel_count = # <expr>
+    let rgba: Array<f32> = # <expr>
+    # <expr>
+
+struct PaintOp:
+    uv: Array<f32>
+    pressure: f32
+
+fn process_brush_stroke(start_uv: Array<f32>, end_uv: Array<f32>, start_pressure: f32, end_pressure: f32, spacing: f32, brush_size_uv: f32, symmetry: Option<SymmetryConfig>) -> Array<PaintOp>:
+    let points = # <expr>
+    let mut all_ops = # <expr>
+    # <expr>
+    all_ops
+
+mod tests:
+    fn test_interpolation():
+        let points = # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_symmetry():
+        let config = # <expr>
+        let uvs = # <expr>
+        # <expr>
+
+
+enum PressureCurve:
+    Linear
+    Soft
+    Hard
+    Constant
+    Custom { exponent: f32 }
+
+impl Default for PressureCurve:
+    fn default_() -> Self:
+        PressureCurve::Linear
+
+
+impl PressureCurve:
+    fn apply(_self: &Self, input: f32) -> f32:
+        let t = # <expr>
+        # <expr>
+
+    fn from_str(s: &String) -> Self:
+        # <expr>
+
+
+enum FalloffType:
+    Gaussian
+    Smooth
+    Sharp
+    Flat
+    Sphere
+
+impl Default for FalloffType:
+    fn default_() -> Self:
+        FalloffType::Gaussian
+
+
+impl FalloffType:
+    fn apply(_self: &Self, dist: f32, radius: f32, hardness: f32) -> f32:
+        # <expr>
+        let t = # <expr>
+        # <expr>
+
+
+struct LazyMouse:
+    position: glam::Vec3
+    normal: glam::Vec3
+    lazy_radius: f32
+    smoothing: f32
+    history: Array<glam::Vec3>
+    history_size: usize
+    is_active: Bool
+
+impl LazyMouse:
+    fn new_(lazy_radius: f32, smoothing: f32) -> Self:
+        # <expr>
+
+    fn update(_self: &mut Self, input_pos: glam::Vec3, input_normal: glam::Vec3) -> (glam::Vec3, glam::Vec3):
+        # <expr>
+        let delta = # <expr>
+        let dist = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn reset(_self: &mut Self):
+        # <expr>
+        # <expr>
+
+
+struct StrokeState:
+    lazy_mouse: LazyMouse
+    start_time: std::time::Instant
+    dab_count: u32
+    total_distance: f32
+    last_position: glam::Vec3
+    last_normal: glam::Vec3
+    velocity: f32
+    residual_distance: f32
+    is_active: Bool
+
+impl StrokeState:
+    fn new_(lazy_radius: f32, smoothing: f32) -> Self:
+        # <expr>
+
+    fn begin(_self: &mut Self, position: glam::Vec3, normal: glam::Vec3):
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn update(_self: &mut Self, position: glam::Vec3, normal: glam::Vec3, spacing: f32, radius: f32, delta_time: f32) -> Array<StrokeDab>:
+        # <expr>
+        let _ = # <expr>
+        let delta = # <expr>
+        let dist = # <expr>
+        # <expr>
+        # <expr>
+        let step_width = # <expr>
+        let mut dabs = # <expr>
+        let accumulated = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        dabs
+
+    fn end(_self: &mut Self):
+        # <expr>
+        # <expr>
+
+
+struct StrokeDab:
+    position: Array<f32>
+    normal: Array<f32>
+    pressure: f32
+    entry_fade: f32
+    velocity_factor: f32
+
+impl StrokeDab:
+    fn new_internal(position: glam::Vec3, normal: glam::Vec3, pressure: f32, entry_fade: f32, velocity_factor: f32) -> Self:
+        # <expr>
+
+
+fn calculate_step_width(radius: f32, spacing: f32) -> f32:
+    let base_step = # <expr>
+    let log_factor = # <expr>
+    # <expr>
+
+fn calculate_entry_fade(dab_index: u32, fade_dabs: u32) -> f32:
+    # <expr>
+
+fn velocity_to_factor(velocity: f32, radius: f32) -> f32:
+    let normalized = # <expr>
+    # <expr>
+
+fn process_stroke_segment(start_pos: Array<f32>, end_pos: Array<f32>, start_normal: Array<f32>, end_normal: Array<f32>, start_pressure: f32, end_pressure: f32, radius: f32, spacing: f32, pressure_curve: String, _lazy_radius: f32) -> Array<StrokeDab>:
+    let start = # <expr>
+    let end = # <expr>
+    let start_n = # <expr>
+    let end_n = # <expr>
+    let curve = # <expr>
+    let dist = # <expr>
+    let step_width = # <expr>
+    let steps = # <expr>
+    # <expr>
+
+fn stabilize_position(current_pos: Array<f32>, input_pos: Array<f32>, lazy_radius: f32, smoothing: f32) -> Array<f32>:
+    let current = # <expr>
+    let input = # <expr>
+    let delta = # <expr>
+    let dist = # <expr>
+    let result = # <expr>
+    # <expr>
+
+fn falloff(dist_sq: f32, radius_sq: f32) -> f32:
+    let t = # <expr>
+    # <expr>
+
+fn apply_clay_strips(positions: &mut Slice<f32>, indices_to_modify: &Slice<usize>, center: glam::Vec3, normal: glam::Vec3, radius: f32, intensity: f32, stroke_dir: Option<glam::Vec3>) -> Array<usize>:
+    let radius_sq = # <expr>
+    let local_intensity = intensity
+    let dir = # <expr>
+    let computed: Array<(usize, glam::Vec3)> = # <expr>
+    let mut modified = # <expr>
+    # <expr>
+    modified
+
+mod tests:
+    fn test_clay_strips_basic():
+        let mut positions = # <expr>
+        let indices = # <expr>
+        let center = # <expr>
+        let normal = glam::Vec3::Y
+        let modified = # <expr>
+        # <expr>
+
+
+mod viewport:
+    fn get_sculpt_viewport_payload(handle: super::SculptMeshHandle) -> Result<k_os_eval::mesh_pipeline::ViewportBufferPayload, String>:
+        # <expr>
+
+
+mod commands:
+
+mod gpu:
+
+fn init_mask_for_mesh(handle: u64, vertex_count: usize):
+    # <expr>
+
+fn get_mask_mut(handle: u64) -> Option<Array<f32>>:
+    # <expr>
+
+fn set_mask(handle: u64, mask: Array<f32>):
+    # <expr>
+
+fn dispose_mask(handle: u64):
+    # <expr>
+
+fn paint_mask_cmd(handle: u64, positions: Array<f32>, center: Array<f32>, radius: f32, intensity: f32, falloff: f32) -> Result<MaskPaintResult, String>:
+    let mut storage = # <expr>
+    let mask = # <expr>
+    let expected_len = # <expr>
+    # <expr>
+    # <expr>
+
+fn clear_mask_cmd(handle: u64) -> Result<(), String>:
+    let mut storage = # <expr>
+    let mask = # <expr>
+    # <expr>
+    # <expr>
+
+fn invert_mask_cmd(handle: u64) -> Result<(), String>:
+    let mut storage = # <expr>
+    let mask = # <expr>
+    # <expr>
+    # <expr>
+
+fn grow_mask_cmd(handle: u64, indices: Array<u32>, iterations: u32) -> Result<(), String>:
+    let mut storage = # <expr>
+    let mask = # <expr>
+    # <expr>
+    # <expr>
+
+fn shrink_mask_cmd(handle: u64, indices: Array<u32>, iterations: u32) -> Result<(), String>:
+    let mut storage = # <expr>
+    let mask = # <expr>
+    # <expr>
+    # <expr>
+
+fn blur_mask_cmd(handle: u64, indices: Array<u32>, iterations: u32) -> Result<(), String>:
+    let mut storage = # <expr>
+    let mask = # <expr>
+    # <expr>
+    # <expr>
+
+fn get_mask_cmd(handle: u64) -> Result<Array<f32>, String>:
+    let storage = # <expr>
+    # <expr>
+
+struct MaskPaintResult:
+    modified_indices: Array<u32>
+    new_values: Array<f32>
+    time_ms: f64
+
+struct MaskExtractResult:
+    kept_face_indices: Array<u32>
+    face_count: usize
+
+fn paint_mask(mask: &mut Slice<f32>, positions: &Slice<f32>, center: Array<f32>, radius: f32, intensity: f32, falloff: f32) -> MaskPaintResult:
+    let start = # <expr>
+    let vertex_count = # <expr>
+    let radius_sq = # <expr>
+    let cx = # <expr>
+    let cy = # <expr>
+    let cz = # <expr>
+    let mut modified_indices = # <expr>
+    let mut new_values = # <expr>
+    # <expr>
+    # <expr>
+
+fn clear_mask(mask: &mut Slice<f32>):
+    # <expr>
+
+fn invert_mask(mask: &mut Slice<f32>):
+    # <expr>
+
+fn grow_mask(mask: &mut Slice<f32>, indices: &Slice<u32>, iterations: u32):
+    let vertex_count = # <expr>
+    let mut neighbors: Array<Set<usize>> = # <expr>
+    # <expr>
+    # <expr>
+
+fn shrink_mask(mask: &mut Slice<f32>, indices: &Slice<u32>, iterations: u32):
+    let vertex_count = # <expr>
+    let mut neighbors: Array<Set<usize>> = # <expr>
+    # <expr>
+    # <expr>
+
+fn get_brush_weight(mask: &Slice<f32>, vertex_idx: usize) -> f32:
+    # <expr>
+
+fn extract_masked_faces(mask: &Slice<f32>, indices: &Slice<u32>, threshold: f32) -> MaskExtractResult:
+    let mut kept_face_indices = # <expr>
+    # <expr>
+    let face_count = # <expr>
+    # <expr>
+
+fn blur_mask(mask: &mut Slice<f32>, indices: &Slice<u32>, iterations: u32):
+    let vertex_count = # <expr>
+    let mut neighbors: Array<Array<usize>> = # <expr>
+    # <expr>
+    # <expr>
+    let mut temp = # <expr>
+    # <expr>
+
+mod tests:
+    fn test_clear_mask():
+        let mut mask = # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_invert_mask():
+        let mut mask = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_paint_mask_radius():
+        let positions = # <expr>
+        let mut mask = # <expr>
+        let result = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_get_brush_weight():
+        let mask = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+
+struct GridCell:
+    x: i32
+    y: i32
+    z: i32
+
+struct SpatialGrid:
+    cell_size: f32
+    cells: Map<GridCell, Array<usize>>
+
+impl SpatialGrid:
+    fn new_(cell_size: f32) -> Self:
+        # <expr>
+
+    fn build(_self: &mut Self, positions: &Slice<f32>):
+        # <expr>
+        let vertex_count = # <expr>
+        # <expr>
+
+    fn get_cell(_self: &Self, x: f32, y: f32, z: f32) -> GridCell:
+        # <expr>
+
+    fn query_sphere(_self: &Self, center: glam::Vec3, radius: f32, positions: &Slice<f32>) -> Array<usize>:
+        let mut result = # <expr>
+        # <expr>
+        result
+
+    fn query_sphere_into(_self: &Self, center: glam::Vec3, radius: f32, positions: &Slice<f32>, result: &mut Array<usize>):
+        # <expr>
+        let radius_sq = # <expr>
+        let cells_to_check = # <expr>
+        let center_cell = # <expr>
+        # <expr>
+
+
+struct MeshTopology:
+    vertex_neighbors: Array<Array<usize>>
+    vertex_faces: Array<Array<usize>>
+
+impl MeshTopology:
+    fn new_() -> Self:
+        # <expr>
+
+    fn build(_self: &mut Self, vertex_count: usize, indices: &Slice<u32>):
+        # <expr>
+        # <expr>
+        let face_count = # <expr>
+        # <expr>
+        # <expr>
+
+    fn add_neighbor(_self: &mut Self, vertex: usize, neighbor: usize):
+        # <expr>
+
+
+struct BrushResult:
+    modified_indices: Array<usize>
+    new_positions: Array<f32>
+    new_normals: Option<Array<f32>>
+    normal_indices: Option<Array<usize>>
+    new_tangents: Option<Array<f32>>
+    tangent_indices: Option<Array<u32>>
+    time_ms: f64
+    affected_count: usize
+    used_gpu: Bool
+    gpu_fallback_reason: Option<String>
+
+struct SculptMesh:
+    scene_mesh: Option<k_os_scene::MeshHandle>
+    positions: Array<f32>
+    normals: Array<f32>
+    indices: Array<u32>
+    grid: SpatialGrid
+    topology: MeshTopology
+    kdtree: kiddo::float::kdtree::KdTree<f32, u64, u16>
+    strokes_since_rebuild: u32
+    verts_modified_since_rebuild: usize
+    grid_dirty: Bool
+    kdtree_dirty: Bool
+    scratch_candidates: Array<usize>
+    scratch_modified: Array<usize>
+    scratch_positions_out: Array<f32>
+    scratch_normals_out: Array<f32>
+    gpu_buffers: Option<AnyBox>
+    gpu_spatial_grid: Option<k_os_gpu_pipeline::spatial::GpuSpatialGrid>
+    gpu_dirty: Bool
+    gpu_grid_built: Bool
+    sparse_readback: Option<k_os_gpu_pipeline::sculpt::SparsePositionReadback>
+
+fn sync_runtime_mesh_from_scene(mesh: &mut SculptMesh) -> Result<(), String>:
+    let _ = # <expr>
+    let scene = # <expr>
+    let source = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+
+fn falloff(dist_sq: f32, radius_sq: f32) -> f32:
+    let t = # <expr>
+    # <expr>
+
+fn apply_brush_kernel(positions: &mut Slice<f32>, indices_to_modify: &Slice<usize>, center: glam::Vec3, normal: glam::Vec3, radius: f32, intensity: f32, tool: &String, delta: Option<glam::Vec3>) -> Array<usize>:
+    let radius_sq = # <expr>
+    let local_intensity = intensity
+    let drag_vec = # <expr>
+    let computed: Array<(usize, glam::Vec3)> = # <expr>
+    let mut modified = # <expr>
+    # <expr>
+    modified
+
+fn apply_smooth_kernel(positions: &mut Slice<f32>, topology: &MeshTopology, indices_to_modify: &Slice<usize>, center: glam::Vec3, radius: f32, intensity: f32) -> Array<usize>:
+    let radius_sq = # <expr>
+    let local_intensity = # <expr>
+    let new_positions: Array<(usize, glam::Vec3)> = # <expr>
+    let mut modified = # <expr>
+    # <expr>
+    modified
+
+fn compute_all_normals(positions: &Slice<f32>, indices: &Slice<u32>) -> Array<f32>:
+    let vertex_count = # <expr>
+    let face_count = # <expr>
+    let mut normals = # <expr>
+    # <expr>
+    # <expr>
+    normals
+
+fn recalculate_normals_incremental(positions: &Slice<f32>, normals: &mut Slice<f32>, indices: &Slice<u32>, topology: &MeshTopology, modified_indices: &Slice<usize>) -> Array<usize>:
+    let vertex_count = # <expr>
+    let face_count = # <expr>
+    let mut dirty_faces_bits = # <expr>
+    # <expr>
+    let mut dirty_faces_list: Array<usize> = # <expr>
+    # <expr>
+    let mut dirty_vertices_bits = # <expr>
+    # <expr>
+    let mut dirty_vertices_list: Array<usize> = # <expr>
+    # <expr>
+    let computed: Array<(usize, glam::Vec3)> = # <expr>
+    # <expr>
+    dirty_vertices_list
+
+fn init_sculpt_mesh(positions: Array<f32>, indices: Array<u32>) -> Result<SculptMeshHandle, String>:
+    let start = # <expr>
+    let vertex_count = # <expr>
+    let face_count = # <expr>
+    let normals = # <expr>
+    let scene_mesh = # <expr>
+    let _ = # <expr>
+    let extent = # <expr>
+    let max_dim = # <expr>
+    let cell_size = # <expr>
+    let mut grid = # <expr>
+    # <expr>
+    let mut topology = # <expr>
+    # <expr>
+    let kdtree: kiddo::float::kdtree::KdTree<f32, u64, u16> = # <expr>
+    let handle = # <expr>
+    # <expr>
+    let elapsed = # <expr>
+    # <expr>
+    # <expr>
+
+fn init_sculpt_mesh_binary(positions_bytes: Array<u8>, indices_bytes: Array<u8>) -> Result<SculptMeshHandle, String>:
+    # <expr>
+    # <expr>
+    let positions: Array<f32> = # <expr>
+    let indices: Array<u32> = # <expr>
+    # <expr>
+    # <expr>
+
+mod gpu_integration:
+    fn get_or_init_normal_compute(device: &wgpu::Device) -> &Option<k_os_gpu_pipeline::normals::GpuNormalCompute>:
+        # <expr>
+
+    fn recalculate_normals_gpu(device: &wgpu::Device, queue: &wgpu::Queue, gpu_buffers: &k_os_gpu_pipeline::sculpt::GpuMeshBuffers, candidates_buffer: &wgpu::Buffer, candidate_count: u32, topology: &MeshTopology, candidate_indices: &Slice<usize>, mesh_indices: &Slice<u32>) -> Bool:
+        # <expr>
+        let _ = # <expr>
+        # <expr>
+        # <stmt>
+        let mut dirty_faces_set: Set<u32> = # <expr>
+        # <expr>
+        let dirty_faces: Array<u32> = # <expr>
+        let dirty_faces_count = # <expr>
+        let mut dirty_verts_set: Set<u32> = # <expr>
+        # <expr>
+        let dirty_verts: Array<u32> = # <expr>
+        let actual_candidate_count = # <expr>
+        # <expr>
+        # <expr>
+        let normal_compute_cell = # <expr>
+        let normal_compute_guard = # <expr>
+        let normal_compute = # <expr>
+        let params = # <expr>
+        let mut encoder = # <expr>
+        let temp_buffers = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        true
+
+    fn read_sparse_buffer(slice: &wgpu::BufferSlice, max_vertices: u32, positions: &mut Slice<f32>, normals: &mut Slice<f32>) -> Array<usize>:
+        let data = # <expr>
+        let raw: &Slice<u32> = # <expr>
+        # <expr>
+        let count = # <expr>
+        let mut modified = # <expr>
+        # <expr>
+        modified
+
+    fn tool_to_sculpt_op(tool: &String) -> k_os_gpu_pipeline::sculpt::SculptOp:
+        # <expr>
+
+    fn tool_to_entry_point(tool: &String) -> &String:
+        # <expr>
+
+    fn apply_brush_gpu(mesh: &mut super::SculptMesh, candidates: &Slice<usize>, center: glam::Vec3, norm: glam::Vec3, radius: f32, intensity: f32, tool: &String, alpha_handle: Option<u64>, delta: Option<Array<f32>>) -> Result<Array<usize>, String>:
+        # <expr>
+        let gpu = # <expr>
+        let gpu_guard = # <expr>
+        let device = # <expr>
+        let queue = # <expr>
+        let compute_cell = # <expr>
+        let compute_guard = # <expr>
+        let compute = # <expr>
+        # <expr>
+        let gpu_buffers = # <expr>
+        let gpu_buffers = # <expr>
+        let op = # <expr>
+        let intensity_scaled = # <expr>
+        let mut params = # <expr>
+        # <expr>
+        # <expr>
+        let mut encoder = # <expr>
+        let use_indirect = # <expr>
+        let alpha_bind_group = # <expr>
+        let alpha_bg_ref = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        let modified_indices: Array<usize> = # <expr>
+        # <expr>
+        # <expr>
+
+
+mod gpu_integration:
+    fn apply_brush_gpu(mesh: &mut super::SculptMesh, _candidates: &Slice<usize>, center: glam::Vec3, norm: glam::Vec3, radius: f32, intensity: f32, tool: &String, _alpha_handle: Option<u64>, _delta: Option<Array<f32>>) -> Result<Array<usize>, String>:
+        let gpu = # <expr>
+        let gpu_guard = # <expr>
+        let device = # <expr>
+        let queue = # <expr>
+        let mesh_key = # <expr>
+        # <expr>
+        let op = # <expr>
+        let mut params = # <expr>
+        let vertex_count = # <expr>
+        let positions_size = # <expr>
+        let staging = # <expr>
+        # <expr>
+        let slice = # <expr>
+        let _ = # <expr>
+        # <expr>
+        let _ = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn recalculate_normals_gpu(_device: &wgpu::Device, _queue: &wgpu::Queue, _gpu_buffers: &k_os_gpu_pipeline::sculpt::GpuMeshBuffers, _candidates_buffer: &wgpu::Buffer, _candidate_count: u32, _topology: &MeshTopology, _candidate_indices: &Slice<usize>, _mesh_indices: &Slice<u32>) -> Bool:
+        false
+
+
+fn apply_brush(handle: SculptMeshHandle, point: Array<f32>, normal: Array<f32>, tool: String, radius: f32, intensity: f32, symmetry: Option<String>, use_gpu: Option<Bool>, alpha_handle: Option<u64>, delta: Option<Array<f32>>) -> Result<BrushResult, String>:
+    let start = # <expr>
+    let gpu_enabled = # <expr>
+    # <expr>
+    let mut used_gpu = false
+    let mut gpu_fallback_reason: Option<String> = # <expr>
+    let mut meshes = # <expr>
+    let mesh = # <expr>
+    let _ = # <expr>
+    let center = # <expr>
+    let norm = # <expr>
+    # <stmt>
+    # <stmt>
+    # <expr>
+    let candidates = # <expr>
+    let is_smooth_or_polish = # <expr>
+    let modified = # <expr>
+    let mut all_modified = modified
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    let normal_indices = # <expr>
+    # <expr>
+    let mut new_positions = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    let mut new_normals = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    let elapsed = # <expr>
+    let affected_count = # <expr>
+    # <expr>
+
+fn apply_brush_spirv(handle: SculptMeshHandle, point: Array<f32>, normal: Array<f32>, shader_name: String, radius: f32, intensity: f32, alpha_handle: Option<u64>) -> Result<BrushResult, String>:
+    let start = # <expr>
+    let mut meshes = # <expr>
+    let mesh = # <expr>
+    let _ = # <expr>
+    let gpu = # <expr>
+    let gpu_guard = # <expr>
+    let device = # <expr>
+    let queue = # <expr>
+    let compute_cell = # <expr>
+    let compute_guard = # <expr>
+    let compute = # <expr>
+    # <expr>
+    let gpu_buffers = # <expr>
+    let params = # <expr>
+    let mut encoder = # <expr>
+    let alpha_bind_group: Option<&wgpu::BindGroup> = # <expr>
+    # <expr>
+    # <expr>
+    let vertex_count = # <expr>
+    let modified_indices: Array<usize> = # <expr>
+    let new_positions: Array<f32> = # <expr>
+    let new_normals = # <expr>
+    let normal_indices = # <expr>
+    let elapsed = # <expr>
+    let affected_count = # <expr>
+    # <expr>
+
+fn update_sculpt_positions(handle: SculptMeshHandle, positions: Array<f32>) -> Result<(), String>:
+    let mut meshes = # <expr>
+    let mesh = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+
+fn get_sculpt_positions(handle: SculptMeshHandle) -> Result<Array<f32>, String>:
+    let meshes = # <expr>
+    let mesh = # <expr>
+    # <expr>
+    # <expr>
+
+fn get_sculpt_viewport_payload(handle: SculptMeshHandle) -> Result<k_os_eval::mesh_pipeline::ViewportBufferPayload, String>:
+    let meshes = # <expr>
+    let mesh = # <expr>
+    let scene_mesh = # <expr>
+    # <expr>
+    # <expr>
+
+fn dispose_sculpt_mesh(handle: SculptMeshHandle) -> Result<(), String>:
+    let mut meshes = # <expr>
+    # <expr>
+    # <expr>
+
+fn benchmark_sculpt(vertex_count: usize, radius: f32) -> Result<String, String>:
+    let start = # <expr>
+    let mut positions = # <expr>
+    # <expr>
+    let mut grid = # <expr>
+    # <expr>
+    let build_time = # <expr>
+    let query_start = # <expr>
+    let center = # <expr>
+    let result = # <expr>
+    let query_time = # <expr>
+    # <expr>
+
+mod tests:
+    fn test_spatial_grid():
+        let positions = # <expr>
+        let mut grid = # <expr>
+        # <expr>
+        let center = # <expr>
+        let result = # <expr>
+        # <expr>
+
+    fn test_normal_computation():
+        let positions = # <expr>
+        let indices = # <expr>
+        let normals = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+
+fn compute_tangents(positions: &Slice<f32>, normals: &Slice<f32>, uvs: &Slice<f32>, indices: &Slice<u32>) -> Array<f32>:
+    let vertex_count = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    let mut geometry = # <expr>
+    let success = # <expr>
+    # <expr>
+    # <expr>
+
+fn compute_tangents_sparse(positions: &Slice<f32>, normals: &Slice<f32>, uvs: &Slice<f32>, indices: &Slice<u32>, modified_indices: &Slice<usize>) -> (Array<f32>, Array<u32>):
+    let vertex_count = # <expr>
+    let mut affected_faces = # <expr>
+    let face_count = # <expr>
+    # <expr>
+    let mut affected_vertices = # <expr>
+    # <expr>
+    # <expr>
+    let full_tangents = # <expr>
+    let mut sparse_tangents = # <expr>
+    let mut sparse_indices = # <expr>
+    # <expr>
+    # <expr>
+
+struct MikkTSpaceGeometry:
+    positions: &Slice<f32>
+    normals: &Slice<f32>
+    uvs: &Slice<f32>
+    indices: &Slice<u32>
+    vertex_count: usize
+    tangents: Array<f32>
+
+impl mikktspace::Geometry for MikkTSpaceGeometry<a>:
+    fn num_faces(_self: &Self) -> usize:
+        # <expr>
+
+    fn num_vertices_of_face(_self: &Self, _face: usize) -> usize:
+        3
+
+    fn position(_self: &Self, face: usize, vert: usize) -> Array<f32>:
+        let idx = # <expr>
+        # <expr>
+
+    fn normal(_self: &Self, face: usize, vert: usize) -> Array<f32>:
+        let idx = # <expr>
+        # <expr>
+
+    fn tex_coord(_self: &Self, face: usize, vert: usize) -> Array<f32>:
+        let idx = # <expr>
+        # <expr>
+
+    fn set_tangent_encoded(_self: &mut Self, tangent: Array<f32>, face: usize, vert: usize):
+        let idx = # <expr>
+        # <expr>
+
+
+mod tests:
+    fn test_compute_tangents_basic():
+        let positions = # <expr>
+        let normals = # <expr>
+        let uvs = # <expr>
+        let indices = # <expr>
+        let tangents = # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_compute_tangents_sparse():
+        let positions = # <expr>
+        let normals = # <expr>
+        let uvs = # <expr>
+        let indices = # <expr>
+        let modified = # <expr>
+        let _ = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+

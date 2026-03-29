@@ -1,0 +1,2677 @@
+# Generated from Rust source by kain import-rust
+# Project Ouroboros — Rust → KAIN → Rust
+
+enum CapabilityArea:
+    AnimatorTimeline
+    KeyframeAuthoring
+    Retargeting
+    SupermotionRuntime
+    Validation
+
+struct CapabilitySliceSpec:
+    id: &String
+    title: &String
+    area: CapabilityArea
+    priority: u8
+    objective: &String
+    engine_paths: &Slice<&String>
+    frontend_paths: &Slice<&String>
+    kain_mode_ids: &Slice<u32>
+    known_blockers: &Slice<&String>
+    next_turn_recommendation: &String
+
+struct CapabilitySlice:
+    id: String
+    title: String
+    area: CapabilityArea
+    priority: u8
+    objective: String
+    engine_paths: Array<String>
+    frontend_paths: Array<String>
+    kain_mode_ids: Array<u32>
+    known_blockers: Array<String>
+    next_turn_recommendation: String
+
+impl From for CapabilitySlice:
+    fn from(spec: &CapabilitySliceSpec) -> Self:
+        # <expr>
+
+
+fn discovery_priority_slices() -> Array<CapabilitySlice>:
+    let mut slices: Array<CapabilitySlice> = # <expr>
+    # <expr>
+    slices
+
+fn supermotion_mode_registry() -> Array<(String, u32)>:
+    # <expr>
+
+fn referenced_supermotion_mode_ids() -> Set<u32>:
+    # <expr>
+
+mod tests:
+    fn discovery_slices_are_sorted_and_unique():
+        let slices = # <expr>
+        # <expr>
+        let mut seen = # <expr>
+        # <expr>
+        # <expr>
+
+    fn referenced_mode_ids_exist_in_supermotion_registry():
+        let registry_ids: Set<u32> = # <expr>
+        # <expr>
+
+
+struct CameraFrame:
+    data: Array<u8>
+    width: u32
+    height: u32
+    timestamp_ms: f64
+
+struct CameraCapture:
+    device_index: u32
+    width: u32
+    height: u32
+    fps: u32
+    running: std::sync::atomic::AtomicBool
+
+impl CameraCapture:
+    fn new_(device_index: u32, width: u32, height: u32, fps: u32) -> Self:
+        # <expr>
+
+    fn enumerate() -> Array<crate::types::CameraInfo>:
+        let result = # <expr>
+        # <expr>
+
+    fn start(_self: &mut Self) -> Result<ringbuf::HeapCons<CameraFrame>, String>:
+        # <expr>
+        let fmt = # <expr>
+        let mut camera = # <expr>
+        # <expr>
+        # <expr>
+        let rb = # <expr>
+        let _ = # <expr>
+        let width = # <expr>
+        let height = # <expr>
+        let running = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn stop(_self: &mut Self):
+        # <expr>
+
+
+fn encode_body(bones: &Slice<crate::types::BoneTransform>, seq: u64) -> Array<u8>:
+    let num_floats = # <expr>
+    let mut packet = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    packet
+
+fn encode_face(device_id: &String, subject_name: &String, frame: u32, fps: u32, blend_shapes: &Array<f32>) -> Array<u8>:
+    let mut packet = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    packet
+
+fn write_length_prefixed_string(buf: &mut Array<u8>, s: &String):
+    let bytes = # <expr>
+    # <expr>
+    # <expr>
+
+enum WireFormat:
+    LiveLink
+    Osc
+    Json
+    BvhStream
+
+struct DccProtocol:
+    id: &String
+    name: &String
+    default_port: u16
+    format: WireFormat
+
+fn get_protocol(id: &String) -> Option<&DccProtocol>:
+    # <expr>
+
+struct Broadcaster:
+    socket: std::net::UdpSocket
+    target_addr: String
+    protocol: &DccProtocol
+    tx_count: u32
+
+impl Broadcaster:
+    fn connect(target_id: &String, host: &String, port: u16) -> Result<Self, String>:
+        let protocol = # <expr>
+        let socket = # <expr>
+        let addr = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn send_frame(_self: &mut Self, frame: &crate::types::JointFrame) -> Result<(), String>:
+        let bones = # <expr>
+        let packet = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn tx_count(_self: &Self) -> u32:
+        # <expr>
+
+    fn is_connected(_self: &Self) -> Bool:
+        true
+
+
+fn encode_json(frame: &crate::types::JointFrame) -> Array<u8>:
+    let json = # <expr>
+    # <expr>
+
+fn encode_bvh_frame(bones: &Slice<crate::types::BoneTransform>) -> Array<u8>:
+    let channels: Array<String> = # <expr>
+    let line_ = # <expr>
+    # <expr>
+
+fn encode_body(bones: &Slice<crate::types::BoneTransform>, seq: u64) -> Array<u8>:
+    let messages: Array<rosc::OscPacket> = # <expr>
+    let seq_msg = # <expr>
+    let mut content = # <expr>
+    # <expr>
+    let bundle = # <expr>
+    # <expr>
+
+fn encode_joints_2d(joints: &Slice<Array<f32>>, names: &Slice<&String>, _seq: u64) -> Array<u8>:
+    let messages: Array<rosc::OscPacket> = # <expr>
+    let bundle = # <expr>
+    # <expr>
+
+struct LowPassFilter:
+    y: Option<f64>
+    a: f64
+
+impl LowPassFilter:
+    fn new_() -> Self:
+        # <expr>
+
+    fn set_alpha(_self: &mut Self, alpha: f64):
+        # <expr>
+
+    fn filter(_self: &mut Self, x: f64) -> f64:
+        let y = # <expr>
+        # <expr>
+        y
+
+    fn last(_self: &Self) -> Option<f64>:
+        # <expr>
+
+
+struct OneEuroFilter:
+    min_cutoff: f64
+    beta: f64
+    d_cutoff: f64
+    x_filter: LowPassFilter
+    dx_filter: LowPassFilter
+    t_prev: Option<f64>
+
+impl OneEuroFilter:
+    fn new_(min_cutoff: f64, beta: f64) -> Self:
+        # <expr>
+
+    fn set_params(_self: &mut Self, min_cutoff: f64, beta: f64):
+        # <expr>
+        # <expr>
+
+    fn alpha(cutoff: f64, dt: f64) -> f64:
+        let tau = # <expr>
+        # <expr>
+
+    fn filter(_self: &mut Self, x: f64, timestamp_s: f64) -> f64:
+        let dt = # <expr>
+        # <expr>
+        let dx_raw = # <expr>
+        # <expr>
+        let dx_hat = # <expr>
+        let cutoff = # <expr>
+        # <expr>
+        # <expr>
+
+    fn reset(_self: &mut Self):
+        # <expr>
+        # <expr>
+        # <expr>
+
+
+struct Vec3Filter:
+    fx: OneEuroFilter
+    fy: OneEuroFilter
+    fz: OneEuroFilter
+
+impl Vec3Filter:
+    fn new_(min_cutoff: f64, beta: f64) -> Self:
+        # <expr>
+
+    fn set_params(_self: &mut Self, min_cutoff: f64, beta: f64):
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn filter(_self: &mut Self, pos: Array<f32>, timestamp_s: f64) -> Array<f32>:
+        # <expr>
+
+    fn reset(_self: &mut Self):
+        # <expr>
+        # <expr>
+        # <expr>
+
+
+struct JointFilterBank:
+    filters: Array<Vec3Filter>
+    min_cutoff: f64
+    beta: f64
+
+impl JointFilterBank:
+    fn new_(n: usize, min_cutoff: f64, beta: f64) -> Self:
+        # <expr>
+
+    fn set_params(_self: &mut Self, min_cutoff: f64, beta: f64):
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn filter_frame(_self: &mut Self, joints: &mut Slice<Array<f32>>, timestamp_s: f64):
+        # <expr>
+
+    fn reset_all(_self: &mut Self):
+        # <expr>
+
+
+mod tests:
+    fn test_one_euro_convergence():
+        let mut f = # <expr>
+        let mut out_ = 0
+        # <expr>
+        # <expr>
+
+    fn test_vec3_filter_reset():
+        let mut f = # <expr>
+        # <expr>
+        # <expr>
+        let out_ = # <expr>
+        # <expr>
+
+
+fn be(binding: u32, buffer: &wgpu::Buffer) -> wgpu::BindGroupEntry<_>:
+    # <expr>
+
+fn default_supermotion_commands(max_joints: usize) -> (Array<i32>, Array<GpuVec4>, Array<GpuVec4>, Array<GpuVec4>):
+    let mut mod_type = # <expr>
+    let mut params_a = # <expr>
+    let mut params_b = # <expr>
+    let mut params_c = # <expr>
+    let people = # <expr>
+    # <expr>
+    # <expr>
+
+struct GpuVec4:
+    field_0: Array<f32>
+
+impl From for GpuVec4:
+    fn from(j: &crate::types::Joint) -> Self:
+        # <expr>
+
+
+impl From for crate::types::Joint:
+    fn from(g: GpuVec4) -> Self:
+        # <expr>
+
+
+fn clamp01(v: f32) -> f32:
+    # <expr>
+
+fn clamp11(v: f32) -> f32:
+    # <expr>
+
+fn sanitize_solved_joint(solved: GpuVec4, raw: GpuVec4) -> crate::types::Joint:
+    let raw_x = # <expr>
+    let raw_y = # <expr>
+    let raw_z = # <expr>
+    let mut x = # <expr>
+    let mut y = # <expr>
+    let mut z = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <stmt>
+    let dx = # <expr>
+    let dy = # <expr>
+    let dz = # <expr>
+    let len_sq = # <expr>
+    # <expr>
+    let confidence = # <expr>
+    # <expr>
+
+impl bytemuck::Pod for crate::gpu_pipeline::DenoiseUniforms:
+    pass
+
+impl bytemuck::Zeroable for crate::gpu_pipeline::DenoiseUniforms:
+    pass
+
+impl bytemuck::Pod for crate::gpu_pipeline::SkeletonUniforms:
+    pass
+
+impl bytemuck::Zeroable for crate::gpu_pipeline::SkeletonUniforms:
+    pass
+
+impl bytemuck::Pod for crate::gpu_pipeline::PhysicsUniforms:
+    pass
+
+impl bytemuck::Zeroable for crate::gpu_pipeline::PhysicsUniforms:
+    pass
+
+impl bytemuck::Pod for crate::gpu_pipeline::SupermotionLiveLinkUniforms:
+    pass
+
+impl bytemuck::Zeroable for crate::gpu_pipeline::SupermotionLiveLinkUniforms:
+    pass
+
+impl bytemuck::Pod for crate::gpu_pipeline::LiveLinkUniforms:
+    pass
+
+impl bytemuck::Zeroable for crate::gpu_pipeline::LiveLinkUniforms:
+    pass
+
+struct MocapPipelines:
+    denoise: wgpu::ComputePipeline
+    skeleton: wgpu::ComputePipeline
+    physics: wgpu::ComputePipeline
+    supermotion: wgpu::ComputePipeline
+    livelink: wgpu::ComputePipeline
+
+impl MocapPipelines:
+    fn new_(device: &wgpu::Device) -> Self:
+        let mk = # <expr>
+        # <expr>
+
+
+struct MocapBuffers:
+    raw_joints: wgpu::Buffer
+    history_joints: wgpu::Buffer
+    denoise_out: wgpu::Buffer
+    skeleton_out: wgpu::Buffer
+    physics_out: wgpu::Buffer
+    supermotion_out: wgpu::Buffer
+    quat_out: wgpu::Buffer
+    livelink_quat: wgpu::Buffer
+    parents: wgpu::Buffer
+    rest_lengths: wgpu::Buffer
+    prev_joints: wgpu::Buffer
+    mod_type: wgpu::Buffer
+    params_a: wgpu::Buffer
+    params_b: wgpu::Buffer
+    params_c: wgpu::Buffer
+    readback: wgpu::Buffer
+
+impl MocapBuffers:
+    fn new_(device: &wgpu::Device, max_joints: usize) -> Self:
+        let joint_bytes = # <expr>
+        let quat_bytes = joint_bytes
+        let storage = # <expr>
+        let upload = # <expr>
+        # <expr>
+
+
+struct DenoiseUniformBuffers:
+    joint_count: wgpu::Buffer
+    delta_time: wgpu::Buffer
+    min_cutoff: wgpu::Buffer
+    beta: wgpu::Buffer
+    d_cutoff: wgpu::Buffer
+    jitter_response: wgpu::Buffer
+    max_blend: wgpu::Buffer
+    min_blend: wgpu::Buffer
+    eps: wgpu::Buffer
+
+struct SkeletonUniformBuffers:
+    joint_count: wgpu::Buffer
+    stiffness: wgpu::Buffer
+    solver_iterations: wgpu::Buffer
+    max_correction: wgpu::Buffer
+    eps: wgpu::Buffer
+
+struct PhysicsUniformBuffers:
+    joint_count: wgpu::Buffer
+    floor_y: wgpu::Buffer
+    lock_velocity_thresh: wgpu::Buffer
+    lock_blend: wgpu::Buffer
+    repel_strength: wgpu::Buffer
+    delta_time: wgpu::Buffer
+    eps: wgpu::Buffer
+    ankle_start: wgpu::Buffer
+    ankle_end: wgpu::Buffer
+    toe_start: wgpu::Buffer
+    toe_end: wgpu::Buffer
+    capsule_a_joint: wgpu::Buffer
+    capsule_b_joint: wgpu::Buffer
+    capsule_radius: wgpu::Buffer
+    limb_radius: wgpu::Buffer
+
+struct SupermotionUniformBuffers:
+    joint_count: wgpu::Buffer
+    time_sec: wgpu::Buffer
+    delta_time: wgpu::Buffer
+    floor_y: wgpu::Buffer
+    global_intensity: wgpu::Buffer
+    random_seed: wgpu::Buffer
+    eps: wgpu::Buffer
+
+struct LiveLinkUniformBuffers:
+    joint_count: wgpu::Buffer
+    eps: wgpu::Buffer
+
+struct MocapUniforms:
+    denoise: DenoiseUniformBuffers
+    skeleton: SkeletonUniformBuffers
+    physics: PhysicsUniformBuffers
+    supermotion: SupermotionUniformBuffers
+    livelink: LiveLinkUniformBuffers
+
+impl MocapUniforms:
+    fn new_(device: &wgpu::Device) -> Self:
+        let mk = # <expr>
+        # <expr>
+
+    fn write_all(_self: &Self, queue: &wgpu::Queue, d: &crate::gpu_pipeline::DenoiseUniforms, s: &crate::gpu_pipeline::SkeletonUniforms, p: &crate::gpu_pipeline::PhysicsUniforms, sm: &crate::gpu_pipeline::SupermotionLiveLinkUniforms, ll: &crate::gpu_pipeline::LiveLinkUniforms):
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+
+struct GpuChain:
+    device: wgpu::Device
+    queue: wgpu::Queue
+    pipelines: MocapPipelines
+    buffers: MocapBuffers
+    uniforms: MocapUniforms
+    max_joints: usize
+    adapter_name: String
+    adapter_backend: String
+    adapter_driver: String
+    adapter_driver_info: String
+    adapter_device_type: String
+    history_seeded: std::sync::atomic::AtomicBool
+
+impl GpuChain:
+    fn new_(max_joints: usize, event_tx: Option<tokio::sync::broadcast::Sender<crate::types::PipelineEvent>>) -> Result<Self, String>:
+        let instance = # <expr>
+        let adapter = # <expr>
+        let info = # <expr>
+        let adapter_name = # <expr>
+        let adapter_backend = # <expr>
+        let adapter_driver = # <expr>
+        let adapter_driver_info = # <expr>
+        let adapter_device_type = # <expr>
+        # <expr>
+        let adapter_limits = # <expr>
+        let _ = # <expr>
+        # <expr>
+        let pipelines = # <expr>
+        let buffers = # <expr>
+        let uniforms = # <expr>
+        let zero_joint_vec4 = # <expr>
+        let _ = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn upload_topology(_self: &Self, parents: &Slice<i32>, rest_lengths: &Slice<f32>):
+        # <expr>
+        # <expr>
+
+    fn process_frame(_self: &Self, joints: &Slice<crate::types::Joint>, dt: f32, time_sec: f32) -> Result<Array<crate::types::Joint>, String>:
+        let joint_count = # <expr>
+        # <expr>
+        let raw: Array<GpuVec4> = # <expr>
+        # <expr>
+        # <expr>
+        let d = # <expr>
+        let s = # <expr>
+        let p = # <expr>
+        let mut sm = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        let ll = # <expr>
+        # <expr>
+        let mut encoder = # <expr>
+        let dispatch = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        let readback_bytes = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        let readback_slice = # <expr>
+        let _ = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        let solved: Array<crate::types::Joint> = # <expr>
+        # <expr>
+        # <expr>
+
+
+fn test_gpu_vec4_conversion():
+    let joint = # <expr>
+    let gpu_vec: GpuVec4 = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    let joint_back: crate::types::Joint = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+
+fn test_uniform_defaults():
+    let denoise = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    let skeleton = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    let physics = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    let supermotion = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    let livelink = # <expr>
+    # <expr>
+    # <expr>
+
+fn test_supermotion_default_profile_is_applied():
+    let max_joints = 34
+    let _ = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+
+fn test_spirv_shaders_embedded():
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    let check_spirv_magic = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+
+fn test_spirv_shader_sizes():
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+
+fn test_sanitize_solved_joint_applies_confidence_and_clamps():
+    let raw = # <expr>
+    let solved = # <expr>
+    let out_ = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+
+fn test_gpu_chain_initialization():
+    let max_joints = 17
+    let result = # <expr>
+    # <expr>
+
+fn test_gpu_chain_process_frame():
+    let max_joints = 17
+    let chain = # <expr>
+    let joints: Array<crate::types::Joint> = # <expr>
+    let parents: Array<i32> = # <expr>
+    let rest_lengths: Array<f32> = # <expr>
+    # <expr>
+    let result = # <expr>
+    # <expr>
+
+fn test_pod_zeroable_implementations():
+    # <stmt>
+    # <stmt>
+    let zero_vec: GpuVec4 = # <expr>
+    # <expr>
+    let vec = # <expr>
+    let bytes: &Slice<u8> = # <expr>
+    # <expr>
+    let denoise: DenoiseUniforms = # <expr>
+    # <expr>
+    let skeleton: SkeletonUniforms = # <expr>
+    # <expr>
+    let physics: PhysicsUniforms = # <expr>
+    # <expr>
+
+struct GpuStage:
+    name: &String
+    spirv: &Slice<u8>
+    local_x: u32
+    entry: &String
+    uniform_bytes: u32
+
+struct DenoiseUniforms:
+    joint_count: u32
+    pad0: Array<u32>
+    delta_time: f32
+    min_cutoff: f32
+    beta: f32
+    d_cutoff: f32
+    jitter_response: f32
+    max_blend: f32
+    min_blend: f32
+    eps: f32
+
+impl Default for DenoiseUniforms:
+    fn default_() -> Self:
+        # <expr>
+
+
+struct SkeletonUniforms:
+    joint_count: u32
+    pad0: Array<u32>
+    stiffness: f32
+    solver_iterations: i32
+    max_correction: f32
+    eps: f32
+
+impl Default for SkeletonUniforms:
+    fn default_() -> Self:
+        # <expr>
+
+
+struct PhysicsUniforms:
+    joint_count: u32
+    pad0: Array<u32>
+    floor_y: f32
+    lock_velocity_thresh: f32
+    lock_blend: f32
+    repel_strength: f32
+    delta_time: f32
+    eps: f32
+    ankle_start: i32
+    ankle_end: i32
+    toe_start: i32
+    toe_end: i32
+    capsule_a_joint: u32
+    capsule_b_joint: u32
+    capsule_radius: f32
+    limb_radius: f32
+    pad: f32
+
+impl Default for PhysicsUniforms:
+    fn default_() -> Self:
+        # <expr>
+
+
+struct LiveLinkUniforms:
+    joint_count: u32
+    pad0: Array<u32>
+    eps: f32
+    pad1: Array<f32>
+
+impl Default for LiveLinkUniforms:
+    fn default_() -> Self:
+        # <expr>
+
+
+struct MographUniforms:
+    instance_count: u32
+    time_sec: f32
+    global_intensity: f32
+    random_seed: f32
+    eps: f32
+
+impl Default for MographUniforms:
+    fn default_() -> Self:
+        # <expr>
+
+
+struct SupermotionLiveLinkUniforms:
+    joint_count: u32
+    pad0: Array<u32>
+    time_sec: f32
+    delta_time: f32
+    floor_y: f32
+    global_intensity: f32
+    random_seed: f32
+    eps: f32
+    pad: f32
+
+impl Default for SupermotionLiveLinkUniforms:
+    fn default_() -> Self:
+        # <expr>
+
+
+enum PreprocessMode:
+    ZeroToOne
+    ImageNet
+
+impl PreprocessMode:
+    fn from_config(value: &String) -> Self:
+        # <expr>
+
+
+struct InferenceEngine:
+    session: ort::session::Session
+    input_h: usize
+    input_w: usize
+    num_keypoints: usize
+    input_name: String
+    num_outputs: usize
+    preprocess_mode: PreprocessMode
+
+impl InferenceEngine:
+    fn load(model_path: &std::path::Path, input_h: usize, input_w: usize, num_keypoints: usize, preprocess: &String) -> Result<Self, String>:
+        # <expr>
+        # <expr>
+        let mut eps = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        let session = # <expr>
+        let input_name = # <expr>
+        let num_outputs = # <expr>
+        # <expr>
+        # <expr>
+
+    fn infer(_self: &mut Self, rgb_frame: &Slice<u8>, frame_w: u32, frame_h: u32) -> Result<Array<crate::types::Joint>, String>:
+        let ndarray_tensor = # <expr>
+        let shape: Array<i64> = # <expr>
+        let flat_data: Array<f32> = # <expr>
+        let ort_tensor = # <expr>
+        let num_outputs = # <expr>
+        let num_keypoints = # <expr>
+        let input_w = # <expr>
+        let input_name = # <expr>
+        let outputs = # <expr>
+        # <expr>
+
+    fn preprocess(_self: &Self, rgb: &Slice<u8>, src_w: usize, src_h: usize) -> Result<ndarray::Array4<f32>, String>:
+        let img = # <expr>
+        let resized = # <expr>
+        let mut tensor = # <expr>
+        # <expr>
+        # <expr>
+
+
+fn ort_dylib_diagnostics() -> String:
+    let mut details: Array<String> = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+
+fn ensure_ort_dylib_path():
+    # <expr>
+    # <expr>
+
+fn discover_ort_dylib() -> Option<std::path::PathBuf>:
+    # <expr>
+    let py_expr = "import pathlib, onnxruntime as ort; print((pathlib.Path(ort.__file__).resolve().parent / 'capi' / 'onnxruntime.dll').as_posix())"
+    let python_cmds: &Slice<(&String, &Slice<&String>)> = # <expr>
+    # <expr>
+    # <expr>
+    None
+
+fn postprocess(outputs: &ort::session::SessionOutputs, num_outputs: usize, num_keypoints: usize, input_w: usize) -> Result<Array<crate::types::Joint>, String>:
+    # <expr>
+    let arr = # <expr>
+    let shape: Array<usize> = # <expr>
+    let data: Array<f32> = # <expr>
+    let yolo_ch = # <expr>
+    # <expr>
+    # <expr>
+
+fn decode_simcc(outputs: &ort::session::SessionOutputs, num_keypoints: usize) -> Result<Array<crate::types::Joint>, String>:
+    let x_arr = # <expr>
+    let y_arr = # <expr>
+    let simcc_w = # <expr>
+    let simcc_h = # <expr>
+    let x_data: Array<f32> = # <expr>
+    let y_data: Array<f32> = # <expr>
+    let avail_x = # <expr>
+    let avail_y = # <expr>
+    let usable_kp = # <expr>
+    let mut joints = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+
+fn decode_yolo_pose(data: &Slice<f32>, shape: &Slice<usize>, num_keypoints: usize, input_w: usize) -> Result<Array<crate::types::Joint>, String>:
+    let channels = # <expr>
+    let layout_cxa = # <expr>
+    let _ = # <expr>
+    let input_size = # <expr>
+    let model_keypoints = # <expr>
+    let usable_kp = # <expr>
+    let get = # <expr>
+    let decode_conf = # <expr>
+    # <stmt>
+    # <stmt>
+    # <stmt>
+    let mut best_qualified_score = f32::NEG_INFINITY
+    let mut best_qualified_a = 0
+    let mut best_fallback_score = f32::NEG_INFINITY
+    let mut best_fallback_a = 0
+    # <expr>
+    let best_a = # <expr>
+    let mut max_coord = 0
+    # <expr>
+    let coord_scale = # <expr>
+    let mut joints = # <expr>
+    # <expr>
+    let visible_at_base = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+
+fn decode_heatmap(data: &Slice<f32>, shape: &Slice<usize>, num_keypoints: usize) -> Result<Array<crate::types::Joint>, String>:
+    # <expr>
+    let _ = # <expr>
+    let plane = # <expr>
+    # <expr>
+    let available_planes = # <expr>
+    let usable_kp = # <expr>
+    let mut joints = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+
+fn argmax_f32(vals: &Slice<f32>) -> (usize, f32):
+    # <expr>
+
+fn sigmoid(x: f32) -> f32:
+    # <expr>
+
+fn test_model_manifest_parsing():
+    let models = # <expr>
+    # <expr>
+    let yolo_models = # <expr>
+    # <expr>
+    let rtm_models = # <expr>
+    # <expr>
+
+fn test_model_cache_paths():
+    let model = # <expr>
+    let cache_path = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+
+fn test_sigmoid_function():
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+
+fn test_argmax_function():
+    let vals = # <expr>
+    let _ = # <expr>
+    # <expr>
+    # <expr>
+    let single = # <expr>
+    let _ = # <expr>
+    # <expr>
+    # <expr>
+    let negatives = # <expr>
+    let _ = # <expr>
+    # <expr>
+    # <expr>
+
+fn test_ort_dylib_discovery():
+    let result = # <expr>
+    # <expr>
+
+fn test_imagenet_normalization_constants():
+    # <expr>
+    # <expr>
+
+fn test_decode_yolo_pose_handles_normalized_coords():
+    let num_keypoints = 17
+    let channels = # <expr>
+    let anchors = 2
+    let mut data = # <expr>
+    let set = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    let joints = # <expr>
+    # <expr>
+    # <expr>
+
+fn test_decode_yolo_pose_handles_pixel_coords():
+    let num_keypoints = 17
+    let channels = # <expr>
+    let anchors = 1
+    let mut data = # <expr>
+    let set = # <expr>
+    # <expr>
+    # <expr>
+    let joints = # <expr>
+    # <expr>
+    # <expr>
+
+fn test_decode_yolo_pose_prefers_full_body_anchor_over_head_only():
+    let num_keypoints = 17
+    let channels = # <expr>
+    let anchors = 2
+    let mut data = # <expr>
+    let set = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    let joints = # <expr>
+    # <expr>
+    # <expr>
+    let visible = # <expr>
+    # <expr>
+
+fn test_load_yolov11n_model():
+    let model = # <expr>
+    let model_path = # <expr>
+    # <expr>
+    let result = # <expr>
+    # <expr>
+
+fn test_inference_with_dummy_frame():
+    let model = # <expr>
+    let model_path = # <expr>
+    # <expr>
+    let mut engine = # <expr>
+    let frame_w = 640
+    let frame_h = 480
+    let frame_data = # <expr>
+    let result = # <expr>
+    # <expr>
+
+struct ModelEntry:
+    id: String
+    name: String
+    url: String
+    sha256: String
+    filename: String
+    input_shape: Array<usize>
+    keypoints: usize
+    precision: String
+    preprocess: String
+    description: String
+
+impl ModelEntry:
+    fn is_fp16(_self: &Self) -> Bool:
+        # <expr>
+
+    fn input_height(_self: &Self) -> usize:
+        # <expr>
+
+    fn input_width(_self: &Self) -> usize:
+        # <expr>
+
+    fn input_channels(_self: &Self) -> usize:
+        # <expr>
+
+
+fn default_preprocess() -> String:
+    # <expr>
+
+struct ManifestFile:
+    models: Array<ModelEntry>
+
+fn get_model(id: &String) -> Option<&ModelEntry>:
+    # <expr>
+
+fn list_models() -> &Slice<ModelEntry>:
+    # <expr>
+
+fn model_cache_path(entry: &ModelEntry) -> std::path::PathBuf:
+    let base = # <expr>
+    # <expr>
+
+fn is_model_cached(entry: &ModelEntry) -> Bool:
+    # <expr>
+
+mod downloader:
+    fn download_model(entry: &ModelEntry, progress: Option<&impl Fn>) -> Result<std::path::PathBuf, String>:
+        let dest = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        let client = # <expr>
+        let mut resp = # <expr>
+        # <expr>
+        let total = # <expr>
+        let mut data: Array<u8> = # <expr>
+        let mut downloaded: u64 = 0
+        let mut buf = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn verify_sha256(data: &Slice<u8>, expected_hex: &String) -> Bool:
+        let mut hasher = # <expr>
+        # <expr>
+        let actual = # <expr>
+        # <expr>
+
+
+struct LiveRetargetContract:
+    required_joint_indices: Array<usize>
+    minimum_reliable_joints: usize
+
+impl LiveRetargetContract:
+    fn from_topology_profile(profile: &topology::RigTopologyProfile) -> Result<Self, String>:
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+
+enum RetargetSurface:
+    LiveSession
+    OfflineVideo
+
+impl RetargetSurface:
+    fn compatibility_label(_self: Self) -> &String:
+        # <expr>
+
+
+struct ResolvedRetargetContract:
+    topology_profile: &topology::RigTopologyProfile
+    live_retarget_contract: LiveRetargetContract
+
+fn resolve_retarget_contract(model_id: &String, keypoints: usize, surface: RetargetSurface) -> Result<ResolvedRetargetContract, String>:
+    let topology_profile = # <expr>
+    let live_retarget_contract = # <expr>
+    # <expr>
+
+struct RigRetargeter:
+    skeleton: k_os_rig::skeleton::Skeleton
+    ik_params: crate::types::IkConstraintParams
+    contract: LiveRetargetContract
+
+impl RigRetargeter:
+    fn new_(ik_params: crate::types::IkConstraintParams, contract: LiveRetargetContract) -> Self:
+        # <expr>
+
+    fn update_params(_self: &mut Self, params: crate::types::IkConstraintParams):
+        # <expr>
+
+    fn retarget(_self: &mut Self, joints: &Slice<crate::types::Joint>) -> Option<Array<crate::types::BoneTransform>>:
+        # <expr>
+        let required = # <expr>
+        # <expr>
+        let reliable_count = # <expr>
+        # <expr>
+        let groin = # <expr>
+        let markers: Array<Array<f32>> = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn solve_limb_ik(_self: &mut Self, joints: &Slice<crate::types::Joint>):
+        let tol = # <expr>
+        let max_iter = 20
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn get_chain_positions(_self: &Self, names: &Slice<&String>) -> Option<Array<Array<f32>>>:
+        let mut positions = # <expr>
+        # <expr>
+        # <expr>
+
+    fn apply_chain_positions(_self: &mut Self, names: &Slice<&String>, positions: &Slice<Array<f32>>):
+        # <expr>
+
+    fn extract_transforms(_self: &Self) -> Array<crate::types::BoneTransform>:
+        # <expr>
+
+
+fn midpoint(a: Array<f32>, b: Array<f32>) -> Array<f32>:
+    # <expr>
+
+mod tests:
+    fn resolve_retarget_contract_returns_manifest_backed_profile_for_coco17():
+        let resolved = # <expr>
+        # <expr>
+        # <expr>
+
+    fn resolve_retarget_contract_rejects_unknown_layouts():
+        let err = # <expr>
+        # <expr>
+
+
+struct RigTopologyBinding:
+    keypoints: usize
+    profile_id: String
+
+struct RigTopologyProfile:
+    id: String
+    keypoints: usize
+    description: String
+    live_retarget_enabled: Bool
+    live_retarget_required_joint_indices: Array<usize>
+    live_retarget_min_reliable_joints: usize
+    parents: Array<i32>
+    rest_lengths: Array<f32>
+
+struct RigTopologyManifest:
+    bindings: Array<RigTopologyBinding>
+    profiles: Array<RigTopologyProfile>
+
+fn profile_for_keypoints(keypoints: usize) -> Option<&RigTopologyProfile>:
+    let binding = # <expr>
+    # <expr>
+
+fn validate_manifest(manifest: &RigTopologyManifest) -> Result<(), String>:
+    # <expr>
+    # <expr>
+    let mut profile_ids = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+
+mod tests:
+    fn has_coco17_profile_binding():
+        let profile = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn unknown_keypoint_layout_returns_none():
+        # <expr>
+
+
+enum SessionState:
+    Idle
+    Initializing
+    Running
+    Paused
+    Recording
+    Error(String)
+
+struct MocapSession:
+    state: SessionState
+    config: Option<SessionConfig>
+    ik_params: IkConstraintParams
+    running: std::sync::atomic::AtomicBool
+    paused: std::sync::atomic::AtomicBool
+    recording: std::sync::atomic::AtomicBool
+    recording_buffer: Array<JointFrame>
+    tx: tokio::sync::broadcast::Sender<PipelineEvent>
+
+impl MocapSession:
+    fn new_() -> (Self, tokio::sync::broadcast::Receiver<PipelineEvent>):
+        let _ = # <expr>
+        let session = # <expr>
+        # <expr>
+
+    fn subscribe(_self: &Self) -> tokio::sync::broadcast::Receiver<PipelineEvent>:
+        # <expr>
+
+    fn current_state(_self: &Self) -> SessionState:
+        # <expr>
+
+    fn start(_self: &Self, config: SessionConfig) -> Result<(), String>:
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        let state = # <expr>
+        let ik_params = # <expr>
+        let running = # <expr>
+        let paused = # <expr>
+        let recording = # <expr>
+        let recording_buffer = # <expr>
+        let tx = # <expr>
+        # <expr>
+        # <expr>
+
+    fn stop(_self: &Self):
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn set_paused(_self: &Self, paused: Bool):
+        # <expr>
+        # <expr>
+
+    fn set_recording(_self: &Self, recording: Bool):
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn update_ik_params(_self: &Self, params: IkConstraintParams):
+        # <expr>
+
+    fn is_running(_self: &Self) -> Bool:
+        # <expr>
+
+
+impl Default for MocapSession:
+    fn default_() -> Self:
+        let _ = # <expr>
+        session
+
+
+fn run_pipeline(config: SessionConfig, state: SessionState, ik_params: IkConstraintParams, running: std::sync::atomic::AtomicBool, paused: std::sync::atomic::AtomicBool, recording: std::sync::atomic::AtomicBool, recording_buffer: Array<JointFrame>, tx: tokio::sync::broadcast::Sender<PipelineEvent>) -> Result<(), String>:
+    # <expr>
+    let model_entry = # <expr>
+    let resolved_retarget = # <expr>
+    let topology_profile = # <expr>
+    let retarget_contract = # <expr>
+    let model_path = # <expr>
+    let mut engine = # <expr>
+    let mut camera = # <expr>
+    let mut consumer = # <expr>
+    let mut broadcaster = # <expr>
+    let initial_params = # <expr>
+    let mut retargeter = # <expr>
+    let gpu_chain: crate::gpu_chain::GpuChain = # <expr>
+    let mut frame_seq: u64 = 0
+    let frame_times: &mut Array<f64> = # <expr>
+    let mut stats_timer = # <expr>
+    let mut drop_count: u32 = 0
+    let pipeline_start = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+
+struct TakeValidationPolicyManifest:
+    fps: FpsPolicy
+    frame_count: FrameCountPolicy
+    tags: TagPolicy
+    rotations: RotationPolicy
+    sequencing: SequencingPolicy
+    metadata: MetadataPolicy
+
+struct FpsPolicy:
+    min: f32
+    max: f32
+
+struct FrameCountPolicy:
+    min: usize
+    max: usize
+
+struct TagPolicy:
+    max_count: usize
+    max_len: usize
+
+struct RotationPolicy:
+    require_frame_alignment: Bool
+    min_joints_per_frame: usize
+    max_joints_per_frame: usize
+
+struct SequencingPolicy:
+    require_strict_seq_increment: Bool
+    require_monotonic_timestamps: Bool
+
+struct MetadataPolicy:
+    require_model_id: Bool
+    require_known_model: Bool
+
+fn validate_validation_policy_manifest(manifest: &TakeValidationPolicyManifest) -> Result<(), String>:
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+
+enum TakeSource:
+    Live { camera_index: u32 }
+    Video { path: String }
+
+struct TakeMetadata:
+    model_id: String
+    subject: String
+    tags: Array<String>
+    source: Option<TakeSource>
+
+struct AnimationTake:
+    id: String
+    name: String
+    created_at: u64
+    fps: f32
+    frame_count: usize
+    duration_ms: u64
+    frames: Array<crate::types::JointFrame>
+    rotations: Option<Array<Array<Array<f32>>>>
+    timeline_edit_events: Array<crate::timeline_event::TimelineEditEvent>
+    metadata: TakeMetadata
+
+impl AnimationTake:
+    fn new_(fps: f32, model_id: impl Into<String>, source: Option<TakeSource>) -> Self:
+        let now_ms = # <expr>
+        let id = # <expr>
+        let name = # <expr>
+        # <expr>
+
+    fn push_frame(_self: &mut Self, frame: crate::types::JointFrame):
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn push_rotations(_self: &mut Self, rots: Array<Array<f32>>):
+        # <expr>
+
+    fn default_name(ts_ms: u64) -> String:
+        let secs = # <expr>
+        let s = # <expr>
+        let m = # <expr>
+        let h = # <expr>
+        let days = # <expr>
+        let y = # <expr>
+        let doy = # <expr>
+        let mo = # <expr>
+        let d = # <expr>
+        # <expr>
+
+
+struct TakeValidationIssue:
+    code: String
+    message: String
+
+struct TakeValidationReport:
+    issues: Array<TakeValidationIssue>
+
+impl TakeValidationReport:
+    fn is_valid(_self: &Self) -> Bool:
+        # <expr>
+
+
+fn validate_take(take: &AnimationTake) -> TakeValidationReport:
+    let policy = # <expr>
+    let mut issues = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    let expected_duration = # <expr>
+    # <expr>
+    # <expr>
+    let known_model = # <expr>
+    # <expr>
+    # <expr>
+    let mut seen_tags = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+
+fn validate_joint_frame(frame_index: usize, frame: &crate::types::JointFrame, expected_keypoints: Option<usize>, issues: &mut Array<TakeValidationIssue>):
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+
+fn validate_joint(frame_index: usize, joint_index: usize, joint: &crate::types::Joint, issues: &mut Array<TakeValidationIssue>):
+    # <expr>
+    # <expr>
+
+fn push_issue(issues: &mut Array<TakeValidationIssue>, code: impl Into<String>, message: impl Into<String>):
+    # <expr>
+
+fn ensure_take_valid(take: &AnimationTake, path: Option<&std::path::Path>) -> Result<(), Error>:
+    let report = # <expr>
+    # <expr>
+    let mut lines = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+
+fn save_take(take: &AnimationTake, path: &std::path::Path) -> Result<(), Error>:
+    # <expr>
+    # <expr>
+    let bytes = # <expr>
+    # <expr>
+    # <expr>
+
+fn load_take(path: &std::path::Path) -> Result<AnimationTake, Error>:
+    let bytes = # <expr>
+    let take: AnimationTake = # <expr>
+    # <expr>
+    # <expr>
+
+struct TakeSummary:
+    id: String
+    name: String
+    created_at: u64
+    fps: f32
+    frame_count: usize
+    duration_ms: u64
+    path: String
+    source_type: String
+    model_id: String
+    tags: Array<String>
+
+fn list_takes(dir: &std::path::Path) -> Result<Array<TakeSummary>, Error>:
+    # <expr>
+    let mut summaries = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+
+mod tests:
+    fn valid_joint() -> crate::types::Joint:
+        # <expr>
+
+    fn valid_frame(seq: u64, ts_ms: f64, model_id: &String, joints: usize) -> crate::types::JointFrame:
+        # <expr>
+
+    fn valid_take() -> AnimationTake:
+        let model_id = "yolov11s_pose"
+        let mut take = # <expr>
+        let joints = # <expr>
+        # <expr>
+        # <expr>
+        take
+
+    fn temp_take_path(prefix: &String) -> std::path::PathBuf:
+        # <stmt>
+        let nonce = # <expr>
+        # <expr>
+
+    fn validate_take_accepts_valid_take():
+        let take = # <expr>
+        let report = # <expr>
+        # <expr>
+
+    fn validate_take_rejects_unknown_model():
+        let mut take = # <expr>
+        # <expr>
+        # <expr>
+        let report = # <expr>
+        # <expr>
+        # <expr>
+
+    fn validate_take_rejects_sequence_gap():
+        let mut take = # <expr>
+        # <expr>
+        let report = # <expr>
+        # <expr>
+        # <expr>
+
+    fn save_take_rejects_invalid_payload():
+        let mut take = # <expr>
+        # <expr>
+        let path = # <expr>
+        let error = # <expr>
+        # <expr>
+        let _ = # <expr>
+
+    fn load_take_rejects_corrupt_duration():
+        let mut take = # <expr>
+        let path = # <expr>
+        # <expr>
+        # <expr>
+        let bytes = # <expr>
+        # <expr>
+        let error = # <expr>
+        # <expr>
+        let _ = # <expr>
+
+    fn validate_take_rejects_timeline_event_outside_frame_count():
+        let mut take = # <expr>
+        # <expr>
+        let report = # <expr>
+        # <expr>
+        # <expr>
+
+
+struct BatchPolicy:
+    allow_empty: Bool
+    max_operations: usize
+
+struct OriginPolicy:
+    id: String
+    enabled: Bool
+
+struct SupermotionPolicy:
+    allow_mode_override: Bool
+    allowed_mode_ids: Array<u32>
+
+struct TimelineBatchPolicyManifest:
+    batch: BatchPolicy
+    origins: Array<OriginPolicy>
+    supermotion: SupermotionPolicy
+
+struct TimelineBatchPolicy:
+    batch: BatchPolicy
+    enabled_origins: Set<String>
+    allowed_supermotion_mode_ids: Set<u32>
+    allow_supermotion_mode_override: Bool
+
+enum TimelineEditOrigin:
+    SequencerUi
+    Hotkey
+    Import
+    Automation
+
+impl TimelineEditOrigin:
+    fn policy_id(_self: Self) -> &String:
+        # <expr>
+
+    fn from_policy_id(policy_id: &String) -> Option<Self>:
+        # <expr>
+
+
+struct TimelineEditEnvelope:
+    track_id: String
+    origin: TimelineEditOrigin
+    op: crate::timeline_edit::KeyframeEditOp
+    requested_supermotion_mode_id: Option<u32>
+
+struct AppliedTimelineEditEnvelope:
+    envelope: TimelineEditEnvelope
+    applied: crate::timeline_edit::AppliedKeyframeEdit
+
+struct TimelineEditBatchResult:
+    applied: Array<AppliedTimelineEditEnvelope>
+
+enum TimelineBatchError:
+    EmptyBatch
+    BatchTooLarge { actual: usize, max: usize }
+    TrackMismatch { index: usize, envelope_track_id: String, expected_track_id: String }
+    OriginDisabled { origin: String }
+    SupermotionModeOverrideDisabled
+    SupermotionModeNotAllowed { mode_id: u32 }
+    UnknownSupermotionModeId { mode_id: u32 }
+    KeyframeEdit { index: usize, source: crate::timeline_edit::KeyframeEditError }
+
+fn apply_timeline_edit_batch(track: &mut crate::timeline_edit::TimelineTrackState, envelopes: Array<TimelineEditEnvelope>) -> Result<TimelineEditBatchResult, TimelineBatchError>:
+    let policy = # <expr>
+    # <expr>
+    let mut applied = # <expr>
+    # <expr>
+    # <expr>
+
+fn rollback_applied(track: &mut crate::timeline_edit::TimelineTrackState, applied: &Slice<AppliedTimelineEditEnvelope>):
+    # <expr>
+
+fn validate_batch_size(policy: &TimelineBatchPolicy, operation_count: usize) -> Result<(), TimelineBatchError>:
+    # <expr>
+    # <expr>
+    # <expr>
+
+fn validate_origin(policy: &TimelineBatchPolicy, origin: TimelineEditOrigin) -> Result<(), TimelineBatchError>:
+    let origin_id = # <expr>
+    # <expr>
+    # <expr>
+
+fn validate_supermotion_mode(policy: &TimelineBatchPolicy, mode_id: Option<u32>) -> Result<(), TimelineBatchError>:
+    let _ = mode_id
+    # <expr>
+    # <expr>
+    let known_ids: Set<u32> = # <expr>
+    # <expr>
+    # <expr>
+
+fn validate_policy_manifest(manifest: &TimelineBatchPolicyManifest) -> Result<TimelineBatchPolicy, String>:
+    # <expr>
+    let mut origins = # <expr>
+    # <expr>
+    # <expr>
+    let available_mode_ids: Set<u32> = # <expr>
+    let mut allowed_supermotion_mode_ids = # <expr>
+    # <expr>
+    # <expr>
+    let enabled_origins = # <expr>
+    # <expr>
+
+mod tests:
+    fn sample(frame: u32, value: i64) -> crate::timeline_edit::KeyframeSample:
+        # <expr>
+
+    fn make_envelope(track_id: &String, op: crate::timeline_edit::KeyframeEditOp) -> TimelineEditEnvelope:
+        # <expr>
+
+    fn applies_batch_and_preserves_operation_order():
+        let mut track = # <expr>
+        let result = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn rolls_back_applied_operations_on_error():
+        let mut track = # <expr>
+        let error = # <expr>
+        # <expr>
+        # <expr>
+
+    fn rejects_disabled_origin():
+        let mut track = # <expr>
+        let envelope = # <expr>
+        let error = # <expr>
+        # <expr>
+
+    fn rejects_unknown_supermotion_mode():
+        let mut track = # <expr>
+        let envelope = # <expr>
+        let error = # <expr>
+        # <expr>
+
+
+struct SequencerActionBindingManifest:
+    action_id: String
+    origin_id: String
+    operation_id: String
+    event_source_id: String
+
+struct TimelineBridgeContractManifest:
+    sequencer_action_bindings: Array<SequencerActionBindingManifest>
+
+struct TimelineBridgeContract:
+    bindings: Map<String, TimelineBridgeBinding>
+
+struct TimelineBridgeBinding:
+    action_id: String
+    origin: crate::timeline_batch::TimelineEditOrigin
+    operation_id: String
+    event_source_id: String
+
+fn timeline_bridge_binding_for_action(action_id: &String) -> Option<TimelineBridgeBinding>:
+    # <expr>
+
+fn timeline_bridge_bindings() -> Array<TimelineBridgeBinding>:
+    # <expr>
+
+fn validate_contract_manifest(manifest: &TimelineBridgeContractManifest) -> Result<TimelineBridgeContract, String>:
+    # <expr>
+    let enabled_operations: Set<String> = # <expr>
+    let mut bindings = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+
+mod tests:
+    fn required_sequencer_actions_are_present():
+        let binding = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        let move_binding = # <expr>
+        # <expr>
+
+    fn cross_surface_origins_use_surface_contract_sources():
+        let import_binding = # <expr>
+        # <expr>
+        # <expr>
+        let automation_binding = # <expr>
+        # <expr>
+        # <expr>
+
+    fn all_bindings_use_enabled_keyframe_operations():
+        let enabled_ops: Set<String> = # <expr>
+        # <expr>
+
+
+struct SequencerActionCommand:
+    action_id: String
+    track_id: String
+    requested_supermotion_mode_id: Option<u32>
+    payload: SequencerActionPayload
+
+enum SequencerActionPayload:
+    Upsert { frame: u32, value: serde_json::Value, interpolation: crate::timeline_edit::KeyframeInterpolation }
+    Remove { frame: u32 }
+    Move { from_frame: u32, to_frame: u32 }
+
+enum TimelineBridgeRuntimeError:
+    UnknownActionId { action_id: String }
+    ActionPayloadMismatch { action_id: String, expected_op: String, actual_op: String }
+
+fn runtime_request_from_sequencer_actions(session_frame: u32, timestamp_ms: u64, actions: Array<SequencerActionCommand>) -> Result<crate::timeline_runtime::TimelineRuntimeRequest, TimelineBridgeRuntimeError>:
+    let envelopes = # <expr>
+    # <expr>
+
+fn envelope_from_sequencer_action(action: SequencerActionCommand) -> Result<crate::timeline_batch::TimelineEditEnvelope, TimelineBridgeRuntimeError>:
+    let _ = # <expr>
+    let _ = # <expr>
+    # <expr>
+    # <expr>
+
+fn payload_to_op(payload: SequencerActionPayload) -> (String, crate::timeline_edit::KeyframeEditOp):
+    # <expr>
+
+mod tests:
+    fn upsert_action() -> SequencerActionCommand:
+        # <expr>
+
+    fn maps_add_keyframe_action_into_timeline_envelope():
+        let envelope = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn rejects_action_payload_shape_that_does_not_match_contract_operation():
+        let action = # <expr>
+        let error = # <expr>
+        # <expr>
+
+    fn builds_runtime_request_from_multiple_actions():
+        let remove = # <expr>
+        let request = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+
+struct FrameBounds:
+    min: u32
+    max: u32
+
+struct InterpolationModePolicy:
+    id: String
+    enabled: Bool
+
+struct OperationPolicy:
+    id: String
+    enabled: Bool
+    allow_frame_overwrite: Option<Bool>
+
+struct KeyframeEditPolicyManifest:
+    frame_bounds: FrameBounds
+    interpolation_modes: Array<InterpolationModePolicy>
+    operations: Array<OperationPolicy>
+
+struct KeyframeEditPolicy:
+    frame_bounds: FrameBounds
+    enabled_interpolation_ids: Set<String>
+    operations: Map<String, OperationPolicy>
+
+enum KeyframeInterpolation:
+    Linear
+    EaseIn
+    EaseOut
+    EaseInOut
+    Step
+
+impl KeyframeInterpolation:
+    fn policy_id(_self: Self) -> &String:
+        # <expr>
+
+
+struct KeyframeSample:
+    frame: u32
+    value: serde_json::Value
+    interpolation: KeyframeInterpolation
+
+struct TimelineTrackState:
+    track_id: String
+    keyframes: Map<u32, KeyframeSample>
+
+impl TimelineTrackState:
+    fn new_(track_id: impl Into<String>) -> Self:
+        # <expr>
+
+
+enum KeyframeEditOp:
+    Upsert { sample: KeyframeSample }
+    Remove { frame: u32 }
+    Move { from_frame: u32, to_frame: u32 }
+
+struct PriorKeyframeState:
+    frame: u32
+    sample: Option<KeyframeSample>
+
+struct TimelineTrackPatch:
+    prior_keyframes: Array<PriorKeyframeState>
+
+struct AppliedKeyframeEdit:
+    op: KeyframeEditOp
+    patch: TimelineTrackPatch
+
+enum KeyframeEditError:
+    OperationDisabled { operation: String }
+    FrameOutOfBounds { frame: u32, min: u32, max: u32 }
+    InterpolationDisabled { mode: String }
+    MissingKeyframe { track_id: String, frame: u32 }
+    FrameCollision { track_id: String, frame: u32 }
+    SameFrameMove { frame: u32 }
+
+fn apply_keyframe_edit(track: &mut TimelineTrackState, op: KeyframeEditOp) -> Result<AppliedKeyframeEdit, KeyframeEditError>:
+    # <expr>
+
+fn revert_keyframe_edit(track: &mut TimelineTrackState, patch: &TimelineTrackPatch):
+    # <expr>
+
+fn enabled_keyframe_operations() -> Array<String>:
+    # <expr>
+
+fn enabled_interpolation_modes() -> Array<String>:
+    # <expr>
+
+fn validate_operation_enabled(operation: &String) -> Result<(), KeyframeEditError>:
+    let _ = # <expr>
+    # <expr>
+    # <expr>
+
+fn validate_frame_bounds(frame: u32) -> Result<(), KeyframeEditError>:
+    let bounds = # <expr>
+    # <expr>
+    # <expr>
+
+fn validate_interpolation_enabled(interpolation: KeyframeInterpolation) -> Result<(), KeyframeEditError>:
+    let mode = # <expr>
+    # <expr>
+    # <expr>
+
+fn validate_policy_manifest(manifest: &KeyframeEditPolicyManifest) -> Result<KeyframeEditPolicy, String>:
+    # <expr>
+    let mut interpolation_ids = # <expr>
+    # <expr>
+    let enabled_interpolation_ids: Set<String> = # <expr>
+    # <expr>
+    let mut operations = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+
+mod tests:
+    fn sample(frame: u32, value: i64, interpolation: KeyframeInterpolation) -> KeyframeSample:
+        # <expr>
+
+    fn manifest_exposes_enabled_operations_and_interpolations():
+        let operations = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        let interpolation = # <expr>
+        # <expr>
+        # <expr>
+
+    fn upsert_and_revert_restores_previous_state():
+        let mut track = # <expr>
+        # <expr>
+        let applied = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn move_returns_collision_when_overwrite_disabled():
+        let mut track = # <expr>
+        # <expr>
+        # <expr>
+        let error = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn move_and_revert_restores_both_frames():
+        let mut track = # <expr>
+        # <expr>
+        let applied = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn remove_requires_existing_frame():
+        let mut track = # <expr>
+        let error = # <expr>
+        # <expr>
+
+
+struct FrameBounds:
+    min: u32
+    max: u32
+
+struct SourcePolicy:
+    id: String
+    enabled: Bool
+
+struct TimelineEventPolicyManifest:
+    session_frame_bounds: FrameBounds
+    max_events_per_take: usize
+    max_events_per_track: usize
+    require_monotonic_timestamp_ms: Bool
+    sources: Array<SourcePolicy>
+
+struct TimelineEventPolicy:
+    session_frame_bounds: FrameBounds
+    max_events_per_take: usize
+    max_events_per_track: usize
+    require_monotonic_timestamp_ms: Bool
+    source_enabled: Map<String, Bool>
+
+struct TimelineEditEvent:
+    event_id: String
+    track_id: String
+    source_id: String
+    session_frame: u32
+    timestamp_ms: u64
+    op: crate::timeline_edit::KeyframeEditOp
+    patch: crate::timeline_edit::TimelineTrackPatch
+
+struct TimelineEventValidationIssue:
+    code: String
+    message: String
+
+enum TimelineEventError:
+    EmptyTrackId
+    UnknownSource { source_id: String }
+    SourceDisabled { source_id: String }
+    SessionFrameOutOfBounds { frame: u32, min: u32, max: u32 }
+
+fn enabled_timeline_event_sources() -> Array<String>:
+    # <expr>
+
+fn build_timeline_edit_event(track_id: impl Into<String>, source_id: impl Into<String>, session_frame: u32, timestamp_ms: u64, applied: crate::timeline_edit::AppliedKeyframeEdit) -> Result<TimelineEditEvent, TimelineEventError>:
+    let track_id = # <expr>
+    # <expr>
+    # <expr>
+    let source_id = # <expr>
+    # <expr>
+    let event_id = # <expr>
+    # <expr>
+
+fn validate_timeline_event_log(events: &Slice<TimelineEditEvent>) -> Array<TimelineEventValidationIssue>:
+    let policy = # <expr>
+    let mut issues = # <expr>
+    # <expr>
+    let mut per_track_counts: Map<&String, usize> = # <expr>
+    # <expr>
+    # <expr>
+    issues
+
+fn validate_timeline_event_log_against_take(events: &Slice<TimelineEditEvent>, frame_count: usize) -> Array<TimelineEventValidationIssue>:
+    let mut issues = # <expr>
+    # <expr>
+    # <expr>
+    issues
+
+fn validate_source_id(source_id: &String) -> Result<(), TimelineEventError>:
+    let _ = # <expr>
+    # <expr>
+    # <expr>
+
+fn validate_session_frame(frame: u32) -> Result<(), TimelineEventError>:
+    let bounds = # <expr>
+    # <expr>
+    # <expr>
+
+fn validate_op_frames(op: &crate::timeline_edit::KeyframeEditOp, issues: &mut Array<TimelineEventValidationIssue>, event_index: usize):
+    # <expr>
+
+fn validate_op_frame(frame: u32, issues: &mut Array<TimelineEventValidationIssue>, event_index: usize, field: &String):
+    # <expr>
+
+fn push_issue(issues: &mut Array<TimelineEventValidationIssue>, code: impl Into<String>, message: impl Into<String>):
+    # <expr>
+
+fn validate_policy_manifest(manifest: &TimelineEventPolicyManifest) -> Result<TimelineEventPolicy, String>:
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    let mut seen_source_ids = # <expr>
+    let mut source_enabled = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+
+mod tests:
+    fn sample(frame: u32, value: i64) -> crate::timeline_edit::KeyframeSample:
+        # <expr>
+
+    fn manifest_exposes_enabled_sources():
+        let sources = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn build_event_rejects_disabled_source():
+        let mut track = # <expr>
+        let applied = # <expr>
+        let error = # <expr>
+        # <expr>
+
+    fn validate_log_detects_op_frame_bounds_issue():
+        let event = # <expr>
+        let issues = # <expr>
+        # <expr>
+
+    fn validate_against_take_detects_out_of_range_frame():
+        let event = # <expr>
+        let issues = # <expr>
+        # <expr>
+
+
+struct TimelineRuntimeRequest:
+    session_frame: u32
+    timestamp_ms: u64
+    envelopes: Array<crate::timeline_batch::TimelineEditEnvelope>
+
+struct TimelineRuntimeResult:
+    batch: crate::timeline_batch::TimelineEditBatchResult
+    emitted_events: Array<crate::timeline_event::TimelineEditEvent>
+
+enum TimelineRuntimeError:
+    Batch { source: crate::timeline_batch::TimelineBatchError }
+    EventBuild { index: usize, source: crate::timeline_event::TimelineEventError }
+    TimestampOverflow { index: usize }
+    EventLogValidation { issues: Array<crate::timeline_event::TimelineEventValidationIssue> }
+
+fn apply_timeline_runtime_request(track: &mut crate::timeline_edit::TimelineTrackState, existing_event_log: &Slice<crate::timeline_event::TimelineEditEvent>, request: TimelineRuntimeRequest) -> Result<TimelineRuntimeResult, TimelineRuntimeError>:
+    let batch = # <expr>
+    let mut emitted_events = # <expr>
+    # <expr>
+    let mut merged_event_log = # <expr>
+    # <expr>
+    # <expr>
+    let issues = # <expr>
+    # <expr>
+    # <expr>
+
+fn rollback_batch(track: &mut crate::timeline_edit::TimelineTrackState, batch: &crate::timeline_batch::TimelineEditBatchResult):
+    # <expr>
+
+mod tests:
+    fn sample(frame: u32, value: i64) -> crate::timeline_edit::KeyframeSample:
+        # <expr>
+
+    fn upsert_envelope(track_id: &String, frame: u32, value: i64) -> crate::timeline_batch::TimelineEditEnvelope:
+        # <expr>
+
+    fn applies_batch_and_emits_origin_bound_events():
+        let mut track = # <expr>
+        let request = # <expr>
+        let result = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn event_build_failure_rolls_back_track_state():
+        let mut track = # <expr>
+        let request = # <expr>
+        let error = # <expr>
+        # <expr>
+        # <expr>
+
+    fn log_validation_failure_rolls_back_track_state():
+        let mut track = # <expr>
+        let existing = # <expr>
+        let request = # <expr>
+        let error = # <expr>
+        # <expr>
+        # <expr>
+
+
+struct TimelineRuntimeDiagnosticsPolicyManifest:
+    policy_id: String
+    refresh: TimelineRuntimeDiagnosticsRefreshPolicy
+    event: TimelineRuntimeDiagnosticsEventPolicy
+    drift: TimelineRuntimeDiagnosticsDriftPolicy
+    trend: TimelineRuntimeDiagnosticsTrendPolicy
+    field_visibility: TimelineRuntimeDiagnosticsFieldVisibility
+
+struct TimelineRuntimeDiagnosticsRefreshPolicy:
+    enabled: Bool
+    interval_ms: u64
+
+struct TimelineRuntimeDiagnosticsReasonDescriptor:
+    reason_id: String
+    label: String
+    severity: String
+    action_hint: String
+
+struct TimelineRuntimeDiagnosticsEventPolicy:
+    include_reason: Bool
+    include_emitted_at_ms: Bool
+    include_trend_summary: Bool
+    trend_summary_min_severity: String
+    trend_summary_top_count: usize
+    allowed_reasons: Array<String>
+    reason_catalog: Array<TimelineRuntimeDiagnosticsReasonDescriptor>
+
+struct TimelineRuntimeDiagnosticsDriftPolicy:
+    warn_pending_request_count: usize
+    warn_queue_vs_ledger_gap: usize
+
+struct TimelineRuntimeDiagnosticsTrendPolicy:
+    reason_history_limit: usize
+    decay_window_ms: u64
+    cooldown_window_ms: u64
+    top_reason_count: usize
+    default_warn_count: usize
+    default_error_count: usize
+    reason_thresholds: Array<TimelineRuntimeDiagnosticsReasonTrendThreshold>
+
+struct TimelineRuntimeDiagnosticsReasonTrendThreshold:
+    reason_id: String
+    warn_count: usize
+    error_count: usize
+    warn_action_hint: Option<String>
+    error_action_hint: Option<String>
+
+struct TimelineRuntimeDiagnosticsFieldVisibility:
+    show_active_take_path: Bool
+    show_take_existence: Bool
+    show_active_track_count: Bool
+    show_active_track_ids: Bool
+    show_event_log_size: Bool
+    show_latest_event_timestamp: Bool
+    show_track_keyframe_counts: Bool
+    show_event_source_counts: Bool
+    show_recent_reason_counts: Bool
+
+struct TimelineRuntimeDiagnosticsPolicy:
+    policy_id: String
+    refresh: TimelineRuntimeDiagnosticsRefreshPolicy
+    event: TimelineRuntimeDiagnosticsEventPolicy
+    drift: TimelineRuntimeDiagnosticsDriftPolicy
+    trend: TimelineRuntimeDiagnosticsTrendPolicy
+    field_visibility: TimelineRuntimeDiagnosticsFieldVisibility
+
+fn timeline_runtime_diagnostics_policy() -> &TimelineRuntimeDiagnosticsPolicy:
+    # <expr>
+
+impl TimelineRuntimeDiagnosticsEventPolicy:
+    fn reason_descriptor(_self: &Self, reason_id: &String) -> Option<&TimelineRuntimeDiagnosticsReasonDescriptor>:
+        # <expr>
+
+
+impl TimelineRuntimeDiagnosticsPolicy:
+    fn trend_threshold_for_reason(_self: &Self, reason_id: &String) -> (usize, usize):
+        # <expr>
+
+    fn trend_severity_for_count(_self: &Self, reason_id: &String, count: usize) -> &String:
+        let _ = # <expr>
+        # <expr>
+
+    fn trend_action_hint_for_count(_self: &Self, reason_id: &String, count: usize) -> Option<&String>:
+        # <expr>
+
+
+fn validate_manifest(manifest: TimelineRuntimeDiagnosticsPolicyManifest) -> Result<TimelineRuntimeDiagnosticsPolicy, String>:
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    let mut deduped_allowed = # <expr>
+    # <expr>
+    # <expr>
+    let mut deduped_catalog = # <expr>
+    let mut catalog_ids = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    let mut seen_reason_thresholds = # <expr>
+    # <expr>
+    # <expr>
+
+mod tests:
+    fn policy_manifest_loads_with_expected_defaults():
+        let policy = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        let descriptor = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+
+struct OriginSourceBindingManifest:
+    origin_id: String
+    event_source_id: String
+
+struct TimelineSurfaceContractManifest:
+    origin_source_bindings: Array<OriginSourceBindingManifest>
+
+struct TimelineSurfaceContract:
+    origin_to_event_source: Map<String, String>
+
+fn timeline_event_source_for_origin(origin: crate::timeline_batch::TimelineEditOrigin) -> &String:
+    # <expr>
+
+fn timeline_surface_bindings() -> Array<(String, String)>:
+    # <expr>
+
+fn validate_contract_manifest(manifest: &TimelineSurfaceContractManifest) -> Result<TimelineSurfaceContract, String>:
+    # <expr>
+    let enabled_event_sources: Set<String> = # <expr>
+    let mut origin_to_event_source = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+
+mod tests:
+    fn all_origins_have_an_enabled_event_source_binding():
+        # <expr>
+
+    fn import_and_automation_origins_bind_to_non_sequencer_sources():
+        # <expr>
+        # <expr>
+
+
+struct Joint:
+    position: Array<f32>
+    confidence: f32
+
+impl Joint:
+    fn zero() -> Self:
+        # <expr>
+
+    fn is_reliable(_self: &Self) -> Bool:
+        # <expr>
+
+
+struct BoneTransform:
+    name: String
+    world_matrix: Array<f32>
+    position: Array<f32>
+    rotation: Array<f32>
+
+struct JointFrame:
+    seq: u64
+    timestamp_ms: f64
+    joints: Array<Joint>
+    skeleton: Option<Array<BoneTransform>>
+    model_id: String
+
+impl JointFrame:
+    fn get_joint(_self: &Self, idx: usize) -> Option<&Joint>:
+        # <expr>
+
+    fn get_named(_self: &Self, name: &String) -> Option<&Joint>:
+        let idx = # <expr>
+        # <expr>
+
+
+struct PipelineStats:
+    fps: f32
+    avg_latency_ms: f32
+    frame_drops: u32
+    vram_mb: u32
+    udp_connected: Bool
+    udp_tx_count: u32
+
+impl Default for PipelineStats:
+    fn default_() -> Self:
+        # <expr>
+
+
+struct SessionConfig:
+    camera_device_id: u32
+    model_id: String
+    precision: String
+    dcc_target: String
+    target_host: String
+    target_port: u16
+    enable_preview: Bool
+
+impl Default for SessionConfig:
+    fn default_() -> Self:
+        # <expr>
+
+
+struct IkConstraintParams:
+    foot_lock_strength: f32
+    bone_length_tolerance: f32
+    filter_min_cutoff: f32
+    filter_beta: f32
+
+impl Default for IkConstraintParams:
+    fn default_() -> Self:
+        # <expr>
+
+
+enum PipelineEvent:
+    Frame(JointFrame)
+    Stats(PipelineStats)
+    Error(String)
+    SessionStarted
+    SessionStopped
+    TakeSaved { name: String, path: String, frame_count: usize }
+    GpuHealth(GpuHealthEvent)
+    CameraFrame { data: Array<u8>, width: u32, height: u32, timestamp_ms: f64 }
+
+struct GpuInfo:
+    name: String
+    backend: String
+    driver: String
+    driver_info: String
+    vram_bytes: u64
+    device_type: String
+
+struct GpuHealthEvent:
+    kind: String
+    message: String
+    timestamp_ms: f64
+
+struct CameraInfo:
+    index: u32
+    name: String
+
+fn gpu_adapter_cache() -> &Option<GpuInfo>:
+    # <stmt>
+    # <expr>
+
+fn set_gpu_adapter_info(info: GpuInfo):
+    # <expr>
+
+fn get_gpu_adapter_info() -> Option<GpuInfo>:
+    # <expr>
+
+fn resolve_tool(name: &String) -> String:
+    # <expr>
+    # <expr>
+
+struct VideoAnalysisProgress:
+    frame: u64
+    total: u64
+    fps_actual: f32
+    phase: String
+
+struct VideoAnalysisConfig:
+    video_path: String
+    model_id: String
+    frame_step: u32
+    output_fps: f32
+    tags: Array<String>
+    subject: String
+
+impl Default for VideoAnalysisConfig:
+    fn default_() -> Self:
+        # <expr>
+
+
+struct VideoAnalyzer:
+    pass
+
+struct TemporalJointTracker:
+    previous: Option<Array<crate::types::Joint>>
+
+impl TemporalJointTracker:
+    fn new_() -> Self:
+        # <expr>
+
+    fn stabilize(_self: &mut Self, input: Array<crate::types::Joint>) -> Array<crate::types::Joint>:
+        let mut current = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        current
+
+    fn sanitize_joints(joints: Array<crate::types::Joint>) -> Array<crate::types::Joint>:
+        # <expr>
+        joints
+
+    fn should_hold_previous(prev: &Slice<crate::types::Joint>, curr: &Slice<crate::types::Joint>) -> Bool:
+        let prev_center = # <expr>
+        let curr_center = # <expr>
+        # <expr>
+        false
+
+    fn visible_count(joints: &Slice<crate::types::Joint>) -> usize:
+        # <expr>
+
+    fn avg_confidence(joints: &Slice<crate::types::Joint>) -> f32:
+        # <expr>
+        # <expr>
+
+    fn body_center(joints: &Slice<crate::types::Joint>) -> Option<Array<f32>>:
+        # <stmt>
+        let mut sx = 0
+        let mut sy = 0
+        let mut sz = 0
+        let mut n = 0
+        # <expr>
+        # <expr>
+        # <expr>
+
+
+impl VideoAnalyzer:
+    fn analyze(config: VideoAnalysisConfig, progress_tx: Option<tokio::sync::mpsc::UnboundedSender<VideoAnalysisProgress>>, frame_tx: Option<tokio::sync::mpsc::UnboundedSender<crate::types::JointFrame>>, raw_frame_tx: Option<tokio::sync::mpsc::UnboundedSender<crate::types::JointFrame>>, cancel_flag: Option<std::sync::atomic::AtomicBool>) -> Result<std::path::PathBuf, String>:
+        let video_path = # <expr>
+        # <expr>
+        let model_entry = # <expr>
+        let resolved_retarget = # <expr>
+        let topology_profile = # <expr>
+        let retarget_contract = # <expr>
+        let model_path = # <expr>
+        let mut engine = # <expr>
+        let ik_params = # <expr>
+        let mut retargeter = # <expr>
+        let gpu_chain: crate::gpu_chain::GpuChain = # <expr>
+        let _ = # <expr>
+        let effective_fps = # <expr>
+        let emit_ = # <expr>
+        let emit_frame = # <expr>
+        let emit_raw_frame = # <expr>
+        let mut ffmpeg_args: Array<String> = # <expr>
+        # <expr>
+        # <expr>
+        let mut ffmpeg = # <expr>
+        let frame_bytes = # <expr>
+        let mut frame_buf = # <expr>
+        let mut take = # <expr>
+        # <expr>
+        # <expr>
+        let mut frame_seq: u64 = 0
+        let mut perf_timer = # <expr>
+        let mut perf_count: u32 = 0
+        let mut tracker = # <expr>
+        # <expr>
+        # <stmt>
+        let stdout = # <expr>
+        let mut stdout = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        let takes_dir = # <expr>
+        # <expr>
+        let out_path = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn probe_video(path: &std::path::Path) -> Result<(usize, usize, u64, f64), String>:
+        let out_ = # <expr>
+        let raw = # <expr>
+        let json: serde_json::Value = # <expr>
+        let stream = # <expr>
+        let w: usize = # <expr>
+        let h: usize = # <expr>
+        let n: u64 = # <expr>
+        let fps = # <expr>
+        # <expr>
+        # <expr>
+
+
+mod tests:
+    fn make_joint(x: f32, y: f32, z: f32, confidence: f32) -> crate::types::Joint:
+        # <expr>
+
+    fn make_base_pose(center_x: f32, center_y: f32, confidence: f32) -> Array<crate::types::Joint>:
+        let mut joints = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        joints
+
+    fn analyze_rejects_models_without_live_retarget_topology_contract():
+        let stamp = # <expr>
+        let temp_path = # <expr>
+        # <expr>
+        let cfg = # <expr>
+        let err = # <expr>
+        # <expr>
+        let _ = # <expr>
+
+    fn temporal_tracker_holds_previous_on_large_identity_jump():
+        let mut tracker = # <expr>
+        let stable = # <expr>
+        let out_a = # <expr>
+        let jumped = # <expr>
+        let out_b = # <expr>
+        # <expr>
+
+    fn temporal_tracker_backfills_low_confidence_joints():
+        let mut tracker = # <expr>
+        let base = # <expr>
+        let out_a = # <expr>
+        let mut degraded = # <expr>
+        # <expr>
+        let out_b = # <expr>
+        # <expr>
+
+

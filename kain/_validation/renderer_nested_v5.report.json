@@ -1,0 +1,76 @@
+{
+  "input_path": "M:\\K_OS\\crates\\k-os-renderer\\src",
+  "output_path": "M:\\K_OS\\kain\\_validation\\renderer_nested_v5.kn",
+  "target": null,
+  "recursive": true,
+  "flat": false,
+  "include_filters": [],
+  "exclude_filters": [],
+  "discovered_files": 9,
+  "imported_files": 9,
+  "skipped_files": 0,
+  "failed_files": [],
+  "lossy_diagnostics": [
+    {
+      "file": "M:\\K_OS\\crates\\k-os-renderer\\src\\bridge.rs",
+      "module_path": "bridge",
+      "diagnostics": [
+        "trait EvaluatedMeshSource supertraits lowered as trait metadata",
+        "trait RendererUploadBridge supertraits lowered as trait metadata",
+        "dyn trait object lowered to impl EvaluatedMeshSource (dynamic dispatch / vtable semantics erased)"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-renderer\\src\\lib.rs",
+      "module_path": null,
+      "diagnostics": [
+        "mod bridge; external module declaration (directory import should load bridge.rs or bridge/mod.rs separately)",
+        "mod camera; external module declaration (directory import should load camera.rs or camera/mod.rs separately)",
+        "mod mesh; external module declaration (directory import should load mesh.rs or mesh/mod.rs separately)",
+        "mod picking; external module declaration (directory import should load picking.rs or picking/mod.rs separately)",
+        "mod render_graph; external module declaration (directory import should load render_graph.rs or render_graph/mod.rs separately)",
+        "mod service; external module declaration (directory import should load service.rs or service/mod.rs separately)",
+        "mod types; external module declaration (directory import should load types.rs or types/mod.rs separately)",
+        "mod viewport; external module declaration (directory import should load viewport.rs or viewport/mod.rs separately)",
+        "dyn trait object lowered to impl crate::bridge::EvaluatedMeshSource (dynamic dispatch / vtable semantics erased)"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-renderer\\src\\render_graph.rs",
+      "module_path": "render_graph",
+      "diagnostics": [
+        "array repeat lowered to repeated array elements (count 16; repeat/cloning semantics not preserved)"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-renderer\\src\\service.rs",
+      "module_path": "service",
+      "diagnostics": [
+        "dyn trait object lowered to impl EvaluatedMeshSource (dynamic dispatch / vtable semantics erased)",
+        "dyn trait object lowered to impl RendererUploadBridge (dynamic dispatch / vtable semantics erased)"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-renderer\\src\\types.rs",
+      "module_path": "types",
+      "diagnostics": [
+        "macro_rules! define_handle preserved as macro definition stub with raw token body",
+        "macro item define_handle preserved as raw macro stub (item/proc macro not lowered yet)"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    }
+  ],
+  "diagnostics_by_class": {},
+  "generated_kain_path": "M:\\K_OS\\kain\\_validation\\renderer_nested_v5.kn",
+  "compiled_output_path": null,
+  "generated_at_utc": "2026-03-29T19:13:07.194937600+00:00"
+}

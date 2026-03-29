@@ -257,6 +257,57 @@ Companion artifacts:
             └── 📂 src
     └── 📂 docs
         └── 📂 automation
+    └── 📂 kain
+        └── 📂 _validation
+        └── 📂 animation
+        └── 📂 asset_pipeline
+        └── 📂 assets
+        └── 📂 baking
+        └── 📂 bevy
+        └── 📂 bevy_lab
+        └── 📂 brushes
+        └── 📂 config
+        └── 📂 core
+        └── 📂 editor
+        └── 📂 eval
+        └── 📂 external
+        └── 📂 full_pass
+        └── 📂 game_ai
+        └── 📂 game_camera
+        └── 📂 game_framework
+        └── 📂 game_input
+        └── 📂 game_play
+        └── 📂 game_runtime
+        └── 📂 game_sequencer
+        └── 📂 generated
+        └── 📂 gizmo
+        └── 📂 gpu_pipeline
+        └── 📂 hdr
+        └── 📂 host
+        └── 📂 io
+        └── 📂 kain
+        └── 📂 kain_api
+        └── 📂 kain_modules
+        └── 📂 kos_proto
+        └── 📂 material
+        └── 📂 mesh
+        └── 📂 mesh_processing
+        └── 📂 mocap_engine
+        └── 📂 photogrammetry
+        └── 📂 plugin
+        └── 📂 render
+        └── 📂 renderer
+        └── 📂 rig
+        └── 📂 runtime
+        └── 📂 scatter
+        └── 📂 scene
+        └── 📂 scene_runtime
+        └── 📂 sculpt
+        └── 📂 sim
+        └── 📂 undo
+        └── 📂 wasm
+        └── 📂 workspace_registry
+        └── 📂 zen
     └── 📂 output
         └── 📂 k-os-icons
             └── 📂 icons

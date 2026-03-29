@@ -1,0 +1,35 @@
+# Generated from Rust source by kain import-rust
+# Project Ouroboros — Rust → KAIN → Rust
+
+enum AnimationSourceKind:
+    MocapTake
+    Procedural
+    Imported
+
+struct AnimationClipAsset:
+    name: String
+    source_kind: AnimationSourceKind
+    external_path: Option<String>
+    source_model_id: Option<String>
+    frame_count: usize
+    fps: f32
+    duration_ms: u64
+    format: String
+    channels: Array<String>
+
+impl AnimationClipAsset:
+    fn from_mocap_take(name: impl Into<String>, path: impl Into<String>, model_id: impl Into<String>, frame_count: usize, fps: f32) -> Self:
+        let fps = # <expr>
+        let duration_ms = # <expr>
+        # <expr>
+
+
+mod tests:
+    fn builds_animation_asset_from_mocap_take():
+        let clip = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+

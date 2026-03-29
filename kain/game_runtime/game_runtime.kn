@@ -1,0 +1,769 @@
+# Generated from Rust source by kain import-rust
+# Project Ouroboros — Rust → KAIN → Rust
+
+struct PipelineManifest:
+    version: String
+    product: ProductDescriptor
+    profiles: Map<String, ExecutionProfile>
+    preflight: PreflightConfig
+    runner: RunnerConfig
+    data_registry: DataRegistryConfig
+    stage_schemas: StageSchemasConfig
+    runtime_policy: RuntimePolicyConfig
+    stages: Array<PipelineStage>
+
+struct ProductDescriptor:
+    id: String
+    name: String
+
+struct ExecutionProfile:
+    runtime_host: String
+    renderer_contract: String
+    ui_shell: String
+    features: Array<String>
+
+struct PreflightConfig:
+    workspace_root: Option<String>
+    required_paths: Array<String>
+    fail_on_missing: Bool
+
+impl Default for PreflightConfig:
+    fn default_() -> Self:
+        # <expr>
+
+
+struct RunnerConfig:
+    adapters: Map<String, String>
+    strict_adapter_binding: Bool
+    default_adapter_prefix: String
+
+impl Default for RunnerConfig:
+    fn default_() -> Self:
+        # <expr>
+
+
+struct DataRegistryConfig:
+    strict_schema: Bool
+    schemas: Map<String, DataRegistrySchemaPolicy>
+
+impl Default for DataRegistryConfig:
+    fn default_() -> Self:
+        # <expr>
+
+
+struct DataRegistrySchemaPolicy:
+    expected_version: String
+    supported_versions: Array<String>
+    required_tables: Array<String>
+    migration_hook: Option<String>
+
+struct StageSchemasConfig:
+    strict_schema: Bool
+    schemas: Map<String, StageSchemaPolicy>
+
+impl Default for StageSchemasConfig:
+    fn default_() -> Self:
+        # <expr>
+
+
+struct StageSchemaPolicy:
+    expected_version: String
+    supported_versions: Array<String>
+    required_fields: Array<String>
+    migration_hook: Option<String>
+
+struct RuntimePolicyConfig:
+    required_registry_kinds: Array<String>
+    strict_readiness: Bool
+
+impl Default for RuntimePolicyConfig:
+    fn default_() -> Self:
+        # <expr>
+
+
+enum StageKind:
+    Scene
+    KainHotReload
+    NarrativeGraph
+    DataRegistry
+    Cook
+    Build
+    Export
+
+impl StageKind:
+    fn as_key(_self: &Self) -> &String:
+        # <expr>
+
+
+struct PipelineStage:
+    id: String
+    kind: StageKind
+    profile: String
+    depends_on: Array<String>
+    scene_asset: Option<String>
+    scene_format: Option<String>
+    enable_hot_reload: Option<Bool>
+    source_registry: Option<String>
+    watch_roots: Option<Array<String>>
+    debounce_ms: Option<u64>
+    target: Option<String>
+    graph_asset: Option<String>
+    entry_node: Option<String>
+    evaluate_via: Option<String>
+    registry_kind: Option<String>
+    registry_asset: Option<String>
+    merge_strategy: Option<String>
+    schema_version: Option<String>
+    recipe_asset: Option<String>
+    output_dir: Option<String>
+    target_platform: Option<String>
+    package_asset: Option<String>
+    artifact_name: Option<String>
+    package_format: Option<String>
+    source_dir: Option<String>
+    export_path: Option<String>
+
+struct ExecutionPlan:
+    product_id: String
+    product_name: String
+    ordered_stage_ids: Array<String>
+    stages: Array<PlannedStage>
+
+struct PlannedStage:
+    id: String
+    kind: StageKind
+    profile: String
+    depends_on: Array<String>
+    schema_version: Option<String>
+    payload: StagePayload
+
+enum StagePayload:
+    Scene(SceneStagePayload)
+    KainHotReload(KainHotReloadPayload)
+    NarrativeGraph(NarrativeGraphPayload)
+    DataRegistry(DataRegistryPayload)
+    Cook(CookStagePayload)
+    Build(BuildStagePayload)
+    Export(ExportStagePayload)
+
+struct SceneStagePayload:
+    scene_asset: String
+    scene_format: String
+    enable_hot_reload: Bool
+
+struct KainHotReloadPayload:
+    source_registry: String
+    watch_roots: Array<String>
+    debounce_ms: u64
+    target: String
+
+struct NarrativeGraphPayload:
+    graph_asset: String
+    entry_node: String
+    evaluate_via: String
+
+struct DataRegistryPayload:
+    registry_kind: String
+    registry_asset: String
+    merge_strategy: String
+
+struct CookStagePayload:
+    recipe_asset: String
+    output_dir: String
+    target_platform: String
+
+struct BuildStagePayload:
+    package_asset: String
+    output_dir: String
+    artifact_name: String
+    target_platform: String
+
+struct ExportStagePayload:
+    package_asset: String
+    source_dir: String
+    export_path: String
+    package_format: String
+
+struct PreflightReport:
+    checked_paths: Array<String>
+    missing_paths: Array<String>
+    fail_on_missing: Bool
+
+struct RuntimeExecutionOptions:
+    fail_fast: Bool
+    emit_artifacts: Bool
+
+impl Default for RuntimeExecutionOptions:
+    fn default_() -> Self:
+        # <expr>
+
+
+enum StageExecutionStatus:
+    Planned
+    Succeeded
+    Failed
+
+struct StageExecutionRecord:
+    stage_id: String
+    kind: StageKind
+    profile: String
+    adapter_id: String
+    status: StageExecutionStatus
+    detail: String
+
+struct ExecutionRunReport:
+    product_id: String
+    product_name: String
+    ordered_stage_ids: Array<String>
+    records: Array<StageExecutionRecord>
+
+enum PipelineError:
+    ReadManifest { path: String, source: std::io::Error }
+    ParseToml(toml::de::Error)
+    Validation(String)
+    Preflight(String)
+    Runner(String)
+
+fn load_manifest_from_file(path: impl AsRef<std::path::Path>) -> Result<PipelineManifest, PipelineError>:
+    let path_ref = # <expr>
+    let raw = # <expr>
+    # <expr>
+
+fn load_manifest_from_str(raw: &String) -> Result<PipelineManifest, PipelineError>:
+    let manifest: PipelineManifest = # <expr>
+    # <expr>
+    # <expr>
+
+fn build_execution_plan(manifest: &PipelineManifest) -> Result<ExecutionPlan, PipelineError>:
+    # <expr>
+    let mut indegree: Map<String, usize> = # <expr>
+    let mut dependents: Map<String, Array<String>> = # <expr>
+    let mut stage_index: Map<String, &PipelineStage> = # <expr>
+    # <expr>
+    let mut ready: Array<String> = # <expr>
+    # <expr>
+    let mut ordered_stage_ids = # <expr>
+    let mut planned_stages = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+
+fn run_preflight_checks(manifest: &PipelineManifest, default_workspace_root: impl AsRef<std::path::Path>) -> Result<PreflightReport, PipelineError>:
+    # <expr>
+    let root = # <expr>
+    let mut checked_paths = # <expr>
+    # <expr>
+    let mut missing_paths = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+
+fn execute_plan_with_runner(manifest: &PipelineManifest, plan: &ExecutionPlan) -> Result<ExecutionRunReport, PipelineError>:
+    # <expr>
+    let mut records = # <expr>
+    # <expr>
+    # <expr>
+
+fn execute_plan_with_builtin_adapters(manifest: &PipelineManifest, plan: &ExecutionPlan, workspace_root: impl AsRef<std::path::Path>, options: &RuntimeExecutionOptions) -> Result<ExecutionRunReport, PipelineError>:
+    # <expr>
+    let root = # <expr>
+    let mut records = # <expr>
+    let mut stage_outcomes: Map<String, StageExecutionStatus> = # <expr>
+    # <expr>
+    # <expr>
+
+fn execute_stage_with_builtin_adapter(stage: &PlannedStage, root: &std::path::Path, data_registry: &DataRegistryConfig, stage_schemas: &StageSchemasConfig, emit_artifacts: Bool) -> Result<String, String>:
+    let stage_schema_detail = # <expr>
+    # <expr>
+
+fn write_json_artifact(path: &std::path::Path, payload: &serde_json::Value) -> Result<(), String>:
+    # <expr>
+    let encoded = # <expr>
+    # <expr>
+
+fn sha256_hex(path: &std::path::Path) -> Result<String, String>:
+    let bytes = # <expr>
+    let mut hasher = # <expr>
+    # <expr>
+    let digest = # <expr>
+    # <expr>
+
+fn collect_files_recursive(dir: &std::path::Path, suffix: &String) -> Result<Array<std::path::PathBuf>, String>:
+    let mut files = # <expr>
+    # <expr>
+    let mut stack = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+
+fn parse_registry_version_from_asset(path: &std::path::Path) -> Result<Option<serde_json::Value>, String>:
+    let _ = # <expr>
+    # <expr>
+    let raw = # <expr>
+    let registry_toml: toml::Value = # <expr>
+    let _ = # <expr>
+    let _ = # <expr>
+    # <expr>
+
+fn dedupe_registry_versions(entries: Array<serde_json::Value>) -> Array<serde_json::Value>:
+    let mut seen = # <expr>
+    # <expr>
+    entries
+
+fn registry_versions_from_upstream_contracts(contracts: &Slice<std::path::PathBuf>) -> Array<serde_json::Value>:
+    let mut registry_versions = # <expr>
+    # <expr>
+    # <expr>
+
+fn execute_cook_stage_adapter(payload: &CookStagePayload, root: &std::path::Path, emit_artifacts: Bool) -> Result<String, String>:
+    let recipe_path = # <expr>
+    let raw = # <expr>
+    let recipe_toml: toml::Value = # <expr>
+    let recipe_platform = # <expr>
+    # <expr>
+    let inputs = # <expr>
+    let mut resolved_inputs = # <expr>
+    # <expr>
+    let output_dir = # <expr>
+    # <expr>
+    # <expr>
+
+fn execute_build_stage_adapter(payload: &BuildStagePayload, root: &std::path::Path, emit_artifacts: Bool) -> Result<String, String>:
+    let package_path = # <expr>
+    let raw = # <expr>
+    let package_toml: toml::Value = # <expr>
+    let target_platform = # <expr>
+    # <expr>
+    let cooked_dir = # <expr>
+    let cooked_dir_path = # <expr>
+    # <expr>
+    let output_dir = # <expr>
+    # <expr>
+    # <expr>
+
+fn execute_export_stage_adapter(payload: &ExportStagePayload, root: &std::path::Path, emit_artifacts: Bool) -> Result<String, String>:
+    let package_path = # <expr>
+    let raw = # <expr>
+    let package_toml: toml::Value = # <expr>
+    let export_format = # <expr>
+    # <expr>
+    let source_dir = # <expr>
+    # <expr>
+    let export_artifact_path = # <expr>
+    let export_parent = # <expr>
+    # <expr>
+    # <expr>
+
+fn evaluate_non_registry_stage_schema_policy(stage: &PlannedStage, config: &StageSchemasConfig) -> Result<String, String>:
+    let stage_key = # <expr>
+    # <expr>
+    let policy = # <expr>
+    let schema_version = # <expr>
+    let supported_versions = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+
+fn stage_schema_version(stage: &PlannedStage) -> Option<&String>:
+    # <expr>
+
+fn stage_payload_field_present(stage: &PlannedStage, field_name: &String) -> Bool:
+    # <expr>
+
+fn execute_scene_adapter(payload: &SceneStagePayload, root: &std::path::Path) -> Result<String, String>:
+    let scene_path = # <expr>
+    let raw = # <expr>
+    let scene_json: serde_json::Value = # <expr>
+    let schema = # <expr>
+    # <expr>
+    let actor_count = # <expr>
+    # <expr>
+
+fn execute_kain_hot_reload_adapter(payload: &KainHotReloadPayload, root: &std::path::Path) -> Result<String, String>:
+    let source_registry_path = # <expr>
+    # <expr>
+    let mut existing_watch_roots = 0
+    let mut missing_watch_roots = # <expr>
+    # <expr>
+    # <expr>
+
+fn execute_narrative_graph_adapter(payload: &NarrativeGraphPayload, root: &std::path::Path) -> Result<String, String>:
+    let graph_path = # <expr>
+    let raw = # <expr>
+    let graph_json: serde_json::Value = # <expr>
+    let nodes = # <expr>
+    let has_entry_node = # <expr>
+    # <expr>
+    # <expr>
+
+fn execute_data_registry_adapter(payload: &DataRegistryPayload, root: &std::path::Path, config: &DataRegistryConfig) -> Result<String, String>:
+    let registry_path = # <expr>
+    let raw = # <expr>
+    let registry_toml: toml::Value = # <expr>
+    let registry_kind = # <expr>
+    # <expr>
+    let version = # <expr>
+    # <expr>
+    let schema_policy = # <expr>
+    # <expr>
+    let mut schema_detail = # <expr>
+    # <expr>
+    # <expr>
+
+impl PipelineManifest:
+    fn validate(_self: &Self) -> Result<(), PipelineError>:
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        let mut stage_ids = # <expr>
+        # <expr>
+        # <expr>
+        let cycle = # <expr>
+        # <expr>
+        # <expr>
+
+
+impl PipelineStage:
+    fn validate_fields(_self: &Self) -> Result<(), PipelineError>:
+        # <expr>
+        # <expr>
+
+    fn payload(_self: &Self) -> Result<StagePayload, PipelineError>:
+        # <expr>
+
+
+fn default_true() -> Bool:
+    true
+
+fn default_runner_prefix() -> String:
+    # <expr>
+
+fn default_required_runtime_registry_kinds() -> Array<String>:
+    # <expr>
+
+fn configured_workspace_root_or_default(preflight: &PreflightConfig, fallback_root: impl AsRef<std::path::Path>) -> std::path::PathBuf:
+    # <expr>
+
+fn resolve_path(root: &std::path::Path, configured_path: &String) -> std::path::PathBuf:
+    let candidate = # <expr>
+    # <expr>
+
+fn collect_referenced_paths(manifest: &PipelineManifest) -> Set<String>:
+    let mut paths = # <expr>
+    # <expr>
+    # <expr>
+    paths
+
+fn resolve_adapter_id(config: &RunnerConfig, stage_kind: &StageKind) -> String:
+    # <expr>
+    # <expr>
+
+fn parse_stage_kind_key(value: &String) -> Option<StageKind>:
+    # <expr>
+
+fn validate_non_empty(value: &String, field_name: &String) -> Result<(), PipelineError>:
+    # <expr>
+    # <expr>
+
+fn required_field(value: &Option<T>, stage_id: &String, field_name: &String) -> Result<&T, PipelineError>:
+    # <expr>
+
+fn forbid_field(value: Option<&T>, stage_id: &String, field_name: &String) -> Result<(), PipelineError>:
+    # <expr>
+    # <expr>
+
+fn infer_kind_for_field(field_name: &String) -> StageKind:
+    # <expr>
+
+fn detect_dependency_cycle(stages: &Slice<PipelineStage>) -> Option<Array<String>>:
+    # <stmt>
+    # <stmt>
+    let index: Map<String, &PipelineStage> = # <expr>
+    let mut marks: Map<String, Mark> = # <expr>
+    let mut stack = # <expr>
+    # <expr>
+    None
+
+fn stage_ids(manifest: &PipelineManifest) -> Set<String>:
+    # <expr>
+
+mod tests:
+    fn base_manifest() -> String:
+        # <expr>
+
+    fn unique_temp_dir(label: &String) -> std::path::PathBuf:
+        let nanos = # <expr>
+        # <expr>
+
+    fn with_data_registry_config(manifest: &String, config_block: &String) -> String:
+        # <expr>
+
+    fn with_stage_schema_versions(manifest: &String) -> String:
+        # <expr>
+
+    fn with_packaging_stages(manifest: &String) -> String:
+        let manifest = # <expr>
+        # <expr>
+
+    fn builds_execution_plan_in_dependency_order():
+        let manifest = # <expr>
+        let plan = # <expr>
+        # <expr>
+        # <expr>
+
+    fn rejects_duplicate_stage_ids():
+        let mut manifest = # <expr>
+        # <expr>
+        let err = # <expr>
+        # <expr>
+
+    fn rejects_unknown_dependency():
+        let manifest = # <expr>
+        let err = # <expr>
+        # <expr>
+
+    fn rejects_cycle():
+        let manifest = # <expr>
+        let err = # <expr>
+        # <expr>
+
+    fn rejects_unknown_profile():
+        let manifest = # <expr>
+        let err = # <expr>
+        # <expr>
+
+    fn rejects_stage_specific_payload_mismatch():
+        let manifest = # <expr>
+        let err = # <expr>
+        # <expr>
+
+    fn runtime_policy_rejects_empty_registry_kind_entries():
+        let manifest = # <expr>
+        let err = # <expr>
+        # <expr>
+
+    fn runtime_policy_defaults_when_not_declared():
+        let manifest = # <expr>
+        let parsed = # <expr>
+        # <expr>
+        # <expr>
+
+    fn preflight_reports_missing_paths():
+        let manifest = # <expr>
+        let temp_root = # <expr>
+        # <expr>
+        let report = # <expr>
+        # <expr>
+        # <expr>
+        let _ = # <expr>
+
+    fn preflight_fails_when_configured_to_fail_on_missing():
+        let manifest_str = # <expr>
+        let manifest = # <expr>
+        let temp_root = # <expr>
+        # <expr>
+        let err = # <expr>
+        # <expr>
+        let _ = # <expr>
+
+    fn runner_uses_manifest_adapter_map():
+        let manifest = # <expr>
+        let plan = # <expr>
+        let run_report = # <expr>
+        # <expr>
+        # <expr>
+
+    fn runner_rejects_missing_adapter_in_strict_mode():
+        let manifest_str = # <expr>
+        let manifest = # <expr>
+        let plan = # <expr>
+        let err = # <expr>
+        # <expr>
+
+    fn strict_data_registry_schema_requires_policy_for_each_registry_stage():
+        let manifest_str = # <expr>
+        let err = # <expr>
+        # <expr>
+
+    fn strict_stage_schema_requires_policy_for_each_non_registry_stage():
+        let manifest_str = # <expr>
+        let err = # <expr>
+        # <expr>
+
+    fn stage_schema_policy_requires_schema_version_field():
+        let manifest_str = # <expr>
+        let err = # <expr>
+        # <expr>
+
+    fn builtin_stage_schema_policy_rejects_unsupported_stage_schema_version():
+        let manifest_str = # <expr>
+        let manifest = # <expr>
+        let plan = # <expr>
+        let temp_root = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        let options = # <expr>
+        let err = # <expr>
+        # <expr>
+        # <expr>
+        let _ = # <expr>
+
+    fn builtin_packaging_stages_validate_cook_build_and_export_contracts():
+        let manifest_str = # <expr>
+        let manifest = # <expr>
+        let plan = # <expr>
+        let temp_root = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        let options = # <expr>
+        let report = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        let cook_contract_path = # <expr>
+        let build_contract_path = # <expr>
+        let export_contract_path = # <expr>
+        let cook_contract: serde_json::Value = # <expr>
+        let build_contract: serde_json::Value = # <expr>
+        let export_contract: serde_json::Value = # <expr>
+        let cook_registry_versions = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        let _ = # <expr>
+
+    fn builtin_data_registry_requires_migration_hook_for_older_supported_version():
+        let manifest_str = # <expr>
+        let manifest = # <expr>
+        let plan = # <expr>
+        let temp_root = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        let options = # <expr>
+        let err = # <expr>
+        # <expr>
+        let _ = # <expr>
+
+    fn builtin_data_registry_validates_required_tables_from_manifest_policy():
+        let manifest_str = # <expr>
+        let manifest = # <expr>
+        let plan = # <expr>
+        let temp_root = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        let options = # <expr>
+        let err = # <expr>
+        # <expr>
+        let _ = # <expr>
+
+    fn builtin_adapter_runner_executes_and_marks_success():
+        let manifest = # <expr>
+        let plan = # <expr>
+        let temp_root = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        let options = # <expr>
+        let report = # <expr>
+        # <expr>
+        # <expr>
+        let _ = # <expr>
+
+    fn builtin_adapter_runner_fails_for_invalid_narrative_entry():
+        let manifest_str = # <expr>
+        let manifest = # <expr>
+        let plan = # <expr>
+        let temp_root = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        let options = # <expr>
+        let err = # <expr>
+        # <expr>
+        let _ = # <expr>
+
+    fn builtin_adapter_runner_blocks_dependent_stages_when_fail_fast_disabled():
+        let manifest = # <expr>
+        let plan = # <expr>
+        let temp_root = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        let options = # <expr>
+        let report = # <expr>
+        let status_by_stage = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        let narrative_detail = # <expr>
+        # <expr>
+        let _ = # <expr>
+
+

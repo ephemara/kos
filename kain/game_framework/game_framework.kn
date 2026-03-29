@@ -1,0 +1,167 @@
+# Generated from Rust source by kain import-rust
+# Project Ouroboros — Rust → KAIN → Rust
+
+struct GamePipelineBootstrapState:
+    enabled: Bool
+    manifest_path: String
+    workspace_root: String
+    preflight_missing_paths: Array<String>
+    stage_total: usize
+    stage_failed: usize
+    registry_loaded: usize
+    registry_errors: usize
+    completed: Bool
+    error: Option<String>
+
+impl GamePipelineBootstrapState:
+    fn new_(enabled: Bool, manifest_path: String, workspace_root: String) -> Self:
+        # <expr>
+
+
+struct GameDataRegistryState:
+    loaded: Map<String, RegistrySnapshot>
+    errors: Array<String>
+
+struct GameRuntimeRegistryBindings:
+    ready: Bool
+    ready_reason: String
+    required_registry_kinds: Array<String>
+    loaded_registry_versions: Map<String, String>
+    input_context_action_counts: Map<String, usize>
+    tag_domain_counts: Map<String, usize>
+    actor_archetypes: Array<String>
+    camera_rigs: Array<String>
+    visual_graphs: Array<String>
+    default_player_input_context: Option<String>
+    default_player_camera_rig: Option<String>
+    issues: Array<String>
+
+struct GameRuntimeActionBindings:
+    ready: Bool
+    status: String
+    detail: String
+    tick_index: u64
+    active_phase: String
+    routes_loaded: usize
+    agent_actions: Map<String, String>
+    agent_input_actions: Map<String, String>
+    agent_camera_rigs: Map<String, String>
+    issues: Array<String>
+
+struct RegistrySnapshot:
+    stage_id: String
+    profile: String
+    merge_strategy: String
+    asset_path: String
+    version: String
+    required_table_counts: Map<String, usize>
+
+struct GameProductLaunchPreset:
+    preset_id: String
+    product_id: String
+    product_name: String
+    profile_id: String
+    runtime_host: String
+    renderer_contract: String
+    ui_shell: String
+    features: Array<String>
+    runtime_required_registry_kinds: Array<String>
+    runtime_strict_readiness: Bool
+
+struct GameProductLaunchPresetMatrix:
+    presets: Map<String, GameProductLaunchPreset>
+
+struct DataRegistryStageSpec:
+    stage_id: String
+    profile: String
+    registry_kind: String
+    registry_asset: String
+    merge_strategy: String
+
+fn resolve_pipeline_path(workspace_root: &std::path::Path, raw_path: &String) -> std::path::PathBuf:
+    let candidate = # <expr>
+    # <expr>
+
+fn table_entry_count(table: &toml::value::Table, table_name: &String) -> usize:
+    # <expr>
+
+fn stage_status_key(status: &k_os_game_runtime::StageExecutionStatus) -> &String:
+    # <expr>
+
+fn build_data_registry_stage_specs(plan: &k_os_game_runtime::ExecutionPlan) -> Map<String, DataRegistryStageSpec>:
+    let mut specs = # <expr>
+    # <expr>
+    specs
+
+fn build_required_table_counts(registry_kind: &String, document: &toml::value::Table, manifest: &k_os_game_runtime::PipelineManifest) -> Map<String, usize>:
+    let mut counts = # <expr>
+    # <expr>
+    counts
+
+fn ingest_data_registry_stage_results(manifest: &k_os_game_runtime::PipelineManifest, plan: &k_os_game_runtime::ExecutionPlan, report: &k_os_game_runtime::ExecutionRunReport, workspace_root: &std::path::Path) -> GameDataRegistryState:
+    let mut state = # <expr>
+    let specs = # <expr>
+    # <expr>
+    state
+
+fn resolve_game_product_launch_preset(manifest: &k_os_game_runtime::PipelineManifest, requested_preset_id: Option<&String>, requested_profile: Option<&String>) -> Result<GameProductLaunchPreset, String>:
+    let matrix_ = # <expr>
+    let preset_id = # <expr>
+    # <expr>
+
+fn build_game_product_launch_preset_matrix(manifest: &k_os_game_runtime::PipelineManifest) -> Result<GameProductLaunchPresetMatrix, String>:
+    # <expr>
+    let mut presets = # <expr>
+    let runtime_required_registry_kinds = # <expr>
+    let runtime_strict_readiness = # <expr>
+    # <expr>
+    # <expr>
+
+fn select_launch_preset_id(matrix: &GameProductLaunchPresetMatrix, requested_preset_id: Option<&String>, requested_profile: Option<&String>) -> Result<String, String>:
+    let mut available_preset_ids = # <expr>
+    # <expr>
+    let available = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+
+mod tests:
+    fn fixture_manifest() -> String:
+        # <expr>
+
+    fn resolves_explicit_profile_from_manifest():
+        let manifest = # <expr>
+        let preset = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn defaults_to_editor_preview_when_not_requested():
+        let manifest = # <expr>
+        let preset = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn rejects_missing_requested_profile():
+        let manifest = # <expr>
+        let error = # <expr>
+        # <expr>
+
+    fn resolves_explicit_preset_id_alias():
+        let manifest = # <expr>
+        let preset = # <expr>
+        # <expr>
+        # <expr>
+
+    fn launch_preset_matrix_bundles_runtime_policy_defaults():
+        let manifest = # <expr>
+        let matrix_ = # <expr>
+        let preset = # <expr>
+        # <expr>
+        # <expr>
+
+

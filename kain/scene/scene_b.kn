@@ -1,0 +1,380 @@
+# Generated from Rust source by kain import-rust
+# Project Ouroboros — Rust → KAIN → Rust
+
+struct Vertex:
+    position: Array<f32>
+    color: Array<f32>
+
+impl Vertex:
+    fn desc() -> wgpu::VertexBufferLayout<a>:
+        # <expr>
+
+
+struct SceneMesh:
+    vertices: Array<Vertex>
+    indices: Array<u32>
+
+struct SelectedObjectSummary:
+    handle: k_os_scene::MeshHandle
+    translation: Array<f32>
+    rotation: Array<f32>
+    scale: Array<f32>
+    vertex_count: usize
+    face_count: usize
+
+struct SelectedObjectDetails:
+    name: String
+    summary: SelectedObjectSummary
+
+struct SceneObjectEntry:
+    handle_raw: u64
+    name: String
+    selected: Bool
+    vertex_count: usize
+    face_count: usize
+
+struct SceneFocusTarget:
+    center: Array<f32>
+    radius: f32
+
+struct SceneImportReport:
+    label: String
+    imported_objects: usize
+
+struct SceneRenderPayload:
+    mesh_handle: k_os_scene::MeshHandle
+    positions: Array<f32>
+    normals: Array<f32>
+    indices: Array<u32>
+    viewport_state: k_os_scene::ViewportStateComponent
+
+struct PrimitiveAppearance:
+    base_color: Array<f32>
+    local_bounds: Bounds
+
+struct Bounds:
+    min: glam::Vec3
+    max: glam::Vec3
+
+struct ZenScene:
+    world: k_os_scene::SceneWorld
+    appearances: Map<k_os_scene::MeshHandle, PrimitiveAppearance>
+    selected: Option<k_os_scene::MeshHandle>
+
+impl ZenScene:
+    fn new_default() -> Self:
+        let mut scene = # <expr>
+        # <expr>
+        let hero = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        scene
+
+    fn select(_self: &mut Self, handle: Option<k_os_scene::MeshHandle>) -> Bool:
+        # <expr>
+        # <expr>
+        true
+
+    fn selected_details(_self: &Self) -> Option<SelectedObjectDetails>:
+        let handle = # <expr>
+        let name = # <expr>
+        let transform = # <expr>
+        let _ = # <expr>
+        # <expr>
+
+    fn object_entries(_self: &Self) -> Array<SceneObjectEntry>:
+        # <expr>
+
+    fn select_raw_handle(_self: &mut Self, handle_raw: u64) -> Bool:
+        # <expr>
+
+    fn clear_selection(_self: &mut Self) -> Bool:
+        # <expr>
+
+    fn select_next(_self: &mut Self, step: isize) -> Bool:
+        let handles = # <expr>
+        # <expr>
+        let current_index = # <expr>
+        let next_index = # <expr>
+        # <expr>
+
+    fn spawn_workspace_box(_self: &mut Self) -> Bool:
+        let existing_objects = # <expr>
+        let column = # <expr>
+        let row = # <expr>
+        let handle = # <expr>
+        # <expr>
+
+    fn import_asset(_self: &mut Self, asset: &k_os_asset_pipeline::asset::Asset) -> Result<SceneImportReport, String>:
+        # <expr>
+
+    fn import_mesh_asset(_self: &mut Self, label: String, mesh: &k_os_asset_pipeline::asset::MeshData) -> Result<SceneImportReport, String>:
+        let handle = # <expr>
+        # <expr>
+        # <expr>
+
+    fn import_scene_asset(_self: &mut Self, scene: &k_os_asset_pipeline::asset::SceneData) -> Result<SceneImportReport, String>:
+        # <expr>
+        let mut imported_handles = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn rename_selected(_self: &mut Self, new_name: String) -> Result<Bool, String>:
+        let _ = # <expr>
+        let trimmed = # <expr>
+        # <expr>
+        let current = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn set_selected_translation(_self: &mut Self, translation: Array<f32>) -> Result<Bool, String>:
+        let _ = # <expr>
+        let mut transform = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn set_selected_scale(_self: &mut Self, scale: Array<f32>) -> Result<Bool, String>:
+        let _ = # <expr>
+        let normalized = # <expr>
+        let mut transform = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn build_render_mesh(_self: &Self) -> Result<SceneMesh, String>:
+        let mut vertices = # <expr>
+        let mut indices = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn bridge_sources(_self: &Self) -> Result<Array<SceneRenderPayload>, String>:
+        let mut payloads = # <expr>
+        # <expr>
+        # <expr>
+
+    fn pick(_self: &Self, ray_origin: glam::Vec3, ray_direction: glam::Vec3) -> Option<k_os_scene::MeshHandle>:
+        let mut best: Option<(f32, k_os_scene::MeshHandle)> = None
+        # <expr>
+        # <expr>
+
+    fn selected_focus_target(_self: &Self) -> Option<SceneFocusTarget>:
+        # <expr>
+
+    fn scene_focus_target(_self: &Self) -> Option<SceneFocusTarget>:
+        let mut subject_handles = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn sorted_handles(_self: &Self) -> Array<k_os_scene::MeshHandle>:
+        let mut handles = # <expr>
+        # <expr>
+        handles
+
+    fn focus_target_for_handles(_self: &Self, handles: impl IntoIterator) -> Option<SceneFocusTarget>:
+        let mut min = # <expr>
+        let mut max = # <expr>
+        let mut found_any = false
+        # <expr>
+        # <expr>
+        let center = # <expr>
+        let radius = # <expr>
+        # <expr>
+
+    fn spawn_plane(_self: &mut Self, name: &String, translation: Array<f32>, scale: Array<f32>, color: Array<f32>) -> k_os_scene::MeshHandle:
+        let _ = # <expr>
+        let handle = # <expr>
+        let _ = # <expr>
+        let _ = # <expr>
+        # <expr>
+        handle
+
+    fn spawn_box(_self: &mut Self, name: &String, translation: Array<f32>, scale: Array<f32>, color: Array<f32>) -> k_os_scene::MeshHandle:
+        let _ = # <expr>
+        let handle = # <expr>
+        let _ = # <expr>
+        let _ = # <expr>
+        # <expr>
+        handle
+
+    fn spawn_imported_mesh(_self: &mut Self, name: &String, mesh: &k_os_asset_pipeline::asset::MeshData, transform: k_os_scene::SceneTransformComponent, color: Array<f32>) -> Result<k_os_scene::MeshHandle, String>:
+        # <expr>
+        let vertex_count = # <expr>
+        # <expr>
+        let indices = # <expr>
+        # <expr>
+        let bounds = # <expr>
+        let handle = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn import_scene_node(_self: &mut Self, node: &k_os_asset_pipeline::asset::SceneNode, parent_world: glam::Mat4, scene: &k_os_asset_pipeline::asset::SceneData, imported_handles: &mut Array<k_os_scene::MeshHandle>, sibling_index: usize) -> Result<(), String>:
+        let local = # <expr>
+        let world = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn world_transform(_self: &Self, handle: k_os_scene::MeshHandle, visited: &mut Set<k_os_scene::MeshHandle>) -> Result<glam::Mat4, String>:
+        # <expr>
+        let local = # <expr>
+        let local_matrix = # <expr>
+        let parent = # <expr>
+        let result = # <expr>
+        # <expr>
+        # <expr>
+
+    fn append_selection_outline(_self: &Self, handle: k_os_scene::MeshHandle, vertices: &mut Array<Vertex>, indices: &mut Array<u32>) -> Result<(), String>:
+        let _ = # <expr>
+        let world = # <expr>
+        let bounds = # <expr>
+        let color = # <expr>
+        let thickness = 0.045
+        let center = # <expr>
+        let extents = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn append_selection_axes(_self: &Self, handle: k_os_scene::MeshHandle, vertices: &mut Array<Vertex>, indices: &mut Array<u32>) -> Result<(), String>:
+        let transform = # <expr>
+        let origin = # <expr>
+        # <expr>
+        # <expr>
+
+
+fn transform_component_to_mat4(transform: k_os_scene::SceneTransformComponent) -> glam::Mat4:
+    # <expr>
+
+fn mat4_to_transform(matrix: glam::Mat4) -> k_os_scene::SceneTransformComponent:
+    let _ = # <expr>
+    # <expr>
+
+fn transform_bounds(bounds: Bounds, transform: glam::Mat4) -> Bounds:
+    let corners = # <expr>
+    let mut min = # <expr>
+    let mut max = # <expr>
+    # <expr>
+    # <expr>
+
+fn ray_aabb_intersection(origin: glam::Vec3, direction: glam::Vec3, bounds: Bounds) -> Option<f32>:
+    let inv = # <expr>
+    let t1 = # <expr>
+    let t2 = # <expr>
+    let t_min = # <expr>
+    let t_max = # <expr>
+    let near = # <expr>
+    let far = # <expr>
+    # <expr>
+
+fn safe_inverse(value: f32) -> f32:
+    # <expr>
+
+fn brighten(color: Array<f32>, amount: f32) -> Array<f32>:
+    # <expr>
+
+fn sanitize_vec3(value: glam::Vec3) -> Array<f32>:
+    let array = # <expr>
+    # <expr>
+
+fn sanitize_quat(value: glam::Quat) -> Array<f32>:
+    let normalized = # <expr>
+    let array = # <expr>
+    # <expr>
+
+fn sanitize_scale(value: glam::Vec3) -> Array<f32>:
+    let array = # <expr>
+    # <expr>
+
+fn mesh_bounds(positions: &Slice<f32>) -> Result<Bounds, String>:
+    # <expr>
+    let mut min = # <expr>
+    let mut max = # <expr>
+    # <expr>
+    # <expr>
+
+fn imported_asset_label(source_path: &std::path::Path, metadata_name: Option<&String>) -> String:
+    # <expr>
+
+fn imported_color(seed: usize) -> Array<f32>:
+    # <stmt>
+    # <expr>
+
+fn unit_plane() -> (Array<f32>, Array<u32>):
+    # <expr>
+
+fn unit_box() -> (Array<f32>, Array<u32>):
+    let positions = # <expr>
+    let indices = # <expr>
+    # <expr>
+
+fn append_world_axes(vertices: &mut Array<Vertex>, indices: &mut Array<u32>):
+    # <expr>
+
+fn append_axis_tripod(vertices: &mut Array<Vertex>, indices: &mut Array<u32>, origin: glam::Vec3, axis_length: f32, radius: f32):
+    # <expr>
+    # <expr>
+    # <expr>
+
+fn append_box_mesh(vertices: &mut Array<Vertex>, indices: &mut Array<u32>, center: glam::Vec3, extents: glam::Vec3, color: Array<f32>):
+    let min = # <expr>
+    let max = # <expr>
+    let positions = # <expr>
+    let base = # <expr>
+    # <expr>
+    # <expr>
+
+mod tests:
+    fn scene_selects_and_reports_metadata():
+        let scene = # <expr>
+        let details = # <expr>
+        # <expr>
+        # <expr>
+
+    fn scene_mesh_contains_renderable_geometry():
+        let scene = # <expr>
+        let mesh = # <expr>
+        # <expr>
+        # <expr>
+
+    fn scene_ray_pick_hits_default_selection_cluster():
+        let scene = # <expr>
+        let hit = # <expr>
+        # <expr>
+
+    fn scene_reports_focus_targets():
+        let scene = # <expr>
+        let selected = # <expr>
+        let full_scene = # <expr>
+        # <expr>
+        # <expr>
+
+    fn scene_imports_mesh_assets():
+        let mut scene = # <expr>
+        let asset = # <expr>
+        let report = # <expr>
+        # <expr>
+        # <expr>
+
+    fn scene_imports_scene_assets():
+        let mut scene = # <expr>
+        let report = # <expr>
+        # <expr>
+        # <expr>
+        let details = # <expr>
+        # <expr>
+        # <expr>
+
+

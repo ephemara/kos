@@ -35,6 +35,8 @@ export interface NativeViewportProps {
   meshHandle?: number | null;
   onStatusChange?: (status: string) => void;
   onViewportHandleChange?: (viewport: ViewportHandle | null) => void;
+  onRenderMeshHandleChange?: (renderMeshHandle: RenderMeshHandle | null) => void;
+  onStatsChange?: (stats: FrameStats | null) => void;
   useSculptHandle?: boolean;
   syncSource?: NativeViewportSyncSource;
   captureInput?: boolean;
@@ -60,6 +62,8 @@ export function NativeViewport({
   className,
   onStatusChange,
   onViewportHandleChange,
+  onRenderMeshHandleChange,
+  onStatsChange,
   useSculptHandle = false,
   syncSource,
   captureInput = true,
@@ -108,6 +112,8 @@ export function NativeViewport({
   const strokeActiveRef = React.useRef(false);
   const onStatusChangeRef = React.useRef(onStatusChange);
   const onViewportHandleChangeRef = React.useRef(onViewportHandleChange);
+  const onRenderMeshHandleChangeRef = React.useRef(onRenderMeshHandleChange);
+  const onStatsChangeRef = React.useRef(onStatsChange);
   const hostInputModeRef = React.useRef(hostInputMode);
   const overlayRect = useViewportOverlayCoordinates(hostRef);
 
@@ -118,6 +124,14 @@ export function NativeViewport({
   React.useEffect(() => {
     onViewportHandleChangeRef.current = onViewportHandleChange;
   }, [onViewportHandleChange]);
+
+  React.useEffect(() => {
+    onRenderMeshHandleChangeRef.current = onRenderMeshHandleChange;
+  }, [onRenderMeshHandleChange]);
+
+  React.useEffect(() => {
+    onStatsChangeRef.current = onStatsChange;
+  }, [onStatsChange]);
 
   React.useEffect(() => {
     hostInputModeRef.current = hostInputMode;
@@ -179,6 +193,8 @@ export function NativeViewport({
       renderMeshRef.current = null;
       gizmoSessionRef.current = null;
       onViewportHandleChangeRef.current?.(null);
+      onRenderMeshHandleChangeRef.current?.(null);
+      onStatsChangeRef.current?.(null);
       if (gizmoSession != null) {
         void gizmoClient.disposeSession(gizmoSession);
       }
@@ -374,6 +390,7 @@ export function NativeViewport({
           console.warn('[NativeViewport] Failed to detach previous render mesh:', error);
         }
         renderMeshRef.current = null;
+        onRenderMeshHandleChangeRef.current?.(null);
       }
 
       if (meshHandle == null) {
@@ -395,6 +412,7 @@ export function NativeViewport({
               : await rendererClient.attachMesh(viewport, meshHandle);
         if (cancelled || renderMesh == null) return;
         renderMeshRef.current = renderMesh;
+        onRenderMeshHandleChangeRef.current?.(renderMesh);
         await rendererClient.requestRedraw(viewport);
         publishStatus(`NATIVE VIEWPORT ATTACHED MESH ${meshHandle}`);
       } catch (error) {
@@ -422,6 +440,7 @@ export function NativeViewport({
         .then((next) => {
           if (!cancelled && next) {
             setStats(next);
+            onStatsChangeRef.current?.(next);
           }
         })
         .catch((error) => {

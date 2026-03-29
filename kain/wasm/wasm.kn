@@ -1,0 +1,73 @@
+# Generated from Rust source by kain import-rust
+# Project Ouroboros — Rust → KAIN → Rust
+
+fn init_gpu(_canvas: web_sys::HtmlCanvasElement) -> Result<(), JsValue>:
+    # <expr>
+    # <expr>
+
+struct PrimitiveResultJs:
+    positions: Array<f32>
+    indices: Array<u32>
+    normals: Array<f32>
+    uvs: Array<f32>
+
+fn spawn_primitive(primitive_id: String, params: JsValue) -> Result<JsValue, JsValue>:
+    let mut p = # <expr>
+    let map: Option<serde_json::Map<String, serde_json::Value>> = # <expr>
+    # <expr>
+    let res = # <expr>
+    let out_ = # <expr>
+    # <expr>
+
+fn raycast_init(positions: Array<f32>, indices: Array<u32>, uvs: Option<Array<f32>>) -> Result<u64, JsValue>:
+    # <expr>
+
+fn raycast(handle: u64, origin: Slice<f32>, direction: Slice<f32>) -> Result<JsValue, JsValue>:
+    let origin = # <expr>
+    let direction = # <expr>
+    let hit = # <expr>
+    # <expr>
+
+fn raycast_dispose(handle: u64) -> Result<(), JsValue>:
+    # <expr>
+
+fn sculpt_init(positions: Array<f32>, indices: Array<u32>) -> Result<u64, JsValue>:
+    # <expr>
+
+fn sculpt_apply(handle: u64, point: Slice<f32>, normal: Slice<f32>, tool: String, radius: f32, intensity: f32, use_gpu: Bool) -> Result<JsValue, JsValue>:
+    let result = # <expr>
+    # <expr>
+
+fn sculpt_get_positions(handle: u64) -> Result<Slice<f32>, JsValue>:
+    let positions = # <expr>
+    # <expr>
+
+fn sculpt_dispose(handle: u64) -> Result<(), JsValue>:
+    # <expr>
+
+fn painter_init() -> u64:
+    let mut artists = # <expr>
+    let mut h = # <expr>
+    let handle = # <expr>
+    # <expr>
+    # <expr>
+    handle
+
+fn painter_update(handle: u64, x: f32, y: f32, pressure: f32, params: JsValue) -> Result<JsValue, JsValue>:
+    let mut artists = # <expr>
+    let artist = # <expr>
+    let p: k_os_brushes::paint_wasm::BrushParams = # <expr>
+    let splats = # <expr>
+    # <expr>
+
+fn painter_reset(handle: u64) -> Result<(), JsValue>:
+    let mut artists = # <expr>
+    let artist = # <expr>
+    # <expr>
+    # <expr>
+
+fn painter_dispose(handle: u64) -> Result<(), JsValue>:
+    let mut artists = # <expr>
+    # <expr>
+    # <expr>
+

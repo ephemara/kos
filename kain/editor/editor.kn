@@ -1,0 +1,368 @@
+# Generated from Rust source by kain import-rust
+# Project Ouroboros — Rust → KAIN → Rust
+
+struct ZenEditorSession:
+    active_shell: String
+    viewport_layout: String
+    play_mode: zen_core::ZenPlayMode
+    active_document: Option<String>
+    workspace_preset: Option<String>
+    user_layout: Option<String>
+    open_features: Array<String>
+
+struct ZenWorkspaceManifest:
+    workspace: ZenWorkspaceMeta
+    topbar: ZenWorkspaceTopBar
+    documents: Array<ZenWorkspaceDocument>
+    presets: Array<ZenWorkspacePreset>
+    features: Array<ZenUiFeature>
+    layout: ZenWorkspaceLayout
+
+struct ZenWorkspaceMeta:
+    key: String
+    title: String
+
+struct ZenWorkspaceTopBar:
+    default_group: Option<String>
+    groups: Array<ZenWorkspaceTopBarGroup>
+
+struct ZenWorkspaceTopBarGroup:
+    key: String
+    label: String
+    description: String
+    actions: Array<String>
+
+struct ZenUiFeature:
+    key: String
+    title: String
+    kind: ZenUiFeatureKind
+    binding: Option<String>
+    actions: Array<String>
+    props: Map<String, String>
+    closable: Bool
+    default_open: Bool
+
+enum ZenUiFeatureKind:
+    ActionStrip
+    Viewport
+    SceneTree
+    SelectionInspector
+    RuntimeInspector
+    Timeline
+    HostApi
+    Registry
+    KainStatus
+    Fabric
+    DocumentContext
+    FileEditor
+
+struct ZenWorkspaceDocument:
+    key: String
+    title: String
+    kind: String
+    path: Option<String>
+    source_path: Option<String>
+    primary: Bool
+
+struct ZenWorkspacePreset:
+    key: String
+    title: String
+    viewport_layout: String
+    layout: ZenWorkspaceLayout
+
+struct ZenWorkspaceLayout:
+    center_tabs: Array<String>
+    left_tabs: Array<String>
+    right_tabs: Array<String>
+    bottom_tabs: Array<String>
+    left_ratio: f32
+    right_ratio: f32
+    bottom_ratio: f32
+
+struct ZenDockTab:
+    feature_key: String
+
+struct ZenFeatureRegistry:
+    features: Array<ZenUiFeature>
+
+struct ZenWorkspaceLayoutState:
+    workspace_key: String
+    dock_state: egui_dock::DockState<ZenDockTab>
+
+struct ZenEditorSessionState:
+    workspace_key: String
+    session: ZenEditorSession
+
+struct ZenUserWorkspaceLayout:
+    key: String
+    title: String
+    viewport_layout: String
+    dock_state: egui_dock::DockState<ZenDockTab>
+
+struct ZenUserWorkspaceLayoutState:
+    workspace_key: String
+    layouts: Array<ZenUserWorkspaceLayout>
+
+struct ZenInspectorSchema:
+    title: String
+    sections: Array<ZenInspectorSection>
+
+struct ZenInspectorSection:
+    title: String
+    fields: Array<ZenInspectorField>
+
+struct ZenInspectorField:
+    key: String
+    label: String
+    value: ZenInspectorFieldValue
+    editable: Bool
+
+enum ZenInspectorFieldValue:
+    Text(String)
+    Number(f32)
+    Integer(i64)
+    Vec3(Array<f32>)
+    Quaternion(Array<f32>)
+
+impl ZenWorkspaceManifest:
+    fn load(configured: &String) -> Result<Self, String>:
+        # <expr>
+        # <expr>
+
+    fn parse(source: &String) -> Result<Self, String>:
+        let manifest: ZenWorkspaceManifestFile = # <expr>
+        let workspace = # <expr>
+        let topbar = # <expr>
+        let documents = # <expr>
+        let features = # <expr>
+        # <expr>
+        let layout = # <expr>
+        let presets = # <expr>
+        # <expr>
+        # <expr>
+
+    fn feature(_self: &Self, key: &String) -> Option<&ZenUiFeature>:
+        # <expr>
+
+    fn build_dock_state(_self: &Self) -> egui_dock::DockState<ZenDockTab>:
+        let mut dock_state = # <expr>
+        # <expr>
+        dock_state
+
+    fn feature_registry(_self: &Self) -> ZenFeatureRegistry:
+        # <expr>
+
+    fn primary_document(_self: &Self) -> Option<&ZenWorkspaceDocument>:
+        # <expr>
+
+    fn document(_self: &Self, key: &String) -> Option<&ZenWorkspaceDocument>:
+        # <expr>
+
+    fn preset(_self: &Self, key: &String) -> Option<&ZenWorkspacePreset>:
+        # <expr>
+
+
+impl ZenWorkspacePreset:
+    fn build_dock_state(_self: &Self) -> egui_dock::DockState<ZenDockTab>:
+        let mut dock_state = # <expr>
+        # <expr>
+        dock_state
+
+
+impl Default for ZenEditorSession:
+    fn default_() -> Self:
+        # <expr>
+
+
+impl ZenUiFeatureKind:
+    fn parse(value: &String) -> Result<Self, String>:
+        # <expr>
+
+
+impl ZenFeatureRegistry:
+    fn features(_self: &Self) -> &Slice<ZenUiFeature>:
+        # <expr>
+
+    fn search(_self: &Self, query: &String) -> Array<ZenUiFeature>:
+        let query = # <expr>
+        # <expr>
+        # <expr>
+
+
+fn load_persisted_dock_state(workspace_key: &String) -> Result<Option<egui_dock::DockState<ZenDockTab>>, String>:
+    let _ = # <expr>
+    # <expr>
+    let source = # <expr>
+    let state: ZenWorkspaceLayoutState = # <expr>
+    # <expr>
+    # <expr>
+
+fn persist_dock_state(workspace_key: &String, dock_state: &egui_dock::DockState<ZenDockTab>) -> Result<Option<std::path::PathBuf>, String>:
+    let _ = # <expr>
+    # <expr>
+    let payload = # <expr>
+    let serialized = # <expr>
+    # <expr>
+    # <expr>
+
+fn sanitize_dock_state(workspace: &ZenWorkspaceManifest, dock_state: &egui_dock::DockState<ZenDockTab>) -> egui_dock::DockState<ZenDockTab>:
+    let sanitized = # <expr>
+    # <expr>
+
+fn load_editor_session(workspace_key: &String) -> Result<Option<ZenEditorSession>, String>:
+    let _ = # <expr>
+    # <expr>
+    let source = # <expr>
+    let state: ZenEditorSessionState = # <expr>
+    # <expr>
+    # <expr>
+
+fn persist_editor_session(workspace_key: &String, session: &ZenEditorSession) -> Result<Option<std::path::PathBuf>, String>:
+    let _ = # <expr>
+    # <expr>
+    let payload = # <expr>
+    let serialized = # <expr>
+    # <expr>
+    # <expr>
+
+fn load_user_layouts(workspace_key: &String) -> Result<Array<ZenUserWorkspaceLayout>, String>:
+    let _ = # <expr>
+    # <expr>
+    let source = # <expr>
+    let state: ZenUserWorkspaceLayoutState = # <expr>
+    # <expr>
+    # <expr>
+
+fn persist_user_layouts(workspace_key: &String, layouts: &Slice<ZenUserWorkspaceLayout>) -> Result<Option<std::path::PathBuf>, String>:
+    let _ = # <expr>
+    # <expr>
+    let payload = # <expr>
+    let serialized = # <expr>
+    # <expr>
+    # <expr>
+
+fn sanitize_user_layouts(workspace: &ZenWorkspaceManifest, layouts: &Slice<ZenUserWorkspaceLayout>) -> Array<ZenUserWorkspaceLayout>:
+    let mut sanitized = # <expr>
+    # <expr>
+    sanitized
+
+struct ZenWorkspaceManifestFile:
+    workspace: ZenWorkspaceMetaFile
+    topbar: Option<ZenWorkspaceTopBarFile>
+    documents: Option<Array<ZenWorkspaceDocumentFile>>
+    presets: Option<Array<ZenWorkspacePresetFile>>
+    features: Array<ZenUiFeatureFile>
+    layout: ZenWorkspaceLayoutFile
+
+struct ZenWorkspaceMetaFile:
+    key: String
+    title: String
+
+struct ZenWorkspaceTopBarFile:
+    default_group: Option<String>
+    groups: Option<Array<ZenWorkspaceTopBarGroupFile>>
+
+struct ZenWorkspaceTopBarGroupFile:
+    key: String
+    label: String
+    description: Option<String>
+    actions: Option<Array<String>>
+
+struct ZenUiFeatureFile:
+    key: String
+    title: String
+    kind: String
+    binding: Option<String>
+    actions: Option<Array<String>>
+    props: Option<Map<String, String>>
+    closable: Option<Bool>
+    default_open: Option<Bool>
+
+struct ZenWorkspaceDocumentFile:
+    key: String
+    title: String
+    kind: String
+    path: Option<String>
+    source_path: Option<String>
+    primary: Option<Bool>
+
+struct ZenWorkspacePresetFile:
+    key: String
+    title: String
+    viewport_layout: String
+    layout: ZenWorkspaceLayoutFile
+
+struct ZenWorkspaceLayoutFile:
+    center_tabs: Array<String>
+    left_tabs: Option<Array<String>>
+    right_tabs: Option<Array<String>>
+    bottom_tabs: Option<Array<String>>
+    left_ratio: Option<f32>
+    right_ratio: Option<f32>
+    bottom_ratio: Option<f32>
+
+fn source_path_candidates(configured: &String) -> Array<std::path::PathBuf>:
+    let configured_path = # <expr>
+    # <expr>
+    let mut candidates = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    candidates
+
+fn resolve_document_source_path(document: &ZenWorkspaceDocument) -> Option<std::path::PathBuf>:
+    let configured = # <expr>
+    # <expr>
+    # <expr>
+
+fn file_name_or_original(path: &std::path::Path) -> std::path::PathBuf:
+    # <expr>
+
+fn required(label: &String, value: String) -> Result<String, String>:
+    let trimmed = # <expr>
+    # <expr>
+
+fn parse_workspace_topbar(file: ZenWorkspaceTopBarFile) -> Result<ZenWorkspaceTopBar, String>:
+    let groups = # <expr>
+    # <expr>
+    # <expr>
+
+fn default_workspace_topbar() -> ZenWorkspaceTopBar:
+    # <expr>
+
+fn tab_vec(keys: &Slice<String>) -> Array<ZenDockTab>:
+    # <expr>
+
+fn workspace_layout_state_path(workspace_key: &String) -> Option<std::path::PathBuf>:
+    let file_name = # <expr>
+    # <expr>
+    # <expr>
+
+fn workspace_session_state_path(workspace_key: &String) -> Option<std::path::PathBuf>:
+    let file_name = # <expr>
+    # <expr>
+    # <expr>
+
+fn workspace_user_layouts_path(workspace_key: &String) -> Option<std::path::PathBuf>:
+    let file_name = # <expr>
+    # <expr>
+    # <expr>
+
+mod tests:
+    fn default_editor_session_starts_in_edit_mode():
+        let session = # <expr>
+        # <expr>
+        # <expr>
+
+    fn parses_default_workspace_manifest():
+        let manifest = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+

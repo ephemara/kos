@@ -1,0 +1,317 @@
+# Generated from Rust source by kain import-rust
+# Project Ouroboros — Rust → KAIN → Rust
+
+enum SubdivisionAlgorithm:
+    Loop
+    CatmullClark
+
+enum ShadingMode:
+    Solid
+    Wireframe
+    Matcap
+    Xray
+
+enum MeshEditOpKind:
+    SculptStroke
+    VertexTranslate
+    TopologyChange
+
+struct MeshEditOp:
+    kind: MeshEditOpKind
+    description: String
+    modified_vertex_count: usize
+
+struct MeshSourceComponent:
+    positions: Slice<f32>
+    indices: Slice<u32>
+    normals: Option<Slice<f32>>
+
+impl MeshSourceComponent:
+    fn from_vectors(positions: Array<f32>, indices: Array<u32>, normals: Option<Array<f32>>) -> Self:
+        # <expr>
+
+
+struct MeshEditStackComponent:
+    base_mesh: Option<crate::MeshHandle>
+    edits: Array<MeshEditOp>
+
+struct SubdivisionSettingsComponent:
+    level: u32
+    algorithm: SubdivisionAlgorithm
+
+impl Default for SubdivisionSettingsComponent:
+    fn default_() -> Self:
+        # <expr>
+
+
+struct ViewportStateComponent:
+    shading_mode: ShadingMode
+    material_binding: Option<crate::MaterialHandle>
+
+impl Default for ViewportStateComponent:
+    fn default_() -> Self:
+        # <expr>
+
+
+struct MaterialAssignmentComponent:
+    material: crate::MaterialHandle
+
+struct SceneNameComponent:
+    name: String
+
+impl SceneNameComponent:
+    fn new_(name: impl Into<String>) -> Self:
+        # <expr>
+
+
+struct SceneTransformComponent:
+    translation: Array<f32>
+    rotation: Array<f32>
+    scale: Array<f32>
+
+impl Default for SceneTransformComponent:
+    fn default_() -> Self:
+        # <expr>
+
+
+struct SceneParentComponent:
+    parent: Option<crate::MeshHandle>
+
+impl Default for SceneParentComponent:
+    fn default_() -> Self:
+        # <expr>
+
+
+struct RigReferenceComponent:
+    rig: crate::RigHandle
+
+struct TakeSourceComponent:
+    name: String
+    path: String
+    model_id: String
+    frame_count: usize
+
+struct AnimationSourceComponent:
+    name: String
+    source_take: Option<crate::TakeHandle>
+    external_path: Option<String>
+
+struct MeshHandleComponent:
+    field_0: crate::MeshHandle
+
+struct TakeHandleComponent:
+    field_0: crate::TakeHandle
+
+struct AnimationHandleComponent:
+    field_0: crate::AnimationHandle
+
+enum SceneError:
+    MeshHandleNotFound(crate::MeshHandle)
+    TakeHandleNotFound(crate::TakeHandle)
+    AnimationHandleNotFound(crate::AnimationHandle)
+
+struct SceneWorld:
+    scene_handle: crate::SceneHandle
+    world: bevy_ecs::world::World
+    next_handle: u64
+    mesh_entities: Map<crate::MeshHandle, bevy_ecs::entity::Entity>
+    take_entities: Map<crate::TakeHandle, bevy_ecs::entity::Entity>
+    animation_entities: Map<crate::AnimationHandle, bevy_ecs::entity::Entity>
+
+impl Default for SceneWorld:
+    fn default_() -> Self:
+        # <expr>
+
+
+impl SceneWorld:
+    fn new_() -> Self:
+        # <expr>
+
+    fn scene_handle(_self: &Self) -> crate::SceneHandle:
+        # <expr>
+
+    fn world(_self: &Self) -> &bevy_ecs::world::World:
+        # <expr>
+
+    fn world_mut(_self: &mut Self) -> &mut bevy_ecs::world::World:
+        # <expr>
+
+    fn allocate_handle(_self: &mut Self) -> u64:
+        let raw = # <expr>
+        # <expr>
+        raw
+
+    fn create_mesh(_self: &mut Self, positions: Array<f32>, indices: Array<u32>, normals: Option<Array<f32>>) -> crate::MeshHandle:
+        let handle = # <expr>
+        let entity = # <expr>
+        # <expr>
+        handle
+
+    fn mesh_handles(_self: &Self) -> Array<crate::MeshHandle>:
+        # <expr>
+
+    fn mesh_entity(_self: &Self, handle: crate::MeshHandle) -> Result<bevy_ecs::entity::Entity, SceneError>:
+        # <expr>
+
+    fn delete_mesh(_self: &mut Self, handle: crate::MeshHandle) -> Result<(), SceneError>:
+        let entity = # <expr>
+        let _ = # <expr>
+        # <expr>
+
+    fn update_mesh_source(_self: &mut Self, handle: crate::MeshHandle, positions: Array<f32>, indices: Array<u32>, normals: Option<Array<f32>>) -> Result<(), SceneError>:
+        let entity = # <expr>
+        let mut entity_mut = # <expr>
+        # <expr>
+        # <expr>
+
+    fn set_mesh_name(_self: &mut Self, handle: crate::MeshHandle, name: impl Into<String>) -> Result<(), SceneError>:
+        let entity = # <expr>
+        # <expr>
+        # <expr>
+
+    fn mesh_name(_self: &Self, handle: crate::MeshHandle) -> Result<crate::SceneNameComponent, SceneError>:
+        let entity = # <expr>
+        # <expr>
+
+    fn set_mesh_transform(_self: &mut Self, handle: crate::MeshHandle, transform: crate::SceneTransformComponent) -> Result<(), SceneError>:
+        let entity = # <expr>
+        # <expr>
+        # <expr>
+
+    fn mesh_transform(_self: &Self, handle: crate::MeshHandle) -> Result<crate::SceneTransformComponent, SceneError>:
+        let entity = # <expr>
+        # <expr>
+
+    fn set_mesh_parent(_self: &mut Self, handle: crate::MeshHandle, parent: Option<crate::MeshHandle>) -> Result<(), SceneError>:
+        let entity = # <expr>
+        # <expr>
+        # <expr>
+
+    fn mesh_parent(_self: &Self, handle: crate::MeshHandle) -> Result<crate::SceneParentComponent, SceneError>:
+        let entity = # <expr>
+        # <expr>
+
+    fn attach_material(_self: &mut Self, handle: crate::MeshHandle, material: crate::MaterialHandle) -> Result<(), SceneError>:
+        let entity = # <expr>
+        let mut entity_mut = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn update_subdivision_settings(_self: &mut Self, handle: crate::MeshHandle, settings: crate::SubdivisionSettingsComponent) -> Result<(), SceneError>:
+        let entity = # <expr>
+        # <expr>
+        # <expr>
+
+    fn attach_rig(_self: &mut Self, handle: crate::MeshHandle, rig: crate::RigHandle) -> Result<(), SceneError>:
+        let entity = # <expr>
+        # <expr>
+        # <expr>
+
+    fn insert_take(_self: &mut Self, name: impl Into<String>, path: impl Into<String>, model_id: impl Into<String>, frame_count: usize) -> crate::TakeHandle:
+        let handle = # <expr>
+        let entity = # <expr>
+        # <expr>
+        handle
+
+    fn insert_animation(_self: &mut Self, name: impl Into<String>, source_take: Option<crate::TakeHandle>, external_path: Option<String>) -> crate::AnimationHandle:
+        let handle = # <expr>
+        let entity = # <expr>
+        # <expr>
+        handle
+
+    fn mesh_source(_self: &Self, handle: crate::MeshHandle) -> Result<crate::MeshSourceComponent, SceneError>:
+        let entity = # <expr>
+        # <expr>
+
+    fn mesh_edit_stack(_self: &Self, handle: crate::MeshHandle) -> Result<crate::MeshEditStackComponent, SceneError>:
+        let entity = # <expr>
+        # <expr>
+
+    fn subdivision_settings(_self: &Self, handle: crate::MeshHandle) -> Result<crate::SubdivisionSettingsComponent, SceneError>:
+        let entity = # <expr>
+        # <expr>
+
+    fn viewport_state(_self: &Self, handle: crate::MeshHandle) -> Result<crate::ViewportStateComponent, SceneError>:
+        let entity = # <expr>
+        # <expr>
+
+    fn update_viewport_state(_self: &mut Self, handle: crate::MeshHandle, viewport_state: crate::ViewportStateComponent) -> Result<(), SceneError>:
+        let entity = # <expr>
+        # <expr>
+        # <expr>
+
+    fn update_mesh_positions_partial(_self: &mut Self, handle: crate::MeshHandle, modified_indices: &Slice<usize>, new_positions: &Slice<f32>) -> Result<(), SceneError>:
+        let entity = # <expr>
+        let _ = # <expr>
+        let mut positions = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn update_mesh_normals_partial(_self: &mut Self, handle: crate::MeshHandle, modified_indices: &Slice<usize>, new_normals: &Slice<f32>) -> Result<(), SceneError>:
+        let entity = # <expr>
+        let _ = # <expr>
+        let mut normals = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn mesh_counts(_self: &Self, handle: crate::MeshHandle) -> Result<(usize, usize), SceneError>:
+        let source = # <expr>
+        # <expr>
+
+    fn take_source(_self: &Self, handle: crate::TakeHandle) -> Result<crate::TakeSourceComponent, SceneError>:
+        let entity = # <expr>
+        # <expr>
+
+    fn animation_source(_self: &Self, handle: crate::AnimationHandle) -> Result<crate::AnimationSourceComponent, SceneError>:
+        let entity = # <expr>
+        # <expr>
+
+
+mod tests:
+    fn creates_mesh_and_round_trips_component_storage():
+        let mut scene = # <expr>
+        let mesh = # <expr>
+        let source = # <expr>
+        # <expr>
+        # <expr>
+
+    fn updates_mesh_source_and_material_assignment():
+        let mut scene = # <expr>
+        let mesh = # <expr>
+        # <expr>
+        # <expr>
+        let source = # <expr>
+        # <expr>
+
+    fn stores_mesh_scene_metadata():
+        let mut scene = # <expr>
+        let mesh = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn inserts_take_and_animation_assets():
+        let mut scene = # <expr>
+        let take = # <expr>
+        let animation = # <expr>
+        let take_source = # <expr>
+        let animation_source = # <expr>
+        # <expr>
+        # <expr>
+
+    fn updates_mesh_positions_and_normals_partially():
+        let mut scene = # <expr>
+        let mesh = # <expr>
+        # <expr>
+        # <expr>
+        let source = # <expr>
+        # <expr>
+        # <expr>
+
+

@@ -1,0 +1,23 @@
+# Generated from Rust source by kain import-rust
+# Project Ouroboros — Rust → KAIN → Rust
+
+struct ZenRenderProfile:
+    name: String
+    viewport_passes: Array<ZenRenderPass>
+
+struct ZenRenderPass:
+    key: String
+    enabled: Bool
+    shader_domain: String
+
+impl Default for ZenRenderProfile:
+    fn default_() -> Self:
+        # <expr>
+
+
+mod tests:
+    fn default_render_profile_has_forward_pass():
+        let profile = # <expr>
+        # <expr>
+
+

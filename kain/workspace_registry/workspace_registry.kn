@@ -1,0 +1,194 @@
+# Generated from Rust source by kain import-rust
+# Project Ouroboros — Rust → KAIN → Rust
+
+struct WorkspaceRegistryDocument:
+    registry_version: u32
+    workspace_root: String
+    package_count: usize
+    local_dependency_edge_count: usize
+    aggregator_packages: Array<String>
+    data_sources: Array<String>
+    packages: Array<WorkspacePackageRecord>
+    external_manifests: Array<WorkspaceExternalManifestRecord>
+    artifacts: Array<WorkspaceArtifactRecord>
+
+struct PublicApiRegistryDocument:
+    package_count: usize
+    total_item_count: usize
+    total_function_count: usize
+    total_method_count: usize
+    total_reexport_count: usize
+    packages: Array<PublicApiPackageRecord>
+
+struct WorkspacePackageRecord:
+    name: String
+    version: String
+    description: String
+    manifest_path: String
+    package_path: String
+    target_names: Array<String>
+    target_kinds: Array<String>
+    features: Array<String>
+    workspace_dependencies: Array<String>
+    local_dependency_count: usize
+    roles: Array<String>
+    capabilities: Array<String>
+    hosts: Array<String>
+    artifact_ids: Array<String>
+    artifact_count: usize
+    notes: Array<String>
+    metadata_sources: Array<String>
+    is_aggregator: Bool
+
+struct WorkspaceExternalManifestRecord:
+    key: String
+    owner_package: String
+    relative_path: String
+    format: String
+    item_count: usize
+    item_ids: Array<String>
+
+struct WorkspaceArtifactRecord:
+    id: String
+    label: String
+    kind: String
+    owner_package: String
+    manifest_key: String
+    source_path: String
+    compiled_path: String
+    namespace_: String
+    runtime_kind: String
+    host_kind: String
+    domain: String
+    tags: Array<String>
+
+struct PublicApiPackageRecord:
+    package_name: String
+    package_path: String
+    entrypoints: Array<PublicApiEntrypointRecord>
+    item_count: usize
+    function_count: usize
+    method_count: usize
+    reexport_count: usize
+    items: Array<PublicApiItemRecord>
+
+struct PublicApiEntrypointRecord:
+    target_name: String
+    target_kind: String
+    src_path: String
+
+struct PublicApiItemRecord:
+    target_name: String
+    target_kind: String
+    kind: String
+    source_kind: String
+    module_path: String
+    item_path: String
+    signature: String
+    file_path: String
+    owner_type: String
+
+struct ApiBloatPressureReport:
+    scoring_formula: String
+    package_count: usize
+    packages: Array<ApiBloatPressureRecord>
+
+struct ApiBloatPressureRecord:
+    package_name: String
+    score: usize
+    priority: String
+    item_count: usize
+    callable_count: usize
+    reexport_count: usize
+    notes: Array<String>
+
+struct IntegrationRegistryDocument:
+    package_count: usize
+    host_api_count: usize
+    integration_count: usize
+    internal_count: usize
+    packages: Array<IntegrationPackageRecord>
+
+struct IntegrationPackageRecord:
+    package_name: String
+    stability_tier: String
+    capabilities: Array<String>
+    adapter_targets: Array<String>
+    recommended_entrypoints: Array<String>
+    pressure_priority: String
+    pressure_score: usize
+    notes: Array<String>
+
+struct AdapterManifestsDocument:
+    adapter_count: usize
+    adapters: Array<AdapterManifestRecord>
+
+struct AdapterManifestRecord:
+    adapter_target: String
+    package_count: usize
+    packages: Array<AdapterPackageBinding>
+
+struct AdapterPackageBinding:
+    package_name: String
+    stability_tier: String
+    capabilities: Array<String>
+    recommended_entrypoints: Array<String>
+    pressure_priority: String
+
+fn workspace_registry_json() -> &String:
+    # <expr>
+
+fn workspace_registry() -> &WorkspaceRegistryDocument:
+    # <expr>
+
+fn public_api_registry_json() -> &String:
+    # <expr>
+
+fn public_api_registry() -> &PublicApiRegistryDocument:
+    # <expr>
+
+fn api_bloat_pressure_json() -> &String:
+    # <expr>
+
+fn api_bloat_pressure_report() -> &ApiBloatPressureReport:
+    # <expr>
+
+fn integration_registry_json() -> &String:
+    # <expr>
+
+fn integration_registry() -> &IntegrationRegistryDocument:
+    # <expr>
+
+fn adapter_manifests_json() -> &String:
+    # <expr>
+
+fn adapter_manifests() -> &AdapterManifestsDocument:
+    # <expr>
+
+fn package_by_name(name: &String) -> Option<&WorkspacePackageRecord>:
+    # <expr>
+
+fn external_manifest_by_key(key: &String) -> Option<&WorkspaceExternalManifestRecord>:
+    # <expr>
+
+fn artifacts_for_owner(owner_package: &String) -> Array<&WorkspaceArtifactRecord>:
+    # <expr>
+
+fn packages_for_host(host: &String) -> Array<&WorkspacePackageRecord>:
+    # <expr>
+
+fn public_api_for_package(package_name: &String) -> Option<&PublicApiPackageRecord>:
+    # <expr>
+
+fn public_api_items_for_package(package_name: &String) -> Array<&PublicApiItemRecord>:
+    # <expr>
+
+fn api_bloat_pressure_for_package(package_name: &String) -> Option<&ApiBloatPressureRecord>:
+    # <expr>
+
+fn integration_contract_for_package(package_name: &String) -> Option<&IntegrationPackageRecord>:
+    # <expr>
+
+fn adapter_manifest_for_target(adapter_target: &String) -> Option<&AdapterManifestRecord>:
+    # <expr>
+

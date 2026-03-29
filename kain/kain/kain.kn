@@ -1,0 +1,465 @@
+# Generated from Rust source by kain import-rust
+# Project Ouroboros — Rust → KAIN → Rust
+
+struct GeneratedSpirvAsset:
+    id: &String
+    label: &String
+    domain: KainDomain
+    source_path: &String
+    compiled_path: &String
+    bytes: &Slice<u8>
+
+struct GeneratedRuntimeOutput:
+    target: KainCliTarget
+    path: &String
+
+struct GeneratedRuntimeApp:
+    id: &String
+    label: &String
+    source_path: &String
+    runtime_kind: KainRuntimeKind
+    host_kind: KainHostKind
+    namespace_: &String
+    outputs: &Slice<GeneratedRuntimeOutput>
+
+enum KainDomain:
+    Fluid
+    Brush
+    Shader
+    Procedural
+    Kainscript
+    Sculpting
+    SculptingEngine
+    Supermotion
+    Paint
+    Renderer
+    Materials
+    Imports
+
+impl KainDomain:
+    fn as_str(_self: Self) -> &String:
+        # <expr>
+
+
+enum KainTargetKind:
+    Spirv
+    Source
+
+enum KainImportLanguage:
+    C
+    Typescript
+    Cpp
+    Rust
+    Assembly
+
+impl KainImportLanguage:
+    fn as_str(_self: Self) -> &String:
+        # <expr>
+
+
+enum KainRuntimeKind:
+    TauriFrontend
+    DesktopScript
+    ComputeKernel
+    HybridModule
+
+impl KainRuntimeKind:
+    fn as_str(_self: Self) -> &String:
+        # <expr>
+
+
+enum KainHostKind:
+    Tauri
+    Webview
+    WasmRuntime
+    Hybrid
+
+impl KainHostKind:
+    fn as_str(_self: Self) -> &String:
+        # <expr>
+
+
+enum KainCliTarget:
+    Wasm
+    Spirv
+    Ts
+    Js
+    Ks
+    Hybrid
+    Rust
+    Cpp
+    Run
+    Test
+    Hlsl
+    Usf
+
+impl KainCliTarget:
+    fn as_str(_self: Self) -> &String:
+        # <expr>
+
+
+impl TryFrom for KainCliTarget:
+    fn try_from(value: &String) -> Result<Self, Self::Error>:
+        # <expr>
+
+
+struct KainSourceAsset:
+    id: String
+    label: String
+    domain: KainDomain
+    source_path: String
+    compiled_path: Option<String>
+    target: KainTargetKind
+    import_language: Option<KainImportLanguage>
+    source_namespace: Option<String>
+
+struct KainRuntimeAppOutput:
+    target: KainCliTarget
+    path: String
+
+struct KainRuntimeAppAsset:
+    id: String
+    label: String
+    source_path: String
+    runtime_kind: KainRuntimeKind
+    host_kind: KainHostKind
+    namespace_: String
+    outputs: Array<KainRuntimeAppOutput>
+
+struct KainCompileOutput:
+    success: Bool
+    output: Option<String>
+    output_path: Option<String>
+    errors: Option<String>
+    duration_ms: f64
+
+struct KainRunOutput:
+    success: Bool
+    stdout: String
+    stderr: String
+    exit_code: i32
+
+struct ValidationResult:
+    shader_name: String
+    success: Bool
+    entry_points: Array<String>
+    error: Option<String>
+    file_size: u64
+
+enum KainError:
+    InvalidTarget(String)
+    TempSourceWrite(String)
+    Spawn(String)
+    Wait(String)
+    SourceNotFound(String)
+    Manifest(String)
+
+fn list_sources() -> &Slice<KainSourceAsset>:
+    # <expr>
+
+fn list_runtime_apps() -> &Slice<KainRuntimeAppAsset>:
+    # <expr>
+
+fn sources_for_domain(domain: KainDomain) -> Array<&KainSourceAsset>:
+    # <expr>
+
+fn runtime_app_by_id(id: &String) -> Option<&KainRuntimeAppAsset>:
+    # <expr>
+
+fn runtime_apps_for_kind(kind: KainRuntimeKind) -> Array<&KainRuntimeAppAsset>:
+    # <expr>
+
+fn runtime_apps_for_host(host: KainHostKind) -> Array<&KainRuntimeAppAsset>:
+    # <expr>
+
+fn workspace_root() -> std::path::PathBuf:
+    # <expr>
+    # <expr>
+
+fn domain_dir(domain: KainDomain) -> std::path::PathBuf:
+    # <expr>
+
+fn imports_dir() -> std::path::PathBuf:
+    # <expr>
+
+fn imports_language_dir(language: KainImportLanguage) -> std::path::PathBuf:
+    # <expr>
+
+fn generated_dir() -> std::path::PathBuf:
+    # <expr>
+
+fn generated_runtime_root() -> std::path::PathBuf:
+    # <expr>
+
+fn generated_runtime_target_dir(target: KainCliTarget) -> std::path::PathBuf:
+    # <expr>
+
+fn generated_spv_root() -> std::path::PathBuf:
+    # <expr>
+
+fn generated_spv_dir(domain: KainDomain) -> std::path::PathBuf:
+    # <expr>
+
+fn generated_ts_registry_path() -> std::path::PathBuf:
+    # <expr>
+
+fn generated_json_registry_path() -> std::path::PathBuf:
+    # <expr>
+
+fn generated_runtime_ts_registry_path() -> std::path::PathBuf:
+    # <expr>
+
+fn generated_runtime_json_registry_path() -> std::path::PathBuf:
+    # <expr>
+
+fn fabric_dir() -> std::path::PathBuf:
+    # <expr>
+
+fn fabric_workspace_dir(workspace_name: &String) -> std::path::PathBuf:
+    # <expr>
+
+fn zen_dcc_fabric_dir() -> std::path::PathBuf:
+    # <expr>
+
+fn zen_dcc_fabric_manifest_path() -> std::path::PathBuf:
+    # <expr>
+
+fn zen_dcc_fabric_intent_registry_path() -> std::path::PathBuf:
+    # <expr>
+
+fn manifest_path() -> std::path::PathBuf:
+    # <expr>
+
+fn runtime_manifest_path() -> std::path::PathBuf:
+    # <expr>
+
+fn src_kain_dir() -> std::path::PathBuf:
+    # <expr>
+
+fn src_kain_apps_dir() -> std::path::PathBuf:
+    # <expr>
+
+fn src_kain_scripts_dir() -> std::path::PathBuf:
+    # <expr>
+
+fn src_kain_kernels_dir() -> std::path::PathBuf:
+    # <expr>
+
+fn src_kain_hybrid_dir() -> std::path::PathBuf:
+    # <expr>
+
+fn compile_source(source: String, target: KainCliTarget, output_name: String, verbose: Bool, strict: Bool) -> Result<KainCompileOutput, KainError>:
+    let start = # <expr>
+    let tmp_dir = # <expr>
+    let src_path = # <expr>
+    let ext = # <expr>
+    let out_path = # <expr>
+    # <expr>
+    let mut cmd = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    let out_ = # <expr>
+    let duration_ms = # <expr>
+    let success = # <expr>
+    let stderr_str = # <expr>
+    let _ = # <expr>
+    # <expr>
+
+fn run_source(source: String, verbose: Bool) -> Result<KainRunOutput, KainError>:
+    let tmp_dir = # <expr>
+    let src_path = # <expr>
+    # <expr>
+    let mut cmd = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    let out_ = # <expr>
+    let _ = # <expr>
+    # <expr>
+
+fn build_file(path: String, target: KainCliTarget, output: Option<String>) -> Result<KainCompileOutput, KainError>:
+    let start = # <expr>
+    let workspace = # <expr>
+    let src_path = # <expr>
+    # <expr>
+    let mut cmd = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    let result = # <expr>
+    let duration_ms = # <expr>
+    let success = # <expr>
+    let stderr_str = # <expr>
+    # <expr>
+
+fn validate_spirv_file(path: &std::path::Path) -> ValidationResult:
+    let shader_name = # <expr>
+    let bytes = # <expr>
+    let file_size = # <expr>
+    let options = # <expr>
+    let module = # <expr>
+    let entry_points: Array<String> = # <expr>
+    # <expr>
+    # <expr>
+
+fn validate_all_shaders_in_dir(dir: &std::path::Path) -> Array<ValidationResult>:
+    let mut results = # <expr>
+    # <expr>
+    results
+
+fn validate_all_shaders_for_domain(domain: KainDomain) -> Array<ValidationResult>:
+    # <expr>
+
+mod generated:
+    mod spv:
+
+    mod runtime:
+
+
+fn generated_spirv_assets() -> &Slice<&GeneratedSpirvAsset>:
+    # <expr>
+
+fn generated_spirv_by_id(id: &String) -> Option<&GeneratedSpirvAsset>:
+    # <expr>
+
+fn generated_spirv_for_domain(domain: KainDomain) -> Array<&GeneratedSpirvAsset>:
+    # <expr>
+
+fn generated_runtime_apps() -> &Slice<&GeneratedRuntimeApp>:
+    # <expr>
+
+fn generated_runtime_app_by_id(id: &String) -> Option<&GeneratedRuntimeApp>:
+    # <expr>
+
+fn generated_runtime_apps_for_target(target: KainCliTarget) -> Array<&GeneratedRuntimeApp>:
+    # <expr>
+
+fn imported_sources() -> Array<&KainSourceAsset>:
+    # <expr>
+
+fn imported_sources_for_language(language: KainImportLanguage) -> Array<&KainSourceAsset>:
+    # <expr>
+
+fn print_validation_report(results: &Slice<ValidationResult>):
+    # <expr>
+    # <expr>
+    # <expr>
+    let mut success_count = 0
+    let mut failure_count = 0
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+
+fn load_manifest() -> Array<KainSourceAsset>:
+    let manifest = # <expr>
+    let contents = # <expr>
+    # <expr>
+
+fn load_runtime_manifest() -> Array<KainRuntimeAppAsset>:
+    let manifest = # <expr>
+    let contents = # <expr>
+    # <expr>
+
+fn resolve_cli_bin() -> String:
+    # <expr>
+    # <expr>
+
+fn find_workspace_root(start: &std::path::Path) -> Option<std::path::PathBuf>:
+    let mut current = # <expr>
+    # <expr>
+    None
+
+fn base64_encode(bytes: &Slice<u8>) -> String:
+    # <stmt>
+    let mut out_ = # <expr>
+    # <expr>
+    out_
+
+mod tests:
+    fn registry_contains_domain_sources_for_builders_and_engines():
+        let fluid = # <expr>
+        let brush = # <expr>
+        let shader = # <expr>
+        let procedural = # <expr>
+        let kainscript = # <expr>
+        let sculpt = # <expr>
+        let sculpt_engine = # <expr>
+        let supermotion = # <expr>
+        let imports = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn import_language_directories_cover_all_enabled_importer_families():
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn runtime_registry_exposes_desktop_host_scaffolds():
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn generated_spirv_registry_contains_core_domains():
+        let sculpt = # <expr>
+        let sculpt_engine = # <expr>
+        let supermotion = # <expr>
+        let materials = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+

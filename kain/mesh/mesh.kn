@@ -1,0 +1,633 @@
+# Generated from Rust source by kain import-rust
+# Project Ouroboros — Rust → KAIN → Rust
+
+struct AtlasResult:
+    positions: Array<f32>
+    indices: Array<u32>
+    uvs: Array<f32>
+
+fn unwrap_mesh_xatlas(positions: Array<f32>, indices: Array<u32>) -> Result<AtlasResult, String>:
+    # <expr>
+    let vertex_count = # <expr>
+    let face_count = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    let atlas = # <expr>
+    let mesh_decl = # <expr>
+    # <expr>
+    let chart_options = # <expr>
+    let pack_options = # <expr>
+    # <expr>
+    let mut atlas_mut = atlas
+    let meshes = # <expr>
+    # <expr>
+    let mesh = # <expr>
+    let vertex_count = # <expr>
+    let index_count = # <expr>
+    let mut max_u: f32 = 0
+    let mut max_v: f32 = 0
+    # <expr>
+    let atlas_width = # <expr>
+    let atlas_height = # <expr>
+    # <expr>
+    let mut new_positions = # <expr>
+    let mut new_uvs = # <expr>
+    let new_indices: Array<u32> = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+
+struct ClassificationResult:
+    classification: String
+    sharp_edge_percent: f32
+    avg_curvature: f32
+    planarity_score: f32
+    time_ms: f64
+
+fn classify_mesh(positions: Array<f32>, indices: Array<u32>) -> Result<ClassificationResult, String>:
+    # <stmt>
+    # <stmt>
+    let start = # <expr>
+    let vertex_count = # <expr>
+    let face_count = # <expr>
+    # <expr>
+    let get_pos = # <expr>
+    let cross = # <expr>
+    let normalize = # <expr>
+    let dot = # <expr>
+    let sub = # <expr>
+    let mut face_normals: Array<Array<f32>> = # <expr>
+    let mut edge_to_faces: Map<(u32, u32), Array<usize>> = # <expr>
+    let mut vert_to_faces: Array<Array<usize>> = # <expr>
+    let make_key = # <expr>
+    # <expr>
+    let sharp_threshold = # <expr>
+    let mut edge_angles: Array<f32> = # <expr>
+    # <expr>
+    let sharp_edges = # <expr>
+    let sharp_percent = # <expr>
+    let mut curvatures: Array<f32> = # <expr>
+    # <expr>
+    let avg_curvature = # <expr>
+    let mut normal_variance = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    let var_len = # <expr>
+    let planarity_score = # <expr>
+    let is_hard_surface = # <expr>
+    let is_organic = # <expr>
+    let classification = # <expr>
+    let elapsed = # <expr>
+    # <expr>
+    # <expr>
+
+struct UnwrapOptimizeResult:
+    positions: Array<f32>
+    normals: Array<f32>
+    uvs: Array<f32>
+    indices: Array<u32>
+    vertex_count: usize
+    face_count: usize
+    chart_count: usize
+    time_ms: f64
+
+fn unwrap_and_optimize(positions: Array<f32>, _normals: Array<f32>, indices: Array<u32>) -> Result<UnwrapOptimizeResult, String>:
+    # <stmt>
+    let start = # <expr>
+    let atlas_result = # <expr>
+    let vertex_count = # <expr>
+    let face_count = # <expr>
+    let mut new_normals = # <expr>
+    # <expr>
+    let elapsed = # <expr>
+    # <expr>
+    # <expr>
+
+struct OptimizeMeshResult:
+    positions: Array<f32>
+    normals: Array<f32>
+    uvs: Option<Array<f32>>
+    indices: Array<u32>
+    original_vertex_count: usize
+    final_vertex_count: usize
+    original_face_count: usize
+    final_face_count: usize
+    time_ms: f64
+    optimizations: Array<String>
+
+struct SimplifyResult:
+    indices: Array<u32>
+    original_face_count: usize
+    final_face_count: usize
+    reduction_ratio: f32
+    time_ms: f64
+
+struct Vertex:
+    position: Array<f32>
+    normal: Array<f32>
+    uv: Array<f32>
+
+fn optimize_mesh_internal(positions: &Slice<f32>, normals: &Slice<f32>, uvs: Option<&Slice<f32>>, indices: &Slice<u32>) -> (Array<f32>, Array<f32>, Option<Array<f32>>, Array<u32>, Array<String>):
+    let vertex_count = # <expr>
+    let mut optimizations = # <expr>
+    let mut vertices: Array<Vertex> = # <expr>
+    # <expr>
+    let mut optimized_indices: Array<u32> = # <expr>
+    # <expr>
+    # <expr>
+    let _ = # <expr>
+    let remapped_indices: Array<u32> = # <expr>
+    let mut remapped_vertices = # <expr>
+    # <expr>
+    # <expr>
+    let mut out_positions = # <expr>
+    let mut out_normals = # <expr>
+    let mut out_uvs = # <expr>
+    # <expr>
+    # <expr>
+
+fn simplify_mesh_internal(positions: &Slice<f32>, indices: &Slice<u32>, target_ratio: f32, lock_border: Bool) -> (Array<u32>, usize):
+    let original_index_count = # <expr>
+    let target_index_count = # <expr>
+    let vertex_adapter = # <expr>
+    let options = # <expr>
+    let simplified = # <expr>
+    # <expr>
+
+fn optimize_mesh(positions: Array<f32>, normals: Array<f32>, uvs: Option<Array<f32>>, indices: Array<u32>) -> Result<OptimizeMeshResult, String>:
+    let start = # <expr>
+    let original_vertex_count = # <expr>
+    let original_face_count = # <expr>
+    let _ = # <expr>
+    let final_vertex_count = # <expr>
+    let final_face_count = # <expr>
+    let elapsed = # <expr>
+    # <expr>
+    # <expr>
+
+fn simplify_mesh(positions: Array<f32>, indices: Array<u32>, target_ratio: f32, lock_border: Bool) -> Result<SimplifyResult, String>:
+    let start = # <expr>
+    let original_face_count = # <expr>
+    let _ = # <expr>
+    let actual_ratio = # <expr>
+    let elapsed = # <expr>
+    # <expr>
+    # <expr>
+
+fn generate_lod_chain(positions: Array<f32>, indices: Array<u32>, lod_count: usize) -> Result<Array<SimplifyResult>, String>:
+    let start = # <expr>
+    let mut lods = # <expr>
+    let original_face_count = # <expr>
+    # <expr>
+    let elapsed = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+
+mod tests:
+    fn create_test_quad() -> (Array<f32>, Array<f32>, Array<u32>):
+        let positions = # <expr>
+        let normals = # <expr>
+        let indices = # <expr>
+        # <expr>
+
+    fn test_optimize_mesh():
+        let _ = # <expr>
+        let _ = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+
+struct PrimitiveResult:
+    positions: Array<f32>
+    indices: Array<u32>
+    normals: Array<f32>
+    uvs: Array<f32>
+
+struct PrimitiveParams:
+    subdivisions: Option<u32>
+    radial_segments: Option<u32>
+    height_segments: Option<u32>
+    tubular_segments: Option<u32>
+    tube_radius: Option<f32>
+    inner_radius: Option<f32>
+    outer_radius: Option<f32>
+    height: Option<f32>
+    width: Option<f32>
+    depth: Option<f32>
+    radius: Option<f32>
+    thickness: Option<f32>
+    angle: Option<f32>
+    sides: Option<u32>
+    rings: Option<u32>
+    segments: Option<u32>
+    taper: Option<f32>
+    flange_width: Option<f32>
+    caps: Option<Bool>
+
+fn spawn_primitive(primitive_id: &String, params: PrimitiveParams) -> Result<PrimitiveResult, String>:
+    # <expr>
+
+struct Vec3:
+    x: f32
+    y: f32
+    z: f32
+
+impl Vec3:
+    fn new_(x: f32, y: f32, z: f32) -> Self:
+        # <expr>
+
+    fn normalize(_self: &Self) -> Vec3:
+        let len = # <expr>
+        # <expr>
+
+    fn cross(_self: &Self, other: &Vec3) -> Vec3:
+        # <expr>
+
+
+impl std::ops::Add for Vec3:
+    fn add(_self: Self, other: Vec3) -> Vec3:
+        # <expr>
+
+
+impl std::ops::Sub for Vec3:
+    fn sub(_self: Self, other: Vec3) -> Vec3:
+        # <expr>
+
+
+impl std::ops::Mul for Vec3:
+    fn mul(_self: Self, s: f32) -> Vec3:
+        # <expr>
+
+
+fn add_quad(indices: &mut Array<u32>, a: u32, b: u32, c: u32, d: u32):
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+
+fn add_tri(indices: &mut Array<u32>, a: u32, b: u32, c: u32):
+    # <expr>
+    # <expr>
+    # <expr>
+
+fn generate_quad_sphere(subdivisions: u32) -> PrimitiveResult:
+    let resolution = # <expr>
+    let segments = resolution
+    let mut positions = # <expr>
+    let mut normals = # <expr>
+    let mut uvs = # <expr>
+    let mut indices = # <expr>
+    let faces = # <expr>
+    let verts_per_row = # <expr>
+    # <expr>
+    # <expr>
+
+fn generate_quad_cube(subdivisions: u32) -> PrimitiveResult:
+    let resolution = # <expr>
+    let segments = resolution
+    let mut positions = # <expr>
+    let mut normals = # <expr>
+    let mut uvs = # <expr>
+    let mut indices = # <expr>
+    let faces = # <expr>
+    let verts_per_row = # <expr>
+    # <expr>
+    # <expr>
+
+fn generate_plane(subdivisions: u32) -> PrimitiveResult:
+    let segments = # <expr>
+    let mut positions = # <expr>
+    let mut normals = # <expr>
+    let mut uvs = # <expr>
+    let mut indices = # <expr>
+    let width = 2
+    let height = 2
+    let verts_per_row = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+
+fn generate_quad_cylinder(radial_segments: u32, height_segments: u32) -> PrimitiveResult:
+    let radial = # <expr>
+    let height_segs = # <expr>
+    let height = 2
+    let radius = 1
+    let half_height = # <expr>
+    let mut positions = # <expr>
+    let mut normals = # <expr>
+    let mut uvs = # <expr>
+    let mut indices = # <expr>
+    let bottom_center_idx = 0
+    # <expr>
+    # <expr>
+    # <expr>
+    let bottom_rim_start = 1
+    # <expr>
+    # <expr>
+    let side_vert_start = # <expr>
+    # <expr>
+    let ring_verts = # <expr>
+    # <expr>
+    let top_center_idx = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    let top_rim_start = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+
+fn generate_cone(radial_segments: u32, height_segments: u32) -> PrimitiveResult:
+    let mut positions = # <expr>
+    let mut normals = # <expr>
+    let mut uvs = # <expr>
+    let mut indices = # <expr>
+    let height = 2
+    let radius = 1
+    let half_height = # <expr>
+    # <expr>
+    let verts_per_row = # <expr>
+    # <expr>
+    let cap_start = # <expr>
+    let center_idx = cap_start
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+
+fn generate_torus(radial_segments: u32, tubular_segments: u32, tube_radius: f32) -> PrimitiveResult:
+    let mut positions = # <expr>
+    let mut normals = # <expr>
+    let mut uvs = # <expr>
+    let mut indices = # <expr>
+    let major_radius = 0.7
+    # <expr>
+    let verts_per_row = # <expr>
+    # <expr>
+    # <expr>
+
+fn generate_capsule(subdivisions: u32, height: f32) -> PrimitiveResult:
+    let mut positions = # <expr>
+    let mut normals = # <expr>
+    let mut uvs = # <expr>
+    let mut indices = # <expr>
+    let radius = 0.5
+    let segments = # <expr>
+    let half_height = # <expr>
+    # <expr>
+    let body_segments = # <expr>
+    # <expr>
+    # <expr>
+    let verts_per_row = # <expr>
+    let total_rows = # <expr>
+    # <expr>
+    let min_y = # <expr>
+    # <expr>
+    # <expr>
+
+fn generate_icosphere(subdivisions: u32) -> PrimitiveResult:
+    let t = # <expr>
+    let mut positions: Array<f32> = # <expr>
+    # <expr>
+    let mut indices: Array<u32> = # <expr>
+    # <expr>
+    let vertex_count = # <expr>
+    let normals = # <expr>
+    let mut uvs = # <expr>
+    # <expr>
+    # <expr>
+
+fn get_or_create_midpoint(positions: &mut Array<f32>, cache: &mut Map<(u32, u32), u32>, a: u32, b: u32) -> u32:
+    let key = # <expr>
+    # <expr>
+    let ai = # <expr>
+    let bi = # <expr>
+    let mut mx = # <expr>
+    let mut my = # <expr>
+    let mut mz = # <expr>
+    let len = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    let idx = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    idx
+
+fn generate_uv_sphere(rings: u32, segments: u32) -> PrimitiveResult:
+    let mut positions = # <expr>
+    let mut normals = # <expr>
+    let mut uvs = # <expr>
+    let mut indices = # <expr>
+    # <expr>
+    let verts_per_row = # <expr>
+    # <expr>
+    # <expr>
+
+fn generate_pyramid(sides: u32, _height_segments: u32) -> PrimitiveResult:
+    let sides = # <expr>
+    let mut positions = # <expr>
+    let mut normals = # <expr>
+    let mut uvs = # <expr>
+    let mut indices = # <expr>
+    let height = 1
+    let radius = 0.5
+    let apex_idx = 0
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    let base_center = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    let base_start = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+
+fn generate_ring(inner_radius: f32, outer_radius: f32, segments: u32) -> PrimitiveResult:
+    let mut positions = # <expr>
+    let mut normals = # <expr>
+    let mut uvs = # <expr>
+    let mut indices = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+
+fn generate_tube(inner_radius: f32, outer_radius: f32, height: f32, segments: u32) -> PrimitiveResult:
+    let mut positions = # <expr>
+    let mut normals = # <expr>
+    let mut uvs = # <expr>
+    let mut indices = # <expr>
+    let half_height = # <expr>
+    let rings = # <expr>
+    # <expr>
+    let verts_per_ring = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+
+fn generate_disc(subdivisions: u32, segments: u32) -> PrimitiveResult:
+    let mut positions = # <expr>
+    let mut normals = # <expr>
+    let mut uvs = # <expr>
+    let mut indices = # <expr>
+    let rings = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    let verts_per_ring = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+
+fn generate_wall(width: f32, height: f32, depth: f32) -> PrimitiveResult:
+    # <expr>
+
+fn generate_platform(width: f32, depth: f32, height: f32) -> PrimitiveResult:
+    # <expr>
+
+fn generate_pillar(radius: f32, height: f32, segments: u32) -> PrimitiveResult:
+    let mut result = # <expr>
+    # <expr>
+    # <expr>
+    result
+
+fn generate_arch(radius: f32, thickness: f32, angle: f32) -> PrimitiveResult:
+    let mut positions = # <expr>
+    let mut normals = # <expr>
+    let mut uvs = # <expr>
+    let mut indices = # <expr>
+    let segments = 32
+    let tube_segments = 16
+    # <expr>
+    let verts_per_row = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+
+fn generate_beam(width: f32, height: f32, flange_width: f32) -> PrimitiveResult:
+    let flange_height = # <expr>
+    let web_width = # <expr>
+    let mut all_positions = # <expr>
+    let mut all_normals = # <expr>
+    let mut all_uvs = # <expr>
+    let mut all_indices = # <expr>
+    let web = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    let top = # <expr>
+    let offset = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    let offset = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+
+fn generate_box(width: f32, height: f32, depth: f32) -> PrimitiveResult:
+    let mut result = # <expr>
+    # <expr>
+    # <expr>
+    result
+
+fn generate_head(subdivisions: u32) -> PrimitiveResult:
+    let mut result = # <expr>
+    # <expr>
+    let min_y = # <expr>
+    # <expr>
+    # <expr>
+    result
+
+fn generate_body(subdivisions: u32) -> PrimitiveResult:
+    let mut result = # <expr>
+    # <expr>
+    # <expr>
+    result
+
+fn generate_limb(subdivisions: u32, taper: f32) -> PrimitiveResult:
+    let segments = # <expr>
+    let height_segments = # <expr>
+    let mut positions = # <expr>
+    let mut normals = # <expr>
+    let mut uvs = # <expr>
+    let mut indices = # <expr>
+    let height = 2
+    let base_radius = 0.3
+    # <expr>
+    let verts_per_row = # <expr>
+    # <expr>
+    let bottom_center = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+
+fn recalc_normals(result: &mut PrimitiveResult):
+    let vertex_count = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+
+fn merge_vertices(positions: &mut Array<f32>, normals: &mut Array<f32>, uvs: &mut Array<f32>, indices: &mut Array<u32>) -> PrimitiveResult:
+    let mut new_positions = # <expr>
+    let mut new_normals = # <expr>
+    let mut new_uvs = # <expr>
+    let precision = 10000
+    let mut unique_verts = # <expr>
+    let mut remapped_indices = # <expr>
+    let mut map: Map<(i64, i64, i64), u32> = # <expr>
+    # <expr>
+    # <expr>
+

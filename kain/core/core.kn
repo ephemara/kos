@@ -1,0 +1,89 @@
+# Generated from Rust source by kain import-rust
+# Project Ouroboros — Rust → KAIN → Rust
+
+struct ZenTransactionId:
+    field_0: u64
+
+impl ZenTransactionId:
+    fn new_(raw: u64) -> Self:
+        # <expr>
+
+    fn raw(_self: Self) -> u64:
+        # <expr>
+
+
+enum ZenCommandSource:
+    HostAction(String)
+    KainModule(String)
+    ViewportHotkey(String)
+    Editor(String)
+    Runtime(String)
+
+enum ZenPlayMode:
+    Edit
+    Simulate
+    Play
+
+enum ZenCommand:
+    ShellReload
+    FabricRunIntent { intent_id: String }
+    SceneSpawnWorkspaceBox
+    SceneSelectRelative { step: isize }
+    SceneClearSelection
+    SceneRenameSelection { name: String }
+    SceneSetSelectedTranslation { translation: Array<f32> }
+    SceneSetSelectedScale { scale: Array<f32> }
+    CameraFocusSelection
+    CameraFrameScene
+    RuntimeSetPlayMode { mode: ZenPlayMode }
+
+struct ZenCommandEnvelope:
+    transaction_id: ZenTransactionId
+    source: ZenCommandSource
+    command: ZenCommand
+
+impl ZenCommandEnvelope:
+    fn new_(transaction_id: ZenTransactionId, source: ZenCommandSource, command: ZenCommand) -> Self:
+        # <expr>
+
+
+enum ZenEvent:
+    SceneChanged { transaction_id: ZenTransactionId, reason: String }
+    SelectionChanged { transaction_id: ZenTransactionId, selected_handle: Option<u64> }
+    ShellReloadRequested { transaction_id: ZenTransactionId }
+    FabricIntentRequested { transaction_id: ZenTransactionId, intent_id: String }
+    CameraFocusRequested { transaction_id: ZenTransactionId }
+    CameraFrameRequested { transaction_id: ZenTransactionId }
+    PlayModeChanged { transaction_id: ZenTransactionId, mode: ZenPlayMode }
+
+struct ZenCommandBus:
+    next_transaction: std::sync::atomic::AtomicU64
+    queue: Array<ZenCommandEnvelope>
+
+impl ZenCommandBus:
+    fn enqueue(_self: &mut Self, source: ZenCommandSource, command: ZenCommand) -> ZenTransactionId:
+        let transaction_id = # <expr>
+        # <expr>
+        transaction_id
+
+    fn pop_front(_self: &mut Self) -> Option<ZenCommandEnvelope>:
+        # <expr>
+
+    fn is_empty(_self: &Self) -> Bool:
+        # <expr>
+
+
+fn command_label(command: &ZenCommand) -> &String:
+    # <expr>
+
+mod tests:
+    fn command_bus_assigns_transaction_ids():
+        let mut bus = # <expr>
+        let first = # <expr>
+        let second = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+

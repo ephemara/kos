@@ -1,0 +1,2461 @@
+# Generated from Rust source by kain import-rust
+# Project Ouroboros — Rust → KAIN → Rust
+
+enum AssetType:
+    Mesh
+    Material
+    Alpha
+    Texture
+    Scene
+
+fn handle_kernel_sync_event(events: MessageReader<KernelSyncEvent>, browser: ResMut<BrowserState>):
+    # <expr>
+
+fn handle_toggle_browser_event(events: MessageReader<ToggleBrowserEvent>, browser: ResMut<BrowserState>):
+    # <expr>
+
+impl AssetType:
+    fn color(_self: &Self) -> bevy_egui::egui::Color32:
+        # <expr>
+
+    fn label(_self: &Self) -> &String:
+        # <expr>
+
+
+struct AssetEntry:
+    id: String
+    name: String
+    asset_type: AssetType
+    source: String
+    file_path: Option<String>
+    thumbnail_base64: Option<String>
+    size_bytes: Option<u64>
+
+struct BrowserFolder:
+    name: String
+    children: Map<String, BrowserFolder>
+    assets: Array<AssetEntry>
+
+impl BrowserFolder:
+    fn new_(name: &String) -> Self:
+        # <expr>
+
+    fn add_asset(_self: &mut Self, path: &Slice<&String>, asset: AssetEntry):
+        # <expr>
+
+    fn asset_count(_self: &Self) -> usize:
+        # <expr>
+
+
+struct ContextMenuState:
+    position: bevy_egui::egui::Pos2
+    asset_id: String
+
+struct BrowserState:
+    is_open: Bool
+    search_query: String
+    active_path: Array<String>
+    expanded_folders: Set<String>
+    root_folder: BrowserFolder
+    selected_asset: Option<String>
+    context_menu: Option<ContextMenuState>
+    last_sync_time: f64
+    thumbnail_cache: Map<String, bevy_egui::egui::TextureHandle>
+
+impl Default for BrowserState:
+    fn default_() -> Self:
+        let mut root = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+
+impl BrowserState:
+    fn current_folder(_self: &Self) -> &BrowserFolder:
+        let mut current = # <expr>
+        # <expr>
+        current
+
+    fn get_display_assets(_self: &Self) -> Array<&AssetEntry>:
+        # <expr>
+
+    fn collect_all_assets(_self: &Self, folder: &BrowserFolder) -> Array<&AssetEntry>:
+        let mut assets: Array<&AssetEntry> = # <expr>
+        # <expr>
+        assets
+
+    fn navigate_to(_self: &mut Self, path: Array<String>):
+        # <expr>
+        # <expr>
+
+    fn toggle_folder(_self: &mut Self, path: &String):
+        # <expr>
+
+
+struct SpawnFromBrowserEvent:
+    asset_id: String
+    asset_type: AssetType
+    file_path: Option<String>
+
+impl bevy::prelude::Message for SpawnFromBrowserEvent:
+    pass
+
+struct KernelSyncEvent:
+    json_path: String
+
+impl bevy::prelude::Message for KernelSyncEvent:
+    pass
+
+struct ToggleBrowserEvent:
+    pass
+
+impl bevy::prelude::Message for ToggleBrowserEvent:
+    pass
+
+struct SetActiveAssetEvent:
+    asset_id: String
+
+impl bevy::prelude::Message for SetActiveAssetEvent:
+    pass
+
+struct AssetBrowserPlugin:
+    pass
+
+impl Plugin for AssetBrowserPlugin:
+    fn build(_self: &Self, app: &mut App):
+        # <expr>
+
+
+mod theme:
+
+fn browser_ui_system(contexts: bevy_egui::EguiContexts, browser: ResMut<BrowserState>, spawn_events: MessageWriter<SpawnFromBrowserEvent>) -> Result<(), Error>:
+    let ctx = # <expr>
+    # <expr>
+    let frame = # <expr>
+    # <expr>
+    # <expr>
+
+fn render_header_bar(ui: &mut bevy_egui::egui::Ui, browser: &mut BrowserState):
+    # <expr>
+
+fn styled_button(ui: &mut bevy_egui::egui::Ui, text: &String, bg: bevy_egui::egui::Color32) -> bevy_egui::egui::Response:
+    # <expr>
+
+fn render_sidebar(ui: &mut bevy_egui::egui::Ui, browser: &mut BrowserState):
+    let sidebar_frame = # <expr>
+    # <expr>
+
+fn render_asset_grid(ui: &mut bevy_egui::egui::Ui, browser: &mut BrowserState, spawn_events: &mut MessageWriter<SpawnFromBrowserEvent>):
+    # <expr>
+
+fn render_folder_tree_modern(ui: &mut bevy_egui::egui::Ui, browser: &mut BrowserState, path: Array<String>):
+    let path_str = # <expr>
+    let is_expanded = # <expr>
+    let is_active = # <expr>
+    let folder_name = # <expr>
+    let folder = # <expr>
+    let has_children = # <expr>
+    let item_count = # <expr>
+    let bg_color = # <expr>
+    let response = # <expr>
+    # <expr>
+
+fn render_asset_card_modern(ui: &mut bevy_egui::egui::Ui, asset: &AssetEntry, browser: &mut BrowserState, spawn_events: &mut MessageWriter<SpawnFromBrowserEvent>):
+    let is_selected = # <expr>
+    let card_size = # <expr>
+    let thumb_size = 72
+    let _ = # <expr>
+    # <expr>
+    let border_color = # <expr>
+    # <expr>
+    let thumb_rect = # <expr>
+    # <expr>
+    let mut has_image = false
+    # <expr>
+    # <expr>
+    let _ = # <expr>
+    let bar_rect = # <expr>
+    # <expr>
+    let name_rect = # <expr>
+    let truncated_name = # <expr>
+    # <expr>
+    let type_rect = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+
+fn render_folder_tree(ui: &mut bevy_egui::egui::Ui, browser: &mut BrowserState, path: Array<String>):
+    let path_str = # <expr>
+    let is_expanded = # <expr>
+    let is_active = # <expr>
+    let folder_name = # <expr>
+    let folder = # <expr>
+    let has_children = # <expr>
+    let item_count = # <expr>
+    # <expr>
+    # <expr>
+
+fn get_folder_at_path(root: &BrowserFolder, path: &Slice<String>) -> Option<&BrowserFolder>:
+    let mut current = root
+    # <expr>
+    # <expr>
+
+fn render_asset_card(ui: &mut bevy_egui::egui::Ui, asset: &AssetEntry, selected: &mut Option<String>, spawn_events: &mut MessageWriter<SpawnFromBrowserEvent>):
+    let is_selected = # <expr>
+    let size = # <expr>
+    let response = # <expr>
+    let response = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+
+fn browser_keyboard_system(keyboard: Res<ButtonInput<KeyCode>>, browser: ResMut<BrowserState>):
+    let ctrl = # <expr>
+    # <expr>
+
+fn handle_spawn_from_browser(events: MessageReader<SpawnFromBrowserEvent>, import_events: MessageWriter<crate::viewport::ImportGltfEvent>):
+    # <expr>
+
+fn browser_local_scan_startup(browser: ResMut<BrowserState>):
+    # <expr>
+
+fn scan_local_imports_into_browser(browser: &mut BrowserState):
+    let imports_fs_path = # <expr>
+    let _ = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+
+fn workspace_assets_dir() -> std::path::PathBuf:
+    let manifest_dir = # <expr>
+    # <expr>
+
+fn handle_kernel_sync(browser: &mut BrowserState, json_path: &String):
+    # <expr>
+    # <expr>
+    # <expr>
+
+fn handle_toggle_browser(browser: &mut BrowserState):
+    # <expr>
+    # <expr>
+
+fn decode_base64_to_texture(ctx: &bevy_egui::egui::Context, id: &String, base64_str: &String) -> Result<egui::TextureHandle, String>:
+    let base64_clean = # <expr>
+    let data = # <expr>
+    let format = # <expr>
+    let image = # <expr>
+    let rgba = # <expr>
+    let pixels = # <expr>
+    let color_image = # <expr>
+    # <expr>
+
+enum CameraMode:
+    Orbit
+    Rts
+    Fly
+    Cinematic
+
+struct ExperimentalCamera:
+    mode: CameraMode
+    enabled: Bool
+    smoothing: f32
+
+impl Default for ExperimentalCamera:
+    fn default_() -> Self:
+        # <expr>
+
+
+struct RtsCamera:
+    pan_speed: f32
+    zoom_speed: f32
+    rotate_speed: f32
+    min_zoom: f32
+    max_zoom: f32
+    zoom: f32
+    pitch: f32
+    yaw: f32
+    target: Vec3
+    edge_pan_enabled: Bool
+    edge_pan_zone: f32
+    edge_pan_speed: f32
+
+impl Default for RtsCamera:
+    fn default_() -> Self:
+        # <expr>
+
+
+struct RtsGround:
+    pass
+
+struct FlyCamera:
+    speed: f32
+    sprint_multiplier: f32
+    sensitivity: f32
+    yaw: f32
+    pitch: f32
+    cursor_grabbed: Bool
+
+impl Default for FlyCamera:
+    fn default_() -> Self:
+        # <expr>
+
+
+struct FlyKeybindings:
+    forward: KeyCode
+    backward: KeyCode
+    left: KeyCode
+    right: KeyCode
+    ascend: KeyCode
+    descend: KeyCode
+    sprint: KeyCode
+    toggle_grab: KeyCode
+
+impl Default for FlyKeybindings:
+    fn default_() -> Self:
+        # <expr>
+
+
+struct CinematicCamera:
+    waypoints: Array<CameraWaypoint>
+    current_index: usize
+    progress: f32
+    playing: Bool
+    loop_animation: Bool
+    easing: CameraEasing
+
+struct CameraWaypoint:
+    position: Vec3
+    look_at: Vec3
+    duration: f32
+
+enum CameraEasing:
+    Linear
+    EaseInOut
+    EaseIn
+    EaseOut
+
+impl Default for CinematicCamera:
+    fn default_() -> Self:
+        # <expr>
+
+
+struct AutoScale:
+    reference_width: f32
+    reference_height: f32
+    maintain_aspect: Bool
+    scale_mode: ScaleMode
+
+enum ScaleMode:
+    FitWidth
+    FitHeight
+    Fill
+    Contain
+
+impl Default for AutoScale:
+    fn default_() -> Self:
+        # <expr>
+
+
+struct CameraState:
+    active_mode: CameraMode
+    previous_mode: CameraMode
+
+struct SetCameraModeEvent:
+    field_0: CameraMode
+
+impl Message for SetCameraModeEvent:
+    pass
+
+struct FocusOnEntityEvent:
+    field_0: Entity
+
+impl Message for FocusOnEntityEvent:
+    pass
+
+struct FrameAllEvent:
+    pass
+
+impl Message for FrameAllEvent:
+    pass
+
+struct RtsPanToEvent:
+    field_0: Vec3
+
+impl Message for RtsPanToEvent:
+    pass
+
+struct PlayCinematicEvent:
+    pass
+
+impl Message for PlayCinematicEvent:
+    pass
+
+struct StopCinematicEvent:
+    pass
+
+impl Message for StopCinematicEvent:
+    pass
+
+struct ExperimentalCameraPlugin:
+    pass
+
+impl Plugin for ExperimentalCameraPlugin:
+    fn build(_self: &Self, app: &mut App):
+        # <expr>
+
+
+fn handle_mode_switch(events: MessageReader<SetCameraModeEvent>, camera_state: ResMut<CameraState>, query: Query<&mut ExperimentalCamera>):
+    # <expr>
+
+fn rts_camera_system(time: Res<Time>, keys: Res<ButtonInput<KeyCode>>, mouse_buttons: Res<ButtonInput<MouseButton>>, mouse_wheel: MessageReader<bevy::input::mouse::MouseWheel>, mouse_motion: MessageReader<bevy::input::mouse::MouseMotion>, windows: Query<&Window, With<bevy::window::PrimaryWindow>>, query: Query<(&ExperimentalCamera, &mut RtsCamera, &mut Transform)>):
+    let _ = # <expr>
+    let dt = # <expr>
+    # <expr>
+
+fn fly_camera_system(time: Res<Time>, keys: Res<ButtonInput<KeyCode>>, keybindings: Res<FlyKeybindings>, mouse_motion: MessageReader<bevy::input::mouse::MouseMotion>, query: Query<(&ExperimentalCamera, &mut FlyCamera, &mut Transform)>):
+    let dt = # <expr>
+    # <expr>
+
+fn cinematic_camera_system(time: Res<Time>, query: Query<(&ExperimentalCamera, &mut CinematicCamera, &mut Transform)>):
+    let dt = # <expr>
+    # <expr>
+
+fn auto_scale_system(windows: Query<&Window, With<bevy::window::PrimaryWindow>>, query: Query<(&AutoScale, &mut Projection)>):
+    let _ = # <expr>
+    # <expr>
+
+fn spawn_rts_camera(commands: &mut Commands) -> Entity:
+    # <expr>
+
+fn spawn_fly_camera(commands: &mut Commands) -> Entity:
+    # <expr>
+
+fn spawn_cinematic_camera(commands: &mut Commands, waypoints: Array<CameraWaypoint>) -> Entity:
+    # <expr>
+
+struct GpuDeviceBridgePlugin:
+    pass
+
+impl Plugin for GpuDeviceBridgePlugin:
+    fn build(_self: &Self, app: &mut App):
+        # <expr>
+
+
+fn init_gpu_device_bridge(render_device: Option<Res<bevy::render::renderer::RenderDevice>>, render_queue: Option<Res<bevy::render::renderer::RenderQueue>>):
+    # <expr>
+
+fn check_gpu_device_health():
+    # <expr>
+
+enum LeashMessage:
+    WindowMove { x: i32, y: i32, width: u32, height: u32 }
+    SetVisible(Bool)
+    CursorMoved { x: f32, y: f32 }
+    CameraRotate { dx: f32, dy: f32 }
+    BrushStroke { tool: u8, radius: f32, intensity: f32, x: f32, y: f32, dx: f32, dy: f32 }
+    CameraZoom { delta: f32 }
+    LoadModel { path: String }
+    LoadViewportPayload { path: String }
+    Undo
+    Redo
+    Snapshot
+    SetSymmetry { axis: u8 }
+    SetWireframe { enabled: Bool }
+    LoadPrimitive { primitive_type: u8 }
+    SetDebugUi { enabled: Bool }
+    SetEguiOnly { enabled: Bool }
+    SyncKernelStorage { json_path: String }
+    ToggleAssetBrowser
+    SpawnAsset { asset_type: String, id: String, position: Array<f32> }
+    Shutdown
+    SelectEntity { entity: u32, add_to_selection: Bool }
+    ToggleEntityVisibility { entity: u32 }
+    ToggleEntityLock { entity: u32 }
+    DeleteEntity { entity: u32 }
+    RenameEntity { entity: u32, name: String }
+
+struct LeashMessageEnvelope:
+    message: LeashMessage
+    sequence: u64
+    timestamp_ms: u64
+
+impl LeashMessage:
+    fn to_bytes(_self: &Self) -> Array<u8>:
+        let mut bytes = # <expr>
+        # <expr>
+        bytes
+
+    fn from_bytes(bytes: &Slice<u8>) -> Option<Self>:
+        # <expr>
+        # <expr>
+
+
+struct LeashMaster:
+    socket: std::net::UdpSocket
+    sequence_counter: std::sync::atomic::AtomicU64
+
+impl LeashMaster:
+    fn new_() -> Result<Self, Error>:
+        let socket = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn send_window_move(_self: &Self, x: i32, y: i32, width: u32, height: u32):
+        let msg = # <expr>
+        let _ = # <expr>
+
+    fn send_visibility(_self: &Self, visible: Bool):
+        let msg = # <expr>
+        let _ = # <expr>
+
+    fn send_shutdown(_self: &Self):
+        let msg = LeashMessage::Shutdown
+        let _ = # <expr>
+
+    fn send_cursor(_self: &Self, x: f32, y: f32):
+        let msg = # <expr>
+        let _ = # <expr>
+
+    fn send_camera_rotate(_self: &Self, dx: f32, dy: f32):
+        let msg = # <expr>
+        let _ = # <expr>
+
+    fn send_zoom(_self: &Self, delta: f32):
+        let msg = # <expr>
+        let _ = # <expr>
+
+    fn send_brush(_self: &Self, tool: u8, radius: f32, intensity: f32, x: f32, y: f32, dx: f32, dy: f32):
+        let msg = # <expr>
+        let _ = # <expr>
+
+    fn send_undo(_self: &Self):
+        let _ = # <expr>
+
+    fn send_redo(_self: &Self):
+        let _ = # <expr>
+
+    fn send_load_model(_self: &Self, path: &String):
+        let msg = # <expr>
+        let _ = # <expr>
+
+    fn send_viewport_payload(_self: &Self, path: &String):
+        let msg = # <expr>
+        let _ = # <expr>
+
+    fn send_snapshot(_self: &Self):
+        let _ = # <expr>
+
+    fn send_symmetry(_self: &Self, axis: u8):
+        let msg = # <expr>
+        let _ = # <expr>
+
+    fn send_wireframe(_self: &Self, enabled: Bool):
+        let msg = # <expr>
+        let _ = # <expr>
+
+    fn send_load_primitive(_self: &Self, primitive_type: u8):
+        let msg = # <expr>
+        let _ = # <expr>
+
+    fn send_debug_ui(_self: &Self, enabled: Bool):
+        let msg = # <expr>
+        let _ = # <expr>
+
+    fn send_egui_only(_self: &Self, enabled: Bool):
+        let msg = # <expr>
+        let _ = # <expr>
+
+    fn send_sync_kernel_storage(_self: &Self, json_path: &String):
+        let msg = # <expr>
+        let _ = # <expr>
+
+    fn send_toggle_asset_browser(_self: &Self):
+        let _ = # <expr>
+
+
+struct LeashDog:
+    messages: Array<LeashMessage>
+
+impl LeashDog:
+    fn new_() -> Result<Self, Error>:
+        let socket = # <expr>
+        # <expr>
+        let messages = # <expr>
+        let messages_clone = # <expr>
+        # <expr>
+        # <expr>
+
+    fn drain_messages(_self: &Self) -> Array<LeashMessage>:
+        # <expr>
+
+
+enum LeashResponse:
+    RaycastHit { hit: Bool, point: Array<f32>, normal: Array<f32>, distance: f32 }
+    BrushApplied { affected_count: u32, time_ms: f32 }
+    Status { vertex_count: u32, face_count: u32, fps: f32 }
+    Error { code: u32, message: String }
+    ToggleAssetBrowser
+    WindowMoved { x: i32, y: i32, width: u32, height: u32 }
+
+impl LeashResponse:
+    fn to_bytes(_self: &Self) -> Array<u8>:
+        let mut bytes = # <expr>
+        # <expr>
+        bytes
+
+
+struct LeashResponseSender:
+    socket: std::net::UdpSocket
+
+impl LeashResponseSender:
+    fn new_() -> Result<Self, Error>:
+        let socket = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn send_(_self: &Self, msg: LeashResponse):
+        let _ = # <expr>
+
+    fn send_window_moved(_self: &Self, x: i32, y: i32, width: u32, height: u32):
+        # <expr>
+
+
+struct LeashSender:
+    field_0: leash::LeashResponseSender
+
+fn handle_shortcuts(input: Res<ButtonInput<KeyCode>>, sender: Option<Res<LeashSender>>):
+    # <expr>
+
+mod gpu:
+
+mod modules:
+
+struct LeashReceiver:
+    dog: leash::LeashDog
+
+struct GameRuntimeAgentAnchor:
+    agent_id: String
+
+struct GameRuntimeAgentMotion:
+    last_linear: Vec3
+    last_angular: Vec3
+    last_frame: u64
+
+fn workspace_assets_dir() -> std::path::PathBuf:
+    let manifest_dir = # <expr>
+    # <expr>
+
+struct GamePipelineBootstrapConfig:
+    enabled: Bool
+    manifest_path: std::path::PathBuf
+    workspace_root: std::path::PathBuf
+    launch_preset: Option<String>
+    launch_profile: Option<String>
+    fail_fast: Bool
+    emit_artifacts: Bool
+
+impl GamePipelineBootstrapConfig:
+    fn from_env() -> Self:
+        let workspace_root = # <expr>
+        let manifest_path = # <expr>
+        # <expr>
+
+
+struct GamePipelineStartupEvent:
+    stage_id: String
+    kind: String
+    profile: String
+    adapter_id: String
+    status: String
+    detail: String
+
+impl bevy::prelude::Message for GamePipelineStartupEvent:
+    pass
+
+impl GamePipelineStartupEvent:
+    fn from_record(record: &k_os_game_runtime::StageExecutionRecord) -> Self:
+        # <expr>
+
+    fn bootstrap_error(detail: String) -> Self:
+        # <expr>
+
+
+fn parse_env_bool(key: &String, default_value: Bool) -> Bool:
+    # <expr>
+
+fn workspace_root_dir() -> std::path::PathBuf:
+    let manifest_dir = # <expr>
+    # <expr>
+
+fn reconcile_game_pipeline_runtime_state(bootstrap_state: Option<Res<k_os_game_framework::GamePipelineBootstrapState>>, registry_state: Option<Res<k_os_game_framework::GameDataRegistryState>>, policy: Option<Res<k_os_game_play::GamePipelineRuntimePolicy>>, bindings_state: ResMut<k_os_game_framework::GameRuntimeRegistryBindings>, readiness_state: ResMut<k_os_game_play::RuntimeReadinessState>):
+    let next_bindings = # <expr>
+    let next_readiness = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+
+fn reconcile_game_pipeline_ai_state(bootstrap_state: Option<Res<k_os_game_framework::GamePipelineBootstrapState>>, registry_state: Option<Res<k_os_game_framework::GameDataRegistryState>>, ai_state: ResMut<k_os_game_ai::GameAiRuntimeState>):
+    let next = # <expr>
+    # <expr>
+    # <expr>
+
+fn reconcile_game_pipeline_ai_decision_state(ai_state: Res<k_os_game_ai::GameAiRuntimeState>, decision_state: ResMut<k_os_game_ai::GameAiDecisionRuntimeState>):
+    let next = # <expr>
+    # <expr>
+    # <expr>
+
+fn reconcile_game_pipeline_action_state(registry_state: Option<Res<k_os_game_framework::GameDataRegistryState>>, runtime_bindings: Option<Res<k_os_game_framework::GameRuntimeRegistryBindings>>, ai_decision_state: Option<Res<k_os_game_ai::GameAiDecisionRuntimeState>>, action_bindings: ResMut<k_os_game_framework::GameRuntimeActionBindings>):
+    let next = # <expr>
+    # <expr>
+    # <expr>
+
+fn reconcile_game_pipeline_input_state(registry_state: Option<Res<k_os_game_framework::GameDataRegistryState>>, runtime_bindings: Option<Res<k_os_game_framework::GameRuntimeRegistryBindings>>, action_bindings: Option<Res<k_os_game_framework::GameRuntimeActionBindings>>, camera_state: Option<Res<k_os_game_camera::GameCameraRuntimeState>>, input_state: ResMut<k_os_game_input::GameInputRuntimeState>):
+    let next = # <expr>
+    # <expr>
+    # <expr>
+
+fn capture_game_host_input_frame(keyboard: Res<ButtonInput<KeyCode>>, mouse_buttons: Res<ButtonInput<MouseButton>>, mouse_motion: MessageReader<bevy::input::mouse::MouseMotion>, host_input: ResMut<k_os_game_input::GameHostInputFrame>, input_state: Option<Res<k_os_game_input::GameInputRuntimeState>>):
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    let mut delta = Vec2::ZERO
+    # <expr>
+    let max_mouse_delta = # <expr>
+    let clamped_x = # <expr>
+    let clamped_y = # <expr>
+    # <expr>
+
+fn reconcile_game_pipeline_input_intents(input_state: Option<Res<k_os_game_input::GameInputRuntimeState>>, host_input: Option<Res<k_os_game_input::GameHostInputFrame>>, intent_state: ResMut<k_os_game_input::GameInputIntentState>):
+    let next = # <expr>
+    # <expr>
+    # <expr>
+
+fn reconcile_game_pipeline_execution_commands(registry_state: Option<Res<k_os_game_framework::GameDataRegistryState>>, intent_state: Option<Res<k_os_game_input::GameInputIntentState>>, command_state: ResMut<k_os_game_play::GameExecutionCommandState>):
+    let next = # <expr>
+    # <expr>
+    # <expr>
+
+fn reconcile_game_pipeline_execution_application(registry_state: Option<Res<k_os_game_framework::GameDataRegistryState>>, command_state: Option<Res<k_os_game_play::GameExecutionCommandState>>, application_state: ResMut<k_os_game_play::GameExecutionApplicationState>):
+    let next = # <expr>
+    # <expr>
+    # <expr>
+
+fn reconcile_game_pipeline_execution_effects(registry_state: Option<Res<k_os_game_framework::GameDataRegistryState>>, command_state: Option<Res<k_os_game_play::GameExecutionCommandState>>, application_state: Option<Res<k_os_game_play::GameExecutionApplicationState>>, effects_state: ResMut<k_os_game_play::GameExecutionEffectsState>):
+    let next = # <expr>
+    # <expr>
+    # <expr>
+
+fn reconcile_game_pipeline_execution_transport(registry_state: Option<Res<k_os_game_framework::GameDataRegistryState>>, effects_state: Option<Res<k_os_game_play::GameExecutionEffectsState>>, transport_state: ResMut<k_os_game_play::GameExecutionTransportState>):
+    let next = # <expr>
+    # <expr>
+    # <expr>
+
+fn reconcile_game_pipeline_execution_transport_backends(registry_state: Option<Res<k_os_game_framework::GameDataRegistryState>>, transport_state: Option<Res<k_os_game_play::GameExecutionTransportState>>, transport_backend_state: ResMut<k_os_game_play::GameExecutionTransportBackendState>):
+    let next = # <expr>
+    # <expr>
+    # <expr>
+
+fn apply_game_pipeline_execution_commands(application_state: Option<Res<k_os_game_play::GameExecutionApplicationState>>, agents: Query<(&GameRuntimeAgentAnchor, &mut Transform, Option<&mut GameRuntimeAgentMotion>)>):
+    let _ = application_state
+    # <expr>
+    # <expr>
+
+fn reconcile_game_pipeline_camera_state(registry_state: Option<Res<k_os_game_framework::GameDataRegistryState>>, runtime_bindings: Option<Res<k_os_game_framework::GameRuntimeRegistryBindings>>, action_bindings: Option<Res<k_os_game_framework::GameRuntimeActionBindings>>, camera_dispatch_state: Option<Res<k_os_game_camera::GameCameraDispatchState>>, camera_state: ResMut<k_os_game_camera::GameCameraRuntimeState>):
+    let next = # <expr>
+    # <expr>
+    # <expr>
+
+fn reconcile_game_pipeline_camera_view_state(registry_state: Option<Res<k_os_game_framework::GameDataRegistryState>>, camera_state: Option<Res<k_os_game_camera::GameCameraRuntimeState>>, camera_dispatch_state: Option<Res<k_os_game_camera::GameCameraDispatchState>>, camera_view_state: ResMut<k_os_game_camera::GameCameraViewRuntimeState>):
+    let next = # <expr>
+    # <expr>
+    # <expr>
+
+fn apply_game_pipeline_camera_view_state(camera_view_state: Option<Res<k_os_game_camera::GameCameraViewRuntimeState>>, camera_query: Query<(&mut Transform, &mut bevy_panorbit_camera::PanOrbitCamera), With<tools::MainCamera>>):
+    let _ = camera_view_state
+    # <expr>
+    let focus = # <expr>
+    let translation = # <expr>
+    # <expr>
+
+fn reconcile_game_pipeline_camera_dispatch_state(registry_state: Option<Res<k_os_game_framework::GameDataRegistryState>>, sequencer_dispatch_state: Option<Res<k_os_game_sequencer::GameSequencerTrackDispatchState>>, camera_dispatch_state: ResMut<k_os_game_camera::GameCameraDispatchState>):
+    let dispatch_inputs = # <expr>
+    let next = # <expr>
+    # <expr>
+    # <expr>
+
+fn reconcile_game_pipeline_sequencer_state(registry_state: Option<Res<k_os_game_framework::GameDataRegistryState>>, action_bindings: Option<Res<k_os_game_framework::GameRuntimeActionBindings>>, camera_state: Option<Res<k_os_game_camera::GameCameraRuntimeState>>, sequencer_state: ResMut<k_os_game_sequencer::GameSequencerRuntimeState>):
+    let next = # <expr>
+    # <expr>
+    # <expr>
+
+fn reconcile_game_pipeline_sequencer_dispatch_state(registry_state: Option<Res<k_os_game_framework::GameDataRegistryState>>, action_bindings: Option<Res<k_os_game_framework::GameRuntimeActionBindings>>, camera_state: Option<Res<k_os_game_camera::GameCameraRuntimeState>>, sequencer_state: Option<Res<k_os_game_sequencer::GameSequencerRuntimeState>>, dispatch_state: ResMut<k_os_game_sequencer::GameSequencerTrackDispatchState>):
+    let next = # <expr>
+    # <expr>
+    # <expr>
+
+fn stage_kind_key(kind: &k_os_game_runtime::StageKind) -> &String:
+    # <expr>
+
+fn stage_status_key(status: &k_os_game_runtime::StageExecutionStatus) -> &String:
+    # <expr>
+
+fn bootstrap_game_pipeline(commands: Commands, startup_events: MessageWriter<GamePipelineStartupEvent>):
+    let config = # <expr>
+    let mut state = # <expr>
+    let mut registry_state = # <expr>
+    # <expr>
+    # <expr>
+    let manifest = # <expr>
+    let launch_preset = # <expr>
+    # <expr>
+    let runtime_policy = # <expr>
+    # <expr>
+    # <expr>
+    let plan = # <expr>
+    # <expr>
+    let execution_options = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+
+fn log_game_pipeline_startup_events(startup_events: MessageReader<GamePipelineStartupEvent>):
+    # <expr>
+
+fn handle_spawn_primitive(events: MessageReader<SpawnPrimitiveEvent>, commands: Commands, meshes: ResMut<Assets<Mesh>>, materials: ResMut<Assets<StandardMaterial>>, selection_state: ResMut<viewport::SelectionState>):
+    # <expr>
+
+struct DebugUiState:
+    enabled: Bool
+    frames_elapsed: u32
+
+impl Default for DebugUiState:
+    fn default_() -> Self:
+        # <expr>
+
+
+struct SpawnPrimitiveEvent:
+    primitive_type: u8
+
+impl bevy::prelude::Message for SpawnPrimitiveEvent:
+    pass
+
+struct NativeViewportPayload:
+    mesh_handle: u64
+    positions: Array<f32>
+    normals: Array<f32>
+    indices: Array<u32>
+
+struct DebugUiPanels:
+    sandbox_open: Bool
+    sculpt_open: Bool
+    sandbox_slider: f32
+    sandbox_text: String
+    brush_tool: u8
+    brush_radius: f32
+    brush_intensity: f32
+    cursor_ndc: Vec2
+    use_delta: Bool
+    delta_ndc: Vec2
+    auto_stroke: Bool
+    strokes_per_sec: f32
+    auto_timer: Timer
+    strokes_sent: u64
+    brush_mode_add: Bool
+    symmetry_x: Bool
+    subdivision_level: u32
+    pending_primitive: Option<u8>
+
+impl Default for DebugUiPanels:
+    fn default_() -> Self:
+        let strokes_per_sec = 8
+        # <expr>
+
+
+fn request_simple_mode():
+    # <stmt>
+    let signal_path = # <expr>
+    let _ = # <expr>
+    # <expr>
+
+fn launch_tauri_overlay():
+    # <stmt>
+    # <stmt>
+    # <expr>
+
+struct LastWindowPosition:
+    x: i32
+    y: i32
+    width: u32
+    height: u32
+
+fn report_window_position(windows: Query<&bevy::window::Window, With<bevy::window::PrimaryWindow>>, sender: Option<Res<LeashSender>>, last_pos: ResMut<LastWindowPosition>):
+    let _ = # <expr>
+    let _ = sender
+    let _ = # <expr>
+    let width = # <expr>
+    let height = # <expr>
+    # <expr>
+
+fn kos_topbar_system(_contexts: bevy_egui::EguiContexts, _active_tool: ResMut<viewport::ActiveTool>, _debug_ui: Res<DebugUiState>) -> Result<(), Error>:
+    # <expr>
+
+fn game_runtime_diagnostics_ui_system(contexts: bevy_egui::EguiContexts, debug_ui: Res<DebugUiState>, runtime_debug: GameRuntimeDebugCtx) -> Result<(), Error>:
+    # <expr>
+    let ctx = # <expr>
+    # <expr>
+    # <expr>
+
+fn main():
+    let args: Array<String> = # <expr>
+    let standalone_mode = # <expr>
+    # <expr>
+    let dog = # <expr>
+    let sender = # <expr>
+    let mut app = # <expr>
+    let asset_path = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+
+fn run_standalone():
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    let dog = # <expr>
+    let asset_path = # <expr>
+    let mut app = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+
+fn heartbeat_system(sender: Option<Res<LeashSender>>, time: Res<Time>, timer: Local<Timer>, diagnostics: Res<bevy::diagnostic::DiagnosticsStore>, sculpt_q: Query<&tools::SculptData, With<tools::SculptModel>>):
+    # <expr>
+    # <expr>
+
+struct FollowMasterCtx:
+    commands: Commands<w, s>
+    debug_ui: ResMut<w, DebugUiState>
+    time: Res<w, Time>
+    telemetry: ResMut<w, tools::InputTelemetry>
+    cursor_events: MessageWriter<w, tools::CursorMovedEvent>
+    camera_q: Query<w, s, (&mut Transform, &bevy_panorbit_camera::PanOrbitCamera), With<Camera>>
+    brush_events: MessageWriter<w, tools::BrushStrokeEvent>
+    undo_events: MessageWriter<w, tools::UndoEvent>
+    redo_events: MessageWriter<w, tools::RedoEvent>
+    snapshot_events: MessageWriter<w, tools::SnapshotEvent>
+    spawn_primitive_events: MessageWriter<w, SpawnPrimitiveEvent>
+    import_events: MessageWriter<w, viewport::ImportGltfEvent>
+    meshes: ResMut<w, Assets<Mesh>>
+    materials: ResMut<w, Assets<StandardMaterial>>
+    existing_sculpt: Query<w, s, Entity, With<tools::SculptModel>>
+
+struct GameRuntimeDebugCtx:
+    bootstrap_state: Option<Res<w, k_os_game_framework::GamePipelineBootstrapState>>
+    readiness_state: Option<Res<w, k_os_game_play::RuntimeReadinessState>>
+    ai_state: Option<Res<w, k_os_game_ai::GameAiRuntimeState>>
+    ai_decision_state: Option<Res<w, k_os_game_ai::GameAiDecisionRuntimeState>>
+    action_bindings: Option<Res<w, k_os_game_framework::GameRuntimeActionBindings>>
+    camera_dispatch_state: Option<Res<w, k_os_game_camera::GameCameraDispatchState>>
+    camera_state: Option<Res<w, k_os_game_camera::GameCameraRuntimeState>>
+    sequencer_state: Option<Res<w, k_os_game_sequencer::GameSequencerRuntimeState>>
+    sequencer_dispatch_state: Option<Res<w, k_os_game_sequencer::GameSequencerTrackDispatchState>>
+    input_state: Option<Res<w, k_os_game_input::GameInputRuntimeState>>
+    intent_state: Option<Res<w, k_os_game_input::GameInputIntentState>>
+    command_state: Option<Res<w, k_os_game_play::GameExecutionCommandState>>
+    execution_application_state: Option<Res<w, k_os_game_play::GameExecutionApplicationState>>
+    execution_effects_state: Option<Res<w, k_os_game_play::GameExecutionEffectsState>>
+    execution_transport_state: Option<Res<w, k_os_game_play::GameExecutionTransportState>>
+    execution_transport_backend_state: Option<Res<w, k_os_game_play::GameExecutionTransportBackendState>>
+    agent_q: Query<w, s, (&GameRuntimeAgentAnchor, &Transform, Option<&GameRuntimeAgentMotion>)>
+
+fn follow_master(leash: Res<LeashReceiver>, windows: Query<&mut bevy::window::Window, With<bevy::window::PrimaryWindow>>, exit: MessageWriter<AppExit>, ctx: FollowMasterCtx):
+    # <expr>
+
+fn spawn_egui_primitives(commands: Commands, meshes: ResMut<Assets<Mesh>>, materials: ResMut<Assets<StandardMaterial>>, panels: ResMut<DebugUiPanels>, selection_state: ResMut<viewport::SelectionState>):
+    # <expr>
+
+fn debug_hud_system(contexts: bevy_egui::EguiContexts, egui_capture: ResMut<tools::EguiCaptureState>, panels: ResMut<DebugUiPanels>, brush_settings: ResMut<tools::BrushSettings>, debug_ui: ResMut<DebugUiState>, active_tool: ResMut<viewport::ActiveTool>, diagnostics: Res<bevy::diagnostic::DiagnosticsStore>, sculpt_q: Query<(Entity, &Mesh3d, &tools::SculptData), With<tools::SculptModel>>, meshes: Res<Assets<Mesh>>, undo_events: MessageWriter<tools::UndoEvent>, redo_events: MessageWriter<tools::RedoEvent>, snapshot_events: MessageWriter<tools::SnapshotEvent>, subdivide_events: MessageWriter<tools::SubdivideEvent>, cursor_state: Res<tools::SculptCursorState>, time: Res<Time>, telemetry: Res<tools::InputTelemetry>, runtime_debug: GameRuntimeDebugCtx) -> Result<(), Error>:
+    # <expr>
+    # <expr>
+    # <expr>
+    let ctx = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    let fps = # <expr>
+    let mut total_verts: usize = 0
+    let mut total_tris: usize = 0
+    let mut rows: Array<(Entity, usize, usize, usize)> = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+
+fn debug_sculpt_auto_stroke_system(debug_ui: Res<DebugUiState>, panels: ResMut<DebugUiPanels>, active_tool: Res<viewport::ActiveTool>, time: Res<Time>, cursor_events: MessageWriter<tools::CursorMovedEvent>, brush_events: MessageWriter<tools::BrushStrokeEvent>):
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+
+fn setup_scene(commands: Commands, meshes: ResMut<Assets<Mesh>>, materials: ResMut<Assets<StandardMaterial>>, selection_state: ResMut<viewport::SelectionState>):
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+
+fn mesh_from_primitive(prim: k_os_mesh::primitive_gen::PrimitiveResult) -> Mesh:
+    let mut mesh = # <expr>
+    let positions: Array<Array<f32>> = # <expr>
+    # <expr>
+    let normals: Array<Array<f32>> = # <expr>
+    # <expr>
+    let uvs: Array<Array<f32>> = # <expr>
+    # <expr>
+    # <expr>
+    mesh
+
+struct BrushCursorData:
+    color: Vec4
+    radius: f32
+    falloff: f32
+    alpha: f32
+    show_delta: f32
+    delta_start: Vec3
+    delta_end: Vec3
+    padding: f32
+
+impl Default for BrushCursorData:
+    fn default_() -> Self:
+        # <expr>
+
+
+struct BrushCursorMaterial:
+    data: BrushCursorData
+
+impl Default for BrushCursorMaterial:
+    fn default_() -> Self:
+        # <expr>
+
+
+impl BrushCursorMaterial:
+    fn new_(color: Color, radius: f32, falloff: f32) -> Self:
+        # <expr>
+
+    fn set_radius(_self: &mut Self, radius: f32):
+        # <expr>
+
+    fn set_falloff(_self: &mut Self, falloff: f32):
+        # <expr>
+
+    fn show_delta(_self: &mut Self, start: Vec3, end: Vec3):
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn hide_delta(_self: &mut Self):
+        # <expr>
+
+
+impl Material for BrushCursorMaterial:
+    fn vertex_shader() -> bevy::render::render_resource::ShaderRef:
+        # <expr>
+
+    fn fragment_shader() -> bevy::render::render_resource::ShaderRef:
+        # <expr>
+
+    fn alpha_mode(_self: &Self) -> AlphaMode:
+        AlphaMode::Blend
+
+    fn specialize(_pipeline: &mut bevy::pbr::MaterialPipeline<Self>, descriptor: &mut RenderPipelineDescriptor, layout: &MeshVertexBufferLayoutRef, _key: MaterialPipelineKey<Self>):
+        let vertex_layout = # <expr>
+        # <expr>
+
+
+struct EguiCaptureState:
+    wants_pointer: Bool
+
+enum InputSource:
+    ReactLeash
+    BevyLocal
+
+struct InputTelemetry:
+    last_source: Option<InputSource>
+    last_leash_input_s: f64
+    last_bevy_local_input_s: f64
+    bevy_has_cursor: Bool
+    last_bevy_cursor_s: f64
+
+struct BrushSettings:
+    tool: u8
+    radius: f32
+    intensity: f32
+
+impl Default for BrushSettings:
+    fn default_() -> Self:
+        # <expr>
+
+
+struct ActiveBrush:
+    asset: crate::brushes::KBrushAsset
+    modified: Bool
+
+impl Default for ActiveBrush:
+    fn default_() -> Self:
+        # <expr>
+        # <expr>
+
+
+impl ActiveBrush:
+    fn load_from_library(_self: &mut Self, brush_id: &String) -> Bool:
+        let library = # <expr>
+        # <expr>
+
+    fn radius(_self: &Self) -> f32:
+        # <expr>
+
+    fn strength(_self: &Self) -> f32:
+        # <expr>
+
+    fn legacy_tool_id(_self: &Self) -> u8:
+        # <expr>
+
+
+struct SwitchBrushEvent:
+    brush_id: String
+
+impl bevy::prelude::Message for SwitchBrushEvent:
+    pass
+
+struct LocalStrokeState:
+    active: Bool
+    last_ndc: Vec2
+
+struct CursorMovedEvent:
+    field_0: Vec2
+
+impl bevy::prelude::Message for CursorMovedEvent:
+    pass
+
+struct BrushStrokeEvent:
+    tool: u8
+    kernel: Option<String>
+    radius: f32
+    intensity: f32
+    cursor_ndc: Vec2
+    delta_ndc: Option<Vec2>
+
+impl bevy::prelude::Message for BrushStrokeEvent:
+    pass
+
+struct UndoEvent:
+    pass
+
+impl bevy::prelude::Message for UndoEvent:
+    pass
+
+struct RedoEvent:
+    pass
+
+impl bevy::prelude::Message for RedoEvent:
+    pass
+
+struct SnapshotEvent:
+    pass
+
+impl bevy::prelude::Message for SnapshotEvent:
+    pass
+
+struct SubdivideEvent:
+    pass
+
+impl bevy::prelude::Message for SubdivideEvent:
+    pass
+
+struct RemeshEvent:
+    resolution: u32
+
+impl bevy::prelude::Message for RemeshEvent:
+    pass
+
+impl Default for RemeshEvent:
+    fn default_() -> Self:
+        # <expr>
+
+
+struct SculptModel:
+    pass
+
+struct SculptData:
+    sculpt_handle: Option<crate::modules::sculpt::SculptMeshHandle>
+    grid: crate::modules::sculpt::SpatialGrid
+    topology: crate::modules::sculpt::MeshTopology
+    normals: Array<f32>
+    indices: Array<u32>
+    undo_stack: Array<Array<f32>>
+    redo_stack: Array<Array<f32>>
+    gpu_mesh_handle: Option<u64>
+    gpu_bvh_dirty: Bool
+    gpu_sculpt_handle: Option<u64>
+    last_hit_point: Option<Vec3>
+
+struct SculptCursorState:
+    position_ndc: Vec2
+    hit_point_world: Option<Vec3>
+    hit_normal_world: Option<Vec3>
+
+struct GpuGeometryEngines:
+    subdivide: Option<k_os_gpu_pipeline::pipelines::subdivide_v2::GpuSubdivideEngineV2>
+    dynamesh: Option<crate::gpu::pipelines::GpuDynameshEngine>
+
+impl GpuGeometryEngines:
+    fn get_subdivide(_self: &mut Self, device: &wgpu::Device, _queue: &wgpu::Queue) -> Result<&k_os_gpu_pipeline::pipelines::subdivide_v2::GpuSubdivideEngineV2, String>:
+        # <expr>
+        # <expr>
+
+    fn get_dynamesh(_self: &mut Self, device: &wgpu::Device) -> &crate::gpu::pipelines::GpuDynameshEngine:
+        # <expr>
+        # <expr>
+
+
+struct BrushCursor:
+    pass
+
+struct BvhThrottle:
+    frames_since_rebuild: u32
+    rebuild_interval: u32
+
+impl Default for BvhThrottle:
+    fn default_() -> Self:
+        # <expr>
+
+
+struct BevyGpuRaycast:
+    engine: Option<crate::gpu::GpuBvhRaycast>
+    meshes: Map<u64, crate::gpu::GpuRaycastMesh>
+    next_handle: u64
+
+impl Default for BevyGpuRaycast:
+    fn default_() -> Self:
+        # <expr>
+
+
+impl BevyGpuRaycast:
+    fn ensure_engine_with_device(_self: &mut Self, device: &wgpu::Device):
+        # <expr>
+
+    fn is_ready(_self: &Self) -> Bool:
+        # <expr>
+
+    fn register_mesh_with_device(_self: &mut Self, device: &wgpu::Device, positions: &Slice<f32>, indices: &Slice<u32>) -> Result<u64, String>:
+        # <expr>
+        let engine = # <expr>
+        let mesh = # <expr>
+        let handle = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn rebuild_mesh_with_device(_self: &mut Self, device: &wgpu::Device, handle: u64, positions: &Slice<f32>, indices: &Slice<u32>) -> Result<(), String>:
+        let engine = # <expr>
+        let mesh = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn raycast_with_device(_self: &Self, device: &wgpu::Device, queue: &wgpu::Queue, handle: u64, origin: Vec3, direction: Vec3) -> Result<crate::gpu::RayHit, String>:
+        let engine = # <expr>
+        let mesh = # <expr>
+        # <expr>
+
+    fn dispose_mesh(_self: &mut Self, handle: u64):
+        # <expr>
+
+
+struct BevyGpuSculpt:
+    engine: Option<k_os_gpu_pipeline::sculpt::GpuSculptCompute>
+    mesh_buffers: Map<u64, k_os_gpu_pipeline::sculpt::GpuMeshBuffers>
+
+impl Default for BevyGpuSculpt:
+    fn default_() -> Self:
+        # <expr>
+
+
+impl BevyGpuSculpt:
+    fn ensure_engine(_self: &mut Self, device: &wgpu::Device, queue: &wgpu::Queue):
+        # <expr>
+
+    fn register_mesh(_self: &mut Self, device: &wgpu::Device, entity_id: u64, positions: &Slice<f32>, normals: &Slice<f32>) -> Result<(), String>:
+        let engine_2 = # <expr>
+        let vertex_count = # <expr>
+        let mut positions_vec4: Array<Array<f32>> = # <expr>
+        # <expr>
+        let mut normals_vec4: Array<Array<f32>> = # <expr>
+        # <expr>
+        let positions_buffer = # <expr>
+        let normals_buffer = # <expr>
+        let buffers = # <expr>
+        # <expr>
+        # <expr>
+
+
+struct MainCamera:
+    pass
+
+struct SculptPlugin:
+    pass
+
+impl Plugin for SculptPlugin:
+    fn build(_self: &Self, app: &mut App):
+        # <expr>
+
+
+fn spawn_brush_cursor(commands: &mut Commands, meshes: &mut Assets<Mesh>, materials: &mut Assets<StandardMaterial>):
+    let mut circle_mesh = # <expr>
+    let mesh = # <expr>
+    let cursor_material = # <expr>
+    # <expr>
+
+fn sculpt_tool_activation_system(commands: Commands, active_tool: Res<crate::viewport::ActiveTool>, selection: Res<crate::viewport::SelectionState>, meshes: ResMut<Assets<Mesh>>, materials: ResMut<Assets<StandardMaterial>>, cursor_q: Query<Entity, With<BrushCursor>>, mesh_targets_check: Query<(), (With<Mesh3d>, With<crate::viewport::Selectable>, Without<SculptModel>)>, mesh_targets: Query<Entity, (With<Mesh3d>, With<crate::viewport::Selectable>, Without<SculptModel>)>):
+    # <expr>
+    # <expr>
+
+fn switch_brush_system(switch_events: MessageReader<SwitchBrushEvent>, active_brush: ResMut<ActiveBrush>, brush_settings: ResMut<BrushSettings>):
+    # <expr>
+
+fn ensure_selected_mesh_is_sculpt_target(commands: Commands, selection: Res<crate::viewport::SelectionState>, mesh_targets_check: Query<(), (With<Mesh3d>, With<crate::viewport::Selectable>, Without<SculptModel>)>):
+    let _ = # <expr>
+    # <expr>
+
+fn local_mouse_brush_input_system(capture: ResMut<EguiCaptureState>, telemetry: ResMut<InputTelemetry>, settings: Res<BrushSettings>, state: ResMut<LocalStrokeState>, buttons: Res<ButtonInput<MouseButton>>, time: Res<Time>, window: Single<&bevy::window::Window, With<bevy::window::PrimaryWindow>>, cursor_events: MessageWriter<CursorMovedEvent>, brush_events: MessageWriter<BrushStrokeEvent>, snapshot_events: MessageWriter<SnapshotEvent>, active_brush: Res<ActiveBrush>):
+    # <expr>
+    let cursor_opt = # <expr>
+    # <expr>
+    # <expr>
+    let _ = cursor_opt
+    let size = # <expr>
+    # <expr>
+    let ndc = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+
+fn init_sculpt_data(commands: Commands, meshes: ResMut<Assets<Mesh>>, query: Query<(Entity, &Mesh3d), (With<SculptModel>, Without<SculptData>)>, gpu_raycast: ResMut<BevyGpuRaycast>, render_device: Res<bevy::render::renderer::RenderDevice>):
+    # <expr>
+
+fn update_cursor(camera_q: Query<(&Camera, &GlobalTransform), With<MainCamera>>, cursor_q: Query<&mut Transform, With<BrushCursor>>, cursor_state: ResMut<SculptCursorState>, brush_settings: Res<BrushSettings>, meshes: Res<Assets<Mesh>>, sculpt_models: Query<(&Mesh3d, &GlobalTransform, &SculptData), With<SculptModel>>, window: Single<&bevy::window::Window, With<bevy::window::PrimaryWindow>>, gpu_raycast: Res<BevyGpuRaycast>, render_device: Res<bevy::render::renderer::RenderDevice>, render_queue: Res<bevy::render::renderer::RenderQueue>):
+    let _ = # <expr>
+    let _ = # <expr>
+    let default_pos = # <expr>
+    let cursor_pos = # <expr>
+    let size = # <expr>
+    # <expr>
+    let ndc = # <expr>
+    # <expr>
+    let viewport_pos = cursor_pos
+    # <stmt>
+    let ray = # <expr>
+    let mut best_hit: Option<(f32, Vec3, Vec3)> = None
+    let sculpt_count = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+
+fn apply_brush_system(brush_events: MessageReader<BrushStrokeEvent>, meshes: ResMut<Assets<Mesh>>, camera_q: Query<(&Camera, &GlobalTransform), With<MainCamera>>, sculpt_models: Query<(Entity, &Mesh3d, &GlobalTransform, &mut SculptData), With<SculptModel>>, cursor_state: Res<SculptCursorState>):
+    let _ = # <expr>
+    # <expr>
+
+fn reset_stroke_last_hits(buttons: Res<ButtonInput<MouseButton>>, sculpt_models: Query<&mut SculptData, With<SculptModel>>):
+    # <expr>
+
+fn handle_undo_redo(undo_events: MessageReader<UndoEvent>, redo_events: MessageReader<RedoEvent>, snapshot_events: MessageReader<SnapshotEvent>, meshes: ResMut<Assets<Mesh>>, sculpt_models: Query<(&Mesh3d, &mut SculptData), With<SculptModel>>):
+    # <expr>
+    # <expr>
+    # <expr>
+
+fn handle_gpu_subdivide(subdivide_events: MessageReader<SubdivideEvent>, meshes: ResMut<Assets<Mesh>>, sculpt_models: Query<(Entity, &Mesh3d, &mut SculptData), With<SculptModel>>, gpu_engines: ResMut<GpuGeometryEngines>, gpu_sculpt: ResMut<BevyGpuSculpt>, gpu_raycast: ResMut<BevyGpuRaycast>, render_device: Res<bevy::render::renderer::RenderDevice>, render_queue: Res<bevy::render::renderer::RenderQueue>):
+    # <expr>
+
+fn handle_gpu_remesh(remesh_events: MessageReader<RemeshEvent>, meshes: ResMut<Assets<Mesh>>, sculpt_models: Query<(Entity, &Mesh3d, &mut SculptData), With<SculptModel>>, gpu_engines: ResMut<GpuGeometryEngines>, gpu_sculpt: ResMut<BevyGpuSculpt>, gpu_raycast: ResMut<BevyGpuRaycast>, render_device: Res<bevy::render::renderer::RenderDevice>, render_queue: Res<bevy::render::renderer::RenderQueue>):
+    # <expr>
+
+fn rebuild_bvh_system(sculpt_models: Query<(&Mesh3d, &mut SculptData), With<SculptModel>>, meshes: Res<Assets<Mesh>>, throttle: ResMut<BvhThrottle>, gpu_raycast: ResMut<BevyGpuRaycast>, render_device: Res<bevy::render::renderer::RenderDevice>):
+    let any_dirty = # <expr>
+    # <expr>
+
+struct SculptUiPlugin:
+    pass
+
+impl Plugin for SculptUiPlugin:
+    fn build(_self: &Self, app: &mut App):
+        # <expr>
+
+
+fn sculpt_mode_active(active_tool: Res<crate::viewport::ActiveTool>) -> Bool:
+    # <expr>
+
+struct SculptUiState:
+    brush_category: BrushCategory
+    radius: f32
+    intensity: f32
+    is_add_mode: Bool
+    symmetry_x: Bool
+    symmetry_y: Bool
+    symmetry_z: Bool
+    show_brush_preview: Bool
+    geometry_collapsed: Bool
+    stroke_count: u64
+
+impl Default for SculptUiState:
+    fn default_() -> Self:
+        # <expr>
+
+
+enum BrushCategory:
+    Sculpt
+    Smooth
+    Grab
+    Special
+
+fn get_brush_icon(kernel: &crate::brushes::BrushKernel) -> &String:
+    # <expr>
+
+mod colors:
+
+fn sculpt_left_panel_system(contexts: bevy_egui::EguiContexts, ui_state: ResMut<SculptUiState>, brush_settings: ResMut<super::sculpt::BrushSettings>, active_brush: Res<super::sculpt::ActiveBrush>, switch_events: MessageWriter<super::sculpt::SwitchBrushEvent>, subdivide_events: MessageWriter<super::sculpt::SubdivideEvent>, remesh_events: MessageWriter<super::sculpt::RemeshEvent>) -> Result<(), Error>:
+    let ctx = # <expr>
+    # <expr>
+    # <expr>
+
+fn sculpt_properties_panel_system(contexts: bevy_egui::EguiContexts, active_brush: Res<super::sculpt::ActiveBrush>, cursor_state: Res<super::sculpt::SculptCursorState>, undo_events: MessageWriter<super::sculpt::UndoEvent>, redo_events: MessageWriter<super::sculpt::RedoEvent>, snapshot_events: MessageWriter<super::sculpt::SnapshotEvent>) -> Result<(), Error>:
+    let ctx = # <expr>
+    # <expr>
+    # <expr>
+
+fn sculpt_status_bar_system(contexts: bevy_egui::EguiContexts, diagnostics: Res<bevy::diagnostic::DiagnosticsStore>, sculpt_q: Query<(&Mesh3d, &super::sculpt::SculptData), With<super::sculpt::SculptModel>>, meshes: Res<Assets<Mesh>>, ui_state: Res<SculptUiState>) -> Result<(), Error>:
+    let ctx = # <expr>
+    let fps = # <expr>
+    let mut total_verts = 0
+    let mut total_tris = 0
+    let mut undo_count = 0
+    # <expr>
+    # <expr>
+    # <expr>
+
+fn format_number(n: usize) -> String:
+    # <expr>
+
+struct KOsEguiPlugin:
+    pass
+
+impl Plugin for KOsEguiPlugin:
+    fn build(_self: &Self, app: &mut App):
+        # <expr>
+
+
+struct EguiInputState:
+    wants_pointer: Bool
+    wants_keyboard: Bool
+    pointer_over_area: Bool
+
+fn update_egui_input_state(state: ResMut<EguiInputState>, contexts: bevy_egui::EguiContexts):
+    # <expr>
+
+fn debug_window(ctx: &bevy_egui::egui::Context, title: &String, add_contents: impl FnOnce):
+    # <expr>
+
+fn tool_panel(ctx: &bevy_egui::egui::Context, id: bevy_egui::egui::Id, width: f32, add_contents: impl FnOnce):
+    # <expr>
+
+fn top_menu_bar(ctx: &bevy_egui::egui::Context, add_contents: impl FnOnce):
+    # <expr>
+
+fn status_bar(ctx: &bevy_egui::egui::Context, add_contents: impl FnOnce):
+    # <expr>
+
+fn tool_button_grid(ui: &mut bevy_egui::egui::Ui, tools: &Slice<(&String, &String)>, current: &mut u8):
+    # <expr>
+
+fn mode_toggle(ui: &mut bevy_egui::egui::Ui, is_add: &mut Bool):
+    # <expr>
+
+fn labeled_slider(ui: &mut bevy_egui::egui::Ui, label: &String, value: &mut f32, range: std::ops::RangeInclusive<f32>) -> Bool:
+    # <expr>
+
+fn section(ui: &mut bevy_egui::egui::Ui, label: &String):
+    # <expr>
+    # <expr>
+
+fn button_row(ui: &mut bevy_egui::egui::Ui, buttons: &Slice<&String>) -> Option<usize>:
+    let mut clicked = None
+    # <expr>
+    clicked
+
+fn enable_input_absorption(settings: &mut bevy_egui::EguiGlobalSettings):
+    # <expr>
+
+fn example_game_input_system(egui_state: Res<EguiInputState>, mouse: Res<ButtonInput<MouseButton>>, keyboard: Res<ButtonInput<KeyCode>>):
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+
+struct SculptToolbarState:
+    tool: u8
+    radius: f32
+    intensity: f32
+    is_add_mode: Bool
+    symmetry_x: Bool
+    strokes_sent: u64
+
+impl SculptToolbarState:
+    fn new_() -> Self:
+        # <expr>
+
+
+fn sculpt_toolbar_ui(ctx: &bevy_egui::egui::Context, state: &mut SculptToolbarState) -> Bool:
+    let mut changed = false
+    # <expr>
+    changed
+
+fn fps_overlay(ctx: &bevy_egui::egui::Context, fps: f64):
+    # <expr>
+
+mod tests:
+    fn test_sculpt_state_defaults():
+        let state = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+
+struct LayersUiState:
+    open: Bool
+    search: String
+    renaming: Option<Entity>
+    rename_buf: String
+
+impl Default for LayersUiState:
+    fn default_() -> Self:
+        # <expr>
+
+
+struct LayersUiPlugin:
+    pass
+
+impl Plugin for LayersUiPlugin:
+    fn build(_self: &Self, app: &mut App):
+        # <expr>
+
+
+struct RowSnapshot:
+    entity: Entity
+    name: String
+    order: i32
+    visible: Bool
+    locked: Bool
+    selected: Bool
+
+fn layers_ui_system(contexts: bevy_egui::EguiContexts, ui_state: ResMut<LayersUiState>, selection_state: Res<crate::viewport::SelectionState>, layer_queries: ParamSet<(Query<(Entity, &crate::viewport::LayerInfo, &crate::viewport::LayerVisibility, &crate::viewport::LayerLock, &crate::viewport::Selectable)>, Query<&mut crate::viewport::LayerInfo>)>, select_events: MessageWriter<crate::viewport::SelectObjectEvent>, toggle_vis_events: MessageWriter<crate::viewport::ToggleVisibilityEvent>, toggle_lock_events: MessageWriter<crate::viewport::ToggleLockEvent>, delete_selected_events: MessageWriter<crate::viewport::DeleteSelectedEvent>) -> Result<(), Error>:
+    let ctx = # <expr>
+    # <expr>
+    let mut rows: Array<RowSnapshot> = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+
+struct UiSurfaceKey:
+    app_key: String
+    surface_key: String
+
+impl UiSurfaceKey:
+    fn new_(app_key: impl Into<String>, surface_key: impl Into<String>) -> Self:
+        # <expr>
+
+
+struct UiNode:
+    id: String
+    node_type: String
+    props: Map<String, serde_json::Value>
+    children: Array<UiNode>
+
+struct UiDocV1:
+    version: u32
+    root: UiNode
+
+struct UiSurfaceInfo:
+    key: UiSurfaceKey
+    title: String
+    fallback_doc: UiDoc
+
+struct UiSurfaceRegistry:
+    surfaces: Map<UiSurfaceKey, UiSurfaceInfo>
+    cached: Array<UiSurfaceInfo>
+    dirty: Bool
+
+impl UiSurfaceRegistry:
+    fn register_(_self: &mut Self, info: UiSurfaceInfo):
+        # <expr>
+        # <expr>
+
+    fn list(_self: &mut Self) -> &Slice<UiSurfaceInfo>:
+        # <expr>
+        # <expr>
+
+
+struct UiDocStore:
+    docs: Map<UiSurfaceKey, UiDoc>
+    load_attempted: Set<UiSurfaceKey>
+    last_error: Option<String>
+
+impl UiDocStore:
+    fn get_or_load(_self: &mut Self, info: &UiSurfaceInfo) -> UiDoc:
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn set_override(_self: &mut Self, key: UiSurfaceKey, doc: UiDoc):
+        # <expr>
+        # <expr>
+
+
+struct UiSurfaceAction:
+    app_key: String
+    surface_key: String
+    node_id: String
+    action: String
+    payload: serde_json::Value
+
+impl bevy::prelude::Message for UiSurfaceAction:
+    pass
+
+struct UiRenderCtx:
+    key: &UiSurfaceKey
+    registry: &UiWidgetRegistry
+    locals: &mut UiLocalState
+    actions: &mut MessageWriter<w, UiSurfaceAction>
+
+impl UiRenderCtx<a, w>:
+    fn render_node(_self: &mut Self, ui: &mut bevy_egui::egui::Ui, node: &UiNode):
+        # <expr>
+
+    fn render_children(_self: &mut Self, ui: &mut bevy_egui::egui::Ui, children: &Slice<UiNode>):
+        # <expr>
+
+    fn emit_action(_self: &mut Self, node: &UiNode, action: impl Into<String>, payload: serde_json::Value):
+        # <expr>
+
+
+struct UiWidgetDefinition:
+    title: &String
+    can_have_children: Bool
+    render: UiWidgetRenderFn
+
+struct UiWidgetRegistry:
+    map: Map<String, UiWidgetDefinition>
+
+impl UiWidgetRegistry:
+    fn register_(_self: &mut Self, type_name: impl Into<String>, def: UiWidgetDefinition):
+        # <expr>
+
+    fn get(_self: &Self, type_name: &String) -> Option<&UiWidgetDefinition>:
+        # <expr>
+
+    fn list(_self: &Self) -> Array<(&String, &UiWidgetDefinition)>:
+        let mut items = # <expr>
+        # <expr>
+        items
+
+
+struct UiLocalState:
+    values: Map<String, serde_json::Value>
+
+impl UiLocalState:
+    fn get(_self: &Self, node_id: &String) -> Option<&serde_json::Value>:
+        # <expr>
+
+    fn set(_self: &mut Self, node_id: impl Into<String>, value: serde_json::Value):
+        # <expr>
+
+
+struct UiSurfacesHudState:
+    open: Bool
+    active: Option<UiSurfaceKey>
+
+impl Default for UiSurfacesHudState:
+    fn default_() -> Self:
+        # <expr>
+
+
+struct UiSurfacesPlugin:
+    pass
+
+impl Plugin for UiSurfacesPlugin:
+    fn build(_self: &Self, app: &mut App):
+        # <expr>
+
+
+fn ui_surfaces_bootstrap(registry: ResMut<UiSurfaceRegistry>, widgets: ResMut<UiWidgetRegistry>):
+    # <expr>
+    let doc = # <expr>
+    # <expr>
+
+fn ui_surfaces_toggle_hud(hud: ResMut<UiSurfacesHudState>, keyboard: Res<ButtonInput<KeyCode>>):
+    # <expr>
+
+fn ui_surfaces_hud_system(contexts: bevy_egui::EguiContexts, hud: ResMut<UiSurfacesHudState>, surfaces: ResMut<UiSurfaceRegistry>, docs: ResMut<UiDocStore>, locals: ResMut<UiLocalState>, widgets: Res<UiWidgetRegistry>, actions: MessageWriter<UiSurfaceAction>):
+    # <expr>
+    let _ = # <expr>
+    # <expr>
+
+fn validate_doc(doc: &UiDoc) -> Result<(), String>:
+    # <expr>
+    let mut ids = # <expr>
+    let mut count = 0
+    # <stmt>
+    # <expr>
+    # <expr>
+
+fn sanitize(s: &String) -> String:
+    let mut out_ = # <expr>
+    # <expr>
+    # <expr>
+
+fn override_path(key: &UiSurfaceKey) -> std::path::PathBuf:
+    let app = # <expr>
+    let surface = # <expr>
+    # <expr>
+
+fn load_doc_override(key: &UiSurfaceKey) -> Result<Option<UiDoc>, String>:
+    let path = # <expr>
+    # <expr>
+    let raw = # <expr>
+    let doc: UiDoc = # <expr>
+    # <expr>
+
+fn get_prop_string(node: &UiNode, key: &String) -> Option<String>:
+    # <expr>
+
+fn get_prop_f32(node: &UiNode, key: &String) -> Option<f32>:
+    # <expr>
+
+fn get_prop_bool(node: &UiNode, key: &String) -> Option<Bool>:
+    # <expr>
+
+fn register_default_widgets(registry: &mut UiWidgetRegistry):
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+
+struct GizmoUiState:
+    open: Bool
+
+impl Default for GizmoUiState:
+    fn default_() -> Self:
+        # <expr>
+
+
+struct UniversalGizmoPlugin:
+    pass
+
+impl Plugin for UniversalGizmoPlugin:
+    fn build(_self: &Self, app: &mut App):
+        # <expr>
+
+
+fn gizmo_ui_system(contexts: bevy_egui::EguiContexts, ui_state: ResMut<GizmoUiState>, settings: ResMut<super::selection::SelectionSettings>, set_mode_events: MessageWriter<super::selection::SetGizmoModeEvent>) -> Result<(), Error>:
+    let ctx = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+
+fn draw_selection_gizmo(selection: Res<super::layers::SelectionState>, settings: Res<super::selection::SelectionSettings>, transforms: Query<&GlobalTransform>, gizmos: Gizmos):
+    # <expr>
+    let _ = # <expr>
+    let _ = # <expr>
+    let origin = # <expr>
+    let rot = # <expr>
+    let axis_len = # <expr>
+    let x = # <expr>
+    let y = # <expr>
+    let z = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+
+struct LoadedGltf:
+    path: String
+    scene_index: usize
+
+struct ImportedAsset:
+    source_path: String
+    imported_at: f64
+
+struct Primitive:
+    primitive_type: PrimitiveType
+
+enum PrimitiveType:
+    Cube
+    Sphere
+    Cylinder
+    Plane
+    Torus
+    Cone
+    Icosphere
+    UVSphere
+
+struct AssetLoadState:
+    state: LoadState
+    progress: f32
+
+struct NeedsMeshDiscovery:
+    source_path: String
+    frames_remaining: u8
+
+enum LoadState:
+    Loading
+    Loaded
+    Failed
+
+struct ImportQueue:
+    pending: Array<PendingImport>
+
+struct PendingImport:
+    path: String
+    import_type: ImportType
+    handle: Option<Handle<Scene>>
+
+enum ImportType:
+    Gltf
+    Primitive(PrimitiveType)
+
+struct ImportSettings:
+    auto_center: Bool
+    auto_scale: Bool
+    target_size: f32
+    add_layer_components: Bool
+    flatten_hierarchy: Bool
+
+impl Default for ImportSettings:
+    fn default_() -> Self:
+        # <expr>
+
+
+struct ImportGltfEvent:
+    path: String
+    position: Vec3
+
+impl Message for ImportGltfEvent:
+    pass
+
+struct SpawnPrimitiveEvent:
+    primitive_type: PrimitiveType
+    position: Vec3
+    size: f32
+
+impl Message for SpawnPrimitiveEvent:
+    pass
+
+struct ImportCompletedEvent:
+    entity: Entity
+    path: String
+    success: Bool
+
+impl Message for ImportCompletedEvent:
+    pass
+
+struct LeashLoadModelEvent:
+    primitive_type: u8
+
+impl Message for LeashLoadModelEvent:
+    pass
+
+struct ImportPlugin:
+    pass
+
+impl Plugin for ImportPlugin:
+    fn build(_self: &Self, app: &mut App):
+        # <expr>
+
+
+fn handle_gltf_import(events: MessageReader<ImportGltfEvent>, asset_server: Res<AssetServer>, import_queue: ResMut<ImportQueue>):
+    # <expr>
+
+fn process_loaded_gltf(commands: Commands, import_queue: ResMut<ImportQueue>, asset_server: Res<AssetServer>, settings: Res<ImportSettings>):
+    # <expr>
+
+fn handle_primitive_spawn(events: MessageReader<SpawnPrimitiveEvent>, commands: Commands, meshes: ResMut<Assets<Mesh>>, materials: ResMut<Assets<StandardMaterial>>, settings: Res<ImportSettings>):
+    # <expr>
+
+fn handle_leash_load_model(events: MessageReader<LeashLoadModelEvent>, spawn_events: MessageWriter<SpawnPrimitiveEvent>):
+    # <expr>
+
+fn create_primitive_mesh(primitive_type: PrimitiveType, size: f32) -> Mesh:
+    # <expr>
+
+fn spawn_primitive(commands: &mut Commands, meshes: &mut Assets<Mesh>, materials: &mut Assets<StandardMaterial>, primitive_type: PrimitiveType, position: Vec3, size: f32) -> Entity:
+    let mesh = # <expr>
+    let mesh_handle = # <expr>
+    let material = # <expr>
+    let name = # <expr>
+    # <expr>
+
+fn discover_child_meshes(commands: Commands, discovery_query: Query<(Entity, &mut NeedsMeshDiscovery)>, children_query: Query<&Children>, mesh_query: Query<(Entity, Option<&Name>), (With<Mesh3d>, Without<super::layers::Selectable>)>, mesh_assets: Res<Assets<Mesh>>, mesh_handles: Query<&Mesh3d>, transform_query: Query<&mut Transform>, global_transforms: Query<&GlobalTransform>, settings: Res<ImportSettings>):
+    # <expr>
+
+fn collect_mesh_descendants(entity: Entity, children_query: &Query<&Children>, mesh_query: &Query<(Entity, Option<&Name>), (With<Mesh3d>, Without<super::layers::Selectable>)>, results: &mut Array<(Entity, Option<String>)>):
+    # <expr>
+    # <expr>
+
+struct LayerObject:
+    pass
+
+struct LayerInfo:
+    name: String
+    order: i32
+    color: Color
+    id: u64
+
+impl Default for LayerInfo:
+    fn default_() -> Self:
+        # <expr>
+
+
+struct LayerVisibility:
+    visible: Bool
+    solo: Bool
+    hidden_by_solo: Bool
+
+struct LayerLock:
+    locked: Bool
+    transform_locked: Bool
+
+struct Selectable:
+    selected: Bool
+    multi_selected: Bool
+    hovered: Bool
+
+struct ActiveObject:
+    pass
+
+struct ParentLayer:
+    field_0: Entity
+
+struct ChildLayers:
+    field_0: Array<Entity>
+
+struct MaterialSlots:
+    slots: Array<Handle<StandardMaterial>>
+    active_slot: usize
+
+impl Default for MaterialSlots:
+    fn default_() -> Self:
+        # <expr>
+
+
+struct KernelMaterialRef:
+    kernel_id: String
+
+enum ObjectType:
+    Mesh
+    Light
+    Camera
+    Empty
+    Curve
+    Armature
+    Group
+
+impl Default for ObjectType:
+    fn default_() -> Self:
+        Self::Mesh
+
+
+struct LayerSystemState:
+    active_layer: Option<Entity>
+    solo_active: Bool
+    next_order: i32
+    next_id: u64
+
+struct SelectionState:
+    primary: Option<Entity>
+    selection: Array<Entity>
+    last_clicked: Option<Entity>
+
+struct CreateLayerEvent:
+    name: String
+    parent: Option<Entity>
+
+impl Message for CreateLayerEvent:
+    pass
+
+struct DeleteLayerEvent:
+    field_0: Entity
+
+impl Message for DeleteLayerEvent:
+    pass
+
+struct SelectObjectEvent:
+    entity: Entity
+    add_to_selection: Bool
+
+impl Message for SelectObjectEvent:
+    pass
+
+struct DeselectAllEvent:
+    pass
+
+impl Message for DeselectAllEvent:
+    pass
+
+struct ToggleVisibilityEvent:
+    field_0: Entity
+
+impl Message for ToggleVisibilityEvent:
+    pass
+
+struct ToggleLockEvent:
+    field_0: Entity
+
+impl Message for ToggleLockEvent:
+    pass
+
+struct SetActiveObjectEvent:
+    field_0: Entity
+
+impl Message for SetActiveObjectEvent:
+    pass
+
+struct AssignMaterialEvent:
+    entity: Entity
+    slot: usize
+    material: Handle<StandardMaterial>
+
+impl Message for AssignMaterialEvent:
+    pass
+
+struct LayerDataChangedEvent:
+    entity: Entity
+    name: String
+    visible: Bool
+    locked: Bool
+
+impl Message for LayerDataChangedEvent:
+    pass
+
+struct LayerPlugin:
+    pass
+
+impl Plugin for LayerPlugin:
+    fn build(_self: &Self, app: &mut App):
+        # <expr>
+
+
+fn handle_selection(events: MessageReader<SelectObjectEvent>, deselect_events: MessageReader<DeselectAllEvent>, selection_state: ResMut<SelectionState>, query: Query<&mut Selectable>):
+    # <expr>
+    # <expr>
+
+fn handle_visibility_toggle(events: MessageReader<ToggleVisibilityEvent>, query: Query<&mut LayerVisibility>):
+    # <expr>
+
+fn handle_lock_toggle(events: MessageReader<ToggleLockEvent>, query: Query<&mut LayerLock>):
+    # <expr>
+
+fn handle_active_object(events: MessageReader<SetActiveObjectEvent>, commands: Commands, current_active: Query<Entity, With<ActiveObject>>):
+    # <expr>
+
+fn sync_visibility_to_bevy(query: Query<(Entity, &LayerVisibility), Changed<LayerVisibility>>, visibility_query: Query<&mut Visibility>):
+    # <expr>
+
+struct LayerObjectBundle:
+    layer_object: LayerObject
+    layer_info: LayerInfo
+    visibility_state: LayerVisibility
+    lock_state: LayerLock
+    selectable: Selectable
+    object_type: ObjectType
+    material_slots: MaterialSlots
+
+impl LayerObjectBundle:
+    fn new_(name: &String) -> Self:
+        # <expr>
+
+    fn with_type(_self: Self, obj_type: ObjectType) -> Self:
+        # <expr>
+        _self
+
+    fn with_color(_self: Self, color: Color) -> Self:
+        # <expr>
+        _self
+
+
+struct LayerSyncTimer:
+    field_0: Timer
+
+impl Default for LayerSyncTimer:
+    fn default_() -> Self:
+        # <expr>
+
+
+struct LayerSnapshot:
+    entity: u32
+    name: String
+    order: i32
+    visible: Bool
+    locked: Bool
+    selected: Bool
+    object_type: String
+    poly_count: Option<u32>
+    has_material: Bool
+
+fn sync_layers_to_file(time: Res<Time>, timer: ResMut<LayerSyncTimer>, selection_state: Res<SelectionState>, query: Query<(Entity, &LayerInfo, &LayerVisibility, &LayerLock, &Selectable, &ObjectType, Option<&MaterialSlots>)>):
+    # <expr>
+    # <expr>
+    let mut layers: Array<LayerSnapshot> = # <expr>
+    # <expr>
+    let path = # <expr>
+    # <expr>
+
+struct LayerSyncPlugin:
+    pass
+
+impl Plugin for LayerSyncPlugin:
+    fn build(_self: &Self, app: &mut App):
+        # <expr>
+
+
+struct BrushCursorData:
+    color: Vec4
+    radius: f32
+    falloff: f32
+    alpha: f32
+    show_delta: f32
+    delta_start: Vec3
+    delta_end: Vec3
+    padding: f32
+
+impl Default for BrushCursorData:
+    fn default_() -> Self:
+        # <expr>
+
+
+fn create_brush_cursor_material() -> StandardMaterial:
+    # <expr>
+
+struct KMaterial:
+    pass
+
+struct KernelMaterialSync:
+    kernel_id: String
+    last_sync: f64
+
+struct MatcapMaterial:
+    texture: Handle<Image>
+    name: String
+
+enum DisplayMode:
+    Rendered
+    Solid
+    Matcap
+    Wireframe
+    Flat
+
+impl Default for DisplayMode:
+    fn default_() -> Self:
+        Self::Rendered
+
+
+struct MaterialLibrary:
+    materials: Array<MaterialEntry>
+    default_material: Option<Handle<StandardMaterial>>
+    active_material: Option<Handle<StandardMaterial>>
+
+struct MaterialEntry:
+    name: String
+    handle: Handle<StandardMaterial>
+    kernel_id: Option<String>
+
+struct MatcapLibrary:
+    matcaps: Array<MatcapEntry>
+    active_matcap: Option<Handle<Image>>
+
+struct MatcapEntry:
+    name: String
+    handle: Handle<Image>
+
+struct GlobalDisplayMode:
+    mode: DisplayMode
+    show_wireframe: Bool
+    wireframe_color: Color
+
+struct CreateMaterialEvent:
+    name: String
+    base_color: Color
+    roughness: f32
+    metallic: f32
+
+impl Message for CreateMaterialEvent:
+    pass
+
+struct UpdateMaterialEvent:
+    handle: Handle<StandardMaterial>
+    base_color: Option<Color>
+    roughness: Option<f32>
+    metallic: Option<f32>
+    emissive: Option<Color>
+
+impl Message for UpdateMaterialEvent:
+    pass
+
+struct AssignMaterialToEntityEvent:
+    entity: Entity
+    material: Handle<StandardMaterial>
+
+impl Message for AssignMaterialToEntityEvent:
+    pass
+
+struct SetDisplayModeEvent:
+    field_0: DisplayMode
+
+impl Message for SetDisplayModeEvent:
+    pass
+
+struct ToggleWireframeEvent:
+    pass
+
+impl Message for ToggleWireframeEvent:
+    pass
+
+struct SyncKernelMaterialEvent:
+    kernel_id: String
+    name: String
+    base_color: Array<f32>
+    roughness: f32
+    metallic: f32
+
+impl Message for SyncKernelMaterialEvent:
+    pass
+
+struct MaterialPlugin:
+    pass
+
+impl Plugin for MaterialPlugin:
+    fn build(_self: &Self, app: &mut App):
+        # <expr>
+
+
+fn setup_default_materials(materials: ResMut<Assets<StandardMaterial>>, library: ResMut<MaterialLibrary>):
+    let default_mat = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    let clay_mat = # <expr>
+    # <expr>
+    let metal_mat = # <expr>
+    # <expr>
+    # <expr>
+
+fn handle_create_material(events: MessageReader<CreateMaterialEvent>, materials: ResMut<Assets<StandardMaterial>>, library: ResMut<MaterialLibrary>):
+    # <expr>
+
+fn handle_update_material(events: MessageReader<UpdateMaterialEvent>, materials: ResMut<Assets<StandardMaterial>>):
+    # <expr>
+
+fn handle_assign_material(events: MessageReader<AssignMaterialToEntityEvent>, commands: Commands, query: Query<Entity, With<Mesh3d>>):
+    # <expr>
+
+fn handle_display_mode(events: MessageReader<SetDisplayModeEvent>, toggle_events: MessageReader<ToggleWireframeEvent>, global_mode: ResMut<GlobalDisplayMode>):
+    # <expr>
+    # <expr>
+
+fn handle_kernel_sync(events: MessageReader<SyncKernelMaterialEvent>, materials: ResMut<Assets<StandardMaterial>>, library: ResMut<MaterialLibrary>):
+    # <expr>
+
+fn get_material_by_name(library: &MaterialLibrary, name: &String) -> Option<Handle<StandardMaterial>>:
+    # <expr>
+
+fn get_material_by_kernel_id(library: &MaterialLibrary, kernel_id: &String) -> Option<Handle<StandardMaterial>>:
+    # <expr>
+
+enum ActiveTool:
+    Viewport
+    Sculpt
+
+impl Default for ActiveTool:
+    fn default_() -> Self:
+        Self::Viewport
+
+
+fn sculpt_enabled(active_tool: Res<ActiveTool>) -> Bool:
+    # <expr>
+
+struct UniversalViewportPlugin:
+    pass
+
+impl Plugin for UniversalViewportPlugin:
+    fn build(_self: &Self, app: &mut App):
+        # <expr>
+
+
+struct Hoverable:
+    hovered: Bool
+
+struct SelectionOutline:
+    color: Color
+    thickness: f32
+
+impl Default for SelectionOutline:
+    fn default_() -> Self:
+        # <expr>
+
+
+struct SelectionBounds:
+    min: Vec3
+    max: Vec3
+
+struct TransformGizmo:
+    pass
+
+enum GizmoMode:
+    Translate
+    Rotate
+    Scale
+
+impl Default for GizmoMode:
+    fn default_() -> Self:
+        Self::Translate
+
+
+struct SelectionSettings:
+    selection_color: Color
+    hover_color: Color
+    multi_select_key: KeyCode
+    show_outline: Bool
+    show_gizmo: Bool
+    gizmo_mode: GizmoMode
+
+impl Default for SelectionSettings:
+    fn default_() -> Self:
+        # <expr>
+
+
+struct PickingState:
+    hovered: Option<Entity>
+    hit_point: Option<Vec3>
+    hit_normal: Option<Vec3>
+
+struct ClickSelectEvent:
+    screen_pos: Vec2
+    multi_select: Bool
+
+impl Message for ClickSelectEvent:
+    pass
+
+struct BoxSelectEvent:
+    min: Vec2
+    max: Vec2
+    add_to_selection: Bool
+
+impl Message for BoxSelectEvent:
+    pass
+
+struct SetGizmoModeEvent:
+    field_0: GizmoMode
+
+impl Message for SetGizmoModeEvent:
+    pass
+
+struct TransformSelectedEvent:
+    translation: Option<Vec3>
+    rotation: Option<Quat>
+    scale: Option<Vec3>
+
+impl Message for TransformSelectedEvent:
+    pass
+
+struct FocusSelectionEvent:
+    pass
+
+impl Message for FocusSelectionEvent:
+    pass
+
+struct DeleteSelectedEvent:
+    pass
+
+impl Message for DeleteSelectedEvent:
+    pass
+
+struct DuplicateSelectedEvent:
+    pass
+
+impl Message for DuplicateSelectedEvent:
+    pass
+
+struct SelectionPlugin:
+    pass
+
+impl Plugin for SelectionPlugin:
+    fn build(_self: &Self, app: &mut App):
+        # <expr>
+
+
+fn handle_click_select(events: MessageReader<ClickSelectEvent>, camera_q: Query<(&Camera, &GlobalTransform)>, selectables: Query<(Entity, &GlobalTransform), (With<super::layers::Selectable>, Without<super::layers::LayerLock>)>, meshes: Query<&Mesh3d>, mesh_assets: Res<Assets<Mesh>>, selection_state: ResMut<super::layers::SelectionState>, selectable_q: Query<&mut super::layers::Selectable>):
+    # <expr>
+
+fn handle_gizmo_mode(events: MessageReader<SetGizmoModeEvent>, settings: ResMut<SelectionSettings>):
+    # <expr>
+
+fn handle_transform_selected(events: MessageReader<TransformSelectedEvent>, selection: Res<super::layers::SelectionState>, transforms: Query<&mut Transform>):
+    # <expr>
+
+fn handle_delete_selected(events: MessageReader<DeleteSelectedEvent>, commands: Commands, selection: ResMut<super::layers::SelectionState>, lock_check: Query<&super::layers::LayerLock>):
+    # <expr>
+
+fn handle_keyboard_shortcuts(keys: Res<ButtonInput<KeyCode>>, gizmo_events: MessageWriter<SetGizmoModeEvent>, delete_events: MessageWriter<DeleteSelectedEvent>):
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+
+fn update_selection_visuals(selection: Res<super::layers::SelectionState>, settings: Res<SelectionSettings>, materials: ResMut<Assets<StandardMaterial>>, query: Query<(&super::layers::Selectable, &MeshMaterial3d<StandardMaterial>)>):
+    pass
+
+fn get_selected_entities(selection: &super::layers::SelectionState) -> &Slice<Entity>:
+    # <expr>
+
+fn is_selected(selection: &super::layers::SelectionState, entity: Entity) -> Bool:
+    # <expr>
+
+fn get_primary_selection(selection: &super::layers::SelectionState) -> Option<Entity>:
+    # <expr>
+

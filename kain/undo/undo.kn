@@ -1,0 +1,724 @@
+# Generated from Rust source by kain import-rust
+# Project Ouroboros — Rust → KAIN → Rust
+
+trait UndoableAction:
+    fn execute(_self: &mut Self, state: &mut State) -> Result<(), Error>:
+        pass
+    fn undo(_self: &mut Self, state: &mut State) -> Result<(), Error>:
+        pass
+    fn redo(_self: &mut Self, state: &mut State) -> Result<(), Error>:
+        # <expr>
+    fn memory_size(_self: &Self) -> usize:
+        pass
+    fn can_merge(_self: &Self, other: &impl Any) -> Bool:
+        let _ = other
+        false
+    fn merge(_self: &mut Self, other: &impl UndoableAction<State>) -> Result<(), Error>:
+        let _ = other
+        # <expr>
+    fn description(_self: &Self) -> String:
+        # <expr>
+    fn as_any(_self: &Self) -> &impl Any:
+        pass
+
+trait CompressibleAction:
+    fn compress(_self: &Self) -> Result<Array<u8>, Error>:
+        # <stmt>
+        # <stmt>
+        # <stmt>
+        let serialized = # <expr>
+        let mut encoder = # <expr>
+        # <expr>
+        # <expr>
+    fn decompress(data: &Slice<u8>) -> Result<Self, Error>:
+        # <stmt>
+        # <stmt>
+        let mut decoder = # <expr>
+        let mut decompressed = # <expr>
+        # <expr>
+        # <expr>
+
+mod tests:
+    struct TestState:
+        value: i32
+        history: Array<String>
+
+    impl TestState:
+        fn new_() -> Self:
+            # <expr>
+
+
+    struct IncrementAction:
+        amount: i32
+
+    impl UndoableAction for IncrementAction:
+        fn execute(_self: &mut Self, state: &mut TestState) -> Result<(), Error>:
+            # <expr>
+            # <expr>
+            # <expr>
+
+        fn undo(_self: &mut Self, state: &mut TestState) -> Result<(), Error>:
+            # <expr>
+            # <expr>
+            # <expr>
+
+        fn memory_size(_self: &Self) -> usize:
+            # <expr>
+
+        fn as_any(_self: &Self) -> &impl Any:
+            _self
+
+
+    struct SetValueAction:
+        old_value: i32
+        new_value: i32
+
+    impl UndoableAction for SetValueAction:
+        fn execute(_self: &mut Self, state: &mut TestState) -> Result<(), Error>:
+            # <expr>
+            # <expr>
+            # <expr>
+
+        fn undo(_self: &mut Self, state: &mut TestState) -> Result<(), Error>:
+            # <expr>
+            # <expr>
+
+        fn memory_size(_self: &Self) -> usize:
+            # <expr>
+
+        fn as_any(_self: &Self) -> &impl Any:
+            _self
+
+
+    struct AddToHistoryAction:
+        message: String
+
+    impl UndoableAction for AddToHistoryAction:
+        fn execute(_self: &mut Self, state: &mut TestState) -> Result<(), Error>:
+            # <expr>
+            # <expr>
+
+        fn undo(_self: &mut Self, state: &mut TestState) -> Result<(), Error>:
+            # <expr>
+            # <expr>
+
+        fn memory_size(_self: &Self) -> usize:
+            # <expr>
+
+        fn can_merge(_self: &Self, other: &impl Any) -> Bool:
+            # <expr>
+
+        fn merge(_self: &mut Self, other: &impl UndoableAction<TestState>) -> Result<(), Error>:
+            # <expr>
+
+        fn as_any(_self: &Self) -> &impl Any:
+            _self
+
+
+    fn test_action_execute_undo():
+        let mut state = # <expr>
+        let mut action = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_action_redo():
+        let mut state = # <expr>
+        let mut action = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_action_redo_default_implementation():
+        let mut state = # <expr>
+        let mut action = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_action_memory_size():
+        let action = # <expr>
+        # <expr>
+
+    fn test_action_description_default():
+        let action = # <expr>
+        # <expr>
+
+    fn test_action_can_merge_default():
+        let action1 = # <expr>
+        let action2 = # <expr>
+        # <expr>
+
+    fn test_action_merge_not_implemented():
+        let mut action1 = # <expr>
+        let action2 = # <expr>
+        let result = # <expr>
+        # <expr>
+
+    fn test_mergeable_action_can_merge():
+        let action1 = # <expr>
+        let action2 = # <expr>
+        # <expr>
+
+    fn test_mergeable_action_merge():
+        let mut state = # <expr>
+        let mut action1 = # <expr>
+        let action2 = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_set_value_action_stores_old_value():
+        let mut state = # <expr>
+        # <expr>
+        let mut action = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_multiple_execute_undo_cycles():
+        let mut state = # <expr>
+        let mut action = # <expr>
+        # <expr>
+
+    fn test_action_with_negative_amount():
+        let mut state = # <expr>
+        let mut action = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    mod compression_tests:
+        struct CompressibleTestAction:
+            data: Array<u8>
+
+        impl CompressibleAction for CompressibleTestAction:
+            pass
+
+        fn test_compress_decompress():
+            let action = # <expr>
+            let compressed = # <expr>
+            let decompressed = # <expr>
+            # <expr>
+
+        fn test_compress_large_data():
+            let action = # <expr>
+            let compressed = # <expr>
+            # <expr>
+            let decompressed = # <expr>
+            # <expr>
+
+        fn test_decompress_invalid_data():
+            let invalid_data = # <expr>
+            let result = # <expr>
+            # <expr>
+
+
+
+enum UndoError:
+    ExecutionFailed(String)
+    UndoFailed(String)
+    RedoFailed(String)
+    NothingToUndo
+    NothingToRedo
+    MemoryLimitExceeded { current: usize, max: usize }
+    CompressionFailed(String)
+    DecompressionFailed(String)
+    SerializationFailed(String)
+    DeserializationFailed(String)
+    Other(String)
+
+mod tests:
+    struct TestState:
+        value: i32
+
+    struct TestAction:
+        amount: i32
+
+    impl action::UndoableAction for TestAction:
+        fn execute(_self: &mut Self, state: &mut TestState) -> Result<(), Error>:
+            # <expr>
+            # <expr>
+
+        fn undo(_self: &mut Self, state: &mut TestState) -> Result<(), Error>:
+            # <expr>
+            # <expr>
+
+        fn memory_size(_self: &Self) -> usize:
+            # <expr>
+
+        fn as_any(_self: &Self) -> &impl Any:
+            _self
+
+
+    fn test_basic_workflow():
+        let mut state = # <expr>
+        let mut manager = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_memory_tracking():
+        let mut state = # <expr>
+        let mut manager = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+
+struct UndoManagerConfig:
+    max_memory_bytes: usize
+    enable_merging: Bool
+    enable_compression: Bool
+    compression_threshold: usize
+
+impl Default for UndoManagerConfig:
+    fn default_() -> Self:
+        # <expr>
+
+
+struct UndoManager:
+    undo_stack: Array<impl UndoableAction<State>>
+    redo_stack: Array<impl UndoableAction<State>>
+    current_memory: usize
+    config: UndoManagerConfig
+
+impl UndoManager<State>:
+    fn new_(config: UndoManagerConfig) -> Self:
+        # <expr>
+
+    fn with_memory_limit(max_memory_mb: usize) -> Self:
+        let config = # <expr>
+        # <expr>
+
+    fn execute(_self: &mut Self, action: impl UndoableAction<State>, state: &mut State) -> Result<(), Error>:
+        # <expr>
+        # <expr>
+        # <expr>
+        let action_size = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn undo(_self: &mut Self, state: &mut State) -> Result<(), Error>:
+        let mut action = # <expr>
+        let action_size = # <expr>
+        # <expr>
+        # <expr>
+        let redo_size = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn redo(_self: &mut Self, state: &mut State) -> Result<(), Error>:
+        let mut action = # <expr>
+        let action_size = # <expr>
+        # <expr>
+        # <expr>
+        let undo_size = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn clear(_self: &mut Self):
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn can_undo(_self: &Self) -> Bool:
+        # <expr>
+
+    fn can_redo(_self: &Self) -> Bool:
+        # <expr>
+
+    fn undo_count(_self: &Self) -> usize:
+        # <expr>
+
+    fn redo_count(_self: &Self) -> usize:
+        # <expr>
+
+    fn current_memory_bytes(_self: &Self) -> usize:
+        # <expr>
+
+    fn max_memory_bytes(_self: &Self) -> usize:
+        # <expr>
+
+    fn memory_usage_percent(_self: &Self) -> f32:
+        # <expr>
+
+    fn next_undo_description(_self: &Self) -> Option<String>:
+        # <expr>
+
+    fn next_redo_description(_self: &Self) -> Option<String>:
+        # <expr>
+
+    fn clear_redo_stack(_self: &mut Self):
+        # <expr>
+
+    fn trim_history_if_needed(_self: &mut Self):
+        # <expr>
+
+
+mod tests:
+    struct TestState:
+        value: i32
+        operations: Array<String>
+
+    impl TestState:
+        fn new_() -> Self:
+            # <expr>
+
+
+    struct IncrementAction:
+        amount: i32
+
+    impl crate::action::UndoableAction for IncrementAction:
+        fn execute(_self: &mut Self, state: &mut TestState) -> Result<(), Error>:
+            # <expr>
+            # <expr>
+            # <expr>
+
+        fn undo(_self: &mut Self, state: &mut TestState) -> Result<(), Error>:
+            # <expr>
+            # <expr>
+            # <expr>
+
+        fn memory_size(_self: &Self) -> usize:
+            # <expr>
+
+        fn description(_self: &Self) -> String:
+            # <expr>
+
+        fn as_any(_self: &Self) -> &impl Any:
+            _self
+
+
+    struct MergeableAction:
+        value: i32
+
+    impl crate::action::UndoableAction for MergeableAction:
+        fn execute(_self: &mut Self, state: &mut TestState) -> Result<(), Error>:
+            # <expr>
+            # <expr>
+
+        fn undo(_self: &mut Self, state: &mut TestState) -> Result<(), Error>:
+            # <expr>
+            # <expr>
+
+        fn memory_size(_self: &Self) -> usize:
+            # <expr>
+
+        fn can_merge(_self: &Self, other: &impl Any) -> Bool:
+            # <expr>
+
+        fn merge(_self: &mut Self, other: &impl UndoableAction<TestState>) -> Result<(), Error>:
+            # <expr>
+
+        fn as_any(_self: &Self) -> &impl Any:
+            _self
+
+
+    struct LargeAction:
+        data: Array<u8>
+
+    impl crate::action::UndoableAction for LargeAction:
+        fn execute(_self: &mut Self, state: &mut TestState) -> Result<(), Error>:
+            # <expr>
+            # <expr>
+
+        fn undo(_self: &mut Self, state: &mut TestState) -> Result<(), Error>:
+            # <expr>
+            # <expr>
+
+        fn memory_size(_self: &Self) -> usize:
+            # <expr>
+
+        fn as_any(_self: &Self) -> &impl Any:
+            _self
+
+
+    fn test_execute_undo_redo():
+        let mut state = # <expr>
+        let mut manager = # <expr>
+        let action = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_multiple_undo_redo_cycles():
+        let mut state = # <expr>
+        let mut manager = # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_multiple_actions():
+        let mut state = # <expr>
+        let mut manager = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_redo_stack_cleared_on_new_action():
+        let mut state = # <expr>
+        let config = # <expr>
+        let mut manager = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_undo_redo_preserves_state():
+        let mut state = # <expr>
+        let mut manager = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        let final_value = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_empty_stack_operations():
+        let mut state = # <expr>
+        let mut manager = # <expr>
+        let result = # <expr>
+        # <expr>
+        let result = # <expr>
+        # <expr>
+
+    fn test_single_action_undo_redo():
+        let mut state = # <expr>
+        let mut manager = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        let result = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        let result = # <expr>
+        # <expr>
+
+    fn test_memory_limit_enforcement():
+        let mut state = # <expr>
+        let config = # <expr>
+        let mut manager = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_memory_tracking_accuracy():
+        let mut state = # <expr>
+        let mut manager = # <expr>
+        # <expr>
+        let action_size = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_memory_limit_with_large_actions():
+        let mut state = # <expr>
+        let config = # <expr>
+        let mut manager = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_memory_usage_percent():
+        let mut state = # <expr>
+        let config = # <expr>
+        let mut manager = # <expr>
+        # <expr>
+        let action_size = # <expr>
+        let num_actions = # <expr>
+        # <expr>
+        let usage = # <expr>
+        # <expr>
+
+    fn test_memory_limit_zero():
+        let mut state = # <expr>
+        let config = # <expr>
+        let mut manager = # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_memory_tracking_after_undo_redo():
+        let mut state = # <expr>
+        let mut manager = # <expr>
+        let action_size = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_action_merging_enabled():
+        let mut state = # <expr>
+        let config = # <expr>
+        let mut manager = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_action_merging_disabled():
+        let mut state = # <expr>
+        let config = # <expr>
+        let mut manager = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_non_mergeable_actions_not_merged():
+        let mut state = # <expr>
+        let config = # <expr>
+        let mut manager = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_merging_updates_memory_correctly():
+        let mut state = # <expr>
+        let config = # <expr>
+        let mut manager = # <expr>
+        let action_size = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_merging_with_different_action_types():
+        let mut state = # <expr>
+        let config = # <expr>
+        let mut manager = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_can_undo_redo():
+        let mut state = # <expr>
+        let mut manager = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_clear():
+        let mut state = # <expr>
+        let mut manager = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_action_descriptions():
+        let mut state = # <expr>
+        let mut manager = # <expr>
+        # <expr>
+        let desc = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        let desc = # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_with_memory_limit_constructor():
+        let manager = # <expr>
+        # <expr>
+
+    fn test_undo_count_redo_count():
+        let mut state = # <expr>
+        let mut manager = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_max_memory_bytes():
+        let config = # <expr>
+        let manager = # <expr>
+        # <expr>
+
+    fn test_operations_tracking():
+        let mut state = # <expr>
+        let mut manager = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+

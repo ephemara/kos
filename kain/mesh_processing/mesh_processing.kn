@@ -1,0 +1,1003 @@
+# Generated from Rust source by kain import-rust
+# Project Ouroboros — Rust → KAIN → Rust
+
+struct TopologyReport:
+    vertex_count: usize
+    triangle_count: usize
+    edge_count: usize
+    boundary_edge_count: usize
+    non_manifold_edges: Array<(u32, u32)>
+    non_manifold_vertices: Array<u32>
+    is_manifold: Bool
+    is_closed: Bool
+    euler_characteristic: i32
+
+struct QualityMetrics:
+    min_triangle_quality: f32
+    max_triangle_quality: f32
+    avg_triangle_quality: f32
+    min_edge_length: f32
+    max_edge_length: f32
+    avg_edge_length: f32
+    min_aspect_ratio: f32
+    max_aspect_ratio: f32
+    avg_aspect_ratio: f32
+    degenerate_triangle_count: usize
+
+fn is_manifold(mesh: &crate::Mesh) -> Bool:
+    let edge_count = # <expr>
+    # <expr>
+
+fn analyze_topology(mesh: &crate::Mesh) -> TopologyReport:
+    let edge_faces = # <expr>
+    let boundary_edges: Array<_> = # <expr>
+    let non_manifold_edges: Array<_> = # <expr>
+    let non_manifold_vertices = # <expr>
+    let is_manifold = # <expr>
+    let is_closed = # <expr>
+    let v = # <expr>
+    let e = # <expr>
+    let f = # <expr>
+    let euler_characteristic = # <expr>
+    # <expr>
+
+fn detect_self_intersections(mesh: &crate::Mesh) -> Array<(usize, usize)>:
+    let mut intersections = # <expr>
+    # <expr>
+    intersections
+
+fn quality_metrics(mesh: &crate::Mesh) -> QualityMetrics:
+    let mut min_quality = f32::MAX
+    let mut max_quality = f32::MIN
+    let mut sum_quality = 0
+    let mut min_edge = f32::MAX
+    let mut max_edge = f32::MIN
+    let mut sum_edge = 0
+    let mut edge_count = 0
+    let mut min_aspect = f32::MAX
+    let mut max_aspect = f32::MIN
+    let mut sum_aspect = 0
+    let mut degenerate_count = 0
+    # <expr>
+    let tri_count = # <expr>
+    # <expr>
+
+fn triangle_quality(tri: &Array<glam::Vec3>) -> f32:
+    let e0 = # <expr>
+    let e1 = # <expr>
+    let e2 = # <expr>
+    let s = # <expr>
+    let area = # <expr>
+    # <expr>
+    let sum_sq = # <expr>
+    # <expr>
+
+fn triangle_aspect_ratio(tri: &Array<glam::Vec3>) -> f32:
+    let e0 = # <expr>
+    let e1 = # <expr>
+    let e2 = # <expr>
+    let max_edge = # <expr>
+    let min_edge = # <expr>
+    # <expr>
+    # <expr>
+
+fn count_edge_faces(mesh: &crate::Mesh) -> Map<(u32, u32), usize>:
+    let mut edge_count = # <expr>
+    # <expr>
+    edge_count
+
+fn find_non_manifold_vertices(_mesh: &crate::Mesh) -> Array<u32>:
+    # <expr>
+
+fn triangles_intersect(mesh: &crate::Mesh, tri_a: usize, tri_b: usize) -> Bool:
+    # <expr>
+
+fn increment_edge(edge_count: &mut Map<(u32, u32), usize>, v0: u32, v1: u32):
+    let edge = # <expr>
+    # <expr>
+
+mod tests:
+    fn create_test_mesh() -> crate::Mesh:
+        let vertices = # <expr>
+        let indices = # <expr>
+        # <expr>
+
+    fn test_is_manifold():
+        let mesh = # <expr>
+        # <expr>
+
+    fn test_analyze_topology():
+        let mesh = # <expr>
+        let report = # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_quality_metrics():
+        let mesh = # <expr>
+        let metrics = # <expr>
+        # <expr>
+        # <expr>
+
+
+fn decimate(mesh: &crate::Mesh, ratio: f32) -> Result<crate::Mesh, Error>:
+    # <expr>
+    # <expr>
+    let target_count = # <expr>
+    # <expr>
+
+fn decimate_to_count(mesh: &crate::Mesh, target_count: usize) -> Result<crate::Mesh, Error>:
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    let target_index_count = # <expr>
+    let target_error = 0.01
+    let vertex_data: Array<u8> = # <expr>
+    let decimated_indices = # <expr>
+    let mut result = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+
+fn decimate_adaptive(mesh: &crate::Mesh, error_threshold: f32) -> Result<crate::Mesh, Error>:
+    # <expr>
+    # <expr>
+    # <expr>
+    let mut best_mesh = # <expr>
+    let mut best_ratio = 1
+    # <expr>
+    # <expr>
+    # <expr>
+
+fn compact_vertices(mesh: &mut crate::Mesh):
+    let mut used = # <expr>
+    # <expr>
+    let mut remap = # <expr>
+    let mut new_index = 0
+    # <expr>
+    let mut new_vertices = # <expr>
+    let mut new_normals = # <expr>
+    let mut new_uvs = # <expr>
+    let mut new_colors = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+
+mod tests:
+    fn create_test_mesh() -> crate::Mesh:
+        let vertices = # <expr>
+        let indices = # <expr>
+        # <expr>
+
+    fn test_decimate_ratio():
+        let mesh = # <expr>
+        let result = # <expr>
+        # <expr>
+        let decimated = # <expr>
+        # <expr>
+
+    fn test_decimate_invalid_ratio():
+        let mesh = # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_decimate_to_count():
+        let mesh = # <expr>
+        let result = # <expr>
+        # <expr>
+        let decimated = # <expr>
+        # <expr>
+
+    fn test_compact_vertices():
+        let vertices = # <expr>
+        let indices = # <expr>
+        let mut mesh = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+
+enum MeshError:
+    InvalidMesh(String)
+    EmptyMesh
+    InvalidIndices(String)
+    NonManifold(String)
+    InvalidTopology(String)
+    SelfIntersection
+    InvalidParameter(String)
+    OperationFailed(String)
+    UVUnwrapFailed(String)
+    OptimizationFailed(String)
+    AnalysisFailed(String)
+    SubdivisionFailed(String)
+    DecimationFailed(String)
+    SmoothingFailed(String)
+    RepairFailed(String)
+    SpatialQueryFailed(String)
+
+mod tests:
+    fn test_mesh_creation():
+        let vertices = # <expr>
+        let indices = # <expr>
+        let mesh = # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_mesh_bounds():
+        let vertices = # <expr>
+        let indices = # <expr>
+        let mesh = # <expr>
+        let bounds = # <expr>
+        # <expr>
+        # <expr>
+
+
+struct Vertex:
+    position: glam::Vec3
+
+impl Vertex:
+    fn new_(position: glam::Vec3) -> Self:
+        # <expr>
+
+
+struct Bounds:
+    min: glam::Vec3
+    max: glam::Vec3
+
+impl Bounds:
+    fn new_(min: glam::Vec3, max: glam::Vec3) -> Self:
+        # <expr>
+
+    fn center(_self: &Self) -> glam::Vec3:
+        # <expr>
+
+    fn size(_self: &Self) -> glam::Vec3:
+        # <expr>
+
+    fn contains(_self: &Self, point: glam::Vec3) -> Bool:
+        # <expr>
+
+
+struct Mesh:
+    vertices: Array<glam::Vec3>
+    indices: Array<u32>
+    normals: Option<Array<glam::Vec3>>
+    uvs: Option<Array<glam::Vec2>>
+    colors: Option<Array<glam::Vec4>>
+
+impl Mesh:
+    fn new_() -> Self:
+        # <expr>
+
+    fn from_vertices_indices(vertices: Array<glam::Vec3>, indices: Array<u32>) -> Self:
+        # <expr>
+
+    fn vertex_count(_self: &Self) -> usize:
+        # <expr>
+
+    fn triangle_count(_self: &Self) -> usize:
+        # <expr>
+
+    fn edge_count(_self: &Self) -> usize:
+        # <expr>
+
+    fn is_empty(_self: &Self) -> Bool:
+        # <expr>
+
+    fn validate(_self: &Self) -> Result<(), Error>:
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn bounds(_self: &Self) -> Bounds:
+        # <expr>
+        let mut min = # <expr>
+        let mut max = # <expr>
+        # <expr>
+        # <expr>
+
+    fn center(_self: &Self) -> glam::Vec3:
+        # <expr>
+        let sum: glam::Vec3 = # <expr>
+        # <expr>
+
+    fn get_triangle(_self: &Self, index: usize) -> Option<Array<glam::Vec3>>:
+        let base = # <expr>
+        # <expr>
+        let i0 = # <expr>
+        let i1 = # <expr>
+        let i2 = # <expr>
+        # <expr>
+        # <expr>
+
+    fn triangle_normal(_self: &Self, index: usize) -> Option<glam::Vec3>:
+        let tri = # <expr>
+        let edge1 = # <expr>
+        let edge2 = # <expr>
+        let normal = # <expr>
+        # <expr>
+
+    fn triangle_area(_self: &Self, index: usize) -> Option<f32>:
+        let tri = # <expr>
+        let edge1 = # <expr>
+        let edge2 = # <expr>
+        # <expr>
+
+    fn surface_area(_self: &Self) -> f32:
+        # <expr>
+
+    fn compute_normals(_self: &mut Self):
+        let mut normals = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn set_uvs(_self: &mut Self, uvs: Array<glam::Vec2>):
+        # <expr>
+
+    fn set_colors(_self: &mut Self, colors: Array<glam::Vec4>):
+        # <expr>
+
+    fn transform(_self: &mut Self, matrix: &glam::Mat4):
+        # <expr>
+        # <expr>
+
+    fn scale(_self: &mut Self, scale: f32):
+        # <expr>
+
+    fn translate(_self: &mut Self, offset: glam::Vec3):
+        # <expr>
+
+    fn center_at_origin(_self: &mut Self):
+        let center = # <expr>
+        # <expr>
+
+
+impl Default for Mesh:
+    fn default_() -> Self:
+        # <expr>
+
+
+mod tests:
+    fn test_mesh_validation():
+        let vertices = # <expr>
+        let indices = # <expr>
+        let mesh = # <expr>
+        # <expr>
+
+    fn test_invalid_indices():
+        let vertices = # <expr>
+        let indices = # <expr>
+        let mesh = # <expr>
+        # <expr>
+
+    fn test_triangle_normal():
+        let vertices = # <expr>
+        let indices = # <expr>
+        let mesh = # <expr>
+        let normal = # <expr>
+        # <expr>
+
+    fn test_compute_normals():
+        let vertices = # <expr>
+        let indices = # <expr>
+        let mut mesh = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+
+fn optimize_all(mesh: &crate::Mesh) -> Result<crate::Mesh, Error>:
+    # <expr>
+    # <expr>
+    let mut result = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+
+fn optimize_vertex_cache(mesh: &crate::Mesh) -> Result<crate::Mesh, Error>:
+    # <expr>
+    # <expr>
+    let optimized_indices = # <expr>
+    # <expr>
+
+fn optimize_overdraw(mesh: &crate::Mesh, threshold: f32) -> Result<crate::Mesh, Error>:
+    # <expr>
+    # <expr>
+    let vertex_data: Array<u8> = # <expr>
+    let mut optimized_indices = # <expr>
+    # <expr>
+    # <expr>
+
+fn optimize_vertex_fetch(mesh: &crate::Mesh) -> Result<crate::Mesh, Error>:
+    # <expr>
+    # <expr>
+    let vertex_data: Array<u8> = # <expr>
+    let mut vertex_data_mut = vertex_data
+    let mut optimized_indices = # <expr>
+    # <expr>
+    # <expr>
+
+fn generate_index_buffer(mesh: &crate::Mesh) -> Result<crate::Mesh, Error>:
+    # <expr>
+    # <expr>
+    # <expr>
+
+mod tests:
+    fn create_test_mesh() -> crate::Mesh:
+        let vertices = # <expr>
+        let indices = # <expr>
+        # <expr>
+
+    fn test_optimize_vertex_cache():
+        let mesh = # <expr>
+        let result = # <expr>
+        # <expr>
+        let optimized = # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_optimize_overdraw():
+        let mesh = # <expr>
+        let result = # <expr>
+        # <expr>
+
+    fn test_optimize_vertex_fetch():
+        let mesh = # <expr>
+        let result = # <expr>
+        # <expr>
+
+    fn test_optimize_all():
+        let mesh = # <expr>
+        let result = # <expr>
+        # <expr>
+        let optimized = # <expr>
+        # <expr>
+        # <expr>
+
+
+fn repair_all(mesh: &mut crate::Mesh) -> Result<(), Error>:
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+
+fn remove_duplicates(mesh: &mut crate::Mesh, threshold: f32) -> Result<(), Error>:
+    # <expr>
+    # <expr>
+    # <expr>
+    let threshold_sq = # <expr>
+    let mut remap = # <expr>
+    let mut unique_vertices = # <expr>
+    # <expr>
+    let removed = # <expr>
+    # <expr>
+    # <expr>
+
+fn weld_vertices(mesh: &mut crate::Mesh, distance: f32) -> Result<(), Error>:
+    # <expr>
+
+fn remove_degenerate(mesh: &mut crate::Mesh) -> Result<(), Error>:
+    # <expr>
+    # <expr>
+    let mut new_indices = # <expr>
+    let mut removed = 0
+    # <expr>
+    # <expr>
+    # <expr>
+
+fn fix_non_manifold(mesh: &mut crate::Mesh) -> Result<(), Error>:
+    # <expr>
+    # <expr>
+    let mut edge_faces: Map<(u32, u32), Array<usize>> = # <expr>
+    # <expr>
+    let mut non_manifold_count = 0
+    # <expr>
+    # <expr>
+    # <expr>
+
+fn fill_holes(mesh: &mut crate::Mesh, max_edges: usize) -> Result<(), Error>:
+    # <expr>
+    # <expr>
+    let boundary_edges = # <expr>
+    # <expr>
+    # <expr>
+    let loops = # <expr>
+    # <expr>
+    let mut filled = 0
+    let mut new_indices = # <expr>
+    let loop_count = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+
+fn find_boundary_edges(mesh: &crate::Mesh) -> Set<(u32, u32)>:
+    let mut edge_count: Map<(u32, u32), usize> = # <expr>
+    # <expr>
+    # <expr>
+
+fn build_boundary_loops(boundary_edges: &Set<(u32, u32)>) -> Array<Array<(u32, u32)>>:
+    let mut loops = # <expr>
+    let mut remaining: Set<(u32, u32)> = # <expr>
+    # <expr>
+    loops
+
+fn add_edge_face(edge_faces: &mut Map<(u32, u32), Array<usize>>, v0: u32, v1: u32, face: usize):
+    let edge = # <expr>
+    # <expr>
+
+fn increment_edge(edge_count: &mut Map<(u32, u32), usize>, v0: u32, v1: u32):
+    let edge = # <expr>
+    # <expr>
+
+mod tests:
+    fn create_test_mesh() -> crate::Mesh:
+        let vertices = # <expr>
+        let indices = # <expr>
+        # <expr>
+
+    fn test_remove_duplicates():
+        let vertices = # <expr>
+        let indices = # <expr>
+        let mut mesh = # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_remove_degenerate():
+        let vertices = # <expr>
+        let indices = # <expr>
+        let mut mesh = # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_repair_all():
+        let mut mesh = # <expr>
+        let result = # <expr>
+        # <expr>
+
+
+fn auto_retopo(mesh: &crate::Mesh, target_poly_count: u32) -> Result<crate::Mesh, Error>:
+    # <expr>
+    # <expr>
+    # <expr>
+    let decimate_target = # <expr>
+    let decimated = # <expr>
+    # <expr>
+    let retopo = # <expr>
+    # <expr>
+    # <expr>
+
+fn quad_remesh(mesh: &crate::Mesh, target_edge_length: f32) -> Result<crate::Mesh, Error>:
+    # <expr>
+    # <expr>
+    # <expr>
+    let bounds = # <expr>
+    let size = # <expr>
+    let surface_area = # <expr>
+    let quad_area = # <expr>
+    let target_count = # <expr>
+    # <expr>
+    # <expr>
+
+fn quad_remesh_simple(mesh: &crate::Mesh) -> Result<crate::Mesh, Error>:
+    # <expr>
+
+fn count_quads(mesh: &crate::Mesh) -> usize:
+    # <expr>
+
+fn validate_for_retopo(mesh: &crate::Mesh) -> Result<(), Error>:
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+
+mod tests:
+    fn create_test_mesh() -> crate::Mesh:
+        let vertices = # <expr>
+        let indices = # <expr>
+        # <expr>
+
+    fn test_auto_retopo():
+        let mesh = # <expr>
+        let result = # <expr>
+        # <expr>
+        let retopo = # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_auto_retopo_invalid_target():
+        let mesh = # <expr>
+        # <expr>
+
+    fn test_quad_remesh():
+        let mesh = # <expr>
+        let result = # <expr>
+        # <expr>
+        let retopo = # <expr>
+        # <expr>
+
+    fn test_quad_remesh_invalid_edge_length():
+        let mesh = # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_validate_for_retopo():
+        let mesh = # <expr>
+        # <expr>
+
+    fn test_validate_for_retopo_too_few_vertices():
+        let vertices = # <expr>
+        let indices = # <expr>
+        let mesh = # <expr>
+        # <expr>
+
+
+fn laplacian(mesh: &crate::Mesh, iterations: usize, lambda: f32) -> Result<crate::Mesh, Error>:
+    # <expr>
+    # <expr>
+    # <expr>
+    let mut result = # <expr>
+    let adjacency = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+
+fn taubin(mesh: &crate::Mesh, iterations: usize, lambda: f32, mu: f32) -> Result<crate::Mesh, Error>:
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    let mut result = # <expr>
+    let adjacency = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+
+fn hc(mesh: &crate::Mesh, iterations: usize, alpha: f32, beta: f32) -> Result<crate::Mesh, Error>:
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    let mut result = # <expr>
+    let adjacency = # <expr>
+    let original_vertices = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+
+fn smooth_step(mesh: &crate::Mesh, adjacency: &Map<usize, Array<usize>>, factor: f32) -> crate::Mesh:
+    let mut result = # <expr>
+    let mut new_vertices = # <expr>
+    # <expr>
+    # <expr>
+    result
+
+fn build_adjacency(mesh: &crate::Mesh) -> Map<usize, Array<usize>>:
+    let mut adjacency: Map<usize, Array<usize>> = # <expr>
+    # <expr>
+    # <expr>
+    adjacency
+
+fn add_edge(adjacency: &mut Map<usize, Array<usize>>, v0: usize, v1: usize):
+    # <expr>
+    # <expr>
+
+mod tests:
+    fn create_test_mesh() -> crate::Mesh:
+        let vertices = # <expr>
+        let indices = # <expr>
+        # <expr>
+
+    fn test_laplacian_smoothing():
+        let mesh = # <expr>
+        let result = # <expr>
+        # <expr>
+        let smoothed = # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_taubin_smoothing():
+        let mesh = # <expr>
+        let result = # <expr>
+        # <expr>
+        let smoothed = # <expr>
+        # <expr>
+
+    fn test_hc_smoothing():
+        let mesh = # <expr>
+        let result = # <expr>
+        # <expr>
+        let smoothed = # <expr>
+        # <expr>
+
+    fn test_build_adjacency():
+        let mesh = # <expr>
+        let adjacency = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_invalid_parameters():
+        let mesh = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+
+struct MeshKdTree:
+    tree: kiddo::KdTree<f32>
+
+impl MeshKdTree:
+    fn new_(mesh: &crate::Mesh) -> Self:
+        # <expr>
+        let mut tree = # <expr>
+        # <expr>
+        # <expr>
+
+    fn nearest(_self: &Self, point: &glam::Vec3) -> Result<usize, Error>:
+        # <stmt>
+        let result = # <expr>
+        # <expr>
+
+    fn nearest_k(_self: &Self, point: &glam::Vec3, k: usize) -> Result<Array<usize>, Error>:
+        # <stmt>
+        let results = # <expr>
+        # <expr>
+
+    fn within_radius(_self: &Self, point: &glam::Vec3, radius: f32) -> Result<Array<usize>, Error>:
+        # <stmt>
+        let results = # <expr>
+        # <expr>
+
+
+struct RayHit:
+    distance: f32
+    triangle_index: usize
+    barycentric: glam::Vec3
+    position: glam::Vec3
+    normal: glam::Vec3
+
+struct MeshBVH:
+    triangles: Array<Triangle>
+
+struct Triangle:
+    vertices: Array<glam::Vec3>
+    index: usize
+
+impl MeshBVH:
+    fn new_(mesh: &crate::Mesh) -> Result<Self, Error>:
+        # <expr>
+        # <expr>
+        let mut triangles = # <expr>
+        # <expr>
+        # <expr>
+
+    fn raycast(_self: &Self, origin: glam::Vec3, direction: glam::Vec3, max_distance: f32) -> Option<RayHit>:
+        let dir_normalized = # <expr>
+        let mut closest_hit: Option<RayHit> = None
+        let mut closest_distance = max_distance
+        # <expr>
+        closest_hit
+
+    fn raycast_all(_self: &Self, origin: glam::Vec3, direction: glam::Vec3, max_distance: f32) -> Array<RayHit>:
+        let dir_normalized = # <expr>
+        let mut hits = # <expr>
+        # <expr>
+        # <expr>
+        hits
+
+
+struct RayTriangleHit:
+    distance: f32
+    barycentric: glam::Vec3
+
+fn ray_triangle_intersect(origin: glam::Vec3, direction: glam::Vec3, triangle: &Array<glam::Vec3>, max_distance: f32) -> Option<RayTriangleHit>:
+    # <stmt>
+    let edge1 = # <expr>
+    let edge2 = # <expr>
+    let h = # <expr>
+    let a = # <expr>
+    # <expr>
+    let f = # <expr>
+    let s = # <expr>
+    let u = # <expr>
+    # <expr>
+    let q = # <expr>
+    let v = # <expr>
+    # <expr>
+    let t = # <expr>
+    # <expr>
+
+fn build_kdtree(mesh: &crate::Mesh) -> MeshKdTree:
+    # <expr>
+
+fn build_bvh(mesh: &crate::Mesh) -> Result<MeshBVH, Error>:
+    # <expr>
+
+mod tests:
+    fn create_test_mesh() -> crate::Mesh:
+        let vertices = # <expr>
+        let indices = # <expr>
+        # <expr>
+
+    fn test_kdtree_nearest():
+        let mesh = # <expr>
+        let kdtree = # <expr>
+        let result = # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_kdtree_nearest_k():
+        let mesh = # <expr>
+        let kdtree = # <expr>
+        let result = # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_bvh_raycast():
+        let mesh = # <expr>
+        let bvh = # <expr>
+        let origin = # <expr>
+        let direction = # <expr>
+        let hit = # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_bvh_raycast_miss():
+        let mesh = # <expr>
+        let bvh = # <expr>
+        let origin = # <expr>
+        let direction = # <expr>
+        let hit = # <expr>
+        # <expr>
+
+
+fn simple(mesh: &crate::Mesh, levels: usize) -> Result<crate::Mesh, Error>:
+    # <expr>
+    # <expr>
+    # <expr>
+    let mut result = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+
+fn loop_subdivision(mesh: &crate::Mesh, levels: usize) -> Result<crate::Mesh, Error>:
+    # <expr>
+    # <expr>
+    # <expr>
+    let mut result = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+
+fn catmull_clark(mesh: &crate::Mesh, levels: usize) -> Result<crate::Mesh, Error>:
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+
+fn subdivide_once(mesh: &crate::Mesh) -> Result<crate::Mesh, Error>:
+    let mut new_vertices = # <expr>
+    let mut new_indices = # <expr>
+    let mut edge_midpoints: Map<(u32, u32), u32> = # <expr>
+    # <expr>
+    # <expr>
+
+fn loop_subdivide_once(mesh: &crate::Mesh) -> Result<crate::Mesh, Error>:
+    let adjacency = # <expr>
+    let mut new_vertices = # <expr>
+    let mut new_indices = # <expr>
+    let mut edge_midpoints: Map<(u32, u32), u32> = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+
+fn get_or_create_midpoint(vertices: &mut Array<glam::Vec3>, edge_map: &mut Map<(u32, u32), u32>, v0: u32, v1: u32, original_vertices: &Slice<glam::Vec3>) -> u32:
+    let edge = # <expr>
+    # <expr>
+    let midpoint = # <expr>
+    let new_idx = # <expr>
+    # <expr>
+    # <expr>
+    new_idx
+
+fn build_adjacency(mesh: &crate::Mesh) -> Map<usize, Array<usize>>:
+    let mut adjacency: Map<usize, Array<usize>> = # <expr>
+    # <expr>
+    # <expr>
+    adjacency
+
+fn add_edge(adjacency: &mut Map<usize, Array<usize>>, v0: usize, v1: usize):
+    # <expr>
+    # <expr>
+
+mod tests:
+    fn create_test_mesh() -> crate::Mesh:
+        let vertices = # <expr>
+        let indices = # <expr>
+        # <expr>
+
+    fn test_simple_subdivision():
+        let mesh = # <expr>
+        let result = # <expr>
+        # <expr>
+        let subdivided = # <expr>
+        # <expr>
+
+    fn test_loop_subdivision():
+        let mesh = # <expr>
+        let result = # <expr>
+        # <expr>
+        let subdivided = # <expr>
+        # <expr>
+
+    fn test_multiple_levels():
+        let mesh = # <expr>
+        let result = # <expr>
+        # <expr>
+        let subdivided = # <expr>
+        # <expr>
+
+    fn test_zero_levels():
+        let mesh = # <expr>
+        let result = # <expr>
+        # <expr>
+        let subdivided = # <expr>
+        # <expr>
+
+
+struct UnwrapSettings:
+    padding: u32
+
+impl Default for UnwrapSettings:
+    fn default_() -> Self:
+        # <expr>
+
+
+fn unwrap(mesh: &crate::Mesh) -> Result<Array<glam::Vec2>, Error>:
+    # <expr>
+
+fn unwrap_with_settings(mesh: &crate::Mesh, _settings: &UnwrapSettings) -> Result<Array<glam::Vec2>, Error>:
+    # <expr>
+    # <expr>
+    let bounds = # <expr>
+    let size = # <expr>
+    # <expr>
+    let uvs: Array<glam::Vec2> = # <expr>
+    # <expr>
+    # <expr>
+
+mod tests:
+    fn create_test_mesh() -> crate::Mesh:
+        let vertices = # <expr>
+        let indices = # <expr>
+        # <expr>
+
+    fn test_unwrap():
+        let mesh = # <expr>
+        let result = # <expr>
+        # <expr>
+        let uvs = # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_unwrap_with_settings():
+        let mesh = # <expr>
+        let settings = # <expr>
+        let result = # <expr>
+        # <expr>
+
+

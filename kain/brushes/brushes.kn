@@ -1,0 +1,737 @@
+# Generated from Rust source by kain import-rust
+# Project Ouroboros — Rust → KAIN → Rust
+
+struct KBrushAsset:
+    id: String
+    name: String
+    category: String
+    tags: Array<String>
+    icon: Option<String>
+    kernel: BrushKernel
+    params: BrushParams
+    textures: BrushTextures
+    pressure_strength: Option<String>
+    speed_radius: Option<String>
+    tilt_rotation: Option<String>
+
+impl Default for KBrushAsset:
+    fn default_() -> Self:
+        # <expr>
+
+
+enum BrushKernel:
+    Stamp
+    Smooth
+    Pinch
+    Grab
+    Flatten
+    Physics
+    SimCloth
+    SimGravity
+    SimInflate
+    PaintColor
+    PaintMask
+    CrystalGrowth
+    CrystalBismuth
+    VoronoiShatter
+    Custom(String)
+
+impl BrushKernel:
+    fn shader_name(_self: &Self) -> &String:
+        # <expr>
+
+    fn default_entry_point(_self: &Self) -> &String:
+        # <expr>
+
+
+struct BrushParams:
+    radius: f32
+    strength: f32
+    hardness: f32
+    spacing: f32
+    lazy_radius: f32
+    subtract: Bool
+    front_faces_only: Bool
+    accumulate: Bool
+    jitter_position: f32
+    jitter_rotation: f32
+    jitter_strength: f32
+    extras: Map<String, f32>
+
+impl Default for BrushParams:
+    fn default_() -> Self:
+        # <expr>
+
+
+struct BrushTextures:
+    alpha: Option<String>
+    noise: Option<String>
+    pattern: Option<String>
+
+impl KBrushAsset:
+    fn preset_clay() -> Self:
+        # <expr>
+
+    fn preset_smooth() -> Self:
+        # <expr>
+
+    fn preset_pinch() -> Self:
+        # <expr>
+
+    fn preset_cloth() -> Self:
+        # <expr>
+
+    fn preset_grab() -> Self:
+        # <expr>
+
+    fn preset_snake_hook() -> Self:
+        # <expr>
+
+    fn preset_attractor() -> Self:
+        # <expr>
+
+    fn preset_elastic() -> Self:
+        # <expr>
+
+    fn preset_turbulence() -> Self:
+        # <expr>
+
+    fn preset_twist() -> Self:
+        # <expr>
+
+
+struct CurvePoint:
+    x: f32
+    y: f32
+    handle_left: Array<f32>
+    handle_right: Array<f32>
+
+impl CurvePoint:
+    fn linear(x: f32, y: f32) -> Self:
+        # <expr>
+
+    fn smooth(x: f32, y: f32, handle_length: f32) -> Self:
+        # <expr>
+
+
+struct BrushCurve:
+    id: String
+    name: String
+    points: Array<CurvePoint>
+
+impl Default for BrushCurve:
+    fn default_() -> Self:
+        # <expr>
+
+
+impl BrushCurve:
+    fn linear() -> Self:
+        # <expr>
+
+    fn soft() -> Self:
+        # <expr>
+
+    fn hard() -> Self:
+        # <expr>
+
+    fn sample(_self: &Self, t: f32) -> f32:
+        let t = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn bake_lut(_self: &Self, samples: usize) -> CurveLut:
+        let mut data = # <expr>
+        # <expr>
+        # <expr>
+
+
+struct CurveLut:
+    curve_id: String
+    samples: Array<f32>
+
+impl CurveLut:
+    fn sample(_self: &Self, t: f32) -> f32:
+        # <expr>
+        let t = # <expr>
+        let idx = # <expr>
+        # <expr>
+
+    fn as_bytes(_self: &Self) -> &Slice<u8>:
+        # <expr>
+
+
+fn cubic_bezier(p0: f32, p1: f32, p2: f32, p3: f32, t: f32) -> f32:
+    let t2 = # <expr>
+    let t3 = # <expr>
+    let mt = # <expr>
+    let mt2 = # <expr>
+    let mt3 = # <expr>
+    # <expr>
+
+mod tests:
+    fn test_linear_curve():
+        let curve = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_lut_baking():
+        let curve = # <expr>
+        let lut = # <expr>
+        # <expr>
+        # <expr>
+
+
+struct BrushParamsGpu:
+    center: Array<f32>
+    normal: Array<f32>
+    radius: f32
+    strength: f32
+    hardness: f32
+    spacing: f32
+    kernel: u32
+    subtract: u32
+    front_faces_only: u32
+    accumulate: u32
+    vertex_count: u32
+    candidate_count: u32
+    alpha_enabled: u32
+    alpha_scale: f32
+    jitter_position: f32
+    jitter_rotation: f32
+    jitter_strength: f32
+    random_seed: f32
+    extra0: f32
+    extra1: f32
+    extra2: f32
+    extra3: f32
+    pressure_curve_idx: u32
+    speed_curve_idx: u32
+    tilt_curve_idx: u32
+    pad: u32
+
+impl BrushParamsGpu:
+    fn from_asset(asset: &crate::KBrushAsset, center: Array<f32>, normal: Array<f32>, pressure: f32, _velocity: f32) -> Self:
+        let params = # <expr>
+        let kernel = # <expr>
+        let effective_strength = # <expr>
+        # <expr>
+
+    fn basic(center: Array<f32>, normal: Array<f32>, radius: f32, strength: f32) -> Self:
+        # <expr>
+
+
+mod kernel:
+
+mod blend_mode:
+
+mod symmetry:
+
+mod brush_flags:
+
+mod alpha_mode:
+
+mod stroke_type:
+
+struct AlphaSlot:
+    pool_id: u32
+    mode: u32
+    scale: f32
+    rotation: f32
+    offset: Array<f32>
+    blend_weight: f32
+    mirror: u32
+
+impl Default for AlphaSlot:
+    fn default_() -> Self:
+        # <expr>
+
+
+struct BrushParamsGpuV2:
+    center: Array<f32>
+    normal: Array<f32>
+    velocity: Array<f32>
+    prev_center: Array<f32>
+    stroke_distance: f32
+    radius: f32
+    strength: f32
+    hardness: f32
+    spacing: f32
+    kernel_id: u32
+    entry_point_id: u32
+    blend_mode: u32
+    flags: u32
+    vertex_count: u32
+    candidate_count: u32
+    dab_index: u32
+    stroke_index: u32
+    alpha0: AlphaSlot
+    alpha1: AlphaSlot
+    alpha2: AlphaSlot
+    jitter_position: f32
+    jitter_rotation: f32
+    jitter_strength: f32
+    random_seed: f32
+    symmetry_flags: u32
+    radial_count: u32
+    symmetry_offset_x: f32
+    symmetry_offset_y: f32
+    automask_cavity: f32
+    automask_angle: f32
+    automask_border: f32
+    automask_face_set: u32
+    curve_pressure: u32
+    curve_speed: u32
+    curve_tilt: u32
+    curve_direction: u32
+    extras: Array<f32>
+    locked_plane_normal: Array<f32>
+    locked_plane_offset: f32
+    locked_position: Array<f32>
+    locked_radius: f32
+    pen_rotation: f32
+    stroke_type: u32
+    backface_threshold: f32
+    accumulation_limit: f32
+    color: Array<f32>
+    gravity_direction: Array<f32>
+    time: f32
+    reserved: Array<f32>
+
+impl BrushParamsGpuV2:
+    fn new_() -> Self:
+        # <expr>
+
+    fn with_center(_self: Self, center: Array<f32>, pressure: f32) -> Self:
+        # <expr>
+        _self
+
+    fn with_normal(_self: Self, normal: Array<f32>, tilt: f32) -> Self:
+        # <expr>
+        _self
+
+    fn with_radius(_self: Self, radius: f32) -> Self:
+        # <expr>
+        _self
+
+    fn with_strength(_self: Self, strength: f32) -> Self:
+        # <expr>
+        _self
+
+    fn with_hardness(_self: Self, hardness: f32) -> Self:
+        # <expr>
+        _self
+
+    fn with_kernel(_self: Self, kernel_id: u32, entry_point_id: u32) -> Self:
+        # <expr>
+        # <expr>
+        _self
+
+    fn with_alpha(_self: Self, slot: usize, alpha: AlphaSlot) -> Self:
+        # <expr>
+        _self
+
+    fn with_symmetry(_self: Self, flags: u32, radial_count: u32) -> Self:
+        # <expr>
+        # <expr>
+        _self
+
+    fn with_flag(_self: Self, flag: u32) -> Self:
+        # <expr>
+        _self
+
+    fn without_flag(_self: Self, flag: u32) -> Self:
+        # <expr>
+        _self
+
+    fn with_extra(_self: Self, index: usize, value: f32) -> Self:
+        # <expr>
+        _self
+
+    fn with_extras(_self: Self, extras: &Slice<f32>) -> Self:
+        # <expr>
+        _self
+
+    fn with_velocity(_self: Self, velocity: Array<f32>) -> Self:
+        let speed = # <expr>
+        # <expr>
+        _self
+
+    fn with_prev_center(_self: Self, prev: Array<f32>) -> Self:
+        # <expr>
+        _self
+
+    fn with_automasking(_self: Self, cavity: f32, angle: f32, border: f32) -> Self:
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        _self
+
+    fn with_locked_plane(_self: Self, normal: Array<f32>, offset: f32) -> Self:
+        # <expr>
+        # <expr>
+        # <expr>
+        _self
+
+    fn with_pen_rotation(_self: Self, rotation: f32) -> Self:
+        # <expr>
+        _self
+
+    fn with_stroke_type(_self: Self, stroke: u32) -> Self:
+        # <expr>
+        _self
+
+    fn with_backface_threshold(_self: Self, threshold: f32) -> Self:
+        # <expr>
+        _self
+
+    fn with_accumulation_limit(_self: Self, limit: f32) -> Self:
+        # <expr>
+        _self
+
+    fn with_color(_self: Self, r: f32, g: f32, b: f32, a: f32) -> Self:
+        # <expr>
+        _self
+
+    fn with_gravity(_self: Self, direction: Array<f32>) -> Self:
+        # <expr>
+        _self
+
+    fn with_time(_self: Self, time: f32) -> Self:
+        # <expr>
+        _self
+
+
+impl Default for BrushParamsGpuV2:
+    fn default_() -> Self:
+        # <expr>
+
+
+fn get_entry_point_name(kernel_id: u32, entry_point_id: u32) -> &String:
+    # <expr>
+
+impl From for BrushParamsGpuV2:
+    fn from(legacy: &k_os_gpu_pipeline::sculpt::BrushParams) -> Self:
+        # <expr>
+
+
+enum BrushLoadProfile:
+    Full
+    MinimalWgsl
+
+impl BrushLoadProfile:
+    fn from_env() -> Self:
+        # <expr>
+
+    fn from_env_with(get_env: F) -> Self:
+        # <expr>
+        # <expr>
+
+    fn should_scan_disk(_self: Self) -> Bool:
+        # <expr>
+
+
+fn preset_factory(id: &String) -> Option<fn() -> super::asset::KBrushAsset>:
+    # <expr>
+
+fn preset_ids_for_profile(profile: BrushLoadProfile) -> &Slice<&String>:
+    # <expr>
+
+fn include_kain_brushes(profile: BrushLoadProfile) -> Bool:
+    # <expr>
+    # <expr>
+
+fn kain_brush_presets() -> Array<super::asset::KBrushAsset>:
+    # <expr>
+
+struct KBrushLibrary:
+    brushes: Map<String, super::asset::KBrushAsset>
+    curves: Map<String, super::curve::BrushCurve>
+    curve_luts: Map<String, super::curve::CurveLut>
+    library_path: Option<std::path::PathBuf>
+    initialized: Bool
+
+impl KBrushLibrary:
+    fn new_() -> Self:
+        # <expr>
+
+    fn init(_self: &mut Self) -> Result<(), String>:
+        # <expr>
+        let profile = # <expr>
+        let path = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn init_with_app(_self: &mut Self, app: &tauri::AppHandle) -> Result<(), String>:
+        # <expr>
+        let profile = # <expr>
+        let path = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn load_builtin_presets(_self: &mut Self, profile: BrushLoadProfile):
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn load_builtin_presets_with_app(_self: &mut Self, app: &tauri::AppHandle, profile: BrushLoadProfile):
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn load_code_presets(_self: &mut Self, profile: BrushLoadProfile):
+        # <expr>
+        # <expr>
+
+    fn load_builtin_curves(_self: &mut Self):
+        # <expr>
+
+    fn scan_bundled_brushes_from_paths(_self: &mut Self):
+        let resources_paths = # <expr>
+        # <expr>
+
+    fn scan_bundled_brushes_with_app(_self: &mut Self, app: &tauri::AppHandle):
+        let brushes_path = # <expr>
+        # <expr>
+
+    fn scan_library(_self: &mut Self) -> Result<(), String>:
+        let _ = # <expr>
+        let pattern = # <expr>
+        let pattern_str = # <expr>
+        # <expr>
+        # <expr>
+
+    fn load_brush_file(_self: &mut Self, path: &std::path::PathBuf) -> Result<String, String>:
+        let content = # <expr>
+        let brush: super::asset::KBrushAsset = # <expr>
+        let id = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn get(_self: &Self, id: &String) -> Option<&super::asset::KBrushAsset>:
+        # <expr>
+
+    fn get_cloned(_self: &Self, id: &String) -> Option<super::asset::KBrushAsset>:
+        # <expr>
+
+    fn list(_self: &Self) -> Array<&super::asset::KBrushAsset>:
+        # <expr>
+
+    fn list_by_category(_self: &Self, category: &String) -> Array<&super::asset::KBrushAsset>:
+        # <expr>
+
+    fn save(_self: &mut Self, brush: super::asset::KBrushAsset) -> Result<(), String>:
+        let _ = # <expr>
+        let category_path = # <expr>
+        # <expr>
+        let file_path = # <expr>
+        let json = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn delete_(_self: &mut Self, id: &String) -> Result<(), String>:
+        # <expr>
+        # <expr>
+
+    fn get_curve_lut(_self: &mut Self, curve_id: &String, samples: usize) -> Option<super::curve::CurveLut>:
+        # <expr>
+        # <expr>
+        None
+
+    fn get_curve(_self: &Self, id: &String) -> Option<&super::curve::BrushCurve>:
+        # <expr>
+
+    fn save_curve(_self: &mut Self, curve: super::curve::BrushCurve):
+        # <expr>
+        # <expr>
+
+
+impl Default for KBrushLibrary:
+    fn default_() -> Self:
+        # <expr>
+
+
+fn get_library_path() -> Result<std::path::PathBuf, String>:
+    # <expr>
+    # <expr>
+    # <expr>
+
+fn sanitize_filename(s: &String) -> String:
+    # <expr>
+
+fn init_brush_library(app: tauri::AppHandle) -> Result<usize, String>:
+    let mut lib = # <expr>
+    # <expr>
+    # <expr>
+
+fn list_brushes() -> Array<super::asset::KBrushAsset>:
+    # <expr>
+
+fn get_brush(id: String) -> Option<super::asset::KBrushAsset>:
+    # <expr>
+
+fn save_brush(brush: super::asset::KBrushAsset) -> Result<(), String>:
+    # <expr>
+
+fn delete_brush(id: String) -> Result<(), String>:
+    # <expr>
+
+mod tests:
+    fn brush_profile_defaults_to_full():
+        let profile = # <expr>
+        # <expr>
+
+    fn brush_profile_accepts_minimal_flag():
+        let profile = # <expr>
+        # <expr>
+
+    fn minimal_profile_loads_core_wgsl_brushes_only():
+        let mut lib = # <expr>
+        # <expr>
+        let expected_count = # <expr>
+        # <expr>
+        let shaders: Set<_> = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+
+struct BrushParams:
+    size: f32
+    spacing: f32
+    jitter_pos: f32
+    jitter_size: f32
+    jitter_angle: f32
+    symmetry: String
+
+struct SplatPoint:
+    x: f32
+    y: f32
+    size: f32
+    angle: f32
+
+struct StrokeManager:
+    last_pos: Option<nalgebra::Vector2<f32>>
+    accumulated_dist: f32
+
+impl StrokeManager:
+    fn new_() -> Self:
+        # <expr>
+
+    fn reset(_self: &mut Self):
+        # <expr>
+        # <expr>
+
+    fn update(_self: &mut Self, pos: nalgebra::Vector2<f32>, pressure: f32, params: &BrushParams) -> Array<SplatPoint>:
+        let mut splats = # <expr>
+        # <expr>
+        let last = # <expr>
+        let dist = # <expr>
+        let spacing_uv = # <expr>
+        let mut current_dist = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        splats
+
+    fn add_points(_self: &Self, splats: &mut Array<SplatPoint>, pos: nalgebra::Vector2<f32>, pressure: f32, params: &BrushParams):
+        # <expr>
+        # <expr>
+
+    fn push_splat(_self: &Self, splats: &mut Array<SplatPoint>, pos: nalgebra::Vector2<f32>, pressure: f32, params: &BrushParams):
+        let mut final_pos = pos
+        let mut final_size = # <expr>
+        let mut final_angle = 0
+        let pseudo_rand = # <expr>
+        let pseudo_rand = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+
+struct KernelInfo:
+    id: String
+    name: String
+    category: String
+    description: String
+    shader: String
+    texture_slots: Array<String>
+    extra_params: Array<ExtraParamDef>
+
+struct ExtraParamDef:
+    name: String
+    display_name: String
+    default_: f32
+    min: f32
+    max: f32
+
+struct KernelRegistry:
+    kernels: Map<String, KernelInfo>
+
+impl KernelRegistry:
+    fn new_() -> Self:
+        # <expr>
+
+    fn register_defaults(_self: &mut Self):
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn register_(_self: &mut Self, info: KernelInfo):
+        # <expr>
+        # <expr>
+
+    fn get(_self: &Self, id: &String) -> Option<&KernelInfo>:
+        # <expr>
+
+    fn get_for_kernel(_self: &Self, kernel: &super::asset::BrushKernel) -> Option<&KernelInfo>:
+        # <expr>
+
+    fn list(_self: &Self) -> Array<&KernelInfo>:
+        # <expr>
+
+    fn list_by_category(_self: &Self, category: &String) -> Array<&KernelInfo>:
+        # <expr>
+
+
+impl Default for KernelRegistry:
+    fn default_() -> Self:
+        let mut registry = # <expr>
+        # <expr>
+        registry
+
+
+fn list_kernels() -> Array<KernelInfoDto>:
+    # <expr>
+
+struct KernelInfoDto:
+    id: String
+    name: String
+    category: String
+    description: String
+

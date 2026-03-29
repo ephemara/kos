@@ -1,0 +1,190 @@
+# Generated from Rust source by kain import-rust
+# Project Ouroboros — Rust → KAIN → Rust
+
+struct GameAiRuntimeState:
+    ready: Bool
+    status: String
+    detail: String
+    registry_kind: String
+    registry_version: Option<String>
+    state_tree_ids: Array<String>
+    blackboard_ids: Array<String>
+    agent_ids: Array<String>
+    state_tree_roots: Map<String, String>
+    blackboard_keys: Map<String, Array<String>>
+    agent_state_trees: Map<String, String>
+    agent_blackboards: Map<String, String>
+    tick_phase_order: Array<String>
+    default_blackboard_value_template: String
+    decision_overrides: Map<String, Map<String, String>>
+    issues: Array<String>
+
+struct GameAiDecisionRuntimeState:
+    ready: Bool
+    status: String
+    detail: String
+    tick_index: u64
+    active_phase: String
+    agent_decisions: Map<String, String>
+    agent_active_nodes: Map<String, String>
+    blackboard_values: Map<String, Map<String, String>>
+    issues: Array<String>
+
+fn derive_ai_runtime_state(bootstrap_state: Option<&k_os_game_framework::GamePipelineBootstrapState>, registry_state: Option<&k_os_game_framework::GameDataRegistryState>) -> GameAiRuntimeState:
+    let mut state = # <expr>
+    let _ = bootstrap_state
+    # <expr>
+    let _ = registry_state
+    let _ = # <expr>
+    # <expr>
+    # <expr>
+    let document = # <expr>
+    # <expr>
+    # <expr>
+    let agents = # <expr>
+    # <expr>
+    let tick_config = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    state
+
+fn derive_ai_decision_runtime_state(ai_state: &GameAiRuntimeState, previous: Option<&GameAiDecisionRuntimeState>) -> GameAiDecisionRuntimeState:
+    let mut next = # <expr>
+    # <expr>
+    # <expr>
+    let phases = # <expr>
+    let phase_count = # <expr>
+    # <expr>
+    # <expr>
+    let phase_index = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    next
+
+struct AiAgentSpec:
+    id: String
+    state_tree: String
+    blackboard: String
+
+struct RuntimeTickConfig:
+    phase_order: Array<String>
+    default_blackboard_value_template: String
+
+fn default_tick_phases() -> Array<String>:
+    # <expr>
+
+fn load_registry_document(path: &String) -> Result<toml::value::Table, String>:
+    let raw = # <expr>
+    let parsed = # <expr>
+    # <expr>
+
+fn parse_state_trees(document: &toml::value::Table, issues: &mut Array<String>) -> Map<String, String>:
+    let mut roots_by_id = # <expr>
+    let _ = # <expr>
+    # <expr>
+    roots_by_id
+
+fn parse_blackboards(document: &toml::value::Table, issues: &mut Array<String>) -> Map<String, Array<String>>:
+    let mut keys_by_blackboard = # <expr>
+    let _ = # <expr>
+    # <expr>
+    keys_by_blackboard
+
+fn parse_agents(document: &toml::value::Table, issues: &mut Array<String>) -> Array<AiAgentSpec>:
+    let _ = # <expr>
+    let mut agents = # <expr>
+    let mut seen_ids = # <expr>
+    # <expr>
+    agents
+
+fn parse_runtime_tick_config(document: &toml::value::Table, issues: &mut Array<String>) -> RuntimeTickConfig:
+    let mut config = # <expr>
+    let _ = # <expr>
+    # <expr>
+    # <expr>
+    config
+
+fn parse_decision_overrides(document: &toml::value::Table, phases: &Slice<String>, issues: &mut Array<String>) -> Map<String, Map<String, String>>:
+    let mut overrides = # <expr>
+    let _ = # <expr>
+    let allowed_phases: Set<&String> = # <expr>
+    # <expr>
+    overrides
+
+fn format_blackboard_value(template: &String, agent: &String, phase: &String, tick: u64, decision: &String, key: &String) -> String:
+    # <expr>
+
+mod tests:
+    fn write_temp_registry(name: &String, content: &String) -> String:
+        let nonce = # <expr>
+        let path = # <expr>
+        # <expr>
+        # <expr>
+
+    fn bootstrap_state(enabled: Bool) -> k_os_game_framework::GamePipelineBootstrapState:
+        # <expr>
+
+    fn registry_state(path: String) -> k_os_game_framework::GameDataRegistryState:
+        let mut state = # <expr>
+        # <expr>
+        state
+
+    fn derives_ready_ai_runtime_state_for_valid_registry():
+        let path = # <expr>
+        let state = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn degrades_when_agent_references_missing_state_tree():
+        let path = # <expr>
+        let state = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn stays_pending_when_pipeline_disabled():
+        let state = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn ticks_decisions_with_phase_rotation_and_override():
+        let path = # <expr>
+        let ai_state = # <expr>
+        # <expr>
+        let tick1 = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        let tick2 = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        let blackboard = # <expr>
+        # <expr>
+
+    fn degrades_tick_runtime_when_ai_state_not_ready():
+        let ai_state = # <expr>
+        let tick = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+

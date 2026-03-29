@@ -1,0 +1,56 @@
+# Generated from Rust source by kain import-rust
+# Project Ouroboros — Rust → KAIN → Rust
+
+struct ZenRuntimeSession:
+    play_mode: zen_core::ZenPlayMode
+    command_history: Array<zen_core::ZenCommandEnvelope>
+    recent_events: Array<zen_core::ZenEvent>
+
+struct ZenDispatchResult:
+    scene_dirty: Bool
+    events: Array<zen_core::ZenEvent>
+
+impl ZenRuntimeSession:
+    fn new_() -> Self:
+        # <expr>
+
+    fn play_mode(_self: &Self) -> zen_core::ZenPlayMode:
+        # <expr>
+
+    fn command_history(_self: &Self) -> &Slice<zen_core::ZenCommandEnvelope>:
+        # <expr>
+
+    fn recent_events(_self: &Self) -> &Slice<zen_core::ZenEvent>:
+        # <expr>
+
+    fn dispatch(_self: &mut Self, scene: &mut zen_scene::ZenScene, envelope: zen_core::ZenCommandEnvelope) -> Result<ZenDispatchResult, String>:
+        let transaction_id = # <expr>
+        let mut result = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+
+impl Default for ZenRuntimeSession:
+    fn default_() -> Self:
+        # <expr>
+
+
+fn push_event(result: &mut ZenDispatchResult, event: zen_core::ZenEvent):
+    # <expr>
+
+fn mark_scene_changed(result: &mut ZenDispatchResult, transaction_id: zen_core::ZenTransactionId, reason: &String, selected: Option<&zen_scene::SelectedObjectDetails>):
+    # <expr>
+    # <expr>
+    # <expr>
+
+mod tests:
+    fn runtime_session_updates_play_mode():
+        let mut runtime = # <expr>
+        let mut scene = # <expr>
+        let result = # <expr>
+        # <expr>
+        # <expr>
+
+

@@ -58,6 +58,15 @@ The Tauri boundary now has three shared contract modules:
 
 The durable Zen-facing contract note is [`M:\K_OS\docs\zen_contract_surface.md`](M:\K_OS\docs\zen_contract_surface.md). It defines the stable host/integration/internal split for Zen consumption and points Delta at the registry lookups and entrypoints it should use instead of rediscovering crates manually.
 
+On the frontend side, the current native viewport composition root is the shared session plus app viewport path:
+
+- [`M:\K_OS\src-frontend\features\viewport\sharedViewportSession.tsx`](M:\K_OS\src-frontend\features\viewport\sharedViewportSession.tsx) is the owner-registration seam for whichever feature currently claims the shared viewport
+- [`M:\K_OS\src-frontend\ui\viewport\AppViewport.tsx`](M:\K_OS\src-frontend\ui\viewport\AppViewport.tsx) is the shell-facing bridge that mounts the native viewport and instruments runtime callbacks into shared state
+- [`M:\K_OS\src-frontend\features\viewport\NativeViewport.tsx`](M:\K_OS\src-frontend\features\viewport\NativeViewport.tsx) owns the actual native viewport lifecycle and pointer/camera/gizmo interaction wiring
+- [`M:\K_OS\src-frontend\state\stores\viewportStore.ts`](M:\K_OS\src-frontend\state\stores\viewportStore.ts) is the shared frontend control plane for native viewport availability, session status, handles, stats, selection, and persistent viewport preferences
+
+The intended pattern is: feature modules register a shared viewport request, `AppViewport` binds that request to the native renderer bridge, and shell UI reads runtime state from `viewportStore` instead of inventing per-feature viewport session state.
+
 ### Bevy
 
 [`M:\K_OS\crates\k-os-bevy\Cargo.toml`](M:\K_OS\crates\k-os-bevy\Cargo.toml) is an experimental host that aggregates renderer, sculpt, GPU, and gameplay crates directly.

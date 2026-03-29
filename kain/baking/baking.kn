@@ -1,0 +1,818 @@
+# Generated from Rust source by kain import-rust
+# Project Ouroboros — Rust → KAIN → Rust
+
+struct BakeSettings:
+    resolution: u32
+    samples: u32
+    max_distance: f32
+    cage_extrusion: Option<f32>
+    normal_space: crate::map_types::NormalSpace
+    dilation_iterations: u32
+    enable_antialiasing: Bool
+
+impl Default for BakeSettings:
+    fn default_() -> Self:
+        # <expr>
+
+
+impl BakeSettings:
+    fn validate(_self: &Self) -> Result<(), Error>:
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+
+struct BakingSystem:
+    gpu_tracer: Option<crate::ray_tracing::GpuRayTracer>
+
+impl BakingSystem:
+    fn new_() -> Self:
+        # <expr>
+
+    fn new_with_gpu() -> Result<Self, Error>:
+        let gpu_tracer = # <expr>
+        # <expr>
+
+    fn has_gpu(_self: &Self) -> Bool:
+        # <expr>
+
+    fn bake_normal_map(_self: &Self, high_poly: &crate::map_types::BakeMesh, low_poly: &crate::map_types::BakeMesh, settings: &BakeSettings) -> Result<image::RgbaImage, Error>:
+        # <expr>
+        # <expr>
+        let baker = # <expr>
+        let mut image = # <expr>
+        # <expr>
+        # <expr>
+
+    fn bake_ao_map(_self: &Self, mesh: &crate::map_types::BakeMesh, settings: &BakeSettings) -> Result<image::RgbaImage, Error>:
+        # <expr>
+        # <expr>
+        let baker = # <expr>
+        let mut image = # <expr>
+        # <expr>
+        # <expr>
+
+    fn bake_curvature_map(_self: &Self, mesh: &crate::map_types::BakeMesh, settings: &BakeSettings) -> Result<image::RgbaImage, Error>:
+        # <expr>
+        # <expr>
+        let baker = # <expr>
+        let mut image = # <expr>
+        # <expr>
+        # <expr>
+
+    fn bake_thickness_map(_self: &Self, _mesh: &crate::map_types::BakeMesh, settings: &BakeSettings) -> Result<image::RgbaImage, Error>:
+        # <expr>
+        # <expr>
+        let mut image = # <expr>
+        # <expr>
+        # <expr>
+
+    fn bake_position_map(_self: &Self, _mesh: &crate::map_types::BakeMesh, settings: &BakeSettings) -> Result<image::RgbaImage, Error>:
+        # <expr>
+        # <expr>
+        let mut image = # <expr>
+        # <expr>
+        # <expr>
+
+    fn bake_id_map(_self: &Self, mesh: &crate::map_types::BakeMesh, material_ids: &Slice<u32>, settings: &BakeSettings) -> Result<image::RgbaImage, Error>:
+        # <expr>
+        # <expr>
+        # <expr>
+        let mut image = # <expr>
+        # <expr>
+        # <expr>
+
+    fn bake_batch(_self: &Self, high_poly: Option<&crate::map_types::BakeMesh>, low_poly: &crate::map_types::BakeMesh, map_types: &Slice<crate::map_types::MapType>, settings: &BakeSettings) -> Result<Array<(crate::map_types::MapType, image::RgbaImage)>, Error>:
+        # <expr>
+        let mut results = # <expr>
+        # <expr>
+        # <expr>
+
+    fn generate_cage(_self: &Self, mesh: &crate::map_types::BakeMesh, extrusion: f32) -> Result<crate::cage::CageMesh, Error>:
+        # <expr>
+
+    fn generate_cage_adaptive(_self: &Self, mesh: &crate::map_types::BakeMesh, min_extrusion: f32, max_extrusion: f32) -> Result<crate::cage::CageMesh, Error>:
+        # <expr>
+
+
+impl Default for BakingSystem:
+    fn default_() -> Self:
+        # <expr>
+
+
+mod tests:
+    fn create_test_mesh() -> crate::map_types::BakeMesh:
+        let vertices = # <expr>
+        let normals = # <expr>
+        let tangents = # <expr>
+        let uvs = # <expr>
+        let indices = # <expr>
+        # <expr>
+
+    fn test_baking_system_creation():
+        let system = # <expr>
+        # <expr>
+
+    fn test_bake_settings_validation():
+        let settings = # <expr>
+        # <expr>
+        let mut invalid = # <expr>
+        # <expr>
+        # <expr>
+        let mut invalid = # <expr>
+        # <expr>
+        # <expr>
+        let mut invalid = # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_generate_cage():
+        let system = # <expr>
+        let mesh = # <expr>
+        let cage = # <expr>
+        # <expr>
+
+    fn test_bake_ao_map():
+        let system = # <expr>
+        let mesh = # <expr>
+        let settings = # <expr>
+        let result = # <expr>
+        # <expr>
+        let image = # <expr>
+        # <expr>
+        # <expr>
+
+
+fn generate_cage(mesh: &crate::map_types::BakeMesh, extrusion: f32) -> Result<crate::map_types::BakeMesh, Error>:
+    let cage = # <expr>
+    # <expr>
+
+fn generate_cage_adaptive(mesh: &crate::map_types::BakeMesh, min_extrusion: f32, max_extrusion: f32) -> Result<crate::map_types::BakeMesh, Error>:
+    let cage = # <expr>
+    # <expr>
+
+fn validate_cage(mesh: &crate::map_types::BakeMesh, cage: &crate::map_types::BakeMesh) -> Result<(Bool, Array<String>), Error>:
+    let mut issues = # <expr>
+    # <expr>
+    let mut vertices_inside = 0
+    # <expr>
+    # <expr>
+    let valid = # <expr>
+    # <expr>
+
+fn calculate_recommended_extrusion(mesh: &crate::map_types::BakeMesh) -> Result<f32, Error>:
+    # <expr>
+    let mut min = # <expr>
+    let mut max = # <expr>
+    # <expr>
+    let diagonal = # <expr>
+    let extrusion = # <expr>
+    # <expr>
+
+struct Aabb:
+    min: glam::Vec3A
+    max: glam::Vec3A
+
+impl Aabb:
+    fn new_(min: glam::Vec3A, max: glam::Vec3A) -> Self:
+        # <expr>
+
+    fn empty() -> Self:
+        # <expr>
+
+    fn expand_by_point(_self: &mut Self, point: glam::Vec3A):
+        # <expr>
+        # <expr>
+
+    fn expand_by_aabb(_self: &mut Self, other: &Aabb):
+        # <expr>
+        # <expr>
+
+    fn center(_self: &Self) -> glam::Vec3A:
+        # <expr>
+
+    fn surface_area(_self: &Self) -> f32:
+        let extent = # <expr>
+        # <expr>
+
+    fn intersect_ray(_self: &Self, ray_origin: glam::Vec3A, ray_inv_dir: glam::Vec3A) -> Option<f32>:
+        let t1 = # <expr>
+        let t2 = # <expr>
+        let tmin = # <expr>
+        let tmax = # <expr>
+        let t_near = # <expr>
+        let t_far = # <expr>
+        # <expr>
+
+
+struct Triangle:
+    v0: glam::Vec3A
+    v1: glam::Vec3A
+    v2: glam::Vec3A
+    index: u32
+
+impl Triangle:
+    fn new_(v0: glam::Vec3, v1: glam::Vec3, v2: glam::Vec3, index: u32) -> Self:
+        # <expr>
+
+    fn aabb(_self: &Self) -> Aabb:
+        let mut aabb = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        aabb
+
+    fn centroid(_self: &Self) -> glam::Vec3A:
+        # <expr>
+
+    fn intersect_ray(_self: &Self, ray_origin: glam::Vec3A, ray_dir: glam::Vec3A) -> Option<(f32, f32, f32)>:
+        # <stmt>
+        let edge1 = # <expr>
+        let edge2 = # <expr>
+        let h = # <expr>
+        let a = # <expr>
+        # <expr>
+        let f = # <expr>
+        let s = # <expr>
+        let u = # <expr>
+        # <expr>
+        let q = # <expr>
+        let v = # <expr>
+        # <expr>
+        let t = # <expr>
+        # <expr>
+
+
+enum BvhNode:
+    Leaf { aabb: Aabb, triangles: Array<Triangle> }
+    Internal { aabb: Aabb, left: BvhNode, right: BvhNode }
+
+impl BvhNode:
+    fn aabb(_self: &Self) -> &Aabb:
+        # <expr>
+
+
+struct Bvh:
+    root: Option<BvhNode>
+    triangle_count: usize
+
+impl Bvh:
+    fn build(triangles: Array<Triangle>) -> Result<Self, Error>:
+        # <expr>
+        let triangle_count = # <expr>
+        let root = # <expr>
+        # <expr>
+
+    fn from_mesh(vertices: &Slice<glam::Vec3>, indices: &Slice<u32>) -> Result<Self, Error>:
+        # <expr>
+        let triangles: Array<Triangle> = # <expr>
+        # <expr>
+
+    fn build_recursive(triangles: Array<Triangle>, depth: u32) -> Result<BvhNode, Error>:
+        # <stmt>
+        # <stmt>
+        let mut aabb = # <expr>
+        # <expr>
+        # <expr>
+        let _ = # <expr>
+        let mid = # <expr>
+        # <expr>
+        let right_triangles = # <expr>
+        let left_triangles = triangles
+        let left = # <expr>
+        let right = # <expr>
+        # <expr>
+
+    fn find_best_split(triangles: &Slice<Triangle>, aabb: &Aabb) -> Result<(usize, f32), Error>:
+        # <stmt>
+        let extent = # <expr>
+        let mut best_axis = 0
+        let mut best_cost = f32::INFINITY
+        let mut best_split = 0.5
+        # <expr>
+        # <expr>
+
+    fn partition_triangles(triangles: &mut Slice<Triangle>, axis: usize, split_pos: f32) -> usize:
+        let mut i = 0
+        let mut j = # <expr>
+        # <expr>
+        i
+
+    fn raycast(_self: &Self, origin: glam::Vec3, direction: glam::Vec3) -> Option<RayHit>:
+        let root = # <expr>
+        let origin = # <expr>
+        let direction = # <expr>
+        let inv_dir = # <expr>
+        # <expr>
+
+    fn raycast_recursive(node: &BvhNode, origin: glam::Vec3A, direction: glam::Vec3A, inv_dir: glam::Vec3A, closest_t: f32) -> Option<RayHit>:
+        # <expr>
+        # <expr>
+
+    fn triangle_count(_self: &Self) -> usize:
+        # <expr>
+
+
+struct RayHit:
+    distance: f32
+    triangle_index: u32
+    barycentric: (f32, f32)
+    position: glam::Vec3A
+
+impl RayHit:
+    fn barycentric_uvw(_self: &Self) -> (f32, f32, f32):
+        let _ = # <expr>
+        # <expr>
+
+
+mod tests:
+    fn test_aabb_creation():
+        let aabb = # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_aabb_expand():
+        let mut aabb = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_triangle_creation():
+        let tri = # <expr>
+        # <expr>
+
+    fn test_bvh_from_mesh():
+        let vertices = # <expr>
+        let indices = # <expr>
+        let bvh = # <expr>
+        # <expr>
+
+    fn test_raycast_hit():
+        let vertices = # <expr>
+        let indices = # <expr>
+        let bvh = # <expr>
+        let hit = # <expr>
+        # <expr>
+        let hit = # <expr>
+        # <expr>
+
+    fn test_raycast_miss():
+        let vertices = # <expr>
+        let indices = # <expr>
+        let bvh = # <expr>
+        let hit = # <expr>
+        # <expr>
+
+
+struct CageMesh:
+    vertices: Array<glam::Vec3>
+    indices: Array<u32>
+
+impl CageMesh:
+    fn new_(vertices: Array<glam::Vec3>, indices: Array<u32>) -> Result<Self, Error>:
+        # <expr>
+        # <expr>
+
+    fn from_mesh(mesh: &crate::map_types::BakeMesh, extrusion: f32) -> Result<Self, Error>:
+        # <expr>
+        let vertices: Array<glam::Vec3> = # <expr>
+        # <expr>
+
+    fn from_mesh_adaptive(mesh: &crate::map_types::BakeMesh, min_extrusion: f32, max_extrusion: f32) -> Result<Self, Error>:
+        # <expr>
+        let mut extrusions = # <expr>
+        # <expr>
+        let vertices: Array<glam::Vec3> = # <expr>
+        # <expr>
+
+    fn get_ray_direction(_self: &Self, low_poly_pos: glam::Vec3, low_poly_normal: glam::Vec3, vertex_index: usize) -> glam::Vec3:
+        # <expr>
+        let cage_pos = # <expr>
+        let direction = # <expr>
+        # <expr>
+
+    fn get_max_distance(_self: &Self, low_poly_pos: glam::Vec3, vertex_index: usize) -> f32:
+        # <expr>
+        # <expr>
+
+    fn to_bake_mesh(_self: &Self) -> crate::map_types::BakeMesh:
+        let normals = # <expr>
+        let tangents = # <expr>
+        let uvs = # <expr>
+        # <expr>
+
+
+mod tests:
+    fn test_cage_from_mesh():
+        let vertices = # <expr>
+        let normals = # <expr>
+        let tangents = # <expr>
+        let uvs = # <expr>
+        let indices = # <expr>
+        let mesh = # <expr>
+        let cage = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_cage_adaptive():
+        let vertices = # <expr>
+        let normals = # <expr>
+        let tangents = # <expr>
+        let uvs = # <expr>
+        let indices = # <expr>
+        let mesh = # <expr>
+        let cage = # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_ray_direction():
+        let vertices = # <expr>
+        let indices = # <expr>
+        let cage = # <expr>
+        let direction = # <expr>
+        # <expr>
+
+
+fn dilate(image: &image::RgbaImage, iterations: u32) -> image::RgbaImage:
+    let mut result = # <expr>
+    # <expr>
+    result
+
+fn dilate_once(image: &image::RgbaImage) -> image::RgbaImage:
+    let _ = # <expr>
+    let mut result = # <expr>
+    let pixels: Array<_> = # <expr>
+    # <expr>
+    result
+
+fn fill_pixel(image: &image::RgbaImage, x: u32, y: u32) -> Option<image::Rgba<u8>>:
+    let _ = # <expr>
+    let mut sum_r = 0
+    let mut sum_g = 0
+    let mut sum_b = 0
+    let mut count = 0
+    # <expr>
+    # <expr>
+
+fn dilate_weighted(image: &image::RgbaImage, iterations: u32, kernel_size: u32) -> image::RgbaImage:
+    let mut result = # <expr>
+    # <expr>
+    result
+
+fn dilate_weighted_once(image: &image::RgbaImage, kernel_size: u32) -> image::RgbaImage:
+    let _ = # <expr>
+    let mut result = # <expr>
+    let radius = # <expr>
+    let pixels: Array<_> = # <expr>
+    # <expr>
+    result
+
+fn fill_pixel_weighted(image: &image::RgbaImage, x: u32, y: u32, radius: i32) -> Option<image::Rgba<u8>>:
+    let _ = # <expr>
+    let mut sum_r = 0
+    let mut sum_g = 0
+    let mut sum_b = 0
+    let mut weight_sum = 0
+    # <expr>
+    # <expr>
+
+mod tests:
+    fn test_dilate_simple():
+        let mut image = # <expr>
+        # <expr>
+        let dilated = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_dilate_preserves_valid():
+        let mut image = # <expr>
+        # <expr>
+        let dilated = # <expr>
+        # <expr>
+
+    fn test_dilate_weighted():
+        let mut image = # <expr>
+        # <expr>
+        let dilated = # <expr>
+        # <expr>
+        # <expr>
+
+
+enum BakingError:
+    GpuError(String)
+    ShaderError(String)
+    InvalidMesh(String)
+    InvalidSettings(String)
+    RayTracingError(String)
+    BvhError(String)
+    ImageError(image::ImageError)
+    BufferSizeMismatch { expected: usize, actual: usize }
+    Unsupported(String)
+    IoError(std::io::Error)
+    Other(String)
+
+impl From for BakingError:
+    fn from(err: wgpu::Error) -> Self:
+        # <expr>
+
+
+impl From for BakingError:
+    fn from(s: String) -> Self:
+        # <expr>
+
+
+impl From for BakingError:
+    fn from(s: &String) -> Self:
+        # <expr>
+
+
+mod tests:
+    fn test_library_exports():
+        let system = # <expr>
+        let settings = # <expr>
+        let vertices = # <expr>
+        let normals = # <expr>
+        let tangents = # <expr>
+        let uvs = # <expr>
+        let indices = # <expr>
+        let mesh = # <expr>
+
+    fn test_normal_space_enum():
+        let tangent = map_types::NormalSpace::Tangent
+        let object = map_types::NormalSpace::Object
+        let world = map_types::NormalSpace::World
+
+    fn test_map_type_enum():
+        let normal = # <expr>
+        let ao = map_types::MapType::AmbientOcclusion
+        let curvature = map_types::MapType::Curvature
+        let thickness = map_types::MapType::Thickness
+        let position = map_types::MapType::Position
+        let id = map_types::MapType::MaterialId
+
+
+enum NormalSpace:
+    Tangent
+    Object
+    World
+
+enum MapType:
+    Normal(NormalSpace)
+    AmbientOcclusion
+    Curvature
+    Thickness
+    Position
+    MaterialId
+
+struct BakeMesh:
+    vertices: Array<glam::Vec3>
+    normals: Array<glam::Vec3>
+    tangents: Array<glam::Vec3>
+    uvs: Array<glam::Vec2>
+    indices: Array<u32>
+
+impl BakeMesh:
+    fn new_(vertices: Array<glam::Vec3>, normals: Array<glam::Vec3>, tangents: Array<glam::Vec3>, uvs: Array<glam::Vec2>, indices: Array<u32>) -> Result<Self, Error>:
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn triangle_count(_self: &Self) -> usize:
+        # <expr>
+
+    fn vertex_count(_self: &Self) -> usize:
+        # <expr>
+
+    fn get_triangle(_self: &Self, index: usize) -> Option<(glam::Vec3, glam::Vec3, glam::Vec3)>:
+        let base = # <expr>
+        # <expr>
+        let i0 = # <expr>
+        let i1 = # <expr>
+        let i2 = # <expr>
+        # <expr>
+        # <expr>
+
+    fn get_triangle_normals(_self: &Self, index: usize) -> Option<(glam::Vec3, glam::Vec3, glam::Vec3)>:
+        let base = # <expr>
+        # <expr>
+        let i0 = # <expr>
+        let i1 = # <expr>
+        let i2 = # <expr>
+        # <expr>
+        # <expr>
+
+    fn get_triangle_uvs(_self: &Self, index: usize) -> Option<(glam::Vec2, glam::Vec2, glam::Vec2)>:
+        let base = # <expr>
+        # <expr>
+        let i0 = # <expr>
+        let i1 = # <expr>
+        let i2 = # <expr>
+        # <expr>
+        # <expr>
+
+    fn interpolate_vec3(_self: &Self, tri_index: usize, bary: (f32, f32), data: &Slice<glam::Vec3>) -> glam::Vec3:
+        let base = # <expr>
+        let i0 = # <expr>
+        let i1 = # <expr>
+        let i2 = # <expr>
+        let _ = bary
+        let w = # <expr>
+        # <expr>
+
+
+struct NormalMapBaker:
+    space: NormalSpace
+
+impl NormalMapBaker:
+    fn new_(space: NormalSpace) -> Self:
+        # <expr>
+
+    fn bake(_self: &Self, high_poly: &BakeMesh, low_poly: &BakeMesh, resolution: u32, samples: u32, max_distance: f32) -> Result<image::RgbaImage, Error>:
+        # <expr>
+        let bvh = # <expr>
+        let mut image = # <expr>
+        let pixels: Array<_> = # <expr>
+        # <expr>
+        # <expr>
+
+    fn bake_pixel(_self: &Self, low_poly: &BakeMesh, bvh: &crate::bvh::Bvh, high_poly: &BakeMesh, uv: glam::Vec2, _samples: u32, max_distance: f32) -> image::Rgba<u8>:
+        let tri_hit = # <expr>
+        # <expr>
+        let _ = # <expr>
+        let position = # <expr>
+        let normal = # <expr>
+        let ray_origin = # <expr>
+        let ray_dir = normal
+        # <expr>
+        # <expr>
+
+    fn find_triangle_at_uv(_self: &Self, mesh: &BakeMesh, uv: glam::Vec2) -> Option<(usize, (f32, f32))>:
+        # <expr>
+        None
+
+
+struct AoBaker:
+    samples: u32
+    max_distance: f32
+
+impl AoBaker:
+    fn new_(samples: u32, max_distance: f32) -> Self:
+        # <expr>
+
+    fn bake(_self: &Self, mesh: &BakeMesh, resolution: u32) -> Result<image::RgbaImage, Error>:
+        # <expr>
+        let bvh = # <expr>
+        let mut image = # <expr>
+        let pixels: Array<_> = # <expr>
+        # <expr>
+        # <expr>
+
+    fn compute_ao(_self: &Self, mesh: &BakeMesh, bvh: &crate::bvh::Bvh, uv: glam::Vec2) -> f32:
+        let tri_hit = # <expr>
+        # <expr>
+        let _ = # <expr>
+        let position = # <expr>
+        let normal = # <expr>
+        let mut hits = 0
+        let mut total = 0
+        # <expr>
+        # <expr>
+
+    fn find_triangle_at_uv(_self: &Self, mesh: &BakeMesh, uv: glam::Vec2) -> Option<(usize, (f32, f32))>:
+        # <expr>
+        None
+
+
+struct CurvatureBaker:
+    pass
+
+impl CurvatureBaker:
+    fn new_() -> Self:
+        Self_
+
+    fn bake(_self: &Self, mesh: &BakeMesh, resolution: u32) -> Result<image::RgbaImage, Error>:
+        # <expr>
+        let mut image = # <expr>
+        let pixels: Array<_> = # <expr>
+        # <expr>
+        # <expr>
+
+    fn compute_curvature(_self: &Self, _mesh: &BakeMesh, _uv: glam::Vec2) -> f32:
+        0
+
+
+fn point_in_triangle_uv(p: glam::Vec2, a: glam::Vec2, b: glam::Vec2, c: glam::Vec2) -> Option<(f32, f32)>:
+    let v0 = # <expr>
+    let v1 = # <expr>
+    let v2 = # <expr>
+    let dot00 = # <expr>
+    let dot01 = # <expr>
+    let dot02 = # <expr>
+    let dot11 = # <expr>
+    let dot12 = # <expr>
+    let inv_denom = # <expr>
+    let u = # <expr>
+    let v = # <expr>
+    # <expr>
+
+fn sample_hemisphere(normal: glam::Vec3) -> glam::Vec3:
+    # <stmt>
+    let mut rng = # <expr>
+    let theta = # <expr>
+    let phi = # <expr>
+    let x = # <expr>
+    let y = # <expr>
+    let z = # <expr>
+    let dir = # <expr>
+    # <expr>
+
+mod tests:
+    fn test_bake_mesh_creation():
+        let vertices = # <expr>
+        let normals = # <expr>
+        let tangents = # <expr>
+        let uvs = # <expr>
+        let indices = # <expr>
+        let mesh = # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_point_in_triangle():
+        let a = # <expr>
+        let b = # <expr>
+        let c = # <expr>
+        let p = # <expr>
+        # <expr>
+        let p = # <expr>
+        # <expr>
+
+
+struct GpuRayTracer:
+    device: wgpu::Device
+    queue: wgpu::Queue
+
+impl GpuRayTracer:
+    fn new_(device: wgpu::Device, queue: wgpu::Queue) -> Self:
+        # <expr>
+
+    fn init() -> Result<Self, Error>:
+        let instance = # <expr>
+        let adapter = # <expr>
+        let _ = # <expr>
+        # <expr>
+
+    fn device(_self: &Self) -> &wgpu::Device:
+        # <expr>
+
+    fn queue(_self: &Self) -> &wgpu::Queue:
+        # <expr>
+
+
+struct CpuRayTracer:
+    bvh: crate::bvh::Bvh
+
+impl CpuRayTracer:
+    fn new_(bvh: crate::bvh::Bvh) -> Self:
+        # <expr>
+
+    fn raycast(_self: &Self, origin: glam::Vec3, direction: glam::Vec3) -> Option<crate::bvh::RayHit>:
+        # <expr>
+
+    fn raycast_batch(_self: &Self, rays: &Slice<(glam::Vec3, glam::Vec3)>) -> Array<Option<crate::bvh::RayHit>>:
+        # <stmt>
+        # <expr>
+
+    fn bvh(_self: &Self) -> &crate::bvh::Bvh:
+        # <expr>
+
+
+mod tests:
+    fn test_cpu_ray_tracer():
+        let vertices = # <expr>
+        let indices = # <expr>
+        let bvh = # <expr>
+        let tracer = # <expr>
+        let hit = # <expr>
+        # <expr>
+
+    fn test_raycast_batch():
+        let vertices = # <expr>
+        let indices = # <expr>
+        let bvh = # <expr>
+        let tracer = # <expr>
+        let rays = # <expr>
+        let hits = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+

@@ -1,0 +1,483 @@
+# Generated from Rust source by kain import-rust
+# Project Ouroboros — Rust → KAIN → Rust
+
+struct NodeId:
+    field_0: u64
+
+enum DirtyReason:
+    SourceChanged
+    ParameterChanged
+    TopologyChanged
+    ViewStateChanged
+
+enum EvalError:
+    NodeAlreadyRegistered(NodeId)
+    NodeNotFound(NodeId)
+    CycleDetected { from: NodeId, to: NodeId }
+    CacheTypeMismatch(NodeId)
+
+trait EvalNode:
+    fn id(_self: &Self) -> NodeId:
+        pass
+    fn dependencies(_self: &Self) -> &Slice<NodeId>:
+        pass
+    fn evaluate(_self: &Self, ctx: &mut EvalContext) -> Result<Self::Output, EvalError>:
+        pass
+
+struct EvalContext:
+    cache: Map<NodeId, impl Any>
+    versions: Map<NodeId, u64>
+    resources: Map<std::any::TypeId, impl Any>
+
+impl EvalContext:
+    fn get(_self: &Self, node_id: NodeId) -> Option<&T>:
+        # <expr>
+
+    fn put(_self: &mut Self, node_id: NodeId, value: T) -> &T:
+        let entry = # <expr>
+        let _ = entry
+        let version = # <expr>
+        # <expr>
+        # <expr>
+
+    fn invalidate(_self: &mut Self, node_id: NodeId):
+        # <expr>
+
+    fn version(_self: &Self, node_id: NodeId) -> Option<u64>:
+        # <expr>
+
+    fn insert_resource(_self: &mut Self, value: T):
+        # <expr>
+
+    fn get_resource(_self: &Self) -> Option<&T>:
+        # <expr>
+
+
+struct NodeState:
+    dependencies: Set<NodeId>
+    dependents: Set<NodeId>
+    dirty: Bool
+    last_reason: Option<DirtyReason>
+
+impl Default for NodeState:
+    fn default_() -> Self:
+        # <expr>
+
+
+struct EvalGraph:
+    nodes: Map<NodeId, NodeState>
+
+impl Default for EvalGraph:
+    fn default_() -> Self:
+        # <expr>
+
+
+impl EvalGraph:
+    fn new_() -> Self:
+        # <expr>
+
+    fn register_node(_self: &mut Self, node_id: NodeId) -> Result<(), EvalError>:
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn register_node_with_dependencies(_self: &mut Self, node_id: NodeId, dependencies: &Slice<NodeId>) -> Result<(), EvalError>:
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn add_dependency(_self: &mut Self, node_id: NodeId, dependency: NodeId) -> Result<(), EvalError>:
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn mark_dirty(_self: &mut Self, node_id: NodeId, reason: DirtyReason) -> Result<(), EvalError>:
+        # <expr>
+        let mut queue = # <expr>
+        let mut visited = # <expr>
+        # <expr>
+        # <expr>
+
+    fn is_dirty(_self: &Self, node_id: NodeId) -> Result<Bool, EvalError>:
+        # <expr>
+
+    fn topological_order(_self: &Self) -> Result<Array<NodeId>, EvalError>:
+        let mut in_degree: Map<NodeId, usize> = # <expr>
+        let mut queue: Array<NodeId> = # <expr>
+        let mut order = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn evaluate_node(_self: &mut Self, node_id: NodeId, ctx: &mut EvalContext, eval_fn: F) -> Result<&T, EvalError>:
+        let dirty = # <expr>
+        # <expr>
+        let value = # <expr>
+        let cached = # <expr>
+        # <expr>
+        # <expr>
+
+    fn evaluate_registered_node(_self: &mut Self, node: &N, ctx: &mut EvalContext) -> Result<&N::Output, EvalError>:
+        # <expr>
+
+    fn has_path(_self: &Self, start: NodeId, target: NodeId) -> Bool:
+        let mut stack = # <expr>
+        let mut visited = # <expr>
+        # <expr>
+        false
+
+
+mod tests:
+    fn registers_nodes_and_rejects_cycles():
+        let mut graph = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        let cycle = # <expr>
+        # <expr>
+
+    fn produces_topological_order():
+        let mut graph = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        let order = # <expr>
+        # <expr>
+
+    fn propagates_dirty_to_dependents():
+        let mut graph = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn caches_evaluation_results_until_dirty():
+        let mut graph = # <expr>
+        # <expr>
+        let mut ctx = # <expr>
+        let mut call_count = 0
+        let first = # <expr>
+        # <expr>
+        # <expr>
+        let second = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        let third = # <expr>
+        # <expr>
+        # <expr>
+
+
+struct SparseTriplet:
+    i: usize
+    j: usize
+    v: f64
+
+struct CgResult:
+    x: Array<f64>
+    iter: usize
+    error: f64
+    time_ms: f64
+    converged: Bool
+
+struct MultiplyResult:
+    y: Array<f64>
+    time_ms: f64
+
+struct BenchmarkResult:
+    rust_time_ms: f64
+    iterations: usize
+    error: f64
+    matrix_size: usize
+    nnz: usize
+
+fn build_csr_matrix(triplets: &Slice<SparseTriplet>, n_rows: usize, n_cols: usize) -> nalgebra_sparse::csr::CsrMatrix<f64>:
+    let mut sorted: Array<(usize, usize, f64)> = # <expr>
+    # <expr>
+    let mut consolidated: Array<(usize, usize, f64)> = # <expr>
+    # <expr>
+    let mut row_offsets = # <expr>
+    let mut col_indices = # <expr>
+    let mut values = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+
+fn get_diagonal(matrix: &nalgebra_sparse::csr::CsrMatrix<f64>, i: usize) -> f64:
+    let row = # <expr>
+    # <expr>
+    0
+
+fn spmv(matrix: &nalgebra_sparse::csr::CsrMatrix<f64>, x: &nalgebra::DVector<f64>) -> nalgebra::DVector<f64>:
+    let n = # <expr>
+    let mut y = # <expr>
+    # <expr>
+    y
+
+fn solve_cg_internal(matrix: &nalgebra_sparse::csr::CsrMatrix<f64>, b: &nalgebra::DVector<f64>, x0: Option<&nalgebra::DVector<f64>>, tol: f64, max_iter: usize) -> (nalgebra::DVector<f64>, usize, f64):
+    let n = # <expr>
+    let mut x = # <expr>
+    let ax = # <expr>
+    let mut r = # <expr>
+    let m_inv: nalgebra::DVector<f64> = # <expr>
+    let mut z = # <expr>
+    let mut p = # <expr>
+    let mut rs_old = # <expr>
+    let mut k = 0
+    let mut error = # <expr>
+    # <expr>
+    # <expr>
+
+fn solve_cg(triplets: Array<SparseTriplet>, b: Array<f64>, n_rows: Option<usize>, n_cols: Option<usize>, tol: Option<f64>, max_iter: Option<usize>) -> Result<CgResult, String>:
+    let start = # <expr>
+    let n = # <expr>
+    let rows = # <expr>
+    let cols = # <expr>
+    let tolerance = # <expr>
+    let iterations = # <expr>
+    let matrix_ = # <expr>
+    let b_vec = # <expr>
+    let _ = # <expr>
+    let elapsed = # <expr>
+    let converged = # <expr>
+    # <expr>
+    # <expr>
+
+fn sparse_multiply(triplets: Array<SparseTriplet>, x: Array<f64>, n_rows: Option<usize>, n_cols: Option<usize>) -> Result<MultiplyResult, String>:
+    let start = # <expr>
+    let n = # <expr>
+    let rows = # <expr>
+    let cols = # <expr>
+    let matrix_ = # <expr>
+    let x_vec = # <expr>
+    let y = # <expr>
+    let elapsed = # <expr>
+    # <expr>
+
+fn benchmark_cg(size: usize, max_iter: Option<usize>) -> Result<BenchmarkResult, String>:
+    let start = # <expr>
+    let mut triplets = # <expr>
+    # <expr>
+    let matrix_ = # <expr>
+    let b = # <expr>
+    let iterations = # <expr>
+    let _ = # <expr>
+    let elapsed = # <expr>
+    # <expr>
+
+struct MeshPayload:
+    mesh_handle: k_os_scene::MeshHandle
+    vertices: Array<glam::Vec3>
+    indices: Array<u32>
+    normals: Option<Array<glam::Vec3>>
+    edit_count: usize
+
+struct ViewportBufferPayload:
+    mesh_handle: k_os_scene::MeshHandle
+    positions: Array<f32>
+    normals: Array<f32>
+    indices: Array<u32>
+    shading_mode: k_os_scene::ShadingMode
+    vertex_count: usize
+    index_count: usize
+
+struct MeshPipelineIds:
+    source: crate::NodeId
+    edit: crate::NodeId
+    subdivision: crate::NodeId
+    normals: crate::NodeId
+    viewport: crate::NodeId
+
+impl MeshPipelineIds:
+    fn from_seed(seed: u64) -> Self:
+        # <expr>
+
+
+fn register_mesh_pipeline(graph: &mut crate::EvalGraph, ids: MeshPipelineIds) -> Result<(), crate::EvalError>:
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+
+fn get_scene(ctx: &crate::EvalContext) -> Result<k_os_scene::SceneWorld, crate::EvalError>:
+    # <expr>
+
+struct MeshSourceNode:
+    id: crate::NodeId
+    mesh_handle: k_os_scene::MeshHandle
+    dependencies: Array<crate::NodeId>
+
+impl MeshSourceNode:
+    fn new_(id: crate::NodeId, mesh_handle: k_os_scene::MeshHandle) -> Self:
+        # <expr>
+
+
+impl crate::EvalNode for MeshSourceNode:
+    fn id(_self: &Self) -> crate::NodeId:
+        # <expr>
+
+    fn dependencies(_self: &Self) -> &Slice<crate::NodeId>:
+        # <expr>
+
+    fn evaluate(_self: &Self, ctx: &mut crate::EvalContext) -> Result<Self::Output, crate::EvalError>:
+        let scene = # <expr>
+        let source = # <expr>
+        let vertices = # <expr>
+        let normals = # <expr>
+        # <expr>
+
+
+struct MeshEditNode:
+    id: crate::NodeId
+    mesh_handle: k_os_scene::MeshHandle
+    dependencies: Array<crate::NodeId>
+
+impl MeshEditNode:
+    fn new_(id: crate::NodeId, mesh_handle: k_os_scene::MeshHandle, source: crate::NodeId) -> Self:
+        # <expr>
+
+
+impl crate::EvalNode for MeshEditNode:
+    fn id(_self: &Self) -> crate::NodeId:
+        # <expr>
+
+    fn dependencies(_self: &Self) -> &Slice<crate::NodeId>:
+        # <expr>
+
+    fn evaluate(_self: &Self, ctx: &mut crate::EvalContext) -> Result<Self::Output, crate::EvalError>:
+        let mut payload = # <expr>
+        let scene = # <expr>
+        let edits = # <expr>
+        # <expr>
+        # <expr>
+
+
+struct SubdivisionNode:
+    id: crate::NodeId
+    mesh_handle: k_os_scene::MeshHandle
+    dependencies: Array<crate::NodeId>
+
+impl SubdivisionNode:
+    fn new_(id: crate::NodeId, mesh_handle: k_os_scene::MeshHandle, edit: crate::NodeId) -> Self:
+        # <expr>
+
+
+impl crate::EvalNode for SubdivisionNode:
+    fn id(_self: &Self) -> crate::NodeId:
+        # <expr>
+
+    fn dependencies(_self: &Self) -> &Slice<crate::NodeId>:
+        # <expr>
+
+    fn evaluate(_self: &Self, ctx: &mut crate::EvalContext) -> Result<Self::Output, crate::EvalError>:
+        let payload = # <expr>
+        let scene = # <expr>
+        let settings = # <expr>
+        let input_mesh = # <expr>
+        let output_mesh = # <expr>
+        # <expr>
+
+
+struct NormalsNode:
+    id: crate::NodeId
+    dependencies: Array<crate::NodeId>
+
+impl NormalsNode:
+    fn new_(id: crate::NodeId, subdivision: crate::NodeId) -> Self:
+        # <expr>
+
+
+impl crate::EvalNode for NormalsNode:
+    fn id(_self: &Self) -> crate::NodeId:
+        # <expr>
+
+    fn dependencies(_self: &Self) -> &Slice<crate::NodeId>:
+        # <expr>
+
+    fn evaluate(_self: &Self, ctx: &mut crate::EvalContext) -> Result<Self::Output, crate::EvalError>:
+        let payload = # <expr>
+        let mut mesh = # <expr>
+        # <expr>
+        # <expr>
+
+
+struct ViewportBuffersNode:
+    id: crate::NodeId
+    mesh_handle: k_os_scene::MeshHandle
+    dependencies: Array<crate::NodeId>
+
+impl ViewportBuffersNode:
+    fn new_(id: crate::NodeId, mesh_handle: k_os_scene::MeshHandle, normals: crate::NodeId) -> Self:
+        # <expr>
+
+
+impl crate::EvalNode for ViewportBuffersNode:
+    fn id(_self: &Self) -> crate::NodeId:
+        # <expr>
+
+    fn dependencies(_self: &Self) -> &Slice<crate::NodeId>:
+        # <expr>
+
+    fn evaluate(_self: &Self, ctx: &mut crate::EvalContext) -> Result<Self::Output, crate::EvalError>:
+        let payload = # <expr>
+        let scene = # <expr>
+        let viewport = # <expr>
+        let positions = # <expr>
+        let normals = # <expr>
+        # <expr>
+
+
+mod tests:
+    fn make_scene_with_triangle() -> (k_os_scene::SceneWorld, k_os_scene::MeshHandle):
+        let mut scene = # <expr>
+        let mesh = # <expr>
+        # <expr>
+        # <expr>
+
+    fn evaluates_mesh_pipeline_and_subdivision_increases_triangles():
+        let _ = # <expr>
+        let ids = # <expr>
+        let mut graph = # <expr>
+        # <expr>
+        let mut ctx = # <expr>
+        # <expr>
+        let source = # <expr>
+        let edit = # <expr>
+        let subdiv = # <expr>
+        let normals = # <expr>
+        let viewport = # <expr>
+        # <expr>
+        # <expr>
+        let _ = # <expr>
+        let _ = # <expr>
+        let viewport_payload = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn dirtying_source_propagates_to_mesh_pipeline_nodes():
+        let _ = # <expr>
+        let ids = # <expr>
+        let mut graph = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        let _ = mesh_handle
+
+

@@ -1,0 +1,109 @@
+# Generated from Rust source by kain import-rust
+# Project Ouroboros — Rust → KAIN → Rust
+
+struct InstantMeshesParams:
+    target_faces: Option<u32>
+    target_vertices: Option<u32>
+    target_scale: Option<f32>
+    crease_angle: Option<f32>
+    smooth_iterations: Option<u32>
+    deterministic: Bool
+    align_boundaries: Bool
+    rosy: Option<u32>
+    posy: Option<u32>
+    dominant: Bool
+    intrinsic: Bool
+
+impl Default for InstantMeshesParams:
+    fn default_() -> Self:
+        # <expr>
+
+
+struct InstantMeshesResult:
+    positions: Array<f32>
+    indices: Array<u32>
+    normals: Array<f32>
+    time_ms: f64
+    input_vertices: usize
+    output_vertices: usize
+    output_faces: usize
+    is_quad_mesh: Bool
+
+fn get_instant_meshes_path() -> Result<std::path::PathBuf, String>:
+    # <expr>
+    let dev_paths = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+
+fn write_temp_obj(positions: &Slice<f32>, indices: &Slice<u32>) -> Result<std::path::PathBuf, String>:
+    let temp_dir = # <expr>
+    # <expr>
+    let input_path = # <expr>
+    let mut obj_content = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+
+fn read_obj_file(path: &std::path::PathBuf) -> Result<(Array<f32>, Array<u32>, Bool), String>:
+    let content = # <expr>
+    let mut positions = # <expr>
+    let mut indices = # <expr>
+    let mut is_quad = false
+    # <expr>
+    # <expr>
+
+fn compute_normals(positions: &Slice<f32>, indices: &Slice<u32>) -> Array<f32>:
+    # <stmt>
+    let vertex_count = # <expr>
+    let mut normals = # <expr>
+    # <expr>
+    # <expr>
+    normals
+
+fn run_instant_meshes(positions: &Slice<f32>, indices: &Slice<u32>, params: &InstantMeshesParams) -> Result<InstantMeshesResult, String>:
+    let start = # <expr>
+    let input_vertices = # <expr>
+    let exe_path = # <expr>
+    # <expr>
+    let input_path = # <expr>
+    let output_path = # <expr>
+    let mut cmd = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    let output = # <expr>
+    # <expr>
+    let _ = # <expr>
+    let normals = # <expr>
+    let output_vertices = # <expr>
+    let output_faces = # <expr>
+    let time_ms = # <expr>
+    # <expr>
+    let _ = # <expr>
+    let _ = # <expr>
+    # <expr>
+
+fn instant_meshes_remesh(positions: Array<f32>, indices: Array<u32>, params: Option<InstantMeshesParams>) -> Result<InstantMeshesResult, String>:
+    let p = # <expr>
+    # <expr>
+
+fn instant_meshes_available() -> Bool:
+    # <expr>
+
+mod tests:
+    fn test_find_instant_meshes():
+        let result = # <expr>
+        # <expr>
+
+

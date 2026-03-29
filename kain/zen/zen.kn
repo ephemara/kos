@@ -1,0 +1,2465 @@
+# Generated from Rust source by kain import-rust
+# Project Ouroboros — Rust → KAIN → Rust
+
+struct RuntimeConfig:
+    window: WindowConfig
+    camera: CameraConfig
+    kain: KainConfig
+    renderer: RendererConfig
+
+struct WindowConfig:
+    title: String
+    width: u32
+    height: u32
+    min_width: u32
+    min_height: u32
+
+struct CameraConfig:
+    start_position: Array<f32>
+    yaw: f32
+    pitch: f32
+    fov_degrees: f32
+    near_plane: f32
+    far_plane: f32
+
+struct KainConfig:
+    validate_catalog_on_startup: Bool
+    enable_dispatch: Bool
+    dispatch_interval_frames: u64
+    ui: KainUiConfig
+    fabric: KainFabricConfig
+
+struct KainUiConfig:
+    enabled: Bool
+    modules_manifest_path: String
+    workspace_manifest_path: String
+    theme_manifest_path: String
+    hot_reload_enabled: Bool
+    hot_reload_poll_ms: u64
+    active_shell: String
+    host_api_path: String
+    root_component: String
+    show_runtime_inspector: Bool
+
+struct KainFabricConfig:
+    enabled: Bool
+    manifest_path: String
+    intent_registry_path: String
+    scene_dirty_intents: Array<String>
+
+struct RendererConfig:
+    shadow_map_size: u32
+    shadow_strength: f32
+    shadow_softness: f32
+    ambient_strength: f32
+    fog_density: f32
+    rim_strength: f32
+    grid_intensity: f32
+    sun_direction: Array<f32>
+    sun_color: Array<f32>
+    light_distance: f32
+    light_projection_radius: f32
+    light_near: f32
+    light_far: f32
+    post: RendererPostConfig
+
+struct RendererPostConfig:
+    enabled: Bool
+    compile_on_startup: Bool
+    shader_id: String
+    shader_source_path: String
+    shader_compiled_path: String
+    glow_strength: f32
+    haze_strength: f32
+    sun_disk_power: f32
+    sky_top: Array<f32>
+    sky_horizon: Array<f32>
+    ground_color: Array<f32>
+    fog_color: Array<f32>
+    shadow_color: Array<f32>
+
+impl RuntimeConfig:
+    fn load() -> Result<Self, String>:
+        let source = # <expr>
+        # <expr>
+
+
+struct RuntimeConfigFile:
+    window: WindowConfigFile
+    camera: CameraConfigFile
+    kain: KainConfigFile
+    renderer: RendererConfigFile
+
+struct WindowConfigFile:
+    title: String
+    width: u32
+    height: u32
+    min_width: u32
+    min_height: u32
+
+struct CameraConfigFile:
+    start_position: Array<f32>
+    yaw: f32
+    pitch: f32
+    fov_degrees: f32
+    near_plane: f32
+    far_plane: f32
+
+struct KainConfigFile:
+    validate_catalog_on_startup: Bool
+    enable_dispatch: Bool
+    dispatch_interval_frames: u64
+    ui: Option<KainUiConfigFile>
+    fabric: Option<KainFabricConfigFile>
+
+struct KainUiConfigFile:
+    enabled: Bool
+    source_path: Option<String>
+    modules_manifest_path: Option<String>
+    workspace_manifest_path: Option<String>
+    theme_manifest_path: Option<String>
+    hot_reload_enabled: Option<Bool>
+    hot_reload_poll_ms: Option<u64>
+    active_shell: Option<String>
+    host_api_path: Option<String>
+    root_component: Option<String>
+    show_runtime_inspector: Bool
+
+struct KainFabricConfigFile:
+    enabled: Option<Bool>
+    manifest_path: Option<String>
+    intent_registry_path: Option<String>
+    scene_dirty_intents: Option<Array<String>>
+
+struct RendererConfigFile:
+    shadow_map_size: u32
+    shadow_strength: f32
+    shadow_softness: f32
+    ambient_strength: f32
+    fog_density: f32
+    rim_strength: f32
+    grid_intensity: Option<f32>
+    sun_direction: Array<f32>
+    sun_color: Array<f32>
+    light_distance: f32
+    light_projection_radius: f32
+    light_near: f32
+    light_far: f32
+    post: RendererPostFile
+
+struct RendererPostFile:
+    enabled: Bool
+    compile_on_startup: Bool
+    shader_id: String
+    shader_source_path: String
+    shader_compiled_path: String
+    glow_strength: f32
+    haze_strength: f32
+    sun_disk_power: f32
+    sky_top: Array<f32>
+    sky_horizon: Array<f32>
+    ground_color: Array<f32>
+    fog_color: Array<f32>
+    shadow_color: Array<f32>
+
+fn load_runtime_config_source() -> Result<String, String>:
+    # <expr>
+    let mut candidates = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+
+fn parse_runtime_config(source: &String) -> Result<RuntimeConfig, String>:
+    let parsed: RuntimeConfigFile = # <expr>
+    # <expr>
+
+fn parse_kain_ui_config(parsed: Option<KainUiConfigFile>) -> KainUiConfig:
+    let parsed = # <expr>
+    # <expr>
+
+fn parse_kain_fabric_config(parsed: Option<KainFabricConfigFile>) -> KainFabricConfig:
+    let parsed = # <expr>
+    # <expr>
+
+mod tests:
+    fn parses_default_runtime_manifest():
+        let config = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+
+struct ZenFabricIntentProfile:
+    id: String
+    label: String
+    lane: String
+    summary: String
+    graph: String
+    debounce_ms: u64
+    produces: Array<String>
+
+struct ZenFabricIntentRegistryFile:
+    intents: Array<ZenFabricIntentProfileFile>
+
+struct ZenFabricIntentProfileFile:
+    id: String
+    label: Option<String>
+    lane: Option<String>
+    summary: Option<String>
+    graph: String
+    debounce_ms: Option<u64>
+    produces: Array<String>
+
+struct ZenFabricService:
+    config: crate::config::KainFabricConfig
+    resolved_manifest_path: Option<std::path::PathBuf>
+    resolved_intent_registry_path: Option<std::path::PathBuf>
+    status_summary: String
+    last_error: Option<String>
+    intent_registry_error: Option<String>
+    last_result: Option<kain_omni::fabric::FabricExecutionResult>
+    recent_events: Array<String>
+    intent_profiles: Array<ZenFabricIntentProfile>
+    last_run_label: Option<String>
+
+impl ZenFabricService:
+    fn new_(config: crate::config::KainFabricConfig) -> Self:
+        let mut service = # <expr>
+        # <expr>
+        service
+
+    fn enabled(_self: &Self) -> Bool:
+        # <expr>
+
+    fn configured_manifest_path(_self: &Self) -> &String:
+        # <expr>
+
+    fn configured_intent_registry_path(_self: &Self) -> &String:
+        # <expr>
+
+    fn resolved_manifest_path(_self: &Self) -> Option<&std::path::Path>:
+        # <expr>
+
+    fn resolved_intent_registry_path(_self: &Self) -> Option<&std::path::Path>:
+        # <expr>
+
+    fn status_summary(_self: &Self) -> &String:
+        # <expr>
+
+    fn last_error(_self: &Self) -> Option<&String>:
+        # <expr>
+
+    fn intent_registry_error(_self: &Self) -> Option<&String>:
+        # <expr>
+
+    fn last_result(_self: &Self) -> Option<&kain_omni::fabric::FabricExecutionResult>:
+        # <expr>
+
+    fn recent_events(_self: &Self) -> &Slice<String>:
+        # <expr>
+
+    fn intent_profiles(_self: &Self) -> &Slice<ZenFabricIntentProfile>:
+        # <expr>
+
+    fn scene_dirty_intents(_self: &Self) -> &Slice<String>:
+        # <expr>
+
+    fn last_run_label(_self: &Self) -> Option<&String>:
+        # <expr>
+
+    fn refresh_status(_self: &mut Self):
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn run_configured_manifest(_self: &mut Self) -> Result<&kain_omni::fabric::FabricExecutionResult, String>:
+        let manifest_path = # <expr>
+        # <expr>
+
+    fn run_intent(_self: &mut Self, intent_id: &String) -> Result<&kain_omni::fabric::FabricExecutionResult, String>:
+        # <expr>
+        let _ = # <expr>
+        let _ = # <expr>
+        let manifest_path = # <expr>
+        # <expr>
+
+    fn apply_runtime_events(_self: &mut Self, events: &Slice<zen_core::ZenEvent>) -> Array<String>:
+        # <expr>
+        let mut messages = # <expr>
+        let mut scene_changed = false
+        let mut requested_intents = # <expr>
+        # <expr>
+        # <expr>
+        messages
+
+    fn load_intent_registry(_self: &mut Self):
+        # <expr>
+        # <expr>
+        let _ = # <expr>
+        # <expr>
+        let source = # <expr>
+        # <expr>
+
+    fn run_manifest_at_path(_self: &mut Self, manifest_path: std::path::PathBuf, run_label: String) -> Result<&kain_omni::fabric::FabricExecutionResult, String>:
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn compute_status_summary(_self: &Self) -> String:
+        let intent_summary = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn workspace_root(_self: &Self) -> Option<&std::path::Path>:
+        # <expr>
+
+
+fn resolve_source_path(configured: &String) -> Option<std::path::PathBuf>:
+    let configured_path = # <expr>
+    # <expr>
+    let mut candidates = # <expr>
+    # <expr>
+    # <expr>
+    let fallback = # <expr>
+    # <expr>
+
+fn file_name_or_original(path: &std::path::Path) -> std::path::PathBuf:
+    # <expr>
+
+fn resolve_relative_to_root(root: &std::path::Path, configured: &String) -> std::path::PathBuf:
+    let configured_path = # <expr>
+    # <expr>
+
+fn load_recent_events(path: Option<&std::path::Path>) -> Array<String>:
+    let _ = path
+    let _ = # <expr>
+    let mut lines = # <expr>
+    # <expr>
+    lines
+
+struct ZenHostApi:
+    name: String
+    version: String
+    source_label: String
+    actions: Array<ZenHostAction>
+    bindings: Array<ZenHostBinding>
+
+struct ZenHostAction:
+    key: String
+    label: String
+    description: String
+    command: zen_core::ZenCommand
+
+struct ZenHostBinding:
+    key: String
+    label: String
+    widget: String
+    description: String
+    kind: ZenHostBindingKind
+
+enum ZenHostBindingKind:
+    SceneObjects
+    SceneSelection
+    SceneViewport
+    EngineRuntime
+    EngineKain
+    EngineTimeline
+    EngineHostApi
+
+impl ZenHostApi:
+    fn load(configured: &String) -> Result<Self, String>:
+        # <expr>
+        # <expr>
+
+    fn summary(_self: &Self) -> String:
+        # <expr>
+
+    fn action(_self: &Self, key: &String) -> Option<&ZenHostAction>:
+        # <expr>
+
+    fn binding(_self: &Self, key: &String) -> Option<&ZenHostBinding>:
+        # <expr>
+
+    fn actions(_self: &Self) -> &Slice<ZenHostAction>:
+        # <expr>
+
+    fn bindings(_self: &Self) -> &Slice<ZenHostBinding>:
+        # <expr>
+
+
+struct HostApiFile:
+    api: HostApiMetaFile
+    actions: Array<HostApiActionFile>
+    bindings: Array<HostApiBindingFile>
+
+struct HostApiMetaFile:
+    name: String
+    version: String
+
+struct HostApiActionFile:
+    key: String
+    label: String
+    description: String
+    behavior: String
+
+struct HostApiBindingFile:
+    key: String
+    label: String
+    widget: String
+    description: String
+    handler: String
+
+fn parse_host_api(source: &String, source_label: String) -> Result<ZenHostApi, String>:
+    let parsed: HostApiFile = # <expr>
+    let mut action_keys = # <expr>
+    let mut actions = # <expr>
+    # <expr>
+    let mut binding_keys = # <expr>
+    let mut bindings = # <expr>
+    # <expr>
+    # <expr>
+
+fn parse_action_behavior(value: &String) -> Result<zen_core::ZenCommand, String>:
+    # <expr>
+
+fn parse_binding_handler(value: &String) -> Result<ZenHostBindingKind, String>:
+    # <expr>
+
+fn normalized_non_empty(label: &String, value: &String) -> Result<String, String>:
+    let trimmed = # <expr>
+    # <expr>
+
+fn source_path_candidates(configured: &String) -> Array<std::path::PathBuf>:
+    let configured_path = # <expr>
+    # <expr>
+    let mut candidates = # <expr>
+    # <expr>
+    # <expr>
+    candidates
+
+fn file_name_or_original(path: &std::path::Path) -> std::path::PathBuf:
+    # <expr>
+
+mod tests:
+    fn parses_default_host_api_manifest():
+        let api = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+
+enum Action:
+    MoveForward
+    MoveBackward
+    MoveLeft
+    MoveRight
+    MoveUp
+    MoveDown
+    Boost
+    LookModifier
+    FocusSelection
+    FrameScene
+
+enum InputTrigger:
+    Key(winit::keyboard::KeyCode)
+    Mouse(winit::event::MouseButton)
+
+struct CameraBindings:
+    move_speed: f32
+    boost_multiplier: f32
+    look_sensitivity: f32
+
+struct InputBindings:
+    camera: CameraBindings
+    actions: Map<Action, Array<InputTrigger>>
+
+struct InputState:
+    pressed_keys: Set<winit::keyboard::KeyCode>
+    pressed_mouse: Set<winit::event::MouseButton>
+
+impl InputState:
+    fn set_key(_self: &mut Self, code: winit::keyboard::KeyCode, pressed: Bool):
+        # <expr>
+
+    fn set_mouse(_self: &mut Self, button: winit::event::MouseButton, pressed: Bool):
+        # <expr>
+
+    fn clear(_self: &mut Self):
+        # <expr>
+        # <expr>
+
+    fn is_action_active(_self: &Self, bindings: &InputBindings, action: Action) -> Bool:
+        # <expr>
+
+
+impl InputBindings:
+    fn load() -> Result<Self, String>:
+        let source = # <expr>
+        # <expr>
+
+    fn trigger_matches_action(_self: &Self, action: Action, trigger: InputTrigger) -> Bool:
+        # <expr>
+
+
+struct InputBindingsFile:
+    camera: CameraBindingsFile
+    actions: Map<String, ActionBindingFile>
+
+struct CameraBindingsFile:
+    move_speed: f32
+    boost_multiplier: f32
+    look_sensitivity: f32
+
+struct ActionBindingFile:
+    keys: Array<String>
+
+fn load_input_manifest_source() -> Result<String, String>:
+    # <expr>
+    let mut candidates = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+
+fn parse_bindings(source: &String) -> Result<InputBindings, String>:
+    let parsed: InputBindingsFile = # <expr>
+    let mut actions = # <expr>
+    # <expr>
+    # <expr>
+
+fn parse_action_name(name: &String) -> Result<Action, String>:
+    # <expr>
+
+fn parse_trigger(value: &String) -> Result<InputTrigger, String>:
+    # <expr>
+
+mod tests:
+    fn parses_default_manifest():
+        let bindings = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+
+struct KainRuntime:
+    config: crate::config::KainConfig
+    render_graph: k_os_renderer::RenderGraph
+    last_report: Option<k_os_renderer::RenderGraphExecutionReport>
+    last_error: Option<String>
+    frame_counter: u64
+    renderer_shader_count: usize
+
+impl KainRuntime:
+    fn new_(config: crate::config::KainConfig) -> Self:
+        let renderer_shader_count = # <expr>
+        let mut runtime = # <expr>
+        # <expr>
+        runtime
+
+    fn tick(_self: &mut Self, device: &wgpu::Device, queue: &wgpu::Queue, viewport_width: u32, viewport_height: u32, vertex_count: u32, index_count: u32):
+        # <expr>
+        # <expr>
+        # <expr>
+        let ctx = # <expr>
+        # <expr>
+
+    fn title_suffix(_self: &Self) -> String:
+        # <expr>
+
+    fn accent(_self: &Self, time_seconds: f32) -> Array<f32>:
+        let pass_factor = # <expr>
+        let pulse = # <expr>
+        let strength = # <expr>
+        # <expr>
+
+
+struct ZenViewportHud:
+    camera_position: Array<f32>
+    camera_forward: Array<f32>
+    vertex_count: u32
+    index_count: u32
+    viewport_texture_id: Option<egui::TextureId>
+    viewport_extent: Array<u32>
+
+struct InspectorDraft:
+    selected_handle: Option<u64>
+    name: String
+    translation: Array<f32>
+    scale: Array<f32>
+
+struct WatchedFile:
+    path: std::path::PathBuf
+    modified: Option<std::time::SystemTime>
+
+struct DocumentEditorBuffer:
+    source_path: Option<std::path::PathBuf>
+    source_label: String
+    text: String
+    saved_text: String
+    status: String
+    read_only: Bool
+
+enum CommandPaletteSelection:
+    HostAction(String)
+    Feature(String)
+    RegistryPackage(String)
+    Document(String)
+    Preset(String)
+    UserLayout(String)
+
+enum WorkspacePanelAction:
+    SelectDocument(String)
+    ImportAsset
+    ApplyPreset(String)
+    ApplyUserLayout(String)
+    SaveCurrentLayout(String)
+    ResetWorkspace
+    DeleteUserLayout(String)
+
+struct ZenKainUiHost:
+    config: crate::config::KainUiConfig
+    theme: crate::theme::ZenUiTheme
+    host_api: zen_host::ZenHostApi
+    module_registry: zen_kain_modules::ZenKainModuleRegistry
+    workspace: zen_editor::ZenWorkspaceManifest
+    feature_registry: zen_editor::ZenFeatureRegistry
+    session: zen_editor::ZenEditorSession
+    user_layouts: Array<zen_editor::ZenUserWorkspaceLayout>
+    runtime_documents: Array<zen_editor::ZenWorkspaceDocument>
+    document_buffers: Map<String, DocumentEditorBuffer>
+    asset_pipeline: Option<k_os_asset_pipeline::AssetPipeline>
+    dock_state: egui_dock::DockState<zen_editor::ZenDockTab>
+    debug_tree: String
+    source_label: String
+    shell_status: String
+    host_api_status: String
+    module_status: String
+    contract_status: String
+    registry_status: String
+    workspace_status: String
+    activity_status: String
+    import_status: String
+    inspector: InspectorDraft
+    viewport_request: Option<Array<u32>>
+    viewport_rect_pixels: Option<Array<f32>>
+    watched_files: Array<WatchedFile>
+    last_hot_reload_poll: std::time::Instant
+    last_layout_persist: std::time::Instant
+    command_palette_open: Bool
+    command_query: String
+    layout_name_draft: String
+    active_topbar_group: Option<String>
+    topbar_expanded: Bool
+
+impl ZenKainUiHost:
+    fn new_(config: crate::config::KainUiConfig, theme: crate::theme::ZenUiTheme) -> Self:
+        let host_api = # <expr>
+        let module_registry = # <expr>
+        let workspace = # <expr>
+        let mut session = # <expr>
+        # <expr>
+        let user_layouts = # <expr>
+        # <expr>
+        let dock_state = # <expr>
+        let _ = # <expr>
+        let active_topbar_group = # <expr>
+        let mut host = # <expr>
+        # <expr>
+        host
+
+    fn combined_documents(_self: &Self) -> Array<zen_editor::ZenWorkspaceDocument>:
+        let mut documents = # <expr>
+        # <expr>
+        documents
+
+    fn find_document(_self: &Self, document_key: &String) -> Option<zen_editor::ZenWorkspaceDocument>:
+        # <expr>
+
+    fn document_exists(_self: &Self, document_key: &String) -> Bool:
+        # <expr>
+
+    fn reload(_self: &mut Self):
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        let resolved_shell = # <expr>
+        let root_component = # <expr>
+        let source = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn set_theme(_self: &mut Self, theme: crate::theme::ZenUiTheme):
+        # <expr>
+
+    fn poll_hot_reload(_self: &mut Self) -> Bool:
+        # <expr>
+        let interval = # <expr>
+        # <expr>
+        # <expr>
+        let mut changed_paths = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        true
+
+    fn open_feature_tab(_self: &mut Self, feature_key: &String):
+        let tab = # <expr>
+        # <expr>
+        # <expr>
+
+    fn select_document(_self: &mut Self, document_key: &String):
+        # <expr>
+
+    fn import_asset_from_dialog(_self: &mut Self, scene: &mut zen_scene::ZenScene):
+        let _ = # <expr>
+        # <expr>
+
+    fn import_asset_path(_self: &mut Self, path: std::path::PathBuf, scene: &mut zen_scene::ZenScene):
+        let _ = # <expr>
+        # <expr>
+
+    fn upsert_runtime_document(_self: &mut Self, document: zen_editor::ZenWorkspaceDocument):
+        # <expr>
+
+    fn ensure_document_buffer(_self: &mut Self, document: &zen_editor::ZenWorkspaceDocument):
+        # <expr>
+        # <expr>
+
+    fn apply_workspace_preset(_self: &mut Self, preset_key: &String):
+        # <expr>
+
+    fn apply_user_layout(_self: &mut Self, layout_key: &String):
+        # <expr>
+
+    fn reset_workspace_layout(_self: &mut Self):
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn save_user_layout(_self: &mut Self, requested_title: &String):
+        let fallback_title = # <expr>
+        let title = # <expr>
+        let key = # <expr>
+        let layout = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        let _ = # <expr>
+        # <expr>
+        # <expr>
+
+    fn delete_user_layout(_self: &mut Self, layout_key: &String):
+        let removed = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        let _ = # <expr>
+        # <expr>
+        # <expr>
+
+    fn persist_editor_state(_self: &mut Self):
+        let _ = # <expr>
+        let _ = # <expr>
+        let _ = # <expr>
+        # <expr>
+
+    fn apply_palette_selection(_self: &mut Self, selection: CommandPaletteSelection, scene: &mut zen_scene::ZenScene, runtime: &mut zen_runtime::ZenRuntimeSession, camera: &mut crate::FlyCamera, fabric_service: &mut crate::fabric::ZenFabricService) -> UiActionResult:
+        # <expr>
+
+    fn apply_workspace_panel_action(_self: &mut Self, action: WorkspacePanelAction, scene: &mut zen_scene::ZenScene):
+        # <expr>
+
+    fn render(_self: &mut Self, ctx: &egui::Context, scene: &mut zen_scene::ZenScene, runtime: &mut zen_runtime::ZenRuntimeSession, camera: &mut crate::FlyCamera, fabric_service: &mut crate::fabric::ZenFabricService, renderer: &mut crate::config::RendererConfig, hud: ZenViewportHud, kain_status: &String) -> Bool:
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        let command_palette_shortcut = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        let documents = # <expr>
+        let palette_action = # <expr>
+        let mut palette_scene_changed = false
+        let mut palette_reload_requested = false
+        # <expr>
+        let host_api_status = # <expr>
+        let module_status = # <expr>
+        let contract_status = # <expr>
+        let registry_status = # <expr>
+        let shell_status = # <expr>
+        let source_label = # <expr>
+        let debug_tree = # <expr>
+        let import_status = # <expr>
+        let workspace = # <expr>
+        let host_api = # <expr>
+        let theme = # <expr>
+        let dock_state = # <expr>
+        let inspector = # <expr>
+        let document_buffers = # <expr>
+        let activity_status = # <expr>
+        let mut viewer = # <expr>
+        # <expr>
+        # <expr>
+        let scene_changed = # <expr>
+        let requested_reload = # <expr>
+        let workspace_action = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        scene_changed
+
+    fn take_viewport_request(_self: &mut Self) -> Option<Array<u32>>:
+        # <expr>
+
+    fn viewport_rect_pixels(_self: &Self) -> Option<Array<f32>>:
+        # <expr>
+
+
+struct ZenDockViewer:
+    workspace: &zen_editor::ZenWorkspaceManifest
+    documents: &Slice<zen_editor::ZenWorkspaceDocument>
+    session: &mut zen_editor::ZenEditorSession
+    user_layouts: &Slice<zen_editor::ZenUserWorkspaceLayout>
+    layout_name_draft: &mut String
+    document_buffers: &mut Map<String, DocumentEditorBuffer>
+    host_api: &zen_host::ZenHostApi
+    theme: &crate::theme::ZenUiTheme
+    inspector: &mut InspectorDraft
+    activity_status: &mut String
+    scene: &mut zen_scene::ZenScene
+    runtime: &mut zen_runtime::ZenRuntimeSession
+    camera: &mut crate::FlyCamera
+    fabric_service: &mut crate::fabric::ZenFabricService
+    renderer: &mut crate::config::RendererConfig
+    hud: ZenViewportHud
+    kain_status: &String
+    pixels_per_point: f32
+    viewport_request: &mut Option<Array<u32>>
+    viewport_rect_pixels: &mut Option<Array<f32>>
+    shell_status: &String
+    source_label: &String
+    host_api_status: &String
+    module_status: &String
+    contract_status: &String
+    registry_status: &String
+    import_status: &String
+    debug_tree: &String
+    scene_changed: Bool
+    requested_reload: Bool
+    workspace_action: Option<WorkspacePanelAction>
+
+impl ZenDockViewer<a>:
+    fn render_feature(_self: &mut Self, ui: &mut egui::Ui, feature: &zen_editor::ZenUiFeature):
+        # <expr>
+
+
+impl egui_dock::TabViewer for ZenDockViewer<_>:
+    fn title(_self: &mut Self, tab: &mut Self::Tab) -> egui::WidgetText:
+        # <expr>
+
+    fn ui(_self: &mut Self, ui: &mut egui::Ui, tab: &mut Self::Tab):
+        # <expr>
+
+    fn closeable(_self: &mut Self, tab: &mut Self::Tab) -> Bool:
+        # <expr>
+
+
+fn apply_editor_theme(ctx: &egui::Context, theme: &crate::theme::ZenUiTheme):
+    let mut style = # <expr>
+    # <expr>
+    # <expr>
+
+fn render_workspace_topbar(ctx: &egui::Context, theme: &crate::theme::ZenUiTheme, workspace: &zen_editor::ZenWorkspaceManifest, workspace_title: &String, active_document: Option<&String>, viewport_layout: &String, play_mode: zen_core::ZenPlayMode, selected: Option<zen_scene::SelectedObjectDetails>, active_topbar_group: &mut Option<String>, topbar_expanded: &mut Bool):
+    # <expr>
+    let active_group = # <expr>
+    let expanded_height = # <expr>
+    # <expr>
+
+fn render_workspace_statusbar(ui: &mut egui::Ui, activity_status: &String, shell_status: &String, contract_status: &String, registry_status: &String, fabric_status: &String, kain_status: &String):
+    # <expr>
+
+fn draw_command_palette(ctx: &egui::Context, theme: &crate::theme::ZenUiTheme, open: &mut Bool, query: &mut String, host_api: &zen_host::ZenHostApi, feature_registry: &zen_editor::ZenFeatureRegistry, workspace: &zen_editor::ZenWorkspaceManifest, documents: &Slice<zen_editor::ZenWorkspaceDocument>, session: &zen_editor::ZenEditorSession, user_layouts: &Slice<zen_editor::ZenUserWorkspaceLayout>) -> Option<CommandPaletteSelection>:
+    # <expr>
+    let mut chosen = None
+    let mut window_open = # <expr>
+    let mut close_after_select = false
+    # <expr>
+    # <expr>
+    chosen
+
+fn draw_feature_panel(ui: &mut egui::Ui, theme: &crate::theme::ZenUiTheme, feature: &zen_editor::ZenUiFeature, transparent: Bool, draw: impl FnOnce):
+    let frame = # <expr>
+    # <expr>
+
+fn validate_binding(ui: &mut egui::Ui, theme: &crate::theme::ZenUiTheme, host_api: &zen_host::ZenHostApi, feature: &zen_editor::ZenUiFeature, expected: zen_host::ZenHostBindingKind) -> Bool:
+    let _ = # <expr>
+    let _ = # <expr>
+    # <expr>
+    true
+
+fn draw_action_strip(ui: &mut egui::Ui, theme: &crate::theme::ZenUiTheme, feature: &zen_editor::ZenUiFeature, host_api: &zen_host::ZenHostApi, activity_status: &mut String, scene: &mut zen_scene::ZenScene, runtime: &mut zen_runtime::ZenRuntimeSession, camera: &mut crate::FlyCamera, fabric_service: &mut crate::fabric::ZenFabricService, scene_changed: &mut Bool, requested_reload: &mut Bool):
+    # <expr>
+
+fn draw_action_button(ui: &mut egui::Ui, theme: &crate::theme::ZenUiTheme, action: &zen_host::ZenHostAction) -> egui::Response:
+    # <expr>
+
+fn draw_scene_object_entry(ui: &mut egui::Ui, scene: &mut zen_scene::ZenScene, entry: &zen_scene::SceneObjectEntry) -> Bool:
+    let mut changed = false
+    # <expr>
+    changed
+
+fn draw_scene_selection_inspector(inspector: &mut InspectorDraft, ui: &mut egui::Ui, scene: &mut zen_scene::ZenScene) -> Bool:
+    let mut changed = false
+    let details = # <expr>
+    # <expr>
+    # <expr>
+    changed
+
+fn draw_runtime_inspector(ui: &mut egui::Ui, theme: &crate::theme::ZenUiTheme, feature: &zen_editor::ZenUiFeature, host_api: &zen_host::ZenHostApi, activity_status: &mut String, scene: &mut zen_scene::ZenScene, runtime: &mut zen_runtime::ZenRuntimeSession, camera: &mut crate::FlyCamera, fabric_service: &mut crate::fabric::ZenFabricService, renderer: &mut crate::config::RendererConfig, details: Option<zen_scene::SelectedObjectDetails>, hud: ZenViewportHud, scene_changed: &mut Bool, requested_reload: &mut Bool):
+    # <expr>
+    let schema = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+
+fn draw_host_api_inspector(ui: &mut egui::Ui, theme: &crate::theme::ZenUiTheme, host_api: &zen_host::ZenHostApi, registry_status: &String):
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+
+fn draw_registry_inspector(ui: &mut egui::Ui, theme: &crate::theme::ZenUiTheme, feature: &zen_editor::ZenUiFeature, registry_status: &String):
+    # <expr>
+    # <expr>
+    # <expr>
+    let workspace = # <expr>
+    let integration = # <expr>
+    let adapters = # <expr>
+    let zen_packages = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+
+fn draw_fabric_panel(ui: &mut egui::Ui, theme: &crate::theme::ZenUiTheme, fabric_service: &mut crate::fabric::ZenFabricService, activity_status: &mut String):
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+
+fn draw_document_context_panel_with_layouts(ui: &mut egui::Ui, theme: &crate::theme::ZenUiTheme, workspace: &zen_editor::ZenWorkspaceManifest, documents: &Slice<zen_editor::ZenWorkspaceDocument>, session: &mut zen_editor::ZenEditorSession, user_layouts: &Slice<zen_editor::ZenUserWorkspaceLayout>, layout_name_draft: &mut String, import_status: &String) -> Option<WorkspacePanelAction>:
+    let active_document = # <expr>
+    let active_preset = # <expr>
+    let active_user_layout = # <expr>
+    let mut action = None
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    action
+
+fn draw_document_editor_panel(ui: &mut egui::Ui, theme: &crate::theme::ZenUiTheme, documents: &Slice<zen_editor::ZenWorkspaceDocument>, session: &zen_editor::ZenEditorSession, document_buffers: &mut Map<String, DocumentEditorBuffer>, activity_status: &mut String):
+    let _ = # <expr>
+    let _ = # <expr>
+    let buffer = # <expr>
+    let dirty = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    let editor = # <expr>
+    # <expr>
+
+fn load_document_editor_buffer(document: &zen_editor::ZenWorkspaceDocument) -> Result<DocumentEditorBuffer, String>:
+    let source_path = # <expr>
+    let source_label = # <expr>
+    let _ = source_path
+    let text = # <expr>
+    let status = # <expr>
+    # <expr>
+
+fn save_document_editor_buffer(buffer: &mut DocumentEditorBuffer) -> Result<String, String>:
+    let _ = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+
+fn render_inspector_schema(ui: &mut egui::Ui, schema: &zen_editor::ZenInspectorSchema, on_edit: Option<&mut impl FnMut>):
+    # <expr>
+    # <expr>
+
+fn selection_inspector_schema(details: &zen_scene::SelectedObjectDetails) -> zen_editor::ZenInspectorSchema:
+    # <expr>
+
+fn runtime_inspector_schema(runtime: &zen_runtime::ZenRuntimeSession, renderer: &crate::config::RendererConfig, hud: ZenViewportHud, details: Option<&zen_scene::SelectedObjectDetails>) -> zen_editor::ZenInspectorSchema:
+    let mut sections = # <expr>
+    # <expr>
+    # <expr>
+
+fn draw_timeline_panel(ui: &mut egui::Ui, theme: &crate::theme::ZenUiTheme, feature: &zen_editor::ZenUiFeature):
+    let title = # <expr>
+    # <expr>
+
+fn draw_viewport_panel(ui: &mut egui::Ui, theme: &crate::theme::ZenUiTheme, feature: &zen_editor::ZenUiFeature, scene: &mut zen_scene::ZenScene, hud: ZenViewportHud, kain_status: &String, pixels_per_point: f32, viewport_request: &mut Option<Array<u32>>, viewport_rect_pixels: &mut Option<Array<f32>>):
+    let title = # <expr>
+    let profile_label = # <expr>
+    let mode_label = # <expr>
+    let available = # <expr>
+    let rect = # <expr>
+    let response = # <expr>
+    let outline_color = # <expr>
+    let viewport_rect = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    let painter = # <expr>
+    # <expr>
+    # <expr>
+    let title_badge = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    let footer = # <expr>
+    # <expr>
+    let selection_label = # <expr>
+    # <expr>
+    # <expr>
+
+fn draw_kain_status_panel(ui: &mut egui::Ui, theme: &crate::theme::ZenUiTheme, kain_status: &String, shell_status: &String, source_label: &String, host_api_status: &String, module_status: &String, contract_status: &String, registry_status: &String, debug_tree: &String):
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+
+fn draw_missing_feature(ui: &mut egui::Ui, feature_key: &String):
+    # <expr>
+
+fn render_surface_frame(ui: &mut egui::Ui, theme: &crate::theme::ZenUiTheme, title: &String, desired_size: egui::Vec2, draw: impl FnOnce):
+    # <expr>
+    let width = # <expr>
+    let available_height = # <expr>
+    let height = # <expr>
+    let _ = # <expr>
+    # <expr>
+
+fn corner_radius(value: f32) -> egui::CornerRadius:
+    # <expr>
+
+struct UiActionResult:
+    scene_changed: Bool
+    reload_requested: Bool
+
+struct UiRuntimeEventResult:
+    reload_requested: Bool
+    fabric_status: Option<String>
+
+fn execute_ui_action(host_api: &zen_host::ZenHostApi, activity_status: &mut String, action_key: Option<&String>, scene: &mut zen_scene::ZenScene, runtime: &mut zen_runtime::ZenRuntimeSession, camera: &mut crate::FlyCamera, fabric_service: &mut crate::fabric::ZenFabricService) -> UiActionResult:
+    let _ = # <expr>
+    let transaction_id = # <expr>
+    let envelope = # <expr>
+    # <expr>
+
+fn apply_runtime_events(scene: &zen_scene::ZenScene, camera: &mut crate::FlyCamera, fabric_service: &mut crate::fabric::ZenFabricService, events: &Slice<zen_core::ZenEvent>) -> UiRuntimeEventResult:
+    let mut reload_requested = false
+    # <expr>
+    let fabric_messages = # <expr>
+    # <expr>
+
+fn contract_status(host_api: &zen_host::ZenHostApi, modules: &zen_kain_modules::ZenKainModuleRegistry) -> String:
+    # <expr>
+
+fn registry_status() -> String:
+    let workspace = # <expr>
+    let integration = # <expr>
+    let zen_packages = # <expr>
+    let zen_adapter_packages = # <expr>
+    # <expr>
+
+fn build_asset_pipeline() -> Result<k_os_asset_pipeline::AssetPipeline, String>:
+    let pipeline = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+
+fn resolve_default_topbar_group(workspace: &zen_editor::ZenWorkspaceManifest) -> Option<String>:
+    # <expr>
+
+fn asset_cache_dir() -> std::path::PathBuf:
+    # <expr>
+    # <expr>
+
+fn runtime_document_from_asset(asset: &k_os_asset_pipeline::Asset) -> zen_editor::ZenWorkspaceDocument:
+    let source_path = # <expr>
+    let title = # <expr>
+    let extension = # <expr>
+    # <expr>
+
+fn runtime_document_key(path: &std::path::Path) -> String:
+    let mut hasher = # <expr>
+    # <expr>
+    let hash = # <expr>
+    let stem = # <expr>
+    # <expr>
+
+fn slug_fragment(value: &String) -> String:
+    let mut slug = # <expr>
+    let mut last_dash = false
+    # <expr>
+    # <expr>
+
+fn workspace_summary(workspace: &zen_editor::ZenWorkspaceManifest) -> String:
+    # <expr>
+
+fn load_shell_source(config: &crate::config::KainUiConfig, registry: &zen_kain_modules::ZenKainModuleRegistry) -> Option<zen_kain_modules::ZenResolvedShell>:
+    # <expr>
+
+fn collect_watch_paths(config: &crate::config::KainUiConfig, shell: Option<&zen_kain_modules::ZenResolvedShell>) -> Array<std::path::PathBuf>:
+    let mut paths = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    paths
+
+fn read_modified_time(path: &std::path::PathBuf) -> Option<std::time::SystemTime>:
+    # <expr>
+
+fn resolve_workspace_dock_state(workspace: &zen_editor::ZenWorkspaceManifest, session: &zen_editor::ZenEditorSession, user_layouts: &Slice<zen_editor::ZenUserWorkspaceLayout>) -> egui_dock::DockState<zen_editor::ZenDockTab>:
+    # <expr>
+    # <expr>
+
+fn normalize_layout_title(title: &String) -> Option<String>:
+    let trimmed = # <expr>
+    # <expr>
+
+fn slugify_layout_key(title: &String) -> String:
+    let mut key = # <expr>
+    let mut last_dash = false
+    # <expr>
+    let key = # <expr>
+    # <expr>
+
+fn default_editor_session(workspace: &zen_editor::ZenWorkspaceManifest) -> zen_editor::ZenEditorSession:
+    let mut session = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    session
+
+fn sync_session_with_workspace(workspace: &zen_editor::ZenWorkspaceManifest, session: &mut zen_editor::ZenEditorSession):
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+
+fn sync_session_with_user_layouts(session: &mut zen_editor::ZenEditorSession, user_layouts: &Slice<zen_editor::ZenUserWorkspaceLayout>):
+    # <expr>
+    # <expr>
+
+fn sync_inspector_draft(inspector: &mut InspectorDraft, details: Option<&zen_scene::SelectedObjectDetails>):
+    # <expr>
+
+fn draw_vec3_controls(ui: &mut egui::Ui, value: &mut Array<f32>) -> Option<Array<f32>>:
+    let mut changed = false
+    # <expr>
+    # <expr>
+
+struct CameraUniform:
+    view_proj: Array<Array<f32>>
+    light_view_proj: Array<Array<f32>>
+    view_pos: Array<f32>
+    sun_dir: Array<f32>
+    sun_color: Array<f32>
+    render_params: Array<f32>
+    style_params: Array<f32>
+    accent: Array<f32>
+
+struct FlyCamera:
+    position: glam::Vec3
+    yaw: f32
+    pitch: f32
+    fov_degrees: f32
+    near_plane: f32
+    far_plane: f32
+
+impl FlyCamera:
+    fn new_(config: &config::CameraConfig) -> Self:
+        # <expr>
+
+    fn forward(_self: &Self) -> glam::Vec3:
+        # <expr>
+
+    fn right(_self: &Self) -> glam::Vec3:
+        # <expr>
+
+    fn flat_forward(_self: &Self) -> glam::Vec3:
+        # <expr>
+
+    fn apply_look_delta(_self: &mut Self, dx: f64, dy: f64, sensitivity: f32):
+        # <expr>
+        # <expr>
+
+    fn focus_on(_self: &mut Self, target: glam::Vec3, radius: f32):
+        let forward = # <expr>
+        let distance = # <expr>
+        let mut next_position = # <expr>
+        let min_height = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn dolly(_self: &mut Self, amount: f32):
+        # <expr>
+
+    fn update(_self: &mut Self, dt: f32, input_state: &input::InputState, bindings: &input::InputBindings):
+        let mut movement = glam::Vec3::ZERO
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        let boost = # <expr>
+        # <expr>
+
+    fn look_at(_self: &mut Self, target: glam::Vec3):
+        let direction = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn forward_or_default(_self: &Self) -> glam::Vec3:
+        let forward = # <expr>
+        # <expr>
+
+    fn view_projection(_self: &Self, aspect: f32) -> glam::Mat4:
+        let view = # <expr>
+        let proj = # <expr>
+        # <expr>
+
+
+struct DepthTarget:
+    texture: wgpu::Texture
+    view: wgpu::TextureView
+
+struct ShadowTarget:
+    texture: wgpu::Texture
+    view: wgpu::TextureView
+
+struct ViewportTarget:
+    texture: wgpu::Texture
+    view: wgpu::TextureView
+    depth_texture: wgpu::Texture
+    depth_view: wgpu::TextureView
+    size: winit::dpi::PhysicalSize<u32>
+
+struct ZenUi:
+    context: egui::Context
+    state: egui_winit::State
+    renderer: egui_wgpu_backend::RenderPass
+    screen: egui_wgpu_backend::ScreenDescriptor
+    shell: kain_ui_host::ZenKainUiHost
+    theme: theme::ZenUiTheme
+    viewport_texture_id: Option<egui::TextureId>
+    hot_reload_enabled: Bool
+    hot_reload_interval: std::time::Duration
+    last_hot_reload_poll: std::time::Instant
+    theme_watch_path: Option<std::path::PathBuf>
+    theme_watch_modified: Option<std::time::SystemTime>
+
+impl DepthTarget:
+    fn new_(device: &wgpu::Device, size: winit::dpi::PhysicalSize<u32>) -> Self:
+        let texture = # <expr>
+        let view = # <expr>
+        # <expr>
+
+
+impl ShadowTarget:
+    fn new_(device: &wgpu::Device, size: u32) -> Self:
+        let texture = # <expr>
+        let view = # <expr>
+        # <expr>
+
+
+impl ViewportTarget:
+    fn new_(device: &wgpu::Device, size: winit::dpi::PhysicalSize<u32>) -> Self:
+        let size = # <expr>
+        let texture = # <expr>
+        let view = # <expr>
+        let depth_texture = # <expr>
+        let depth_view = # <expr>
+        # <expr>
+
+
+impl ZenUi:
+    fn new_(window: &winit::window::Window, device: &wgpu::Device, format: wgpu::TextureFormat, runtime_config: &config::RuntimeConfig) -> Result<Self, String>:
+        let context = # <expr>
+        let theme = # <expr>
+        # <expr>
+        let theme_watch_path = # <expr>
+        let theme_watch_modified = # <expr>
+        let mut state = # <expr>
+        # <expr>
+        # <expr>
+
+    fn on_window_event(_self: &mut Self, window: &winit::window::Window, event: &winit::event::WindowEvent) -> Bool:
+        # <expr>
+
+    fn on_mouse_motion(_self: &mut Self, delta: (f64, f64)):
+        # <expr>
+
+    fn resize(_self: &mut Self, window: &winit::window::Window, size: winit::dpi::PhysicalSize<u32>):
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn sync_viewport_texture(_self: &mut Self, device: &wgpu::Device, view: &wgpu::TextureView) -> Result<egui::TextureId, String>:
+        # <expr>
+
+    fn viewport_request_size(_self: &mut Self) -> Option<Array<u32>>:
+        # <expr>
+
+    fn viewport_rect_pixels(_self: &Self) -> Option<Array<f32>>:
+        # <expr>
+
+    fn poll_hot_reload(_self: &mut Self):
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn render(_self: &mut Self, window: &winit::window::Window, device: &wgpu::Device, queue: &wgpu::Queue, encoder: &mut wgpu::CommandEncoder, view: &wgpu::TextureView, scene: &mut zen_scene::ZenScene, runtime: &mut zen_runtime::ZenRuntimeSession, camera: &mut FlyCamera, fabric_service: &mut fabric::ZenFabricService, renderer_config: &mut config::RendererConfig, hud: kain_ui_host::ZenViewportHud, kain_status: &String) -> Result<Bool, String>:
+        let raw_input = # <expr>
+        # <expr>
+        let mut scene_changed = false
+        let shell = # <expr>
+        let full_output = # <expr>
+        # <expr>
+        let paint_jobs = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+
+struct ZenState:
+    window: winit::window::Window
+    surface: wgpu::Surface<static>
+    device: wgpu::Device
+    queue: wgpu::Queue
+    surface_config: wgpu::SurfaceConfiguration
+    size: winit::dpi::PhysicalSize<u32>
+    background_pipeline: wgpu::RenderPipeline
+    background_bind_group_layout: wgpu::BindGroupLayout
+    background_bind_group: Option<wgpu::BindGroup>
+    shadow_pipeline: wgpu::RenderPipeline
+    render_pipeline: wgpu::RenderPipeline
+    camera_buffer: wgpu::Buffer
+    shadow_camera_bind_group: wgpu::BindGroup
+    camera_bind_group: wgpu::BindGroup
+    depth_target: DepthTarget
+    shadow_target: ShadowTarget
+    viewport_target: ViewportTarget
+    camera: FlyCamera
+    bindings: input::InputBindings
+    input_state: input::InputState
+    mouse_look_active: Bool
+    last_frame: std::time::Instant
+    last_title_update: std::time::Instant
+    started_at: std::time::Instant
+    runtime_config: config::RuntimeConfig
+    scene: zen_scene::ZenScene
+    renderer_session: renderer_session::ZenRendererSession
+    runtime: zen_runtime::ZenRuntimeSession
+    fabric_service: fabric::ZenFabricService
+    last_cursor_position: Option<(f32, f32)>
+    ui: ZenUi
+    post_processor: post::ZenPostProcessor
+    kain_runtime: kain_runtime::KainRuntime
+
+impl ZenState:
+    fn new_(window: winit::window::Window, runtime_config: config::RuntimeConfig) -> Result<Self, String>:
+        let size = # <expr>
+        let instance = # <expr>
+        let surface = # <expr>
+        let adapter = # <expr>
+        let _ = # <expr>
+        let surface_caps = # <expr>
+        let surface_format = # <expr>
+        let surface_config = # <expr>
+        # <expr>
+        let bindings = # <expr>
+        let camera = # <expr>
+        let scene = # <expr>
+        let camera_uniform = # <expr>
+        let camera_buffer = # <expr>
+        let shadow_target = # <expr>
+        let shadow_sampler = # <expr>
+        let shadow_camera_bind_group_layout = # <expr>
+        let shadow_camera_bind_group = # <expr>
+        let camera_bind_group_layout = # <expr>
+        let camera_bind_group = # <expr>
+        let background_shader = # <expr>
+        let background_bind_group_layout = # <expr>
+        let background_pipeline_layout = # <expr>
+        let background_pipeline = # <expr>
+        let shadow_shader = # <expr>
+        let shadow_pipeline_layout = # <expr>
+        let shadow_pipeline = # <expr>
+        let shader = # <expr>
+        let pipeline_layout = # <expr>
+        let render_pipeline = # <expr>
+        let depth_target = # <expr>
+        let viewport_target = # <expr>
+        let post_processor = # <expr>
+        let mut renderer_session = # <expr>
+        # <expr>
+        # <expr>
+        let background_bind_group = # <expr>
+        let ui = # <expr>
+        let fabric_service = # <expr>
+        let mut state = # <expr>
+        # <expr>
+        # <expr>
+
+    fn resize(_self: &mut Self, size: winit::dpi::PhysicalSize<u32>):
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn ensure_viewport_target(_self: &mut Self, size: winit::dpi::PhysicalSize<u32>):
+        let size = # <expr>
+        # <expr>
+
+    fn update(_self: &mut Self):
+        let now = # <expr>
+        let dt = # <expr>
+        # <expr>
+        # <expr>
+        let _ = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn update_camera_uniform(_self: &mut Self):
+        let elapsed = # <expr>
+        let accent = # <expr>
+        let viewport_size = # <expr>
+        let aspect = # <expr>
+        let sun_dir = # <expr>
+        let scene_center = # <expr>
+        let light_up = # <expr>
+        let light_position = # <expr>
+        let light_view = # <expr>
+        let radius = # <expr>
+        let light_proj = # <expr>
+        let uniform_ = # <expr>
+        # <expr>
+
+    fn render(_self: &mut Self) -> Result<(), String>:
+        let frame = # <expr>
+        let view = # <expr>
+        let accent = # <expr>
+        let kain_status = # <expr>
+        let requested_viewport = # <expr>
+        let viewport_size_changed = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        let _ = # <expr>
+        let clear_color = # <expr>
+        let mut encoder = # <expr>
+        # <expr>
+        # <expr>
+        let has_background = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        let viewport_texture_id = # <expr>
+        let hud = # <expr>
+        let overlay_changed = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn set_mouse_look(_self: &mut Self, active: Bool):
+        # <expr>
+        # <expr>
+        let grab_mode = # <expr>
+        # <expr>
+
+    fn handle_mouse_wheel(_self: &mut Self, delta: winit::event::MouseScrollDelta):
+        let amount = # <expr>
+        # <expr>
+
+    fn sync_shared_renderer_scene(_self: &mut Self) -> Result<(), String>:
+        # <expr>
+
+    fn handle_primary_click(_self: &mut Self) -> Result<(), String>:
+        let _ = # <expr>
+        let _ = # <expr>
+        let selection = # <expr>
+        let changed = # <expr>
+        # <expr>
+        # <expr>
+
+    fn handle_action_trigger(_self: &mut Self, trigger: input::InputTrigger):
+        # <expr>
+        # <expr>
+
+    fn focus_selected(_self: &mut Self):
+        # <expr>
+
+    fn frame_scene(_self: &mut Self):
+        # <expr>
+
+    fn dispatch_runtime_command(_self: &mut Self, source: zen_core::ZenCommandSource, command: zen_core::ZenCommand):
+        let transaction_id = # <expr>
+        let envelope = # <expr>
+        # <expr>
+
+    fn apply_runtime_events(_self: &mut Self, events: &Slice<zen_core::ZenEvent>):
+        # <expr>
+        # <expr>
+
+    fn screen_ray(_self: &Self, cursor: (f32, f32)) -> Option<(glam::Vec3, glam::Vec3)>:
+        let viewport_rect = # <expr>
+        # <expr>
+        let scale_factor = # <expr>
+        let cursor_px = # <expr>
+        # <expr>
+        let local_x = # <expr>
+        let local_y = # <expr>
+        let aspect = # <expr>
+        let ndc_x = # <expr>
+        let ndc_y = # <expr>
+        let inverse = # <expr>
+        let near = # <expr>
+        let far = # <expr>
+        let direction = # <expr>
+        # <expr>
+
+    fn screen_ndc(_self: &Self, cursor: (f32, f32)) -> Option<Array<f32>>:
+        let viewport_rect = # <expr>
+        # <expr>
+        let scale_factor = # <expr>
+        let cursor_px = # <expr>
+        # <expr>
+        let local_x = # <expr>
+        let local_y = # <expr>
+        let ndc_x = # <expr>
+        let ndc_y = # <expr>
+        # <expr>
+
+
+struct ZenApp:
+    state: Option<ZenState>
+
+fn write_error_log_file(title: &String, message: &String) -> Option<std::path::PathBuf>:
+    let log_path = # <expr>
+    let log_body = # <expr>
+    # <expr>
+    # <expr>
+
+fn append_session_log(message: &String):
+    let _ = # <expr>
+    let timestamp = # <expr>
+    # <expr>
+
+fn report_fatal_error(title: &String, message: &String):
+    # <expr>
+    # <expr>
+    let log_path = # <expr>
+    # <expr>
+
+impl winit::application::ApplicationHandler for ZenApp:
+    fn resumed(_self: &mut Self, event_loop: &winit::event_loop::ActiveEventLoop):
+        # <expr>
+        # <expr>
+        # <expr>
+        let runtime_config = # <expr>
+        # <expr>
+        let window_title = # <expr>
+        let window_width = # <expr>
+        let window_height = # <expr>
+        let min_width = # <expr>
+        let min_height = # <expr>
+        let attributes = # <expr>
+        let window = # <expr>
+        # <expr>
+        # <expr>
+
+    fn window_event(_self: &mut Self, event_loop: &winit::event_loop::ActiveEventLoop, window_id: winit::window::WindowId, event: winit::event::WindowEvent):
+        let _ = # <expr>
+        # <expr>
+        # <expr>
+
+    fn device_event(_self: &mut Self, _event_loop: &winit::event_loop::ActiveEventLoop, _device_id: winit::event::DeviceId, event: winit::event::DeviceEvent):
+        let _ = # <expr>
+        # <expr>
+        # <expr>
+
+    fn about_to_wait(_self: &mut Self, _event_loop: &winit::event_loop::ActiveEventLoop):
+        # <expr>
+
+
+fn main():
+    # <expr>
+    let event_loop = # <expr>
+    let mut app = # <expr>
+    # <expr>
+
+struct ZenPostProcessor:
+    config: crate::config::RendererPostConfig
+    pipeline: Option<wgpu::ComputePipeline>
+    bind_group_layout: Option<wgpu::BindGroupLayout>
+    bind_group: Option<wgpu::BindGroup>
+    output_buffer: Option<wgpu::Buffer>
+    viewport_width_buffer: Option<wgpu::Buffer>
+    viewport_height_buffer: Option<wgpu::Buffer>
+    row_stride_buffer: Option<wgpu::Buffer>
+    time_buffer: Option<wgpu::Buffer>
+    camera_forward_buffer: Option<wgpu::Buffer>
+    sun_dir_buffer: Option<wgpu::Buffer>
+    sun_color_buffer: Option<wgpu::Buffer>
+    sky_top_buffer: Option<wgpu::Buffer>
+    sky_horizon_buffer: Option<wgpu::Buffer>
+    ground_color_buffer: Option<wgpu::Buffer>
+    fog_color_buffer: Option<wgpu::Buffer>
+    accent_color_buffer: Option<wgpu::Buffer>
+    shadow_color_buffer: Option<wgpu::Buffer>
+    fog_density_buffer: Option<wgpu::Buffer>
+    shadow_strength_buffer: Option<wgpu::Buffer>
+    glow_strength_buffer: Option<wgpu::Buffer>
+    haze_strength_buffer: Option<wgpu::Buffer>
+    sun_disk_power_buffer: Option<wgpu::Buffer>
+    output_texture: Option<wgpu::Texture>
+    output_view: Option<wgpu::TextureView>
+    size: winit::dpi::PhysicalSize<u32>
+    row_stride_pixels: u32
+    status: String
+
+impl ZenPostProcessor:
+    fn new_(device: &wgpu::Device, config: crate::config::RendererPostConfig, size: winit::dpi::PhysicalSize<u32>) -> Self:
+        let mut processor = # <expr>
+        # <expr>
+        # <expr>
+
+    fn status(_self: &Self) -> &String:
+        # <expr>
+
+    fn is_ready(_self: &Self) -> Bool:
+        # <expr>
+
+    fn output_view(_self: &Self) -> Option<&wgpu::TextureView>:
+        # <expr>
+
+    fn resize(_self: &mut Self, device: &wgpu::Device, size: winit::dpi::PhysicalSize<u32>):
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn encode(_self: &mut Self, queue: &wgpu::Queue, encoder: &mut wgpu::CommandEncoder, time_seconds: f32, camera_forward: glam::Vec3, sun_dir: Array<f32>, sun_color: Array<f32>, accent: Array<f32>, fog_density: f32, shadow_strength: f32) -> Result<(), String>:
+        # <expr>
+        let bind_group = # <expr>
+        let pipeline = # <expr>
+        let output_buffer = # <expr>
+        let output_texture = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn try_initialize(_self: &mut Self, device: &wgpu::Device) -> Result<(), String>:
+        # <expr>
+        let shader_bytes = # <expr>
+        let shader_wgsl = # <expr>
+        let shader = # <expr>
+        let bind_group_layout = # <expr>
+        let pipeline_layout = # <expr>
+        let pipeline = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn allocate_output_resources(_self: &mut Self, device: &wgpu::Device) -> Result<(), String>:
+        let width = # <expr>
+        let height = # <expr>
+        let row_stride_pixels = # <expr>
+        let output_size = # <expr>
+        let output_buffer = # <expr>
+        let output_texture = # <expr>
+        let output_view = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        let layout = # <expr>
+        let bind_group = # <expr>
+        # <expr>
+        # <expr>
+
+
+fn ensure_shader_artifact(config: &crate::config::RendererPostConfig) -> Result<(), String>:
+    let workspace = # <expr>
+    let source_path = # <expr>
+    let compiled_path = # <expr>
+    # <expr>
+    let should_build = # <expr>
+    # <expr>
+    # <expr>
+    let output = # <expr>
+    # <expr>
+    # <expr>
+
+fn load_shader_bytes(config: &crate::config::RendererPostConfig) -> Result<Array<u8>, String>:
+    let compiled_path = # <expr>
+    # <expr>
+    # <expr>
+
+fn is_source_newer(source: &std::path::Path, output: &std::path::Path) -> Bool:
+    let _ = # <expr>
+    let _ = # <expr>
+    let _ = # <expr>
+    let _ = # <expr>
+    # <expr>
+
+fn spirv_to_wgsl(bytes: &Slice<u8>) -> Result<String, String>:
+    let module = # <expr>
+    let info = # <expr>
+    # <expr>
+
+fn aligned_row_stride_pixels(width: u32) -> u32:
+    let raw_bytes = # <expr>
+    let aligned_bytes = # <expr>
+    # <expr>
+
+fn storage_layout_entry(binding: u32) -> wgpu::BindGroupLayoutEntry:
+    # <expr>
+
+fn uniform_layout_entry(binding: u32) -> wgpu::BindGroupLayoutEntry:
+    # <expr>
+
+fn uniform_bind_group_entry(binding: u32, buffer: &wgpu::Buffer) -> wgpu::BindGroupEntry<a>:
+    # <expr>
+
+fn create_u32_buffer(device: &wgpu::Device, label: &String, value: u32) -> wgpu::Buffer:
+    # <expr>
+
+fn create_f32_buffer(device: &wgpu::Device, label: &String, value: f32) -> wgpu::Buffer:
+    # <expr>
+
+fn create_vec4_buffer(device: &wgpu::Device, label: &String, value: Array<f32>) -> wgpu::Buffer:
+    # <expr>
+
+mod tests:
+    fn aligns_rows_for_copy_into_texture():
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+
+struct SceneGeometry:
+    vertex_buffer: wgpu::Buffer
+    index_buffer: wgpu::Buffer
+    index_count: u32
+    vertex_count: u32
+
+struct ZenRendererSession:
+    renderer_service: k_os_renderer::RendererService
+    viewport: Option<k_os_renderer::ViewportHandle>
+    viewport_size: Option<(u32, u32)>
+    scene_meshes: Map<u64, k_os_renderer::RenderMeshHandle>
+    scene_geometry: Option<SceneGeometry>
+
+impl ZenRendererSession:
+    fn new_() -> Self:
+        # <expr>
+
+    fn sync_scene(_self: &mut Self, device: &wgpu::Device, scene: &zen_scene::ZenScene, viewport_size: winit::dpi::PhysicalSize<u32>, _renderer_config: &crate::config::RendererConfig) -> Result<(), String>:
+        let viewport = # <expr>
+        let payloads = # <expr>
+        let active_handles = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        let scene_mesh = # <expr>
+        # <expr>
+        # <expr>
+
+    fn sync_camera(_self: &Self, camera: &crate::FlyCamera) -> Result<(), String>:
+        let viewport = # <expr>
+        # <expr>
+
+    fn request_selection(_self: &Self, ndc: Array<f32>) -> Result<k_os_renderer::SelectionResult, String>:
+        let viewport = # <expr>
+        # <expr>
+
+    fn scene_geometry(_self: &Self) -> Option<(&wgpu::Buffer, &wgpu::Buffer, u32, u32)>:
+        # <expr>
+
+    fn scene_counts(_self: &Self) -> (u32, u32):
+        # <expr>
+
+    fn status_suffix(_self: &Self) -> String:
+        let _ = # <expr>
+        # <expr>
+
+    fn ensure_viewport(_self: &mut Self, viewport_size: winit::dpi::PhysicalSize<u32>) -> Result<k_os_renderer::ViewportHandle, String>:
+        let normalized_size = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        let viewport = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn detach_missing_meshes(_self: &mut Self, viewport: k_os_renderer::ViewportHandle, active_handles: &Set<u64>) -> Result<(), String>:
+        let stale = # <expr>
+        # <expr>
+        # <expr>
+
+
+fn into_renderer_camera(camera: &crate::FlyCamera) -> k_os_renderer::CameraState:
+    let forward = # <expr>
+    # <expr>
+
+fn create_scene_buffers(device: &wgpu::Device, mesh: &zen_scene::SceneMesh) -> SceneGeometry:
+    let vertex_buffer = # <expr>
+    let index_buffer = # <expr>
+    # <expr>
+
+struct Vertex:
+    position: Array<f32>
+    color: Array<f32>
+
+impl Vertex:
+    fn desc() -> wgpu::VertexBufferLayout<a>:
+        # <expr>
+
+
+struct SceneMesh:
+    vertices: Array<Vertex>
+    indices: Array<u32>
+
+struct SelectedObjectSummary:
+    handle: k_os_scene::MeshHandle
+    translation: Array<f32>
+    rotation: Array<f32>
+    scale: Array<f32>
+    vertex_count: usize
+    face_count: usize
+
+struct SelectedObjectDetails:
+    name: String
+    summary: SelectedObjectSummary
+
+struct SceneObjectEntry:
+    handle_raw: u64
+    name: String
+    selected: Bool
+    vertex_count: usize
+    face_count: usize
+
+struct SceneFocusTarget:
+    center: Array<f32>
+    radius: f32
+
+struct PrimitiveAppearance:
+    base_color: Array<f32>
+    local_bounds: Bounds
+
+struct Bounds:
+    min: glam::Vec3
+    max: glam::Vec3
+
+struct ZenScene:
+    world: k_os_scene::SceneWorld
+    appearances: Map<k_os_scene::MeshHandle, PrimitiveAppearance>
+    selected: Option<k_os_scene::MeshHandle>
+
+impl ZenScene:
+    fn new_default() -> Self:
+        let mut scene = # <expr>
+        # <expr>
+        let hero = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        scene
+
+    fn select(_self: &mut Self, handle: Option<k_os_scene::MeshHandle>) -> Bool:
+        # <expr>
+        # <expr>
+        true
+
+    fn selected_details(_self: &Self) -> Option<SelectedObjectDetails>:
+        let handle = # <expr>
+        let name = # <expr>
+        let transform = # <expr>
+        let _ = # <expr>
+        # <expr>
+
+    fn object_entries(_self: &Self) -> Array<SceneObjectEntry>:
+        # <expr>
+
+    fn select_raw_handle(_self: &mut Self, handle_raw: u64) -> Bool:
+        # <expr>
+
+    fn clear_selection(_self: &mut Self) -> Bool:
+        # <expr>
+
+    fn select_next(_self: &mut Self, step: isize) -> Bool:
+        let handles = # <expr>
+        # <expr>
+        let current_index = # <expr>
+        let next_index = # <expr>
+        # <expr>
+
+    fn spawn_workspace_box(_self: &mut Self) -> Bool:
+        let existing_objects = # <expr>
+        let column = # <expr>
+        let row = # <expr>
+        let handle = # <expr>
+        # <expr>
+
+    fn rename_selected(_self: &mut Self, new_name: String) -> Result<Bool, String>:
+        let _ = # <expr>
+        let trimmed = # <expr>
+        # <expr>
+        let current = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn set_selected_translation(_self: &mut Self, translation: Array<f32>) -> Result<Bool, String>:
+        let _ = # <expr>
+        let mut transform = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn set_selected_scale(_self: &mut Self, scale: Array<f32>) -> Result<Bool, String>:
+        let _ = # <expr>
+        let normalized = # <expr>
+        let mut transform = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn build_render_mesh(_self: &Self) -> Result<SceneMesh, String>:
+        let mut vertices = # <expr>
+        let mut indices = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn pick(_self: &Self, ray_origin: glam::Vec3, ray_direction: glam::Vec3) -> Option<k_os_scene::MeshHandle>:
+        let mut best: Option<(f32, k_os_scene::MeshHandle)> = None
+        # <expr>
+        # <expr>
+
+    fn selected_focus_target(_self: &Self) -> Option<SceneFocusTarget>:
+        # <expr>
+
+    fn scene_focus_target(_self: &Self) -> Option<SceneFocusTarget>:
+        let mut subject_handles = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn sorted_handles(_self: &Self) -> Array<k_os_scene::MeshHandle>:
+        let mut handles = # <expr>
+        # <expr>
+        handles
+
+    fn focus_target_for_handles(_self: &Self, handles: impl IntoIterator) -> Option<SceneFocusTarget>:
+        let mut min = # <expr>
+        let mut max = # <expr>
+        let mut found_any = false
+        # <expr>
+        # <expr>
+        let center = # <expr>
+        let radius = # <expr>
+        # <expr>
+
+    fn spawn_plane(_self: &mut Self, name: &String, translation: Array<f32>, scale: Array<f32>, color: Array<f32>) -> k_os_scene::MeshHandle:
+        let _ = # <expr>
+        let handle = # <expr>
+        let _ = # <expr>
+        let _ = # <expr>
+        # <expr>
+        handle
+
+    fn spawn_box(_self: &mut Self, name: &String, translation: Array<f32>, scale: Array<f32>, color: Array<f32>) -> k_os_scene::MeshHandle:
+        let _ = # <expr>
+        let handle = # <expr>
+        let _ = # <expr>
+        let _ = # <expr>
+        # <expr>
+        handle
+
+    fn world_transform(_self: &Self, handle: k_os_scene::MeshHandle, visited: &mut Set<k_os_scene::MeshHandle>) -> Result<glam::Mat4, String>:
+        # <expr>
+        let local = # <expr>
+        let local_matrix = # <expr>
+        let parent = # <expr>
+        let result = # <expr>
+        # <expr>
+        # <expr>
+
+    fn append_selection_outline(_self: &Self, handle: k_os_scene::MeshHandle, vertices: &mut Array<Vertex>, indices: &mut Array<u32>) -> Result<(), String>:
+        let _ = # <expr>
+        let world = # <expr>
+        let bounds = # <expr>
+        let color = # <expr>
+        let thickness = 0.045
+        let center = # <expr>
+        let extents = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn append_selection_axes(_self: &Self, handle: k_os_scene::MeshHandle, vertices: &mut Array<Vertex>, indices: &mut Array<u32>) -> Result<(), String>:
+        let transform = # <expr>
+        let origin = # <expr>
+        # <expr>
+        # <expr>
+
+
+fn transform_component_to_mat4(transform: k_os_scene::SceneTransformComponent) -> glam::Mat4:
+    # <expr>
+
+fn transform_bounds(bounds: Bounds, transform: glam::Mat4) -> Bounds:
+    let corners = # <expr>
+    let mut min = # <expr>
+    let mut max = # <expr>
+    # <expr>
+    # <expr>
+
+fn ray_aabb_intersection(origin: glam::Vec3, direction: glam::Vec3, bounds: Bounds) -> Option<f32>:
+    let inv = # <expr>
+    let t1 = # <expr>
+    let t2 = # <expr>
+    let t_min = # <expr>
+    let t_max = # <expr>
+    let near = # <expr>
+    let far = # <expr>
+    # <expr>
+
+fn safe_inverse(value: f32) -> f32:
+    # <expr>
+
+fn brighten(color: Array<f32>, amount: f32) -> Array<f32>:
+    # <expr>
+
+fn unit_plane() -> (Array<f32>, Array<u32>):
+    # <expr>
+
+fn unit_box() -> (Array<f32>, Array<u32>):
+    let positions = # <expr>
+    let indices = # <expr>
+    # <expr>
+
+fn append_world_axes(vertices: &mut Array<Vertex>, indices: &mut Array<u32>):
+    # <expr>
+
+fn append_axis_tripod(vertices: &mut Array<Vertex>, indices: &mut Array<u32>, origin: glam::Vec3, axis_length: f32, radius: f32):
+    # <expr>
+    # <expr>
+    # <expr>
+
+fn append_box_mesh(vertices: &mut Array<Vertex>, indices: &mut Array<u32>, center: glam::Vec3, extents: glam::Vec3, color: Array<f32>):
+    let min = # <expr>
+    let max = # <expr>
+    let positions = # <expr>
+    let base = # <expr>
+    # <expr>
+    # <expr>
+
+mod tests:
+    fn scene_selects_and_reports_metadata():
+        let scene = # <expr>
+        let details = # <expr>
+        # <expr>
+        # <expr>
+
+    fn scene_mesh_contains_renderable_geometry():
+        let scene = # <expr>
+        let mesh = # <expr>
+        # <expr>
+        # <expr>
+
+    fn scene_ray_pick_hits_default_selection_cluster():
+        let scene = # <expr>
+        let hit = # <expr>
+        # <expr>
+
+    fn scene_reports_focus_targets():
+        let scene = # <expr>
+        let selected = # <expr>
+        let full_scene = # <expr>
+        # <expr>
+        # <expr>
+
+
+struct ZenUiTheme:
+    palette: ZenThemePalette
+    spacing: ZenThemeSpacing
+    rounding: ZenThemeRounding
+    dock: ZenThemeDock
+
+struct ZenThemePalette:
+    window_bg: egui::Color32
+    panel_bg: egui::Color32
+    panel_bg_alt: egui::Color32
+    toolbar_bg: egui::Color32
+    status_bg: egui::Color32
+    overlay_bg: egui::Color32
+    border_subtle: egui::Color32
+    border_strong: egui::Color32
+    text_primary: egui::Color32
+    text_secondary: egui::Color32
+    text_muted: egui::Color32
+    accent: egui::Color32
+    accent_soft: egui::Color32
+    warning: egui::Color32
+    danger: egui::Color32
+    selection_fill: egui::Color32
+    selection_stroke: egui::Color32
+    viewport_outline: egui::Color32
+    viewport_outline_hover: egui::Color32
+    timeline_track: egui::Color32
+    timeline_tick: egui::Color32
+    timeline_clip: egui::Color32
+
+struct ZenThemeSpacing:
+    item: Array<f32>
+    button_padding: Array<f32>
+    window_margin: f32
+    panel_margin: f32
+
+struct ZenThemeRounding:
+    panel: f32
+    viewport: f32
+    overlay: f32
+
+struct ZenThemeDock:
+    surface_border: egui::Color32
+    tab_bar_bg: egui::Color32
+    tab_bar_line: egui::Color32
+    tab_active_bg: egui::Color32
+    tab_inactive_bg: egui::Color32
+    tab_hover_bg: egui::Color32
+    tab_focused_bg: egui::Color32
+    tab_text: egui::Color32
+    tab_text_muted: egui::Color32
+    tab_outline: egui::Color32
+    tab_outline_hover: egui::Color32
+    separator_idle: egui::Color32
+    separator_hover: egui::Color32
+    separator_drag: egui::Color32
+    overlay_selection: egui::Color32
+    overlay_button: egui::Color32
+    overlay_button_border: egui::Color32
+    tab_bar_height: f32
+    tab_rounding: f32
+    body_rounding: f32
+    separator_width: f32
+    separator_hit: f32
+    overlay_button_spacing: f32
+    overlay_button_max: f32
+
+impl ZenUiTheme:
+    fn load(configured: &String) -> Result<Self, String>:
+        # <expr>
+        # <expr>
+
+    fn parse(source: &String) -> Result<Self, String>:
+        let parsed: ZenThemeFile = # <expr>
+        # <expr>
+
+    fn apply_to_style(_self: &Self, style: &mut egui::Style):
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn surface_clear_color(_self: &Self) -> wgpu::Color:
+        # <expr>
+
+    fn dock_style(_self: &Self, egui_style: &egui::Style) -> egui_dock::Style:
+        let mut style = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        style
+
+
+struct ZenThemeFile:
+    palette: ZenThemePaletteFile
+    spacing: ZenThemeSpacingFile
+    rounding: ZenThemeRoundingFile
+    dock: ZenThemeDockFile
+
+struct ZenThemePaletteFile:
+    window_bg: String
+    panel_bg: String
+    panel_bg_alt: String
+    toolbar_bg: String
+    status_bg: String
+    overlay_bg: String
+    border_subtle: String
+    border_strong: String
+    text_primary: String
+    text_secondary: String
+    text_muted: String
+    accent: String
+    accent_soft: String
+    warning: String
+    danger: String
+    selection_fill: String
+    selection_stroke: String
+    viewport_outline: String
+    viewport_outline_hover: String
+    timeline_track: String
+    timeline_tick: String
+    timeline_clip: String
+
+struct ZenThemeSpacingFile:
+    item: Array<f32>
+    button_padding: Array<f32>
+    window_margin: f32
+    panel_margin: f32
+
+struct ZenThemeRoundingFile:
+    panel: f32
+    viewport: f32
+    overlay: f32
+
+struct ZenThemeDockFile:
+    surface_border: String
+    tab_bar_bg: String
+    tab_bar_line: String
+    tab_active_bg: String
+    tab_inactive_bg: String
+    tab_hover_bg: String
+    tab_focused_bg: String
+    tab_text: String
+    tab_text_muted: String
+    tab_outline: String
+    tab_outline_hover: String
+    separator_idle: String
+    separator_hover: String
+    separator_drag: String
+    overlay_selection: String
+    overlay_button: String
+    overlay_button_border: String
+    tab_bar_height: f32
+    tab_rounding: f32
+    body_rounding: f32
+    separator_width: f32
+    separator_hit: f32
+    overlay_button_spacing: f32
+    overlay_button_max: f32
+
+fn parse_color(label: &String, raw: &String) -> Result<egui::Color32, String>:
+    let value = # <expr>
+    # <expr>
+
+fn parse_hex_u8(value: &String, label: &String) -> Result<u8, String>:
+    # <expr>
+
+fn color32_to_wgpu(color: egui::Color32) -> wgpu::Color:
+    # <expr>
+
+fn resolve_source_path(configured: &String) -> Option<std::path::PathBuf>:
+    # <expr>
+
+fn source_path_candidates(configured: &String) -> Array<std::path::PathBuf>:
+    let configured_path = # <expr>
+    # <expr>
+    let mut candidates = # <expr>
+    # <expr>
+    # <expr>
+    candidates
+
+fn file_name_or_original(path: &std::path::Path) -> std::path::PathBuf:
+    # <expr>
+
+fn corner_radius(value: f32) -> egui::CornerRadius:
+    # <expr>
+

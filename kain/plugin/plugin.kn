@@ -1,0 +1,429 @@
+# Generated from Rust source by kain import-rust
+# Project Ouroboros — Rust → KAIN → Rust
+
+struct PluginContext:
+    capabilities: Map<String, Bool>
+    restricted_resources: Array<String>
+    data: Map<String, serde_json::Value>
+    plugin_name: String
+
+impl PluginContext:
+    fn new_() -> Self:
+        # <expr>
+
+    fn with_name(plugin_name: impl Into<String>) -> Self:
+        # <expr>
+
+    fn plugin_name(_self: &Self) -> &String:
+        # <expr>
+
+    fn register_capability(_self: &mut Self, capability: impl Into<String>):
+        let mut caps = # <expr>
+        # <expr>
+
+    fn has_capability(_self: &Self, capability: &String) -> Bool:
+        let caps = # <expr>
+        # <expr>
+
+    fn require_capability(_self: &Self, capability: &String) -> Result<(), Error>:
+        # <expr>
+
+    fn add_restricted_resource(_self: &mut Self, resource: impl Into<String>):
+        let mut restricted = # <expr>
+        # <expr>
+
+    fn is_resource_restricted(_self: &Self, resource: &String) -> Bool:
+        let restricted = # <expr>
+        # <expr>
+
+    fn check_resource_access(_self: &Self, resource: &String) -> Result<(), Error>:
+        # <expr>
+
+    fn set_data(_self: &mut Self, key: impl Into<String>, value: serde_json::Value):
+        let mut data = # <expr>
+        # <expr>
+
+    fn get_data(_self: &Self, key: &String) -> Option<serde_json::Value>:
+        let data = # <expr>
+        # <expr>
+
+    fn remove_data(_self: &mut Self, key: &String) -> Option<serde_json::Value>:
+        let mut data = # <expr>
+        # <expr>
+
+    fn clear_data(_self: &mut Self):
+        let mut data = # <expr>
+        # <expr>
+
+    fn log(_self: &Self, level: LogLevel, message: &String):
+        # <expr>
+
+
+impl Default for PluginContext:
+    fn default_() -> Self:
+        # <expr>
+
+
+enum LogLevel:
+    Trace
+    Debug
+    Info
+    Warn
+    Error
+
+mod tests:
+    fn test_capabilities():
+        let mut context = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_restricted_resources():
+        let mut context = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_custom_data():
+        let mut context = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+
+enum PluginError:
+    PluginNotFound(String)
+    PluginAlreadyLoaded(String)
+    LoadError(String)
+    IncompatibleVersion { plugin_version: String, required_version: String }
+    InitializationError(String)
+    ShutdownError(String)
+    SymbolNotFound(String)
+    ResourceLimitExceeded { resource: String, limit: u64, current: u64 }
+    AccessDenied(String)
+    OperationFailed(String)
+    IoError(std::io::Error)
+    SemverError(semver::Error)
+    Other(String)
+
+mod tests:
+    fn test_api_version():
+        # <expr>
+
+
+struct LoadedPlugin:
+    plugin: impl Plugin
+    library: libloading::Library
+    context: crate::PluginContext
+    resource_monitor: crate::ResourceMonitor
+    path: std::path::PathBuf
+
+struct PluginManager:
+    plugin_dir: std::path::PathBuf
+    plugins: Map<String, LoadedPlugin>
+    default_limits: crate::ResourceLimits
+    strict_version_check: Bool
+
+impl PluginManager:
+    fn new_(plugin_dir: std::path::PathBuf) -> Self:
+        # <expr>
+
+    fn set_default_limits(_self: &mut Self, limits: crate::ResourceLimits):
+        # <expr>
+
+    fn set_strict_version_check(_self: &mut Self, strict: Bool):
+        # <expr>
+
+    fn load_plugin(_self: &mut Self, path: &std::path::Path) -> Result<(), Error>:
+        let plugin_name = # <expr>
+        # <expr>
+        # <expr>
+        let library = # <expr>
+        let create_plugin: libloading::Symbol<crate::plugin::CreatePluginFn> = # <expr>
+        let plugin_ptr = # <expr>
+        # <expr>
+        let mut plugin: impl Plugin = # <expr>
+        # <expr>
+        # <expr>
+        let mut context = # <expr>
+        # <expr>
+        let resource_monitor = # <expr>
+        # <expr>
+        let init_result = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        let loaded = # <expr>
+        let mut plugins = # <expr>
+        # <expr>
+        # <expr>
+
+    fn unload_plugin(_self: &mut Self, name: &String) -> Result<(), Error>:
+        # <expr>
+        let mut plugins = # <expr>
+        let mut loaded = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn get_plugin_info(_self: &Self, name: &String) -> Option<(String, String, String)>:
+        let plugins = # <expr>
+        # <expr>
+
+    fn list_plugins(_self: &Self) -> Array<String>:
+        let plugins = # <expr>
+        # <expr>
+
+    fn get_plugin_metadata(_self: &Self, name: &String) -> Option<serde_json::Value>:
+        let plugins = # <expr>
+        # <expr>
+
+    fn update(_self: &mut Self, delta_time: f32) -> Result<(), Error>:
+        let mut plugins = # <expr>
+        # <expr>
+        # <expr>
+
+    fn unload_all(_self: &mut Self) -> Result<(), Error>:
+        let plugin_names: Array<String> = # <expr>
+        # <expr>
+        # <expr>
+
+    fn validate_api_version(_self: &Self, plugin_api_version: &String) -> Result<(), Error>:
+        let required = # <expr>
+        let plugin = # <expr>
+        # <expr>
+        # <expr>
+
+    fn plugin_dir(_self: &Self) -> &std::path::Path:
+        # <expr>
+
+    fn load_all_plugins(_self: &mut Self) -> Result<(), Error>:
+        # <expr>
+        let entries = # <expr>
+        # <expr>
+        # <expr>
+
+
+impl Drop for PluginManager:
+    fn drop(_self: &mut Self):
+        # <expr>
+
+
+mod tests:
+    fn test_plugin_manager_creation():
+        let manager = # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_api_version_validation():
+        let manager = # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_resource_limits():
+        let mut manager = # <expr>
+        let strict_limits = # <expr>
+        # <expr>
+        # <expr>
+
+
+trait Plugin:
+    fn name(_self: &Self) -> &String:
+        pass
+    fn version(_self: &Self) -> &String:
+        pass
+    fn api_version(_self: &Self) -> &String:
+        pass
+    fn description(_self: &Self) -> &String:
+        "No description provided"
+    fn author(_self: &Self) -> &String:
+        "Unknown"
+    fn initialize(_self: &mut Self, context: &mut crate::PluginContext) -> Result<(), Error>:
+        pass
+    fn shutdown(_self: &mut Self) -> Result<(), Error>:
+        pass
+    fn update(_self: &mut Self, _delta_time: f32) -> Result<(), Error>:
+        # <expr>
+    fn metadata(_self: &Self) -> serde_json::Value:
+        # <expr>
+
+mod tests:
+    struct TestPlugin:
+        pass
+
+    impl Plugin for TestPlugin:
+        fn name(_self: &Self) -> &String:
+            "test_plugin"
+
+        fn version(_self: &Self) -> &String:
+            "1.0.0"
+
+        fn api_version(_self: &Self) -> &String:
+            "1.0.0"
+
+        fn initialize(_self: &mut Self, _context: &mut crate::PluginContext) -> Result<(), Error>:
+            # <expr>
+
+        fn shutdown(_self: &mut Self) -> Result<(), Error>:
+            # <expr>
+
+
+    fn test_plugin_metadata():
+        let plugin = TestPlugin
+        let metadata = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+
+struct ResourceLimits:
+    max_memory_bytes: u64
+    max_cpu_time_ms: u64
+    max_file_handles: u32
+    max_init_time_secs: u64
+
+impl Default for ResourceLimits:
+    fn default_() -> Self:
+        # <expr>
+
+
+impl ResourceLimits:
+    fn unlimited() -> Self:
+        # <expr>
+
+    fn strict() -> Self:
+        # <expr>
+
+    fn relaxed() -> Self:
+        # <expr>
+
+
+struct ResourceMonitor:
+    limits: ResourceLimits
+    memory_usage: u64
+    file_handles: u32
+    operation_start: Option<std::time::Instant>
+    system: sysinfo::System
+    plugin_name: String
+
+impl ResourceMonitor:
+    fn new_(plugin_name: impl Into<String>, limits: ResourceLimits) -> Self:
+        # <expr>
+
+    fn start_operation(_self: &Self):
+        let mut start = # <expr>
+        # <expr>
+
+    fn check_operation_time(_self: &Self) -> Result<(), Error>:
+        # <expr>
+        let start = # <expr>
+        # <expr>
+        # <expr>
+
+    fn end_operation(_self: &Self):
+        let mut start = # <expr>
+        # <expr>
+
+    fn allocate_memory(_self: &Self, bytes: u64) -> Result<(), Error>:
+        let mut usage = # <expr>
+        let new_usage = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn deallocate_memory(_self: &Self, bytes: u64):
+        let mut usage = # <expr>
+        # <expr>
+
+    fn memory_usage(_self: &Self) -> u64:
+        # <expr>
+
+    fn open_file_handle(_self: &Self) -> Result<(), Error>:
+        let mut handles = # <expr>
+        let new_count = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn close_file_handle(_self: &Self):
+        let mut handles = # <expr>
+        # <expr>
+
+    fn file_handle_count(_self: &Self) -> u32:
+        # <expr>
+
+    fn limits(_self: &Self) -> &ResourceLimits:
+        # <expr>
+
+    fn usage_summary(_self: &Self) -> ResourceUsage:
+        # <expr>
+
+    fn is_near_limit(_self: &Self) -> Bool:
+        let usage = # <expr>
+        # <expr>
+        # <expr>
+        false
+
+
+struct ResourceUsage:
+    memory_bytes: u64
+    file_handles: u32
+    memory_limit: u64
+    file_handle_limit: u32
+
+impl ResourceUsage:
+    fn memory_percent(_self: &Self) -> f64:
+        # <expr>
+
+    fn file_handle_percent(_self: &Self) -> f64:
+        # <expr>
+
+
+mod tests:
+    fn test_resource_limits_presets():
+        let default_ = # <expr>
+        # <expr>
+        let unlimited = # <expr>
+        # <expr>
+        let strict = # <expr>
+        # <expr>
+        let relaxed = # <expr>
+        # <expr>
+
+    fn test_memory_tracking():
+        let monitor = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_memory_limit():
+        let limits = # <expr>
+        let monitor = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_file_handle_tracking():
+        let monitor = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_usage_summary():
+        let monitor = # <expr>
+        # <expr>
+        # <expr>
+        let usage = # <expr>
+        # <expr>
+        # <expr>
+
+

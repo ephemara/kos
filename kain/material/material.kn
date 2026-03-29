@@ -1,0 +1,4334 @@
+# Generated from Rust source by kain import-rust
+# Project Ouroboros — Rust → KAIN → Rust
+
+struct AnimationEngine:
+    gpu_compute: crate::gpu::GpuComputeDevice
+
+struct AnimationData:
+    duration: f32
+    loop_mode: LoopMode
+    tracks: Array<AnimationTrack>
+
+enum LoopMode:
+    Once
+    Loop
+    PingPong
+
+struct AnimationTrack:
+    parameter: AnimationParameter
+    animation_type: AnimationType
+
+enum AnimationParameter:
+    LayerOpacity
+    LayerBlendMode
+    AlbedoColor
+    AlbedoRed
+    AlbedoGreen
+    AlbedoBlue
+    Roughness
+    Metallic
+    EmissiveIntensity
+    EmissiveColor
+    HeightOffset
+    NormalStrength
+    UVOffsetX
+    UVOffsetY
+    UVScaleX
+    UVScaleY
+
+enum AnimationType:
+    Keyframe(KeyframeAnimation)
+    Procedural(ProceduralAnimation)
+    Physics(PhysicsAnimation)
+
+struct KeyframeAnimation:
+    keyframes: Array<Keyframe>
+    interpolation: InterpolationType
+
+struct Keyframe:
+    time: f32
+    value: f32
+    tangent_in: Option<Vec2>
+    tangent_out: Option<Vec2>
+
+struct Vec2:
+    x: f32
+    y: f32
+
+impl Vec2:
+    fn new_(x: f32, y: f32) -> Self:
+        # <expr>
+
+
+enum InterpolationType:
+    Linear
+    EaseIn
+    EaseOut
+    EaseInOut
+    Bezier
+
+struct ProceduralAnimation:
+    expression: String
+
+struct PhysicsAnimation:
+    simulation_type: SimulationType
+
+enum SimulationType:
+    RustSpreading
+    MossGrowth
+    Erosion
+    Weathering
+    Cracking
+    Melting
+
+impl AnimationEngine:
+    fn new_(gpu_compute: crate::gpu::GpuComputeDevice) -> Self:
+        # <expr>
+
+    fn evaluate_keyframe(_self: &Self, animation_data: &AnimationData, time: f32) -> Map<AnimationParameter, f32>:
+        let mut result = # <expr>
+        let adjusted_time = # <expr>
+        # <expr>
+        result
+
+    fn evaluate_procedural(_self: &Self, animation_data: &AnimationData, time: f32) -> Map<AnimationParameter, f32>:
+        let mut result = # <expr>
+        let adjusted_time = # <expr>
+        let evaluator = # <expr>
+        # <expr>
+        result
+
+
+impl Keyframe:
+    fn new_(time: f32, value: f32) -> Self:
+        # <expr>
+
+    fn with_tangents(time: f32, value: f32, tangent_in: Vec2, tangent_out: Vec2) -> Self:
+        # <expr>
+
+
+impl AnimationData:
+    fn new_(duration: f32) -> Self:
+        # <expr>
+
+    fn add_track(_self: &mut Self, track: AnimationTrack):
+        # <expr>
+
+
+impl AnimationTrack:
+    fn keyframe(parameter: AnimationParameter, animation: KeyframeAnimation) -> Self:
+        # <expr>
+
+    fn procedural(parameter: AnimationParameter, animation: ProceduralAnimation) -> Self:
+        # <expr>
+
+    fn physics(parameter: AnimationParameter, animation: PhysicsAnimation) -> Self:
+        # <expr>
+
+
+impl KeyframeAnimation:
+    fn new_(interpolation: InterpolationType) -> Self:
+        # <expr>
+
+    fn add_keyframe(_self: &mut Self, keyframe: Keyframe):
+        # <expr>
+        # <expr>
+
+    fn evaluate(_self: &Self, time: f32) -> f32:
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        let mut start_idx = 0
+        # <expr>
+        let start = # <expr>
+        let end = # <expr>
+        let t = # <expr>
+        let t_eased = # <expr>
+        # <expr>
+
+
+fn ease_in(t: f32) -> f32:
+    # <expr>
+
+fn ease_out(t: f32) -> f32:
+    # <expr>
+
+fn ease_in_out(t: f32) -> f32:
+    # <expr>
+
+fn bezier_interpolate(t: f32, tangent_out: &Vec2, tangent_in: &Vec2) -> f32:
+    let t2 = # <expr>
+    let t3 = # <expr>
+    let one_minus_t = # <expr>
+    let one_minus_t2 = # <expr>
+    let y = # <expr>
+    # <expr>
+
+struct ExpressionEvaluator:
+    pass
+
+impl ExpressionEvaluator:
+    fn new_() -> Self:
+        # <expr>
+
+    fn build_context(expression: &String, time: f32) -> Result<evalexpr::HashMapContext<evalexpr::DefaultNumericTypes>, String>:
+        # <stmt>
+        # <stmt>
+        # <stmt>
+        # <stmt>
+        # <stmt>
+        let mut context = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn evaluate(_self: &Self, expression: &String, time: f32) -> Result<f32, String>:
+        # <stmt>
+        let context = # <expr>
+        let result = # <expr>
+        # <expr>
+
+    fn validate(_self: &Self, expression: &String) -> Result<(), String>:
+        # <expr>
+
+
+impl Default for ExpressionEvaluator:
+    fn default_() -> Self:
+        # <expr>
+
+
+mod tests:
+    fn test_animation_parameter_serialization():
+        let param = AnimationParameter::Roughness
+        let json = # <expr>
+        let deserialized: AnimationParameter = # <expr>
+        # <expr>
+
+    fn test_keyframe_creation():
+        let kf1 = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        let kf2 = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_keyframe_animation_builder():
+        let mut anim = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_animation_data_builder():
+        let mut anim_data = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        let mut kf_anim = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_animation_serialization_round_trip():
+        let anim_data = # <expr>
+        let json = # <expr>
+        let deserialized: AnimationData = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_all_animation_parameters():
+        let params = # <expr>
+        # <expr>
+
+    fn test_loop_modes():
+        let modes = # <expr>
+        # <expr>
+
+    fn test_interpolation_types():
+        let types = # <expr>
+        # <expr>
+
+    fn test_evaluate_empty_keyframes():
+        let anim = # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_evaluate_single_keyframe():
+        let mut anim = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_evaluate_before_first_keyframe():
+        let mut anim = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_evaluate_after_last_keyframe():
+        let mut anim = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_linear_interpolation():
+        let mut anim = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_linear_interpolation_non_unit_range():
+        let mut anim = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_ease_in_interpolation():
+        let mut anim = # <expr>
+        # <expr>
+        # <expr>
+        let val_0_25 = # <expr>
+        let val_0_5 = # <expr>
+        let val_0_75 = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_ease_out_interpolation():
+        let mut anim = # <expr>
+        # <expr>
+        # <expr>
+        let val_0_25 = # <expr>
+        let val_0_5 = # <expr>
+        let val_0_75 = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_ease_in_out_interpolation():
+        let mut anim = # <expr>
+        # <expr>
+        # <expr>
+        let val_0_25 = # <expr>
+        let val_0_5 = # <expr>
+        let val_0_75 = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_bezier_interpolation_with_tangents():
+        let mut anim = # <expr>
+        # <expr>
+        # <expr>
+        let val_0_25 = # <expr>
+        let val_0_5 = # <expr>
+        let val_0_75 = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_bezier_interpolation_without_tangents_falls_back_to_linear():
+        let mut anim = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_multiple_keyframes_interpolation():
+        let mut anim = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_keyframes_added_out_of_order_are_sorted():
+        let mut anim = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_interpolation_with_negative_values():
+        let mut anim = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_interpolation_with_large_values():
+        let mut anim = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_bezier_extreme_tangents():
+        let mut anim = # <expr>
+        # <expr>
+        # <expr>
+        let val_0_5 = # <expr>
+        # <expr>
+
+    fn test_animation_engine_creation():
+        let gpu_compute = # <expr>
+        let engine = # <expr>
+        let animation_data = # <expr>
+        let result = # <expr>
+        # <expr>
+
+    fn test_evaluate_keyframe_single_track():
+        let gpu_compute = # <expr>
+        let engine = # <expr>
+        let mut animation_data = # <expr>
+        # <expr>
+        let mut keyframe_anim = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        let result_0 = # <expr>
+        let result_1 = # <expr>
+        let result_2 = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_evaluate_keyframe_multiple_tracks():
+        let gpu_compute = # <expr>
+        let engine = # <expr>
+        let mut animation_data = # <expr>
+        let mut roughness_anim = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        let mut metallic_anim = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        let result = # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_loop_mode_once():
+        let gpu_compute = # <expr>
+        let engine = # <expr>
+        let mut animation_data = # <expr>
+        # <expr>
+        let mut keyframe_anim = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        let result_neg = # <expr>
+        # <expr>
+        let result_mid = # <expr>
+        # <expr>
+        let result_over = # <expr>
+        # <expr>
+
+    fn test_loop_mode_loop():
+        let gpu_compute = # <expr>
+        let engine = # <expr>
+        let mut animation_data = # <expr>
+        # <expr>
+        let mut keyframe_anim = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        let result_0_5 = # <expr>
+        # <expr>
+        let result_2_5 = # <expr>
+        # <expr>
+        let result_4_5 = # <expr>
+        # <expr>
+        let result_2_0 = # <expr>
+        # <expr>
+
+    fn test_loop_mode_ping_pong():
+        let gpu_compute = # <expr>
+        let engine = # <expr>
+        let mut animation_data = # <expr>
+        # <expr>
+        let mut keyframe_anim = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        let result_0_5 = # <expr>
+        # <expr>
+        let result_1_0 = # <expr>
+        # <expr>
+        let result_2_5 = # <expr>
+        # <expr>
+        let result_3_0 = # <expr>
+        # <expr>
+        let result_4_5 = # <expr>
+        # <expr>
+
+    fn test_loop_mode_ping_pong_at_boundaries():
+        let gpu_compute = # <expr>
+        let engine = # <expr>
+        let mut animation_data = # <expr>
+        # <expr>
+        let mut keyframe_anim = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        let result_0 = # <expr>
+        # <expr>
+        let result_1 = # <expr>
+        # <expr>
+        let result_2 = # <expr>
+        # <expr>
+        let result_3 = # <expr>
+        # <expr>
+
+    fn test_evaluate_keyframe_with_all_interpolation_types():
+        let gpu_compute = # <expr>
+        let engine = # <expr>
+        let mut animation_data = # <expr>
+        let mut linear_anim = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        let mut ease_in_anim = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        let mut ease_out_anim = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        let result = # <expr>
+        # <expr>
+        let metallic = # <expr>
+        # <expr>
+        let emissive = # <expr>
+        # <expr>
+
+    fn test_evaluate_keyframe_handles_procedural_and_skips_physics():
+        let gpu_compute = # <expr>
+        let engine = # <expr>
+        let mut animation_data = # <expr>
+        let mut keyframe_anim = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        let result = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_evaluate_keyframe_with_zero_duration():
+        let gpu_compute = # <expr>
+        let engine = # <expr>
+        let mut animation_data = # <expr>
+        let mut keyframe_anim = # <expr>
+        # <expr>
+        # <expr>
+        let result = # <expr>
+        # <expr>
+
+    fn test_evaluate_keyframe_with_negative_time_loop_mode():
+        let gpu_compute = # <expr>
+        let engine = # <expr>
+        let mut animation_data = # <expr>
+        # <expr>
+        let mut keyframe_anim = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        let result = # <expr>
+        # <expr>
+
+    fn test_all_animation_parameters_can_be_animated():
+        let gpu_compute = # <expr>
+        let engine = # <expr>
+        let mut animation_data = # <expr>
+        let parameters = # <expr>
+        # <expr>
+        let result = # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_expression_evaluator_creation():
+        let evaluator = # <expr>
+        let _ = evaluator
+
+    fn test_expression_simple_time_variable():
+        let evaluator = # <expr>
+        let result = # <expr>
+        # <expr>
+        let result = # <expr>
+        # <expr>
+
+    fn test_expression_basic_operators():
+        let evaluator = # <expr>
+        let result = # <expr>
+        # <expr>
+        let result = # <expr>
+        # <expr>
+        let result = # <expr>
+        # <expr>
+        let result = # <expr>
+        # <expr>
+        let result = # <expr>
+        # <expr>
+
+    fn test_expression_operator_precedence():
+        let evaluator = # <expr>
+        let result = # <expr>
+        # <expr>
+        let result = # <expr>
+        # <expr>
+        let result = # <expr>
+        # <expr>
+
+    fn test_expression_sin_function():
+        let evaluator = # <expr>
+        let result = # <expr>
+        # <expr>
+        let result = # <expr>
+        # <expr>
+        let result = # <expr>
+        # <expr>
+
+    fn test_expression_cos_function():
+        let evaluator = # <expr>
+        let result = # <expr>
+        # <expr>
+        let result = # <expr>
+        # <expr>
+
+    fn test_expression_tan_function():
+        let evaluator = # <expr>
+        let result = # <expr>
+        # <expr>
+        let result = # <expr>
+        # <expr>
+
+    fn test_expression_abs_function():
+        let evaluator = # <expr>
+        let result = # <expr>
+        # <expr>
+        let result = # <expr>
+        # <expr>
+        let result = # <expr>
+        # <expr>
+
+    fn test_expression_sqrt_function():
+        let evaluator = # <expr>
+        let result = # <expr>
+        # <expr>
+        let result = # <expr>
+        # <expr>
+        let result = # <expr>
+        # <expr>
+
+    fn test_expression_pow_function():
+        let evaluator = # <expr>
+        let result = # <expr>
+        # <expr>
+        let result = # <expr>
+        # <expr>
+        let result = # <expr>
+        # <expr>
+
+    fn test_expression_min_function():
+        let evaluator = # <expr>
+        let result = # <expr>
+        # <expr>
+        let result = # <expr>
+        # <expr>
+
+    fn test_expression_max_function():
+        let evaluator = # <expr>
+        let result = # <expr>
+        # <expr>
+        let result = # <expr>
+        # <expr>
+
+    fn test_expression_clamp_function():
+        let evaluator = # <expr>
+        let result = # <expr>
+        # <expr>
+        let result = # <expr>
+        # <expr>
+        let result = # <expr>
+        # <expr>
+
+    fn test_expression_lerp_function():
+        let evaluator = # <expr>
+        let result = # <expr>
+        # <expr>
+        let result = # <expr>
+        # <expr>
+        let result = # <expr>
+        # <expr>
+        let result = # <expr>
+        # <expr>
+
+    fn test_expression_complex_combinations():
+        let evaluator = # <expr>
+        let result = # <expr>
+        # <expr>
+        let result = # <expr>
+        let expected = # <expr>
+        # <expr>
+        let result = # <expr>
+        # <expr>
+
+    fn test_expression_validation_valid():
+        let evaluator = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_expression_validation_invalid():
+        let evaluator = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_expression_error_includes_expression_text():
+        let evaluator = # <expr>
+        let result = # <expr>
+        # <expr>
+        let error = # <expr>
+        # <expr>
+        let result = # <expr>
+        # <expr>
+
+    fn test_expression_unary_negation():
+        let evaluator = # <expr>
+        let result = # <expr>
+        # <expr>
+        let result = # <expr>
+        # <expr>
+
+    fn test_expression_with_constants():
+        let evaluator = # <expr>
+        let result = # <expr>
+        # <expr>
+        let result = # <expr>
+        # <expr>
+
+    fn test_expression_floating_point_precision():
+        let evaluator = # <expr>
+        let result = # <expr>
+        # <expr>
+        let result = # <expr>
+        # <expr>
+
+    fn test_expression_real_world_examples():
+        let evaluator = # <expr>
+        let result = # <expr>
+        # <expr>
+        let result = # <expr>
+        # <expr>
+        let result = # <expr>
+        # <expr>
+
+    fn test_perlin_noise_basic():
+        let evaluator = # <expr>
+        let result = # <expr>
+        # <expr>
+        let result1 = # <expr>
+        let result2 = # <expr>
+        let result3 = # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_perlin_noise_frequency():
+        let evaluator = # <expr>
+        let low_freq = # <expr>
+        let high_freq = # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_perlin_noise_amplitude():
+        let evaluator = # <expr>
+        let small_amp = # <expr>
+        let large_amp = # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_perlin_noise_in_expression():
+        let evaluator = # <expr>
+        let result = # <expr>
+        # <expr>
+
+    fn test_simplex_noise_basic():
+        let evaluator = # <expr>
+        let result = # <expr>
+        # <expr>
+        let result1 = # <expr>
+        let result2 = # <expr>
+        let result3 = # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_simplex_noise_frequency_and_amplitude():
+        let evaluator = # <expr>
+        let result1 = # <expr>
+        let result2 = # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_simplex_noise_in_expression():
+        let evaluator = # <expr>
+        let result = # <expr>
+        # <expr>
+
+    fn test_worley_noise_basic():
+        let evaluator = # <expr>
+        let result = # <expr>
+        # <expr>
+        let result1 = # <expr>
+        let result2 = # <expr>
+        let result3 = # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_worley_noise_cellular_patterns():
+        let evaluator = # <expr>
+        let result = # <expr>
+        # <expr>
+        let result_scaled = # <expr>
+        # <expr>
+
+    fn test_fbm_basic():
+        let evaluator = # <expr>
+        let result = # <expr>
+        # <expr>
+        let single_octave = # <expr>
+        let multi_octave = # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_fbm_octaves():
+        let evaluator = # <expr>
+        let octaves_1 = # <expr>
+        let octaves_2 = # <expr>
+        let octaves_4 = # <expr>
+        let octaves_8 = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_fbm_lacunarity_and_persistence():
+        let evaluator = # <expr>
+        let lac_2 = # <expr>
+        let lac_3 = # <expr>
+        let pers_05 = # <expr>
+        let pers_07 = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_fbm_detailed_organic_noise():
+        let evaluator = # <expr>
+        let result = # <expr>
+        # <expr>
+        let t1 = # <expr>
+        let t2 = # <expr>
+        # <expr>
+
+    fn test_noise_functions_combined():
+        let evaluator = # <expr>
+        let result = # <expr>
+        # <expr>
+        let result = # <expr>
+        # <expr>
+        let result = # <expr>
+        # <expr>
+
+    fn test_noise_with_clamp():
+        let evaluator = # <expr>
+        let result = # <expr>
+        # <expr>
+        let result = # <expr>
+        # <expr>
+
+    fn test_noise_with_lerp():
+        let evaluator = # <expr>
+        let result = # <expr>
+        # <expr>
+
+    fn test_noise_real_world_use_cases():
+        let evaluator = # <expr>
+        let water = # <expr>
+        # <expr>
+        let fire = # <expr>
+        # <expr>
+        let pulse = # <expr>
+        # <expr>
+        let cellular = # <expr>
+        # <expr>
+
+    fn test_noise_validation():
+        let evaluator = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_noise_error_handling():
+        let evaluator = # <expr>
+        let result = # <expr>
+        # <expr>
+        let error = # <expr>
+        # <expr>
+        let result = # <expr>
+        # <expr>
+        let error = # <expr>
+        # <expr>
+
+    fn test_noise_continuity():
+        let evaluator = # <expr>
+        let t1 = 1
+        let t2 = 1.001
+        let perlin1 = # <expr>
+        let perlin2 = # <expr>
+        # <expr>
+        let simplex1 = # <expr>
+        let simplex2 = # <expr>
+        # <expr>
+        let fbm1 = # <expr>
+        let fbm2 = # <expr>
+        # <expr>
+
+    fn test_all_noise_functions_in_single_expression():
+        let evaluator = # <expr>
+        let expr = "perlin(t, 1.0, 0.2) + simplex(t * 2.0, 1.0, 0.15) + worley(t * 0.5, 1.0, 0.1) * 0.5"
+        let result = # <expr>
+        # <expr>
+        let expr = "fbm(t, 1.0, 0.3, 3, 2.0, 0.5) + perlin(t * 3.0, 1.0, 0.1)"
+        let result = # <expr>
+        # <expr>
+
+    fn test_evaluate_procedural_basic():
+        let engine = # <expr>
+        let mut animation = # <expr>
+        # <expr>
+        let result = # <expr>
+        # <expr>
+        let result = # <expr>
+        # <expr>
+
+    fn test_evaluate_procedural_uv_scrolling():
+        let engine = # <expr>
+        let mut animation = # <expr>
+        # <expr>
+        # <expr>
+        let result = # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_evaluate_procedural_with_noise():
+        let engine = # <expr>
+        let mut animation = # <expr>
+        # <expr>
+        let result = # <expr>
+        let value = # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_evaluate_procedural_complex_expression():
+        let engine = # <expr>
+        let mut animation = # <expr>
+        # <expr>
+        let result = # <expr>
+        let value = # <expr>
+        # <expr>
+        let result = # <expr>
+        let value = # <expr>
+        # <expr>
+
+    fn test_evaluate_procedural_error_handling():
+        let engine = # <expr>
+        let mut animation = # <expr>
+        # <expr>
+        let result = # <expr>
+        # <expr>
+
+    fn test_evaluate_procedural_multiple_tracks():
+        let engine = # <expr>
+        let mut animation = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        let result = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_evaluate_procedural_with_loop_mode_once():
+        let engine = # <expr>
+        let mut animation = # <expr>
+        # <expr>
+        # <expr>
+        let result = # <expr>
+        # <expr>
+        let result = # <expr>
+        # <expr>
+
+    fn test_evaluate_procedural_with_loop_mode_loop():
+        let engine = # <expr>
+        let mut animation = # <expr>
+        # <expr>
+        # <expr>
+        let result = # <expr>
+        # <expr>
+        let result = # <expr>
+        # <expr>
+
+    fn test_evaluate_procedural_with_loop_mode_ping_pong():
+        let engine = # <expr>
+        let mut animation = # <expr>
+        # <expr>
+        # <expr>
+        let result = # <expr>
+        # <expr>
+        let result = # <expr>
+        # <expr>
+
+    fn test_evaluate_keyframe_now_handles_procedural():
+        let engine = # <expr>
+        let mut animation = # <expr>
+        let mut keyframe_anim = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        let result = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_mixing_keyframe_and_procedural_tracks():
+        let engine = # <expr>
+        let mut animation = # <expr>
+        let mut roughness_anim = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        let result = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        let emissive = # <expr>
+        # <expr>
+
+    fn test_procedural_animation_real_world_examples():
+        let engine = # <expr>
+        let mut animation = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        let result = # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_procedural_animation_with_all_parameters():
+        let engine = # <expr>
+        let mut animation = # <expr>
+        let parameters = # <expr>
+        # <expr>
+        let result = # <expr>
+        # <expr>
+        # <expr>
+
+
+struct AssetManager:
+    library_root: std::path::PathBuf
+    folder_structure: Map<super::MaterialCategory, std::path::PathBuf>
+
+struct SearchResult:
+    material_id: uuid::Uuid
+    score: isize
+
+impl AssetManager:
+    fn new_(library_root: std::path::PathBuf) -> Result<Self, Error>:
+        # <expr>
+        let mut folder_structure = # <expr>
+        # <expr>
+        # <expr>
+
+    fn library_root(_self: &Self) -> &std::path::Path:
+        # <expr>
+
+    fn category_folder(_self: &Self, category: super::MaterialCategory) -> Option<&std::path::Path>:
+        # <expr>
+
+    fn get_material_path(_self: &Self, material: &super::Material) -> std::path::PathBuf:
+        let category_folder = # <expr>
+        let safe_name = # <expr>
+        let filename = # <expr>
+        # <expr>
+
+    fn search(_self: &Self, query: &String, materials: &Map<uuid::Uuid, super::Material>) -> Array<SearchResult>:
+        # <expr>
+        let mut results: Array<SearchResult> = # <expr>
+        # <expr>
+        results
+
+    fn filter_by_category(_self: &Self, materials: &Map<uuid::Uuid, super::Material>, category: super::MaterialCategory) -> Array<uuid::Uuid>:
+        # <expr>
+
+    fn search_with_category(_self: &Self, query: &String, materials: &Map<uuid::Uuid, super::Material>, category: Option<super::MaterialCategory>) -> Array<SearchResult>:
+        let filtered_materials: Map<uuid::Uuid, super::Material> = # <expr>
+        # <expr>
+
+
+fn category_folder_name(category: super::MaterialCategory) -> &String:
+    # <expr>
+
+fn sanitize_filename(name: &String) -> String:
+    # <expr>
+
+impl Default for AssetManager:
+    fn default_() -> Self:
+        let temp_dir = # <expr>
+        # <expr>
+
+
+mod tests:
+    fn create_test_manager() -> (AssetManager, tempfile::TempDir):
+        let temp_dir = # <expr>
+        let manager = # <expr>
+        # <expr>
+
+    fn create_test_material(name: &String, description: &String, tags: Array<String>, category: super::MaterialCategory) -> super::Material:
+        # <expr>
+
+    fn test_asset_manager_creation():
+        let _ = # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_get_material_path():
+        let _ = # <expr>
+        let material = # <expr>
+        let path = # <expr>
+        # <expr>
+        let filename = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_sanitize_filename():
+        let _ = # <expr>
+        let material = # <expr>
+        let path = # <expr>
+        let filename = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_fuzzy_search_by_name():
+        let _ = # <expr>
+        let mut materials = # <expr>
+        let material = # <expr>
+        let id = # <expr>
+        # <expr>
+        let results = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        let results = # <expr>
+        # <expr>
+        # <expr>
+        let results = # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_fuzzy_search_by_description():
+        let _ = # <expr>
+        let mut materials = # <expr>
+        let material = # <expr>
+        let id = # <expr>
+        # <expr>
+        let results = # <expr>
+        # <expr>
+        # <expr>
+        let results = # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_fuzzy_search_by_tags():
+        let _ = # <expr>
+        let mut materials = # <expr>
+        let material = # <expr>
+        let id = # <expr>
+        # <expr>
+        let results = # <expr>
+        # <expr>
+        # <expr>
+        let results = # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_search_ranking():
+        let _ = # <expr>
+        let mut materials = # <expr>
+        let mat1 = # <expr>
+        let id1 = # <expr>
+        # <expr>
+        let mat2 = # <expr>
+        let id2 = # <expr>
+        # <expr>
+        let results = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_search_empty_query():
+        let _ = # <expr>
+        let mut materials = # <expr>
+        let mat1 = # <expr>
+        let mat2 = # <expr>
+        # <expr>
+        # <expr>
+        let results = # <expr>
+        # <expr>
+
+    fn test_search_no_matches():
+        let _ = # <expr>
+        let mut materials = # <expr>
+        let material = # <expr>
+        # <expr>
+        let results = # <expr>
+        # <expr>
+
+    fn test_filter_by_category():
+        let _ = # <expr>
+        let mut materials = # <expr>
+        let metal1 = # <expr>
+        let metal2 = # <expr>
+        let wood1 = # <expr>
+        let metal1_id = # <expr>
+        let metal2_id = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        let results = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_search_with_category():
+        let _ = # <expr>
+        let mut materials = # <expr>
+        let metal = # <expr>
+        let wood = # <expr>
+        let metal_id = # <expr>
+        # <expr>
+        # <expr>
+        let results = # <expr>
+        # <expr>
+        # <expr>
+        let results = # <expr>
+        # <expr>
+
+    fn test_case_insensitive_search():
+        let _ = # <expr>
+        let mut materials = # <expr>
+        let material = # <expr>
+        let id = # <expr>
+        # <expr>
+        let results = # <expr>
+        # <expr>
+        let results = # <expr>
+        # <expr>
+        let results = # <expr>
+        # <expr>
+
+
+enum ExportFormat:
+    SBSAR
+    GlTF
+    USD
+    Unreal
+    Unity
+    Godot
+    CustomJSON
+
+impl ExportFormat:
+    fn extension(_self: &Self) -> &String:
+        # <expr>
+
+    fn display_name(_self: &Self) -> &String:
+        # <expr>
+
+    fn supports_animation(_self: &Self) -> Bool:
+        # <expr>
+
+
+enum TextureResolution:
+    Source
+    Res512
+    Res1024
+    Res2048
+    Res4096
+    Res8192
+    Res16384
+
+impl TextureResolution:
+    fn pixels(_self: &Self) -> Option<u32>:
+        # <expr>
+
+
+enum TextureFormat:
+    PNG
+    JPEG
+    TGA
+    EXR
+    DDS
+    KTX2
+
+impl TextureFormat:
+    fn extension(_self: &Self) -> &String:
+        # <expr>
+
+    fn supports_hdr(_self: &Self) -> Bool:
+        # <expr>
+
+    fn is_lossy(_self: &Self) -> Bool:
+        # <expr>
+
+
+struct ExportOptions:
+    texture_resolution: TextureResolution
+    texture_format: TextureFormat
+    include_animation: Bool
+    bake_animation_if_unsupported: Bool
+    animation_bake_fps: u32
+    embed_textures: Bool
+    compress_textures: Bool
+    jpeg_quality: u8
+    custom_metadata: Map<String, String>
+
+impl Default for ExportOptions:
+    fn default_() -> Self:
+        # <expr>
+
+
+impl ExportOptions:
+    fn for_game_engine() -> Self:
+        # <expr>
+
+    fn for_archival() -> Self:
+        # <expr>
+
+    fn for_web() -> Self:
+        # <expr>
+
+    fn validate_for_format(_self: &Self, format: ExportFormat) -> Result<(), Error>:
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+
+struct ExportResult:
+    data: Array<u8>
+    additional_files: Map<String, Array<u8>>
+    warnings: Array<String>
+    stats: ExportStats
+
+struct ExportStats:
+    total_size_bytes: usize
+    texture_count: usize
+    layer_count: usize
+    animation_included: Bool
+    animation_baked: Bool
+    export_duration_ms: u64
+
+trait MaterialExporter:
+    fn format(_self: &Self) -> ExportFormat:
+        pass
+    fn export_(_self: &Self, material: &super::Material, options: &ExportOptions) -> Result<ExportResult, Error>:
+        pass
+    fn validate(_self: &Self, material: &super::Material, options: &ExportOptions) -> Result<(), Error>:
+        # <expr>
+        # <expr>
+        # <expr>
+    fn capabilities(_self: &Self) -> ExporterCapabilities:
+        # <expr>
+
+struct ExporterCapabilities:
+    supports_animation: Bool
+    supports_layers: Bool
+    supports_embedded_textures: Bool
+    supports_hdr: Bool
+    max_texture_resolution: Option<u32>
+    supported_texture_formats: Array<TextureFormat>
+
+impl Default for ExporterCapabilities:
+    fn default_() -> Self:
+        # <expr>
+
+
+struct ExportPipeline:
+    exporters: Map<ExportFormat, impl MaterialExporter>
+
+impl ExportPipeline:
+    fn new_() -> Self:
+        # <expr>
+
+    fn register_exporter(_self: &mut Self, exporter: impl MaterialExporter):
+        let format = # <expr>
+        # <expr>
+
+    fn unregister_exporter(_self: &mut Self, format: ExportFormat) -> Option<impl MaterialExporter>:
+        # <expr>
+
+    fn has_exporter(_self: &Self, format: ExportFormat) -> Bool:
+        # <expr>
+
+    fn registered_formats(_self: &Self) -> Array<ExportFormat>:
+        # <expr>
+
+    fn get_capabilities(_self: &Self, format: ExportFormat) -> Option<ExporterCapabilities>:
+        # <expr>
+
+    fn validate(_self: &Self, material: &super::Material, format: ExportFormat, options: &ExportOptions) -> Result<(), Error>:
+        let exporter = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn export_(_self: &Self, material: &super::Material, format: ExportFormat, options: &ExportOptions) -> Result<ExportResult, Error>:
+        # <expr>
+        let exporter = # <expr>
+        let start_time = # <expr>
+        let mut result = # <expr>
+        let duration = # <expr>
+        # <expr>
+        # <expr>
+
+    fn export_with_context(_self: &Self, material: &super::Material, format: ExportFormat, options: &ExportOptions) -> Result<ExportResult, Error>:
+        # <expr>
+
+
+mod pipeline_tests:
+    struct MockExporter:
+        format: ExportFormat
+        should_fail_validation: Bool
+        should_fail_export: Bool
+
+    impl MockExporter:
+        fn new_(format: ExportFormat) -> Self:
+            # <expr>
+
+        fn with_validation_failure(_self: Self) -> Self:
+            # <expr>
+            _self
+
+        fn with_export_failure(_self: Self) -> Self:
+            # <expr>
+            _self
+
+
+    impl MaterialExporter for MockExporter:
+        fn format(_self: &Self) -> ExportFormat:
+            # <expr>
+
+        fn export_(_self: &Self, material: &super::Material, _options: &ExportOptions) -> Result<ExportResult, Error>:
+            # <expr>
+            # <expr>
+
+        fn validate(_self: &Self, material: &super::Material, options: &ExportOptions) -> Result<(), Error>:
+            # <expr>
+            # <expr>
+            # <expr>
+            # <expr>
+
+
+    fn create_test_material() -> super::Material:
+        # <stmt>
+        # <stmt>
+        # <stmt>
+        # <stmt>
+        # <stmt>
+        # <stmt>
+        # <expr>
+
+    fn test_export_pipeline_new():
+        let pipeline = # <expr>
+        # <expr>
+
+    fn test_export_pipeline_default():
+        let pipeline = # <expr>
+        # <expr>
+
+    fn test_export_pipeline_register_exporter():
+        let mut pipeline = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_export_pipeline_register_multiple_exporters():
+        let mut pipeline = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_export_pipeline_replace_exporter():
+        let mut pipeline = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_export_pipeline_unregister_exporter():
+        let mut pipeline = # <expr>
+        # <expr>
+        # <expr>
+        let removed = # <expr>
+        # <expr>
+        # <expr>
+        let removed = # <expr>
+        # <expr>
+
+    fn test_export_pipeline_get_capabilities():
+        let mut pipeline = # <expr>
+        # <expr>
+        # <expr>
+        let caps = # <expr>
+        # <expr>
+
+    fn test_export_pipeline_validate_no_exporter():
+        let pipeline = # <expr>
+        let material = # <expr>
+        let options = # <expr>
+        let result = # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_export_pipeline_validate_success():
+        let mut pipeline = # <expr>
+        # <expr>
+        let material = # <expr>
+        let options = # <expr>
+        let result = # <expr>
+        # <expr>
+
+    fn test_export_pipeline_validate_exporter_failure():
+        let mut pipeline = # <expr>
+        # <expr>
+        let material = # <expr>
+        let options = # <expr>
+        let result = # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_export_pipeline_validate_empty_layers():
+        let mut pipeline = # <expr>
+        # <expr>
+        let mut material = # <expr>
+        # <expr>
+        let options = # <expr>
+        let result = # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_export_pipeline_export_success():
+        let mut pipeline = # <expr>
+        # <expr>
+        let material = # <expr>
+        let options = # <expr>
+        let result = # <expr>
+        # <expr>
+        let export_result = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_export_pipeline_export_no_exporter():
+        let pipeline = # <expr>
+        let material = # <expr>
+        let options = # <expr>
+        let result = # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_export_pipeline_export_failure():
+        let mut pipeline = # <expr>
+        # <expr>
+        let material = # <expr>
+        let options = # <expr>
+        let result = # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_export_pipeline_export_with_context():
+        let mut pipeline = # <expr>
+        # <expr>
+        let material = # <expr>
+        let options = # <expr>
+        let result = # <expr>
+        # <expr>
+
+    fn test_export_pipeline_export_with_context_failure():
+        let mut pipeline = # <expr>
+        # <expr>
+        let material = # <expr>
+        let options = # <expr>
+        let result = # <expr>
+        # <expr>
+        let error_msg = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+
+impl Default for ExportPipeline:
+    fn default_() -> Self:
+        # <expr>
+
+
+mod tests:
+    fn test_export_format_extension():
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_export_format_animation_support():
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_texture_resolution_pixels():
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_texture_format_properties():
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_export_options_default():
+        let options = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_export_options_presets():
+        let game_options = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        let archival_options = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        let web_options = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_export_options_validation_animation():
+        let mut options = # <expr>
+        # <expr>
+        # <expr>
+        let result = # <expr>
+        # <expr>
+        # <expr>
+        let result = # <expr>
+        # <expr>
+        # <expr>
+        let result = # <expr>
+        # <expr>
+
+    fn test_export_options_validation_hdr():
+        let mut options = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        let result = # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_export_options_validation_jpeg_quality():
+        let mut options = # <expr>
+        # <expr>
+        # <expr>
+        let result = # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_export_options_validation_bake_fps():
+        let mut options = # <expr>
+        # <expr>
+        # <expr>
+        let result = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        let result = # <expr>
+        # <expr>
+
+    fn test_export_format_serialization():
+        let format = ExportFormat::GlTF
+        let json = # <expr>
+        # <expr>
+        let deserialized: ExportFormat = # <expr>
+        # <expr>
+
+    fn test_export_options_serialization():
+        let options = # <expr>
+        let json = # <expr>
+        let deserialized: ExportOptions = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+
+struct Layer:
+    id: uuid::Uuid
+    name: String
+    maps: PBRMaps
+    opacity: f32
+    blend_mode: BlendMode
+    mask: Option<Mask>
+    visible: Bool
+    locked: Bool
+
+struct PBRMaps:
+    albedo: Option<TextureHandle>
+    normal: Option<TextureHandle>
+    roughness: Option<TextureHandle>
+    metallic: Option<TextureHandle>
+    ao: Option<TextureHandle>
+    height: Option<TextureHandle>
+    emissive: Option<TextureHandle>
+
+struct TextureHandle:
+    path: String
+    width: u32
+    height: u32
+
+struct ImageData:
+    width: u32
+    height: u32
+    data: Array<f32>
+
+struct PBRImageData:
+    albedo: Option<ImageData>
+    normal: Option<ImageData>
+    roughness: Option<ImageData>
+    metallic: Option<ImageData>
+    ao: Option<ImageData>
+    height: Option<ImageData>
+    emissive: Option<ImageData>
+
+impl ImageData:
+    fn new_(width: u32, height: u32) -> Self:
+        # <expr>
+
+    fn get_pixel(_self: &Self, x: u32, y: u32) -> Array<f32>:
+        let idx = # <expr>
+        # <expr>
+
+    fn set_pixel(_self: &mut Self, x: u32, y: u32, pixel: Array<f32>):
+        let idx = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+
+enum BlendMode:
+    Normal
+    Multiply
+    Screen
+    Overlay
+    Add
+    Subtract
+    Divide
+    Difference
+    Darken
+    Lighten
+
+struct Mask:
+    texture: TextureHandle
+    invert: Bool
+
+struct LayerStack:
+    layers: Array<Layer>
+    gpu_compute: crate::gpu::GpuComputeDevice
+
+impl LayerStack:
+    fn new_(gpu_compute: crate::gpu::GpuComputeDevice) -> Self:
+        # <expr>
+
+    fn add_layer(_self: &mut Self, layer: Layer, position: usize) -> Result<(), Error>:
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn remove_layer(_self: &mut Self, index: usize) -> Result<Layer, Error>:
+        # <expr>
+        # <expr>
+
+    fn reorder(_self: &mut Self, from: usize, to: usize) -> Result<(), Error>:
+        # <expr>
+        let layer = # <expr>
+        # <expr>
+        # <expr>
+
+    fn set_opacity(_self: &mut Self, index: usize, opacity: f32) -> Result<(), Error>:
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn set_blend_mode(_self: &mut Self, index: usize, mode: BlendMode) -> Result<(), Error>:
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn set_mask(_self: &mut Self, index: usize, mask: Option<Mask>) -> Result<(), Error>:
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn serialize(_self: &Self) -> Result<String, Error>:
+        # <expr>
+
+    fn deserialize(json: &String, gpu_compute: crate::gpu::GpuComputeDevice) -> Result<Self, Error>:
+        let layers: Array<Layer> = # <expr>
+        # <expr>
+
+    fn blend_layers(_self: &Self) -> Result<PBRMaps, Error>:
+        # <expr>
+        let mut result = # <expr>
+        let mut has_base = false
+        # <expr>
+        # <expr>
+
+    fn blend_pbr_maps(_self: &Self, base: &PBRMaps, layer: &PBRMaps, blend_mode: BlendMode, opacity: f32, mask: &Option<Mask>) -> Result<PBRMaps, Error>:
+        # <expr>
+
+    fn blend_texture_handles(_self: &Self, base: &Option<TextureHandle>, layer: &Option<TextureHandle>, _blend_mode: BlendMode, _opacity: f32, _mask: &Option<Mask>) -> Result<Option<TextureHandle>, Error>:
+        # <expr>
+
+    fn layers(_self: &Self) -> &Slice<Layer>:
+        # <expr>
+
+    fn blend_layers_gpu(_self: &Self, base_images: &PBRImageData) -> Result<PBRImageData, Error>:
+        # <stmt>
+        # <stmt>
+        # <expr>
+        let gpu_device = # <expr>
+        let gpu = # <expr>
+        let blend_engine = # <expr>
+        let tile_size = # <expr>
+        let mut result = # <expr>
+        # <expr>
+        # <expr>
+
+    fn load_layer_images(_self: &Self, _layer: &Layer) -> Result<PBRImageData, Error>:
+        # <expr>
+
+    fn load_mask_image(_self: &Self, _mask: &Mask) -> Result<ImageData, Error>:
+        # <expr>
+
+    fn blend_images(base: &ImageData, layer: &ImageData, blend_mode: BlendMode, opacity: f32, mask: &Option<ImageData>) -> Result<ImageData, Error>:
+        # <expr>
+        let mut result = # <expr>
+        # <expr>
+        # <expr>
+
+    fn apply_blend_mode(base: Array<f32>, layer: Array<f32>, mode: BlendMode) -> Array<f32>:
+        # <expr>
+
+    fn overlay_channel(base: f32, layer: f32) -> f32:
+        # <expr>
+
+
+impl Default for PBRMaps:
+    fn default_() -> Self:
+        # <expr>
+
+
+impl Layer:
+    fn new_(name: String) -> Self:
+        # <expr>
+
+
+impl Default for Layer:
+    fn default_() -> Self:
+        # <expr>
+
+
+mod tests:
+    fn test_blend_mode_serialization():
+        let mode = BlendMode::Multiply
+        let json = # <expr>
+        let deserialized: BlendMode = # <expr>
+        # <expr>
+
+    fn test_layer_creation():
+        let layer = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_image_data_creation():
+        let img = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_image_data_pixel_access():
+        let mut img = # <expr>
+        # <expr>
+        let pixel = # <expr>
+        # <expr>
+
+    fn test_blend_mode_normal():
+        let base = # <expr>
+        let layer = # <expr>
+        let result = # <expr>
+        # <expr>
+
+    fn test_blend_mode_multiply():
+        let base = # <expr>
+        let layer = # <expr>
+        let result = # <expr>
+        # <expr>
+
+    fn test_blend_mode_screen():
+        let base = # <expr>
+        let layer = # <expr>
+        let result = # <expr>
+        # <expr>
+
+    fn test_blend_mode_overlay():
+        let base = # <expr>
+        let layer = # <expr>
+        let result = # <expr>
+        # <expr>
+
+    fn test_blend_mode_add():
+        let base = # <expr>
+        let layer = # <expr>
+        let result = # <expr>
+        # <expr>
+
+    fn test_blend_mode_subtract():
+        let base = # <expr>
+        let layer = # <expr>
+        let result = # <expr>
+        let expected = # <expr>
+        # <expr>
+
+    fn test_blend_mode_divide():
+        let base = # <expr>
+        let layer = # <expr>
+        let result = # <expr>
+        # <expr>
+
+    fn test_blend_mode_difference():
+        let base = # <expr>
+        let layer = # <expr>
+        let result = # <expr>
+        let expected = # <expr>
+        # <expr>
+
+    fn test_blend_mode_darken():
+        let base = # <expr>
+        let layer = # <expr>
+        let result = # <expr>
+        # <expr>
+
+    fn test_blend_mode_lighten():
+        let base = # <expr>
+        let layer = # <expr>
+        let result = # <expr>
+        # <expr>
+
+    fn test_blend_images_normal():
+        let mut base = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        let mut layer = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        let result = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_blend_images_with_opacity():
+        let mut base = # <expr>
+        # <expr>
+        let mut layer = # <expr>
+        # <expr>
+        let result = # <expr>
+        let pixel = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_blend_images_with_mask():
+        let mut base = # <expr>
+        # <expr>
+        # <expr>
+        let mut layer = # <expr>
+        # <expr>
+        # <expr>
+        let mut mask = # <expr>
+        # <expr>
+        # <expr>
+        let result = # <expr>
+        let pixel0 = # <expr>
+        # <expr>
+        let pixel1 = # <expr>
+        # <expr>
+
+    fn test_blend_images_multiply():
+        let mut base = # <expr>
+        # <expr>
+        let mut layer = # <expr>
+        # <expr>
+        let result = # <expr>
+        let pixel = # <expr>
+        # <expr>
+
+    fn test_blend_images_dimension_mismatch():
+        let base = # <expr>
+        let layer = # <expr>
+        let result = # <expr>
+        # <expr>
+
+
+struct MaterialSystem:
+    materials: Map<uuid::Uuid, Material>
+    gpu_compute: crate::gpu::GpuComputeDevice
+    asset_manager: asset_manager::AssetManager
+    animation_engine: animation::AnimationEngine
+    preset_manager: preset_manager::PresetManager
+
+struct Material:
+    id: uuid::Uuid
+    metadata: MaterialMetadata
+    layers: Array<layer::Layer>
+    animation: Option<animation::AnimationData>
+    variants: Array<uuid::Uuid>
+    base_material: Option<uuid::Uuid>
+
+struct MaterialMetadata:
+    name: String
+    description: String
+    tags: Array<String>
+    author: String
+    created_at: chrono::DateTime<chrono::Utc>
+    modified_at: chrono::DateTime<chrono::Utc>
+    version: u32
+    category: MaterialCategory
+
+enum MaterialCategory:
+    Metal
+    Wood
+    Stone
+    Fabric
+    Plastic
+    Organic
+    SciFi
+    Fantasy
+
+impl Material:
+    fn serialize(_self: &Self) -> Result<String, Error>:
+        # <expr>
+
+    fn serialize_compact(_self: &Self) -> Result<String, Error>:
+        # <expr>
+
+    fn deserialize(json: &String) -> Result<Self, Error>:
+        # <expr>
+        # <expr>
+
+    fn validate_json(json: &String) -> Result<(), Error>:
+        # <stmt>
+        # <stmt>
+        let instance: serde_json::Value = # <expr>
+        let errors: Array<_> = # <expr>
+        # <expr>
+        # <expr>
+
+
+impl MaterialSystem:
+    fn new_(gpu_compute: crate::gpu::GpuComputeDevice) -> Self:
+        # <expr>
+
+    fn with_library_path(gpu_compute: crate::gpu::GpuComputeDevice, library_path: Option<std::path::PathBuf>) -> Self:
+        let library_root = # <expr>
+        let asset_manager = # <expr>
+        let animation_engine = # <expr>
+        let preset_dir = # <expr>
+        let preset_manager = # <expr>
+        # <expr>
+
+    fn asset_manager(_self: &Self) -> &asset_manager::AssetManager:
+        # <expr>
+
+    fn get_material(_self: &Self, id: &uuid::Uuid) -> Option<&Material>:
+        # <expr>
+
+    fn materials(_self: &Self) -> &Map<uuid::Uuid, Material>:
+        # <expr>
+
+    fn create_material(_self: &mut Self, metadata: MaterialMetadata) -> Result<uuid::Uuid, Error>:
+        let id = # <expr>
+        let material = # <expr>
+        # <expr>
+        # <expr>
+
+    fn load_material(_self: &mut Self, path: &std::path::Path) -> Result<uuid::Uuid, Error>:
+        let material = # <expr>
+        let id = # <expr>
+        # <expr>
+        # <expr>
+
+    fn save_material(_self: &Self, id: uuid::Uuid, path: &std::path::Path) -> Result<(), Error>:
+        let material = # <expr>
+        # <expr>
+
+    fn save_material_to_library(_self: &Self, id: uuid::Uuid) -> Result<std::path::PathBuf, Error>:
+        let material = # <expr>
+        let path = # <expr>
+        # <expr>
+        # <expr>
+
+    fn delete_material(_self: &mut Self, id: uuid::Uuid) -> Result<(), Error>:
+        # <expr>
+        # <expr>
+
+    fn add_layer(_self: &mut Self, material_id: uuid::Uuid, layer: layer::Layer) -> Result<(), Error>:
+        let material = # <expr>
+        # <expr>
+        # <expr>
+
+    fn remove_layer(_self: &mut Self, material_id: uuid::Uuid, layer_index: usize) -> Result<(), Error>:
+        let material = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn reorder_layers(_self: &mut Self, material_id: uuid::Uuid, from: usize, to: usize) -> Result<(), Error>:
+        let material = # <expr>
+        # <expr>
+        let layer = # <expr>
+        # <expr>
+        # <expr>
+
+    fn search_materials(_self: &Self, query: &String) -> Array<uuid::Uuid>:
+        # <expr>
+
+    fn search_materials_scored(_self: &Self, query: &String) -> Array<asset_manager::SearchResult>:
+        # <expr>
+
+    fn filter_materials(_self: &Self, category: MaterialCategory) -> Array<uuid::Uuid>:
+        # <expr>
+
+    fn search_with_category(_self: &Self, query: &String, category: Option<MaterialCategory>) -> Array<uuid::Uuid>:
+        # <expr>
+
+    fn evaluate_animation(_self: &Self, material_id: &uuid::Uuid, time: f32) -> Result<Map<animation::AnimationParameter, f32>, Error>:
+        let material = # <expr>
+        let animation_data = # <expr>
+        let result = # <expr>
+        # <expr>
+
+    fn apply_preset(_self: &mut Self, material_id: uuid::Uuid, preset_name: &String) -> Result<(), Error>:
+        let preset = # <expr>
+        let material = # <expr>
+        # <expr>
+        # <expr>
+
+    fn list_animation_presets(_self: &Self) -> Array<String>:
+        # <expr>
+
+    fn get_animation_preset(_self: &Self, name: &String) -> Option<preset_manager::AnimationPreset>:
+        # <expr>
+
+    fn search_animation_presets(_self: &Self, query: &String) -> Array<String>:
+        # <expr>
+
+    fn list_animation_presets_by_category(_self: &Self, category: &String) -> Array<String>:
+        # <expr>
+
+
+mod tests:
+    fn test_material_category_serialization():
+        let category = MaterialCategory::Metal
+        let json = # <expr>
+        let deserialized: MaterialCategory = # <expr>
+        # <expr>
+
+    fn test_material_serialize_pretty():
+        let material = # <expr>
+        let json = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_material_serialize_compact():
+        let material = # <expr>
+        let json = # <expr>
+        let pretty_json = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_material_deserialize():
+        let id = # <expr>
+        let json = # <expr>
+        let material = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_material_roundtrip_pretty():
+        let original = # <expr>
+        let json = # <expr>
+        let deserialized = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_material_roundtrip_compact():
+        let original = # <expr>
+        let json = # <expr>
+        let deserialized = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_material_deserialize_error_reporting():
+        let invalid_json = "{\n            \"id\": \"not-a-uuid\",\n            \"metadata\": {\n                \"name\": \"Test\"\n            }\n        }"
+        let result = # <expr>
+        # <expr>
+        let error = # <expr>
+        let error_msg = # <expr>
+        # <expr>
+
+    fn test_material_schema_validation_missing_required_field():
+        let invalid_json = "{\n            \"id\": \"550e8400-e29b-41d4-a716-446655440000\",\n            \"metadata\": {\n                \"name\": \"Test Material\",\n                \"description\": \"Test\",\n                \"tags\": [],\n                \"author\": \"Test\",\n                \"created_at\": \"2024-01-01T00:00:00Z\",\n                \"modified_at\": \"2024-01-01T00:00:00Z\",\n                \"version\": 1,\n                \"category\": \"Metal\"\n            }\n        }"
+        let result = # <expr>
+        # <expr>
+        let error = # <expr>
+        let error_msg = # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_material_schema_validation_invalid_uuid():
+        let invalid_json = "{\n            \"id\": \"not-a-valid-uuid\",\n            \"metadata\": {\n                \"name\": \"Test Material\",\n                \"description\": \"Test\",\n                \"tags\": [],\n                \"author\": \"Test\",\n                \"created_at\": \"2024-01-01T00:00:00Z\",\n                \"modified_at\": \"2024-01-01T00:00:00Z\",\n                \"version\": 1,\n                \"category\": \"Metal\"\n            },\n            \"layers\": [],\n            \"animation\": null,\n            \"variants\": [],\n            \"base_material\": null\n        }"
+        let result = # <expr>
+        # <expr>
+        let error = # <expr>
+        let error_msg = # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_material_schema_validation_invalid_category():
+        let invalid_json = "{\n            \"id\": \"550e8400-e29b-41d4-a716-446655440000\",\n            \"metadata\": {\n                \"name\": \"Test Material\",\n                \"description\": \"Test\",\n                \"tags\": [],\n                \"author\": \"Test\",\n                \"created_at\": \"2024-01-01T00:00:00Z\",\n                \"modified_at\": \"2024-01-01T00:00:00Z\",\n                \"version\": 1,\n                \"category\": \"InvalidCategory\"\n            },\n            \"layers\": [],\n            \"animation\": null,\n            \"variants\": [],\n            \"base_material\": null\n        }"
+        let result = # <expr>
+        # <expr>
+        let error = # <expr>
+        let error_msg = # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_material_schema_validation_opacity_out_of_range():
+        let invalid_json = "{\n            \"id\": \"550e8400-e29b-41d4-a716-446655440000\",\n            \"metadata\": {\n                \"name\": \"Test Material\",\n                \"description\": \"Test\",\n                \"tags\": [],\n                \"author\": \"Test\",\n                \"created_at\": \"2024-01-01T00:00:00Z\",\n                \"modified_at\": \"2024-01-01T00:00:00Z\",\n                \"version\": 1,\n                \"category\": \"Metal\"\n            },\n            \"layers\": [\n                {\n                    \"id\": \"550e8400-e29b-41d4-a716-446655440001\",\n                    \"name\": \"Layer 1\",\n                    \"maps\": {},\n                    \"opacity\": 1.5,\n                    \"blend_mode\": \"Normal\",\n                    \"mask\": null,\n                    \"visible\": true,\n                    \"locked\": false\n                }\n            ],\n            \"animation\": null,\n            \"variants\": [],\n            \"base_material\": null\n        }"
+        let result = # <expr>
+        # <expr>
+        let error = # <expr>
+        let error_msg = # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_material_schema_validation_too_many_layers():
+        let mut layers_json = # <expr>
+        # <expr>
+        let invalid_json = # <expr>
+        let result = # <expr>
+        # <expr>
+        let error = # <expr>
+        let error_msg = # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_material_schema_validation_invalid_blend_mode():
+        let invalid_json = "{\n            \"id\": \"550e8400-e29b-41d4-a716-446655440000\",\n            \"metadata\": {\n                \"name\": \"Test Material\",\n                \"description\": \"Test\",\n                \"tags\": [],\n                \"author\": \"Test\",\n                \"created_at\": \"2024-01-01T00:00:00Z\",\n                \"modified_at\": \"2024-01-01T00:00:00Z\",\n                \"version\": 1,\n                \"category\": \"Metal\"\n            },\n            \"layers\": [\n                {\n                    \"id\": \"550e8400-e29b-41d4-a716-446655440001\",\n                    \"name\": \"Layer 1\",\n                    \"maps\": {},\n                    \"opacity\": 1.0,\n                    \"blend_mode\": \"InvalidBlendMode\",\n                    \"mask\": null,\n                    \"visible\": true,\n                    \"locked\": false\n                }\n            ],\n            \"animation\": null,\n            \"variants\": [],\n            \"base_material\": null\n        }"
+        let result = # <expr>
+        # <expr>
+        let error = # <expr>
+        let error_msg = # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_material_schema_validation_valid_material():
+        let valid_json = "{\n            \"id\": \"550e8400-e29b-41d4-a716-446655440000\",\n            \"metadata\": {\n                \"name\": \"Test Material\",\n                \"description\": \"A valid test material\",\n                \"tags\": [\"test\", \"metal\"],\n                \"author\": \"Test Author\",\n                \"created_at\": \"2024-01-01T00:00:00Z\",\n                \"modified_at\": \"2024-01-01T00:00:00Z\",\n                \"version\": 1,\n                \"category\": \"Metal\"\n            },\n            \"layers\": [\n                {\n                    \"id\": \"550e8400-e29b-41d4-a716-446655440001\",\n                    \"name\": \"Base Layer\",\n                    \"maps\": {\n                        \"albedo\": {\n                            \"path\": \"/textures/albedo.png\",\n                            \"width\": 2048,\n                            \"height\": 2048\n                        }\n                    },\n                    \"opacity\": 0.8,\n                    \"blend_mode\": \"Multiply\",\n                    \"mask\": null,\n                    \"visible\": true,\n                    \"locked\": false\n                }\n            ],\n            \"animation\": null,\n            \"variants\": [],\n            \"base_material\": null\n        }"
+        let result = # <expr>
+        # <expr>
+        let material = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_material_with_layers_serialization():
+        # <stmt>
+        # <stmt>
+        let mut material = # <expr>
+        let mut layer = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        let json = # <expr>
+        let deserialized = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_material_with_animation_serialization():
+        # <stmt>
+        # <stmt>
+        let material = # <expr>
+        let json = # <expr>
+        let deserialized = # <expr>
+        # <expr>
+        let anim = # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_material_with_variants_serialization():
+        let variant_id1 = # <expr>
+        let variant_id2 = # <expr>
+        let base_id = # <expr>
+        let material = # <expr>
+        let json = # <expr>
+        let deserialized = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_material_system_create_material():
+        let gpu_compute = # <expr>
+        let mut system = # <expr>
+        let metadata = # <expr>
+        let id = # <expr>
+        # <expr>
+        # <expr>
+        let material = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_material_system_uuid_uniqueness():
+        let gpu_compute = # <expr>
+        let mut system = # <expr>
+        let mut ids = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_material_system_delete_material():
+        let gpu_compute = # <expr>
+        let mut system = # <expr>
+        let metadata = # <expr>
+        let id = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_material_system_delete_nonexistent_material():
+        let gpu_compute = # <expr>
+        let mut system = # <expr>
+        let fake_id = # <expr>
+        let result = # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_material_system_save_and_load_material():
+        # <stmt>
+        let gpu_compute = # <expr>
+        let mut system = # <expr>
+        let metadata = # <expr>
+        let id = # <expr>
+        let temp_dir = # <expr>
+        let file_path = # <expr>
+        # <expr>
+        # <expr>
+        let mut system2 = # <expr>
+        let loaded_id = # <expr>
+        # <expr>
+        let loaded_material = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_material_system_add_layer():
+        let gpu_compute = # <expr>
+        let mut system = # <expr>
+        let metadata = # <expr>
+        let id = # <expr>
+        let layer = # <expr>
+        # <expr>
+        let material = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_material_system_remove_layer():
+        let gpu_compute = # <expr>
+        let mut system = # <expr>
+        let metadata = # <expr>
+        let id = # <expr>
+        let layer1 = # <expr>
+        let layer2 = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        let material = # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_material_system_reorder_layers():
+        let gpu_compute = # <expr>
+        let mut system = # <expr>
+        let metadata = # <expr>
+        let id = # <expr>
+        # <expr>
+        let material = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        let material = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_material_system_filter_by_category():
+        let gpu_compute = # <expr>
+        let mut system = # <expr>
+        let categories = # <expr>
+        # <expr>
+        let metal_materials = # <expr>
+        # <expr>
+        let wood_materials = # <expr>
+        # <expr>
+        let stone_materials = # <expr>
+        # <expr>
+        let fabric_materials = # <expr>
+        # <expr>
+
+
+fn load_material(path: &std::path::Path) -> Result<super::Material, Error>:
+    let json = # <expr>
+    let material: super::Material = # <expr>
+    # <expr>
+
+fn save_material(material: &super::Material, path: &std::path::Path) -> Result<(), Error>:
+    # <expr>
+    let json = # <expr>
+    # <expr>
+    # <expr>
+
+fn save_material_compact(material: &super::Material, path: &std::path::Path) -> Result<(), Error>:
+    # <expr>
+    let json = # <expr>
+    # <expr>
+    # <expr>
+
+mod tests:
+    fn test_save_and_load_roundtrip():
+        let dir = # <expr>
+        let path = # <expr>
+        let original = # <expr>
+        # <expr>
+        let loaded = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+
+fn generate_from_image(_image_path: &String) -> Result<super::layer::PBRMaps, Error>:
+    # <expr>
+
+fn generate_from_photogrammetry(_mesh_path: &String) -> Result<super::layer::PBRMaps, Error>:
+    # <expr>
+
+mod tests:
+    fn test_generate_from_image_placeholder():
+        let result = # <expr>
+        # <expr>
+
+
+struct AnimationPreset:
+    name: String
+    description: String
+    category: Option<String>
+    tags: Option<Array<String>>
+    author: Option<String>
+    version: Option<u32>
+    thumbnail: Option<String>
+    animation_data: super::animation::AnimationData
+
+struct PresetManager:
+    presets: Map<String, AnimationPreset>
+    preset_dir: std::path::PathBuf
+    watcher: Option<impl Watcher>
+
+impl PresetManager:
+    fn new_(preset_dir: std::path::PathBuf, enable_hot_reload: Bool) -> Result<Self, Error>:
+        let presets = # <expr>
+        let mut manager = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn load_all_presets(_self: &mut Self) -> Result<(), Error>:
+        # <expr>
+        let entries = # <expr>
+        let mut loaded_count = 0
+        let mut error_count = 0
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn load_preset_file(_self: &Self, path: &std::path::Path) -> Result<AnimationPreset, Error>:
+        let json = # <expr>
+        # <expr>
+        let preset: AnimationPreset = # <expr>
+        # <expr>
+
+    fn validate_preset_json(json: &String) -> Result<(), Error>:
+        # <stmt>
+        let instance: serde_json::Value = # <expr>
+        let errors: Array<_> = # <expr>
+        # <expr>
+        # <expr>
+
+    fn setup_watcher(_self: &mut Self) -> Result<(), Error>:
+        # <stmt>
+        let presets = # <expr>
+        let mut watcher = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn load_preset_file_static(path: &std::path::Path) -> Result<AnimationPreset, Error>:
+        let json = # <expr>
+        # <expr>
+        let preset: AnimationPreset = # <expr>
+        # <expr>
+
+    fn get_preset(_self: &Self, name: &String) -> Option<AnimationPreset>:
+        # <expr>
+
+    fn list_presets(_self: &Self) -> Array<String>:
+        let mut names: Array<String> = # <expr>
+        # <expr>
+        names
+
+    fn list_presets_by_category(_self: &Self, category: &String) -> Array<String>:
+        let presets = # <expr>
+        let mut names: Array<String> = # <expr>
+        # <expr>
+        names
+
+    fn search_presets(_self: &Self, query: &String) -> Array<String>:
+        let query_lower = # <expr>
+        let presets = # <expr>
+        let mut names: Array<String> = # <expr>
+        # <expr>
+        names
+
+    fn get_all_presets(_self: &Self) -> Map<String, AnimationPreset>:
+        # <expr>
+
+
+mod tests:
+    fn create_test_preset_json() -> String:
+        # <expr>
+
+    fn test_preset_manager_creation():
+        let temp_dir = # <expr>
+        let manager = # <expr>
+        # <expr>
+
+    fn test_load_preset_from_file():
+        let temp_dir = # <expr>
+        let preset_path = # <expr>
+        # <expr>
+        let manager = # <expr>
+        let preset = # <expr>
+        # <expr>
+        let preset = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_list_presets():
+        let temp_dir = # <expr>
+        let preset_path = # <expr>
+        # <expr>
+        let manager = # <expr>
+        let presets = # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_search_presets():
+        let temp_dir = # <expr>
+        let preset_path = # <expr>
+        # <expr>
+        let manager = # <expr>
+        let results = # <expr>
+        # <expr>
+        let results = # <expr>
+        # <expr>
+        let results = # <expr>
+        # <expr>
+
+    fn test_filter_by_category():
+        let temp_dir = # <expr>
+        let preset_path = # <expr>
+        # <expr>
+        let manager = # <expr>
+        let results = # <expr>
+        # <expr>
+        let results = # <expr>
+        # <expr>
+
+    fn test_invalid_preset_json():
+        let temp_dir = # <expr>
+        let preset_path = # <expr>
+        # <expr>
+        let manager = # <expr>
+        # <expr>
+        let presets = # <expr>
+        # <expr>
+
+    fn test_schema_validation():
+        let invalid_json = "{\n            \"name\": \"Invalid\",\n            \"description\": \"Missing required fields\"\n        }"
+        let result = # <expr>
+        # <expr>
+        # <expr>
+
+
+mod tests:
+    fn arb_material_category() -> impl Strategy:
+        # <expr>
+
+    fn arb_material_metadata() -> impl Strategy:
+        # <expr>
+
+    fn arb_texture_handle() -> impl Strategy:
+        # <expr>
+
+    fn arb_pbr_maps() -> impl Strategy:
+        # <expr>
+
+    fn arb_blend_mode() -> impl Strategy:
+        # <expr>
+
+    fn arb_mask() -> impl Strategy:
+        # <expr>
+
+    fn arb_layer() -> impl Strategy:
+        # <expr>
+
+    fn arb_vec2() -> impl Strategy:
+        # <expr>
+
+    fn arb_keyframe() -> impl Strategy:
+        # <expr>
+
+    fn arb_interpolation_type() -> impl Strategy:
+        # <expr>
+
+    fn arb_keyframe_animation() -> impl Strategy:
+        # <expr>
+
+    fn arb_procedural_animation() -> impl Strategy:
+        # <expr>
+
+    fn arb_simulation_type() -> impl Strategy:
+        # <expr>
+
+    fn arb_physics_animation() -> impl Strategy:
+        # <expr>
+
+    fn arb_animation_type() -> impl Strategy:
+        # <expr>
+
+    fn arb_animation_parameter() -> impl Strategy:
+        # <expr>
+
+    fn arb_animation_track() -> impl Strategy:
+        # <expr>
+
+    fn arb_loop_mode() -> impl Strategy:
+        # <expr>
+
+    fn arb_animation_data() -> impl Strategy:
+        # <expr>
+
+    fn arb_material() -> impl Strategy:
+        # <expr>
+
+
+mod tests:
+    fn arb_material_metadata() -> impl Strategy:
+        # <expr>
+
+
+enum MaterialError:
+    MaterialNotFound(uuid::Uuid)
+    InvalidName(String)
+    InvalidTexturePath(String)
+    TextureNotFound(String)
+    InvalidPropertyValue(String)
+    SerializationError(String)
+    DeserializationError(String)
+    IoError(String)
+    ValidationError(String)
+    Other(String)
+
+impl From for MaterialError:
+    fn from(err: std::io::Error) -> Self:
+        # <expr>
+
+
+impl From for MaterialError:
+    fn from(err: serde_json::Error) -> Self:
+        # <expr>
+
+
+struct BlendParams:
+    opacity: f32
+    blend_mode: u32
+    has_mask: u32
+    invert_mask: u32
+
+enum BlendModeGpu:
+    Normal
+    Multiply
+    Screen
+    Overlay
+    Add
+    Subtract
+    Divide
+    Difference
+    Darken
+    Lighten
+
+impl From for BlendModeGpu:
+    fn from(mode: crate::autopbr::layer::BlendMode) -> Self:
+        # <stmt>
+        # <expr>
+
+
+struct GpuLayerBlend:
+    pipeline: wgpu::ComputePipeline
+    bind_group_layout: wgpu::BindGroupLayout
+    sampler_: wgpu::Sampler
+
+impl GpuLayerBlend:
+    fn new_(device: &wgpu::Device) -> Self:
+        let bind_group_layout = # <expr>
+        let shader_source = # <expr>
+        let shader_module = # <expr>
+        let pipeline_layout = # <expr>
+        let pipeline = # <expr>
+        let sampler_ = # <expr>
+        # <expr>
+
+    fn encode_blend(_self: &Self, encoder: &mut wgpu::CommandEncoder, device: &wgpu::Device, base_texture: &wgpu::TextureView, layer_texture: &wgpu::TextureView, mask_texture: &wgpu::TextureView, output_texture: &wgpu::TextureView, params: &BlendParams, width: u32, height: u32):
+        let params_buffer = # <expr>
+        let bind_group = # <expr>
+        let mut compute_pass = # <expr>
+        # <expr>
+        # <expr>
+        let workgroup_size_x = 16
+        let workgroup_size_y = 16
+        let dispatch_x = # <expr>
+        let dispatch_y = # <expr>
+        # <expr>
+
+    fn blend_textures(_self: &Self, device: &wgpu::Device, queue: &wgpu::Queue, base_data: &Slice<f32>, layer_data: &Slice<f32>, mask_data: Option<&Slice<f32>>, blend_mode: BlendModeGpu, opacity: f32, invert_mask: Bool, width: u32, height: u32) -> Result<Array<f32>, Error>:
+        let expected_size = # <expr>
+        # <expr>
+        let texture_size = # <expr>
+        let base_texture = # <expr>
+        let layer_texture = # <expr>
+        let output_texture = # <expr>
+        # <expr>
+        # <expr>
+        let mask_texture = # <expr>
+        let base_view = # <expr>
+        let layer_view = # <expr>
+        let mask_view = # <expr>
+        let output_view = # <expr>
+        let params = # <expr>
+        let mut encoder = # <expr>
+        # <expr>
+        let bytes_per_row = # <expr>
+        let padded_bytes_per_row = # <expr>
+        let buffer_size = # <expr>
+        let staging_buffer = # <expr>
+        # <expr>
+        # <expr>
+        let buffer_slice = # <expr>
+        let _ = # <expr>
+        # <expr>
+        let _ = # <expr>
+        # <expr>
+        let data = # <expr>
+        let mut result = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn blend_textures_tiled(_self: &Self, device: &wgpu::Device, queue: &wgpu::Queue, base_data: &Slice<f32>, layer_data: &Slice<f32>, mask_data: Option<&Slice<f32>>, blend_mode: BlendModeGpu, opacity: f32, invert_mask: Bool, width: u32, height: u32, tile_size: u32) -> Result<Array<f32>, Error>:
+        # <expr>
+        let tiles_x = # <expr>
+        let tiles_y = # <expr>
+        let mut result = # <expr>
+        # <expr>
+        # <expr>
+
+    fn recommended_tile_size() -> u32:
+        4096
+
+
+mod tests:
+    fn test_blend_params_size():
+        # <expr>
+        # <expr>
+
+    fn test_blend_mode_conversion():
+        # <stmt>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+
+mod pipelines:
+
+mod tests:
+    fn test_material_creation():
+        let material = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_material_library():
+        let mut library = # <expr>
+        let material = # <expr>
+        let id = # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_material_preset():
+        let gold = # <expr>
+        # <expr>
+        # <expr>
+
+
+struct MaterialLibrary:
+    name: String
+    materials: Map<uuid::Uuid, crate::material::Material>
+    name_index: Map<String, uuid::Uuid>
+
+impl MaterialLibrary:
+    fn new_() -> Self:
+        # <expr>
+
+    fn with_name(name: impl Into<String>) -> Self:
+        # <expr>
+
+    fn name(_self: &Self) -> &String:
+        # <expr>
+
+    fn set_name(_self: &mut Self, name: impl Into<String>):
+        # <expr>
+
+    fn add_material(_self: &mut Self, material: crate::material::Material) -> uuid::Uuid:
+        let id = # <expr>
+        let name = # <expr>
+        # <expr>
+        # <expr>
+        id
+
+    fn get_material(_self: &Self, id: &uuid::Uuid) -> Option<&crate::material::Material>:
+        # <expr>
+
+    fn get_material_mut(_self: &mut Self, id: &uuid::Uuid) -> Option<&mut crate::material::Material>:
+        # <expr>
+
+    fn get_material_by_name(_self: &Self, name: &String) -> Option<&crate::material::Material>:
+        # <expr>
+
+    fn remove_material(_self: &mut Self, id: &uuid::Uuid) -> Option<crate::material::Material>:
+        # <expr>
+
+    fn contains_material(_self: &Self, id: &uuid::Uuid) -> Bool:
+        # <expr>
+
+    fn contains_name(_self: &Self, name: &String) -> Bool:
+        # <expr>
+
+    fn material_count(_self: &Self) -> usize:
+        # <expr>
+
+    fn is_empty(_self: &Self) -> Bool:
+        # <expr>
+
+    fn clear(_self: &mut Self):
+        # <expr>
+        # <expr>
+
+    fn material_ids(_self: &Self) -> Array<uuid::Uuid>:
+        # <expr>
+
+    fn material_names(_self: &Self) -> Array<String>:
+        # <expr>
+
+    fn materials(_self: &Self) -> Array<&crate::material::Material>:
+        # <expr>
+
+    fn iter(_self: &Self) -> impl Iterator:
+        # <expr>
+
+    fn rename_material(_self: &mut Self, id: &uuid::Uuid, new_name: impl Into<String>) -> Result<(), Error>:
+        let new_name = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn duplicate_material(_self: &mut Self, id: &uuid::Uuid, new_name: impl Into<String>) -> Result<uuid::Uuid, Error>:
+        let new_name = # <expr>
+        # <expr>
+        # <expr>
+
+    fn save_to_file(_self: &Self, path: P) -> Result<(), Error>:
+        let json = # <expr>
+        # <expr>
+        # <expr>
+
+    fn load_from_file(path: P) -> Result<Self, Error>:
+        let json = # <expr>
+        let library: MaterialLibrary = # <expr>
+        # <expr>
+
+    fn merge(_self: &mut Self, other: &MaterialLibrary) -> Array<uuid::Uuid>:
+        let mut added_ids = # <expr>
+        # <expr>
+        added_ids
+
+    fn validate(_self: &Self) -> Result<(), Error>:
+        # <expr>
+        # <expr>
+
+
+impl Default for MaterialLibrary:
+    fn default_() -> Self:
+        # <expr>
+
+
+fn create_shared_library() -> SharedMaterialLibrary:
+    # <expr>
+
+mod tests:
+    fn test_library_creation():
+        let library = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_add_and_get_material():
+        let mut library = # <expr>
+        let material = # <expr>
+        let id = # <expr>
+        # <expr>
+        # <expr>
+        let retrieved = # <expr>
+        # <expr>
+
+    fn test_get_material_by_name():
+        let mut library = # <expr>
+        let material = # <expr>
+        # <expr>
+        let retrieved = # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_remove_material():
+        let mut library = # <expr>
+        let material = # <expr>
+        let id = # <expr>
+        # <expr>
+        let removed = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_rename_material():
+        let mut library = # <expr>
+        let material = # <expr>
+        let id = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        let mat = # <expr>
+        # <expr>
+
+    fn test_duplicate_material():
+        let mut library = # <expr>
+        let material = # <expr>
+        let original_id = # <expr>
+        let duplicate_id = # <expr>
+        # <expr>
+        # <expr>
+        let duplicate = # <expr>
+        # <expr>
+
+    fn test_library_merge():
+        let mut library1 = # <expr>
+        # <expr>
+        let mut library2 = # <expr>
+        # <expr>
+        # <expr>
+        let added = # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_library_clear():
+        let mut library = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_shared_library():
+        let shared_ = # <expr>
+        # <expr>
+        # <expr>
+
+
+struct Material:
+    id: uuid::Uuid
+    name: String
+    base_color: glam::Vec3
+    metallic: f32
+    roughness: f32
+    emissive: glam::Vec3
+    emissive_strength: f32
+    ao_strength: f32
+    normal_strength: f32
+    height_strength: f32
+    opacity: f32
+    ior: f32
+    textures: Map<crate::texture::TextureSlot, crate::texture::TextureInfo>
+    metadata: Map<String, String>
+
+impl Material:
+    fn new_(name: impl Into<String>) -> Self:
+        # <expr>
+
+    fn id(_self: &Self) -> uuid::Uuid:
+        # <expr>
+
+    fn name(_self: &Self) -> &String:
+        # <expr>
+
+    fn set_name(_self: &mut Self, name: impl Into<String>) -> Result<(), Error>:
+        let name = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn base_color(_self: &Self) -> glam::Vec3:
+        # <expr>
+
+    fn set_base_color(_self: &mut Self, color: glam::Vec3):
+        # <expr>
+
+    fn metallic(_self: &Self) -> f32:
+        # <expr>
+
+    fn set_metallic(_self: &mut Self, metallic: f32):
+        # <expr>
+
+    fn roughness(_self: &Self) -> f32:
+        # <expr>
+
+    fn set_roughness(_self: &mut Self, roughness: f32):
+        # <expr>
+
+    fn emissive(_self: &Self) -> glam::Vec3:
+        # <expr>
+
+    fn set_emissive(_self: &mut Self, emissive: glam::Vec3):
+        # <expr>
+
+    fn emissive_strength(_self: &Self) -> f32:
+        # <expr>
+
+    fn set_emissive_strength(_self: &mut Self, strength: f32):
+        # <expr>
+
+    fn ao_strength(_self: &Self) -> f32:
+        # <expr>
+
+    fn set_ao_strength(_self: &mut Self, strength: f32):
+        # <expr>
+
+    fn normal_strength(_self: &Self) -> f32:
+        # <expr>
+
+    fn set_normal_strength(_self: &mut Self, strength: f32):
+        # <expr>
+
+    fn height_strength(_self: &Self) -> f32:
+        # <expr>
+
+    fn set_height_strength(_self: &mut Self, strength: f32):
+        # <expr>
+
+    fn opacity(_self: &Self) -> f32:
+        # <expr>
+
+    fn set_opacity(_self: &mut Self, opacity: f32):
+        # <expr>
+
+    fn ior(_self: &Self) -> f32:
+        # <expr>
+
+    fn set_ior(_self: &mut Self, ior: f32):
+        # <expr>
+
+    fn is_transparent(_self: &Self) -> Bool:
+        # <expr>
+
+    fn is_emissive(_self: &Self) -> Bool:
+        # <expr>
+
+    fn set_texture(_self: &mut Self, slot: crate::texture::TextureSlot, path: impl AsRef<std::path::Path>):
+        let info = # <expr>
+        # <expr>
+
+    fn set_texture_info(_self: &mut Self, slot: crate::texture::TextureSlot, info: crate::texture::TextureInfo):
+        # <expr>
+
+    fn get_texture(_self: &Self, slot: crate::texture::TextureSlot) -> Option<&crate::texture::TextureInfo>:
+        # <expr>
+
+    fn get_texture_mut(_self: &mut Self, slot: crate::texture::TextureSlot) -> Option<&mut crate::texture::TextureInfo>:
+        # <expr>
+
+    fn remove_texture(_self: &mut Self, slot: crate::texture::TextureSlot) -> Option<crate::texture::TextureInfo>:
+        # <expr>
+
+    fn has_texture(_self: &Self, slot: crate::texture::TextureSlot) -> Bool:
+        # <expr>
+
+    fn texture_slots(_self: &Self) -> Array<crate::texture::TextureSlot>:
+        # <expr>
+
+    fn textures(_self: &Self) -> &Map<crate::texture::TextureSlot, crate::texture::TextureInfo>:
+        # <expr>
+
+    fn set_metadata(_self: &mut Self, key: impl Into<String>, value: impl Into<String>):
+        # <expr>
+
+    fn get_metadata(_self: &Self, key: &String) -> Option<&String>:
+        # <expr>
+
+    fn remove_metadata(_self: &mut Self, key: &String) -> Option<String>:
+        # <expr>
+
+    fn metadata(_self: &Self) -> &Map<String, String>:
+        # <expr>
+
+    fn validate(_self: &Self) -> Result<(), Error>:
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn clone_with_name(_self: &Self, name: impl Into<String>) -> Self:
+        let mut cloned = # <expr>
+        # <expr>
+        # <expr>
+        cloned
+
+
+mod animation:
+
+mod layer:
+
+mod tests:
+    fn test_material_defaults():
+        let mat = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_material_pbr_properties():
+        let mut mat = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_material_clamping():
+        let mut mat = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_material_emissive():
+        let mut mat = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_material_transparency():
+        let mut mat = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_material_textures():
+        let mut mat = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        let slots = # <expr>
+        # <expr>
+
+    fn test_material_metadata():
+        let mut mat = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_material_clone_with_name():
+        let mat = # <expr>
+        let cloned = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+
+struct Color:
+    r: f32
+    g: f32
+    b: f32
+    a: f32
+
+impl Color:
+    fn from_hex(hex: &String) -> Self:
+        let hex = # <expr>
+        let r = # <expr>
+        let g = # <expr>
+        let b = # <expr>
+        # <expr>
+
+
+struct StrokeUniforms:
+    from_x: f32
+    from_y: f32
+    to_x: f32
+    to_y: f32
+    color: Array<f32>
+    size: f32
+    opacity: f32
+    blend_mode: u32
+    padding: u32
+
+struct GpuPaintEngine:
+    canvas_texture: wgpu::Texture
+    canvas_view: wgpu::TextureView
+    stroke_pipeline: wgpu::ComputePipeline
+    stroke_bind_group_layout: wgpu::BindGroupLayout
+    uniform_buffer: wgpu::Buffer
+    width: u32
+    height: u32
+    history: Array<Array<u8>>
+    history_index: usize
+
+impl GpuPaintEngine:
+    fn new_(device: &wgpu::Device, queue: &wgpu::Queue, width: u32, height: u32) -> Self:
+        let canvas_texture = # <expr>
+        let canvas_view = # <expr>
+        let uniform_buffer = # <expr>
+        let shader = # <expr>
+        let stroke_bind_group_layout = # <expr>
+        let pipeline_layout = # <expr>
+        let stroke_pipeline = # <expr>
+        let white_data: Array<u8> = # <expr>
+        # <expr>
+        # <expr>
+
+    fn read_canvas(_self: &Self, device: &wgpu::Device, queue: &wgpu::Queue) -> Array<u8>:
+        let bytes_per_row = # <expr>
+        let padded_bytes_per_row = # <expr>
+        let staging_buffer = # <expr>
+        let mut encoder = # <expr>
+        # <expr>
+        # <expr>
+        let buffer_slice = # <expr>
+        let _ = # <expr>
+        # <expr>
+        let _ = # <expr>
+        # <expr>
+        let data = # <expr>
+        let mut pixels = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        pixels
+
+    fn write_canvas(_self: &Self, queue: &wgpu::Queue, data: &Slice<u8>):
+        # <expr>
+
+
+fn next_handle() -> u64:
+    let mut h = # <expr>
+    let handle = # <expr>
+    # <expr>
+    handle
+
+struct CanvasData:
+    data: Array<u8>
+    width: u32
+    height: u32
+
+fn gpu_paint_init(width: u32, height: u32) -> Result<u64, String>:
+    let gpu = # <expr>
+    let gpu_guard = # <expr>
+    let engine = # <expr>
+    let handle = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+
+fn gpu_paint_stroke(handle: u64, from_x: f32, from_y: f32, to_x: f32, to_y: f32, pressure: f32, color: String, size: f32, opacity: f32, blend_mode: String) -> Result<(), String>:
+    let gpu = # <expr>
+    let gpu_guard = # <expr>
+    let mut engines = # <expr>
+    let engine = # <expr>
+    let c = # <expr>
+    let blend_mode_u32 = # <expr>
+    let uniforms = # <expr>
+    # <expr>
+    let bind_group = # <expr>
+    let mut encoder = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+
+fn gpu_paint_end_stroke(handle: u64) -> Result<(), String>:
+    let gpu = # <expr>
+    let gpu_guard = # <expr>
+    let mut engines = # <expr>
+    let engine = # <expr>
+    let data = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+
+fn gpu_paint_get_canvas(handle: u64) -> Result<CanvasData, String>:
+    let gpu = # <expr>
+    let gpu_guard = # <expr>
+    let engines = # <expr>
+    let engine = # <expr>
+    let data = # <expr>
+    # <expr>
+
+fn gpu_paint_clear(handle: u64, color: String) -> Result<(), String>:
+    let gpu = # <expr>
+    let gpu_guard = # <expr>
+    let engines = # <expr>
+    let engine = # <expr>
+    let c = # <expr>
+    let data: Array<u8> = # <expr>
+    # <expr>
+    # <expr>
+
+fn gpu_paint_undo(handle: u64) -> Result<Bool, String>:
+    let gpu = # <expr>
+    let gpu_guard = # <expr>
+    let mut engines = # <expr>
+    let engine = # <expr>
+    # <expr>
+    # <expr>
+
+fn gpu_paint_dispose(handle: u64) -> Result<(), String>:
+    let mut engines = # <expr>
+    # <expr>
+
+enum PbrWorkflow:
+    MetallicRoughness
+    SpecularGlossiness
+
+struct PbrMaterial:
+    name: String
+    workflow: PbrWorkflow
+    base_color: glam::Vec4
+    metallic: f32
+    roughness: f32
+    emissive: glam::Vec3
+    emissive_strength: f32
+    albedo_map: Option<u32>
+    normal_map: Option<u32>
+    metallic_map: Option<u32>
+    roughness_map: Option<u32>
+    ao_map: Option<u32>
+    emissive_map: Option<u32>
+    height_map: Option<u32>
+    normal_strength: f32
+    ao_strength: f32
+    height_scale: f32
+    alpha_mode: AlphaMode
+    alpha_cutoff: f32
+    double_sided: Bool
+    clearcoat: Option<ClearcoatExtension>
+    transmission: Option<TransmissionExtension>
+    sheen: Option<SheenExtension>
+
+enum AlphaMode:
+    Opaque
+    Mask
+    Blend
+
+struct ClearcoatExtension:
+    factor: f32
+    roughness: f32
+    normal_map: Option<u32>
+
+struct TransmissionExtension:
+    factor: f32
+    ior: f32
+
+struct SheenExtension:
+    color: glam::Vec3
+    roughness: f32
+
+impl Default for PbrMaterial:
+    fn default_() -> Self:
+        # <expr>
+
+
+impl PbrMaterial:
+    fn new_(name: impl Into<String>) -> Self:
+        # <expr>
+
+    fn metallic(name: impl Into<String>, base_color: glam::Vec4, metallic: f32, roughness: f32) -> Self:
+        # <expr>
+
+    fn dielectric(name: impl Into<String>, base_color: glam::Vec4, roughness: f32) -> Self:
+        # <expr>
+
+    fn emissive(name: impl Into<String>, emissive_color: glam::Vec3, strength: f32) -> Self:
+        # <expr>
+
+    fn with_clearcoat(_self: Self, factor: f32, roughness: f32) -> Self:
+        # <expr>
+        _self
+
+    fn with_transmission(_self: Self, factor: f32, ior: f32) -> Self:
+        # <expr>
+        # <expr>
+        _self
+
+    fn with_sheen(_self: Self, color: glam::Vec3, roughness: f32) -> Self:
+        # <expr>
+        _self
+
+    fn is_transparent(_self: &Self) -> Bool:
+        # <expr>
+
+    fn has_textures(_self: &Self) -> Bool:
+        # <expr>
+
+
+mod presets:
+    fn chrome() -> PbrMaterial:
+        # <expr>
+
+    fn gold() -> PbrMaterial:
+        # <expr>
+
+    fn copper() -> PbrMaterial:
+        # <expr>
+
+    fn plastic_white() -> PbrMaterial:
+        # <expr>
+
+    fn rubber_black() -> PbrMaterial:
+        # <expr>
+
+    fn car_paint_red() -> PbrMaterial:
+        # <expr>
+
+    fn glass() -> PbrMaterial:
+        # <expr>
+
+    fn velvet_red() -> PbrMaterial:
+        # <expr>
+
+    fn neon_blue() -> PbrMaterial:
+        # <expr>
+
+
+struct MaterialPreset:
+    pass
+
+impl MaterialPreset:
+    fn gold() -> crate::material::Material:
+        let mut mat = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        mat
+
+    fn silver() -> crate::material::Material:
+        let mut mat = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        mat
+
+    fn copper() -> crate::material::Material:
+        let mut mat = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        mat
+
+    fn aluminum() -> crate::material::Material:
+        let mut mat = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        mat
+
+    fn iron() -> crate::material::Material:
+        let mut mat = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        mat
+
+    fn brushed_metal() -> crate::material::Material:
+        let mut mat = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        mat
+
+    fn plastic_glossy() -> crate::material::Material:
+        let mut mat = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        mat
+
+    fn plastic_matte() -> crate::material::Material:
+        let mut mat = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        mat
+
+    fn plastic_red() -> crate::material::Material:
+        let mut mat = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        mat
+
+    fn plastic_blue() -> crate::material::Material:
+        let mut mat = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        mat
+
+    fn plastic_green() -> crate::material::Material:
+        let mut mat = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        mat
+
+    fn glass() -> crate::material::Material:
+        let mut mat = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        mat
+
+    fn glass_frosted() -> crate::material::Material:
+        let mut mat = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        mat
+
+    fn glass_colored(color: glam::Vec3) -> crate::material::Material:
+        let mut mat = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        mat
+
+    fn wood() -> crate::material::Material:
+        let mut mat = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        mat
+
+    fn wood_polished() -> crate::material::Material:
+        let mut mat = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        mat
+
+    fn stone() -> crate::material::Material:
+        let mut mat = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        mat
+
+    fn marble() -> crate::material::Material:
+        let mut mat = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        mat
+
+    fn fabric() -> crate::material::Material:
+        let mut mat = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        mat
+
+    fn velvet() -> crate::material::Material:
+        let mut mat = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        mat
+
+    fn rubber() -> crate::material::Material:
+        let mut mat = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        mat
+
+    fn neon(color: glam::Vec3) -> crate::material::Material:
+        let mut mat = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        mat
+
+    fn led(color: glam::Vec3) -> crate::material::Material:
+        let mut mat = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        mat
+
+    fn default_() -> crate::material::Material:
+        # <expr>
+
+    fn white() -> crate::material::Material:
+        let mut mat = # <expr>
+        # <expr>
+        mat
+
+    fn black() -> crate::material::Material:
+        let mut mat = # <expr>
+        # <expr>
+        mat
+
+    fn all_preset_names() -> Array<&String>:
+        # <expr>
+
+    fn get_preset(name: &String) -> Option<crate::material::Material>:
+        # <expr>
+
+
+mod tests:
+    fn test_metal_presets():
+        let gold = # <expr>
+        # <expr>
+        # <expr>
+        let silver = # <expr>
+        # <expr>
+
+    fn test_plastic_presets():
+        let glossy = # <expr>
+        # <expr>
+        # <expr>
+        let matte = # <expr>
+        # <expr>
+
+    fn test_glass_presets():
+        let glass = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_emissive_presets():
+        let neon = # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_get_preset_by_name():
+        let gold = # <expr>
+        # <expr>
+        # <expr>
+        let invalid = # <expr>
+        # <expr>
+
+    fn test_all_preset_names():
+        let names = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_preset_metadata():
+        let gold = # <expr>
+        # <expr>
+        # <expr>
+
+
+enum TextureSlot:
+    BaseColor
+    Metallic
+    Roughness
+    Normal
+    AmbientOcclusion
+    Emissive
+    Height
+    Opacity
+
+impl TextureSlot:
+    fn all() -> &Slice<TextureSlot>:
+        # <expr>
+
+    fn display_name(_self: &Self) -> &String:
+        # <expr>
+
+    fn file_suffix(_self: &Self) -> &String:
+        # <expr>
+
+
+struct TextureInfo:
+    path: std::path::PathBuf
+    uv_channel: u8
+    scale: (f32, f32)
+    offset: (f32, f32)
+    rotation: f32
+    srgb: Bool
+
+impl TextureInfo:
+    fn new_(path: P) -> Self:
+        # <expr>
+
+    fn new_data(path: P) -> Self:
+        # <expr>
+
+    fn path(_self: &Self) -> &std::path::Path:
+        # <expr>
+
+    fn set_path(_self: &mut Self, path: P):
+        # <expr>
+
+    fn uv_channel(_self: &Self) -> u8:
+        # <expr>
+
+    fn set_uv_channel(_self: &mut Self, channel: u8):
+        # <expr>
+
+    fn scale(_self: &Self) -> (f32, f32):
+        # <expr>
+
+    fn set_scale(_self: &mut Self, scale: (f32, f32)):
+        # <expr>
+
+    fn offset(_self: &Self) -> (f32, f32):
+        # <expr>
+
+    fn set_offset(_self: &mut Self, offset: (f32, f32)):
+        # <expr>
+
+    fn rotation(_self: &Self) -> f32:
+        # <expr>
+
+    fn set_rotation(_self: &mut Self, rotation: f32):
+        # <expr>
+
+    fn is_srgb(_self: &Self) -> Bool:
+        # <expr>
+
+    fn set_srgb(_self: &mut Self, srgb: Bool):
+        # <expr>
+
+    fn exists(_self: &Self) -> Bool:
+        # <expr>
+
+
+mod tests:
+    fn test_texture_slot_all():
+        let slots = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_texture_slot_display_name():
+        # <expr>
+        # <expr>
+
+    fn test_texture_info_creation():
+        let info = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_texture_info_data():
+        let info = # <expr>
+        # <expr>
+
+    fn test_texture_info_modifications():
+        let mut info = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+
+enum NoiseType:
+    Perlin
+    Simplex
+    Worley
+    Fbm
+
+struct NoiseParams:
+    noise_type: String
+    frequency: f64
+    amplitude: f64
+    octaves: u32
+    lacunarity: f64
+    persistence: f64
+    seed: u32
+
+impl Default for NoiseParams:
+    fn default_() -> Self:
+        # <expr>
+
+
+fn sample_noise(params: &NoiseParams, x: f64, y: f64, z: f64) -> f64:
+    let fx = # <expr>
+    let fy = # <expr>
+    let fz = # <expr>
+    let value = # <expr>
+    # <expr>
+
+struct NoiseDisplacementResult:
+    positions: Array<f32>
+    time_ms: f64
+    vertex_count: usize
+
+fn apply_noise_displacement(positions: Array<f32>, normals: Array<f32>, params: NoiseParams) -> Result<NoiseDisplacementResult, String>:
+    let start = # <expr>
+    let vertex_count = # <expr>
+    let mut new_positions = # <expr>
+    # <expr>
+    let elapsed = # <expr>
+    # <expr>
+    # <expr>
+
+fn sample_noise_point(x: f32, y: f32, z: f32, params: NoiseParams) -> f64:
+    # <expr>
+
+fn generate_noise_texture(width: u32, height: u32, params: NoiseParams) -> Result<Array<f32>, String>:
+    let start = # <expr>
+    let mut texture = # <expr>
+    # <expr>
+    let elapsed = # <expr>
+    # <expr>
+    # <expr>
+
+struct PbrParams:
+    normal_strength: f32
+    roughness_brightness: f32
+    roughness_contrast: f32
+    roughness_invert: Bool
+    metal_bias: f32
+    metal_contrast: f32
+    dust: f32
+    grunge: f32
+    scratches: f32
+    noise: f32
+    edge_wear: f32
+    cavity_dirt: f32
+    brightness: f32
+    contrast: f32
+    gamma: f32
+    chromatic: f32
+    make_seamless: Bool
+
+impl Default for PbrParams:
+    fn default_() -> Self:
+        # <expr>
+
+
+struct PbrMapSet:
+    base: Option<String>
+    normal: Option<String>
+    roughness: Option<String>
+    metallic: Option<String>
+    ao: Option<String>
+    height: Option<String>
+    emissive: Option<String>
+    time_ms: f64
+
+fn clamp_u8(val: f32) -> u8:
+    # <expr>
+
+fn luminance(r: u8, g: u8, b: u8) -> f32:
+    # <expr>
+
+fn sobel_gradient(gray: &Slice<f32>, width: usize, height: usize, x: usize, y: usize) -> (f32, f32):
+    let get = # <expr>
+    let tl = # <expr>
+    let t = # <expr>
+    let tr = # <expr>
+    let l = # <expr>
+    let r = # <expr>
+    let bl = # <expr>
+    let b = # <expr>
+    let br = # <expr>
+    # <expr>
+
+fn to_grayscale(rgba: &Slice<u8>, width: usize, height: usize) -> Array<f32>:
+    let mut gray = # <expr>
+    # <expr>
+    gray
+
+fn encode_png_base64(data: &Slice<u8>, width: u32, height: u32) -> Option<String>:
+    # <stmt>
+    # <stmt>
+    # <stmt>
+    # <stmt>
+    let img: image::ImageBuffer<image::Rgba<u8>, Array<u8>> = # <expr>
+    let dynamic_img = # <expr>
+    let mut buffer: Array<u8> = # <expr>
+    # <expr>
+    # <stmt>
+    # <expr>
+
+fn generate_normal_map_impl(gray: &Slice<f32>, width: usize, height: usize, strength: f32) -> Array<u8>:
+    let mut output = # <expr>
+    let dz = # <expr>
+    # <expr>
+    output
+
+fn mono_map(gray: &Slice<f32>, width: usize, height: usize, f: F) -> Array<u8>:
+    let mut output = # <expr>
+    # <expr>
+    output
+
+fn make_seamless_impl(rgba: Array<u8>, width: usize, height: usize, blend_size: f32) -> Array<u8>:
+    let mut output = # <expr>
+    let blend_w = # <expr>
+    let blend_h = # <expr>
+    # <expr>
+    output
+
+fn generate_pbr_maps(image_base64: String, params: PbrParams) -> Result<PbrMapSet, String>:
+    # <stmt>
+    let start = # <expr>
+    let image_data = # <expr>
+    let bytes = # <expr>
+    let img = # <expr>
+    let rgba = # <expr>
+    let width = # <expr>
+    let height = # <expr>
+    let mut raw = # <expr>
+    # <expr>
+    let gray = # <expr>
+    let normal = # <expr>
+    let roughness = # <expr>
+    let metallic = # <expr>
+    let ao = # <expr>
+    let height_map = # <expr>
+    let w = # <expr>
+    let h = # <expr>
+    # <expr>
+
+fn generate_normal_map(image_base64: String, strength: f32) -> Result<String, String>:
+    # <stmt>
+    let image_data = # <expr>
+    let bytes = # <expr>
+    let img = # <expr>
+    let rgba = # <expr>
+    let width = # <expr>
+    let height = # <expr>
+    let gray = # <expr>
+    # <expr>
+
+enum NoiseType:
+    Perlin
+    Simplex
+    Worley
+    Fbm
+    Ridged
+    Billowy
+
+struct ProceduralParams:
+    noise_type: NoiseType
+    width: u32
+    height: u32
+    scale: f32
+    octaves: u32
+    persistence: f32
+    lacunarity: f32
+    seed: u32
+    invert: Bool
+    contrast: f32
+    brightness: f32
+    seamless: Bool
+
+impl Default for ProceduralParams:
+    fn default_() -> Self:
+        # <expr>
+
+
+struct VoronoiParams:
+    width: u32
+    height: u32
+    cell_count: u32
+    seed: u32
+    distance_type: String
+    output_type: String
+    edge_thickness: f32
+    jitter: f32
+    invert: Bool
+
+impl Default for VoronoiParams:
+    fn default_() -> Self:
+        # <expr>
+
+
+struct ProceduralResult:
+    image: String
+    time_ms: f64
+
+fn clamp_u8(val: f32) -> u8:
+    # <expr>
+
+fn hash2d(x: i32, y: i32, seed: u32) -> f32:
+    let n = # <expr>
+    let n = # <expr>
+    # <expr>
+
+fn encode_png_base64(data: &Slice<u8>, width: u32, height: u32) -> Option<String>:
+    # <stmt>
+    # <stmt>
+    # <stmt>
+    # <stmt>
+    let img: image::ImageBuffer<image::Rgba<u8>, Array<u8>> = # <expr>
+    let dynamic_img = # <expr>
+    let mut buffer: Array<u8> = # <expr>
+    # <expr>
+    # <stmt>
+    # <expr>
+
+fn worley_noise(x: f64, y: f64, seed: u32) -> f64:
+    let xi = # <expr>
+    let yi = # <expr>
+    let xf = # <expr>
+    let yf = # <expr>
+    let mut min_dist = f64::MAX
+    # <expr>
+    # <expr>
+
+fn generate_procedural_texture(params: ProceduralParams) -> Result<ProceduralResult, String>:
+    let start = # <expr>
+    let w = # <expr>
+    let h = # <expr>
+    let scale = # <expr>
+    let perlin = # <expr>
+    let simplex = # <expr>
+    let mut rgba = # <expr>
+    # <expr>
+    let image = # <expr>
+    # <expr>
+
+fn generate_voronoi_texture(params: VoronoiParams) -> Result<ProceduralResult, String>:
+    let start = # <expr>
+    let w = # <expr>
+    let h = # <expr>
+    let cells: Array<(f32, f32, f32)> = # <expr>
+    let mut rgba = # <expr>
+    # <expr>
+    let image = # <expr>
+    # <expr>
+
+fn blend_textures(base_image: String, overlay_image: String, blend_mode: String, opacity: f32) -> Result<String, String>:
+    # <stmt>
+    let base_data = # <expr>
+    let overlay_data = # <expr>
+    let base_bytes = # <expr>
+    let overlay_bytes = # <expr>
+    let base_img = # <expr>
+    let overlay_img = # <expr>
+    let width = # <expr>
+    let height = # <expr>
+    let mut base_raw = # <expr>
+    let overlay_raw = # <expr>
+    # <expr>
+    # <expr>
+

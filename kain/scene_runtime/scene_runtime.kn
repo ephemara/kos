@@ -1,0 +1,133 @@
+# Generated from Rust source by kain import-rust
+# Project Ouroboros — Rust → KAIN → Rust
+
+struct SharedMesh:
+    mesh_handle: k_os_scene::MeshHandle
+    trimesh: Option<parry3d::shape::TriMesh>
+    raycast_dirty: Bool
+    vertex_count: usize
+    face_count: usize
+    bridge_summary: Option<k_os_gpu_pipeline::GpuMeshUploadSummary>
+
+impl SharedMesh:
+    fn new_(mesh_handle: k_os_scene::MeshHandle, positions: &Slice<f32>, indices: &Slice<u32>) -> Self:
+        let vertex_count = # <expr>
+        let face_count = # <expr>
+        # <expr>
+
+    fn build_trimesh(positions: &Slice<f32>, indices: &Slice<u32>) -> parry3d::shape::TriMesh:
+        let points: Array<parry3d::math::Point<parry3d::math::Real>> = # <expr>
+        let triangles: Array<Array<u32>> = # <expr>
+        # <expr>
+
+    fn mark_dirty(_self: &mut Self):
+        # <expr>
+
+    fn ensure_trimesh(_self: &mut Self):
+        # <expr>
+
+    fn get_trimesh(_self: &mut Self) -> &parry3d::shape::TriMesh:
+        # <expr>
+        # <expr>
+
+
+fn register_shared_mesh(positions: Array<f32>, normals: Array<f32>, indices: Array<u32>, viewport_state: k_os_scene::ViewportStateComponent) -> SharedMeshHandle:
+    let handle = # <expr>
+    let mesh_handle = # <expr>
+    let source = # <expr>
+    let mesh = # <expr>
+    # <expr>
+    # <expr>
+    handle
+
+fn sync_shared_mesh_for_source(source_handle: k_os_scene::MeshHandle, positions: Array<f32>, normals: Array<f32>, indices: Array<u32>, viewport_state: k_os_scene::ViewportStateComponent) -> Result<SharedMeshHandle, String>:
+    let source_raw = # <expr>
+    # <expr>
+    let shared_handle = # <expr>
+    # <expr>
+    # <expr>
+
+fn dispose_shared_mesh(handle: SharedMeshHandle):
+    let mut meshes = # <expr>
+    # <expr>
+
+fn dispose_shared_mesh_for_source(source_handle: k_os_scene::MeshHandle):
+    let source_raw = # <expr>
+    let shared_handle = # <expr>
+    # <expr>
+
+fn shared_mesh_scene_handle(shared_handle: SharedMeshHandle) -> Result<k_os_scene::MeshHandle, String>:
+    # <expr>
+
+fn mark_mesh_dirty(handle: SharedMeshHandle):
+    let mut meshes = # <expr>
+    # <expr>
+
+fn update_mesh_positions(handle: SharedMeshHandle, modified_indices: &Slice<usize>, new_positions: &Slice<f32>):
+    let mesh_handle = # <expr>
+    # <expr>
+
+fn update_mesh_normals(handle: SharedMeshHandle, modified_indices: &Slice<usize>, new_normals: &Slice<f32>):
+    let mesh_handle = # <expr>
+    # <expr>
+
+struct SharedMeshInfo:
+    handle: u64
+    vertex_count: usize
+    face_count: usize
+    is_dirty: Bool
+    bridge_ready: Bool
+    bridge_position_bytes: usize
+    bridge_normal_bytes: usize
+    bridge_index_bytes: usize
+    shading_mode: k_os_scene::ShadingMode
+
+fn evaluate_viewport_payload(mesh_handle: k_os_scene::MeshHandle) -> Result<k_os_eval::mesh_pipeline::ViewportBufferPayload, String>:
+    let ids = # <expr>
+    let mut graph = # <expr>
+    # <expr>
+    let mut ctx = # <expr>
+    # <expr>
+    let source = # <expr>
+    let edit = # <expr>
+    let subdivision = # <expr>
+    let normals = # <expr>
+    let viewport = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+
+fn evaluate_viewport_bridge_summary(mesh_handle: k_os_scene::MeshHandle) -> Result<k_os_gpu_pipeline::GpuMeshUploadSummary, String>:
+    let payload = # <expr>
+    let plan = # <expr>
+    # <expr>
+
+fn register_shared_mesh_cmd(positions: Array<f32>, indices: Array<u32>) -> Result<u64, String>:
+    let vertex_count = # <expr>
+    let normals = # <expr>
+    # <expr>
+
+fn dispose_shared_mesh_cmd(handle: u64) -> Result<(), String>:
+    # <expr>
+    # <expr>
+
+fn get_shared_meshes_info() -> Result<Array<SharedMeshInfo>, String>:
+    let meshes = # <expr>
+    let scene = # <expr>
+    # <expr>
+
+struct IngestMocapTakeResult:
+    take_handle: u64
+    animation_handle: u64
+    animation_asset: k_os_animation::AnimationClipAsset
+
+fn ingest_mocap_take_cmd(name: String, path: String, model_id: String, frame_count: usize, fps: Option<f32>) -> Result<IngestMocapTakeResult, String>:
+    let fps = # <expr>
+    let animation_asset = # <expr>
+    let mut scene = # <expr>
+    let take = # <expr>
+    let animation = # <expr>
+    # <expr>
+

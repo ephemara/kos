@@ -1,0 +1,296 @@
+[
+  {
+    "source_crate": "generated",
+    "target_kain_path": "kain/generated/generated.kn",
+    "import_status": "stub",
+    "notes": "No Rust source entrypoint found."
+  },
+  {
+    "source_crate": "k-os-animation",
+    "target_kain_path": "kain/animation/animation.kn",
+    "import_status": "imported",
+    "notes": "Imported from src"
+  },
+  {
+    "source_crate": "k-os-asset-pipeline",
+    "target_kain_path": "kain/asset_pipeline/asset_pipeline.kn",
+    "import_status": "imported",
+    "notes": "Imported from src"
+  },
+  {
+    "source_crate": "k-os-baking",
+    "target_kain_path": "kain/baking/baking.kn",
+    "import_status": "imported",
+    "notes": "Imported from src"
+  },
+  {
+    "source_crate": "k-os-bevy",
+    "target_kain_path": "kain/bevy/bevy.kn",
+    "import_status": "imported",
+    "notes": "Imported from src"
+  },
+  {
+    "source_crate": "k-os-bevy-lab",
+    "target_kain_path": "kain/bevy_lab/bevy_lab.kn",
+    "import_status": "imported",
+    "notes": "Imported from src"
+  },
+  {
+    "source_crate": "k-os-brushes",
+    "target_kain_path": "kain/brushes/brushes.kn",
+    "import_status": "imported",
+    "notes": "Imported from src"
+  },
+  {
+    "source_crate": "k-os-config",
+    "target_kain_path": "kain/config/config.kn",
+    "import_status": "imported",
+    "notes": "Imported from src"
+  },
+  {
+    "source_crate": "k-os-eval",
+    "target_kain_path": "kain/eval/eval.kn",
+    "import_status": "imported",
+    "notes": "Imported from src"
+  },
+  {
+    "source_crate": "k-os-external",
+    "target_kain_path": "kain/external/external.kn",
+    "import_status": "imported",
+    "notes": "Imported from src"
+  },
+  {
+    "source_crate": "k-os-game-ai",
+    "target_kain_path": "kain/game_ai/game_ai.kn",
+    "import_status": "imported",
+    "notes": "Imported from src"
+  },
+  {
+    "source_crate": "k-os-game-camera",
+    "target_kain_path": "kain/game_camera/game_camera.kn",
+    "import_status": "imported",
+    "notes": "Imported from src"
+  },
+  {
+    "source_crate": "k-os-game-framework",
+    "target_kain_path": "kain/game_framework/game_framework.kn",
+    "import_status": "imported",
+    "notes": "Imported from src"
+  },
+  {
+    "source_crate": "k-os-game-input",
+    "target_kain_path": "kain/game_input/game_input.kn",
+    "import_status": "imported",
+    "notes": "Imported from src"
+  },
+  {
+    "source_crate": "k-os-game-play",
+    "target_kain_path": "kain/game_play/game_play.kn",
+    "import_status": "imported",
+    "notes": "Imported from src"
+  },
+  {
+    "source_crate": "k-os-game-runtime",
+    "target_kain_path": "kain/game_runtime/game_runtime.kn",
+    "import_status": "imported",
+    "notes": "Imported from src"
+  },
+  {
+    "source_crate": "k-os-game-sequencer",
+    "target_kain_path": "kain/game_sequencer/game_sequencer.kn",
+    "import_status": "imported",
+    "notes": "Imported from src"
+  },
+  {
+    "source_crate": "k-os-gizmo",
+    "target_kain_path": "kain/gizmo/gizmo.kn",
+    "import_status": "imported",
+    "notes": "Imported from src"
+  },
+  {
+    "source_crate": "k-os-gpu-pipeline",
+    "target_kain_path": "kain/gpu_pipeline/gpu_pipeline.kn",
+    "import_status": "imported",
+    "notes": "Imported from src"
+  },
+  {
+    "source_crate": "k-os-hdr",
+    "target_kain_path": "kain/hdr/hdr.kn",
+    "import_status": "imported",
+    "notes": "Imported from src"
+  },
+  {
+    "source_crate": "k-os-io",
+    "target_kain_path": "kain/io/io.kn",
+    "import_status": "imported",
+    "notes": "Imported from src"
+  },
+  {
+    "source_crate": "k-os-kain",
+    "target_kain_path": "kain/kain/kain.kn",
+    "import_status": "imported",
+    "notes": "Imported from src"
+  },
+  {
+    "source_crate": "k-os-material",
+    "target_kain_path": "kain/material/material.kn",
+    "import_status": "imported",
+    "notes": "Imported from src"
+  },
+  {
+    "source_crate": "k-os-mesh",
+    "target_kain_path": "kain/mesh/mesh.kn",
+    "import_status": "imported",
+    "notes": "Imported from src"
+  },
+  {
+    "source_crate": "k-os-mesh-processing",
+    "target_kain_path": "kain/mesh_processing/mesh_processing.kn",
+    "import_status": "imported",
+    "notes": "Imported from src"
+  },
+  {
+    "source_crate": "k-os-photogrammetry",
+    "target_kain_path": "kain/photogrammetry/photogrammetry.kn",
+    "import_status": "imported",
+    "notes": "Imported from src"
+  },
+  {
+    "source_crate": "k-os-plugin",
+    "target_kain_path": "kain/plugin/plugin.kn",
+    "import_status": "imported",
+    "notes": "Imported from src"
+  },
+  {
+    "source_crate": "k-os-renderer",
+    "target_kain_path": "kain/renderer/renderer.kn",
+    "import_status": "imported",
+    "notes": "Imported from src"
+  },
+  {
+    "source_crate": "k-os-rig",
+    "target_kain_path": "kain/rig/rig.kn",
+    "import_status": "imported",
+    "notes": "Imported from src"
+  },
+  {
+    "source_crate": "k-os-scatter",
+    "target_kain_path": "kain/scatter/scatter.kn",
+    "import_status": "imported",
+    "notes": "Imported from src"
+  },
+  {
+    "source_crate": "k-os-scene",
+    "target_kain_path": "kain/scene/scene_a.kn",
+    "import_status": "imported",
+    "notes": "Imported from src; disambiguated duplicate scene crate."
+  },
+  {
+    "source_crate": "k-os-scene-runtime",
+    "target_kain_path": "kain/scene_runtime/scene_runtime.kn",
+    "import_status": "imported",
+    "notes": "Imported from src"
+  },
+  {
+    "source_crate": "k-os-sculpt",
+    "target_kain_path": "kain/sculpt/sculpt.kn",
+    "import_status": "imported",
+    "notes": "Imported from src"
+  },
+  {
+    "source_crate": "k-os-sim",
+    "target_kain_path": "kain/sim/sim.kn",
+    "import_status": "imported",
+    "notes": "Imported from src"
+  },
+  {
+    "source_crate": "k-os-undo",
+    "target_kain_path": "kain/undo/undo.kn",
+    "import_status": "imported",
+    "notes": "Imported from src"
+  },
+  {
+    "source_crate": "k-os-wasm",
+    "target_kain_path": "kain/wasm/wasm.kn",
+    "import_status": "imported",
+    "notes": "Imported from src"
+  },
+  {
+    "source_crate": "k-os-workspace-registry",
+    "target_kain_path": "kain/workspace_registry/workspace_registry.kn",
+    "import_status": "imported",
+    "notes": "Imported from src"
+  },
+  {
+    "source_crate": "kos-proto",
+    "target_kain_path": "kain/kos_proto/kos_proto.kn",
+    "import_status": "imported",
+    "notes": "Imported from src"
+  },
+  {
+    "source_crate": "zen",
+    "target_kain_path": "kain/zen/zen.kn",
+    "import_status": "imported",
+    "notes": "Imported from src"
+  },
+  {
+    "source_crate": "zen-assets",
+    "target_kain_path": "kain/assets/assets.kn",
+    "import_status": "imported",
+    "notes": "Imported from src"
+  },
+  {
+    "source_crate": "zen-core",
+    "target_kain_path": "kain/core/core.kn",
+    "import_status": "imported",
+    "notes": "Imported from src"
+  },
+  {
+    "source_crate": "zen-editor",
+    "target_kain_path": "kain/editor/editor.kn",
+    "import_status": "imported",
+    "notes": "Imported from src"
+  },
+  {
+    "source_crate": "zen-host",
+    "target_kain_path": "kain/host/host.kn",
+    "import_status": "imported",
+    "notes": "Imported from src"
+  },
+  {
+    "source_crate": "zen-kain-api",
+    "target_kain_path": "kain/kain_api/kain_api.kn",
+    "import_status": "imported",
+    "notes": "Imported from src"
+  },
+  {
+    "source_crate": "zen-kain-modules",
+    "target_kain_path": "kain/kain_modules/kain_modules.kn",
+    "import_status": "imported",
+    "notes": "Imported from src"
+  },
+  {
+    "source_crate": "zen-mocap-engine",
+    "target_kain_path": "kain/mocap_engine/mocap_engine.kn",
+    "import_status": "imported",
+    "notes": "Imported from src"
+  },
+  {
+    "source_crate": "zen-render",
+    "target_kain_path": "kain/render/render.kn",
+    "import_status": "imported",
+    "notes": "Imported from src"
+  },
+  {
+    "source_crate": "zen-runtime",
+    "target_kain_path": "kain/runtime/runtime.kn",
+    "import_status": "imported",
+    "notes": "Imported from src"
+  },
+  {
+    "source_crate": "zen-scene",
+    "target_kain_path": "kain/scene/scene_b.kn",
+    "import_status": "imported",
+    "notes": "Imported from src; disambiguated duplicate scene crate."
+  }
+]

@@ -1,0 +1,16 @@
+{
+  "input_path": "M:\\K_OS\\crates\\zen-host\\src",
+  "output_path": "M:\\K_OS\\kain\\host\\host.kn",
+  "target": null,
+  "recursive": true,
+  "flat": true,
+  "include_filters": [],
+  "exclude_filters": [],
+  "discovered_files": 1,
+  "imported_files": 1,
+  "skipped_files": 0,
+  "failed_files": [],
+  "generated_kain_path": "M:\\K_OS\\kain\\host\\host.kn",
+  "compiled_output_path": null,
+  "generated_at_utc": "2026-03-29T07:42:13.682694500+00:00"
+}

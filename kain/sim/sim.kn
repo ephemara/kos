@@ -1,0 +1,765 @@
+# Generated from Rust source by kain import-rust
+# Project Ouroboros — Rust → KAIN → Rust
+
+enum FluidType:
+    Smoke
+    Fire
+    Liquid
+    Gas
+    Viscous
+
+enum SolverType:
+    NavierStokes
+    SPH
+    FLIP
+    PIC
+    APIC
+
+struct CFDConfig:
+    fluid_type: FluidType
+    solver_type: SolverType
+    resolution: Array<usize>
+    domain_size: Array<f32>
+    viscosity: f32
+    density: f32
+    gravity: Array<f32>
+    buoyancy: f32
+    vorticity_confinement: f32
+    pressure_iterations: u32
+    particle_radius: f32
+    rest_density: f32
+    stiffness: f32
+    surface_tension: f32
+    flip_ratio: f32
+    particle_per_cell: usize
+    boundary_friction: f32
+    boundary_stickiness: f32
+
+impl Default for CFDConfig:
+    fn default_() -> Self:
+        # <expr>
+
+
+struct NavierStokesGrid:
+    resolution: Array<usize>
+    cell_size: f32
+    velocity_x: Array<f32>
+    velocity_y: Array<f32>
+    velocity_z: Array<f32>
+    pressure: Array<f32>
+    density: Array<f32>
+    temperature: Array<f32>
+    divergence: Array<f32>
+    velocity_x_temp: Array<f32>
+    velocity_y_temp: Array<f32>
+    velocity_z_temp: Array<f32>
+
+impl NavierStokesGrid:
+    fn new_(resolution: Array<usize>, domain_size: Array<f32>) -> Self:
+        let _ = resolution
+        let cell_count = # <expr>
+        let cell_size = # <expr>
+        # <expr>
+
+    fn idx(_self: &Self, x: usize, y: usize, z: usize) -> usize:
+        let _ = # <expr>
+        # <expr>
+
+    fn step(_self: &mut Self, dt: f32, config: &CFDConfig):
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn advect(_self: &mut Self, dt: f32):
+        let _ = # <expr>
+        let h = # <expr>
+        # <expr>
+        # <expr>
+
+    fn add_forces(_self: &mut Self, dt: f32, config: &CFDConfig):
+        let _ = # <expr>
+        # <expr>
+
+    fn project(_self: &mut Self, iterations: u32):
+        let _ = # <expr>
+        let h = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn apply_viscosity(_self: &mut Self, dt: f32, viscosity: f32):
+        let _ = # <expr>
+        let h = # <expr>
+        let alpha = # <expr>
+        # <expr>
+
+    fn apply_vorticity_confinement(_self: &mut Self, dt: f32, strength: f32):
+        let _ = # <expr>
+        let h = # <expr>
+        let mut vorticity = # <expr>
+        # <expr>
+        # <expr>
+
+    fn sample_velocity(_self: &Self, pos: Array<f32>) -> Array<f32>:
+        # <expr>
+
+    fn sample_velocity_x(_self: &Self, pos: Array<f32>) -> f32:
+        let _ = # <expr>
+        let h = # <expr>
+        let x = # <expr>
+        let y = # <expr>
+        let z = # <expr>
+        let x0 = # <expr>
+        let y0 = # <expr>
+        let z0 = # <expr>
+        let x1 = # <expr>
+        let y1 = # <expr>
+        let z1 = # <expr>
+        let fx = # <expr>
+        let fy = # <expr>
+        let fz = # <expr>
+        let v000 = # <expr>
+        let v100 = # <expr>
+        let v010 = # <expr>
+        let v110 = # <expr>
+        let v001 = # <expr>
+        let v101 = # <expr>
+        let v011 = # <expr>
+        let v111 = # <expr>
+        let v00 = # <expr>
+        let v01 = # <expr>
+        let v10 = # <expr>
+        let v11 = # <expr>
+        let v0 = # <expr>
+        let v1 = # <expr>
+        # <expr>
+
+    fn sample_velocity_y(_self: &Self, _pos: Array<f32>) -> f32:
+        0
+
+    fn sample_velocity_z(_self: &Self, _pos: Array<f32>) -> f32:
+        0
+
+
+struct CFDSimulation:
+    config: CFDConfig
+    grid: Option<NavierStokesGrid>
+    time: f32
+
+impl CFDSimulation:
+    fn new_(config: CFDConfig) -> Self:
+        let grid = # <expr>
+        # <expr>
+
+    fn step(_self: &mut Self, dt: f32):
+        # <expr>
+        # <expr>
+
+    fn add_source(_self: &mut Self, pos: Array<f32>, radius: f32, velocity: Array<f32>, density: f32, temperature: f32):
+        # <expr>
+
+
+fn cfd_create(config: CFDConfig) -> Result<u64, String>:
+    let mut sims = # <expr>
+    let mut next_id = # <expr>
+    let id = # <expr>
+    # <expr>
+    let sim = # <expr>
+    # <expr>
+    # <expr>
+
+fn cfd_step(sim_id: u64, dt: f32) -> Result<(), String>:
+    let mut sims = # <expr>
+    let sim = # <expr>
+    # <expr>
+    # <expr>
+
+fn cfd_add_source(sim_id: u64, position: Array<f32>, radius: f32, velocity: Array<f32>, density: f32, temperature: f32) -> Result<(), String>:
+    let mut sims = # <expr>
+    let sim = # <expr>
+    # <expr>
+    # <expr>
+
+fn cfd_get_velocity_field(sim_id: u64) -> Result<Array<f32>, String>:
+    let sims = # <expr>
+    let sim = # <expr>
+    # <expr>
+
+fn cfd_get_density_field(sim_id: u64) -> Result<Array<f32>, String>:
+    let sims = # <expr>
+    let sim = # <expr>
+    # <expr>
+
+fn cfd_dispose(sim_id: u64) -> Result<(), String>:
+    let mut sims = # <expr>
+    # <expr>
+    # <expr>
+
+fn make_point(x: f32, y: f32) -> salva3d::math::Point<f32>:
+    # <expr>
+
+fn make_vector(x: f32, y: f32) -> salva3d::math::Vector<f32>:
+    # <expr>
+
+struct UVFluidSim:
+    fluids_pipeline: salva3d::integrations::rapier::FluidsPipeline
+    has_fluid: Bool
+    particle_radius: f32
+    gravity: salva3d::math::Vector<f32>
+    positions: Array<Array<f32>>
+    velocities: Array<Array<f32>>
+    pending_mods: Array<(usize, f32, f32)>
+
+impl UVFluidSim:
+    fn new_(gravity_y: f32, particle_radius: f32) -> Self:
+        # <expr>
+
+    fn create_fluid(_self: &mut Self, positions: Array<Array<f32>>, density: f32):
+        let points: Array<salva3d::math::Point<f32>> = # <expr>
+        let viscosity = # <expr>
+        let tension = # <expr>
+        let mut fluid = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn spawn_at_uv(_self: &mut Self, uv: Array<f32>, velocity: Array<f32>, count: usize):
+        let mut rng = # <expr>
+        # <expr>
+
+    fn step(_self: &mut Self, dt: f32):
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn apply_pending_mods(_self: &mut Self):
+        # <expr>
+        # <expr>
+
+    fn get_velocity_grid(_self: &Self, resolution: usize) -> Array<f32>:
+        # <stmt>
+        let cell_size = # <expr>
+        let influence_radius = # <expr>
+        let inv_influence = # <expr>
+        let particle_data: Array<_> = # <expr>
+        let grid: Array<f32> = # <expr>
+        grid
+
+    fn queue_force(_self: &mut Self, uv: Array<f32>, force: Array<f32>, radius: f32):
+        # <expr>
+
+    fn queue_vortex(_self: &mut Self, uv: Array<f32>, strength: f32, radius: f32):
+        # <expr>
+
+    fn queue_black_hole(_self: &mut Self, uv: Array<f32>, strength: f32, spin: f32, radius: f32):
+        # <expr>
+
+    fn particle_count(_self: &Self) -> usize:
+        # <expr>
+
+    fn clear(_self: &mut Self):
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+
+struct FluidState:
+    positions: Array<Array<f32>>
+    velocities: Array<Array<f32>>
+    particle_count: usize
+
+fn create_fluid_sim(gravity_y: f32, particle_radius: f32) -> Result<u64, String>:
+    let mut sims = # <expr>
+    let mut next_id = # <expr>
+    let id = # <expr>
+    # <expr>
+    let sim = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+
+fn spawn_fluid_at_uv(sim_id: u64, uv: Array<f32>, velocity: Array<f32>, count: usize) -> Result<(), String>:
+    let mut sims = # <expr>
+    let sim = # <expr>
+    # <expr>
+    # <expr>
+
+fn step_fluid_sim(sim_id: u64, dt: f32) -> Result<FluidState, String>:
+    let mut sims = # <expr>
+    let sim = # <expr>
+    # <expr>
+    # <expr>
+
+fn get_velocity_grid(sim_id: u64, resolution: usize) -> Result<Array<f32>, String>:
+    let sims = # <expr>
+    let sim = # <expr>
+    # <expr>
+
+fn apply_fluid_force(sim_id: u64, uv: Array<f32>, force: Array<f32>, radius: f32) -> Result<(), String>:
+    let mut sims = # <expr>
+    let sim = # <expr>
+    # <expr>
+    # <expr>
+
+fn apply_fluid_vortex(sim_id: u64, uv: Array<f32>, strength: f32, radius: f32) -> Result<(), String>:
+    let mut sims = # <expr>
+    let sim = # <expr>
+    # <expr>
+    # <expr>
+
+fn apply_fluid_black_hole(sim_id: u64, uv: Array<f32>, strength: f32, spin: f32, radius: f32) -> Result<(), String>:
+    let mut sims = # <expr>
+    let sim = # <expr>
+    # <expr>
+    # <expr>
+
+fn clear_fluid_sim(sim_id: u64) -> Result<(), String>:
+    let mut sims = # <expr>
+    let sim = # <expr>
+    # <expr>
+    # <expr>
+
+fn dispose_fluid_sim(sim_id: u64) -> Result<(), String>:
+    let mut sims = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+
+fn init_fluid_particles(sim_id: u64, positions: Array<Array<f32>>, density: f32) -> Result<(), String>:
+    let positions_2d: Array<Array<f32>> = # <expr>
+    let mut sims = # <expr>
+    let sim = # <expr>
+    # <expr>
+    # <expr>
+
+fn add_fluid_particles(sim_id: u64, positions: Array<Array<f32>>) -> Result<(), String>:
+    # <expr>
+    let avg_x: f32 = # <expr>
+    let avg_y: f32 = # <expr>
+    let mut sims = # <expr>
+    let sim = # <expr>
+    # <expr>
+    # <expr>
+
+fn add_fluid_boundary(_sim_id: u64, _vertices: Array<Array<f32>>, _indices: Array<Array<u32>>) -> Result<(), String>:
+    # <expr>
+
+struct PhysicsWorld:
+    rigid_body_set: RigidBodySet
+    collider_set: ColliderSet
+    gravity: Vector<f32>
+    integration_parameters: IntegrationParameters
+    physics_pipeline: PhysicsPipeline
+    island_manager: IslandManager
+    broad_phase: DefaultBroadPhase
+    narrow_phase: NarrowPhase
+    impulse_joint_set: ImpulseJointSet
+    multibody_joint_set: MultibodyJointSet
+    ccd_solver: CCDSolver
+    query_pipeline: QueryPipeline
+    body_handles: Map<u64, RigidBodyHandle>
+    collider_handles: Map<u64, ColliderHandle>
+    next_body_id: u64
+    next_collider_id: u64
+
+impl PhysicsWorld:
+    fn new_(gravity_y: f32) -> Self:
+        # <expr>
+
+    fn step(_self: &mut Self):
+        # <expr>
+
+    fn add_dynamic_body(_self: &mut Self, position: Array<f32>, radius: f32) -> u64:
+        let rigid_body = # <expr>
+        let body_handle = # <expr>
+        let collider = # <expr>
+        # <expr>
+        let id = # <expr>
+        # <expr>
+        # <expr>
+        id
+
+    fn add_static_mesh(_self: &mut Self, vertices: Array<Array<f32>>, indices: Array<Array<u32>>) -> u64:
+        let points: Array<Point<f32>> = # <expr>
+        let indices_u32: Array<Array<u32>> = indices
+        let collider = # <expr>
+        let handle = # <expr>
+        let id = # <expr>
+        # <expr>
+        # <expr>
+        id
+
+    fn get_body_positions(_self: &Self) -> Array<(u64, Array<f32>)>:
+        let mut positions = # <expr>
+        # <expr>
+        positions
+
+    fn apply_impulse(_self: &mut Self, body_id: u64, impulse: Array<f32>):
+        # <expr>
+
+    fn apply_radial_force(_self: &mut Self, center: Array<f32>, strength: f32, radius: f32):
+        let center_vec = # <expr>
+        # <expr>
+
+
+struct BodyState:
+    id: u64
+    position: Array<f32>
+
+fn create_physics_world(gravity_y: f32) -> Result<u64, String>:
+    let mut worlds = # <expr>
+    let mut next_id = # <expr>
+    let id = # <expr>
+    # <expr>
+    let world = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+
+fn step_physics(world_id: u64) -> Result<Array<BodyState>, String>:
+    let mut worlds = # <expr>
+    let world = # <expr>
+    # <expr>
+    let positions = # <expr>
+    # <expr>
+
+fn add_physics_body(world_id: u64, position: Array<f32>, radius: f32) -> Result<u64, String>:
+    let mut worlds = # <expr>
+    let world = # <expr>
+    # <expr>
+
+fn add_physics_mesh(world_id: u64, vertices: Array<Array<f32>>, indices: Array<Array<u32>>) -> Result<u64, String>:
+    let mut worlds = # <expr>
+    let world = # <expr>
+    # <expr>
+
+fn apply_black_hole_gravity(world_id: u64, center: Array<f32>, strength: f32, radius: f32) -> Result<(), String>:
+    let mut worlds = # <expr>
+    let world = # <expr>
+    # <expr>
+    # <expr>
+
+fn dispose_physics_world(world_id: u64) -> Result<(), String>:
+    let mut worlds = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+
+struct Particle:
+    position: Array<f32>
+    velocity: Array<f32>
+    acceleration: Array<f32>
+    mass: f32
+    charge: f32
+    age: f32
+    life: f32
+    id: u32
+
+impl Default for Particle:
+    fn default_() -> Self:
+        # <expr>
+
+
+enum AttractorType:
+    Point { position: Array<f32>, mass: f32, softening: f32 }
+    Vortex { position: Array<f32>, axis: Array<f32>, strength: f32, radius: f32 }
+    BlackHole { position: Array<f32>, mass: f32, spin: f32, event_horizon: f32 }
+    MagneticDipole { position: Array<f32>, moment: Array<f32> }
+    Turbulence { seed: u32, octaves: u8, frequency: f32, amplitude: f32 }
+    CurlNoise { seed: u32, scale: f32, strength: f32 }
+    Lorenz { sigma: f32, rho: f32, beta: f32, scale: f32 }
+    Rossler { a: f32, b: f32, c: f32, scale: f32 }
+    Aizawa { a: f32, b: f32, c: f32, d: f32, e: f32, f: f32, scale: f32 }
+    TorusMagnetic { center: Array<f32>, major_radius: f32, minor_radius: f32, field_strength: f32 }
+    GravitationalWave { source: Array<f32>, frequency: f32, amplitude: f32, phase: f32 }
+    CosmicWeb { seed: u32, cell_size: f32, filament_strength: f32 }
+
+struct Attractor:
+    attractor_type: AttractorType
+    enabled: Bool
+    falloff: f32
+    max_force: f32
+
+struct QuantumSim:
+    particles: Array<Particle>
+    attractors: Array<Attractor>
+    time: f32
+    dt: f32
+    substeps: u32
+    nbody_enabled: Bool
+    nbody_softening: f32
+    nbody_g: f32
+    gravity: Array<f32>
+    drag: f32
+    audio_bands: Array<f32>
+    audio_amplitude: f32
+    perlin: noise::Perlin
+    fbm: noise::Fbm<noise::Perlin>
+    next_id: u32
+    bounds_min: Array<f32>
+    bounds_max: Array<f32>
+    bounds_mode: BoundsMode
+
+enum BoundsMode:
+    None
+    Kill
+    Wrap
+    Bounce
+
+impl QuantumSim:
+    fn new_(particle_count: usize) -> Self:
+        let mut rng = # <expr>
+        let mut particles = # <expr>
+        # <expr>
+        let perlin = # <expr>
+        let fbm: noise::Fbm<noise::Perlin> = # <expr>
+        # <expr>
+
+    fn step(_self: &mut Self, dt: f32):
+        let sub_dt = # <expr>
+        # <expr>
+        # <expr>
+
+    fn compute_forces(_self: &mut Self, _dt: f32):
+        let time = # <expr>
+        let attractors = # <expr>
+        let gravity = # <expr>
+        let drag = # <expr>
+        let perlin = # <expr>
+        let audio_bands = # <expr>
+        let audio_amp = # <expr>
+        # <expr>
+        # <expr>
+
+    fn compute_nbody_forces(_self: &mut Self):
+        let g = # <expr>
+        let softening = # <expr>
+        let particle_count = # <expr>
+        # <expr>
+
+    fn integrate(_self: &mut Self, dt: f32):
+        # <expr>
+
+    fn apply_bounds(_self: &mut Self):
+        # <expr>
+
+    fn get_particle_data(_self: &Self) -> ParticleData:
+        let count = # <expr>
+        let mut positions = # <expr>
+        let mut velocities = # <expr>
+        # <expr>
+        # <expr>
+
+    fn add_attractor(_self: &mut Self, attractor: Attractor) -> usize:
+        let id = # <expr>
+        # <expr>
+        id
+
+    fn emit_(_self: &mut Self, count: usize, position: Array<f32>, velocity: Array<f32>, spread: f32):
+        let mut rng = # <expr>
+        # <expr>
+
+    fn set_audio(_self: &mut Self, bands: Array<f32>, amplitude: f32):
+        # <expr>
+        # <expr>
+
+
+fn compute_attractor_force(attractor: &AttractorType, pos: glam::Vec3, vel: glam::Vec3, _mass: f32, charge: f32, time: f32, _perlin: &noise::Perlin, _audio_bands: &Slice<f32>, _audio_amp: f32) -> glam::Vec3:
+    # <expr>
+
+struct ParticleData:
+    positions: Array<f32>
+    velocities: Array<f32>
+    count: usize
+
+struct SimConfig:
+    particle_count: usize
+    substeps: u32
+    nbody_enabled: Bool
+    nbody_g: f32
+    gravity: Array<f32>
+    drag: f32
+    bounds_min: Array<f32>
+    bounds_max: Array<f32>
+    bounds_mode: String
+
+fn quantum_create(config: SimConfig) -> Result<u64, String>:
+    let mut sims = # <expr>
+    let mut next_id = # <expr>
+    let id = # <expr>
+    # <expr>
+    let mut sim = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+
+fn quantum_step(sim_id: u64, dt: f32) -> Result<ParticleData, String>:
+    let mut sims = # <expr>
+    let sim = # <expr>
+    # <expr>
+    # <expr>
+
+fn quantum_add_attractor(sim_id: u64, attractor_type: String, params: serde_json::Value) -> Result<usize, String>:
+    let mut sims = # <expr>
+    let sim = # <expr>
+    let attractor = # <expr>
+    let id = # <expr>
+    # <expr>
+
+fn quantum_emit(sim_id: u64, count: usize, position: Array<f32>, velocity: Array<f32>, spread: f32) -> Result<(), String>:
+    let mut sims = # <expr>
+    let sim = # <expr>
+    # <expr>
+    # <expr>
+
+fn quantum_set_audio(sim_id: u64, bands: Array<f32>, amplitude: f32) -> Result<(), String>:
+    let mut sims = # <expr>
+    let sim = # <expr>
+    # <expr>
+    # <expr>
+
+fn quantum_set_nbody(sim_id: u64, enabled: Bool, g: f32, softening: f32) -> Result<(), String>:
+    let mut sims = # <expr>
+    let sim = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+
+fn quantum_clear_attractors(sim_id: u64) -> Result<(), String>:
+    let mut sims = # <expr>
+    let sim = # <expr>
+    # <expr>
+    # <expr>
+
+fn quantum_dispose(sim_id: u64) -> Result<(), String>:
+    let mut sims = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+
+fn quantum_particle_count(sim_id: u64) -> Result<usize, String>:
+    let sims = # <expr>
+    let sim = # <expr>
+    # <expr>
+
+fn quantum_export_json(sim_id: u64) -> Result<String, String>:
+    let sims = # <expr>
+    let sim = # <expr>
+    # <expr>
+    let invalid_count = # <expr>
+    # <expr>
+    let particles: Array<&Particle> = # <expr>
+    let json = # <expr>
+    # <expr>
+
+fn quantum_export_gltf(sim_id: u64, particle_radius: f32, subdivisions: u32) -> Result<Array<u8>, String>:
+    let sims = # <expr>
+    let sim = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    let invalid_count = # <expr>
+    # <expr>
+    let particle_count = # <expr>
+    # <expr>
+    let _ = # <expr>
+    let mut transforms = # <expr>
+    # <expr>
+    let gltf_json = # <expr>
+    let glb_bytes = # <expr>
+    # <expr>
+
+fn generate_icosphere(radius: f32, _subdivisions: u32) -> (Array<f32>, Array<u32>):
+    let t = # <expr>
+    let scale = # <expr>
+    let mut vertices = # <expr>
+    # <expr>
+    let indices = # <expr>
+    # <expr>
+
+fn build_gltf_with_instances(vertices: &Slice<f32>, indices: &Slice<u32>, transforms: &Slice<Array<f32>>) -> Result<serde_json::Value, String>:
+    # <stmt>
+    let vertex_count = # <expr>
+    let index_count = # <expr>
+    let instance_count = # <expr>
+    let vertex_buffer_size = # <expr>
+    let index_buffer_size = # <expr>
+    let gltf = # <expr>
+    # <expr>
+
+fn create_glb_from_json(gltf_json: &serde_json::Value) -> Result<Array<u8>, String>:
+    let json_string = # <expr>
+    let json_bytes = # <expr>
+    let json_length = # <expr>
+    let json_padding = # <expr>
+    let json_chunk_length = # <expr>
+    let total_length = # <expr>
+    let mut glb = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+
+fn parse_attractor(attractor_type: &String, params: serde_json::Value) -> Result<Attractor, String>:
+    let falloff = # <expr>
+    let max_force = # <expr>
+    let enabled = # <expr>
+    let attractor_type = # <expr>
+    # <expr>
+
+fn parse_vec3(params: &serde_json::Value, key: &String) -> Option<Array<f32>>:
+    let arr = # <expr>
+    # <expr>
+
+struct VATExportResult:
+    position_texture: Option<Array<u8>>
+    normal_texture: Option<Array<u8>>
+    width: u32
+    height: u32
+    particle_count: usize
+    frame_count: usize
+    bounds_min: Array<f32>
+    bounds_max: Array<f32>
+    frame_rate: f32
+
+fn quantum_export_vat(sim_id: u64, frame_count: usize, frame_rate: f32, texture_resolution: u32, export_position: Bool, export_normal: Bool, normalize_positions: Bool, bounds_padding: f32) -> Result<VATExportResult, String>:
+    let mut sims = # <expr>
+    let sim = # <expr>
+    let particle_count = # <expr>
+    # <expr>
+    let pixels_needed = # <expr>
+    let texture_pixels = # <expr>
+    # <expr>
+    let mut frames: Array<Array<Particle>> = # <expr>
+    let dt_per_frame = # <expr>
+    # <expr>
+    let mut bounds_min = # <expr>
+    let mut bounds_max = # <expr>
+    # <expr>
+    # <expr>
+    let position_texture = # <expr>
+    let normal_texture = # <expr>
+    # <expr>
+

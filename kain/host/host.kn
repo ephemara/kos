@@ -1,0 +1,118 @@
+# Generated from Rust source by kain import-rust
+# Project Ouroboros — Rust → KAIN → Rust
+
+struct ZenHostApi:
+    name: String
+    version: String
+    source_label: String
+    actions: Array<ZenHostAction>
+    bindings: Array<ZenHostBinding>
+
+struct ZenHostAction:
+    key: String
+    label: String
+    description: String
+    command: zen_core::ZenCommand
+
+struct ZenHostBinding:
+    key: String
+    label: String
+    widget: String
+    description: String
+    kind: ZenHostBindingKind
+
+enum ZenHostBindingKind:
+    SceneObjects
+    SceneSelection
+    SceneViewport
+    EngineRuntime
+    EngineKain
+    EngineFabric
+    EngineTimeline
+    EngineHostApi
+
+impl ZenHostApi:
+    fn load(configured: &String) -> Result<Self, String>:
+        # <expr>
+        # <expr>
+
+    fn summary(_self: &Self) -> String:
+        # <expr>
+
+    fn action(_self: &Self, key: &String) -> Option<&ZenHostAction>:
+        # <expr>
+
+    fn binding(_self: &Self, key: &String) -> Option<&ZenHostBinding>:
+        # <expr>
+
+    fn actions(_self: &Self) -> &Slice<ZenHostAction>:
+        # <expr>
+
+    fn bindings(_self: &Self) -> &Slice<ZenHostBinding>:
+        # <expr>
+
+
+struct HostApiFile:
+    api: HostApiMetaFile
+    actions: Array<HostApiActionFile>
+    bindings: Array<HostApiBindingFile>
+
+struct HostApiMetaFile:
+    name: String
+    version: String
+
+struct HostApiActionFile:
+    key: String
+    label: String
+    description: String
+    behavior: String
+
+struct HostApiBindingFile:
+    key: String
+    label: String
+    widget: String
+    description: String
+    handler: String
+
+fn parse_host_api(source: &String, source_label: String) -> Result<ZenHostApi, String>:
+    let parsed: HostApiFile = # <expr>
+    let mut action_keys = # <expr>
+    let mut actions = # <expr>
+    # <expr>
+    let mut binding_keys = # <expr>
+    let mut bindings = # <expr>
+    # <expr>
+    # <expr>
+
+fn parse_action_behavior(value: &String) -> Result<zen_core::ZenCommand, String>:
+    let trimmed = # <expr>
+    # <expr>
+    # <expr>
+
+fn parse_binding_handler(value: &String) -> Result<ZenHostBindingKind, String>:
+    # <expr>
+
+fn normalized_non_empty(label: &String, value: &String) -> Result<String, String>:
+    let trimmed = # <expr>
+    # <expr>
+
+fn source_path_candidates(configured: &String) -> Array<std::path::PathBuf>:
+    let configured_path = # <expr>
+    # <expr>
+    let mut candidates = # <expr>
+    # <expr>
+    # <expr>
+    candidates
+
+fn file_name_or_original(path: &std::path::Path) -> std::path::PathBuf:
+    # <expr>
+
+mod tests:
+    fn parses_default_host_api_manifest():
+        let api = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+

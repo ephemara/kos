@@ -1,5 +1,31 @@
 # Memory
 
+## 2026-03-29: Frontend shared native viewport control plane
+
+### What changed
+
+Moved the Tauri frontend closer to a real shared native-renderer shell instead of letting each feature own isolated viewport session state.
+
+Expanded [`M:\K_OS\src-frontend\state\stores\viewportStore.ts`](M:\K_OS\src-frontend\state\stores\viewportStore.ts) from a camera-only preference store into a mixed preference plus runtime-session store. It now tracks native availability, runtime phase/status, active viewport handle, active render mesh handle, frame stats, selection, and the current shared viewport owner/request summary while persisting only stable viewport preferences.
+
+Threaded that store through the shared viewport path:
+
+- [`M:\K_OS\src-frontend\features\viewport\sharedViewportSession.tsx`](M:\K_OS\src-frontend\features\viewport\sharedViewportSession.tsx) now mirrors the current shared viewport owner/request into the store
+- [`M:\K_OS\src-frontend\ui\viewport\AppViewport.tsx`](M:\K_OS\src-frontend\ui\viewport\AppViewport.tsx) now acts as the instrumentation seam between the shared request and the native viewport component, updating the store as viewport/session callbacks fire
+- [`M:\K_OS\src-frontend\features\viewport\NativeViewport.tsx`](M:\K_OS\src-frontend\features\viewport\NativeViewport.tsx) now exposes render-mesh-handle and frame-stats callbacks so the shell can observe native viewport state without reaching into component internals
+- [`M:\K_OS\src-frontend\features\native\NativeToolWorkspace.tsx`](M:\K_OS\src-frontend\features\native\NativeToolWorkspace.tsx) now reads shared viewport runtime status from the store instead of maintaining a private per-workspace status string
+
+### Durable findings
+
+- The Tauri shell was already much closer to the desired shipping architecture than the old frontend/native debates suggested. The critical missing piece was not another renderer bridge, but a shared frontend control plane over the bridge that already existed.
+- `AppViewport` is the right frontend boundary for renderer instrumentation. It is the single place that knows both the active shared viewport request and the native viewport component lifecycle, so status/handle/stats/selection fan-out should happen there rather than in every feature.
+- The shared session provider should own request metadata only; the viewport store should own runtime-observable session state. That split keeps request registration simple while giving the shell one place to read native viewport truth.
+- Persist only stable viewport preferences. Handles, selection, frame stats, and active owner metadata are live runtime state and should not be restored from storage.
+
+### Next recommended step
+
+Start moving shell-facing tools like content browser, sequencer, inspector, and sculpt overlays onto the shared viewport store/selectors instead of ad hoc local `viewportStatus` and `viewportHandle` state. If new functionality needs viewport feedback, add the callback once at `NativeViewport` plus `AppViewport`, then consume it from the shared store instead of threading more one-off props through feature trees.
+
 ## 2026-03-27: Zen build and startup unblock after Fabric embed
 
 ### What changed

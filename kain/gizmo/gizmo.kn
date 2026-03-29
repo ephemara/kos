@@ -1,0 +1,1005 @@
+# Generated from Rust source by kain import-rust
+# Project Ouroboros — Rust → KAIN → Rust
+
+struct GizmoConfig:
+    view_matrix: mint::RowMatrix4<f64>
+    projection_matrix: mint::RowMatrix4<f64>
+    viewport: emath::Rect
+    modes: enumset::EnumSet<GizmoMode>
+    mode_override: Option<GizmoMode>
+    orientation: GizmoOrientation
+    pivot_point: TransformPivotPoint
+    snapping: Bool
+    snap_angle: f32
+    snap_distance: f32
+    snap_scale: f32
+    visuals: GizmoVisuals
+    pixels_per_point: f32
+
+impl Default for GizmoConfig:
+    fn default_() -> Self:
+        # <expr>
+
+
+impl GizmoConfig:
+    fn view_forward(_self: &Self) -> crate::math::DVec3:
+        # <expr>
+
+    fn view_up(_self: &Self) -> crate::math::DVec3:
+        # <expr>
+
+    fn view_right(_self: &Self) -> crate::math::DVec3:
+        # <expr>
+
+    fn local_space(_self: &Self) -> Bool:
+        # <expr>
+
+    fn orientation(_self: &Self) -> GizmoOrientation:
+        # <expr>
+
+    fn modes_changed(_self: &Self, other: &Self) -> Bool:
+        # <expr>
+
+
+struct PreparedGizmoConfig:
+    config: GizmoConfig
+    rotation: crate::math::DQuat
+    translation: crate::math::DVec3
+    scale: crate::math::DVec3
+    view_projection: crate::math::DMat4
+    model_matrix: crate::math::DMat4
+    mvp: crate::math::DMat4
+    scale_factor: f32
+    focus_distance: f32
+    left_handed: Bool
+    eye_to_model_dir: crate::math::DVec3
+
+impl std::ops::Deref for PreparedGizmoConfig:
+    fn deref(_self: &Self) -> &Self::Target:
+        # <expr>
+
+
+impl std::ops::DerefMut for PreparedGizmoConfig:
+    fn deref_mut(_self: &mut Self) -> &mut Self::Target:
+        # <expr>
+
+
+impl PreparedGizmoConfig:
+    fn update_for_config(_self: &mut Self, config: GizmoConfig):
+        let projection_matrix = # <expr>
+        let view_matrix = # <expr>
+        let view_projection = # <expr>
+        let left_handed = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn update_for_targets(_self: &mut Self, targets: &Slice<crate::math::Transform>):
+        let mut scale = crate::math::DVec3::ZERO
+        let mut translation = crate::math::DVec3::ZERO
+        let mut rotation = crate::math::DQuat::IDENTITY
+        let mut target_count = 0
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn update_transform(_self: &mut Self, transform: crate::math::Transform):
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        let gizmo_screen_pos = # <expr>
+        let gizmo_view_near = # <expr>
+        # <expr>
+        # <expr>
+
+    fn as_transform(_self: &Self) -> crate::math::Transform:
+        # <expr>
+
+
+enum GizmoMode:
+    RotateView
+    RotateX
+    RotateY
+    RotateZ
+    TranslateView
+    TranslateX
+    TranslateY
+    TranslateZ
+    TranslateXY
+    TranslateXZ
+    TranslateYZ
+    ScaleUniform
+    ScaleX
+    ScaleY
+    ScaleZ
+    ScaleXY
+    ScaleXZ
+    ScaleYZ
+    Arcball
+
+impl GizmoMode:
+    fn all() -> enumset::EnumSet<Self>:
+        # <expr>
+
+    fn all_rotate() -> enumset::EnumSet<Self>:
+        # <expr>
+
+    fn all_translate() -> enumset::EnumSet<Self>:
+        # <expr>
+
+    fn all_scale() -> enumset::EnumSet<Self>:
+        # <expr>
+
+    fn is_rotate(_self: &Self) -> Bool:
+        # <expr>
+
+    fn is_translate(_self: &Self) -> Bool:
+        # <expr>
+
+    fn is_scale(_self: &Self) -> Bool:
+        # <expr>
+
+    fn axes(_self: &Self) -> enumset::EnumSet<GizmoDirection>:
+        # <expr>
+
+    fn all_from_axes(axes: enumset::EnumSet<GizmoDirection>) -> enumset::EnumSet<Self>:
+        # <expr>
+
+    fn kind(_self: &Self) -> GizmoModeKind:
+        # <expr>
+
+    fn all_from_kind(kind: GizmoModeKind) -> enumset::EnumSet<Self>:
+        # <expr>
+
+    fn from_kind_and_axes(kind: GizmoModeKind, axes: enumset::EnumSet<GizmoDirection>) -> Option<Self>:
+        # <expr>
+
+
+enum GizmoModeKind:
+    Rotate
+    Translate
+    Scale
+    Arcball
+
+enum TransformPivotPoint:
+    MedianPoint
+    IndividualOrigins
+
+enum GizmoOrientation:
+    Global
+    Local
+
+enum GizmoDirection:
+    X
+    Y
+    Z
+    View
+
+struct GizmoVisuals:
+    x_color: ecolor::Color32
+    y_color: ecolor::Color32
+    z_color: ecolor::Color32
+    s_color: ecolor::Color32
+    inactive_alpha: f32
+    highlight_alpha: f32
+    highlight_color: Option<ecolor::Color32>
+    stroke_width: f32
+    gizmo_size: f32
+
+impl Default for GizmoVisuals:
+    fn default_() -> Self:
+        # <expr>
+
+
+struct Gizmo:
+    config: crate::config::PreparedGizmoConfig
+    subgizmos: Array<crate::subgizmo::SubGizmo>
+    active_subgizmo_id: Option<u64>
+    target_start_transforms: Array<crate::math::Transform>
+    gizmo_start_transform: crate::math::Transform
+
+impl Gizmo:
+    fn new_(config: crate::config::GizmoConfig) -> Self:
+        let mut gizmo = # <expr>
+        # <expr>
+        gizmo
+
+    fn config(_self: &Self) -> &crate::config::GizmoConfig:
+        # <expr>
+
+    fn update_config(_self: &mut Self, config: crate::config::GizmoConfig):
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn is_focused(_self: &Self) -> Bool:
+        # <expr>
+
+    fn update(_self: &mut Self, interaction: GizmoInteraction, targets: &Slice<crate::math::Transform>) -> Option<(GizmoResult, Array<crate::math::Transform>)>:
+        # <expr>
+        # <expr>
+        # <expr>
+        let force_active = # <expr>
+        let pointer_ray = # <expr>
+        # <expr>
+        let mut result = None
+        # <expr>
+        let _ = result
+        # <expr>
+        let updated_targets = # <expr>
+        # <expr>
+
+    fn draw(_self: &Self) -> GizmoDrawData:
+        # <expr>
+        let mut draw_data = # <expr>
+        # <expr>
+        draw_data
+
+    fn pick_preview(_self: &Self, cursor_pos: (f32, f32)) -> Bool:
+        let pointer_ray = # <expr>
+        # <expr>
+
+    fn active_subgizmo_mut(_self: &mut Self) -> Option<&mut crate::subgizmo::SubGizmo>:
+        # <expr>
+
+    fn update_transforms_with_result(_self: &Self, result: GizmoResult, transforms: &Slice<crate::math::Transform>, start_transforms: &Slice<crate::math::Transform>) -> Array<crate::math::Transform>:
+        # <expr>
+
+    fn update_rotation(_self: &Self, transform: &crate::math::Transform, axis: mint::Vector3<f64>, delta: f64, is_view_axis: Bool) -> crate::math::Transform:
+        let axis = # <expr>
+        let delta = # <expr>
+        # <expr>
+
+    fn update_rotation_quat(_self: &Self, transform: &crate::math::Transform, delta: glam::DQuat) -> crate::math::Transform:
+        let translation = # <expr>
+        let new_rotation = # <expr>
+        # <expr>
+
+    fn update_translation(_self: &Self, delta: mint::Vector3<f64>, transform: &crate::math::Transform, start_transform: &crate::math::Transform) -> crate::math::Transform:
+        let delta = # <expr>
+        # <expr>
+
+    fn update_scale(_self: &Self, transform: &crate::math::Transform, start_transform: &crate::math::Transform, scale: mint::Vector3<f64>) -> crate::math::Transform:
+        let new_scale = # <expr>
+        # <expr>
+
+    fn update_config_with_result(_self: &mut Self, result: GizmoResult):
+        let new_config_transform = # <expr>
+        # <expr>
+
+    fn pick_subgizmo(_self: &mut Self, ray: Ray) -> Option<&mut crate::subgizmo::SubGizmo>:
+        # <expr>
+        # <expr>
+
+    fn enabled_modes(_self: &Self) -> enumset::EnumSet<crate::config::GizmoMode>:
+        # <expr>
+
+    fn add_rotation(_self: &mut Self):
+        let modes = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn add_translation(_self: &mut Self):
+        let modes = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn add_scale(_self: &mut Self):
+        let modes = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn pointer_ray(_self: &Self, screen_pos: emath::Pos2) -> Ray:
+        let mat = # <expr>
+        let origin = # <expr>
+        let target = # <expr>
+        let direction = # <expr>
+        # <expr>
+
+
+struct GizmoInteraction:
+    cursor_pos: (f32, f32)
+    hovered: Bool
+    drag_started: Bool
+    dragging: Bool
+
+enum GizmoResult:
+    Rotation { axis: mint::Vector3<f64>, delta: f64, total: f64, is_view_axis: Bool }
+    Translation { delta: mint::Vector3<f64>, total: mint::Vector3<f64> }
+    Scale { total: mint::Vector3<f64> }
+    Arcball { delta: mint::Quaternion<f64>, total: mint::Quaternion<f64> }
+
+struct GizmoDrawData:
+    vertices: Array<Array<f32>>
+    colors: Array<Array<f32>>
+    indices: Array<u32>
+
+impl From for GizmoDrawData:
+    fn from(mesh: epaint::Mesh) -> Self:
+        let _: (Array<_>, Array<_>) = # <expr>
+        # <expr>
+
+
+impl std::ops::AddAssign for GizmoDrawData:
+    fn add_assign(_self: &mut Self, rhs: Self):
+        let index_offset = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+
+impl std::ops::Add for GizmoDrawData:
+    fn add(_self: Self, rhs: Self) -> Self::Output:
+        # <expr>
+        _self
+
+
+struct Ray:
+    screen_pos: emath::Pos2
+    origin: glam::DVec3
+    direction: glam::DVec3
+
+struct Transform:
+    scale: mint::Vector3<f64>
+    rotation: mint::Quaternion<f64>
+    translation: mint::Vector3<f64>
+
+impl Default for Transform:
+    fn default_() -> Self:
+        # <expr>
+
+
+impl Transform:
+    fn from_scale_rotation_translation(scale: impl Into<mint::Vector3<f64>>, rotation: impl Into<mint::Quaternion<f64>>, translation: impl Into<mint::Vector3<f64>>) -> Self:
+        # <expr>
+
+
+fn rotation_align(from: glam::DVec3, to: glam::DVec3) -> glam::DMat3:
+    let v = # <expr>
+    let c = # <expr>
+    let k = # <expr>
+    # <expr>
+
+fn ray_to_ray(a1: glam::DVec3, adir: glam::DVec3, b1: glam::DVec3, bdir: glam::DVec3) -> (f64, f64):
+    let b = # <expr>
+    let w = # <expr>
+    let d = # <expr>
+    let e = # <expr>
+    let dot = # <expr>
+    let ta
+    let tb
+    # <expr>
+    # <expr>
+
+fn segment_to_segment(a1: glam::DVec3, a2: glam::DVec3, b1: glam::DVec3, b2: glam::DVec3) -> (f64, f64):
+    let da = # <expr>
+    let db = # <expr>
+    let la = # <expr>
+    let lb = # <expr>
+    let dd = # <expr>
+    let d1 = # <expr>
+    let d = # <expr>
+    let e = # <expr>
+    let n = # <expr>
+    let mut sn
+    let mut tn
+    let mut sd = n
+    let mut td = n
+    # <expr>
+    # <expr>
+    let ta = # <expr>
+    let tb = # <expr>
+    # <expr>
+
+fn intersect_plane(plane_normal: glam::DVec3, plane_origin: glam::DVec3, ray_origin: glam::DVec3, ray_dir: glam::DVec3, t: &mut f64) -> Bool:
+    let denom = # <expr>
+    # <expr>
+
+fn ray_to_plane_origin(disc_normal: glam::DVec3, disc_origin: glam::DVec3, ray_origin: glam::DVec3, ray_dir: glam::DVec3) -> (f64, f64):
+    let mut t = 0
+    # <expr>
+
+fn round_to_interval(val: f64, interval: f64) -> f64:
+    # <expr>
+
+fn world_to_screen(viewport: emath::Rect, mvp: glam::DMat4, pos: glam::DVec3) -> Option<emath::Pos2>:
+    let mut pos = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    let center = # <expr>
+    # <expr>
+
+fn screen_to_world(viewport: emath::Rect, mat: glam::DMat4, pos: emath::Pos2, z: f64) -> glam::DVec3:
+    let x = # <expr>
+    let y = # <expr>
+    let mut world_pos = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+
+struct ShapeBuilder:
+    mvp: glam::DMat4
+    viewport: crate::math::Rect
+    pixels_per_point: f32
+
+impl ShapeBuilder:
+    fn new_(mvp: glam::DMat4, viewport: crate::math::Rect, pixels_per_point: f32) -> Self:
+        # <expr>
+
+    fn tessellate_shape(_self: &Self, shape: epaint::Shape) -> epaint::Mesh:
+        let mut tessellator = # <expr>
+        let mut mesh = # <expr>
+        # <expr>
+        # <expr>
+        mesh
+
+    fn arc_points(_self: &Self, radius: f64, start_angle: f64, end_angle: f64) -> Array<crate::math::Pos2>:
+        let angle = # <expr>
+        let step_count = # <expr>
+        let mut points = # <expr>
+        let step_size = # <expr>
+        # <expr>
+        # <expr>
+
+    fn arc(_self: &Self, radius: f64, start_angle: f64, end_angle: f64, stroke: impl Into<epaint::Stroke>) -> epaint::Mesh:
+        let mut points = # <expr>
+        let closed = # <expr>
+        # <expr>
+
+    fn circle(_self: &Self, radius: f64, stroke: impl Into<epaint::Stroke>) -> epaint::Mesh:
+        # <expr>
+
+    fn filled_circle(_self: &Self, radius: f64, color: ecolor::Color32, stroke: impl Into<epaint::PathStroke>) -> epaint::Mesh:
+        let mut points = # <expr>
+        # <expr>
+        # <expr>
+
+    fn line_segment(_self: &Self, from: glam::DVec3, to: glam::DVec3, stroke: impl Into<epaint::Stroke>) -> epaint::Mesh:
+        let mut points: Array<crate::math::Pos2> = # <expr>
+        # <expr>
+        # <expr>
+
+    fn arrow(_self: &Self, from: glam::DVec3, to: glam::DVec3, stroke: impl Into<epaint::Stroke>) -> epaint::Mesh:
+        let stroke = # <expr>
+        let arrow_start = # <expr>
+        let arrow_end = # <expr>
+        # <expr>
+
+    fn polygon(_self: &Self, points: &Slice<glam::DVec3>, fill: impl Into<ecolor::Color32>, stroke: impl Into<epaint::PathStroke>) -> epaint::Mesh:
+        let points = # <expr>
+        # <expr>
+
+    fn polyline(_self: &Self, points: &Slice<glam::DVec3>, stroke: impl Into<epaint::PathStroke>) -> epaint::Mesh:
+        let points = # <expr>
+        # <expr>
+
+    fn sector(_self: &Self, radius: f64, start_angle: f64, end_angle: f64, fill: impl Into<ecolor::Color32>, stroke: impl Into<epaint::PathStroke>) -> epaint::Mesh:
+        let angle_delta = # <expr>
+        let step_count = # <expr>
+        # <expr>
+        let mut points = # <expr>
+        let step_size = # <expr>
+        # <expr>
+        # <expr>
+        let _ = # <expr>
+        let _ = # <expr>
+        # <expr>
+        let points = # <expr>
+        # <expr>
+
+    fn vec3_to_pos2(_self: &Self, vec: glam::DVec3) -> Option<crate::math::Pos2>:
+        # <expr>
+
+
+fn steps(angle: f64) -> usize:
+    # <expr>
+
+struct ArcballState:
+    last_pos: crate::math::Pos2
+    total_rotation: crate::math::DQuat
+
+struct Arcball:
+    pass
+
+impl crate::subgizmo::SubGizmoKind for Arcball:
+    fn pick_preview(subgizmo: &crate::subgizmo::SubGizmoConfig<Self>, ray: crate::gizmo::Ray) -> super::common::PickResult:
+        # <expr>
+
+    fn pick(subgizmo: &mut ArcballSubGizmo, ray: crate::gizmo::Ray) -> Option<f64>:
+        let pick_result = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn update(subgizmo: &mut ArcballSubGizmo, ray: crate::gizmo::Ray) -> Option<crate::GizmoResult>:
+        let dir = # <expr>
+        let rotation_delta = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn draw(subgizmo: &ArcballSubGizmo) -> crate::GizmoDrawData:
+        # <expr>
+
+
+fn arcball_radius(config: &crate::config::PreparedGizmoConfig) -> f64:
+    # <expr>
+
+enum TransformKind:
+    Axis
+    Plane
+
+struct PickResult:
+    subgizmo_point: glam::DVec3
+    picked: Bool
+    t: f64
+
+impl super::Picked for PickResult:
+    fn picked(_self: &Self) -> Bool:
+        # <expr>
+
+
+struct ArrowParams:
+    start: glam::DVec3
+    end: glam::DVec3
+    direction: glam::DVec3
+    length: f64
+
+fn arrow_modes_overlapping(mode: crate::GizmoMode, other_modes: enumset::EnumSet<crate::GizmoMode>) -> Bool:
+    # <expr>
+
+fn arrow_params(config: &crate::config::PreparedGizmoConfig, direction: glam::DVec3, mode: crate::GizmoMode) -> ArrowParams:
+    let width = # <expr>
+    let _ = # <expr>
+    # <expr>
+
+fn arrow_visibility(config: &crate::config::PreparedGizmoConfig, direction: glam::DVec3) -> f64:
+    let dot = # <expr>
+    # <expr>
+
+fn pick_arrow(config: &crate::config::PreparedGizmoConfig, ray: crate::gizmo::Ray, direction: crate::GizmoDirection, mode: crate::GizmoMode) -> PickResult:
+    let ray_length = 100000000000000
+    let direction = # <expr>
+    let mut arrow_params = # <expr>
+    # <expr>
+    # <expr>
+    let _ = # <expr>
+    let ray_point = # <expr>
+    let subgizmo_point = # <expr>
+    let dist = # <expr>
+    let visibility = # <expr>
+    let picked = # <expr>
+    # <expr>
+
+fn pick_plane(config: &crate::config::PreparedGizmoConfig, ray: crate::gizmo::Ray, direction: crate::GizmoDirection) -> PickResult:
+    let origin = # <expr>
+    let normal = # <expr>
+    let _ = # <expr>
+    let ray_point = # <expr>
+    let visibility = # <expr>
+    let picked = # <expr>
+    # <expr>
+
+fn pick_circle(config: &crate::config::PreparedGizmoConfig, ray: crate::gizmo::Ray, radius: f64, filled: Bool) -> PickResult:
+    let origin = # <expr>
+    let normal = # <expr>
+    let _ = # <expr>
+    let hit_pos = # <expr>
+    let picked = # <expr>
+    # <expr>
+
+fn draw_arrow(config: &crate::config::PreparedGizmoConfig, focused: Bool, direction: crate::GizmoDirection, mode: crate::GizmoMode) -> crate::GizmoDrawData:
+    let opacity = # <expr>
+    # <expr>
+    let color = # <expr>
+    let transform = # <expr>
+    let shape_builder = # <expr>
+    let direction = # <expr>
+    let arrow_params = # <expr>
+    let tip_stroke_width = # <expr>
+    let tip_length = # <expr>
+    let tip_start = # <expr>
+    let mut draw_data = # <expr>
+    # <expr>
+    # <expr>
+    draw_data
+
+fn draw_plane(config: &crate::config::PreparedGizmoConfig, focused: Bool, direction: crate::GizmoDirection) -> crate::GizmoDrawData:
+    let opacity = # <expr>
+    # <expr>
+    let color = # <expr>
+    let transform = # <expr>
+    let shape_builder = # <expr>
+    let scale = # <expr>
+    let a = # <expr>
+    let b = # <expr>
+    let origin = # <expr>
+    let mut draw_data = # <expr>
+    # <expr>
+    draw_data
+
+fn draw_circle(config: &crate::config::PreparedGizmoConfig, color: ecolor::Color32, radius: f64, filled: Bool) -> crate::GizmoDrawData:
+    # <expr>
+    let rotation = # <expr>
+    let transform = # <expr>
+    let shape_builder = # <expr>
+    let mut draw_data = # <expr>
+    # <expr>
+    draw_data
+
+fn plane_bitangent(direction: crate::GizmoDirection) -> glam::DVec3:
+    # <expr>
+
+fn plane_tangent(direction: crate::GizmoDirection) -> glam::DVec3:
+    # <expr>
+
+fn plane_size(config: &crate::config::PreparedGizmoConfig) -> f64:
+    # <expr>
+
+fn plane_local_origin(config: &crate::config::PreparedGizmoConfig, direction: crate::GizmoDirection) -> glam::DVec3:
+    let offset = # <expr>
+    let a = # <expr>
+    let b = # <expr>
+    # <expr>
+
+fn plane_global_origin(config: &crate::config::PreparedGizmoConfig, direction: crate::GizmoDirection) -> glam::DVec3:
+    let mut origin = # <expr>
+    # <expr>
+    # <expr>
+
+fn plane_visibility(config: &crate::config::PreparedGizmoConfig, direction: crate::GizmoDirection) -> f64:
+    let dot = # <expr>
+    # <expr>
+
+fn inner_circle_radius(config: &crate::config::PreparedGizmoConfig) -> f64:
+    # <expr>
+
+fn outer_circle_radius(config: &crate::config::PreparedGizmoConfig) -> f64:
+    # <expr>
+
+fn gizmo_local_normal(config: &crate::config::PreparedGizmoConfig, direction: crate::GizmoDirection) -> glam::DVec3:
+    # <expr>
+
+fn gizmo_normal(config: &crate::config::PreparedGizmoConfig, direction: crate::GizmoDirection) -> glam::DVec3:
+    let mut normal = # <expr>
+    # <expr>
+    normal
+
+fn gizmo_color(config: &crate::config::PreparedGizmoConfig, focused: Bool, direction: crate::GizmoDirection) -> ecolor::Color32:
+    let color = # <expr>
+    let color = # <expr>
+    let alpha = # <expr>
+    # <expr>
+
+struct RotationParams:
+    direction: crate::GizmoDirection
+
+struct RotationState:
+    start_axis_angle: f64
+    start_rotation_angle: f64
+    last_rotation_angle: f64
+    current_delta: f64
+
+struct Rotation:
+    pass
+
+struct RotationPickResult:
+    angle: f64
+    rotation_angle: f64
+    picked: Bool
+    t: f64
+
+impl super::Picked for RotationPickResult:
+    fn picked(_self: &Self) -> Bool:
+        # <expr>
+
+
+impl crate::subgizmo::SubGizmoKind for Rotation:
+    fn pick_preview(subgizmo: &crate::subgizmo::SubGizmoConfig<Self>, ray: crate::gizmo::Ray) -> Self::PickPreview:
+        let radius = # <expr>
+        let config = # <expr>
+        let origin = # <expr>
+        let normal = # <expr>
+        let tangent = # <expr>
+        let _ = # <expr>
+        let dist_from_gizmo_edge = # <expr>
+        let hit_pos = # <expr>
+        let dir_to_origin = # <expr>
+        let nearest_circle_pos = # <expr>
+        let offset = # <expr>
+        let angle = # <expr>
+        let picked = # <expr>
+        let rotation_angle = # <expr>
+        # <expr>
+
+    fn pick(subgizmo: &mut RotationSubGizmo, ray: crate::gizmo::Ray) -> Option<f64>:
+        let pick_result = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn update(subgizmo: &mut RotationSubGizmo, ray: crate::gizmo::Ray) -> Option<crate::GizmoResult>:
+        let config = # <expr>
+        let mut rotation_angle = # <expr>
+        # <expr>
+        let mut angle_delta = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        let normal = # <expr>
+        # <expr>
+
+    fn draw(subgizmo: &RotationSubGizmo) -> crate::GizmoDrawData:
+        let config = # <expr>
+        let transform = # <expr>
+        let shape_builder = # <expr>
+        let color = # <expr>
+        let stroke = # <expr>
+        let radius = # <expr>
+        let mut draw_data = # <expr>
+        # <expr>
+        draw_data
+
+
+fn arc_angle(subgizmo: &crate::subgizmo::SubGizmoConfig<Rotation>) -> f64:
+    let dot = # <expr>
+    let min_dot = 0.99
+    let max_dot = 0.995
+    let mut angle = # <expr>
+    # <expr>
+    angle
+
+fn rotation_matrix(subgizmo: &crate::subgizmo::SubGizmoConfig<Rotation>) -> crate::math::DMat4:
+    # <expr>
+    let local_normal = # <expr>
+    let rotation = # <expr>
+    let mut rotation = # <expr>
+    let config = # <expr>
+    # <expr>
+    let tangent = # <expr>
+    let normal = # <expr>
+    let mut forward = # <expr>
+    # <expr>
+    let angle = # <expr>
+    # <expr>
+    # <expr>
+
+fn rotation_angle(subgizmo: &crate::subgizmo::SubGizmoConfig<Rotation>, cursor_pos: crate::math::Pos2) -> Option<f64>:
+    let viewport = # <expr>
+    let gizmo_pos = # <expr>
+    let delta = # <expr>
+    # <expr>
+    let mut angle = # <expr>
+    # <expr>
+    # <expr>
+
+fn tangent(subgizmo: &crate::subgizmo::SubGizmoConfig<Rotation>) -> crate::math::DVec3:
+    let mut tangent = # <expr>
+    # <expr>
+    tangent
+
+fn arc_radius(subgizmo: &crate::subgizmo::SubGizmoConfig<Rotation>) -> f64:
+    # <expr>
+
+struct ScaleParams:
+    mode: crate::GizmoMode
+    direction: crate::GizmoDirection
+    transform_kind: crate::subgizmo::common::TransformKind
+
+struct ScaleState:
+    start_delta: f64
+
+struct Scale:
+    pass
+
+impl crate::subgizmo::SubGizmoKind for Scale:
+    fn pick_preview(subgizmo: &crate::subgizmo::SubGizmoConfig<Self>, ray: crate::gizmo::Ray) -> super::common::PickResult:
+        # <expr>
+
+    fn pick(subgizmo: &mut ScaleSubGizmo, ray: crate::gizmo::Ray) -> Option<f64>:
+        let pick_result = # <expr>
+        let start_delta = # <expr>
+        # <expr>
+        # <expr>
+
+    fn update(subgizmo: &mut ScaleSubGizmo, ray: crate::gizmo::Ray) -> Option<crate::GizmoResult>:
+        let mut delta = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        let direction = # <expr>
+        let scale = # <expr>
+        # <expr>
+
+    fn draw(subgizmo: &ScaleSubGizmo) -> crate::GizmoDrawData:
+        # <expr>
+
+
+fn distance_from_origin_2d(subgizmo: &crate::subgizmo::SubGizmoConfig<T>, cursor_pos: crate::math::Pos2) -> Option<f64>:
+    let viewport = # <expr>
+    let gizmo_pos = # <expr>
+    # <expr>
+
+struct TranslationParams:
+    mode: crate::GizmoMode
+    direction: crate::GizmoDirection
+    transform_kind: crate::subgizmo::common::TransformKind
+
+struct TranslationState:
+    start_view_dir: crate::math::DVec3
+    start_point: crate::math::DVec3
+    last_point: crate::math::DVec3
+    current_delta: crate::math::DVec3
+
+struct Translation:
+    pass
+
+impl crate::subgizmo::SubGizmoKind for Translation:
+    fn pick_preview(subgizmo: &TranslationSubGizmo, ray: crate::gizmo::Ray) -> super::common::PickResult:
+        # <expr>
+
+    fn pick(subgizmo: &mut TranslationSubGizmo, ray: crate::gizmo::Ray) -> Option<f64>:
+        let pick_result = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn update(subgizmo: &mut TranslationSubGizmo, ray: crate::gizmo::Ray) -> Option<crate::GizmoResult>:
+        # <expr>
+        let mut new_point = # <expr>
+        let mut new_delta = # <expr>
+        # <expr>
+        let mut translation_delta = # <expr>
+        let mut total_translation = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn draw(subgizmo: &TranslationSubGizmo) -> crate::GizmoDrawData:
+        # <expr>
+
+
+fn point_on_axis(subgizmo: &crate::subgizmo::SubGizmoConfig<Translation>, ray: crate::gizmo::Ray) -> crate::math::DVec3:
+    let origin = # <expr>
+    let direction = # <expr>
+    let _ = # <expr>
+    # <expr>
+
+fn point_on_plane(plane_normal: crate::math::DVec3, plane_origin: crate::math::DVec3, ray: crate::gizmo::Ray) -> Option<crate::math::DVec3>:
+    let mut t = 0
+    # <expr>
+
+fn snap_translation_vector(subgizmo: &crate::subgizmo::SubGizmoConfig<Translation>, new_delta: crate::math::DVec3) -> crate::math::DVec3:
+    let delta_length = # <expr>
+    # <expr>
+
+fn snap_translation_plane(subgizmo: &crate::subgizmo::SubGizmoConfig<Translation>, new_delta: crate::math::DVec3) -> crate::math::DVec3:
+    let mut bitangent = # <expr>
+    let mut tangent = # <expr>
+    # <expr>
+    let cb = # <expr>
+    let ct = # <expr>
+    let lb = # <expr>
+    let lt = # <expr>
+    let n = # <expr>
+    # <expr>
+
+enum SubGizmo:
+    Rotate(rotation::RotationSubGizmo)
+    Translate(translation::TranslationSubGizmo)
+    Scale(scale::ScaleSubGizmo)
+    Arcball(arcball::ArcballSubGizmo)
+
+trait SubGizmoControl:
+    fn id(_self: &Self) -> u64:
+        pass
+    fn update_config(_self: &mut Self, config: crate::config::PreparedGizmoConfig):
+        pass
+    fn set_focused(_self: &mut Self, focused: Bool):
+        pass
+    fn set_active(_self: &mut Self, active: Bool):
+        pass
+    fn is_focused(_self: &Self) -> Bool:
+        pass
+    fn is_active(_self: &Self) -> Bool:
+        pass
+    fn pick(_self: &mut Self, ray: crate::gizmo::Ray) -> Option<f64>:
+        pass
+    fn update(_self: &mut Self, ray: crate::gizmo::Ray) -> Option<crate::GizmoResult>:
+        pass
+    fn draw(_self: &Self) -> crate::GizmoDrawData:
+        pass
+    fn pick_preview(_self: &Self, ray: crate::gizmo::Ray) -> Bool:
+        pass
+
+trait SubGizmoKind:
+    fn pick(subgizmo: &mut SubGizmoConfig<Self>, ray: crate::gizmo::Ray) -> Option<f64>:
+        pass
+    fn update(subgizmo: &mut SubGizmoConfig<Self>, ray: crate::gizmo::Ray) -> Option<crate::GizmoResult>:
+        pass
+    fn draw(subgizmo: &SubGizmoConfig<Self>) -> crate::GizmoDrawData:
+        pass
+    fn pick_preview(subgizmo: &SubGizmoConfig<Self>, ray: crate::gizmo::Ray) -> Self::PickPreview:
+        pass
+
+trait Picked:
+    fn picked(_self: &Self) -> Bool:
+        pass
+
+struct SubGizmoConfig:
+    id: u64
+    params: T::Params
+    config: crate::config::PreparedGizmoConfig
+    focused: Bool
+    active: Bool
+    state: T::State
+
+impl std::ops::Deref for SubGizmoConfig<T>:
+    fn deref(_self: &Self) -> &Self::Target:
+        # <expr>
+
+
+impl SubGizmoConfig<T>:
+    fn new_(config: crate::config::PreparedGizmoConfig, params: T::Params) -> Self:
+        let mut hasher = # <expr>
+        # <expr>
+        # <expr>
+        let id = # <expr>
+        # <expr>
+
+
+impl SubGizmoControl for SubGizmoConfig<T>:
+    fn id(_self: &Self) -> u64:
+        # <expr>
+
+    fn update_config(_self: &mut Self, config: crate::config::PreparedGizmoConfig):
+        # <expr>
+
+    fn set_focused(_self: &mut Self, focused: Bool):
+        # <expr>
+
+    fn set_active(_self: &mut Self, active: Bool):
+        # <expr>
+
+    fn is_focused(_self: &Self) -> Bool:
+        # <expr>
+
+    fn is_active(_self: &Self) -> Bool:
+        # <expr>
+
+    fn pick(_self: &mut Self, ray: crate::gizmo::Ray) -> Option<f64>:
+        # <expr>
+
+    fn update(_self: &mut Self, ray: crate::gizmo::Ray) -> Option<crate::GizmoResult>:
+        # <expr>
+
+    fn draw(_self: &Self) -> crate::GizmoDrawData:
+        # <expr>
+
+    fn pick_preview(_self: &Self, ray: crate::gizmo::Ray) -> Bool:
+        # <expr>
+
+

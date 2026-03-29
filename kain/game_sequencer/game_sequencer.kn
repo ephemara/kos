@@ -1,0 +1,328 @@
+# Generated from Rust source by kain import-rust
+# Project Ouroboros — Rust → KAIN → Rust
+
+struct GameSequencerRuntimeState:
+    ready: Bool
+    status: String
+    detail: String
+    registry_kind: String
+    registry_version: Option<String>
+    tick_index: u64
+    active_phase: String
+    active_camera_rig: Option<String>
+    active_camera_mode: Option<String>
+    active_timeline: Option<String>
+    active_agent: Option<String>
+    active_action: Option<String>
+    selected_route: Option<String>
+    timelines_loaded: usize
+    routes_loaded: usize
+    playback_rate: f32
+    looping: Bool
+    timeline_track_counts: Map<String, usize>
+    active_track_ids: Array<String>
+    pending_events: Array<String>
+    issues: Array<String>
+
+impl Default for GameSequencerRuntimeState:
+    fn default_() -> Self:
+        # <expr>
+
+
+struct GameSequencerTrackDispatchState:
+    ready: Bool
+    status: String
+    detail: String
+    tick_index: u64
+    frame_index: u64
+    active_phase: String
+    active_timeline: Option<String>
+    active_agent: Option<String>
+    active_camera_mode: Option<String>
+    tracks_loaded: usize
+    routes_loaded: usize
+    events_emitted: usize
+    active_tracks: Array<GameSequencerTrackDispatch>
+    events: Array<GameSequencerDispatchEvent>
+    issues: Array<String>
+
+impl Default for GameSequencerTrackDispatchState:
+    fn default_() -> Self:
+        # <expr>
+
+
+struct GameSequencerTrackDispatch:
+    track_id: String
+    track_kind: String
+    binding_target: String
+    intensity: f32
+    route_key: String
+
+struct GameSequencerDispatchEvent:
+    event_id: String
+    effect_kind: String
+    track_id: String
+    route_key: String
+
+struct SequencerTimeline:
+    track_count: usize
+    track_ids: Array<String>
+    default_rate: Option<f32>
+    looping: Option<Bool>
+
+struct SequencerActionRoute:
+    agent: Option<String>
+    phase: Option<String>
+    gameplay_action_prefix: String
+    camera_rig: Option<String>
+    camera_mode: Option<String>
+    target_timeline: String
+    playback_rate: Option<f32>
+    looping: Option<Bool>
+    priority: u32
+    event: Option<String>
+
+impl SequencerActionRoute:
+    fn matches(_self: &Self, agent: &String, phase: &String, action: &String, active_camera_rig: Option<&String>, active_camera_mode: Option<&String>) -> Bool:
+        # <expr>
+
+
+struct PlaybackPolicy:
+    default_timeline: Option<String>
+    default_rate: f32
+    allow_looping_default: Bool
+
+struct TrackDispatchPolicy:
+    default_track_intensity: f32
+    max_tracks_per_frame: usize
+    max_events_per_frame: usize
+    routes: Array<TrackDispatchRoute>
+
+impl Default for TrackDispatchPolicy:
+    fn default_() -> Self:
+        # <expr>
+
+
+struct TrackDispatchRoute:
+    agent: Option<String>
+    phase: Option<String>
+    camera_mode: Option<String>
+    track_prefix: String
+    binding_target: Option<String>
+    effect_kind: String
+    event_id: Option<String>
+    intensity: Option<f32>
+    priority: u32
+
+impl Default for PlaybackPolicy:
+    fn default_() -> Self:
+        # <expr>
+
+
+fn derive_runtime_sequencer_state(registry_state: Option<&k_os_game_framework::GameDataRegistryState>, action_bindings: Option<&k_os_game_framework::GameRuntimeActionBindings>, camera_state: Option<&k_os_game_camera::GameCameraRuntimeState>, previous: Option<&GameSequencerRuntimeState>) -> GameSequencerRuntimeState:
+    let mut state = # <expr>
+    # <expr>
+    # <expr>
+    let _ = registry_state
+    let _ = # <expr>
+    # <expr>
+    # <expr>
+    let document = # <expr>
+    let timelines = # <expr>
+    # <expr>
+    # <expr>
+    let routes = # <expr>
+    # <expr>
+    let playback_policy = # <expr>
+    # <expr>
+    # <expr>
+    let selected_route = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    state
+
+fn select_route(routes: &Slice<SequencerActionRoute>, action_bindings: Option<&k_os_game_framework::GameRuntimeActionBindings>, active_camera_rig: Option<&String>, active_camera_mode: Option<&String>) -> Option<(String, String, usize, &SequencerActionRoute)>:
+    let action_bindings = # <expr>
+    # <expr>
+    let mut best: Option<(String, String, usize, &SequencerActionRoute)> = None
+    # <expr>
+    best
+
+fn load_registry_document(path: &String) -> Result<toml::value::Table, String>:
+    let raw = # <expr>
+    let parsed = # <expr>
+    let table = # <expr>
+    # <expr>
+
+fn parse_timelines(document: &toml::value::Table, issues: &mut Array<String>) -> Map<String, SequencerTimeline>:
+    let mut timelines = # <expr>
+    let _ = # <expr>
+    # <expr>
+    timelines
+
+fn parse_action_projection_routes(document: &toml::value::Table, issues: &mut Array<String>) -> Array<SequencerActionRoute>:
+    let mut routes = # <expr>
+    let _ = # <expr>
+    let _ = # <expr>
+    # <expr>
+    routes
+
+fn parse_playback_policy(document: &toml::value::Table, issues: &mut Array<String>) -> PlaybackPolicy:
+    let mut policy = # <expr>
+    let _ = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    policy
+
+fn parse_track_dispatch_policy(document: &toml::value::Table, issues: &mut Array<String>) -> TrackDispatchPolicy:
+    let mut policy = # <expr>
+    let _ = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    let _ = # <expr>
+    # <expr>
+    policy
+
+fn select_track_dispatch_route(routes: &Slice<TrackDispatchRoute>, track_id: &String, agent: Option<&String>, phase: &String, camera_mode: Option<&String>) -> Option<(usize, &TrackDispatchRoute)>:
+    let mut best: Option<(usize, &TrackDispatchRoute)> = None
+    # <expr>
+    best
+
+fn derive_runtime_track_dispatch_state(registry_state: Option<&k_os_game_framework::GameDataRegistryState>, sequencer_state: Option<&GameSequencerRuntimeState>, action_bindings: Option<&k_os_game_framework::GameRuntimeActionBindings>, camera_state: Option<&k_os_game_camera::GameCameraRuntimeState>, previous: Option<&GameSequencerTrackDispatchState>) -> GameSequencerTrackDispatchState:
+    let mut state = # <expr>
+    let _ = sequencer_state
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    let _ = registry_state
+    let _ = # <expr>
+    let document = # <expr>
+    let timelines = # <expr>
+    let dispatch_policy = # <expr>
+    # <expr>
+    let _ = # <expr>
+    let _ = # <expr>
+    let phase = # <expr>
+    let camera_mode = # <expr>
+    let active_agent = # <expr>
+    let mut tracks = # <expr>
+    let mut events = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    state
+
+fn track_identity(track_id: &String) -> (String, String):
+    let mut segments = # <expr>
+    let kind = # <expr>
+    let scope = # <expr>
+    let kind = # <expr>
+    let scope = # <expr>
+    # <expr>
+
+fn parse_optional_f32(value: Option<&toml::Value>) -> Option<f32>:
+    # <expr>
+
+mod tests:
+    fn write_temp_registry(contents: &String) -> String:
+        let id = # <expr>
+        let path = # <expr>
+        # <expr>
+        # <expr>
+
+    fn registry_state_for(path: String) -> k_os_game_framework::GameDataRegistryState:
+        let mut state = # <expr>
+        # <expr>
+        state
+
+    fn action_state(agent: &String, action: &String, phase: &String) -> k_os_game_framework::GameRuntimeActionBindings:
+        let mut state = # <expr>
+        # <expr>
+        state
+
+    fn camera_state(rig: &String, mode: &String) -> k_os_game_camera::GameCameraRuntimeState:
+        let mut state = # <expr>
+        # <expr>
+        state
+
+    fn derives_sequencer_state_from_matching_route():
+        let path = # <expr>
+        let registry_state = # <expr>
+        let actions = # <expr>
+        let camera = # <expr>
+        let next = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn falls_back_to_playback_policy_default_timeline():
+        let path = # <expr>
+        let registry_state = # <expr>
+        let next = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn reports_missing_route_timeline_as_issue():
+        let path = # <expr>
+        let registry_state = # <expr>
+        let actions = # <expr>
+        let next = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn keeps_previous_timeline_when_still_declared():
+        let path = # <expr>
+        let registry_state = # <expr>
+        let previous = # <expr>
+        let next = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn derives_track_dispatch_state_from_runtime_dispatch_routes():
+        let path = # <expr>
+        let registry_state = # <expr>
+        let actions = # <expr>
+        let previous_runtime = # <expr>
+        let dispatch = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn dispatch_uses_fallback_when_runtime_dispatch_is_missing():
+        let path = # <expr>
+        let registry_state = # <expr>
+        let runtime = # <expr>
+        let dispatch = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+

@@ -1,0 +1,2112 @@
+# Generated from Rust source by kain import-rust
+# Project Ouroboros — Rust → KAIN → Rust
+
+fn write_file(path: String, contents: Array<u8>) -> Result<(), String>:
+    let byte_count = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+
+fn read_file(path: String) -> Result<Array<u8>, String>:
+    # <expr>
+
+fn file_exists(path: String) -> Bool:
+    # <expr>
+
+fn export_texture_exr(path: String, _width: u32, _height: u32, data: Array<u8>, _compression: String, _bit_depth: String) -> Result<(), String>:
+    # <expr>
+    # <expr>
+
+mod autopbr:
+
+mod material:
+
+struct GltfExporter:
+    capabilities: crate::autopbr::export::ExporterCapabilities
+
+impl GltfExporter:
+    fn new_() -> Self:
+        # <expr>
+
+    fn build_gltf_json(_self: &Self, material: &crate::autopbr::Material, options: &crate::autopbr::export::ExportOptions) -> Result<gltf_json::Root, Error>:
+        let mut root = # <expr>
+        # <expr>
+        let gltf_material = # <expr>
+        # <expr>
+        let _ = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn build_material(_self: &Self, material: &crate::autopbr::Material, _options: &crate::autopbr::export::ExportOptions) -> Result<gltf_json::Material, Error>:
+        # <expr>
+        # <expr>
+
+    fn build_textures(_self: &Self, material: &crate::autopbr::Material, _options: &crate::autopbr::export::ExportOptions) -> Result<(Array<gltf_json::Texture>, Array<gltf_json::Image>, Array<gltf_json::Buffer>), Error>:
+        # <expr>
+        # <expr>
+
+    fn build_animations(_self: &Self, material: &crate::autopbr::Material, _options: &crate::autopbr::export::ExportOptions) -> Result<Array<gltf_json::Animation>, Error>:
+        let _ = material
+        # <expr>
+
+    fn map_parameter_to_gltf_path(_self: &Self, parameter: &crate::autopbr::animation::AnimationParameter) -> Option<gltf_json::animation::Property>:
+        # <stmt>
+        # <expr>
+
+    fn get_material_property_name(_self: &Self, parameter: &crate::autopbr::animation::AnimationParameter) -> &String:
+        # <stmt>
+        # <expr>
+
+    fn serialize_gltf(_self: &Self, root: &gltf_json::Root, pretty: Bool) -> Result<String, Error>:
+        # <expr>
+
+
+impl Default for GltfExporter:
+    fn default_() -> Self:
+        # <expr>
+
+
+impl crate::autopbr::export::MaterialExporter for GltfExporter:
+    fn format(_self: &Self) -> crate::autopbr::export::ExportFormat:
+        crate::autopbr::export::ExportFormat::GlTF
+
+    fn export_(_self: &Self, material: &crate::autopbr::Material, options: &crate::autopbr::export::ExportOptions) -> Result<crate::autopbr::export::ExportResult, Error>:
+        let start_time = # <expr>
+        let gltf_root = # <expr>
+        let json_data = # <expr>
+        let mut warnings = # <expr>
+        # <expr>
+        # <expr>
+        let mut additional_files = # <expr>
+        # <expr>
+        let data_bytes = # <expr>
+        let total_size = # <expr>
+        let stats = # <expr>
+        # <expr>
+
+    fn validate(_self: &Self, material: &crate::autopbr::Material, options: &crate::autopbr::export::ExportOptions) -> Result<(), Error>:
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn capabilities(_self: &Self) -> crate::autopbr::export::ExporterCapabilities:
+        # <expr>
+
+
+mod tests:
+    fn texture(path: &String) -> crate::autopbr::layer::TextureHandle:
+        # <expr>
+
+    fn create_test_material() -> crate::autopbr::Material:
+        # <expr>
+
+    fn test_gltf_exporter_new():
+        let exporter = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_gltf_exporter_validate_success():
+        let exporter = # <expr>
+        let material = # <expr>
+        let options = # <expr>
+        let result = # <expr>
+        # <expr>
+
+    fn test_gltf_exporter_validate_empty_layers():
+        let exporter = # <expr>
+        let mut material = # <expr>
+        # <expr>
+        let options = # <expr>
+        let result = # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_gltf_exporter_export_success():
+        let exporter = # <expr>
+        let material = # <expr>
+        let options = # <expr>
+        let result = # <expr>
+        # <expr>
+        let export_result = # <expr>
+        # <expr>
+        # <expr>
+        let json_str = # <expr>
+        let parsed: serde_json::Value = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_gltf_exporter_export_with_multiple_layers_warning():
+        let exporter = # <expr>
+        let mut material = # <expr>
+        # <expr>
+        # <expr>
+        let options = # <expr>
+        let result = # <expr>
+        # <expr>
+        let export_result = # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_gltf_exporter_capabilities():
+        let exporter = # <expr>
+        let caps = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_gltf_export_all_pbr_map_types():
+        # <stmt>
+        let exporter = # <expr>
+        let mut material = # <expr>
+        let mut layer = # <expr>
+        # <expr>
+        # <expr>
+        let options = # <expr>
+        let result = # <expr>
+        # <expr>
+        let export_result = # <expr>
+        let json_str = # <expr>
+        let parsed: serde_json::Value = # <expr>
+        # <expr>
+        let textures = # <expr>
+        # <expr>
+        # <expr>
+        let images = # <expr>
+        # <expr>
+        # <expr>
+        let materials = # <expr>
+        # <expr>
+        let mat = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_gltf_export_partial_pbr_maps():
+        # <stmt>
+        let exporter = # <expr>
+        let mut material = # <expr>
+        let mut layer = # <expr>
+        # <expr>
+        # <expr>
+        let options = # <expr>
+        let result = # <expr>
+        # <expr>
+        let export_result = # <expr>
+        let json_str = # <expr>
+        let parsed: serde_json::Value = # <expr>
+        let mat = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_gltf_output_structure_validation():
+        let exporter = # <expr>
+        let material = # <expr>
+        let options = # <expr>
+        let result = # <expr>
+        # <expr>
+        let export_result = # <expr>
+        let json_str = # <expr>
+        let parsed: serde_json::Value = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        let mat = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        let sampler_ = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_gltf_texture_naming_convention():
+        # <stmt>
+        let exporter = # <expr>
+        let mut material = # <expr>
+        # <expr>
+        let mut layer = # <expr>
+        # <expr>
+        # <expr>
+        let options = # <expr>
+        let result = # <expr>
+        # <expr>
+        let export_result = # <expr>
+        let json_str = # <expr>
+        let parsed: serde_json::Value = # <expr>
+        let textures = # <expr>
+        # <expr>
+
+    fn test_gltf_embedded_vs_external_textures():
+        # <stmt>
+        let exporter = # <expr>
+        let mut material = # <expr>
+        let mut layer = # <expr>
+        # <expr>
+        # <expr>
+        let mut options_embedded = # <expr>
+        # <expr>
+        let result_embedded = # <expr>
+        # <expr>
+        let export_embedded = # <expr>
+        let json_embedded = # <expr>
+        let parsed_embedded: serde_json::Value = # <expr>
+        let images_embedded = # <expr>
+        # <expr>
+        let mut options_external = # <expr>
+        # <expr>
+        let result_external = # <expr>
+        # <expr>
+        let export_external = # <expr>
+        let json_external = # <expr>
+        let parsed_external: serde_json::Value = # <expr>
+        let images_external = # <expr>
+        # <expr>
+
+    fn test_gltf_material_metadata_preservation():
+        let exporter = # <expr>
+        let mut material = # <expr>
+        # <expr>
+        # <expr>
+        let options = # <expr>
+        let result = # <expr>
+        # <expr>
+        let export_result = # <expr>
+        let json_str = # <expr>
+        let parsed: serde_json::Value = # <expr>
+        # <expr>
+        let copyright = # <expr>
+        # <expr>
+
+    fn test_gltf_export_stats_accuracy():
+        # <stmt>
+        let exporter = # <expr>
+        let mut material = # <expr>
+        let mut layer = # <expr>
+        # <expr>
+        # <expr>
+        let options = # <expr>
+        let result = # <expr>
+        # <expr>
+        let export_result = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_gltf_animation_duration_and_loop_mode_in_extras():
+        # <stmt>
+        let exporter = # <expr>
+        let mut material = # <expr>
+        let mut animation_data = # <expr>
+        # <expr>
+        let mut keyframe_anim = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        let mut options = # <expr>
+        # <expr>
+        let result = # <expr>
+        # <expr>
+        let export_result = # <expr>
+        let json_str = # <expr>
+        let parsed: serde_json::Value = # <expr>
+        let animations = # <expr>
+        # <expr>
+        let anim = # <expr>
+        # <expr>
+        let extras = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_gltf_animation_parameter_mapping():
+        # <stmt>
+        let exporter = # <expr>
+        let test_params = # <expr>
+        # <expr>
+
+    fn test_gltf_unsupported_animation_parameters_skipped():
+        # <stmt>
+        let exporter = # <expr>
+        let mut material = # <expr>
+        let mut animation_data = # <expr>
+        let mut keyframe_anim = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        let mut options = # <expr>
+        # <expr>
+        let result = # <expr>
+        # <expr>
+        let export_result = # <expr>
+        # <expr>
+
+    fn test_gltf_texture_format_options():
+        # <stmt>
+        let exporter = # <expr>
+        let mut material = # <expr>
+        let mut layer = # <expr>
+        # <expr>
+        # <expr>
+        let formats = # <expr>
+        # <expr>
+
+    fn test_gltf_export_warnings_for_complex_materials():
+        # <stmt>
+        let exporter = # <expr>
+        let mut material = # <expr>
+        # <expr>
+        let mut animation_data = # <expr>
+        # <expr>
+        # <expr>
+        let mut options = # <expr>
+        # <expr>
+        let result = # <expr>
+        # <expr>
+        let export_result = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_gltf_validate_unsupported_texture_format():
+        let exporter = # <expr>
+        let material = # <expr>
+        let mut options = # <expr>
+        # <expr>
+        let result = # <expr>
+        # <expr>
+        let error = # <expr>
+        # <expr>
+
+
+struct GodotExporter:
+    pass
+
+impl GodotExporter:
+    fn new_() -> Self:
+        Self_
+
+    fn generate_tres_content(_self: &Self, material: &crate::autopbr::Material, _texture_count: usize, has_normal: Bool, has_roughness: Bool, has_metallic: Bool, has_ao: Bool, has_height: Bool, has_emissive: Bool) -> String:
+        let mut content = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        content
+
+
+impl Default for GodotExporter:
+    fn default_() -> Self:
+        # <expr>
+
+
+impl crate::autopbr::export::MaterialExporter for GodotExporter:
+    fn format(_self: &Self) -> crate::autopbr::export::ExportFormat:
+        crate::autopbr::export::ExportFormat::Godot
+
+    fn export_(_self: &Self, material: &crate::autopbr::Material, _options: &crate::autopbr::export::ExportOptions) -> Result<crate::autopbr::export::ExportResult, Error>:
+        let start_time = # <expr>
+        let mut texture_count = 0
+        let additional_files = # <expr>
+        let mut warnings = # <expr>
+        # <expr>
+        # <expr>
+        let base_layer = # <expr>
+        let maps = # <expr>
+        let has_albedo = # <expr>
+        let has_normal = # <expr>
+        let has_roughness = # <expr>
+        let has_metallic = # <expr>
+        let has_ao = # <expr>
+        let has_height = # <expr>
+        let has_emissive = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        let tres_content = # <expr>
+        # <expr>
+        let duration = # <expr>
+        let total_size_bytes = # <expr>
+        # <expr>
+
+    fn validate(_self: &Self, material: &crate::autopbr::Material, options: &crate::autopbr::export::ExportOptions) -> Result<(), Error>:
+        # <expr>
+        # <expr>
+        let base_layer = # <expr>
+        let maps = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn capabilities(_self: &Self) -> crate::autopbr::export::ExporterCapabilities:
+        # <expr>
+
+
+mod tests:
+    fn create_test_material() -> crate::autopbr::Material:
+        let mut material = # <expr>
+        let layer = # <expr>
+        # <expr>
+        material
+
+    fn test_godot_exporter_format():
+        let exporter = # <expr>
+        # <expr>
+
+    fn test_godot_exporter_capabilities():
+        let exporter = # <expr>
+        let caps = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_godot_exporter_validate_no_layers():
+        let exporter = # <expr>
+        let mut material = # <expr>
+        # <expr>
+        let options = # <expr>
+        let result = # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_godot_exporter_validate_success():
+        let exporter = # <expr>
+        let material = # <expr>
+        let options = # <expr>
+        let result = # <expr>
+        # <expr>
+
+    fn test_godot_exporter_export_basic():
+        let exporter = # <expr>
+        let material = # <expr>
+        let options = # <expr>
+        let result = # <expr>
+        # <expr>
+        let export_result = # <expr>
+        # <expr>
+        # <expr>
+        let tres_str = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_godot_exporter_export_with_multiple_layers_warning():
+        let exporter = # <expr>
+        let mut material = # <expr>
+        # <expr>
+        let options = # <expr>
+        let result = # <expr>
+        # <expr>
+        let export_result = # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_godot_exporter_tres_format():
+        let exporter = # <expr>
+        let material = # <expr>
+        let options = # <expr>
+        let result = # <expr>
+        # <expr>
+        let export_result = # <expr>
+        let tres_str = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+
+struct SBSARExporter:
+    compression_level: u32
+
+impl SBSARExporter:
+    fn new_() -> Self:
+        # <expr>
+
+    fn with_compression(compression_level: u32) -> Self:
+        # <expr>
+
+    fn package_archive(_self: &Self, material: &crate::autopbr::Material, options: &crate::autopbr::export::ExportOptions) -> Result<Array<u8>, Error>:
+        let mut buffer = # <expr>
+        let mut zip = # <expr>
+        let file_options = # <expr>
+        let manifest = # <expr>
+        # <expr>
+        # <expr>
+        let parameters = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        let metadata_json = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn create_manifest(_self: &Self, material: &crate::autopbr::Material, _options: &crate::autopbr::export::ExportOptions) -> Result<SBSARManifest, Error>:
+        # <expr>
+
+    fn extract_parameters(_self: &Self, material: &crate::autopbr::Material) -> Result<SBSARParameters, Error>:
+        let base_layer = # <expr>
+        # <expr>
+
+    fn serialize_layers(_self: &Self, material: &crate::autopbr::Material) -> Result<Array<SBSARLayer>, Error>:
+        # <expr>
+
+    fn get_layer_map_references(_self: &Self, layer: &crate::autopbr::Layer) -> Array<String>:
+        let mut refs = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        refs
+
+    fn list_texture_maps(_self: &Self, material: &crate::autopbr::Material) -> Array<String>:
+        let mut maps = # <expr>
+        # <expr>
+        maps
+
+    fn write_texture_maps(_self: &Self, zip: &mut zip::ZipWriter<&mut std::io::Cursor<Array<u8>>>, material: &crate::autopbr::Material, options: &crate::autopbr::export::ExportOptions, file_options: zip::write::SimpleFileOptions) -> Result<(), Error>:
+        # <expr>
+        # <expr>
+        # <expr>
+
+
+impl Default for SBSARExporter:
+    fn default_() -> Self:
+        # <expr>
+
+
+impl crate::autopbr::export::MaterialExporter for SBSARExporter:
+    fn format(_self: &Self) -> crate::autopbr::export::ExportFormat:
+        crate::autopbr::export::ExportFormat::SBSAR
+
+    fn export_(_self: &Self, material: &crate::autopbr::Material, options: &crate::autopbr::export::ExportOptions) -> Result<crate::autopbr::export::ExportResult, Error>:
+        let start_time = # <expr>
+        let data = # <expr>
+        let export_time = # <expr>
+        let texture_count = # <expr>
+        let file_size = # <expr>
+        # <expr>
+
+    fn validate(_self: &Self, material: &crate::autopbr::Material, _options: &crate::autopbr::export::ExportOptions) -> Result<(), Error>:
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn capabilities(_self: &Self) -> crate::autopbr::export::ExporterCapabilities:
+        # <expr>
+
+
+struct SBSARManifest:
+    format_version: String
+    material_id: String
+    material_name: String
+    description: String
+    author: String
+    category: String
+    tags: Array<String>
+    version: u32
+    created_at: String
+    modified_at: String
+    layer_count: usize
+    has_animation: Bool
+    texture_maps: Array<String>
+
+struct SBSARParameters:
+    opacity: f32
+    blend_mode: String
+    visible: Bool
+    locked: Bool
+    custom_params: Map<String, serde_json::Value>
+
+struct SBSARLayer:
+    id: String
+    name: String
+    opacity: f32
+    blend_mode: String
+    visible: Bool
+    locked: Bool
+    has_mask: Bool
+    map_references: Array<String>
+
+mod tests:
+    fn texture(path: &String) -> crate::autopbr::layer::TextureHandle:
+        # <expr>
+
+    fn create_test_material() -> crate::autopbr::Material:
+        # <expr>
+
+    fn test_sbsar_exporter_format():
+        let exporter = # <expr>
+        # <expr>
+
+    fn test_sbsar_exporter_capabilities():
+        let exporter = # <expr>
+        let caps = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_sbsar_export_basic():
+        let exporter = # <expr>
+        let material = # <expr>
+        let options = # <expr>
+        let result = # <expr>
+        # <expr>
+        let export_result = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_sbsar_validate_empty_layers():
+        let exporter = # <expr>
+        let mut material = # <expr>
+        # <expr>
+        let options = # <expr>
+        let result = # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_sbsar_validate_empty_name():
+        let exporter = # <expr>
+        let mut material = # <expr>
+        # <expr>
+        let options = # <expr>
+        let result = # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_sbsar_compression_levels():
+        let exporter_low = # <expr>
+        let exporter_high = # <expr>
+        # <expr>
+        # <expr>
+        let exporter_clamped = # <expr>
+        # <expr>
+
+    fn test_sbsar_manifest_creation():
+        let exporter = # <expr>
+        let material = # <expr>
+        let options = # <expr>
+        let manifest = # <expr>
+        # <expr>
+        let manifest = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_sbsar_archive_structure():
+        let exporter = # <expr>
+        let material = # <expr>
+        let options = # <expr>
+        let result = # <expr>
+        # <expr>
+        let data = # <expr>
+        let cursor = # <expr>
+        let archive = # <expr>
+        # <expr>
+        let mut archive = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_sbsar_multi_layer_export():
+        let exporter = # <expr>
+        let mut material = # <expr>
+        # <expr>
+        let options = # <expr>
+        let result = # <expr>
+        # <expr>
+        let export_result = # <expr>
+        # <expr>
+
+
+struct UnityExporter:
+    pass
+
+impl UnityExporter:
+    fn new_() -> Self:
+        Self_
+
+
+impl Default for UnityExporter:
+    fn default_() -> Self:
+        # <expr>
+
+
+struct UnityMaterialData:
+    object_hide_flags: u32
+    corresponding_source_object: UnityObjectReference
+    prefab_instance: UnityObjectReference
+    prefab_asset: UnityObjectReference
+    name: String
+    shader: UnityShaderReference
+    shader_keywords: String
+    lightmap_flags: u32
+    enable_instancing_variants: Bool
+    double_sided_gi: Bool
+    custom_render_queue: i32
+    saved_properties: UnitySavedProperties
+
+struct UnityObjectReference:
+    file_id: u64
+    guid: String
+    ref_type: u32
+
+impl Default for UnityObjectReference:
+    fn default_() -> Self:
+        # <expr>
+
+
+struct UnityShaderReference:
+    file_id: u64
+    guid: String
+    ref_type: u32
+
+struct UnitySavedProperties:
+    serialized_version: u32
+    tex_envs: Array<UnityTexEnv>
+    floats: Array<UnityFloat>
+    colors: Array<UnityColor>
+
+struct UnityTexEnv:
+    name: String
+    texture: UnityObjectReference
+    scale: UnityVector2
+    offset: UnityVector2
+
+struct UnityFloat:
+    name: String
+    value: f32
+
+struct UnityColor:
+    name: String
+    value: UnityVector4
+
+struct UnityVector2:
+    x: f32
+    y: f32
+
+struct UnityVector4:
+    r: f32
+    g: f32
+    b: f32
+    a: f32
+
+impl crate::autopbr::export::MaterialExporter for UnityExporter:
+    fn format(_self: &Self) -> crate::autopbr::export::ExportFormat:
+        crate::autopbr::export::ExportFormat::Unity
+
+    fn export_(_self: &Self, material: &crate::autopbr::Material, _options: &crate::autopbr::export::ExportOptions) -> Result<crate::autopbr::export::ExportResult, Error>:
+        let start_time = # <expr>
+        let mut tex_envs = # <expr>
+        let mut floats = # <expr>
+        let mut colors = # <expr>
+        let mut texture_count = 0
+        let additional_files = # <expr>
+        let mut warnings = # <expr>
+        # <expr>
+        # <expr>
+        let base_layer = # <expr>
+        let maps = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        let unity_material = # <expr>
+        let yaml_data = # <expr>
+        let full_yaml = # <expr>
+        # <expr>
+        let duration = # <expr>
+        let total_size_bytes = # <expr>
+        # <expr>
+
+    fn validate(_self: &Self, material: &crate::autopbr::Material, options: &crate::autopbr::export::ExportOptions) -> Result<(), Error>:
+        # <expr>
+        # <expr>
+        let base_layer = # <expr>
+        let maps = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn capabilities(_self: &Self) -> crate::autopbr::export::ExporterCapabilities:
+        # <expr>
+
+
+mod tests:
+    fn create_test_material() -> crate::autopbr::Material:
+        let mut material = # <expr>
+        let layer = # <expr>
+        # <expr>
+        material
+
+    fn test_unity_exporter_format():
+        let exporter = # <expr>
+        # <expr>
+
+    fn test_unity_exporter_capabilities():
+        let exporter = # <expr>
+        let caps = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_unity_exporter_validate_no_layers():
+        let exporter = # <expr>
+        let mut material = # <expr>
+        # <expr>
+        let options = # <expr>
+        let result = # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_unity_exporter_validate_hdr_rejection():
+        let exporter = # <expr>
+        let material = # <expr>
+        let mut options = # <expr>
+        # <expr>
+        let result = # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_unity_exporter_validate_success():
+        let exporter = # <expr>
+        let material = # <expr>
+        let options = # <expr>
+        let result = # <expr>
+        # <expr>
+
+    fn test_unity_exporter_export_basic():
+        let exporter = # <expr>
+        let material = # <expr>
+        let options = # <expr>
+        let result = # <expr>
+        # <expr>
+        let export_result = # <expr>
+        # <expr>
+        # <expr>
+        let yaml_str = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_unity_exporter_export_with_multiple_layers_warning():
+        let exporter = # <expr>
+        let mut material = # <expr>
+        # <expr>
+        let options = # <expr>
+        let result = # <expr>
+        # <expr>
+        let export_result = # <expr>
+        # <expr>
+        # <expr>
+
+
+struct UnrealExporter:
+    pass
+
+impl UnrealExporter:
+    fn new_() -> Self:
+        Self_
+
+
+impl Default for UnrealExporter:
+    fn default_() -> Self:
+        # <expr>
+
+
+struct UnrealMaterialAsset:
+    asset_type: String
+    name: String
+    parent: String
+    properties: UnrealMaterialProperties
+    texture_parameters: Map<String, UnrealTextureParameter>
+    scalar_parameters: Map<String, f32>
+    vector_parameters: Map<String, UnrealVector>
+
+struct UnrealMaterialProperties:
+    shading_model: String
+    blend_mode: String
+    two_sided: Bool
+    tessellation_mode: String
+
+struct UnrealTextureParameter:
+    value: String
+    texture_type: String
+
+struct UnrealVector:
+    r: f32
+    g: f32
+    b: f32
+    a: f32
+
+impl crate::autopbr::export::MaterialExporter for UnrealExporter:
+    fn format(_self: &Self) -> crate::autopbr::export::ExportFormat:
+        crate::autopbr::export::ExportFormat::Unreal
+
+    fn export_(_self: &Self, material: &crate::autopbr::Material, _options: &crate::autopbr::export::ExportOptions) -> Result<crate::autopbr::export::ExportResult, Error>:
+        let start_time = # <expr>
+        let mut texture_parameters = # <expr>
+        let mut texture_count = 0
+        let additional_files = # <expr>
+        let mut warnings = # <expr>
+        # <expr>
+        # <expr>
+        let base_layer = # <expr>
+        let maps = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        let mut scalar_parameters = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        let mut vector_parameters = # <expr>
+        # <expr>
+        let tessellation_mode = # <expr>
+        let unreal_asset = # <expr>
+        let json_data = # <expr>
+        # <expr>
+        let duration = # <expr>
+        let total_size_bytes = # <expr>
+        # <expr>
+
+    fn validate(_self: &Self, material: &crate::autopbr::Material, options: &crate::autopbr::export::ExportOptions) -> Result<(), Error>:
+        # <expr>
+        # <expr>
+        let base_layer = # <expr>
+        let maps = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn capabilities(_self: &Self) -> crate::autopbr::export::ExporterCapabilities:
+        # <expr>
+
+
+mod tests:
+    fn create_test_material() -> crate::autopbr::Material:
+        let mut material = # <expr>
+        let mut layer = # <expr>
+        # <expr>
+        material
+
+    fn test_unreal_exporter_format():
+        let exporter = # <expr>
+        # <expr>
+
+    fn test_unreal_exporter_capabilities():
+        let exporter = # <expr>
+        let caps = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_unreal_exporter_validate_no_layers():
+        let exporter = # <expr>
+        let mut material = # <expr>
+        # <expr>
+        let options = # <expr>
+        let result = # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_unreal_exporter_validate_success():
+        let exporter = # <expr>
+        let material = # <expr>
+        let options = # <expr>
+        let result = # <expr>
+        # <expr>
+
+    fn test_unreal_exporter_export_basic():
+        let exporter = # <expr>
+        let material = # <expr>
+        let options = # <expr>
+        let result = # <expr>
+        # <expr>
+        let export_result = # <expr>
+        # <expr>
+        # <expr>
+        let json_str = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_unreal_exporter_export_with_multiple_layers_warning():
+        let exporter = # <expr>
+        let mut material = # <expr>
+        # <expr>
+        let options = # <expr>
+        let result = # <expr>
+        # <expr>
+        let export_result = # <expr>
+        # <expr>
+        # <expr>
+
+
+fn register_default_material_exporters(pipeline: &mut k_os_material::autopbr::export::ExportPipeline):
+    # <expr>
+
+enum KosDirectory:
+    Projects
+    Brushes
+    Matcaps
+    Alphas
+    Materials
+    Meshes
+
+impl KosDirectory:
+    fn folder_name(_self: &Self) -> &String:
+        # <expr>
+
+
+fn get_bundled_dir(app: &tauri::AppHandle, dir: KosDirectory) -> Option<std::path::PathBuf>:
+    # <expr>
+
+fn get_user_dir(dir: KosDirectory) -> Option<std::path::PathBuf>:
+    let documents = # <expr>
+    let kos_dir = # <expr>
+    # <expr>
+    # <expr>
+
+fn get_user_root() -> Option<std::path::PathBuf>:
+    let documents = # <expr>
+    let kos_dir = # <expr>
+    # <expr>
+    # <expr>
+
+fn init_user_directories() -> Result<(), String>:
+    let dirs = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+
+fn get_kos_user_root() -> Result<String, String>:
+    # <expr>
+
+fn get_kos_user_dir(dir_type: String) -> Result<String, String>:
+    let dir = # <expr>
+    # <expr>
+
+fn list_kos_directory(app: tauri::AppHandle, dir_type: String, extension: Option<String>) -> Result<Array<String>, String>:
+    let dir = # <expr>
+    let mut files = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+
+fn read_file_base64(app: tauri::AppHandle, path: String) -> Result<String, String>:
+    # <stmt>
+    let requested = # <expr>
+    let mut allowed_roots: Array<std::path::PathBuf> = # <expr>
+    # <expr>
+    # <expr>
+    # <expr>
+    let bytes = # <expr>
+    let ext = # <expr>
+    let mime = # <expr>
+    let b64 = # <expr>
+    # <expr>
+
+fn list_files_in_dir(path: &std::path::PathBuf, extension: &Option<String>, files: &mut Array<String>):
+    # <expr>
+
+trait StorageBackend:
+    fn put(_self: &Self, key: &Slice<u8>, value: &Slice<u8>) -> Result<StorageLocation, Error>:
+        pass
+    fn get(_self: &Self, location: StorageLocation) -> Result<Array<u8>, Error>:
+        pass
+    fn delete_(_self: &Self, location: StorageLocation) -> Result<(), Error>:
+        pass
+    fn exists(_self: &Self, location: StorageLocation) -> Result<Bool, Error>:
+        pass
+    fn stats(_self: &Self) -> BackendStats:
+        pass
+
+struct StorageLocation:
+    field_0: u64
+
+struct BackendStats:
+    total_size: u64
+    item_count: u64
+
+struct RocksDbBackend:
+    db: rocksdb::DB
+    location_counter: std::sync::atomic::AtomicU64
+    compression: rocksdb::DBCompressionType
+
+impl RocksDbBackend:
+    fn new_(path: impl AsRef<std::path::Path>, config: RocksDbConfig) -> Result<Self, Error>:
+        let path = # <expr>
+        # <expr>
+        let mut db_opts = # <expr>
+        # <expr>
+        # <expr>
+        let compression = # <expr>
+        # <expr>
+        let write_buffer_size = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        let cf_opts = # <expr>
+        let column_families = # <expr>
+        let db = # <expr>
+        # <expr>
+
+    fn cf_handle(_self: &Self, name: &String) -> Result<&rocksdb::ColumnFamily, Error>:
+        # <expr>
+
+    fn encode_key(location: super::StorageLocation) -> Array<u8>:
+        # <expr>
+
+    fn decode_key(bytes: &Slice<u8>) -> Result<super::StorageLocation, Error>:
+        # <expr>
+        let mut array = # <expr>
+        # <expr>
+        # <expr>
+
+    fn next_location(_self: &Self) -> super::StorageLocation:
+        # <expr>
+
+    fn put_cf(_self: &Self, cf_name: &String, _key: &Slice<u8>, value: &Slice<u8>) -> Result<super::StorageLocation, Error>:
+        let cf = # <expr>
+        let location = # <expr>
+        let encoded_key = # <expr>
+        # <expr>
+        # <expr>
+
+    fn get_cf(_self: &Self, cf_name: &String, location: super::StorageLocation) -> Result<Array<u8>, Error>:
+        let cf = # <expr>
+        let encoded_key = # <expr>
+        # <expr>
+
+    fn delete_cf(_self: &Self, cf_name: &String, location: super::StorageLocation) -> Result<(), Error>:
+        let cf = # <expr>
+        let encoded_key = # <expr>
+        # <expr>
+        # <expr>
+
+    fn exists_cf(_self: &Self, cf_name: &String, location: super::StorageLocation) -> Result<Bool, Error>:
+        let cf = # <expr>
+        let encoded_key = # <expr>
+        # <expr>
+
+    fn batch_write(_self: &Self, operations: Array<BatchOperation>) -> Result<(), Error>:
+        let mut batch = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn get_statistics(_self: &Self) -> Option<String>:
+        # <expr>
+
+    fn compact(_self: &Self) -> Result<(), Error>:
+        # <expr>
+        # <expr>
+
+    fn flush(_self: &Self) -> Result<(), Error>:
+        # <expr>
+        # <expr>
+
+
+impl super::StorageBackend for RocksDbBackend:
+    fn put(_self: &Self, key: &Slice<u8>, value: &Slice<u8>) -> Result<super::StorageLocation, Error>:
+        # <expr>
+
+    fn get(_self: &Self, location: super::StorageLocation) -> Result<Array<u8>, Error>:
+        # <expr>
+
+    fn delete_(_self: &Self, location: super::StorageLocation) -> Result<(), Error>:
+        # <expr>
+
+    fn exists(_self: &Self, location: super::StorageLocation) -> Result<Bool, Error>:
+        # <expr>
+
+    fn stats(_self: &Self) -> super::BackendStats:
+        let mut total_size = 0
+        let mut item_count = 0
+        # <expr>
+        # <expr>
+        # <expr>
+
+
+struct RocksDbConfig:
+    compression_2: String
+    write_buffer_size_mb: u32
+    max_open_files: i32
+    enable_statistics: Bool
+
+impl Default for RocksDbConfig:
+    fn default_() -> Self:
+        # <expr>
+
+
+enum BatchOperation:
+    Put { cf_name: String, location: super::StorageLocation, value: Array<u8> }
+    Delete { cf_name: String, location: super::StorageLocation }
+
+mod tests:
+    fn test_rocksdb_basic_operations():
+        let temp_dir = # <expr>
+        let config = # <expr>
+        let backend = # <expr>
+        let key = # <expr>
+        let value = # <expr>
+        let location = # <expr>
+        # <expr>
+        let retrieved = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_rocksdb_column_families():
+        let temp_dir = # <expr>
+        let config = # <expr>
+        let backend = # <expr>
+        let value = # <expr>
+        let loc1 = # <expr>
+        let loc2 = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_rocksdb_batch_operations():
+        let temp_dir = # <expr>
+        let config = # <expr>
+        let backend = # <expr>
+        let loc1 = # <expr>
+        let loc2 = # <expr>
+        let operations = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_rocksdb_concurrent_access():
+        let temp_dir = # <expr>
+        let config = # <expr>
+        let backend = # <expr>
+        let mut handles = # <expr>
+        # <expr>
+        let locations: Array<_> = # <expr>
+        # <expr>
+
+    fn test_rocksdb_stats():
+        let temp_dir = # <expr>
+        let config = # <expr>
+        let backend = # <expr>
+        # <expr>
+        let stats = # <expr>
+        # <expr>
+        # <expr>
+
+
+struct CacheManager:
+    pass
+
+impl CacheManager:
+    fn new_() -> Self:
+        # <expr>
+
+    fn get(_self: &Self, _handle: crate::storage::types::AssetHandle) -> Option<Array<u8>>:
+        # <expr>
+
+    fn put(_self: &Self, _handle: crate::storage::types::AssetHandle, _data: Array<u8>, _priority: CachePriority):
+        # <expr>
+
+    fn invalidate(_self: &Self, _handle: crate::storage::types::AssetHandle):
+        # <expr>
+
+    fn prefetch(_self: &Self, _handles: Array<crate::storage::types::AssetHandle>):
+        # <expr>
+
+
+impl Default for CacheManager:
+    fn default_() -> Self:
+        # <expr>
+
+
+struct FluxCache:
+    pass
+
+impl FluxCache:
+    fn get(_self: &Self, _handle: crate::storage::types::AssetHandle) -> Option<Array<u8>>:
+        # <expr>
+
+    fn put(_self: &Self, _handle: crate::storage::types::AssetHandle, _data: &Slice<u8>) -> Result<(), Error>:
+        # <expr>
+
+    fn evict_lru(_self: &Self, _target_size: u64) -> Result<(), Error>:
+        # <expr>
+
+
+enum CachePriority:
+    Critical
+    High
+    Normal
+    Low
+
+struct CompressionPipeline:
+    pass
+
+impl CompressionPipeline:
+    fn new_() -> Self:
+        # <expr>
+
+    fn compress_mesh(_self: &Self, _mesh: &crate::storage::types::MeshAsset) -> Result<CompressedMesh, Error>:
+        # <expr>
+
+    fn decompress_mesh(_self: &Self, _compressed: &CompressedMesh) -> Result<crate::storage::types::MeshAsset, Error>:
+        # <expr>
+
+
+impl Default for CompressionPipeline:
+    fn default_() -> Self:
+        # <expr>
+
+
+struct CompressedMesh:
+    quantized_positions: Array<u16>
+    quantized_normals: Array<u16>
+    indices: Array<u32>
+    bounds: BoundingBox
+    compression_ratio: f32
+
+struct BoundingBox:
+    min: Array<f32>
+    max: Array<f32>
+
+struct StorageConfig:
+    storage_path: std::path::PathBuf
+    registry_path: std::path::PathBuf
+    max_cache_size: u64
+    max_gpu_cache_size: u64
+    enable_compression: Bool
+    enable_entanglement: Bool
+    enable_versioning: Bool
+    gc_interval_secs: u64
+
+impl Default for StorageConfig:
+    fn default_() -> Self:
+        # <expr>
+
+
+struct StorageRegistry:
+    backends: Array<BackendConfig>
+    cache_policy: CachePolicy
+    compression_policies: Array<CompressionPolicy>
+    entanglement_policy: EntanglementPolicy
+    retention_policies: Array<RetentionPolicy>
+
+struct BackendConfig:
+    name: String
+    backend_type: String
+    priority: u32
+    config: serde_json::Value
+
+struct CachePolicy:
+    eviction_strategy: String
+    size_limit_bytes: u64
+    gpu_size_limit_bytes: u64
+
+struct CompressionPolicy:
+    asset_type: String
+    enabled: Bool
+    algorithm: String
+    level: u32
+
+struct EntanglementPolicy:
+    auto_dedupe: Bool
+    min_size_bytes: u64
+
+struct RetentionPolicy:
+    asset_type: String
+    policy: String
+    value: serde_json::Value
+
+impl Default for StorageRegistry:
+    fn default_() -> Self:
+        # <expr>
+
+
+struct StorageEngine:
+    config: crate::storage::config::StorageConfig
+    matrix_db: crate::storage::matrix_db::MatrixDatabase
+    entanglement: crate::storage::entanglement::EntanglementLayer
+    version_mgr: crate::storage::version::VersionManager
+    cache_mgr: crate::storage::cache::CacheManager
+    tx_manager: crate::storage::transaction::TransactionManager
+    metrics: crate::storage::metrics::StorageMetrics
+
+impl StorageEngine:
+    fn new_(_config: crate::storage::config::StorageConfig) -> Result<Self, Error>:
+        # <expr>
+
+    fn store(_self: &Self, _asset: crate::storage::types::Asset) -> Result<crate::storage::types::AssetHandle, Error>:
+        # <expr>
+
+    fn retrieve(_self: &Self, _handle: crate::storage::types::AssetHandle) -> Result<crate::storage::types::Asset, Error>:
+        # <expr>
+
+    fn update(_self: &Self, _handle: crate::storage::types::AssetHandle, _asset: crate::storage::types::Asset) -> Result<crate::storage::types::AssetHandle, Error>:
+        # <expr>
+
+    fn delete_(_self: &Self, _handle: crate::storage::types::AssetHandle) -> Result<(), Error>:
+        # <expr>
+
+    fn query(_self: &Self, _query: crate::storage::AssetQuery) -> Result<Array<crate::storage::types::AssetMetadata>, Error>:
+        # <expr>
+
+    fn metrics(_self: &Self) -> &crate::storage::metrics::StorageMetrics:
+        # <expr>
+
+    fn reload_config(_self: &Self, _config: crate::storage::config::StorageConfig) -> Result<(), Error>:
+        # <expr>
+
+
+struct EntanglementLayer:
+    backend: impl StorageBackend
+
+impl EntanglementLayer:
+    fn new_(backend: impl StorageBackend) -> Self:
+        # <expr>
+
+    fn store_content(_self: &Self, _data: &Slice<u8>) -> Result<ContentHash, Error>:
+        # <expr>
+
+    fn get_content(_self: &Self, _hash: ContentHash) -> Result<Array<u8>, Error>:
+        # <expr>
+
+    fn create_link(_self: &Self, _handle: crate::storage::types::AssetHandle, _hash: ContentHash) -> Result<(), Error>:
+        # <expr>
+
+    fn remove_link(_self: &Self, _handle: crate::storage::types::AssetHandle) -> Result<(), Error>:
+        # <expr>
+
+    fn get_linked_handles(_self: &Self, _hash: ContentHash) -> Array<crate::storage::types::AssetHandle>:
+        # <expr>
+
+    fn find_orphans(_self: &Self) -> Array<ContentHash>:
+        # <expr>
+
+    fn gc_orphans(_self: &Self) -> Result<usize, Error>:
+        # <expr>
+
+
+enum ImportExportError:
+    UnsupportedFormat(String)
+    ParseError(String)
+    IoError(std::io::Error)
+    GltfError(gltf::Error)
+    ImageError(image::ImageError)
+    InvalidData(String)
+    MissingDependency(String)
+
+struct FormatRegistry:
+    version: String
+    formats: Map<String, FormatSpec>
+    auto_detection: AutoDetectionConfig
+    batch_import: BatchImportConfig
+
+struct FormatSpec:
+    name: String
+    extensions: Array<String>
+    mime_types: Array<String>
+    capabilities: FormatCapabilities
+    metadata_mapping: Map<String, String>
+    schema_path: Option<String>
+    note: Option<String>
+
+struct FormatCapabilities:
+    import: Bool
+    export_: Bool
+    supports_meshes: Bool
+    supports_materials: Bool
+    supports_textures: Bool
+    supports_animations: Bool
+    supports_scenes: Bool
+
+struct AutoDetectionConfig:
+    enabled: Bool
+    priority: Array<String>
+    magic_bytes: Map<String, Array<u8>>
+
+struct BatchImportConfig:
+    enabled: Bool
+    max_concurrent: usize
+    progress_reporting: Bool
+
+struct ImportResult:
+    assets: Array<Asset>
+    metadata: Array<AssetMetadata>
+    format: String
+
+struct ImportExportEngine:
+    registry: FormatRegistry
+
+impl ImportExportEngine:
+    fn new_() -> Result<Self, Error>:
+        let registry_json = # <expr>
+        let registry: FormatRegistry = # <expr>
+        # <expr>
+
+    fn detect_format(_self: &Self, path: &std::path::Path, data: Option<&Slice<u8>>) -> Result<String, Error>:
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn import_file(_self: &Self, path: &std::path::Path) -> Result<ImportResult, Error>:
+        let data = # <expr>
+        let format = # <expr>
+        # <expr>
+
+    fn import_data(_self: &Self, data: &Slice<u8>, format: &String, path: &std::path::Path) -> Result<ImportResult, Error>:
+        let spec = # <expr>
+        # <expr>
+        # <expr>
+
+    fn batch_import(_self: &Self, paths: &Slice<&std::path::Path>) -> Array<Result<ImportResult, Error>>:
+        # <stmt>
+        # <expr>
+
+    fn import_gltf(_self: &Self, data: &Slice<u8>, _path: &std::path::Path) -> Result<ImportResult, Error>:
+        let gltf = # <expr>
+        let mut assets = # <expr>
+        let mut metadata = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn import_obj(_self: &Self, data: &Slice<u8>, _path: &std::path::Path) -> Result<ImportResult, Error>:
+        let obj_text = # <expr>
+        let load_options = # <expr>
+        # <stmt>
+        let _ = # <expr>
+        let mut assets = # <expr>
+        let mut metadata = # <expr>
+        # <expr>
+        # <expr>
+
+    fn import_fbx(_self: &Self, data: &Slice<u8>, _path: &std::path::Path) -> Result<ImportResult, Error>:
+        let mut extras = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        let meta = # <expr>
+        # <expr>
+
+    fn import_usd(_self: &Self, data: &Slice<u8>, path: &std::path::Path) -> Result<ImportResult, Error>:
+        let mut extras = # <expr>
+        # <expr>
+        let variant = # <expr>
+        # <expr>
+        # <expr>
+        let meta = # <expr>
+        # <expr>
+
+    fn import_pbr_material(_self: &Self, data: &Slice<u8>) -> Result<ImportResult, Error>:
+        # <stmt>
+        let def: PbrMaterialDef = # <expr>
+        let _ = # <expr>
+        let mut parameters = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        let material = # <expr>
+        let meta = # <expr>
+        # <expr>
+
+    fn import_substance(_self: &Self, data: &Slice<u8>, path: &std::path::Path) -> Result<ImportResult, Error>:
+        let mut extras = # <expr>
+        # <expr>
+        # <expr>
+        let name = # <expr>
+        # <expr>
+        let meta = # <expr>
+        # <expr>
+
+    fn import_png(_self: &Self, data: &Slice<u8>) -> Result<ImportResult, Error>:
+        let img = # <expr>
+        let rgba = # <expr>
+        let texture = # <expr>
+        let meta = # <expr>
+        # <expr>
+
+    fn import_exr(_self: &Self, data: &Slice<u8>) -> Result<ImportResult, Error>:
+        let img = # <expr>
+        let rgba = # <expr>
+        let raw_data: Array<u8> = # <expr>
+        let texture = # <expr>
+        let meta = # <expr>
+        # <expr>
+
+
+impl Default for ImportExportEngine:
+    fn default_() -> Self:
+        # <expr>
+
+
+mod tests:
+    fn test_format_registry_loads():
+        let engine = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_format_detection_gltf():
+        let engine = # <expr>
+        let path = # <expr>
+        let format = # <expr>
+        # <expr>
+
+    fn test_format_detection_obj():
+        let engine = # <expr>
+        let path = # <expr>
+        let format = # <expr>
+        # <expr>
+
+    fn test_format_detection_fbx():
+        let engine = # <expr>
+        let path = # <expr>
+        let format = # <expr>
+        # <expr>
+
+    fn test_pbr_material_import():
+        let engine = # <expr>
+        let json = "{\r\n            \"name\": \"TestMaterial\",\r\n            \"base_color\": [1.0, 0.5, 0.0, 1.0],\r\n            \"metallic\": 0.8,\r\n            \"roughness\": 0.2\r\n        }"
+        let result = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+
+    fn test_registry_capabilities():
+        let engine = # <expr>
+        let gltf_spec = # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        # <expr>
+        let obj_spec = # <expr>
+        # <expr>
+        # <expr>
+        let fbx_spec = # <expr>
+        # <expr>
+        # <expr>
+
+
+struct MatrixDatabase:
+    backend: impl StorageBackend
+
+impl MatrixDatabase:
+    fn new_(backend: impl StorageBackend) -> Self:
+        # <expr>
+
+    fn insert(_self: &Self, _handle: crate::storage::types::AssetHandle, _metadata: crate::storage::types::AssetMetadata, _data: Array<u8>) -> Result<(), Error>:
+        # <expr>
+
+    fn get(_self: &Self, _handle: crate::storage::types::AssetHandle) -> Result<Array<u8>, Error>:
+        # <expr>
+
+    fn update_metadata(_self: &Self, _handle: crate::storage::types::AssetHandle, _metadata: crate::storage::types::AssetMetadata) -> Result<(), Error>:
+        # <expr>
+
+    fn delete_(_self: &Self, _handle: crate::storage::types::AssetHandle) -> Result<(), Error>:
+        # <expr>
+
+    fn query(_self: &Self, _query: AssetQuery) -> Result<Array<crate::storage::types::AssetMetadata>, Error>:
+        # <expr>
+
+    fn check_dependencies(_self: &Self, _handle: crate::storage::types::AssetHandle) -> Array<crate::storage::types::AssetHandle>:
+        # <expr>
+
+
+struct AssetQuery:
+    asset_types: Array<String>
+    projects: Array<String>
+    tags: Array<String>
+    time_range: Option<(i64, i64)>
+    limit: Option<usize>
+    offset: Option<usize>
+
+impl AssetQuery:
+    fn with_type(_self: Self, asset_type: &String) -> Self:
+        # <expr>
+        _self
+
+    fn with_project(_self: Self, project: &String) -> Self:
+        # <expr>
+        _self
+
+    fn with_tag(_self: Self, tag: &String) -> Self:
+        # <expr>
+        _self
+
+    fn with_time_range(_self: Self, start: i64, end: i64) -> Self:
+        # <expr>
+        _self
+
+    fn with_limit(_self: Self, limit: usize) -> Self:
+        # <expr>
+        _self
+
+    fn with_offset(_self: Self, offset: usize) -> Self:
+        # <expr>
+        _self
+
+
+struct StorageMetrics:
+    operation_latency: LatencyStats
+    throughput: ThroughputStats
+    cache_hit_rate: f64
+    storage_utilization: Array<BackendUtilization>
+
+struct LatencyStats:
+    min_ms: f64
+    max_ms: f64
+    avg_ms: f64
+    p95_ms: f64
+    p99_ms: f64
+
+struct ThroughputStats:
+    ops_per_second: f64
+    bytes_per_second: f64
+
+struct BackendUtilization:
+    backend_name: String
+    total_bytes: u64
+    used_bytes: u64
+    item_count: u64
+
+impl Default for StorageMetrics:
+    fn default_() -> Self:
+        # <expr>
+
+
+struct MetricsCollector:
+    total_ops: std::sync::atomic::AtomicU64
+    cache_hits: std::sync::atomic::AtomicU64
+    cache_misses: std::sync::atomic::AtomicU64
+
+impl MetricsCollector:
+    fn new_() -> Self:
+        # <expr>
+
+    fn record_operation(_self: &Self):
+        # <expr>
+
+    fn record_cache_hit(_self: &Self):
+        # <expr>
+
+    fn record_cache_miss(_self: &Self):
+        # <expr>
+
+    fn get_cache_hit_rate(_self: &Self) -> f64:
+        let hits = # <expr>
+        let misses = # <expr>
+        let total = # <expr>
+        # <expr>
+
+
+impl Default for MetricsCollector:
+    fn default_() -> Self:
+        # <expr>
+
+
+enum StorageError:
+    AssetNotFound(types::AssetHandle)
+    InvalidAssetType(String)
+    Serialization(bincode::Error)
+    Backend(String)
+    Compression(String)
+    Transaction(String)
+    Cache(String)
+    Version(String)
+    ImportExport(String)
+    Config(String)
+    Io(std::io::Error)
+    Other(anyhow::Error)
+
+mod storage_tests:
+    fn test_asset_handle_generation():
+        let handle1 = # <expr>
+        let handle2 = # <expr>
+        # <expr>
+
+    fn test_asset_type_detection():
+        let mesh = # <expr>
+        # <expr>
+
+
+struct TransactionManager:
+    pass
+
+impl TransactionManager:
+    fn new_() -> Self:
+        # <expr>
+
+    fn begin(_self: &Self) -> Result<Transaction, Error>:
+        # <expr>
+
+    fn commit(_self: &Self, _tx_id: TransactionId) -> Result<(), Error>:
+        # <expr>
+
+    fn rollback(_self: &Self, _tx_id: TransactionId) -> Result<(), Error>:
+        # <expr>
+
+    fn recover(_self: &Self) -> Result<(), Error>:
+        # <expr>
+
+
+impl Default for TransactionManager:
+    fn default_() -> Self:
+        # <expr>
+
+
+struct Transaction:
+    id: TransactionId
+
+struct AssetHandle:
+    field_0: u64
+
+impl AssetHandle:
+    fn new_() -> Self:
+        # <stmt>
+        # <stmt>
+        # <stmt>
+        # <expr>
+
+
+impl Default for AssetHandle:
+    fn default_() -> Self:
+        # <expr>
+
+
+impl std::fmt::Display for AssetHandle:
+    fn fmt(_self: &Self, f: &mut std::fmt::Formatter<_>) -> Result<(), Error>:
+        # <expr>
+
+
+enum Asset:
+    Mesh(MeshAsset)
+    Animation(AnimationAsset)
+    Texture(TextureAsset)
+    Material(MaterialAsset)
+    SceneGraph(SceneGraphAsset)
+    BinaryBlob(Array<u8>)
+
+enum AssetType:
+    Mesh
+    Animation
+    Texture
+    Material
+    SceneGraph
+    BinaryBlob
+
+impl Asset:
+    fn asset_type(_self: &Self) -> AssetType:
+        # <expr>
+
+
+struct MeshAsset:
+    positions: Array<f32>
+    indices: Array<u32>
+    normals: Option<Array<f32>>
+    uvs: Option<Array<f32>>
+    tangents: Option<Array<f32>>
+    colors: Option<Array<f32>>
+
+struct AnimationAsset:
+    duration: f32
+    keyframes: Array<Keyframe>
+    curves: Array<AnimationCurve>
+    skeleton: Option<SkeletonData>
+
+struct Keyframe:
+    time: f32
+    transform: Transform
+
+struct AnimationCurve:
+    target: String
+    property: String
+    keyframes: Array<f32>
+
+struct SkeletonData:
+    bones: Array<Bone>
+    bind_poses: Array<Transform>
+
+struct Bone:
+    name: String
+    parent: Option<usize>
+
+struct Transform:
+    translation: Array<f32>
+    rotation: Array<f32>
+    scale: Array<f32>
+
+struct TextureAsset:
+    width: u32
+    height: u32
+    depth: u32
+    format: TextureFormat
+    mip_levels: u32
+    data: Array<u8>
+
+enum TextureFormat:
+    RGBA8
+    RGBA16F
+    RGBA32F
+    BC7
+    BC5
+    ETC2
+
+struct MaterialAsset:
+    shader: String
+    parameters: Map<String, MaterialParam>
+    textures: Map<String, AssetHandle>
+
+enum MaterialParam:
+    Float(f32)
+    Vec2(Array<f32>)
+    Vec3(Array<f32>)
+    Vec4(Array<f32>)
+    Int(i32)
+    Bool(Bool)
+
+struct SceneGraphAsset:
+    nodes: Array<SceneNode>
+    root_indices: Array<usize>
+
+struct SceneNode:
+    name: String
+    transform: Transform
+    mesh: Option<AssetHandle>
+    material: Option<AssetHandle>
+    children: Array<usize>
+
+struct AssetMetadata:
+    handle: AssetHandle
+    asset_type: AssetType
+    project_id: String
+    tags: Array<String>
+    size_bytes: u64
+    created_at: i64
+    modified_at: i64
+    version: u32
+    dependencies: Array<AssetHandle>
+    content_hash: Array<u8>
+
+struct VersionManager:
+    backend: impl StorageBackend
+
+impl VersionManager:
+    fn new_(backend: impl StorageBackend) -> Self:
+        # <expr>
+
+    fn create_version(_self: &Self, _handle: crate::storage::types::AssetHandle, _data: Array<u8>) -> Result<crate::storage::types::AssetHandle, Error>:
+        # <expr>
+
+    fn get_version(_self: &Self, _handle: crate::storage::types::AssetHandle, _version: u32) -> Result<Array<u8>, Error>:
+        # <expr>
+
+    fn get_at_time(_self: &Self, _handle: crate::storage::types::AssetHandle, _timestamp: i64) -> Result<Array<u8>, Error>:
+        # <expr>
+
+    fn revert(_self: &Self, _handle: crate::storage::types::AssetHandle, _version: u32) -> Result<crate::storage::types::AssetHandle, Error>:
+        # <expr>
+
+

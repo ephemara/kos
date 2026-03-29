@@ -1,0 +1,46 @@
+# Generated from Rust source by kain import-rust
+# Project Ouroboros — Rust → KAIN → Rust
+
+struct ZenKainContract:
+    host_summary: String
+    module_summary: String
+    actions: Array<ZenKainActionContract>
+    bindings: Array<ZenKainBindingContract>
+    shells: Array<ZenKainShellContract>
+
+struct ZenKainActionContract:
+    key: String
+    label: String
+    description: String
+
+struct ZenKainBindingContract:
+    key: String
+    label: String
+    widget: String
+    description: String
+
+struct ZenKainShellContract:
+    key: String
+    label: String
+    source_path: String
+    root_component: String
+    tags: Array<String>
+
+impl ZenKainContract:
+    fn from_host_and_modules(host: &zen_host::ZenHostApi, modules: &zen_kain_modules::ZenKainModuleRegistry) -> Self:
+        # <expr>
+
+    fn emit_toml(_self: &Self) -> Result<String, String>:
+        # <expr>
+
+
+mod tests:
+    fn emits_contract_toml():
+        let host = # <expr>
+        let modules = # <expr>
+        let contract = # <expr>
+        let toml = # <expr>
+        # <expr>
+        # <expr>
+
+
