@@ -5,12 +5,12 @@
 - Workspace-local dependency edges: 101
 - Aggregators: k-os-backend, k-os-bevy, zen
 - External manifests: 5
-- Extracted artifacts: 86
+- Extracted artifacts: 92
 
 ## External Manifests
 - `kain_runtime_apps` -> `crates/k-os-kain/manifests/runtime_apps.json` (owner `k-os-kain`, 10 items)
 - `kain_spirv_sources` -> `crates/k-os-kain/manifests/sources.json` (owner `k-os-kain`, 57 items)
-- `zen_host_api` -> `crates/zen/resources/host_api.toml` (owner `zen`, 17 items)
+- `zen_host_api` -> `crates/zen/resources/host_api.toml` (owner `zen`, 23 items)
 - `zen_modules` -> `crates/zen/resources/modules.toml` (owner `zen`, 1 items)
 - `zen_runtime` -> `crates/zen/resources/runtime.toml` (owner `zen`, 6 items)
 
@@ -26,4 +26,4 @@
 
 ## Artifact Providers
 - `k-os-kain`: 67 artifacts via [cargo_metadata, manifest_extraction, workspace_metadata.inference, workspace_metadata.override]
-- `zen`: 19 artifacts via [cargo_metadata, manifest_extraction, workspace_metadata.inference, workspace_metadata.override]
+- `zen`: 25 artifacts via [cargo_metadata, manifest_extraction, workspace_metadata.inference, workspace_metadata.override]

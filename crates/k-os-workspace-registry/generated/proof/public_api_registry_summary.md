@@ -1,8 +1,8 @@
 # Public API Proof
 
 - Packages scanned: 47
-- Public API items: 3100
-- Public functions: 464
+- Public API items: 3105
+- Public functions: 469
 - Public methods: 1053
 - Public reexports: 575
 

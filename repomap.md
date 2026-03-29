@@ -155,6 +155,8 @@ Companion artifacts:
                 └── 📂 sculpting_engine
                 └── 📂 shader
                 └── 📂 supermotion
+            └── 📂 fabric
+                └── 📂 zen-dcc
             └── 📂 generated
                 └── 📂 json
                 └── 📂 runtime

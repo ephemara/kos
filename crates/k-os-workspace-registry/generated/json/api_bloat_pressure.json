@@ -151,23 +151,23 @@
       ]
     },
     {
+      "package_name": "k-os-kain",
+      "score": 274,
+      "priority": "medium",
+      "item_count": 70,
+      "callable_count": 51,
+      "reexport_count": 0,
+      "notes": [
+        "public surface is comparatively contained"
+      ]
+    },
+    {
       "package_name": "k-os-mesh",
       "score": 255,
       "priority": "medium",
       "item_count": 73,
       "callable_count": 28,
       "reexport_count": 35,
-      "notes": [
-        "public surface is comparatively contained"
-      ]
-    },
-    {
-      "package_name": "k-os-kain",
-      "score": 249,
-      "priority": "low",
-      "item_count": 65,
-      "callable_count": 46,
-      "reexport_count": 0,
       "notes": [
         "public surface is comparatively contained"
       ]

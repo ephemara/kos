@@ -107,6 +107,14 @@ Companion artifacts:
             └── 📂 shader
             └── 📂 supermotion
                 └── 📂 docs
+        └── 📂 fabric
+            └── 📂 zen-dcc
+                └── 📂 config
+                └── 📂 fabric
+                └── 📂 local_crate
+                └── 📂 scripts
+                └── 📂 shaders
+                └── 📂 src
         └── 📂 generated
             └── 📂 json
             └── 📂 runtime

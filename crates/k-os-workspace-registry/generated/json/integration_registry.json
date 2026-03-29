@@ -453,8 +453,8 @@
         "crate::list_runtime_apps",
         "crate::list_sources"
       ],
-      "pressure_priority": "low",
-      "pressure_score": 249,
+      "pressure_priority": "medium",
+      "pressure_score": 274,
       "notes": [
         "intended for adapter and cross-system composition",
         "public surface is comparatively contained"

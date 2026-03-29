@@ -1,5 +1,24 @@
 # Memory
 
+## 2026-03-27: Zen build and startup unblock after Fabric embed
+
+### What changed
+
+Unblocked `cargo build -p zen` and confirmed the resulting `target/debug/zen.exe` stays alive on launch instead of failing before startup.
+
+Aligned the mixed K_OS + Kain dependency surface so the Zen host can build cleanly after the Fabric embed work. On the K_OS side, moved local `uuid` consumers onto a shared workspace pin in `M:\K_OS\Cargo.toml`. On the Kain side, removed the hard `serde = =1.0.209` pin from `M:\Code\Kain\crates\kain-import\Cargo.toml`, then trimmed unnecessary TypeScript importer edges by making `kain-omni`'s TypeScript lane optional, disabling that feature for `kain-host` and Zen, and narrowing `kain-c-ffi` to the `c` importer feature only. Fixed the remaining Zen compile regression by threading `fabric_service` through the `draw_action_strip` and `draw_runtime_inspector` call paths in `M:\K_OS\crates\zen\src\kain_ui_host.rs`.
+
+### Durable findings
+
+- The real resolver conflict was not just `uuid`; it was the combination of newer UI/runtime crates in K_OS and an exact `serde 1.0.209` pin in upstream `kain-import`.
+- `swc_common 0.38.0` still expects `serde::__private`, so any Zen dependency path that enables the Kain TypeScript importer will break on the modern serde line used by current Bevy/egui/bitflags stacks.
+- Zen's current Fabric host path does not require TypeScript import support to boot or run the embedded DCC workspace. Keeping the TS importer disabled in the Zen-facing `kain-omni` and `kain-host` path is the safer default until SWC is upgraded.
+- When diagnosing Zen startup after cross-repo dependency edits, clear overlapping cargo processes before trusting compiler output. Stale parallel jobs produced misleading errors during this pass.
+
+### Next recommended step
+
+If Zen needs TypeScript import support later, upgrade the upstream SWC stack in `kain-import` instead of reintroducing an exact old serde pin. Keep validating startup from the built `target/debug/zen.exe` after major Kain dependency changes, not just `cargo build`.
+
 ## 2026-03-27: Embedded Fabric subsystem for Zen
 
 ### What changed

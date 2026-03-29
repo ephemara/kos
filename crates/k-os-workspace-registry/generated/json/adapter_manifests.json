@@ -239,7 +239,7 @@
             "crate::list_runtime_apps",
             "crate::list_sources"
           ],
-          "pressure_priority": "low"
+          "pressure_priority": "medium"
         },
         {
           "package_name": "k-os-material",
@@ -664,7 +664,7 @@
             "crate::list_runtime_apps",
             "crate::list_sources"
           ],
-          "pressure_priority": "low"
+          "pressure_priority": "medium"
         },
         {
           "package_name": "k-os-scatter",
@@ -796,7 +796,7 @@
             "crate::list_runtime_apps",
             "crate::list_sources"
           ],
-          "pressure_priority": "low"
+          "pressure_priority": "medium"
         },
         {
           "package_name": "k-os-workspace-registry",

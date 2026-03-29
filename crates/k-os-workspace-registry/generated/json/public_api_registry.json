@@ -1,7 +1,7 @@
 {
   "package_count": 47,
-  "total_item_count": 3100,
-  "total_function_count": 464,
+  "total_item_count": 3105,
+  "total_function_count": 469,
   "total_method_count": 1053,
   "total_reexport_count": 575,
   "packages": [
@@ -15561,8 +15561,8 @@
           "src_path": "crates/k-os-kain/src/lib.rs"
         }
       ],
-      "item_count": 65,
-      "function_count": 41,
+      "item_count": 70,
+      "function_count": 46,
       "method_count": 5,
       "reexport_count": 0,
       "items": [
@@ -15827,6 +15827,28 @@
           "module_path": "crate",
           "item_path": "crate::domain_dir",
           "signature": "fn domain_dir (domain : KainDomain) -> PathBuf",
+          "file_path": "crates/k-os-kain/src/lib.rs",
+          "owner_type": ""
+        },
+        {
+          "target_name": "k_os_kain",
+          "target_kind": "lib",
+          "kind": "function",
+          "source_kind": "definition",
+          "module_path": "crate",
+          "item_path": "crate::fabric_dir",
+          "signature": "fn fabric_dir () -> PathBuf",
+          "file_path": "crates/k-os-kain/src/lib.rs",
+          "owner_type": ""
+        },
+        {
+          "target_name": "k_os_kain",
+          "target_kind": "lib",
+          "kind": "function",
+          "source_kind": "definition",
+          "module_path": "crate",
+          "item_path": "crate::fabric_workspace_dir",
+          "signature": "fn fabric_workspace_dir (workspace_name : & str) -> PathBuf",
           "file_path": "crates/k-os-kain/src/lib.rs",
           "owner_type": ""
         },
@@ -16278,6 +16300,39 @@
           "module_path": "crate",
           "item_path": "crate::workspace_root",
           "signature": "fn workspace_root () -> PathBuf",
+          "file_path": "crates/k-os-kain/src/lib.rs",
+          "owner_type": ""
+        },
+        {
+          "target_name": "k_os_kain",
+          "target_kind": "lib",
+          "kind": "function",
+          "source_kind": "definition",
+          "module_path": "crate",
+          "item_path": "crate::zen_dcc_fabric_dir",
+          "signature": "fn zen_dcc_fabric_dir () -> PathBuf",
+          "file_path": "crates/k-os-kain/src/lib.rs",
+          "owner_type": ""
+        },
+        {
+          "target_name": "k_os_kain",
+          "target_kind": "lib",
+          "kind": "function",
+          "source_kind": "definition",
+          "module_path": "crate",
+          "item_path": "crate::zen_dcc_fabric_intent_registry_path",
+          "signature": "fn zen_dcc_fabric_intent_registry_path () -> PathBuf",
+          "file_path": "crates/k-os-kain/src/lib.rs",
+          "owner_type": ""
+        },
+        {
+          "target_name": "k_os_kain",
+          "target_kind": "lib",
+          "kind": "function",
+          "source_kind": "definition",
+          "module_path": "crate",
+          "item_path": "crate::zen_dcc_fabric_manifest_path",
+          "signature": "fn zen_dcc_fabric_manifest_path () -> PathBuf",
           "file_path": "crates/k-os-kain/src/lib.rs",
           "owner_type": ""
         }
@@ -30712,7 +30767,7 @@
           "source_kind": "definition",
           "module_path": "crate",
           "item_path": "crate::ZenCommand",
-          "signature": "# [derive (Clone , Debug , PartialEq , Serialize , Deserialize)] pub enum ZenCommand { ShellReload , SceneSpawnWorkspaceBox , SceneSelectRelative { step : isize } , SceneClearSelection , SceneRenameSelection { name : String } , SceneSetSelectedTranslation { translation : [f32 ; 3] } , SceneSetSelectedScale { scale : [f32 ; 3] } , CameraFocusSelection , CameraFrameScene , RuntimeSetPlayMode { mode : ZenPlayMode } , }",
+          "signature": "# [derive (Clone , Debug , PartialEq , Serialize , Deserialize)] pub enum ZenCommand { ShellReload , FabricRunIntent { intent_id : String } , SceneSpawnWorkspaceBox , SceneSelectRelative { step : isize } , SceneClearSelection , SceneRenameSelection { name : String } , SceneSetSelectedTranslation { translation : [f32 ; 3] } , SceneSetSelectedScale { scale : [f32 ; 3] } , CameraFocusSelection , CameraFrameScene , RuntimeSetPlayMode { mode : ZenPlayMode } , }",
           "file_path": "crates/zen-core/src/lib.rs",
           "owner_type": ""
         },
@@ -30756,7 +30811,7 @@
           "source_kind": "definition",
           "module_path": "crate",
           "item_path": "crate::ZenEvent",
-          "signature": "# [derive (Clone , Debug , PartialEq , Serialize , Deserialize)] pub enum ZenEvent { SceneChanged { transaction_id : ZenTransactionId , reason : String , } , SelectionChanged { transaction_id : ZenTransactionId , selected_handle : Option < u64 > , } , ShellReloadRequested { transaction_id : ZenTransactionId , } , CameraFocusRequested { transaction_id : ZenTransactionId , } , CameraFrameRequested { transaction_id : ZenTransactionId , } , PlayModeChanged { transaction_id : ZenTransactionId , mode : ZenPlayMode , } , }",
+          "signature": "# [derive (Clone , Debug , PartialEq , Serialize , Deserialize)] pub enum ZenEvent { SceneChanged { transaction_id : ZenTransactionId , reason : String , } , SelectionChanged { transaction_id : ZenTransactionId , selected_handle : Option < u64 > , } , ShellReloadRequested { transaction_id : ZenTransactionId , } , FabricIntentRequested { transaction_id : ZenTransactionId , intent_id : String , } , CameraFocusRequested { transaction_id : ZenTransactionId , } , CameraFrameRequested { transaction_id : ZenTransactionId , } , PlayModeChanged { transaction_id : ZenTransactionId , mode : ZenPlayMode , } , }",
           "file_path": "crates/zen-core/src/lib.rs",
           "owner_type": ""
         },
@@ -30971,7 +31026,7 @@
           "source_kind": "definition",
           "module_path": "crate",
           "item_path": "crate::ZenUiFeatureKind",
-          "signature": "# [derive (Debug , Clone , Serialize , Deserialize)] pub enum ZenUiFeatureKind { ActionStrip , Viewport , SceneTree , SelectionInspector , RuntimeInspector , Timeline , HostApi , Registry , KainStatus , DocumentContext , FileEditor , }",
+          "signature": "# [derive (Debug , Clone , Serialize , Deserialize)] pub enum ZenUiFeatureKind { ActionStrip , Viewport , SceneTree , SelectionInspector , RuntimeInspector , Timeline , HostApi , Registry , KainStatus , Fabric , DocumentContext , FileEditor , }",
           "file_path": "crates/zen-editor/src/lib.rs",
           "owner_type": ""
         },
@@ -31318,7 +31373,7 @@
           "source_kind": "definition",
           "module_path": "crate",
           "item_path": "crate::ZenHostBindingKind",
-          "signature": "# [derive (Clone , Copy , Debug , PartialEq , Eq)] pub enum ZenHostBindingKind { SceneObjects , SceneSelection , SceneViewport , EngineRuntime , EngineKain , EngineTimeline , EngineHostApi , }",
+          "signature": "# [derive (Clone , Copy , Debug , PartialEq , Eq)] pub enum ZenHostBindingKind { SceneObjects , SceneSelection , SceneViewport , EngineRuntime , EngineKain , EngineFabric , EngineTimeline , EngineHostApi , }",
           "file_path": "crates/zen-host/src/lib.rs",
           "owner_type": ""
         },
