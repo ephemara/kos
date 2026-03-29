@@ -228,23 +228,23 @@
       ]
     },
     {
+      "package_name": "zen-editor",
+      "score": 117,
+      "priority": "low",
+      "item_count": 37,
+      "callable_count": 20,
+      "reexport_count": 0,
+      "notes": [
+        "public surface is comparatively contained"
+      ]
+    },
+    {
       "package_name": "k-os-hdr",
       "score": 116,
       "priority": "low",
       "item_count": 34,
       "callable_count": 20,
       "reexport_count": 1,
-      "notes": [
-        "public surface is comparatively contained"
-      ]
-    },
-    {
-      "package_name": "zen-editor",
-      "score": 115,
-      "priority": "low",
-      "item_count": 35,
-      "callable_count": 20,
-      "reexport_count": 0,
       "notes": [
         "public surface is comparatively contained"
       ]

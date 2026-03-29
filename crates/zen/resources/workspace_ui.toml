@@ -2,6 +2,15 @@
 key = "zen.workspace.default.v2"
 title = "Zen Workspace"
 
+[topbar]
+default_group = "workspace.topbar.sculpt"
+
+[[topbar.groups]]
+key = "workspace.topbar.sculpt"
+label = "Sculpt"
+description = "Primary sculpt workflow lane. This top-level group is the first native toolbar seed and is designed to expand into additional tool families over time."
+actions = []
+
 [[documents]]
 key = "document.scene.default"
 title = "Main Scene"

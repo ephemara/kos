@@ -124,6 +124,8 @@ pub(crate) struct ZenKainUiHost {
     command_palette_open: bool,
     command_query: String,
     layout_name_draft: String,
+    active_topbar_group: Option<String>,
+    topbar_expanded: bool,
 }
 
 impl ZenKainUiHost {
@@ -172,6 +174,7 @@ impl ZenKainUiHost {
             ),
             Err(err) => (None, format!("asset import unavailable: {err}")),
         };
+        let active_topbar_group = resolve_default_topbar_group(&workspace);
         let mut host = Self {
             config,
             theme,
@@ -204,6 +207,8 @@ impl ZenKainUiHost {
             command_palette_open: false,
             command_query: String::new(),
             layout_name_draft: String::new(),
+            active_topbar_group,
+            topbar_expanded: false,
         };
         host.reload();
         host
@@ -277,6 +282,21 @@ impl ZenKainUiHost {
                     });
                 self.feature_registry = workspace.feature_registry();
                 self.workspace = workspace;
+                if self
+                    .active_topbar_group
+                    .as_deref()
+                    .map(|group_key| {
+                        !self
+                            .workspace
+                            .topbar
+                            .groups
+                            .iter()
+                            .any(|group| group.key == group_key)
+                    })
+                    .unwrap_or(true)
+                {
+                    self.active_topbar_group = resolve_default_topbar_group(&self.workspace);
+                }
                 let valid_document_keys = self
                     .workspace
                     .documents
@@ -729,11 +749,14 @@ impl ZenKainUiHost {
         render_workspace_topbar(
             ctx,
             &self.theme,
+            &self.workspace,
             &self.workspace.workspace.title,
             self.session.active_document.as_deref(),
             &self.session.viewport_layout,
             runtime.play_mode(),
             scene.selected_details(),
+            &mut self.active_topbar_group,
+            &mut self.topbar_expanded,
         );
 
         let documents = self.combined_documents();
@@ -1166,52 +1189,187 @@ fn apply_editor_theme(ctx: &egui::Context, theme: &ZenUiTheme) {
 fn render_workspace_topbar(
     ctx: &egui::Context,
     theme: &ZenUiTheme,
+    workspace: &ZenWorkspaceManifest,
     workspace_title: &str,
     active_document: Option<&str>,
     viewport_layout: &str,
     play_mode: ZenPlayMode,
     selected: Option<SelectedObjectDetails>,
+    active_topbar_group: &mut Option<String>,
+    topbar_expanded: &mut bool,
 ) {
+    if active_topbar_group
+        .as_deref()
+        .map(|group_key| {
+            !workspace
+                .topbar
+                .groups
+                .iter()
+                .any(|group| group.key == group_key)
+        })
+        .unwrap_or(true)
+    {
+        *active_topbar_group = resolve_default_topbar_group(workspace);
+    }
+
+    let active_group = active_topbar_group.as_deref().and_then(|group_key| {
+        workspace
+            .topbar
+            .groups
+            .iter()
+            .find(|group| group.key == group_key)
+    });
+    let expanded_height = if *topbar_expanded && active_group.is_some() {
+        64.0
+    } else {
+        0.0
+    };
     egui::TopBottomPanel::top("zen-workspace-topbar")
         .resizable(false)
-        .exact_height(42.0)
+        .exact_height(56.0 + expanded_height)
         .frame(
             egui::Frame::default()
                 .fill(theme.palette.toolbar_bg)
-                .inner_margin(egui::Margin::symmetric(10, 8)),
+                .inner_margin(egui::Margin::symmetric(14, 10)),
         )
         .show(ctx, |ui| {
-            ui.horizontal(|ui| {
-                ui.label(
-                    RichText::new(workspace_title)
-                        .strong()
-                        .size(20.0)
-                        .color(ctx.style().visuals.strong_text_color()),
-                );
-                ui.separator();
-                ui.label(
-                    RichText::new(format!("doc {}", active_document.unwrap_or("none")))
-                        .small()
-                        .color(theme.palette.text_muted),
-                );
-                ui.separator();
-                ui.label(
-                    RichText::new(format!("layout {}", viewport_layout))
-                        .small()
-                        .color(theme.palette.text_muted),
-                );
-                ui.separator();
-                ui.label(
-                    RichText::new(format!("mode {:?}", play_mode))
-                        .strong()
-                        .color(ctx.style().visuals.warn_fg_color),
-                );
-                if let Some(selected) = selected {
-                    ui.separator();
-                    ui.label(
-                        RichText::new(format!("selected {}", selected.name))
-                            .color(ctx.style().visuals.hyperlink_color),
-                    );
+            let panel_rect = ui.max_rect();
+            let glow_rect = egui::Rect::from_min_max(
+                egui::pos2(panel_rect.left(), panel_rect.bottom() - 2.0),
+                panel_rect.right_bottom(),
+            );
+            ui.painter().rect_filled(
+                glow_rect,
+                corner_radius(theme.rounding.overlay),
+                Color32::from_rgba_unmultiplied(52, 214, 191, 120),
+            );
+
+            ui.vertical(|ui| {
+                ui.horizontal(|ui| {
+                    ui.spacing_mut().item_spacing = egui::vec2(10.0, 0.0);
+                    ui.vertical(|ui| {
+                        ui.label(
+                            RichText::new(workspace_title)
+                                .strong()
+                                .size(18.0)
+                                .color(ctx.style().visuals.strong_text_color()),
+                        );
+                        ui.label(
+                            RichText::new("ZEN DCC // NATIVE SHELL")
+                                .small()
+                                .monospace()
+                                .color(theme.palette.text_muted),
+                        );
+                    });
+
+                    ui.add_space(18.0);
+                    for group in &workspace.topbar.groups {
+                        let is_active = active_topbar_group.as_deref() == Some(group.key.as_str());
+                        let group_label = if is_active && *topbar_expanded {
+                            format!("{}  v", group.label)
+                        } else {
+                            format!("{}  >", group.label)
+                        };
+                        let button = egui::Button::new(
+                            RichText::new(group_label)
+                                .strong()
+                                .size(14.0)
+                                .color(if is_active {
+                                    ctx.style().visuals.strong_text_color()
+                                } else {
+                                    theme.palette.text_secondary
+                                }),
+                        )
+                        .min_size(Vec2::new(96.0, 30.0))
+                        .corner_radius(corner_radius(theme.rounding.panel))
+                        .fill(if is_active {
+                            theme.palette.panel_bg_alt
+                        } else {
+                            Color32::from_rgba_unmultiplied(255, 255, 255, 10)
+                        })
+                        .stroke(Stroke::new(
+                            1.0,
+                            if is_active {
+                                theme.palette.accent
+                            } else {
+                                theme.palette.border_subtle
+                            },
+                        ));
+                        if ui.add(button).clicked() {
+                            if is_active && *topbar_expanded {
+                                *topbar_expanded = false;
+                            } else {
+                                *active_topbar_group = Some(group.key.clone());
+                                *topbar_expanded = true;
+                            }
+                        }
+                    }
+
+                    ui.with_layout(egui::Layout::right_to_left(egui::Align::Center), |ui| {
+                        if let Some(selected) = selected {
+                            ui.label(
+                                RichText::new(format!("selected {}", selected.name))
+                                    .small()
+                                    .color(ctx.style().visuals.hyperlink_color),
+                            );
+                            ui.separator();
+                        }
+                        ui.label(
+                            RichText::new(format!("{:?}", play_mode).to_ascii_uppercase())
+                                .small()
+                                .strong()
+                                .color(ctx.style().visuals.warn_fg_color),
+                        );
+                        ui.separator();
+                        ui.label(
+                            RichText::new(format!("layout {}", viewport_layout))
+                                .small()
+                                .color(theme.palette.text_muted),
+                        );
+                        ui.separator();
+                        ui.label(
+                            RichText::new(format!("doc {}", active_document.unwrap_or("none")))
+                                .small()
+                                .color(theme.palette.text_muted),
+                        );
+                    });
+                });
+
+                if *topbar_expanded {
+                    if let Some(group) = active_group {
+                        ui.add_space(8.0);
+                        egui::Frame::default()
+                            .fill(theme.palette.panel_bg_alt)
+                            .stroke(Stroke::new(1.0, theme.palette.border_subtle))
+                            .corner_radius(corner_radius(theme.rounding.overlay))
+                            .inner_margin(egui::Margin::symmetric(14, 10))
+                            .show(ui, |ui| {
+                                ui.horizontal_wrapped(|ui| {
+                                    ui.label(
+                                        RichText::new(&group.label)
+                                            .strong()
+                                            .size(16.0)
+                                            .color(ctx.style().visuals.strong_text_color()),
+                                    );
+                                    ui.separator();
+                                    ui.label(
+                                        RichText::new(&group.description)
+                                            .small()
+                                            .color(theme.palette.text_secondary),
+                                    );
+                                });
+                                if group.actions.is_empty() {
+                                    ui.add_space(6.0);
+                                    ui.label(
+                                        RichText::new(
+                                            "This group is scaffolded and ready to grow. Top-level sculpt tools will slot into this expandable surface next.",
+                                        )
+                                        .small()
+                                        .color(theme.palette.text_muted),
+                                    );
+                                }
+                            });
+                    }
                 }
             });
         });
@@ -3295,6 +3453,14 @@ fn build_asset_pipeline() -> Result<AssetPipeline, String> {
     pipeline.register_importer(Arc::new(GltfImporter::new()));
     pipeline.register_importer(Arc::new(ObjImporter::new()));
     Ok(pipeline)
+}
+
+fn resolve_default_topbar_group(workspace: &ZenWorkspaceManifest) -> Option<String> {
+    workspace
+        .topbar
+        .default_group
+        .clone()
+        .or_else(|| workspace.topbar.groups.first().map(|group| group.key.clone()))
 }
 
 fn asset_cache_dir() -> PathBuf {

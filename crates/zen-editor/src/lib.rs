@@ -21,6 +21,7 @@ pub struct ZenEditorSession {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct ZenWorkspaceManifest {
     pub workspace: ZenWorkspaceMeta,
+    pub topbar: ZenWorkspaceTopBar,
     pub documents: Vec<ZenWorkspaceDocument>,
     pub presets: Vec<ZenWorkspacePreset>,
     pub features: Vec<ZenUiFeature>,
@@ -31,6 +32,20 @@ pub struct ZenWorkspaceManifest {
 pub struct ZenWorkspaceMeta {
     pub key: String,
     pub title: String,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct ZenWorkspaceTopBar {
+    pub default_group: Option<String>,
+    pub groups: Vec<ZenWorkspaceTopBarGroup>,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct ZenWorkspaceTopBarGroup {
+    pub key: String,
+    pub label: String,
+    pub description: String,
+    pub actions: Vec<String>,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -178,6 +193,11 @@ impl ZenWorkspaceManifest {
             key: required("workspace key", manifest.workspace.key)?,
             title: required("workspace title", manifest.workspace.title)?,
         };
+        let topbar = manifest
+            .topbar
+            .map(parse_workspace_topbar)
+            .transpose()?
+            .unwrap_or_else(default_workspace_topbar);
         let documents = manifest
             .documents
             .unwrap_or_default()
@@ -249,6 +269,7 @@ impl ZenWorkspaceManifest {
         }
         Ok(Self {
             workspace,
+            topbar,
             documents,
             presets,
             features,
@@ -619,6 +640,7 @@ pub fn sanitize_user_layouts(
 #[derive(Debug, Deserialize)]
 struct ZenWorkspaceManifestFile {
     workspace: ZenWorkspaceMetaFile,
+    topbar: Option<ZenWorkspaceTopBarFile>,
     documents: Option<Vec<ZenWorkspaceDocumentFile>>,
     presets: Option<Vec<ZenWorkspacePresetFile>>,
     features: Vec<ZenUiFeatureFile>,
@@ -629,6 +651,20 @@ struct ZenWorkspaceManifestFile {
 struct ZenWorkspaceMetaFile {
     key: String,
     title: String,
+}
+
+#[derive(Debug, Deserialize)]
+struct ZenWorkspaceTopBarFile {
+    default_group: Option<String>,
+    groups: Option<Vec<ZenWorkspaceTopBarGroupFile>>,
+}
+
+#[derive(Debug, Deserialize)]
+struct ZenWorkspaceTopBarGroupFile {
+    key: String,
+    label: String,
+    description: Option<String>,
+    actions: Option<Vec<String>>,
 }
 
 #[derive(Debug, Deserialize)]
@@ -730,6 +766,47 @@ fn required(label: &str, value: String) -> Result<String, String> {
     }
 }
 
+fn parse_workspace_topbar(file: ZenWorkspaceTopBarFile) -> Result<ZenWorkspaceTopBar, String> {
+    let groups = file
+        .groups
+        .unwrap_or_default()
+        .into_iter()
+        .map(|group| {
+            Ok::<ZenWorkspaceTopBarGroup, String>(ZenWorkspaceTopBarGroup {
+                key: required("topbar group key", group.key)?,
+                label: required("topbar group label", group.label)?,
+                description: group
+                    .description
+                    .map(|value| value.trim().to_string())
+                    .filter(|value| !value.is_empty())
+                    .unwrap_or_else(|| "Workspace tool group".to_string()),
+                actions: group.actions.unwrap_or_default(),
+            })
+        })
+        .collect::<Result<Vec<_>, _>>()?;
+
+    if groups.is_empty() {
+        return Err("Zen workspace topbar must declare at least one group".to_string());
+    }
+
+    Ok(ZenWorkspaceTopBar {
+        default_group: file.default_group.filter(|value| !value.trim().is_empty()),
+        groups,
+    })
+}
+
+fn default_workspace_topbar() -> ZenWorkspaceTopBar {
+    ZenWorkspaceTopBar {
+        default_group: Some("workspace.topbar.sculpt".to_string()),
+        groups: vec![ZenWorkspaceTopBarGroup {
+            key: "workspace.topbar.sculpt".to_string(),
+            label: "Sculpt".to_string(),
+            description: "Primary sculpt workflow lane for Zen. More top-level tool groups can be added here without changing shell code.".to_string(),
+            actions: Vec::new(),
+        }],
+    }
+}
+
 fn tab_vec(keys: &[String]) -> Vec<ZenDockTab> {
     keys.iter()
         .map(|key| ZenDockTab {
@@ -808,6 +885,7 @@ mod tests {
                 .and_then(|document| document.source_path.as_deref()),
             Some("workspace/main_scene.zen")
         );
+        assert!(!manifest.topbar.groups.is_empty());
         assert!(!manifest.presets.is_empty());
         assert!(!manifest.build_dock_state().main_surface().is_empty());
     }
