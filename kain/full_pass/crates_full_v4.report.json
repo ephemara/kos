@@ -1,0 +1,1966 @@
+{
+  "input_path": "M:\\K_OS\\crates",
+  "output_path": "M:\\K_OS\\kain\\full_pass\\crates_full_v4.kn",
+  "target": null,
+  "recursive": true,
+  "flat": false,
+  "include_filters": [],
+  "exclude_filters": [],
+  "discovered_files": 394,
+  "imported_files": 390,
+  "skipped_files": 0,
+  "failed_files": [
+    {
+      "file": "M:\\K_OS\\crates\\zen-mocap-engine\\src\\generated\\kiss_fftr.rs",
+      "module_path": "zen_mocap_engine::src::generated::kiss_fftr",
+      "error": "Failed to parse Rust file: M:\\K_OS\\crates\\zen-mocap-engine\\src\\generated\\kiss_fftr.rs: expected `,`",
+      "repair_hint": "re-run the importer on this file with --report-json to isolate the failing seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\zen-mocap-engine\\src\\generated\\linmath.rs",
+      "module_path": "zen_mocap_engine::src::generated::linmath",
+      "error": "Failed to parse Rust file: M:\\K_OS\\crates\\zen-mocap-engine\\src\\generated\\linmath.rs: expected `,`",
+      "repair_hint": "re-run the importer on this file with --report-json to isolate the failing seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\zen-mocap-engine\\src\\generated\\par_easings.rs",
+      "module_path": "zen_mocap_engine::src::generated::par_easings",
+      "error": "Failed to parse Rust file: M:\\K_OS\\crates\\zen-mocap-engine\\src\\generated\\par_easings.rs: expected `,`",
+      "repair_hint": "re-run the importer on this file with --report-json to isolate the failing seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\zen-mocap-engine\\src\\generated\\perlin.rs",
+      "module_path": "zen_mocap_engine::src::generated::perlin",
+      "error": "Failed to parse Rust file: M:\\K_OS\\crates\\zen-mocap-engine\\src\\generated\\perlin.rs: expected `,`",
+      "repair_hint": "re-run the importer on this file with --report-json to isolate the failing seam"
+    }
+  ],
+  "lossy_diagnostics": [
+    {
+      "file": "M:\\K_OS\\crates\\k-os-animation\\src\\lib.rs",
+      "module_path": null,
+      "diagnostics": [
+        "impl Trait lowered to impl Into"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-asset-pipeline\\src\\exporters\\mod.rs",
+      "module_path": "k_os_asset_pipeline::src::exporters",
+      "diagnostics": [
+        "mod image_exporter; external module declaration (directory import should load image_exporter.rs or image_exporter/mod.rs separately)",
+        "mod obj_exporter; external module declaration (directory import should load obj_exporter.rs or obj_exporter/mod.rs separately)"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-asset-pipeline\\src\\hash.rs",
+      "module_path": "k_os_asset_pipeline::src::hash",
+      "diagnostics": [
+        "array repeat lowered to repeated array elements (count 8192; repeat/cloning semantics not preserved)"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-asset-pipeline\\src\\importers\\mod.rs",
+      "module_path": "k_os_asset_pipeline::src::importers",
+      "diagnostics": [
+        "mod gltf_importer; external module declaration (directory import should load gltf_importer.rs or gltf_importer/mod.rs separately)",
+        "mod image_importer; external module declaration (directory import should load image_importer.rs or image_importer/mod.rs separately)",
+        "mod obj_importer; external module declaration (directory import should load obj_importer.rs or obj_importer/mod.rs separately)"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-asset-pipeline\\src\\lib.rs",
+      "module_path": null,
+      "diagnostics": [
+        "mod asset; external module declaration (directory import should load asset.rs or asset/mod.rs separately)",
+        "mod cache; external module declaration (directory import should load cache.rs or cache/mod.rs separately)",
+        "mod error; external module declaration (directory import should load error.rs or error/mod.rs separately)",
+        "mod exporters; external module declaration (directory import should load exporters.rs or exporters/mod.rs separately)",
+        "mod hash; external module declaration (directory import should load hash.rs or hash/mod.rs separately)",
+        "mod importers; external module declaration (directory import should load importers.rs or importers/mod.rs separately)",
+        "mod metadata; external module declaration (directory import should load metadata.rs or metadata/mod.rs separately)",
+        "mod pipeline; external module declaration (directory import should load pipeline.rs or pipeline/mod.rs separately)",
+        "mod processors; external module declaration (directory import should load processors.rs or processors/mod.rs separately)",
+        "mod thumbnail; external module declaration (directory import should load thumbnail.rs or thumbnail/mod.rs separately)"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-asset-pipeline\\src\\pipeline.rs",
+      "module_path": "k_os_asset_pipeline::src::pipeline",
+      "diagnostics": [
+        "trait AssetImporter supertraits lowered as trait metadata",
+        "trait AssetExporter supertraits lowered as trait metadata",
+        "trait AssetProcessor supertraits lowered as trait metadata",
+        "dyn trait object lowered to impl AssetImporter (dynamic dispatch / vtable semantics erased)",
+        "dyn trait object lowered to impl AssetExporter (dynamic dispatch / vtable semantics erased)",
+        "dyn trait object lowered to impl AssetProcessor (dynamic dispatch / vtable semantics erased)"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-asset-pipeline\\src\\processors\\mod.rs",
+      "module_path": "k_os_asset_pipeline::src::processors",
+      "diagnostics": [
+        "mod metadata_processor; external module declaration (directory import should load metadata_processor.rs or metadata_processor/mod.rs separately)",
+        "mod thumbnail_processor; external module declaration (directory import should load thumbnail_processor.rs or thumbnail_processor/mod.rs separately)",
+        "mod validation_processor; external module declaration (directory import should load validation_processor.rs or validation_processor/mod.rs separately)"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-asset-pipeline\\tests\\property_tests.rs",
+      "module_path": "k_os_asset_pipeline::tests::property_tests",
+      "diagnostics": [
+        "impl Trait lowered to impl Strategy",
+        "macro item proptest preserved as raw macro stub (item/proc macro not lowered yet)",
+        "type placeholder `_` in expression position erased"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-baking\\benches\\baking_bench.rs",
+      "module_path": "k_os_baking::benches::baking_bench",
+      "diagnostics": [
+        "macro item criterion_group preserved as raw macro stub (item/proc macro not lowered yet)",
+        "macro item criterion_main preserved as raw macro stub (item/proc macro not lowered yet)"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-baking\\src\\lib.rs",
+      "module_path": null,
+      "diagnostics": [
+        "mod baking; external module declaration (directory import should load baking.rs or baking/mod.rs separately)",
+        "mod bvh; external module declaration (directory import should load bvh.rs or bvh/mod.rs separately)",
+        "mod cage; external module declaration (directory import should load cage.rs or cage/mod.rs separately)",
+        "mod dilation; external module declaration (directory import should load dilation.rs or dilation/mod.rs separately)",
+        "mod error; external module declaration (directory import should load error.rs or error/mod.rs separately)",
+        "mod map_types; external module declaration (directory import should load map_types.rs or map_types/mod.rs separately)",
+        "mod ray_tracing; external module declaration (directory import should load ray_tracing.rs or ray_tracing/mod.rs separately)"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-baking\\tests\\property_tests.rs",
+      "module_path": "k_os_baking::tests::property_tests",
+      "diagnostics": [
+        "impl Trait lowered to impl Strategy",
+        "macro item proptest preserved as raw macro stub (item/proc macro not lowered yet)"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-bevy\\src\\leash.rs",
+      "module_path": "k_os_bevy::src::leash",
+      "diagnostics": [
+        "array repeat lowered to repeated array elements (count 1024; repeat/cloning semantics not preserved)"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-bevy\\src\\main.rs",
+      "module_path": null,
+      "diagnostics": [
+        "mod leash; external module declaration (directory import should load leash.rs or leash/mod.rs separately)",
+        "mod viewport; external module declaration (directory import should load viewport.rs or viewport/mod.rs separately)",
+        "mod ui; external module declaration (directory import should load ui.rs or ui/mod.rs separately)",
+        "mod tools; external module declaration (directory import should load tools.rs or tools/mod.rs separately)",
+        "mod asset_browser; external module declaration (directory import should load asset_browser.rs or asset_browser/mod.rs separately)",
+        "mod camera_experimental; external module declaration (directory import should load camera_experimental.rs or camera_experimental/mod.rs separately)",
+        "mod gpu_device_bridge; external module declaration (directory import should load gpu_device_bridge.rs or gpu_device_bridge/mod.rs separately)"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-bevy\\src\\materials\\mod.rs",
+      "module_path": "k_os_bevy::src::materials",
+      "diagnostics": [
+        "mod brush_cursor; external module declaration (directory import should load brush_cursor.rs or brush_cursor/mod.rs separately)"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-bevy\\src\\mod.rs",
+      "module_path": "k_os_bevy::src",
+      "diagnostics": [
+        "mod sculpt; external module declaration (directory import should load sculpt.rs or sculpt/mod.rs separately)",
+        "mod layers; external module declaration (directory import should load layers.rs or layers/mod.rs separately)",
+        "mod materials; external module declaration (directory import should load materials.rs or materials/mod.rs separately)",
+        "mod import; external module declaration (directory import should load import.rs or import/mod.rs separately)",
+        "mod selection; external module declaration (directory import should load selection.rs or selection/mod.rs separately)",
+        "mod layers_ui; external module declaration (directory import should load layers_ui.rs or layers_ui/mod.rs separately)",
+        "mod gizmo; external module declaration (directory import should load gizmo.rs or gizmo/mod.rs separately)",
+        "mod egui_components; external module declaration (directory import should load egui_components.rs or egui_components/mod.rs separately)",
+        "mod camera_experimental; external module declaration (directory import should load camera_experimental.rs or camera_experimental/mod.rs separately)",
+        "mod asset_browser; external module declaration (directory import should load asset_browser.rs or asset_browser/mod.rs separately)"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-bevy\\src\\tools\\mod.rs",
+      "module_path": "k_os_bevy::src::tools",
+      "diagnostics": [
+        "mod sculpt; external module declaration (directory import should load sculpt.rs or sculpt/mod.rs separately)",
+        "mod sculpt_panel; external module declaration (directory import should load sculpt_panel.rs or sculpt_panel/mod.rs separately)"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-bevy\\src\\ui\\components.rs",
+      "module_path": "k_os_bevy::src::ui::components",
+      "diagnostics": [
+        "impl Trait lowered to impl FnOnce"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-bevy\\src\\ui\\mod.rs",
+      "module_path": "k_os_bevy::src::ui",
+      "diagnostics": [
+        "mod components; external module declaration (directory import should load components.rs or components/mod.rs separately)",
+        "mod layers_panel; external module declaration (directory import should load layers_panel.rs or layers_panel/mod.rs separately)",
+        "mod surfaces; external module declaration (directory import should load surfaces.rs or surfaces/mod.rs separately)"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-bevy\\src\\ui\\surfaces.rs",
+      "module_path": "k_os_bevy::src::ui::surfaces",
+      "diagnostics": [
+        "impl Trait lowered to impl Into"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-bevy\\src\\viewport\\materials.rs",
+      "module_path": "k_os_bevy::src::viewport::materials",
+      "diagnostics": [
+        "mod brush_cursor; external module declaration (directory import should load brush_cursor.rs or brush_cursor/mod.rs separately)"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-bevy\\src\\viewport\\mod.rs",
+      "module_path": "k_os_bevy::src::viewport",
+      "diagnostics": [
+        "mod gizmo; external module declaration (directory import should load gizmo.rs or gizmo/mod.rs separately)",
+        "mod import; external module declaration (directory import should load import.rs or import/mod.rs separately)",
+        "mod layers; external module declaration (directory import should load layers.rs or layers/mod.rs separately)",
+        "mod materials; external module declaration (directory import should load materials.rs or materials/mod.rs separately)",
+        "mod plugin; external module declaration (directory import should load plugin.rs or plugin/mod.rs separately)",
+        "mod selection; external module declaration (directory import should load selection.rs or selection/mod.rs separately)"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-bevy-lab\\src\\leash.rs",
+      "module_path": "k_os_bevy_lab::src::leash",
+      "diagnostics": [
+        "array repeat lowered to repeated array elements (count 1024; repeat/cloning semantics not preserved)"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-bevy-lab\\src\\main.rs",
+      "module_path": null,
+      "diagnostics": [
+        "mod leash; external module declaration (directory import should load leash.rs or leash/mod.rs separately)",
+        "mod viewport; external module declaration (directory import should load viewport.rs or viewport/mod.rs separately)",
+        "mod ui; external module declaration (directory import should load ui.rs or ui/mod.rs separately)",
+        "mod tools; external module declaration (directory import should load tools.rs or tools/mod.rs separately)",
+        "mod asset_browser; external module declaration (directory import should load asset_browser.rs or asset_browser/mod.rs separately)",
+        "mod camera_experimental; external module declaration (directory import should load camera_experimental.rs or camera_experimental/mod.rs separately)",
+        "mod gpu_device_bridge; external module declaration (directory import should load gpu_device_bridge.rs or gpu_device_bridge/mod.rs separately)",
+        "mod supermotion_lab; external module declaration (directory import should load supermotion_lab.rs or supermotion_lab/mod.rs separately)"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-bevy-lab\\src\\materials\\mod.rs",
+      "module_path": "k_os_bevy_lab::src::materials",
+      "diagnostics": [
+        "mod brush_cursor; external module declaration (directory import should load brush_cursor.rs or brush_cursor/mod.rs separately)"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-bevy-lab\\src\\mod.rs",
+      "module_path": "k_os_bevy_lab::src",
+      "diagnostics": [
+        "mod sculpt; external module declaration (directory import should load sculpt.rs or sculpt/mod.rs separately)",
+        "mod layers; external module declaration (directory import should load layers.rs or layers/mod.rs separately)",
+        "mod materials; external module declaration (directory import should load materials.rs or materials/mod.rs separately)",
+        "mod import; external module declaration (directory import should load import.rs or import/mod.rs separately)",
+        "mod selection; external module declaration (directory import should load selection.rs or selection/mod.rs separately)",
+        "mod layers_ui; external module declaration (directory import should load layers_ui.rs or layers_ui/mod.rs separately)",
+        "mod gizmo; external module declaration (directory import should load gizmo.rs or gizmo/mod.rs separately)",
+        "mod egui_components; external module declaration (directory import should load egui_components.rs or egui_components/mod.rs separately)",
+        "mod camera_experimental; external module declaration (directory import should load camera_experimental.rs or camera_experimental/mod.rs separately)",
+        "mod asset_browser; external module declaration (directory import should load asset_browser.rs or asset_browser/mod.rs separately)"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-bevy-lab\\src\\supermotion_lab.rs",
+      "module_path": "k_os_bevy_lab::src::supermotion_lab",
+      "diagnostics": [
+        "array repeat lowered to repeated array elements (count 4; repeat/cloning semantics not preserved)"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-bevy-lab\\src\\tools\\mod.rs",
+      "module_path": "k_os_bevy_lab::src::tools",
+      "diagnostics": [
+        "mod sculpt; external module declaration (directory import should load sculpt.rs or sculpt/mod.rs separately)",
+        "mod sculpt_panel; external module declaration (directory import should load sculpt_panel.rs or sculpt_panel/mod.rs separately)"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-bevy-lab\\src\\ui\\components.rs",
+      "module_path": "k_os_bevy_lab::src::ui::components",
+      "diagnostics": [
+        "impl Trait lowered to impl FnOnce"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-bevy-lab\\src\\ui\\mod.rs",
+      "module_path": "k_os_bevy_lab::src::ui",
+      "diagnostics": [
+        "mod components; external module declaration (directory import should load components.rs or components/mod.rs separately)",
+        "mod layers_panel; external module declaration (directory import should load layers_panel.rs or layers_panel/mod.rs separately)",
+        "mod surfaces; external module declaration (directory import should load surfaces.rs or surfaces/mod.rs separately)"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-bevy-lab\\src\\ui\\surfaces.rs",
+      "module_path": "k_os_bevy_lab::src::ui::surfaces",
+      "diagnostics": [
+        "impl Trait lowered to impl Into"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-bevy-lab\\src\\viewport\\materials.rs",
+      "module_path": "k_os_bevy_lab::src::viewport::materials",
+      "diagnostics": [
+        "mod brush_cursor; external module declaration (directory import should load brush_cursor.rs or brush_cursor/mod.rs separately)"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-bevy-lab\\src\\viewport\\mod.rs",
+      "module_path": "k_os_bevy_lab::src::viewport",
+      "diagnostics": [
+        "mod gizmo; external module declaration (directory import should load gizmo.rs or gizmo/mod.rs separately)",
+        "mod import; external module declaration (directory import should load import.rs or import/mod.rs separately)",
+        "mod layers; external module declaration (directory import should load layers.rs or layers/mod.rs separately)",
+        "mod materials; external module declaration (directory import should load materials.rs or materials/mod.rs separately)",
+        "mod plugin; external module declaration (directory import should load plugin.rs or plugin/mod.rs separately)",
+        "mod selection; external module declaration (directory import should load selection.rs or selection/mod.rs separately)"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-brushes\\src\\gpu_params.rs",
+      "module_path": "k_os_brushes::src::gpu_params",
+      "diagnostics": [
+        "impl associated const SIZE skipped"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-brushes\\src\\gpu_params_v2.rs",
+      "module_path": "k_os_brushes::src::gpu_params_v2",
+      "diagnostics": [
+        "impl associated const SIZE skipped",
+        "impl associated const _SIZE_CHECK skipped",
+        "array repeat lowered to repeated array elements (count 24; repeat/cloning semantics not preserved)",
+        "array repeat lowered to repeated array elements (count 4; repeat/cloning semantics not preserved)"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-brushes\\src\\lib.rs",
+      "module_path": null,
+      "diagnostics": [
+        "mod asset; external module declaration (directory import should load asset.rs or asset/mod.rs separately)",
+        "mod curve; external module declaration (directory import should load curve.rs or curve/mod.rs separately)",
+        "mod gpu_params; external module declaration (directory import should load gpu_params.rs or gpu_params/mod.rs separately)",
+        "mod gpu_params_v2; external module declaration (directory import should load gpu_params_v2.rs or gpu_params_v2/mod.rs separately)",
+        "mod library; external module declaration (directory import should load library.rs or library/mod.rs separately)",
+        "mod paint_wasm; external module declaration (directory import should load paint_wasm.rs or paint_wasm/mod.rs separately)",
+        "mod registry; external module declaration (directory import should load registry.rs or registry/mod.rs separately)"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-brushes\\src\\library.rs",
+      "module_path": "k_os_brushes::src::library",
+      "diagnostics": [
+        "impl method from_env_with where-clause skipped"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-config\\src\\config\\mod.rs",
+      "module_path": "k_os_config::src::config",
+      "diagnostics": [
+        "mod loader; external module declaration (directory import should load loader.rs or loader/mod.rs separately)",
+        "mod registry; external module declaration (directory import should load registry.rs or registry/mod.rs separately)",
+        "mod types; external module declaration (directory import should load types.rs or types/mod.rs separately)",
+        "mod validation; external module declaration (directory import should load validation.rs or validation/mod.rs separately)",
+        "mod watcher; external module declaration (directory import should load watcher.rs or watcher/mod.rs separately)"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-config\\src\\config\\watcher.rs",
+      "module_path": "k_os_config::src::config::watcher",
+      "diagnostics": [
+        "dyn trait object lowered to impl Watcher (dynamic dispatch / vtable semantics erased)"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-config\\src\\lib.rs",
+      "module_path": null,
+      "diagnostics": [
+        "mod config; external module declaration (directory import should load config.rs or config/mod.rs separately)"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-config\\src\\mod.rs",
+      "module_path": "k_os_config::src",
+      "diagnostics": [
+        "mod registry; external module declaration (directory import should load registry.rs or registry/mod.rs separately)",
+        "mod types; external module declaration (directory import should load types.rs or types/mod.rs separately)",
+        "mod loader; external module declaration (directory import should load loader.rs or loader/mod.rs separately)",
+        "mod watcher; external module declaration (directory import should load watcher.rs or watcher/mod.rs separately)",
+        "mod validation; external module declaration (directory import should load validation.rs or validation/mod.rs separately)"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-config\\src\\watcher.rs",
+      "module_path": "k_os_config::src::watcher",
+      "diagnostics": [
+        "dyn trait object lowered to impl Watcher (dynamic dispatch / vtable semantics erased)"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-eval\\src\\lib.rs",
+      "module_path": null,
+      "diagnostics": [
+        "mod linalg; external module declaration (directory import should load linalg.rs or linalg/mod.rs separately)",
+        "mod mesh_pipeline; external module declaration (directory import should load mesh_pipeline.rs or mesh_pipeline/mod.rs separately)",
+        "trait EvalNode associated type Output skipped",
+        "dyn trait object lowered to impl Any (dynamic dispatch / vtable semantics erased)",
+        "impl method evaluate_node where-clause skipped"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-eval\\src\\mesh_pipeline.rs",
+      "module_path": "k_os_eval::src::mesh_pipeline",
+      "diagnostics": [
+        "impl associated type Output skipped"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-external\\src\\external\\mod.rs",
+      "module_path": "k_os_external::src::external",
+      "diagnostics": [
+        "mod instant_meshes; external module declaration (directory import should load instant_meshes.rs or instant_meshes/mod.rs separately)"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-external\\src\\lib.rs",
+      "module_path": null,
+      "diagnostics": [
+        "mod external; external module declaration (directory import should load external.rs or external/mod.rs separately)"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-game-play\\src\\lib.rs",
+      "module_path": null,
+      "diagnostics": [
+        "impl Trait lowered to impl IntoIterator"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-game-runtime\\src\\lib.rs",
+      "module_path": null,
+      "diagnostics": [
+        "impl Trait lowered to impl AsRef"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-gizmo\\src\\config.rs",
+      "module_path": "k_os_gizmo::src::config",
+      "diagnostics": [
+        "impl associated type Target skipped"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-gizmo\\src\\gizmo.rs",
+      "module_path": "k_os_gizmo::src::gizmo",
+      "diagnostics": [
+        "impl associated type Output skipped"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-gizmo\\src\\lib.rs",
+      "module_path": null,
+      "diagnostics": [
+        "mod shape; external module declaration (directory import should load shape.rs or shape/mod.rs separately)",
+        "mod subgizmo; external module declaration (directory import should load subgizmo.rs or subgizmo/mod.rs separately)",
+        "mod config; external module declaration (directory import should load config.rs or config/mod.rs separately)",
+        "mod gizmo; external module declaration (directory import should load gizmo.rs or gizmo/mod.rs separately)",
+        "mod math; external module declaration (directory import should load math.rs or math/mod.rs separately)",
+        "mod prelude; external module declaration (directory import should load prelude.rs or prelude/mod.rs separately)"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-gizmo\\src\\math.rs",
+      "module_path": "k_os_gizmo::src::math",
+      "diagnostics": [
+        "impl Trait lowered to impl Into"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-gizmo\\src\\shape.rs",
+      "module_path": "k_os_gizmo::src::shape",
+      "diagnostics": [
+        "impl Trait lowered to impl Into"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-gizmo\\src\\subgizmo\\arcball.rs",
+      "module_path": "k_os_gizmo::src::subgizmo::arcball",
+      "diagnostics": [
+        "impl associated type Params skipped",
+        "impl associated type State skipped",
+        "impl associated type PickPreview skipped",
+        "impl method pick_preview where-clause skipped"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-gizmo\\src\\subgizmo\\rotation.rs",
+      "module_path": "k_os_gizmo::src::subgizmo::rotation",
+      "diagnostics": [
+        "impl associated type Params skipped",
+        "impl associated type State skipped",
+        "impl associated type PickPreview skipped",
+        "impl method pick_preview where-clause skipped"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-gizmo\\src\\subgizmo\\scale.rs",
+      "module_path": "k_os_gizmo::src::subgizmo::scale",
+      "diagnostics": [
+        "impl associated type Params skipped",
+        "impl associated type State skipped",
+        "impl associated type PickPreview skipped",
+        "impl method pick_preview where-clause skipped"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-gizmo\\src\\subgizmo\\translation.rs",
+      "module_path": "k_os_gizmo::src::subgizmo::translation",
+      "diagnostics": [
+        "impl associated type Params skipped",
+        "impl associated type State skipped",
+        "impl associated type PickPreview skipped"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-gizmo\\src\\subgizmo.rs",
+      "module_path": "k_os_gizmo::src::subgizmo",
+      "diagnostics": [
+        "mod arcball; external module declaration (directory import should load arcball.rs or arcball/mod.rs separately)",
+        "mod common; external module declaration (directory import should load common.rs or common/mod.rs separately)",
+        "mod rotation; external module declaration (directory import should load rotation.rs or rotation/mod.rs separately)",
+        "mod scale; external module declaration (directory import should load scale.rs or scale/mod.rs separately)",
+        "mod translation; external module declaration (directory import should load translation.rs or translation/mod.rs separately)",
+        "trait SubGizmoKind lifetime supertrait 'static' skipped",
+        "trait SubGizmoKind associated type Params skipped",
+        "trait SubGizmoKind associated type State skipped",
+        "trait SubGizmoKind associated type PickPreview skipped",
+        "trait method SubGizmoKind::pick where-clause skipped",
+        "trait method SubGizmoKind::update where-clause skipped",
+        "trait method SubGizmoKind::draw where-clause skipped",
+        "trait method SubGizmoKind::pick_preview where-clause skipped",
+        "impl associated type Target skipped",
+        "impl where-clause skipped"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-gpu-pipeline\\src\\atlas\\mod.rs",
+      "module_path": "k_os_gpu_pipeline::src::atlas",
+      "diagnostics": [
+        "mod commands; external module declaration (directory import should load commands.rs or commands/mod.rs separately)",
+        "mod packer; external module declaration (directory import should load packer.rs or packer/mod.rs separately)",
+        "mod projector; external module declaration (directory import should load projector.rs or projector/mod.rs separately)"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-gpu-pipeline\\src\\brush\\mod.rs",
+      "module_path": "k_os_gpu_pipeline::src::brush",
+      "diagnostics": [
+        "mod alpha_pool; external module declaration (directory import should load alpha_pool.rs or alpha_pool/mod.rs separately)",
+        "mod procedural; external module declaration (directory import should load procedural.rs or procedural/mod.rs separately)"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-gpu-pipeline\\src\\device.rs",
+      "module_path": "k_os_gpu_pipeline::src::device",
+      "diagnostics": [
+        "macro item thread_local preserved as raw macro stub (item/proc macro not lowered yet)",
+        "dyn trait object lowered to impl Fn (dynamic dispatch / vtable semantics erased)",
+        "impl Trait lowered to impl Fn",
+        "impl Trait lowered to impl IntoIterator"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-gpu-pipeline\\src\\lib.rs",
+      "module_path": null,
+      "diagnostics": [
+        "mod atlas; external module declaration (directory import should load atlas.rs or atlas/mod.rs separately)",
+        "mod brush; external module declaration (directory import should load brush.rs or brush/mod.rs separately)",
+        "mod buffer_pool; external module declaration (directory import should load buffer_pool.rs or buffer_pool/mod.rs separately)",
+        "mod device; external module declaration (directory import should load device.rs or device/mod.rs separately)",
+        "mod error; external module declaration (directory import should load error.rs or error/mod.rs separately)",
+        "mod hot_reload; external module declaration (directory import should load hot_reload.rs or hot_reload/mod.rs separately)",
+        "mod mesh_bridge; external module declaration (directory import should load mesh_bridge.rs or mesh_bridge/mod.rs separately)",
+        "mod normals; external module declaration (directory import should load normals.rs or normals/mod.rs separately)",
+        "mod performance; external module declaration (directory import should load performance.rs or performance/mod.rs separately)",
+        "mod pipeline_cache; external module declaration (directory import should load pipeline_cache.rs or pipeline_cache/mod.rs separately)",
+        "mod pipelines; external module declaration (directory import should load pipelines.rs or pipelines/mod.rs separately)",
+        "mod raycast; external module declaration (directory import should load raycast.rs or raycast/mod.rs separately)",
+        "mod sculpt; external module declaration (directory import should load sculpt.rs or sculpt/mod.rs separately)",
+        "mod spatial; external module declaration (directory import should load spatial.rs or spatial/mod.rs separately)",
+        "mod spirv_loader; external module declaration (directory import should load spirv_loader.rs or spirv_loader/mod.rs separately)",
+        "mod staging; external module declaration (directory import should load staging.rs or staging/mod.rs separately)",
+        "mod svt; external module declaration (directory import should load svt.rs or svt/mod.rs separately)",
+        "impl Trait lowered to impl Into"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-gpu-pipeline\\src\\pipeline_cache.rs",
+      "module_path": "k_os_gpu_pipeline::src::pipeline_cache",
+      "diagnostics": [
+        "impl Trait lowered to impl Into"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-gpu-pipeline\\src\\pipelines\\dynamesh.rs",
+      "module_path": "k_os_gpu_pipeline::src::pipelines::dynamesh",
+      "diagnostics": [
+        "array repeat lowered to repeated array elements (count 3; repeat/cloning semantics not preserved)",
+        "array repeat lowered to repeated array elements (count 12; repeat/cloning semantics not preserved)",
+        "macro item thread_local preserved as raw macro stub (item/proc macro not lowered yet)"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-gpu-pipeline\\src\\pipelines\\mod.rs",
+      "module_path": "k_os_gpu_pipeline::src::pipelines",
+      "diagnostics": [
+        "mod dynamesh; external module declaration (directory import should load dynamesh.rs or dynamesh/mod.rs separately)",
+        "mod marching_cubes_tables; external module declaration (directory import should load marching_cubes_tables.rs or marching_cubes_tables/mod.rs separately)",
+        "mod pbr; external module declaration (directory import should load pbr.rs or pbr/mod.rs separately)",
+        "mod subdivide_cpu_reference; external module declaration (directory import should load subdivide_cpu_reference.rs or subdivide_cpu_reference/mod.rs separately)",
+        "mod subdivide_v2; external module declaration (directory import should load subdivide_v2.rs or subdivide_v2/mod.rs separately)"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-gpu-pipeline\\src\\raycast\\bvh.rs",
+      "module_path": "k_os_gpu_pipeline::src::raycast::bvh",
+      "diagnostics": [
+        "array repeat lowered to repeated array elements (count 3; repeat/cloning semantics not preserved)",
+        "macro item thread_local preserved as raw macro stub (item/proc macro not lowered yet)"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-gpu-pipeline\\src\\raycast\\mod.rs",
+      "module_path": "k_os_gpu_pipeline::src::raycast",
+      "diagnostics": [
+        "mod bvh; external module declaration (directory import should load bvh.rs or bvh/mod.rs separately)"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-gpu-pipeline\\src\\spatial\\grid.rs",
+      "module_path": "k_os_gpu_pipeline::src::spatial::grid",
+      "diagnostics": [
+        "array repeat lowered to repeated array elements (count 2; repeat/cloning semantics not preserved)"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-gpu-pipeline\\src\\spatial\\mod.rs",
+      "module_path": "k_os_gpu_pipeline::src::spatial",
+      "diagnostics": [
+        "mod grid; external module declaration (directory import should load grid.rs or grid/mod.rs separately)"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-gpu-pipeline\\src\\svt\\commands.rs",
+      "module_path": "k_os_gpu_pipeline::src::svt::commands",
+      "diagnostics": [
+        "macro item lazy_static preserved as raw macro stub (item/proc macro not lowered yet)"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-gpu-pipeline\\src\\svt\\mod.rs",
+      "module_path": "k_os_gpu_pipeline::src::svt",
+      "diagnostics": [
+        "mod commands; external module declaration (directory import should load commands.rs or commands/mod.rs separately)",
+        "mod engine; external module declaration (directory import should load engine.rs or engine/mod.rs separately)",
+        "mod manager; external module declaration (directory import should load manager.rs or manager/mod.rs separately)",
+        "mod pbr_commands; external module declaration (directory import should load pbr_commands.rs or pbr_commands/mod.rs separately)",
+        "mod pbr_engine; external module declaration (directory import should load pbr_engine.rs or pbr_engine/mod.rs separately)"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-gpu-pipeline\\src\\svt\\pbr_commands.rs",
+      "module_path": "k_os_gpu_pipeline::src::svt::pbr_commands",
+      "diagnostics": [
+        "macro item lazy_static preserved as raw macro stub (item/proc macro not lowered yet)"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-gpu-pipeline\\tests\\property_tests.rs",
+      "module_path": "k_os_gpu_pipeline::tests::property_tests",
+      "diagnostics": [
+        "impl Trait lowered to impl Strategy",
+        "macro item proptest preserved as raw macro stub (item/proc macro not lowered yet)"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-hdr\\src\\hdr\\merge.rs",
+      "module_path": "k_os_hdr::src::hdr::merge",
+      "diagnostics": [
+        "array repeat lowered to repeated array elements (count 256; repeat/cloning semantics not preserved)"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-hdr\\src\\hdr\\mod.rs",
+      "module_path": "k_os_hdr::src::hdr",
+      "diagnostics": [
+        "mod io; external module declaration (directory import should load io.rs or io/mod.rs separately)",
+        "mod light_authoring; external module declaration (directory import should load light_authoring.rs or light_authoring/mod.rs separately)",
+        "mod merge; external module declaration (directory import should load merge.rs or merge/mod.rs separately)",
+        "mod tone_mapping; external module declaration (directory import should load tone_mapping.rs or tone_mapping/mod.rs separately)"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-hdr\\src\\lib.rs",
+      "module_path": null,
+      "diagnostics": [
+        "mod hdr; external module declaration (directory import should load hdr.rs or hdr/mod.rs separately)"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-io\\src\\lib.rs",
+      "module_path": null,
+      "diagnostics": [
+        "mod file_ops; external module declaration (directory import should load file_ops.rs or file_ops/mod.rs separately)",
+        "mod material_export; external module declaration (directory import should load material_export.rs or material_export/mod.rs separately)",
+        "mod paths; external module declaration (directory import should load paths.rs or paths/mod.rs separately)",
+        "mod storage; external module declaration (directory import should load storage.rs or storage/mod.rs separately)"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-io\\src\\material_export\\exporters\\mod.rs",
+      "module_path": "k_os_io::src::material_export::exporters",
+      "diagnostics": [
+        "mod gltf; external module declaration (directory import should load gltf.rs or gltf/mod.rs separately)",
+        "mod godot; external module declaration (directory import should load godot.rs or godot/mod.rs separately)",
+        "mod sbsar; external module declaration (directory import should load sbsar.rs or sbsar/mod.rs separately)",
+        "mod unity; external module declaration (directory import should load unity.rs or unity/mod.rs separately)",
+        "mod unreal; external module declaration (directory import should load unreal.rs or unreal/mod.rs separately)"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-io\\src\\material_export\\mod.rs",
+      "module_path": "k_os_io::src::material_export",
+      "diagnostics": [
+        "mod exporters; external module declaration (directory import should load exporters.rs or exporters/mod.rs separately)",
+        "dyn trait object lowered to impl k_os_material::autopbr::export::MaterialExporter (dynamic dispatch / vtable semantics erased)"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-io\\src\\storage\\backends\\mod.rs",
+      "module_path": "k_os_io::src::storage::backends",
+      "diagnostics": [
+        "mod rocksdb; external module declaration (directory import should load rocksdb.rs or rocksdb/mod.rs separately)",
+        "trait StorageBackend supertraits lowered as trait metadata"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-io\\src\\storage\\backends\\rocksdb.rs",
+      "module_path": "k_os_io::src::storage::backends::rocksdb",
+      "diagnostics": [
+        "impl Trait lowered to impl AsRef",
+        "array repeat lowered to repeated array elements (count 8; repeat/cloning semantics not preserved)"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-io\\src\\storage\\entanglement.rs",
+      "module_path": "k_os_io::src::storage::entanglement",
+      "diagnostics": [
+        "dyn trait object lowered to impl StorageBackend (dynamic dispatch / vtable semantics erased)"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-io\\src\\storage\\import_export.rs",
+      "module_path": "k_os_io::src::storage::import_export",
+      "diagnostics": [
+        "array repeat lowered to repeated array elements (count 32; repeat/cloning semantics not preserved)"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-io\\src\\storage\\matrix_db.rs",
+      "module_path": "k_os_io::src::storage::matrix_db",
+      "diagnostics": [
+        "dyn trait object lowered to impl StorageBackend (dynamic dispatch / vtable semantics erased)"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-io\\src\\storage\\mod.rs",
+      "module_path": "k_os_io::src::storage",
+      "diagnostics": [
+        "mod types; external module declaration (directory import should load types.rs or types/mod.rs separately)",
+        "mod engine; external module declaration (directory import should load engine.rs or engine/mod.rs separately)",
+        "mod matrix_db; external module declaration (directory import should load matrix_db.rs or matrix_db/mod.rs separately)",
+        "mod entanglement; external module declaration (directory import should load entanglement.rs or entanglement/mod.rs separately)",
+        "mod version; external module declaration (directory import should load version.rs or version/mod.rs separately)",
+        "mod cache; external module declaration (directory import should load cache.rs or cache/mod.rs separately)",
+        "mod compression; external module declaration (directory import should load compression.rs or compression/mod.rs separately)",
+        "mod transaction; external module declaration (directory import should load transaction.rs or transaction/mod.rs separately)",
+        "mod import_export; external module declaration (directory import should load import_export.rs or import_export/mod.rs separately)",
+        "mod backends; external module declaration (directory import should load backends.rs or backends/mod.rs separately)",
+        "mod config; external module declaration (directory import should load config.rs or config/mod.rs separately)",
+        "mod metrics; external module declaration (directory import should load metrics.rs or metrics/mod.rs separately)"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-io\\src\\storage\\version.rs",
+      "module_path": "k_os_io::src::storage::version",
+      "diagnostics": [
+        "dyn trait object lowered to impl StorageBackend (dynamic dispatch / vtable semantics erased)"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-kain\\domains\\materials\\material_bundle\\material_wgpu_runtime.rs",
+      "module_path": "k_os_kain::domains::materials::material_bundle::material_wgpu_runtime",
+      "diagnostics": [
+        "foreign block `extern \"C\"` skipped (FFI declarations are not lowered yet)"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-kain\\domains\\sculpting\\test\\mod.rs",
+      "module_path": "k_os_kain::domains::sculpting::test",
+      "diagnostics": [
+        "mod validate_spirv; external module declaration (directory import should load validate_spirv.rs or validate_spirv/mod.rs separately)"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-kain\\src\\lib.rs",
+      "module_path": null,
+      "diagnostics": [
+        "impl associated type Error skipped",
+        "macro item include preserved as raw macro stub (item/proc macro not lowered yet)"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-material\\material.rs",
+      "module_path": "k_os_material::material",
+      "diagnostics": [
+        "impl Trait lowered to impl Into",
+        "impl Trait lowered to impl AsRef"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-material\\proptest-regressions\\autopbr\\pbr.rs",
+      "module_path": "k_os_material::proptest_regressions::autopbr::pbr",
+      "diagnostics": [
+        "impl Trait lowered to impl Into"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-material\\src\\autopbr\\export.rs",
+      "module_path": "k_os_material::src::autopbr::export",
+      "diagnostics": [
+        "trait MaterialExporter supertraits lowered as trait metadata",
+        "dyn trait object lowered to impl MaterialExporter (dynamic dispatch / vtable semantics erased)"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-material\\src\\autopbr\\mod.rs",
+      "module_path": "k_os_material::src::autopbr",
+      "diagnostics": [
+        "mod animation; external module declaration (directory import should load animation.rs or animation/mod.rs separately)",
+        "mod asset_manager; external module declaration (directory import should load asset_manager.rs or asset_manager/mod.rs separately)",
+        "mod export; external module declaration (directory import should load export.rs or export/mod.rs separately)",
+        "mod layer; external module declaration (directory import should load layer.rs or layer/mod.rs separately)",
+        "mod parser; external module declaration (directory import should load parser.rs or parser/mod.rs separately)",
+        "mod pbr_maps; external module declaration (directory import should load pbr_maps.rs or pbr_maps/mod.rs separately)",
+        "mod preset_manager; external module declaration (directory import should load preset_manager.rs or preset_manager/mod.rs separately)",
+        "mod proptest_uuid; external module declaration (directory import should load proptest_uuid.rs or proptest_uuid/mod.rs separately)"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-material\\src\\autopbr\\preset_manager.rs",
+      "module_path": "k_os_material::src::autopbr::preset_manager",
+      "diagnostics": [
+        "dyn trait object lowered to impl Watcher (dynamic dispatch / vtable semantics erased)"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-material\\src\\gpu\\mod.rs",
+      "module_path": "k_os_material::src::gpu",
+      "diagnostics": [
+        "mod layer_blend; external module declaration (directory import should load layer_blend.rs or layer_blend/mod.rs separately)"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-material\\src\\lib.rs",
+      "module_path": null,
+      "diagnostics": [
+        "mod autopbr; external module declaration (directory import should load autopbr.rs or autopbr/mod.rs separately)",
+        "mod error; external module declaration (directory import should load error.rs or error/mod.rs separately)",
+        "mod gpu; external module declaration (directory import should load gpu.rs or gpu/mod.rs separately)",
+        "mod library; external module declaration (directory import should load library.rs or library/mod.rs separately)",
+        "mod material; external module declaration (directory import should load material.rs or material/mod.rs separately)",
+        "mod paint_ops; external module declaration (directory import should load paint_ops.rs or paint_ops/mod.rs separately)",
+        "mod pbr; external module declaration (directory import should load pbr.rs or pbr/mod.rs separately)",
+        "mod preset; external module declaration (directory import should load preset.rs or preset/mod.rs separately)",
+        "mod texture; external module declaration (directory import should load texture.rs or texture/mod.rs separately)",
+        "mod texture_ops; external module declaration (directory import should load texture_ops.rs or texture_ops/mod.rs separately)"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-material\\src\\library.rs",
+      "module_path": "k_os_material::src::library",
+      "diagnostics": [
+        "impl Trait lowered to impl Into",
+        "impl Trait lowered to impl Iterator"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-material\\src\\material.rs",
+      "module_path": "k_os_material::src::material",
+      "diagnostics": [
+        "impl Trait lowered to impl Into",
+        "impl Trait lowered to impl AsRef"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-material\\src\\paint_ops.rs",
+      "module_path": "k_os_material::src::paint_ops",
+      "diagnostics": [
+        "macro item lazy_static preserved as raw macro stub (item/proc macro not lowered yet)"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-material\\src\\pbr.rs",
+      "module_path": "k_os_material::src::pbr",
+      "diagnostics": [
+        "impl Trait lowered to impl Into"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-material\\src\\texture_ops\\mod.rs",
+      "module_path": "k_os_material::src::texture_ops",
+      "diagnostics": [
+        "mod noise_brush; external module declaration (directory import should load noise_brush.rs or noise_brush/mod.rs separately)",
+        "mod pbr_generator; external module declaration (directory import should load pbr_generator.rs or pbr_generator/mod.rs separately)",
+        "mod procedural; external module declaration (directory import should load procedural.rs or procedural/mod.rs separately)"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-material\\tests\\property_tests.rs",
+      "module_path": "k_os_material::tests::property_tests",
+      "diagnostics": [
+        "impl Trait lowered to impl Strategy",
+        "macro item proptest preserved as raw macro stub (item/proc macro not lowered yet)"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-material\\tests\\unit_tests.rs",
+      "module_path": "k_os_material::tests::unit_tests",
+      "diagnostics": [
+        "type placeholder `_` in expression position erased"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-mesh\\src\\atlas.rs",
+      "module_path": "k_os_mesh::src::atlas",
+      "diagnostics": [
+        "array repeat lowered to repeated array elements (count 3; repeat/cloning semantics not preserved)"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-mesh\\src\\lib.rs",
+      "module_path": null,
+      "diagnostics": [
+        "mod atlas; external module declaration (directory import should load atlas.rs or atlas/mod.rs separately)",
+        "mod optimize; external module declaration (directory import should load optimize.rs or optimize/mod.rs separately)",
+        "mod primitive_gen; external module declaration (directory import should load primitive_gen.rs or primitive_gen/mod.rs separately)"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-mesh\\src\\primitive_gen.rs",
+      "module_path": "k_os_mesh::src::primitive_gen",
+      "diagnostics": [
+        "impl associated const X skipped",
+        "impl associated const Y skipped",
+        "impl associated const Z skipped",
+        "impl associated const NEG_X skipped",
+        "impl associated const NEG_Y skipped",
+        "impl associated const NEG_Z skipped",
+        "impl associated type Output skipped"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-mesh-processing\\benches\\mesh_processing_bench.rs",
+      "module_path": "k_os_mesh_processing::benches::mesh_processing_bench",
+      "diagnostics": [
+        "macro item criterion_group preserved as raw macro stub (item/proc macro not lowered yet)",
+        "macro item criterion_main preserved as raw macro stub (item/proc macro not lowered yet)"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-mesh-processing\\src\\lib.rs",
+      "module_path": null,
+      "diagnostics": [
+        "mod analysis; external module declaration (directory import should load analysis.rs or analysis/mod.rs separately)",
+        "mod decimation; external module declaration (directory import should load decimation.rs or decimation/mod.rs separately)",
+        "mod error; external module declaration (directory import should load error.rs or error/mod.rs separately)",
+        "mod mesh; external module declaration (directory import should load mesh.rs or mesh/mod.rs separately)",
+        "mod optimization; external module declaration (directory import should load optimization.rs or optimization/mod.rs separately)",
+        "mod repair; external module declaration (directory import should load repair.rs or repair/mod.rs separately)",
+        "mod retopology; external module declaration (directory import should load retopology.rs or retopology/mod.rs separately)",
+        "mod smoothing; external module declaration (directory import should load smoothing.rs or smoothing/mod.rs separately)",
+        "mod spatial; external module declaration (directory import should load spatial.rs or spatial/mod.rs separately)",
+        "mod subdivision; external module declaration (directory import should load subdivision.rs or subdivision/mod.rs separately)",
+        "mod uv; external module declaration (directory import should load uv.rs or uv/mod.rs separately)"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-mesh-processing\\tests\\property_tests.rs",
+      "module_path": "k_os_mesh_processing::tests::property_tests",
+      "diagnostics": [
+        "impl Trait lowered to impl Strategy",
+        "macro item proptest preserved as raw macro stub (item/proc macro not lowered yet)"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-photogrammetry\\src\\lib.rs",
+      "module_path": null,
+      "diagnostics": [
+        "mod photogrammetry; external module declaration (directory import should load photogrammetry.rs or photogrammetry/mod.rs separately)"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-photogrammetry\\src\\photogrammetry\\mod.rs",
+      "module_path": "k_os_photogrammetry::src::photogrammetry",
+      "diagnostics": [
+        "mod feature_detection; external module declaration (directory import should load feature_detection.rs or feature_detection/mod.rs separately)",
+        "mod feature_matching; external module declaration (directory import should load feature_matching.rs or feature_matching/mod.rs separately)",
+        "mod mesh_generation; external module declaration (directory import should load mesh_generation.rs or mesh_generation/mod.rs separately)",
+        "mod pbr_extraction; external module declaration (directory import should load pbr_extraction.rs or pbr_extraction/mod.rs separately)",
+        "mod reconstruction; external module declaration (directory import should load reconstruction.rs or reconstruction/mod.rs separately)",
+        "mod texture_projection; external module declaration (directory import should load texture_projection.rs or texture_projection/mod.rs separately)"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-plugin\\src\\context.rs",
+      "module_path": "k_os_plugin::src::context",
+      "diagnostics": [
+        "impl Trait lowered to impl Into"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-plugin\\src\\lib.rs",
+      "module_path": null,
+      "diagnostics": [
+        "mod context; external module declaration (directory import should load context.rs or context/mod.rs separately)",
+        "mod error; external module declaration (directory import should load error.rs or error/mod.rs separately)",
+        "mod manager; external module declaration (directory import should load manager.rs or manager/mod.rs separately)",
+        "mod plugin; external module declaration (directory import should load plugin.rs or plugin/mod.rs separately)",
+        "mod resource_limits; external module declaration (directory import should load resource_limits.rs or resource_limits/mod.rs separately)"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-plugin\\src\\manager.rs",
+      "module_path": "k_os_plugin::src::manager",
+      "diagnostics": [
+        "dyn trait object lowered to impl Plugin (dynamic dispatch / vtable semantics erased)"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-plugin\\src\\plugin.rs",
+      "module_path": "k_os_plugin::src::plugin",
+      "diagnostics": [
+        "trait Plugin supertraits lowered as trait metadata",
+        "dyn trait object lowered to impl Plugin (dynamic dispatch / vtable semantics erased)"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-plugin\\src\\resource_limits.rs",
+      "module_path": "k_os_plugin::src::resource_limits",
+      "diagnostics": [
+        "impl Trait lowered to impl Into"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-plugin\\tests\\integration_tests.rs",
+      "module_path": "k_os_plugin::tests::integration_tests",
+      "diagnostics": [
+        "impl Trait lowered to impl Into"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-plugin\\tests\\property_tests.rs",
+      "module_path": "k_os_plugin::tests::property_tests",
+      "diagnostics": [
+        "macro item proptest preserved as raw macro stub (item/proc macro not lowered yet)"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-plugin\\tests\\unit_tests.rs",
+      "module_path": "k_os_plugin::tests::unit_tests",
+      "diagnostics": [
+        "impl Trait lowered to impl Into"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-renderer\\src\\bridge.rs",
+      "module_path": "k_os_renderer::src::bridge",
+      "diagnostics": [
+        "trait EvaluatedMeshSource supertraits lowered as trait metadata",
+        "trait RendererUploadBridge supertraits lowered as trait metadata",
+        "dyn trait object lowered to impl EvaluatedMeshSource (dynamic dispatch / vtable semantics erased)"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-renderer\\src\\lib.rs",
+      "module_path": null,
+      "diagnostics": [
+        "mod bridge; external module declaration (directory import should load bridge.rs or bridge/mod.rs separately)",
+        "mod camera; external module declaration (directory import should load camera.rs or camera/mod.rs separately)",
+        "mod mesh; external module declaration (directory import should load mesh.rs or mesh/mod.rs separately)",
+        "mod picking; external module declaration (directory import should load picking.rs or picking/mod.rs separately)",
+        "mod render_graph; external module declaration (directory import should load render_graph.rs or render_graph/mod.rs separately)",
+        "mod service; external module declaration (directory import should load service.rs or service/mod.rs separately)",
+        "mod types; external module declaration (directory import should load types.rs or types/mod.rs separately)",
+        "mod viewport; external module declaration (directory import should load viewport.rs or viewport/mod.rs separately)",
+        "dyn trait object lowered to impl crate::bridge::EvaluatedMeshSource (dynamic dispatch / vtable semantics erased)"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-renderer\\src\\render_graph.rs",
+      "module_path": "k_os_renderer::src::render_graph",
+      "diagnostics": [
+        "array repeat lowered to repeated array elements (count 16; repeat/cloning semantics not preserved)"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-renderer\\src\\service.rs",
+      "module_path": "k_os_renderer::src::service",
+      "diagnostics": [
+        "dyn trait object lowered to impl EvaluatedMeshSource (dynamic dispatch / vtable semantics erased)",
+        "dyn trait object lowered to impl RendererUploadBridge (dynamic dispatch / vtable semantics erased)"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-renderer\\src\\types.rs",
+      "module_path": "k_os_renderer::src::types",
+      "diagnostics": [
+        "macro_rules! define_handle preserved as macro definition stub with raw token body",
+        "macro item define_handle preserved as raw macro stub (item/proc macro not lowered yet)"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-rig\\src\\lib.rs",
+      "module_path": null,
+      "diagnostics": [
+        "mod commands; external module declaration (directory import should load commands.rs or commands/mod.rs separately)",
+        "mod ik; external module declaration (directory import should load ik.rs or ik/mod.rs separately)",
+        "mod skeleton; external module declaration (directory import should load skeleton.rs or skeleton/mod.rs separately)",
+        "mod skinning; external module declaration (directory import should load skinning.rs or skinning/mod.rs separately)",
+        "mod solver; external module declaration (directory import should load solver.rs or solver/mod.rs separately)"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-rig\\src\\skeleton.rs",
+      "module_path": "k_os_rig::src::skeleton",
+      "diagnostics": [
+        "array repeat lowered to repeated array elements (count 3; repeat/cloning semantics not preserved)"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-rig\\src\\skinning.rs",
+      "module_path": "k_os_rig::src::skinning",
+      "diagnostics": [
+        "array repeat lowered to repeated array elements (count 4; repeat/cloning semantics not preserved)"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-scene\\src\\components.rs",
+      "module_path": "k_os_scene::src::components",
+      "diagnostics": [
+        "impl Trait lowered to impl Into"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-scene\\src\\handles.rs",
+      "module_path": "k_os_scene::src::handles",
+      "diagnostics": [
+        "macro_rules! define_handle preserved as macro definition stub with raw token body",
+        "macro item define_handle preserved as raw macro stub (item/proc macro not lowered yet)"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-scene\\src\\lib.rs",
+      "module_path": null,
+      "diagnostics": [
+        "mod components; external module declaration (directory import should load components.rs or components/mod.rs separately)",
+        "mod handles; external module declaration (directory import should load handles.rs or handles/mod.rs separately)",
+        "mod scene_world; external module declaration (directory import should load scene_world.rs or scene_world/mod.rs separately)"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-scene\\src\\scene_world.rs",
+      "module_path": "k_os_scene::src::scene_world",
+      "diagnostics": [
+        "impl Trait lowered to impl Into"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-scene-runtime\\src\\lib.rs",
+      "module_path": null,
+      "diagnostics": [
+        "mod mesh_state; external module declaration (directory import should load mesh_state.rs or mesh_state/mod.rs separately)",
+        "mod scene_state; external module declaration (directory import should load scene_state.rs or scene_state/mod.rs separately)"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-scene-runtime\\src\\mesh_state.rs",
+      "module_path": "k_os_scene_runtime::src::mesh_state",
+      "diagnostics": [
+        "macro item lazy_static::lazy_static preserved as raw macro stub (item/proc macro not lowered yet)"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-sculpt\\src\\brush_dynamics.rs",
+      "module_path": "k_os_sculpt::src::brush_dynamics",
+      "diagnostics": [
+        "macro item lazy_static preserved as raw macro stub (item/proc macro not lowered yet)"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-sculpt\\src\\brushes\\mod.rs",
+      "module_path": "k_os_sculpt::src::brushes",
+      "diagnostics": [
+        "mod clay_strips; external module declaration (directory import should load clay_strips.rs or clay_strips/mod.rs separately)"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-sculpt\\src\\lib.rs",
+      "module_path": null,
+      "diagnostics": [
+        "mod brush_dynamics; external module declaration (directory import should load brush_dynamics.rs or brush_dynamics/mod.rs separately)",
+        "mod brush_stroke; external module declaration (directory import should load brush_stroke.rs or brush_stroke/mod.rs separately)",
+        "mod brushes; external module declaration (directory import should load brushes.rs or brushes/mod.rs separately)",
+        "mod mask; external module declaration (directory import should load mask.rs or mask/mod.rs separately)",
+        "mod sculpt; external module declaration (directory import should load sculpt.rs or sculpt/mod.rs separately)",
+        "mod tangents; external module declaration (directory import should load tangents.rs or tangents/mod.rs separately)"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-sculpt\\src\\mask.rs",
+      "module_path": "k_os_sculpt::src::mask",
+      "diagnostics": [
+        "macro item lazy_static preserved as raw macro stub (item/proc macro not lowered yet)"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-sculpt\\src\\sculpt.rs",
+      "module_path": "k_os_sculpt::src::sculpt",
+      "diagnostics": [
+        "dyn trait object lowered to impl std::any::Any (dynamic dispatch / vtable semantics erased)",
+        "macro item lazy_static::lazy_static preserved as raw macro stub (item/proc macro not lowered yet)",
+        "array repeat lowered to repeated array elements (count 3; repeat/cloning semantics not preserved)",
+        "macro item thread_local preserved as raw macro stub (item/proc macro not lowered yet)"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-sim\\src\\cfd.rs",
+      "module_path": "k_os_sim::src::cfd",
+      "diagnostics": [
+        "macro item lazy_static preserved as raw macro stub (item/proc macro not lowered yet)"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-sim\\src\\fluid.rs",
+      "module_path": "k_os_sim::src::fluid",
+      "diagnostics": [
+        "macro item lazy_static preserved as raw macro stub (item/proc macro not lowered yet)"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-sim\\src\\lib.rs",
+      "module_path": null,
+      "diagnostics": [
+        "mod cfd; external module declaration (directory import should load cfd.rs or cfd/mod.rs separately)",
+        "mod fluid; external module declaration (directory import should load fluid.rs or fluid/mod.rs separately)",
+        "mod physics; external module declaration (directory import should load physics.rs or physics/mod.rs separately)",
+        "mod quantum; external module declaration (directory import should load quantum.rs or quantum/mod.rs separately)"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-sim\\src\\physics.rs",
+      "module_path": "k_os_sim::src::physics",
+      "diagnostics": [
+        "macro item lazy_static preserved as raw macro stub (item/proc macro not lowered yet)"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-sim\\src\\quantum.rs",
+      "module_path": "k_os_sim::src::quantum",
+      "diagnostics": [
+        "macro item lazy_static preserved as raw macro stub (item/proc macro not lowered yet)",
+        "array repeat lowered to repeated array elements (count 3; repeat/cloning semantics not preserved)"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-undo\\src\\action.rs",
+      "module_path": "k_os_undo::src::action",
+      "diagnostics": [
+        "trait UndoableAction supertraits lowered as trait metadata",
+        "dyn trait object lowered to impl Any (dynamic dispatch / vtable semantics erased)",
+        "dyn trait object lowered to impl UndoableAction (dynamic dispatch / vtable semantics erased)",
+        "trait CompressibleAction supertraits lowered as trait metadata",
+        "trait method CompressibleAction::decompress where-clause skipped"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-undo\\src\\lib.rs",
+      "module_path": null,
+      "diagnostics": [
+        "mod action; external module declaration (directory import should load action.rs or action/mod.rs separately)",
+        "mod error; external module declaration (directory import should load error.rs or error/mod.rs separately)",
+        "mod manager; external module declaration (directory import should load manager.rs or manager/mod.rs separately)"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-undo\\src\\manager.rs",
+      "module_path": "k_os_undo::src::manager",
+      "diagnostics": [
+        "dyn trait object lowered to impl UndoableAction (dynamic dispatch / vtable semantics erased)"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-undo\\tests\\integration_tests.rs",
+      "module_path": "k_os_undo::tests::integration_tests",
+      "diagnostics": [
+        "dyn trait object lowered to impl Any (dynamic dispatch / vtable semantics erased)",
+        "dyn trait object lowered to impl UndoableAction (dynamic dispatch / vtable semantics erased)"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-undo\\tests\\property_tests.rs",
+      "module_path": "k_os_undo::tests::property_tests",
+      "diagnostics": [
+        "dyn trait object lowered to impl Any (dynamic dispatch / vtable semantics erased)",
+        "dyn trait object lowered to impl UndoableAction (dynamic dispatch / vtable semantics erased)",
+        "impl Trait lowered to impl Strategy",
+        "macro item proptest preserved as raw macro stub (item/proc macro not lowered yet)"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-wasm\\src\\lib.rs",
+      "module_path": null,
+      "diagnostics": [
+        "macro item lazy_static preserved as raw macro stub (item/proc macro not lowered yet)"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-workspace-registry\\build.rs",
+      "module_path": "k_os_workspace_registry::build",
+      "diagnostics": [
+        "mod build_integration; external module declaration (directory import should load build_integration.rs or build_integration/mod.rs separately)",
+        "mod build_public_api; external module declaration (directory import should load build_public_api.rs or build_public_api/mod.rs separately)"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\k-os-workspace-registry\\build_public_api.rs",
+      "module_path": "k_os_workspace_registry::build_public_api",
+      "diagnostics": [
+        "type placeholder `_` in expression position erased"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\kos-proto\\src\\krue\\animation.rs",
+      "module_path": "kos_proto::src::krue::animation",
+      "diagnostics": [
+        "impl Trait lowered to impl Into"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\kos-proto\\src\\krue\\async_config.rs",
+      "module_path": "kos_proto::src::krue::async_config",
+      "diagnostics": [
+        "impl Trait lowered to impl Into",
+        "type placeholder `_` in expression position erased"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\kos-proto\\src\\krue\\commands.rs",
+      "module_path": "kos_proto::src::krue::commands",
+      "diagnostics": [
+        "impl Trait lowered to impl Into"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\kos-proto\\src\\krue\\focus.rs",
+      "module_path": "kos_proto::src::krue::focus",
+      "diagnostics": [
+        "impl Trait lowered to impl Into"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\kos-proto\\src\\krue\\mod.rs",
+      "module_path": "kos_proto::src::krue",
+      "diagnostics": [
+        "mod node; external module declaration (directory import should load node.rs or node/mod.rs separately)",
+        "mod commands; external module declaration (directory import should load commands.rs or commands/mod.rs separately)",
+        "mod patches; external module declaration (directory import should load patches.rs or patches/mod.rs separately)",
+        "mod layout; external module declaration (directory import should load layout.rs or layout/mod.rs separately)",
+        "mod focus; external module declaration (directory import should load focus.rs or focus/mod.rs separately)",
+        "mod portal; external module declaration (directory import should load portal.rs or portal/mod.rs separately)",
+        "mod async_config; external module declaration (directory import should load async_config.rs or async_config/mod.rs separately)",
+        "mod animation; external module declaration (directory import should load animation.rs or animation/mod.rs separately)",
+        "mod virtual_list; external module declaration (directory import should load virtual_list.rs or virtual_list/mod.rs separately)"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\kos-proto\\src\\krue\\node.rs",
+      "module_path": "kos_proto::src::krue::node",
+      "diagnostics": [
+        "impl Trait lowered to impl Into"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\kos-proto\\src\\krue\\patches.rs",
+      "module_path": "kos_proto::src::krue::patches",
+      "diagnostics": [
+        "impl Trait lowered to impl Into",
+        "impl Trait lowered to impl Serialize"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\kos-proto\\src\\krue\\virtual_list.rs",
+      "module_path": "kos_proto::src::krue::virtual_list",
+      "diagnostics": [
+        "impl Trait lowered to impl Into"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\kos-proto\\src\\lib.rs",
+      "module_path": null,
+      "diagnostics": [
+        "mod messages; external module declaration (directory import should load messages.rs or messages/mod.rs separately)",
+        "mod state; external module declaration (directory import should load state.rs or state/mod.rs separately)",
+        "mod transport; external module declaration (directory import should load transport.rs or transport/mod.rs separately)",
+        "mod krue; external module declaration (directory import should load krue.rs or krue/mod.rs separately)"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\kos-proto\\src\\transport.rs",
+      "module_path": "kos_proto::src::transport",
+      "diagnostics": [
+        "array repeat lowered to repeated array elements (count 65536; repeat/cloning semantics not preserved)",
+        "impl Trait lowered to impl Iterator"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\zen\\src\\kain_ui_host.rs",
+      "module_path": "zen::src::kain_ui_host",
+      "diagnostics": [
+        "impl associated type Tab skipped",
+        "impl Trait lowered to impl FnOnce",
+        "dyn trait object lowered to impl FnMut (dynamic dispatch / vtable semantics erased)"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\zen\\src\\main.rs",
+      "module_path": null,
+      "diagnostics": [
+        "mod config; external module declaration (directory import should load config.rs or config/mod.rs separately)",
+        "mod fabric; external module declaration (directory import should load fabric.rs or fabric/mod.rs separately)",
+        "mod input; external module declaration (directory import should load input.rs or input/mod.rs separately)",
+        "mod kain_runtime; external module declaration (directory import should load kain_runtime.rs or kain_runtime/mod.rs separately)",
+        "mod kain_ui_host; external module declaration (directory import should load kain_ui_host.rs or kain_ui_host/mod.rs separately)",
+        "mod post; external module declaration (directory import should load post.rs or post/mod.rs separately)",
+        "mod renderer_session; external module declaration (directory import should load renderer_session.rs or renderer_session/mod.rs separately)",
+        "mod theme; external module declaration (directory import should load theme.rs or theme/mod.rs separately)"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\zen\\src\\scene.rs",
+      "module_path": "zen::src::scene",
+      "diagnostics": [
+        "impl Trait lowered to impl IntoIterator"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\zen-mocap-engine\\src\\dcc\\mod.rs",
+      "module_path": "zen_mocap_engine::src::dcc",
+      "diagnostics": [
+        "mod livelink; external module declaration (directory import should load livelink.rs or livelink/mod.rs separately)",
+        "mod osc_sender; external module declaration (directory import should load osc_sender.rs or osc_sender/mod.rs separately)"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\zen-mocap-engine\\src\\generated\\mod.rs",
+      "module_path": "zen_mocap_engine::src::generated",
+      "diagnostics": [
+        "mod par_easings; external module declaration (directory import should load par_easings.rs or par_easings/mod.rs separately)",
+        "mod linmath; external module declaration (directory import should load linmath.rs or linmath/mod.rs separately)",
+        "mod kiss_fftr; external module declaration (directory import should load kiss_fftr.rs or kiss_fftr/mod.rs separately)",
+        "mod perlin; external module declaration (directory import should load perlin.rs or perlin/mod.rs separately)"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\zen-mocap-engine\\src\\lib.rs",
+      "module_path": null,
+      "diagnostics": [
+        "macro item compile_error preserved as raw macro stub (item/proc macro not lowered yet)",
+        "mod camera; external module declaration (directory import should load camera.rs or camera/mod.rs separately)",
+        "mod animator_plan; external module declaration (directory import should load animator_plan.rs or animator_plan/mod.rs separately)",
+        "mod dcc; external module declaration (directory import should load dcc.rs or dcc/mod.rs separately)",
+        "mod filter; external module declaration (directory import should load filter.rs or filter/mod.rs separately)",
+        "mod gpu_pipeline; external module declaration (directory import should load gpu_pipeline.rs or gpu_pipeline/mod.rs separately)",
+        "mod inference; external module declaration (directory import should load inference.rs or inference/mod.rs separately)",
+        "mod models; external module declaration (directory import should load models.rs or models/mod.rs separately)",
+        "mod rig; external module declaration (directory import should load rig.rs or rig/mod.rs separately)",
+        "mod session; external module declaration (directory import should load session.rs or session/mod.rs separately)",
+        "mod take; external module declaration (directory import should load take.rs or take/mod.rs separately)",
+        "mod timeline_batch; external module declaration (directory import should load timeline_batch.rs or timeline_batch/mod.rs separately)",
+        "mod timeline_bridge_contract; external module declaration (directory import should load timeline_bridge_contract.rs or timeline_bridge_contract/mod.rs separately)",
+        "mod timeline_bridge_runtime; external module declaration (directory import should load timeline_bridge_runtime.rs or timeline_bridge_runtime/mod.rs separately)",
+        "mod timeline_edit; external module declaration (directory import should load timeline_edit.rs or timeline_edit/mod.rs separately)",
+        "mod timeline_event; external module declaration (directory import should load timeline_event.rs or timeline_event/mod.rs separately)",
+        "mod timeline_runtime; external module declaration (directory import should load timeline_runtime.rs or timeline_runtime/mod.rs separately)",
+        "mod timeline_runtime_diagnostics_policy; external module declaration (directory import should load timeline_runtime_diagnostics_policy.rs or timeline_runtime_diagnostics_policy/mod.rs separately)",
+        "mod timeline_surface_contract; external module declaration (directory import should load timeline_surface_contract.rs or timeline_surface_contract/mod.rs separately)",
+        "mod types; external module declaration (directory import should load types.rs or types/mod.rs separately)",
+        "mod video_analyzer; external module declaration (directory import should load video_analyzer.rs or video_analyzer/mod.rs separately)",
+        "mod gpu_chain; external module declaration (directory import should load gpu_chain.rs or gpu_chain/mod.rs separately)",
+        "mod generated; external module declaration (directory import should load generated.rs or generated/mod.rs separately)"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\zen-mocap-engine\\src\\models\\mod.rs",
+      "module_path": "zen_mocap_engine::src::models",
+      "diagnostics": [
+        "dyn trait object lowered to impl Fn (dynamic dispatch / vtable semantics erased)"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\zen-mocap-engine\\src\\rig\\mod.rs",
+      "module_path": "zen_mocap_engine::src::rig",
+      "diagnostics": [
+        "mod topology; external module declaration (directory import should load topology.rs or topology/mod.rs separately)"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\zen-mocap-engine\\src\\take.rs",
+      "module_path": "zen_mocap_engine::src::take",
+      "diagnostics": [
+        "impl Trait lowered to impl Into"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\zen-mocap-engine\\src\\timeline_batch.rs",
+      "module_path": "zen_mocap_engine::src::timeline_batch",
+      "diagnostics": [
+        "impl associated const ALL skipped"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\zen-mocap-engine\\src\\timeline_edit.rs",
+      "module_path": "zen_mocap_engine::src::timeline_edit",
+      "diagnostics": [
+        "impl Trait lowered to impl Into"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\zen-mocap-engine\\src\\timeline_event.rs",
+      "module_path": "zen_mocap_engine::src::timeline_event",
+      "diagnostics": [
+        "impl Trait lowered to impl Into"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\zen-mocap-engine\\src\\types.rs",
+      "module_path": "zen_mocap_engine::src::types",
+      "diagnostics": [
+        "array repeat lowered to repeated array elements (count 3; repeat/cloning semantics not preserved)"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\zen-mocap-engine\\src\\video_analyzer.rs",
+      "module_path": "zen_mocap_engine::src::video_analyzer",
+      "diagnostics": [
+        "impl associated const JOINT_COUNT skipped",
+        "impl associated const MIN_CONFIDENCE skipped",
+        "impl associated const HISTORY_CONFIDENCE_FLOOR skipped",
+        "impl associated const MAX_JOINT_DELTA skipped",
+        "impl associated const MAX_CENTER_JUMP skipped",
+        "impl associated const MIN_VISIBLE_JOINTS skipped",
+        "impl associated const BLEND_ALPHA skipped"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\zen-mocap-engine\\tests\\gpu_spv_pipeline_integration.rs",
+      "module_path": "zen_mocap_engine::tests::gpu_spv_pipeline_integration",
+      "diagnostics": [
+        "array repeat lowered to repeated array elements (count 17; repeat/cloning semantics not preserved)"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    },
+    {
+      "file": "M:\\K_OS\\crates\\zen-scene\\src\\lib.rs",
+      "module_path": null,
+      "diagnostics": [
+        "impl Trait lowered to impl IntoIterator"
+      ],
+      "diagnostic_classes": {},
+      "repair_hint": "search these class markers in the generated .kn or import report; they point at the lowered seam"
+    }
+  ],
+  "diagnostics_by_class": {},
+  "generated_kain_path": "M:\\K_OS\\kain\\full_pass\\crates_full_v4.kn",
+  "compiled_output_path": null,
+  "generated_at_utc": "2026-03-30T00:08:10.951454300+00:00"
+}

@@ -1,7 +1,7 @@
 # K_OS Flow Map
 
 - Directory: `M:\K_OS`
-- Generated (UTC): `2026-03-29T20:00:19.905874+00:00`
+- Generated (UTC): `2026-03-30T00:00:19.974117+00:00`
 - Languages: `JSON, Markdown, Python, Rust, TOML, TSX, TypeScript`
 - Entry files: `src-frontend/App.tsx, src-tauri/src/main.rs, Cargo.toml, src-tauri/Cargo.toml`
 - Manifests: `cargo, cargo, npm, cargo, npm, cargo, cargo, cargo, cargo, cargo, cargo, cargo`
