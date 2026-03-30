@@ -1,5 +1,40 @@
 # Memory
 
+## 2026-03-29: Kain migration architecture target
+
+### What changed
+
+Added a durable migration target at [`M:\K_OS\kain\ARCHITECTURE.md`](M:\K_OS\kain\ARCHITECTURE.md) to define how the imported Kain scaffold should be repaired and organized.
+
+### Durable findings
+
+- Kain is the authored, data-driven layer: manifests, registries, intent graphs, repair scaffolds, and reusable domain descriptions belong there.
+- Native runtime bindings belong in a Kain+native bridge layer; host/backend adapters should stay thin and translate host reality into those contracts.
+- Repaired domains should stay organized by domain lane, with raw imports preserved as evidence until a repaired module can supersede them.
+- The recommended migration order is identity/registries first, then pure data domains, then eval/runtime, renderer-facing domains, tooling, gameplay flows, and finally host-facing surfaces and cleanup.
+- Rewrite hollow contract owners, wrap fragile but useful helpers, and keep clean declarative shapes intact.
+
+### Next recommended step
+
+Use the architecture note as the default target map for future Kain repair work, and keep repairs anchored to the owning Rust crate and contract before widening the surface.
+
+## 2026-03-29: Kain repair-patterns note for hollow imported bodies
+
+### What changed
+
+Added a practical repair-patterns note at [`M:\K_OS\kain\notes\REPAIR_PATTERNS.md`](M:\K_OS\kain\notes\REPAIR_PATTERNS.md) for restoring hollow imported Kain bodies without guessing.
+
+### Durable findings
+
+- The importer tends to preserve structure and damage utility bodies: constructors, cache loaders, serde helpers, and chain-heavy combinators.
+- The most reusable repair shape is "rebuild the contract, then make the code as boring as possible": normalize at the boundary, cache once, sort deterministically, and keep chains only when they still read cleanly.
+- Stubs are only acceptable for unknown or boundary-only behavior. If a function owns a rule, it should be rewritten cleanly instead of left half-restored.
+- Manifest loaders in `crates/k-os-kain` are the clearest examples of the intended pattern: parse leniently, fall back explicitly, and keep the source-of-truth paths stable.
+
+### Next recommended step
+
+Use the note as the default repair guide for future Kain imports, especially when a body looks hollow but the surrounding types still make the intended contract obvious.
+
 ## 2026-03-29: Frontend shared native viewport control plane
 
 ### What changed

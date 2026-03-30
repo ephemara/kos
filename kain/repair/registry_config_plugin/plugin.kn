@@ -1,0 +1,235 @@
+# Kain repair lane: plugin context / manager / limits / monitor
+
+struct PluginContext:
+    capabilities: Map<String, Bool>
+    restricted_resources: Array<String>
+    data: Map<String, serde_json::Value>
+    plugin_name: String
+
+impl PluginContext:
+    fn new_() -> Self:
+        # <expr>
+
+    fn with_name(plugin_name: impl Into<String>) -> Self:
+        # <expr>
+
+    fn plugin_name(_self: &Self) -> &String:
+        # <expr>
+
+    fn register_capability(_self: &mut Self, capability: impl Into<String>):
+        # <expr>
+
+    fn has_capability(_self: &Self, capability: &String) -> Bool:
+        # <expr>
+
+    fn require_capability(_self: &Self, capability: &String) -> Result<(), Error>:
+        # <expr>
+
+    fn add_restricted_resource(_self: &mut Self, resource: impl Into<String>):
+        # <expr>
+
+    fn is_resource_restricted(_self: &Self, resource: &String) -> Bool:
+        # <expr>
+
+    fn check_resource_access(_self: &Self, resource: &String) -> Result<(), Error>:
+        # <expr>
+
+    fn set_data(_self: &mut Self, key: impl Into<String>, value: serde_json::Value):
+        # <expr>
+
+    fn get_data(_self: &Self, key: &String) -> Option<serde_json::Value>:
+        # <expr>
+
+    fn remove_data(_self: &mut Self, key: &String) -> Option<serde_json::Value>:
+        # <expr>
+
+    fn clear_data(_self: &mut Self):
+        # <expr>
+
+    fn log(_self: &Self, level: LogLevel, message: &String):
+        # <expr>
+
+impl Default for PluginContext:
+    fn default_() -> Self:
+        # <expr>
+
+enum LogLevel:
+    Trace
+    Debug
+    Info
+    Warn
+    Error
+
+enum PluginError:
+    PluginNotFound(String)
+    PluginAlreadyLoaded(String)
+    LoadError(String)
+    IncompatibleVersion { plugin_version: String, required_version: String }
+    InitializationError(String)
+    ShutdownError(String)
+    SymbolNotFound(String)
+    ResourceLimitExceeded { resource: String, limit: u64, current: u64 }
+    AccessDenied(String)
+    OperationFailed(String)
+    IoError(std::io::Error)
+    SemverError(semver::Error)
+    Other(String)
+
+struct LoadedPlugin:
+    plugin: impl Plugin
+    library: libloading::Library
+    context: crate::PluginContext
+    resource_monitor: crate::ResourceMonitor
+    path: std::path::PathBuf
+
+struct PluginManager:
+    plugin_dir: std::path::PathBuf
+    plugins: Map<String, LoadedPlugin>
+    default_limits: crate::ResourceLimits
+    strict_version_check: Bool
+
+impl PluginManager:
+    fn new_(plugin_dir: std::path::PathBuf) -> Self:
+        # <expr>
+
+    fn set_default_limits(_self: &mut Self, limits: crate::ResourceLimits):
+        # <expr>
+
+    fn set_strict_version_check(_self: &mut Self, strict: Bool):
+        # <expr>
+
+    fn validate_api_version(_self: &Self, plugin_api_version: &String) -> Result<(), Error>:
+        # <expr>
+
+    fn plugin_dir(_self: &Self) -> &std::path::Path:
+        # <expr>
+
+    fn load_plugin(_self: &mut Self, path: &std::path::Path) -> Result<(), Error>:
+        # host dynamic loading boundary
+        # <expr>
+
+    fn unload_plugin(_self: &mut Self, name: &String) -> Result<(), Error>:
+        # <expr>
+
+    fn get_plugin_info(_self: &Self, name: &String) -> Option<(String, String, String)>:
+        # <expr>
+
+    fn list_plugins(_self: &Self) -> Array<String>:
+        # <expr>
+
+    fn get_plugin_metadata(_self: &Self, name: &String) -> Option<serde_json::Value>:
+        # <expr>
+
+    fn update(_self: &mut Self, delta_time: f32) -> Result<(), Error>:
+        # <expr>
+
+    fn unload_all(_self: &mut Self) -> Result<(), Error>:
+        # <expr>
+
+    fn load_all_plugins(_self: &mut Self) -> Result<(), Error>:
+        # <expr>
+
+impl Drop for PluginManager:
+    fn drop(_self: &mut Self):
+        # <expr>
+
+trait Plugin:
+    fn name(_self: &Self) -> &String:
+        pass
+    fn version(_self: &Self) -> &String:
+        pass
+    fn api_version(_self: &Self) -> &String:
+        pass
+    fn description(_self: &Self) -> &String:
+        "No description provided"
+    fn author(_self: &Self) -> &String:
+        "Unknown"
+    fn initialize(_self: &mut Self, context: &mut crate::PluginContext) -> Result<(), Error>:
+        pass
+    fn shutdown(_self: &mut Self) -> Result<(), Error>:
+        pass
+    fn update(_self: &mut Self, _delta_time: f32) -> Result<(), Error>:
+        # <expr>
+    fn metadata(_self: &Self) -> serde_json::Value:
+        # <expr>
+
+struct ResourceLimits:
+    max_memory_bytes: u64
+    max_cpu_time_ms: u64
+    max_file_handles: u32
+    max_init_time_secs: u64
+
+impl Default for ResourceLimits:
+    fn default_() -> Self:
+        # <expr>
+
+impl ResourceLimits:
+    fn unlimited() -> Self:
+        # <expr>
+
+    fn strict() -> Self:
+        # <expr>
+
+    fn relaxed() -> Self:
+        # <expr>
+
+struct ResourceMonitor:
+    limits: ResourceLimits
+    memory_usage: u64
+    file_handles: u32
+    operation_start: Option<std::time::Instant>
+    system: sysinfo::System
+    plugin_name: String
+
+impl ResourceMonitor:
+    fn new_(plugin_name: impl Into<String>, limits: ResourceLimits) -> Self:
+        # <expr>
+
+    fn start_operation(_self: &Self):
+        # <expr>
+
+    fn check_operation_time(_self: &Self) -> Result<(), Error>:
+        # <expr>
+
+    fn end_operation(_self: &Self):
+        # <expr>
+
+    fn allocate_memory(_self: &Self, bytes: u64) -> Result<(), Error>:
+        # <expr>
+
+    fn deallocate_memory(_self: &Self, bytes: u64):
+        # <expr>
+
+    fn memory_usage(_self: &Self) -> u64:
+        # <expr>
+
+    fn open_file_handle(_self: &Self) -> Result<(), Error>:
+        # <expr>
+
+    fn close_file_handle(_self: &Self):
+        # <expr>
+
+    fn file_handle_count(_self: &Self) -> u32:
+        # <expr>
+
+    fn limits(_self: &Self) -> &ResourceLimits:
+        # <expr>
+
+    fn usage_summary(_self: &Self) -> ResourceUsage:
+        # <expr>
+
+    fn is_near_limit(_self: &Self) -> Bool:
+        # <expr>
+
+struct ResourceUsage:
+    memory_bytes: u64
+    file_handles: u32
+    memory_limit: u64
+    file_handle_limit: u32
+
+impl ResourceUsage:
+    fn memory_percent(_self: &Self) -> f64:
+        # <expr>
+
+    fn file_handle_percent(_self: &Self) -> f64:
+        # <expr>

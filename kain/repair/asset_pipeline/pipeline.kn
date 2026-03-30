@@ -1,0 +1,104 @@
+# Clean repair lane for pipeline orchestration
+
+trait AssetImporter:
+    fn supported_extensions(_self: &Self) -> Array<&str>
+    fn import(_self: &Self, path: &std::path::Path) -> Result<crate::asset::Asset, Error>
+    fn name(_self: &Self) -> &str
+
+trait AssetExporter:
+    fn supported_formats(_self: &Self) -> Array<&str>
+    fn export(_self: &Self, asset: &crate::asset::Asset, path: &std::path::Path) -> Result<(), Error>
+    fn name(_self: &Self) -> &str
+
+trait AssetProcessor:
+    fn process(_self: &Self, asset: &mut crate::asset::Asset) -> Result<(), Error>
+    fn name(_self: &Self) -> &str
+    fn should_process(_self: &Self, asset: &crate::asset::Asset) -> Bool
+
+struct AssetPipeline:
+    cache: crate::cache::AssetCache
+    importers: Map<String, impl AssetImporter>
+    exporters: Map<String, impl AssetExporter>
+    processors: Array<impl AssetProcessor>
+
+impl AssetPipeline:
+    fn new_(cache_dir: std::path::PathBuf) -> Result<Self, Error>:
+        let cache = crate::cache::AssetCache::new_(cache_dir)?
+        Self:
+            cache: cache
+            importers: Map<String, impl AssetImporter>::new()
+            exporters: Map<String, impl AssetExporter>::new()
+            processors: Array<impl AssetProcessor>::new()
+
+    fn register_importer(_self: &Self, importer: impl AssetImporter):
+        for ext in importer.supported_extensions():
+            _self.importers.insert(ext.to_lowercase(), importer)
+
+    fn register_exporter(_self: &Self, exporter: impl AssetExporter):
+        for format in exporter.supported_formats():
+            _self.exporters.insert(format.to_lowercase(), exporter)
+
+    fn register_processor(_self: &Self, processor: impl AssetProcessor):
+        _self.processors.push(processor)
+
+    fn import(_self: &Self, path: &std::path::Path) -> Result<crate::asset::Asset, Error>:
+        if !path.exists():
+            return Err(Error::FileNotFound(path.to_path_buf()))
+
+        if let Some(cached_asset) = _self.cache.get(path)?:
+            return Ok(cached_asset)
+
+        let extension = match path.extension().and_then(|e| e.to_str()):
+            Some(ext): ext.to_lowercase()
+            None: return Err(Error::UnsupportedFormat:
+                extension: "none"
+                supported: _self.list_supported_import_formats()
+            )
+
+        let importer = match _self.importers.get(&extension):
+            Some(importer): importer
+            None: return Err(Error::UnsupportedFormat:
+                extension: extension
+                supported: _self.list_supported_import_formats()
+            )
+
+        let mut asset = importer.import(path)?
+        asset.id = crate::hash::hash_file(path)?
+        _self.process(&mut asset)?
+        _self.cache.put(&asset)?
+        Ok(asset)
+
+    fn export(_self: &Self, asset: &crate::asset::Asset, path: &std::path::Path, format: &str) -> Result<(), Error>:
+        let format = format.to_lowercase()
+        let exporter = match _self.exporters.get(&format):
+            Some(exporter): exporter
+            None: return Err(Error::UnsupportedFormat:
+                extension: format
+                supported: _self.list_supported_export_formats()
+            )
+        exporter.export(asset, path)
+
+    fn process(_self: &Self, asset: &mut crate::asset::Asset) -> Result<(), Error>:
+        for processor in _self.processors.iter():
+            if processor.should_process(asset):
+                processor.process(asset)?
+        Ok(())
+
+    fn clear_cache(_self: &Self) -> Result<(), Error>:
+        _self.cache.clear()
+
+    fn cache_stats(_self: &Self) -> crate::cache::CacheStats:
+        _self.cache.stats()
+
+    fn list_supported_import_formats(_self: &Self) -> String:
+        let mut formats: Array<String> = _self.importers.keys().map(|k| k.clone()).collect()
+        formats.sort()
+        formats.join(", ")
+
+    fn list_supported_export_formats(_self: &Self) -> String:
+        let mut formats: Array<String> = _self.exporters.keys().map(|k| k.clone()).collect()
+        formats.sort()
+        formats.join(", ")
+
+# Heavy codec-specific importers/exporters stay out of this repair lane.
+# They should be reattached from host-backed Rust or generated backends later.
