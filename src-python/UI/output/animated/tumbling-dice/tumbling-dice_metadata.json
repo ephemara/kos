@@ -1,0 +1,32 @@
+{
+  "name": "tumbling-dice",
+  "description": "Dice tumbling animation",
+  "category": "animated",
+  "tags": [
+    "dice",
+    "tumble",
+    "game"
+  ],
+  "generator": "icon",
+  "template_source": "tumbling-dice",
+  "generation_timestamp": "2026-03-07T17:19:50.957931",
+  "dimensions": [
+    128,
+    128
+  ],
+  "format": "png",
+  "file_size": 1194,
+  "color_mode": "RGBA",
+  "has_alpha": true,
+  "dpi": 72,
+  "theme_variant": null,
+  "theme_group": null,
+  "is_animated": true,
+  "animation_type": "tumble",
+  "frame_count": 60,
+  "duration": 2.0,
+  "usage_count": 0,
+  "last_used": null,
+  "validation_passed": true,
+  "validation_warnings": []
+}

@@ -1,0 +1,99 @@
+name: "DIY Paintbrush - Sketchy"
+description: "Hand-drawn paintbrush with wobbly animation"
+generator_type: "icon"
+category: "showcase"
+tags: ["diy", "handdrawn", "paint"]
+
+output_formats: ["png", "svg"]
+dimensions:
+  width: 128
+  height: 128
+
+colors: ["#8b4513", "#ff6b6b", "#2c2c2c"]
+
+params:
+  padding: 12
+  antialias_factor: 2
+  layers:
+    # Brush handle
+    - type: "rect"
+      geometry:
+        x: 58
+        y: 80
+        width: 12
+        height: 45
+        rx: 2
+      fill:
+        type: "linear_gradient"
+        colors: ["#d2691e", "#8b4513"]
+        angle: 0
+      opacity: 1.0
+    
+    # Ferrule (metal part)
+    - type: "rect"
+      geometry:
+        x: 56
+        y: 70
+        width: 16
+        height: 12
+      fill:
+        type: "solid"
+        colors: ["#2c2c2c"]
+      opacity: 1.0
+    
+    # Bristles (rough triangular shape)
+    - type: "polygon"
+      geometry:
+        points: [[64, 70], [74, 35], [54, 35]]
+      fill:
+        type: "linear_gradient"
+        colors: ["#ff6b6b", "#ff4444"]
+        angle: 90
+      opacity: 1.0
+    
+    # Bristle details (lines)
+    - type: "rect"
+      geometry:
+        x: 62
+        y: 40
+        width: 2
+        height: 30
+      fill:
+        type: "solid"
+        colors: ["#2c2c2c"]
+      opacity: 0.2
+    
+    - type: "rect"
+      geometry:
+        x: 66
+        y: 40
+        width: 2
+        height: 30
+      fill:
+        type: "solid"
+        colors: ["#2c2c2c"]
+      opacity: 0.2
+    
+    # Paint drip (circle at tip)
+    - type: "circle"
+      geometry:
+        cx: 64
+        cy: 32
+        r: 6
+      fill:
+        type: "solid"
+        colors: ["#ff6b6b"]
+      opacity: 0.8
+
+animation:
+  enabled: true
+  motion_types: ["wobble"]
+  duration: 2.0
+  fps: 24
+  loop: true
+  easing: "ease-in-out"
+  output_type: "svg_smil"
+  motion_params:
+    wobble:
+      amplitude: 0.08
+      frequency: 3

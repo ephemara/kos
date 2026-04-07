@@ -1,0 +1,312 @@
+# Kain repair lane: config loader :: registry :: schema :: watcher
+
+struct_ ConfigLoader:
+    user_config_dir: std::path::PathBuf
+    project_config_dir: Option<std::path::PathBuf>
+
+    enum_ ConfigCategory:
+        Brushes
+        Tools
+        ExportFormats
+        ViewportPresets
+        GreeblePatterns
+
+        struct_ ValidationResult:
+            valid: Bool
+            errors: Array<String>
+            warnings: Array<String>
+            brush_count: usize
+            tool_count: usize
+            export_format_count: usize
+            viewport_preset_count: usize
+            greeble_pattern_count: usize
+
+            struct_ ConfigPaths:
+                user_config_dir: String
+                project_config_dir: Option<String>
+
+                struct_ ConfigRegistry:
+                    brushes: Map<String, BrushConfig>
+                    tools: Map<String, ToolConfig>
+                    export_formats: Map<String, ExportFormatConfig>
+                    viewport_presets: Map<String, ViewportPresetConfig>
+                    greeble_patterns: Map<String, GreeblePatternConfig>
+                    shading_modes: Map<String, ShadingModeConfig>
+
+                    struct_ BrushConfig:
+                        id: String
+                        name: String
+                        category: BrushCategory
+                        default_size: f32
+                        default_strength: f32
+                        supports_pressure: Bool
+                        gpu_shader: Option<String>
+                        icon: String
+                        parameters: Map<String, BrushParameter>
+
+                        enum_ BrushCategory:
+                            Sculpt
+                            Paint
+                            Mask
+                            Smooth
+
+                            enum_ BrushParameter:
+                                Float { default_: f32, min: f32, max: f32 }
+                                Int { default_: i32, min: i32, max: i32 }
+                                Bool { default_: Bool }
+                                Color { default_: Array<f32> }
+
+                                struct_ ToolConfig:
+                                    id: String
+                                    name: String
+                                    category: String
+                                    icon: String
+                                    shortcut: Option<String>
+                                    parameters: Map<String, BrushParameter>
+
+                                    struct_ ExportFormatConfig:
+                                        id: String
+                                        name: String
+                                        extensions: Array<String>
+                                        supports_meshes: Bool
+                                        supports_textures: Bool
+                                        supports_materials: Bool
+                                        options: Array<ExportOption>
+
+                                        struct_ ExportOption:
+                                            id: String
+                                            label: String
+                                            value_type: ExportOptionType
+
+                                            enum_ ExportOptionType:
+                                                Bool { default_: Bool }
+                                                Int { default_: i32, min: i32, max: i32 }
+                                                Float { default_: f32, min: f32, max: f32 }
+                                                Enum { default_: String, values: Array<String> }
+
+                                                struct_ ViewportPresetConfig:
+                                                    id: String
+                                                    name: String
+                                                    grid_size: f32
+                                                    grid_divisions: u32
+                                                    camera_distance: f32
+                                                    camera_fov: f32
+                                                    lighting: LightingConfig
+
+                                                    struct_ LightingConfig:
+                                                        ambient: f32
+                                                        directional: DirectionalLight
+
+                                                        struct_ DirectionalLight:
+                                                            intensity: f32
+                                                            direction: Array<f32>
+
+                                                            struct_ ShadingModeConfig:
+                                                                id: String
+                                                                name: String
+                                                                app: String
+                                                                mode_index: u32
+                                                                icon: Option<String>
+                                                                description: Option<String>
+
+                                                                struct_ GreeblePatternConfig:
+                                                                    id: String
+                                                                    name: String
+                                                                    category: String
+                                                                    primitives: Array<GreeblePrimitive>
+
+                                                                    struct_ GreeblePrimitive:
+                                                                        primitive_type: PrimitiveType
+                                                                        probability: f32
+                                                                        scale_range: ScaleRange
+
+                                                                        enum_ PrimitiveType:
+                                                                            Box
+                                                                            Cylinder
+                                                                            Sphere
+                                                                            Custom
+
+                                                                            struct_ ScaleRange:
+                                                                                min: Array<f32>
+                                                                                max: Array<f32>
+
+                                                                                struct_ RootConfig:
+                                                                                    brushes: Array<BrushConfig>
+                                                                                    tools: Array<ToolConfig>
+                                                                                    export_formats: Array<ExportFormatConfig>
+                                                                                    viewport_presets: Array<ViewportPresetConfig>
+                                                                                    greeble_patterns: Array<GreeblePatternConfig>
+                                                                                    shading_modes: Array<ShadingModeConfig>
+
+                                                                                    impl_ Default for RootConfig:
+                                                                                        fn default_() -> Self_:
+                                                                                            # <expr>
+
+                                                                                            impl_ Default for LightingConfig:
+                                                                                                fn default_() -> Self_:
+                                                                                                    # <expr>
+
+                                                                                                    impl_ Default for ConfigRegistry:
+                                                                                                        fn default_() -> Self_:
+                                                                                                            # <expr>
+
+                                                                                                            impl_ Default for ConfigLoader:
+                                                                                                                fn default_() -> Self_:
+                                                                                                                    # <expr>
+
+                                                                                                                    impl_ ConfigRegistry:
+                                                                                                                        fn new_() -> Self_:
+                                                                                                                            # <expr>
+
+                                                                                                                            fn with_defaults() -> Self_:
+                                                                                                                                # <expr>
+
+                                                                                                                                fn merge(_self: &mut Self_, other: RootConfig):
+                                                                                                                                    # workspace overlays are merged here, not in callers
+                                                                                                                                    # <expr>
+
+                                                                                                                                    fn to_root_config(_self: &Self_) -> RootConfig:
+                                                                                                                                        # <expr>
+
+                                                                                                                                        fn register_brush(_self: &mut Self_, config: BrushConfig):
+                                                                                                                                            # <expr>
+
+                                                                                                                                            fn get_brush(_self: &Self_, id: &String) -> Option<&BrushConfig>:
+                                                                                                                                                # <expr>
+
+                                                                                                                                                fn list_brushes(_self: &Self_) -> Array<&BrushConfig>:
+                                                                                                                                                    # <expr>
+
+                                                                                                                                                    fn list_brushes_by_category(_self: &Self_, category: BrushCategory) -> Array<&BrushConfig>:
+                                                                                                                                                        # <expr>
+
+                                                                                                                                                        fn register_tool(_self: &mut Self_, config: ToolConfig):
+                                                                                                                                                            # <expr>
+
+                                                                                                                                                            fn get_tool(_self: &Self_, id: &String) -> Option<&ToolConfig>:
+                                                                                                                                                                # <expr>
+
+                                                                                                                                                                fn list_tools(_self: &Self_) -> Array<&ToolConfig>:
+                                                                                                                                                                    # <expr>
+
+                                                                                                                                                                    fn register_export_format(_self: &mut Self_, config: ExportFormatConfig):
+                                                                                                                                                                        # <expr>
+
+                                                                                                                                                                        fn get_export_format(_self: &Self_, id: &String) -> Option<&ExportFormatConfig>:
+                                                                                                                                                                            # <expr>
+
+                                                                                                                                                                            fn list_export_formats(_self: &Self_) -> Array<&ExportFormatConfig>:
+                                                                                                                                                                                # <expr>
+
+                                                                                                                                                                                fn get_export_format_by_extension(_self: &Self_, ext: &String) -> Option<&ExportFormatConfig>:
+                                                                                                                                                                                    # <expr>
+
+                                                                                                                                                                                    fn register_viewport_preset(_self: &mut Self_, config: ViewportPresetConfig):
+                                                                                                                                                                                        # <expr>
+
+                                                                                                                                                                                        fn get_viewport_preset(_self: &Self_, id: &String) -> Option<&ViewportPresetConfig>:
+                                                                                                                                                                                            # <expr>
+
+                                                                                                                                                                                            fn list_viewport_presets(_self: &Self_) -> Array<&ViewportPresetConfig>:
+                                                                                                                                                                                                # <expr>
+
+                                                                                                                                                                                                fn register_greeble_pattern(_self: &mut Self_, config: GreeblePatternConfig):
+                                                                                                                                                                                                    # <expr>
+
+                                                                                                                                                                                                    fn get_greeble_pattern(_self: &Self_, id: &String) -> Option<&GreeblePatternConfig>:
+                                                                                                                                                                                                        # <expr>
+
+                                                                                                                                                                                                        fn list_greeble_patterns(_self: &Self_) -> Array<&GreeblePatternConfig>:
+                                                                                                                                                                                                            # <expr>
+
+                                                                                                                                                                                                            fn list_greeble_patterns_by_category(_self: &Self_, category: &String) -> Array<&GreeblePatternConfig>:
+                                                                                                                                                                                                                # <expr>
+
+                                                                                                                                                                                                                fn register_shading_mode(_self: &mut Self_, config: ShadingModeConfig):
+                                                                                                                                                                                                                    # <expr>
+
+                                                                                                                                                                                                                    fn get_shading_mode(_self: &Self_, id: &String) -> Option<&ShadingModeConfig>:
+                                                                                                                                                                                                                        # <expr>
+
+                                                                                                                                                                                                                        fn list_shading_modes(_self: &Self_) -> Array<&ShadingModeConfig>:
+                                                                                                                                                                                                                            # <expr>
+
+                                                                                                                                                                                                                            fn list_shading_modes_by_app(_self: &Self_, app: &String) -> Array<&ShadingModeConfig>:
+                                                                                                                                                                                                                                # <expr>
+
+                                                                                                                                                                                                                                fn load_embedded_defaults(_self: &mut Self_):
+                                                                                                                                                                                                                                    # <expr>
+
+                                                                                                                                                                                                                                    fn validate_config(json_str: &String, config_type: ConfigType) -> Result<(), super::loader::ConfigError>:
+                                                                                                                                                                                                                                        # <expr>
+
+                                                                                                                                                                                                                                        fn validate_config_file(path: &std::path::Path, config_type: ConfigType) -> Result<(), super::loader::ConfigError>:
+                                                                                                                                                                                                                                            # <expr>
+
+                                                                                                                                                                                                                                            enum_ ConfigType:
+                                                                                                                                                                                                                                                Brushes
+                                                                                                                                                                                                                                                Tools
+                                                                                                                                                                                                                                                ExportFormats
+                                                                                                                                                                                                                                                ViewportPresets
+                                                                                                                                                                                                                                                GreeblePatterns
+
+                                                                                                                                                                                                                                                impl_ ConfigType:
+                                                                                                                                                                                                                                                    fn from_filename(filename: &String) -> Option<Self_>:
+                                                                                                                                                                                                                                                        # <expr>
+
+                                                                                                                                                                                                                                                        fn generate_schema(config_type: ConfigType) -> String:
+                                                                                                                                                                                                                                                            # <expr>
+
+                                                                                                                                                                                                                                                            fn validate_config_json(json: String, config_type: String) -> Result<String, String>:
+                                                                                                                                                                                                                                                                # <expr>
+
+                                                                                                                                                                                                                                                                fn get_config_schema(config_type: String) -> Result<String, String>:
+                                                                                                                                                                                                                                                                    # <expr>
+
+                                                                                                                                                                                                                                                                    fn reload_config(project_dir: Option<String>) -> Result<String, String>:
+                                                                                                                                                                                                                                                                        # <expr>
+
+                                                                                                                                                                                                                                                                        fn save_user_config() -> Result<String, String>:
+                                                                                                                                                                                                                                                                            # <expr>
+
+                                                                                                                                                                                                                                                                            fn export_config_preset(path: String) -> Result<String, String>:
+                                                                                                                                                                                                                                                                                # <expr>
+
+                                                                                                                                                                                                                                                                                fn import_config_preset(path: String, merge: Bool) -> Result<String, String>:
+                                                                                                                                                                                                                                                                                    # <expr>
+
+                                                                                                                                                                                                                                                                                    fn export_config_category(category: String, path: String) -> Result<String, String>:
+                                                                                                                                                                                                                                                                                        # <expr>
+
+                                                                                                                                                                                                                                                                                        fn import_config_category(category: String, path: String) -> Result<String, String>:
+                                                                                                                                                                                                                                                                                            # <expr>
+
+                                                                                                                                                                                                                                                                                            fn validate_config_file(path: String) -> Result<ValidationResult, String>:
+                                                                                                                                                                                                                                                                                                # <expr>
+
+                                                                                                                                                                                                                                                                                                fn get_config_paths() -> ConfigPaths:
+                                                                                                                                                                                                                                                                                                    # <expr>
+
+                                                                                                                                                                                                                                                                                                    struct_ ConfigWatcher:
+                                                                                                                                                                                                                                                                                                        watcher: impl_ Watcher
+                                                                                                                                                                                                                                                                                                        receiver: std::sync::mpsc::Receiver<Result<notify::Event, notify::Error>>
+                                                                                                                                                                                                                                                                                                        loader: super::loader::ConfigLoader
+
+                                                                                                                                                                                                                                                                                                        impl_ ConfigWatcher:
+                                                                                                                                                                                                                                                                                                            fn new_(loader: super::loader::ConfigLoader) -> Result<Self_, super::loader::ConfigError>:
+                                                                                                                                                                                                                                                                                                                # <expr>
+
+                                                                                                                                                                                                                                                                                                                fn process_events(_self: &Self_, timeout: std::time::Duration) -> Result<Bool, super::loader::ConfigError>:
+                                                                                                                                                                                                                                                                                                                    # <expr>
+
+                                                                                                                                                                                                                                                                                                                    fn should_reload(_self: &Self_, event: &notify::Event) -> Bool:
+                                                                                                                                                                                                                                                                                                                        # <expr>
+
+                                                                                                                                                                                                                                                                                                                        fn reload_config(_self: &Self_) -> Result<(), super::loader::ConfigError>:
+                                                                                                                                                                                                                                                                                                                            # <expr>
+
+                                                                                                                                                                                                                                                                                                                            fn start_config_watcher(loader: super::loader::ConfigLoader) -> Result<(), super::loader::ConfigError>:
+                                                                                                                                                                                                                                                                                                                                # <expr>
+
+                                                                                                                                                                                                                                                                                                                                fn start_config_hot_reload(project_dir: Option<String>) -> Result<String, String>:
+                                                                                                                                                                                                                                                                                                                                    # <expr>

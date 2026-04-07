@@ -1,0 +1,4526 @@
+{
+  "preview_id": "mega_preview_100",
+  "timestamp": "2026-03-07T18:49:39.905038",
+  "entries": [
+    {
+      "preview_id": "mega_preview_100",
+      "asset_id": "731cd619e8fa2967",
+      "template_name": "aurora-icon-00",
+      "category": "mega-preview/aurora",
+      "timestamp": "2026-03-07T18:49:39.241709",
+      "output_paths": {
+        "png": "M:\\K_OS\\src-python\\UI\\preview\\mega_preview_100\\assets\\mega-preview\\aurora\\aurora-icon-00\\aurora-icon-00.png",
+        "apng": "M:\\K_OS\\src-python\\UI\\preview\\mega_preview_100\\assets\\mega-preview\\aurora\\aurora-icon-00\\aurora-icon-00_animated_pulse.apng"
+      },
+      "metadata": {
+        "name": "aurora-icon-00",
+        "description": "Aurora catalog icon 00",
+        "category": "mega-preview/aurora",
+        "tags": [
+          "preview",
+          "theme",
+          "aurora",
+          "motif-0"
+        ],
+        "generator": "icon",
+        "template_source": "aurora-icon-00",
+        "generation_timestamp": "2026-03-07T18:49:37.168033",
+        "dimensions": [
+          96,
+          96
+        ],
+        "format": "png",
+        "file_size": 84449,
+        "color_mode": "RGBA",
+        "has_alpha": true,
+        "dpi": 72,
+        "theme_variant": null,
+        "theme_group": null,
+        "is_animated": true,
+        "animation_type": "pulse",
+        "frame_count": 16,
+        "duration": 1.4,
+        "usage_count": 0,
+        "last_used": null,
+        "validation_passed": true,
+        "validation_warnings": []
+      },
+      "status": "pending",
+      "feedback": null
+    },
+    {
+      "preview_id": "mega_preview_100",
+      "asset_id": "71df260b6e117782",
+      "template_name": "aurora-icon-01",
+      "category": "mega-preview/aurora",
+      "timestamp": "2026-03-07T18:49:39.242752",
+      "output_paths": {
+        "png": "M:\\K_OS\\src-python\\UI\\preview\\mega_preview_100\\assets\\mega-preview\\aurora\\aurora-icon-01\\aurora-icon-01.png"
+      },
+      "metadata": {
+        "name": "aurora-icon-01",
+        "description": "Aurora catalog icon 01",
+        "category": "mega-preview/aurora",
+        "tags": [
+          "preview",
+          "theme",
+          "aurora",
+          "motif-1"
+        ],
+        "generator": "icon",
+        "template_source": "aurora-icon-01",
+        "generation_timestamp": "2026-03-07T18:49:37.185413",
+        "dimensions": [
+          96,
+          96
+        ],
+        "format": "png",
+        "file_size": 2944,
+        "color_mode": "RGBA",
+        "has_alpha": true,
+        "dpi": 72,
+        "theme_variant": null,
+        "theme_group": null,
+        "is_animated": false,
+        "animation_type": null,
+        "frame_count": null,
+        "duration": null,
+        "usage_count": 0,
+        "last_used": null,
+        "validation_passed": true,
+        "validation_warnings": []
+      },
+      "status": "pending",
+      "feedback": null
+    },
+    {
+      "preview_id": "mega_preview_100",
+      "asset_id": "39182994560cae6c",
+      "template_name": "aurora-icon-02",
+      "category": "mega-preview/aurora",
+      "timestamp": "2026-03-07T18:49:39.243715",
+      "output_paths": {
+        "png": "M:\\K_OS\\src-python\\UI\\preview\\mega_preview_100\\assets\\mega-preview\\aurora\\aurora-icon-02\\aurora-icon-02.png"
+      },
+      "metadata": {
+        "name": "aurora-icon-02",
+        "description": "Aurora catalog icon 02",
+        "category": "mega-preview/aurora",
+        "tags": [
+          "preview",
+          "theme",
+          "aurora",
+          "motif-2"
+        ],
+        "generator": "icon",
+        "template_source": "aurora-icon-02",
+        "generation_timestamp": "2026-03-07T18:49:37.200124",
+        "dimensions": [
+          96,
+          96
+        ],
+        "format": "png",
+        "file_size": 3119,
+        "color_mode": "RGBA",
+        "has_alpha": true,
+        "dpi": 72,
+        "theme_variant": null,
+        "theme_group": null,
+        "is_animated": false,
+        "animation_type": null,
+        "frame_count": null,
+        "duration": null,
+        "usage_count": 0,
+        "last_used": null,
+        "validation_passed": true,
+        "validation_warnings": []
+      },
+      "status": "pending",
+      "feedback": null
+    },
+    {
+      "preview_id": "mega_preview_100",
+      "asset_id": "dd997de74e46e982",
+      "template_name": "aurora-icon-03",
+      "category": "mega-preview/aurora",
+      "timestamp": "2026-03-07T18:49:39.245259",
+      "output_paths": {
+        "png": "M:\\K_OS\\src-python\\UI\\preview\\mega_preview_100\\assets\\mega-preview\\aurora\\aurora-icon-03\\aurora-icon-03.png"
+      },
+      "metadata": {
+        "name": "aurora-icon-03",
+        "description": "Aurora catalog icon 03",
+        "category": "mega-preview/aurora",
+        "tags": [
+          "preview",
+          "theme",
+          "aurora",
+          "motif-3"
+        ],
+        "generator": "icon",
+        "template_source": "aurora-icon-03",
+        "generation_timestamp": "2026-03-07T18:49:37.219046",
+        "dimensions": [
+          96,
+          96
+        ],
+        "format": "png",
+        "file_size": 3121,
+        "color_mode": "RGBA",
+        "has_alpha": true,
+        "dpi": 72,
+        "theme_variant": null,
+        "theme_group": null,
+        "is_animated": false,
+        "animation_type": null,
+        "frame_count": null,
+        "duration": null,
+        "usage_count": 0,
+        "last_used": null,
+        "validation_passed": true,
+        "validation_warnings": []
+      },
+      "status": "pending",
+      "feedback": null
+    },
+    {
+      "preview_id": "mega_preview_100",
+      "asset_id": "5cfd58527b704f98",
+      "template_name": "aurora-icon-04",
+      "category": "mega-preview/aurora",
+      "timestamp": "2026-03-07T18:49:39.245259",
+      "output_paths": {
+        "png": "M:\\K_OS\\src-python\\UI\\preview\\mega_preview_100\\assets\\mega-preview\\aurora\\aurora-icon-04\\aurora-icon-04.png"
+      },
+      "metadata": {
+        "name": "aurora-icon-04",
+        "description": "Aurora catalog icon 04",
+        "category": "mega-preview/aurora",
+        "tags": [
+          "preview",
+          "theme",
+          "aurora",
+          "motif-4"
+        ],
+        "generator": "icon",
+        "template_source": "aurora-icon-04",
+        "generation_timestamp": "2026-03-07T18:49:37.236502",
+        "dimensions": [
+          96,
+          96
+        ],
+        "format": "png",
+        "file_size": 1884,
+        "color_mode": "RGBA",
+        "has_alpha": true,
+        "dpi": 72,
+        "theme_variant": null,
+        "theme_group": null,
+        "is_animated": false,
+        "animation_type": null,
+        "frame_count": null,
+        "duration": null,
+        "usage_count": 0,
+        "last_used": null,
+        "validation_passed": true,
+        "validation_warnings": []
+      },
+      "status": "pending",
+      "feedback": null
+    },
+    {
+      "preview_id": "mega_preview_100",
+      "asset_id": "9af3e045c5d3adde",
+      "template_name": "aurora-icon-05",
+      "category": "mega-preview/aurora",
+      "timestamp": "2026-03-07T18:49:39.248597",
+      "output_paths": {
+        "png": "M:\\K_OS\\src-python\\UI\\preview\\mega_preview_100\\assets\\mega-preview\\aurora\\aurora-icon-05\\aurora-icon-05.png",
+        "apng": "M:\\K_OS\\src-python\\UI\\preview\\mega_preview_100\\assets\\mega-preview\\aurora\\aurora-icon-05\\aurora-icon-05_animated_orbit.apng"
+      },
+      "metadata": {
+        "name": "aurora-icon-05",
+        "description": "Aurora catalog icon 05",
+        "category": "mega-preview/aurora",
+        "tags": [
+          "preview",
+          "theme",
+          "aurora",
+          "motif-5"
+        ],
+        "generator": "icon",
+        "template_source": "aurora-icon-05",
+        "generation_timestamp": "2026-03-07T18:49:37.272043",
+        "dimensions": [
+          96,
+          96
+        ],
+        "format": "png",
+        "file_size": 101297,
+        "color_mode": "RGBA",
+        "has_alpha": true,
+        "dpi": 72,
+        "theme_variant": null,
+        "theme_group": null,
+        "is_animated": true,
+        "animation_type": "orbit",
+        "frame_count": 16,
+        "duration": 1.4,
+        "usage_count": 0,
+        "last_used": null,
+        "validation_passed": true,
+        "validation_warnings": []
+      },
+      "status": "pending",
+      "feedback": null
+    },
+    {
+      "preview_id": "mega_preview_100",
+      "asset_id": "db5f9109272d0da0",
+      "template_name": "aurora-icon-06",
+      "category": "mega-preview/aurora",
+      "timestamp": "2026-03-07T18:49:39.249601",
+      "output_paths": {
+        "png": "M:\\K_OS\\src-python\\UI\\preview\\mega_preview_100\\assets\\mega-preview\\aurora\\aurora-icon-06\\aurora-icon-06.png"
+      },
+      "metadata": {
+        "name": "aurora-icon-06",
+        "description": "Aurora catalog icon 06",
+        "category": "mega-preview/aurora",
+        "tags": [
+          "preview",
+          "theme",
+          "aurora",
+          "motif-6"
+        ],
+        "generator": "icon",
+        "template_source": "aurora-icon-06",
+        "generation_timestamp": "2026-03-07T18:49:37.306592",
+        "dimensions": [
+          96,
+          96
+        ],
+        "format": "png",
+        "file_size": 1979,
+        "color_mode": "RGBA",
+        "has_alpha": true,
+        "dpi": 72,
+        "theme_variant": null,
+        "theme_group": null,
+        "is_animated": false,
+        "animation_type": null,
+        "frame_count": null,
+        "duration": null,
+        "usage_count": 0,
+        "last_used": null,
+        "validation_passed": true,
+        "validation_warnings": []
+      },
+      "status": "pending",
+      "feedback": null
+    },
+    {
+      "preview_id": "mega_preview_100",
+      "asset_id": "10420edf33299618",
+      "template_name": "aurora-icon-07",
+      "category": "mega-preview/aurora",
+      "timestamp": "2026-03-07T18:49:39.252184",
+      "output_paths": {
+        "png": "M:\\K_OS\\src-python\\UI\\preview\\mega_preview_100\\assets\\mega-preview\\aurora\\aurora-icon-07\\aurora-icon-07.png"
+      },
+      "metadata": {
+        "name": "aurora-icon-07",
+        "description": "Aurora catalog icon 07",
+        "category": "mega-preview/aurora",
+        "tags": [
+          "preview",
+          "theme",
+          "aurora",
+          "motif-7"
+        ],
+        "generator": "icon",
+        "template_source": "aurora-icon-07",
+        "generation_timestamp": "2026-03-07T18:49:37.334846",
+        "dimensions": [
+          96,
+          96
+        ],
+        "format": "png",
+        "file_size": 3175,
+        "color_mode": "RGBA",
+        "has_alpha": true,
+        "dpi": 72,
+        "theme_variant": null,
+        "theme_group": null,
+        "is_animated": false,
+        "animation_type": null,
+        "frame_count": null,
+        "duration": null,
+        "usage_count": 0,
+        "last_used": null,
+        "validation_passed": true,
+        "validation_warnings": []
+      },
+      "status": "pending",
+      "feedback": null
+    },
+    {
+      "preview_id": "mega_preview_100",
+      "asset_id": "32beaff8c407579a",
+      "template_name": "aurora-icon-08",
+      "category": "mega-preview/aurora",
+      "timestamp": "2026-03-07T18:49:39.253273",
+      "output_paths": {
+        "png": "M:\\K_OS\\src-python\\UI\\preview\\mega_preview_100\\assets\\mega-preview\\aurora\\aurora-icon-08\\aurora-icon-08.png"
+      },
+      "metadata": {
+        "name": "aurora-icon-08",
+        "description": "Aurora catalog icon 08",
+        "category": "mega-preview/aurora",
+        "tags": [
+          "preview",
+          "theme",
+          "aurora",
+          "motif-8"
+        ],
+        "generator": "icon",
+        "template_source": "aurora-icon-08",
+        "generation_timestamp": "2026-03-07T18:49:37.353296",
+        "dimensions": [
+          96,
+          96
+        ],
+        "format": "png",
+        "file_size": 3424,
+        "color_mode": "RGBA",
+        "has_alpha": true,
+        "dpi": 72,
+        "theme_variant": null,
+        "theme_group": null,
+        "is_animated": false,
+        "animation_type": null,
+        "frame_count": null,
+        "duration": null,
+        "usage_count": 0,
+        "last_used": null,
+        "validation_passed": true,
+        "validation_warnings": []
+      },
+      "status": "pending",
+      "feedback": null
+    },
+    {
+      "preview_id": "mega_preview_100",
+      "asset_id": "f8c7d5651df3988c",
+      "template_name": "aurora-icon-09",
+      "category": "mega-preview/aurora",
+      "timestamp": "2026-03-07T18:49:39.254860",
+      "output_paths": {
+        "png": "M:\\K_OS\\src-python\\UI\\preview\\mega_preview_100\\assets\\mega-preview\\aurora\\aurora-icon-09\\aurora-icon-09.png"
+      },
+      "metadata": {
+        "name": "aurora-icon-09",
+        "description": "Aurora catalog icon 09",
+        "category": "mega-preview/aurora",
+        "tags": [
+          "preview",
+          "theme",
+          "aurora",
+          "motif-9"
+        ],
+        "generator": "icon",
+        "template_source": "aurora-icon-09",
+        "generation_timestamp": "2026-03-07T18:49:37.372918",
+        "dimensions": [
+          96,
+          96
+        ],
+        "format": "png",
+        "file_size": 2166,
+        "color_mode": "RGBA",
+        "has_alpha": true,
+        "dpi": 72,
+        "theme_variant": null,
+        "theme_group": null,
+        "is_animated": false,
+        "animation_type": null,
+        "frame_count": null,
+        "duration": null,
+        "usage_count": 0,
+        "last_used": null,
+        "validation_passed": true,
+        "validation_warnings": []
+      },
+      "status": "pending",
+      "feedback": null
+    },
+    {
+      "preview_id": "mega_preview_100",
+      "asset_id": "e227e3acefce554b",
+      "template_name": "aurora-icon-10",
+      "category": "mega-preview/aurora",
+      "timestamp": "2026-03-07T18:49:39.258522",
+      "output_paths": {
+        "png": "M:\\K_OS\\src-python\\UI\\preview\\mega_preview_100\\assets\\mega-preview\\aurora\\aurora-icon-10\\aurora-icon-10.png",
+        "apng": "M:\\K_OS\\src-python\\UI\\preview\\mega_preview_100\\assets\\mega-preview\\aurora\\aurora-icon-10\\aurora-icon-10_animated_float.apng"
+      },
+      "metadata": {
+        "name": "aurora-icon-10",
+        "description": "Aurora catalog icon 10",
+        "category": "mega-preview/aurora",
+        "tags": [
+          "preview",
+          "theme",
+          "aurora",
+          "motif-0"
+        ],
+        "generator": "icon",
+        "template_source": "aurora-icon-10",
+        "generation_timestamp": "2026-03-07T18:49:37.401232",
+        "dimensions": [
+          96,
+          96
+        ],
+        "format": "png",
+        "file_size": 64017,
+        "color_mode": "RGBA",
+        "has_alpha": true,
+        "dpi": 72,
+        "theme_variant": null,
+        "theme_group": null,
+        "is_animated": true,
+        "animation_type": "float",
+        "frame_count": 16,
+        "duration": 1.4,
+        "usage_count": 0,
+        "last_used": null,
+        "validation_passed": true,
+        "validation_warnings": []
+      },
+      "status": "pending",
+      "feedback": null
+    },
+    {
+      "preview_id": "mega_preview_100",
+      "asset_id": "a46a2d84b749dd9b",
+      "template_name": "aurora-icon-11",
+      "category": "mega-preview/aurora",
+      "timestamp": "2026-03-07T18:49:39.260072",
+      "output_paths": {
+        "png": "M:\\K_OS\\src-python\\UI\\preview\\mega_preview_100\\assets\\mega-preview\\aurora\\aurora-icon-11\\aurora-icon-11.png"
+      },
+      "metadata": {
+        "name": "aurora-icon-11",
+        "description": "Aurora catalog icon 11",
+        "category": "mega-preview/aurora",
+        "tags": [
+          "preview",
+          "theme",
+          "aurora",
+          "motif-1"
+        ],
+        "generator": "icon",
+        "template_source": "aurora-icon-11",
+        "generation_timestamp": "2026-03-07T18:49:37.419051",
+        "dimensions": [
+          96,
+          96
+        ],
+        "format": "png",
+        "file_size": 2944,
+        "color_mode": "RGBA",
+        "has_alpha": true,
+        "dpi": 72,
+        "theme_variant": null,
+        "theme_group": null,
+        "is_animated": false,
+        "animation_type": null,
+        "frame_count": null,
+        "duration": null,
+        "usage_count": 0,
+        "last_used": null,
+        "validation_passed": true,
+        "validation_warnings": []
+      },
+      "status": "pending",
+      "feedback": null
+    },
+    {
+      "preview_id": "mega_preview_100",
+      "asset_id": "74c03097c1f4e62d",
+      "template_name": "aurora-icon-12",
+      "category": "mega-preview/aurora",
+      "timestamp": "2026-03-07T18:49:39.263315",
+      "output_paths": {
+        "png": "M:\\K_OS\\src-python\\UI\\preview\\mega_preview_100\\assets\\mega-preview\\aurora\\aurora-icon-12\\aurora-icon-12.png"
+      },
+      "metadata": {
+        "name": "aurora-icon-12",
+        "description": "Aurora catalog icon 12",
+        "category": "mega-preview/aurora",
+        "tags": [
+          "preview",
+          "theme",
+          "aurora",
+          "motif-2"
+        ],
+        "generator": "icon",
+        "template_source": "aurora-icon-12",
+        "generation_timestamp": "2026-03-07T18:49:37.432553",
+        "dimensions": [
+          96,
+          96
+        ],
+        "format": "png",
+        "file_size": 3119,
+        "color_mode": "RGBA",
+        "has_alpha": true,
+        "dpi": 72,
+        "theme_variant": null,
+        "theme_group": null,
+        "is_animated": false,
+        "animation_type": null,
+        "frame_count": null,
+        "duration": null,
+        "usage_count": 0,
+        "last_used": null,
+        "validation_passed": true,
+        "validation_warnings": []
+      },
+      "status": "pending",
+      "feedback": null
+    },
+    {
+      "preview_id": "mega_preview_100",
+      "asset_id": "7af4d3d6f9b7fcbc",
+      "template_name": "aurora-icon-13",
+      "category": "mega-preview/aurora",
+      "timestamp": "2026-03-07T18:49:39.265134",
+      "output_paths": {
+        "png": "M:\\K_OS\\src-python\\UI\\preview\\mega_preview_100\\assets\\mega-preview\\aurora\\aurora-icon-13\\aurora-icon-13.png"
+      },
+      "metadata": {
+        "name": "aurora-icon-13",
+        "description": "Aurora catalog icon 13",
+        "category": "mega-preview/aurora",
+        "tags": [
+          "preview",
+          "theme",
+          "aurora",
+          "motif-3"
+        ],
+        "generator": "icon",
+        "template_source": "aurora-icon-13",
+        "generation_timestamp": "2026-03-07T18:49:37.449401",
+        "dimensions": [
+          96,
+          96
+        ],
+        "format": "png",
+        "file_size": 3121,
+        "color_mode": "RGBA",
+        "has_alpha": true,
+        "dpi": 72,
+        "theme_variant": null,
+        "theme_group": null,
+        "is_animated": false,
+        "animation_type": null,
+        "frame_count": null,
+        "duration": null,
+        "usage_count": 0,
+        "last_used": null,
+        "validation_passed": true,
+        "validation_warnings": []
+      },
+      "status": "pending",
+      "feedback": null
+    },
+    {
+      "preview_id": "mega_preview_100",
+      "asset_id": "e065b6b38851ce39",
+      "template_name": "aurora-icon-14",
+      "category": "mega-preview/aurora",
+      "timestamp": "2026-03-07T18:49:39.267684",
+      "output_paths": {
+        "png": "M:\\K_OS\\src-python\\UI\\preview\\mega_preview_100\\assets\\mega-preview\\aurora\\aurora-icon-14\\aurora-icon-14.png"
+      },
+      "metadata": {
+        "name": "aurora-icon-14",
+        "description": "Aurora catalog icon 14",
+        "category": "mega-preview/aurora",
+        "tags": [
+          "preview",
+          "theme",
+          "aurora",
+          "motif-4"
+        ],
+        "generator": "icon",
+        "template_source": "aurora-icon-14",
+        "generation_timestamp": "2026-03-07T18:49:37.466736",
+        "dimensions": [
+          96,
+          96
+        ],
+        "format": "png",
+        "file_size": 1884,
+        "color_mode": "RGBA",
+        "has_alpha": true,
+        "dpi": 72,
+        "theme_variant": null,
+        "theme_group": null,
+        "is_animated": false,
+        "animation_type": null,
+        "frame_count": null,
+        "duration": null,
+        "usage_count": 0,
+        "last_used": null,
+        "validation_passed": true,
+        "validation_warnings": []
+      },
+      "status": "pending",
+      "feedback": null
+    },
+    {
+      "preview_id": "mega_preview_100",
+      "asset_id": "06a45770c41e73e1",
+      "template_name": "aurora-icon-15",
+      "category": "mega-preview/aurora",
+      "timestamp": "2026-03-07T18:49:39.270998",
+      "output_paths": {
+        "png": "M:\\K_OS\\src-python\\UI\\preview\\mega_preview_100\\assets\\mega-preview\\aurora\\aurora-icon-15\\aurora-icon-15.png",
+        "apng": "M:\\K_OS\\src-python\\UI\\preview\\mega_preview_100\\assets\\mega-preview\\aurora\\aurora-icon-15\\aurora-icon-15_animated_shake.apng"
+      },
+      "metadata": {
+        "name": "aurora-icon-15",
+        "description": "Aurora catalog icon 15",
+        "category": "mega-preview/aurora",
+        "tags": [
+          "preview",
+          "theme",
+          "aurora",
+          "motif-5"
+        ],
+        "generator": "icon",
+        "template_source": "aurora-icon-15",
+        "generation_timestamp": "2026-03-07T18:49:37.494410",
+        "dimensions": [
+          96,
+          96
+        ],
+        "format": "png",
+        "file_size": 95179,
+        "color_mode": "RGBA",
+        "has_alpha": true,
+        "dpi": 72,
+        "theme_variant": null,
+        "theme_group": null,
+        "is_animated": true,
+        "animation_type": "shake",
+        "frame_count": 16,
+        "duration": 1.4,
+        "usage_count": 0,
+        "last_used": null,
+        "validation_passed": true,
+        "validation_warnings": []
+      },
+      "status": "pending",
+      "feedback": null
+    },
+    {
+      "preview_id": "mega_preview_100",
+      "asset_id": "1c11a7a1bc998118",
+      "template_name": "aurora-icon-16",
+      "category": "mega-preview/aurora",
+      "timestamp": "2026-03-07T18:49:39.272086",
+      "output_paths": {
+        "png": "M:\\K_OS\\src-python\\UI\\preview\\mega_preview_100\\assets\\mega-preview\\aurora\\aurora-icon-16\\aurora-icon-16.png"
+      },
+      "metadata": {
+        "name": "aurora-icon-16",
+        "description": "Aurora catalog icon 16",
+        "category": "mega-preview/aurora",
+        "tags": [
+          "preview",
+          "theme",
+          "aurora",
+          "motif-6"
+        ],
+        "generator": "icon",
+        "template_source": "aurora-icon-16",
+        "generation_timestamp": "2026-03-07T18:49:37.519289",
+        "dimensions": [
+          96,
+          96
+        ],
+        "format": "png",
+        "file_size": 1979,
+        "color_mode": "RGBA",
+        "has_alpha": true,
+        "dpi": 72,
+        "theme_variant": null,
+        "theme_group": null,
+        "is_animated": false,
+        "animation_type": null,
+        "frame_count": null,
+        "duration": null,
+        "usage_count": 0,
+        "last_used": null,
+        "validation_passed": true,
+        "validation_warnings": []
+      },
+      "status": "pending",
+      "feedback": null
+    },
+    {
+      "preview_id": "mega_preview_100",
+      "asset_id": "57ad005696e42698",
+      "template_name": "aurora-icon-17",
+      "category": "mega-preview/aurora",
+      "timestamp": "2026-03-07T18:49:39.276447",
+      "output_paths": {
+        "png": "M:\\K_OS\\src-python\\UI\\preview\\mega_preview_100\\assets\\mega-preview\\aurora\\aurora-icon-17\\aurora-icon-17.png"
+      },
+      "metadata": {
+        "name": "aurora-icon-17",
+        "description": "Aurora catalog icon 17",
+        "category": "mega-preview/aurora",
+        "tags": [
+          "preview",
+          "theme",
+          "aurora",
+          "motif-7"
+        ],
+        "generator": "icon",
+        "template_source": "aurora-icon-17",
+        "generation_timestamp": "2026-03-07T18:49:37.548579",
+        "dimensions": [
+          96,
+          96
+        ],
+        "format": "png",
+        "file_size": 3175,
+        "color_mode": "RGBA",
+        "has_alpha": true,
+        "dpi": 72,
+        "theme_variant": null,
+        "theme_group": null,
+        "is_animated": false,
+        "animation_type": null,
+        "frame_count": null,
+        "duration": null,
+        "usage_count": 0,
+        "last_used": null,
+        "validation_passed": true,
+        "validation_warnings": []
+      },
+      "status": "pending",
+      "feedback": null
+    },
+    {
+      "preview_id": "mega_preview_100",
+      "asset_id": "c84ef22cefe46dc4",
+      "template_name": "aurora-icon-18",
+      "category": "mega-preview/aurora",
+      "timestamp": "2026-03-07T18:49:39.278577",
+      "output_paths": {
+        "png": "M:\\K_OS\\src-python\\UI\\preview\\mega_preview_100\\assets\\mega-preview\\aurora\\aurora-icon-18\\aurora-icon-18.png"
+      },
+      "metadata": {
+        "name": "aurora-icon-18",
+        "description": "Aurora catalog icon 18",
+        "category": "mega-preview/aurora",
+        "tags": [
+          "preview",
+          "theme",
+          "aurora",
+          "motif-8"
+        ],
+        "generator": "icon",
+        "template_source": "aurora-icon-18",
+        "generation_timestamp": "2026-03-07T18:49:37.567576",
+        "dimensions": [
+          96,
+          96
+        ],
+        "format": "png",
+        "file_size": 3424,
+        "color_mode": "RGBA",
+        "has_alpha": true,
+        "dpi": 72,
+        "theme_variant": null,
+        "theme_group": null,
+        "is_animated": false,
+        "animation_type": null,
+        "frame_count": null,
+        "duration": null,
+        "usage_count": 0,
+        "last_used": null,
+        "validation_passed": true,
+        "validation_warnings": []
+      },
+      "status": "pending",
+      "feedback": null
+    },
+    {
+      "preview_id": "mega_preview_100",
+      "asset_id": "003773c5fa7db7e1",
+      "template_name": "aurora-icon-19",
+      "category": "mega-preview/aurora",
+      "timestamp": "2026-03-07T18:49:39.282984",
+      "output_paths": {
+        "png": "M:\\K_OS\\src-python\\UI\\preview\\mega_preview_100\\assets\\mega-preview\\aurora\\aurora-icon-19\\aurora-icon-19.png"
+      },
+      "metadata": {
+        "name": "aurora-icon-19",
+        "description": "Aurora catalog icon 19",
+        "category": "mega-preview/aurora",
+        "tags": [
+          "preview",
+          "theme",
+          "aurora",
+          "motif-9"
+        ],
+        "generator": "icon",
+        "template_source": "aurora-icon-19",
+        "generation_timestamp": "2026-03-07T18:49:37.588454",
+        "dimensions": [
+          96,
+          96
+        ],
+        "format": "png",
+        "file_size": 2166,
+        "color_mode": "RGBA",
+        "has_alpha": true,
+        "dpi": 72,
+        "theme_variant": null,
+        "theme_group": null,
+        "is_animated": false,
+        "animation_type": null,
+        "frame_count": null,
+        "duration": null,
+        "usage_count": 0,
+        "last_used": null,
+        "validation_passed": true,
+        "validation_warnings": []
+      },
+      "status": "pending",
+      "feedback": null
+    },
+    {
+      "preview_id": "mega_preview_100",
+      "asset_id": "89d4ba5e188656d0",
+      "template_name": "aurora-icon-20",
+      "category": "mega-preview/aurora",
+      "timestamp": "2026-03-07T18:49:39.287072",
+      "output_paths": {
+        "png": "M:\\K_OS\\src-python\\UI\\preview\\mega_preview_100\\assets\\mega-preview\\aurora\\aurora-icon-20\\aurora-icon-20.png",
+        "apng": "M:\\K_OS\\src-python\\UI\\preview\\mega_preview_100\\assets\\mega-preview\\aurora\\aurora-icon-20\\aurora-icon-20_animated_wobble.apng"
+      },
+      "metadata": {
+        "name": "aurora-icon-20",
+        "description": "Aurora catalog icon 20",
+        "category": "mega-preview/aurora",
+        "tags": [
+          "preview",
+          "theme",
+          "aurora",
+          "motif-0"
+        ],
+        "generator": "icon",
+        "template_source": "aurora-icon-20",
+        "generation_timestamp": "2026-03-07T18:49:37.632495",
+        "dimensions": [
+          96,
+          96
+        ],
+        "format": "png",
+        "file_size": 93495,
+        "color_mode": "RGBA",
+        "has_alpha": true,
+        "dpi": 72,
+        "theme_variant": null,
+        "theme_group": null,
+        "is_animated": true,
+        "animation_type": "wobble",
+        "frame_count": 16,
+        "duration": 1.4,
+        "usage_count": 0,
+        "last_used": null,
+        "validation_passed": true,
+        "validation_warnings": []
+      },
+      "status": "pending",
+      "feedback": null
+    },
+    {
+      "preview_id": "mega_preview_100",
+      "asset_id": "62f5717a14efe1cd",
+      "template_name": "aurora-icon-21",
+      "category": "mega-preview/aurora",
+      "timestamp": "2026-03-07T18:49:39.290157",
+      "output_paths": {
+        "png": "M:\\K_OS\\src-python\\UI\\preview\\mega_preview_100\\assets\\mega-preview\\aurora\\aurora-icon-21\\aurora-icon-21.png"
+      },
+      "metadata": {
+        "name": "aurora-icon-21",
+        "description": "Aurora catalog icon 21",
+        "category": "mega-preview/aurora",
+        "tags": [
+          "preview",
+          "theme",
+          "aurora",
+          "motif-1"
+        ],
+        "generator": "icon",
+        "template_source": "aurora-icon-21",
+        "generation_timestamp": "2026-03-07T18:49:37.649494",
+        "dimensions": [
+          96,
+          96
+        ],
+        "format": "png",
+        "file_size": 2944,
+        "color_mode": "RGBA",
+        "has_alpha": true,
+        "dpi": 72,
+        "theme_variant": null,
+        "theme_group": null,
+        "is_animated": false,
+        "animation_type": null,
+        "frame_count": null,
+        "duration": null,
+        "usage_count": 0,
+        "last_used": null,
+        "validation_passed": true,
+        "validation_warnings": []
+      },
+      "status": "pending",
+      "feedback": null
+    },
+    {
+      "preview_id": "mega_preview_100",
+      "asset_id": "0ed2c61f514291dd",
+      "template_name": "aurora-icon-22",
+      "category": "mega-preview/aurora",
+      "timestamp": "2026-03-07T18:49:39.292890",
+      "output_paths": {
+        "png": "M:\\K_OS\\src-python\\UI\\preview\\mega_preview_100\\assets\\mega-preview\\aurora\\aurora-icon-22\\aurora-icon-22.png"
+      },
+      "metadata": {
+        "name": "aurora-icon-22",
+        "description": "Aurora catalog icon 22",
+        "category": "mega-preview/aurora",
+        "tags": [
+          "preview",
+          "theme",
+          "aurora",
+          "motif-2"
+        ],
+        "generator": "icon",
+        "template_source": "aurora-icon-22",
+        "generation_timestamp": "2026-03-07T18:49:37.664211",
+        "dimensions": [
+          96,
+          96
+        ],
+        "format": "png",
+        "file_size": 3119,
+        "color_mode": "RGBA",
+        "has_alpha": true,
+        "dpi": 72,
+        "theme_variant": null,
+        "theme_group": null,
+        "is_animated": false,
+        "animation_type": null,
+        "frame_count": null,
+        "duration": null,
+        "usage_count": 0,
+        "last_used": null,
+        "validation_passed": true,
+        "validation_warnings": []
+      },
+      "status": "pending",
+      "feedback": null
+    },
+    {
+      "preview_id": "mega_preview_100",
+      "asset_id": "423768d2b48ac8a0",
+      "template_name": "aurora-icon-23",
+      "category": "mega-preview/aurora",
+      "timestamp": "2026-03-07T18:49:39.297137",
+      "output_paths": {
+        "png": "M:\\K_OS\\src-python\\UI\\preview\\mega_preview_100\\assets\\mega-preview\\aurora\\aurora-icon-23\\aurora-icon-23.png"
+      },
+      "metadata": {
+        "name": "aurora-icon-23",
+        "description": "Aurora catalog icon 23",
+        "category": "mega-preview/aurora",
+        "tags": [
+          "preview",
+          "theme",
+          "aurora",
+          "motif-3"
+        ],
+        "generator": "icon",
+        "template_source": "aurora-icon-23",
+        "generation_timestamp": "2026-03-07T18:49:37.681706",
+        "dimensions": [
+          96,
+          96
+        ],
+        "format": "png",
+        "file_size": 3121,
+        "color_mode": "RGBA",
+        "has_alpha": true,
+        "dpi": 72,
+        "theme_variant": null,
+        "theme_group": null,
+        "is_animated": false,
+        "animation_type": null,
+        "frame_count": null,
+        "duration": null,
+        "usage_count": 0,
+        "last_used": null,
+        "validation_passed": true,
+        "validation_warnings": []
+      },
+      "status": "pending",
+      "feedback": null
+    },
+    {
+      "preview_id": "mega_preview_100",
+      "asset_id": "ada41ab8eb17a873",
+      "template_name": "aurora-icon-24",
+      "category": "mega-preview/aurora",
+      "timestamp": "2026-03-07T18:49:39.300961",
+      "output_paths": {
+        "png": "M:\\K_OS\\src-python\\UI\\preview\\mega_preview_100\\assets\\mega-preview\\aurora\\aurora-icon-24\\aurora-icon-24.png"
+      },
+      "metadata": {
+        "name": "aurora-icon-24",
+        "description": "Aurora catalog icon 24",
+        "category": "mega-preview/aurora",
+        "tags": [
+          "preview",
+          "theme",
+          "aurora",
+          "motif-4"
+        ],
+        "generator": "icon",
+        "template_source": "aurora-icon-24",
+        "generation_timestamp": "2026-03-07T18:49:37.697987",
+        "dimensions": [
+          96,
+          96
+        ],
+        "format": "png",
+        "file_size": 1884,
+        "color_mode": "RGBA",
+        "has_alpha": true,
+        "dpi": 72,
+        "theme_variant": null,
+        "theme_group": null,
+        "is_animated": false,
+        "animation_type": null,
+        "frame_count": null,
+        "duration": null,
+        "usage_count": 0,
+        "last_used": null,
+        "validation_passed": true,
+        "validation_warnings": []
+      },
+      "status": "pending",
+      "feedback": null
+    },
+    {
+      "preview_id": "mega_preview_100",
+      "asset_id": "2ee62e3816d8b83b",
+      "template_name": "ember-icon-00",
+      "category": "mega-preview/ember",
+      "timestamp": "2026-03-07T18:49:39.304633",
+      "output_paths": {
+        "png": "M:\\K_OS\\src-python\\UI\\preview\\mega_preview_100\\assets\\mega-preview\\ember\\ember-icon-00\\ember-icon-00.png",
+        "apng": "M:\\K_OS\\src-python\\UI\\preview\\mega_preview_100\\assets\\mega-preview\\ember\\ember-icon-00\\ember-icon-00_animated_pulse.apng"
+      },
+      "metadata": {
+        "name": "ember-icon-00",
+        "description": "Ember catalog icon 00",
+        "category": "mega-preview/ember",
+        "tags": [
+          "preview",
+          "theme",
+          "ember",
+          "motif-0"
+        ],
+        "generator": "icon",
+        "template_source": "ember-icon-00",
+        "generation_timestamp": "2026-03-07T18:49:37.732341",
+        "dimensions": [
+          96,
+          96
+        ],
+        "format": "png",
+        "file_size": 77965,
+        "color_mode": "RGBA",
+        "has_alpha": true,
+        "dpi": 72,
+        "theme_variant": null,
+        "theme_group": null,
+        "is_animated": true,
+        "animation_type": "pulse",
+        "frame_count": 16,
+        "duration": 1.4,
+        "usage_count": 0,
+        "last_used": null,
+        "validation_passed": true,
+        "validation_warnings": []
+      },
+      "status": "pending",
+      "feedback": null
+    },
+    {
+      "preview_id": "mega_preview_100",
+      "asset_id": "900fa18a6bc7440a",
+      "template_name": "ember-icon-01",
+      "category": "mega-preview/ember",
+      "timestamp": "2026-03-07T18:49:39.308448",
+      "output_paths": {
+        "png": "M:\\K_OS\\src-python\\UI\\preview\\mega_preview_100\\assets\\mega-preview\\ember\\ember-icon-01\\ember-icon-01.png"
+      },
+      "metadata": {
+        "name": "ember-icon-01",
+        "description": "Ember catalog icon 01",
+        "category": "mega-preview/ember",
+        "tags": [
+          "preview",
+          "theme",
+          "ember",
+          "motif-1"
+        ],
+        "generator": "icon",
+        "template_source": "ember-icon-01",
+        "generation_timestamp": "2026-03-07T18:49:37.749002",
+        "dimensions": [
+          96,
+          96
+        ],
+        "format": "png",
+        "file_size": 2604,
+        "color_mode": "RGBA",
+        "has_alpha": true,
+        "dpi": 72,
+        "theme_variant": null,
+        "theme_group": null,
+        "is_animated": false,
+        "animation_type": null,
+        "frame_count": null,
+        "duration": null,
+        "usage_count": 0,
+        "last_used": null,
+        "validation_passed": true,
+        "validation_warnings": []
+      },
+      "status": "pending",
+      "feedback": null
+    },
+    {
+      "preview_id": "mega_preview_100",
+      "asset_id": "f581fc2942d7ed16",
+      "template_name": "ember-icon-02",
+      "category": "mega-preview/ember",
+      "timestamp": "2026-03-07T18:49:39.311607",
+      "output_paths": {
+        "png": "M:\\K_OS\\src-python\\UI\\preview\\mega_preview_100\\assets\\mega-preview\\ember\\ember-icon-02\\ember-icon-02.png"
+      },
+      "metadata": {
+        "name": "ember-icon-02",
+        "description": "Ember catalog icon 02",
+        "category": "mega-preview/ember",
+        "tags": [
+          "preview",
+          "theme",
+          "ember",
+          "motif-2"
+        ],
+        "generator": "icon",
+        "template_source": "ember-icon-02",
+        "generation_timestamp": "2026-03-07T18:49:37.761766",
+        "dimensions": [
+          96,
+          96
+        ],
+        "format": "png",
+        "file_size": 2924,
+        "color_mode": "RGBA",
+        "has_alpha": true,
+        "dpi": 72,
+        "theme_variant": null,
+        "theme_group": null,
+        "is_animated": false,
+        "animation_type": null,
+        "frame_count": null,
+        "duration": null,
+        "usage_count": 0,
+        "last_used": null,
+        "validation_passed": true,
+        "validation_warnings": []
+      },
+      "status": "pending",
+      "feedback": null
+    },
+    {
+      "preview_id": "mega_preview_100",
+      "asset_id": "305b49a7433ea82b",
+      "template_name": "ember-icon-03",
+      "category": "mega-preview/ember",
+      "timestamp": "2026-03-07T18:49:39.316359",
+      "output_paths": {
+        "png": "M:\\K_OS\\src-python\\UI\\preview\\mega_preview_100\\assets\\mega-preview\\ember\\ember-icon-03\\ember-icon-03.png"
+      },
+      "metadata": {
+        "name": "ember-icon-03",
+        "description": "Ember catalog icon 03",
+        "category": "mega-preview/ember",
+        "tags": [
+          "preview",
+          "theme",
+          "ember",
+          "motif-3"
+        ],
+        "generator": "icon",
+        "template_source": "ember-icon-03",
+        "generation_timestamp": "2026-03-07T18:49:37.778558",
+        "dimensions": [
+          96,
+          96
+        ],
+        "format": "png",
+        "file_size": 2989,
+        "color_mode": "RGBA",
+        "has_alpha": true,
+        "dpi": 72,
+        "theme_variant": null,
+        "theme_group": null,
+        "is_animated": false,
+        "animation_type": null,
+        "frame_count": null,
+        "duration": null,
+        "usage_count": 0,
+        "last_used": null,
+        "validation_passed": true,
+        "validation_warnings": []
+      },
+      "status": "pending",
+      "feedback": null
+    },
+    {
+      "preview_id": "mega_preview_100",
+      "asset_id": "5e131c4c5dffbfd2",
+      "template_name": "ember-icon-04",
+      "category": "mega-preview/ember",
+      "timestamp": "2026-03-07T18:49:39.320036",
+      "output_paths": {
+        "png": "M:\\K_OS\\src-python\\UI\\preview\\mega_preview_100\\assets\\mega-preview\\ember\\ember-icon-04\\ember-icon-04.png"
+      },
+      "metadata": {
+        "name": "ember-icon-04",
+        "description": "Ember catalog icon 04",
+        "category": "mega-preview/ember",
+        "tags": [
+          "preview",
+          "theme",
+          "ember",
+          "motif-4"
+        ],
+        "generator": "icon",
+        "template_source": "ember-icon-04",
+        "generation_timestamp": "2026-03-07T18:49:37.794223",
+        "dimensions": [
+          96,
+          96
+        ],
+        "format": "png",
+        "file_size": 1681,
+        "color_mode": "RGBA",
+        "has_alpha": true,
+        "dpi": 72,
+        "theme_variant": null,
+        "theme_group": null,
+        "is_animated": false,
+        "animation_type": null,
+        "frame_count": null,
+        "duration": null,
+        "usage_count": 0,
+        "last_used": null,
+        "validation_passed": true,
+        "validation_warnings": []
+      },
+      "status": "pending",
+      "feedback": null
+    },
+    {
+      "preview_id": "mega_preview_100",
+      "asset_id": "d13cb54eea715d99",
+      "template_name": "ember-icon-05",
+      "category": "mega-preview/ember",
+      "timestamp": "2026-03-07T18:49:39.325042",
+      "output_paths": {
+        "png": "M:\\K_OS\\src-python\\UI\\preview\\mega_preview_100\\assets\\mega-preview\\ember\\ember-icon-05\\ember-icon-05.png",
+        "apng": "M:\\K_OS\\src-python\\UI\\preview\\mega_preview_100\\assets\\mega-preview\\ember\\ember-icon-05\\ember-icon-05_animated_orbit.apng"
+      },
+      "metadata": {
+        "name": "ember-icon-05",
+        "description": "Ember catalog icon 05",
+        "category": "mega-preview/ember",
+        "tags": [
+          "preview",
+          "theme",
+          "ember",
+          "motif-5"
+        ],
+        "generator": "icon",
+        "template_source": "ember-icon-05",
+        "generation_timestamp": "2026-03-07T18:49:37.823272",
+        "dimensions": [
+          96,
+          96
+        ],
+        "format": "png",
+        "file_size": 100873,
+        "color_mode": "RGBA",
+        "has_alpha": true,
+        "dpi": 72,
+        "theme_variant": null,
+        "theme_group": null,
+        "is_animated": true,
+        "animation_type": "orbit",
+        "frame_count": 16,
+        "duration": 1.4,
+        "usage_count": 0,
+        "last_used": null,
+        "validation_passed": true,
+        "validation_warnings": []
+      },
+      "status": "pending",
+      "feedback": null
+    },
+    {
+      "preview_id": "mega_preview_100",
+      "asset_id": "a0e99335075aca1d",
+      "template_name": "ember-icon-06",
+      "category": "mega-preview/ember",
+      "timestamp": "2026-03-07T18:49:39.329835",
+      "output_paths": {
+        "png": "M:\\K_OS\\src-python\\UI\\preview\\mega_preview_100\\assets\\mega-preview\\ember\\ember-icon-06\\ember-icon-06.png"
+      },
+      "metadata": {
+        "name": "ember-icon-06",
+        "description": "Ember catalog icon 06",
+        "category": "mega-preview/ember",
+        "tags": [
+          "preview",
+          "theme",
+          "ember",
+          "motif-6"
+        ],
+        "generator": "icon",
+        "template_source": "ember-icon-06",
+        "generation_timestamp": "2026-03-07T18:49:37.847585",
+        "dimensions": [
+          96,
+          96
+        ],
+        "format": "png",
+        "file_size": 1842,
+        "color_mode": "RGBA",
+        "has_alpha": true,
+        "dpi": 72,
+        "theme_variant": null,
+        "theme_group": null,
+        "is_animated": false,
+        "animation_type": null,
+        "frame_count": null,
+        "duration": null,
+        "usage_count": 0,
+        "last_used": null,
+        "validation_passed": true,
+        "validation_warnings": []
+      },
+      "status": "pending",
+      "feedback": null
+    },
+    {
+      "preview_id": "mega_preview_100",
+      "asset_id": "0ac05582672285c8",
+      "template_name": "ember-icon-07",
+      "category": "mega-preview/ember",
+      "timestamp": "2026-03-07T18:49:39.335062",
+      "output_paths": {
+        "png": "M:\\K_OS\\src-python\\UI\\preview\\mega_preview_100\\assets\\mega-preview\\ember\\ember-icon-07\\ember-icon-07.png"
+      },
+      "metadata": {
+        "name": "ember-icon-07",
+        "description": "Ember catalog icon 07",
+        "category": "mega-preview/ember",
+        "tags": [
+          "preview",
+          "theme",
+          "ember",
+          "motif-7"
+        ],
+        "generator": "icon",
+        "template_source": "ember-icon-07",
+        "generation_timestamp": "2026-03-07T18:49:37.874837",
+        "dimensions": [
+          96,
+          96
+        ],
+        "format": "png",
+        "file_size": 3131,
+        "color_mode": "RGBA",
+        "has_alpha": true,
+        "dpi": 72,
+        "theme_variant": null,
+        "theme_group": null,
+        "is_animated": false,
+        "animation_type": null,
+        "frame_count": null,
+        "duration": null,
+        "usage_count": 0,
+        "last_used": null,
+        "validation_passed": true,
+        "validation_warnings": []
+      },
+      "status": "pending",
+      "feedback": null
+    },
+    {
+      "preview_id": "mega_preview_100",
+      "asset_id": "9dc84fddf341c9d9",
+      "template_name": "ember-icon-08",
+      "category": "mega-preview/ember",
+      "timestamp": "2026-03-07T18:49:39.339664",
+      "output_paths": {
+        "png": "M:\\K_OS\\src-python\\UI\\preview\\mega_preview_100\\assets\\mega-preview\\ember\\ember-icon-08\\ember-icon-08.png"
+      },
+      "metadata": {
+        "name": "ember-icon-08",
+        "description": "Ember catalog icon 08",
+        "category": "mega-preview/ember",
+        "tags": [
+          "preview",
+          "theme",
+          "ember",
+          "motif-8"
+        ],
+        "generator": "icon",
+        "template_source": "ember-icon-08",
+        "generation_timestamp": "2026-03-07T18:49:37.891219",
+        "dimensions": [
+          96,
+          96
+        ],
+        "format": "png",
+        "file_size": 3089,
+        "color_mode": "RGBA",
+        "has_alpha": true,
+        "dpi": 72,
+        "theme_variant": null,
+        "theme_group": null,
+        "is_animated": false,
+        "animation_type": null,
+        "frame_count": null,
+        "duration": null,
+        "usage_count": 0,
+        "last_used": null,
+        "validation_passed": true,
+        "validation_warnings": []
+      },
+      "status": "pending",
+      "feedback": null
+    },
+    {
+      "preview_id": "mega_preview_100",
+      "asset_id": "0de65164c60a1188",
+      "template_name": "ember-icon-09",
+      "category": "mega-preview/ember",
+      "timestamp": "2026-03-07T18:49:39.344374",
+      "output_paths": {
+        "png": "M:\\K_OS\\src-python\\UI\\preview\\mega_preview_100\\assets\\mega-preview\\ember\\ember-icon-09\\ember-icon-09.png"
+      },
+      "metadata": {
+        "name": "ember-icon-09",
+        "description": "Ember catalog icon 09",
+        "category": "mega-preview/ember",
+        "tags": [
+          "preview",
+          "theme",
+          "ember",
+          "motif-9"
+        ],
+        "generator": "icon",
+        "template_source": "ember-icon-09",
+        "generation_timestamp": "2026-03-07T18:49:37.912256",
+        "dimensions": [
+          96,
+          96
+        ],
+        "format": "png",
+        "file_size": 2057,
+        "color_mode": "RGBA",
+        "has_alpha": true,
+        "dpi": 72,
+        "theme_variant": null,
+        "theme_group": null,
+        "is_animated": false,
+        "animation_type": null,
+        "frame_count": null,
+        "duration": null,
+        "usage_count": 0,
+        "last_used": null,
+        "validation_passed": true,
+        "validation_warnings": []
+      },
+      "status": "pending",
+      "feedback": null
+    },
+    {
+      "preview_id": "mega_preview_100",
+      "asset_id": "49bbd07a294d22bf",
+      "template_name": "ember-icon-10",
+      "category": "mega-preview/ember",
+      "timestamp": "2026-03-07T18:49:39.350036",
+      "output_paths": {
+        "png": "M:\\K_OS\\src-python\\UI\\preview\\mega_preview_100\\assets\\mega-preview\\ember\\ember-icon-10\\ember-icon-10.png",
+        "apng": "M:\\K_OS\\src-python\\UI\\preview\\mega_preview_100\\assets\\mega-preview\\ember\\ember-icon-10\\ember-icon-10_animated_float.apng"
+      },
+      "metadata": {
+        "name": "ember-icon-10",
+        "description": "Ember catalog icon 10",
+        "category": "mega-preview/ember",
+        "tags": [
+          "preview",
+          "theme",
+          "ember",
+          "motif-0"
+        ],
+        "generator": "icon",
+        "template_source": "ember-icon-10",
+        "generation_timestamp": "2026-03-07T18:49:37.941228",
+        "dimensions": [
+          96,
+          96
+        ],
+        "format": "png",
+        "file_size": 58936,
+        "color_mode": "RGBA",
+        "has_alpha": true,
+        "dpi": 72,
+        "theme_variant": null,
+        "theme_group": null,
+        "is_animated": true,
+        "animation_type": "float",
+        "frame_count": 16,
+        "duration": 1.4,
+        "usage_count": 0,
+        "last_used": null,
+        "validation_passed": true,
+        "validation_warnings": []
+      },
+      "status": "pending",
+      "feedback": null
+    },
+    {
+      "preview_id": "mega_preview_100",
+      "asset_id": "cc55e248fa83b898",
+      "template_name": "ember-icon-11",
+      "category": "mega-preview/ember",
+      "timestamp": "2026-03-07T18:49:39.355352",
+      "output_paths": {
+        "png": "M:\\K_OS\\src-python\\UI\\preview\\mega_preview_100\\assets\\mega-preview\\ember\\ember-icon-11\\ember-icon-11.png"
+      },
+      "metadata": {
+        "name": "ember-icon-11",
+        "description": "Ember catalog icon 11",
+        "category": "mega-preview/ember",
+        "tags": [
+          "preview",
+          "theme",
+          "ember",
+          "motif-1"
+        ],
+        "generator": "icon",
+        "template_source": "ember-icon-11",
+        "generation_timestamp": "2026-03-07T18:49:37.958055",
+        "dimensions": [
+          96,
+          96
+        ],
+        "format": "png",
+        "file_size": 2604,
+        "color_mode": "RGBA",
+        "has_alpha": true,
+        "dpi": 72,
+        "theme_variant": null,
+        "theme_group": null,
+        "is_animated": false,
+        "animation_type": null,
+        "frame_count": null,
+        "duration": null,
+        "usage_count": 0,
+        "last_used": null,
+        "validation_passed": true,
+        "validation_warnings": []
+      },
+      "status": "pending",
+      "feedback": null
+    },
+    {
+      "preview_id": "mega_preview_100",
+      "asset_id": "c681b3fc6e30428d",
+      "template_name": "ember-icon-12",
+      "category": "mega-preview/ember",
+      "timestamp": "2026-03-07T18:49:39.362608",
+      "output_paths": {
+        "png": "M:\\K_OS\\src-python\\UI\\preview\\mega_preview_100\\assets\\mega-preview\\ember\\ember-icon-12\\ember-icon-12.png"
+      },
+      "metadata": {
+        "name": "ember-icon-12",
+        "description": "Ember catalog icon 12",
+        "category": "mega-preview/ember",
+        "tags": [
+          "preview",
+          "theme",
+          "ember",
+          "motif-2"
+        ],
+        "generator": "icon",
+        "template_source": "ember-icon-12",
+        "generation_timestamp": "2026-03-07T18:49:37.971559",
+        "dimensions": [
+          96,
+          96
+        ],
+        "format": "png",
+        "file_size": 2924,
+        "color_mode": "RGBA",
+        "has_alpha": true,
+        "dpi": 72,
+        "theme_variant": null,
+        "theme_group": null,
+        "is_animated": false,
+        "animation_type": null,
+        "frame_count": null,
+        "duration": null,
+        "usage_count": 0,
+        "last_used": null,
+        "validation_passed": true,
+        "validation_warnings": []
+      },
+      "status": "pending",
+      "feedback": null
+    },
+    {
+      "preview_id": "mega_preview_100",
+      "asset_id": "5fd9ef5debbf2984",
+      "template_name": "ember-icon-13",
+      "category": "mega-preview/ember",
+      "timestamp": "2026-03-07T18:49:39.367037",
+      "output_paths": {
+        "png": "M:\\K_OS\\src-python\\UI\\preview\\mega_preview_100\\assets\\mega-preview\\ember\\ember-icon-13\\ember-icon-13.png"
+      },
+      "metadata": {
+        "name": "ember-icon-13",
+        "description": "Ember catalog icon 13",
+        "category": "mega-preview/ember",
+        "tags": [
+          "preview",
+          "theme",
+          "ember",
+          "motif-3"
+        ],
+        "generator": "icon",
+        "template_source": "ember-icon-13",
+        "generation_timestamp": "2026-03-07T18:49:37.988763",
+        "dimensions": [
+          96,
+          96
+        ],
+        "format": "png",
+        "file_size": 2989,
+        "color_mode": "RGBA",
+        "has_alpha": true,
+        "dpi": 72,
+        "theme_variant": null,
+        "theme_group": null,
+        "is_animated": false,
+        "animation_type": null,
+        "frame_count": null,
+        "duration": null,
+        "usage_count": 0,
+        "last_used": null,
+        "validation_passed": true,
+        "validation_warnings": []
+      },
+      "status": "pending",
+      "feedback": null
+    },
+    {
+      "preview_id": "mega_preview_100",
+      "asset_id": "1fa948a2fa3999ba",
+      "template_name": "ember-icon-14",
+      "category": "mega-preview/ember",
+      "timestamp": "2026-03-07T18:49:39.372341",
+      "output_paths": {
+        "png": "M:\\K_OS\\src-python\\UI\\preview\\mega_preview_100\\assets\\mega-preview\\ember\\ember-icon-14\\ember-icon-14.png"
+      },
+      "metadata": {
+        "name": "ember-icon-14",
+        "description": "Ember catalog icon 14",
+        "category": "mega-preview/ember",
+        "tags": [
+          "preview",
+          "theme",
+          "ember",
+          "motif-4"
+        ],
+        "generator": "icon",
+        "template_source": "ember-icon-14",
+        "generation_timestamp": "2026-03-07T18:49:38.005156",
+        "dimensions": [
+          96,
+          96
+        ],
+        "format": "png",
+        "file_size": 1681,
+        "color_mode": "RGBA",
+        "has_alpha": true,
+        "dpi": 72,
+        "theme_variant": null,
+        "theme_group": null,
+        "is_animated": false,
+        "animation_type": null,
+        "frame_count": null,
+        "duration": null,
+        "usage_count": 0,
+        "last_used": null,
+        "validation_passed": true,
+        "validation_warnings": []
+      },
+      "status": "pending",
+      "feedback": null
+    },
+    {
+      "preview_id": "mega_preview_100",
+      "asset_id": "32116b5d9554c6f5",
+      "template_name": "ember-icon-15",
+      "category": "mega-preview/ember",
+      "timestamp": "2026-03-07T18:49:39.378484",
+      "output_paths": {
+        "png": "M:\\K_OS\\src-python\\UI\\preview\\mega_preview_100\\assets\\mega-preview\\ember\\ember-icon-15\\ember-icon-15.png",
+        "apng": "M:\\K_OS\\src-python\\UI\\preview\\mega_preview_100\\assets\\mega-preview\\ember\\ember-icon-15\\ember-icon-15_animated_shake.apng"
+      },
+      "metadata": {
+        "name": "ember-icon-15",
+        "description": "Ember catalog icon 15",
+        "category": "mega-preview/ember",
+        "tags": [
+          "preview",
+          "theme",
+          "ember",
+          "motif-5"
+        ],
+        "generator": "icon",
+        "template_source": "ember-icon-15",
+        "generation_timestamp": "2026-03-07T18:49:38.032791",
+        "dimensions": [
+          96,
+          96
+        ],
+        "format": "png",
+        "file_size": 94699,
+        "color_mode": "RGBA",
+        "has_alpha": true,
+        "dpi": 72,
+        "theme_variant": null,
+        "theme_group": null,
+        "is_animated": true,
+        "animation_type": "shake",
+        "frame_count": 16,
+        "duration": 1.4,
+        "usage_count": 0,
+        "last_used": null,
+        "validation_passed": true,
+        "validation_warnings": []
+      },
+      "status": "pending",
+      "feedback": null
+    },
+    {
+      "preview_id": "mega_preview_100",
+      "asset_id": "59ca4d60542454a8",
+      "template_name": "ember-icon-16",
+      "category": "mega-preview/ember",
+      "timestamp": "2026-03-07T18:49:39.384658",
+      "output_paths": {
+        "png": "M:\\K_OS\\src-python\\UI\\preview\\mega_preview_100\\assets\\mega-preview\\ember\\ember-icon-16\\ember-icon-16.png"
+      },
+      "metadata": {
+        "name": "ember-icon-16",
+        "description": "Ember catalog icon 16",
+        "category": "mega-preview/ember",
+        "tags": [
+          "preview",
+          "theme",
+          "ember",
+          "motif-6"
+        ],
+        "generator": "icon",
+        "template_source": "ember-icon-16",
+        "generation_timestamp": "2026-03-07T18:49:38.057846",
+        "dimensions": [
+          96,
+          96
+        ],
+        "format": "png",
+        "file_size": 1842,
+        "color_mode": "RGBA",
+        "has_alpha": true,
+        "dpi": 72,
+        "theme_variant": null,
+        "theme_group": null,
+        "is_animated": false,
+        "animation_type": null,
+        "frame_count": null,
+        "duration": null,
+        "usage_count": 0,
+        "last_used": null,
+        "validation_passed": true,
+        "validation_warnings": []
+      },
+      "status": "pending",
+      "feedback": null
+    },
+    {
+      "preview_id": "mega_preview_100",
+      "asset_id": "b5d2686f04925e33",
+      "template_name": "ember-icon-17",
+      "category": "mega-preview/ember",
+      "timestamp": "2026-03-07T18:49:39.389894",
+      "output_paths": {
+        "png": "M:\\K_OS\\src-python\\UI\\preview\\mega_preview_100\\assets\\mega-preview\\ember\\ember-icon-17\\ember-icon-17.png"
+      },
+      "metadata": {
+        "name": "ember-icon-17",
+        "description": "Ember catalog icon 17",
+        "category": "mega-preview/ember",
+        "tags": [
+          "preview",
+          "theme",
+          "ember",
+          "motif-7"
+        ],
+        "generator": "icon",
+        "template_source": "ember-icon-17",
+        "generation_timestamp": "2026-03-07T18:49:38.084261",
+        "dimensions": [
+          96,
+          96
+        ],
+        "format": "png",
+        "file_size": 3131,
+        "color_mode": "RGBA",
+        "has_alpha": true,
+        "dpi": 72,
+        "theme_variant": null,
+        "theme_group": null,
+        "is_animated": false,
+        "animation_type": null,
+        "frame_count": null,
+        "duration": null,
+        "usage_count": 0,
+        "last_used": null,
+        "validation_passed": true,
+        "validation_warnings": []
+      },
+      "status": "pending",
+      "feedback": null
+    },
+    {
+      "preview_id": "mega_preview_100",
+      "asset_id": "9bfadc12ab4772d6",
+      "template_name": "ember-icon-18",
+      "category": "mega-preview/ember",
+      "timestamp": "2026-03-07T18:49:39.396447",
+      "output_paths": {
+        "png": "M:\\K_OS\\src-python\\UI\\preview\\mega_preview_100\\assets\\mega-preview\\ember\\ember-icon-18\\ember-icon-18.png"
+      },
+      "metadata": {
+        "name": "ember-icon-18",
+        "description": "Ember catalog icon 18",
+        "category": "mega-preview/ember",
+        "tags": [
+          "preview",
+          "theme",
+          "ember",
+          "motif-8"
+        ],
+        "generator": "icon",
+        "template_source": "ember-icon-18",
+        "generation_timestamp": "2026-03-07T18:49:38.101529",
+        "dimensions": [
+          96,
+          96
+        ],
+        "format": "png",
+        "file_size": 3089,
+        "color_mode": "RGBA",
+        "has_alpha": true,
+        "dpi": 72,
+        "theme_variant": null,
+        "theme_group": null,
+        "is_animated": false,
+        "animation_type": null,
+        "frame_count": null,
+        "duration": null,
+        "usage_count": 0,
+        "last_used": null,
+        "validation_passed": true,
+        "validation_warnings": []
+      },
+      "status": "pending",
+      "feedback": null
+    },
+    {
+      "preview_id": "mega_preview_100",
+      "asset_id": "723b5e29d1f75a11",
+      "template_name": "ember-icon-19",
+      "category": "mega-preview/ember",
+      "timestamp": "2026-03-07T18:49:39.402154",
+      "output_paths": {
+        "png": "M:\\K_OS\\src-python\\UI\\preview\\mega_preview_100\\assets\\mega-preview\\ember\\ember-icon-19\\ember-icon-19.png"
+      },
+      "metadata": {
+        "name": "ember-icon-19",
+        "description": "Ember catalog icon 19",
+        "category": "mega-preview/ember",
+        "tags": [
+          "preview",
+          "theme",
+          "ember",
+          "motif-9"
+        ],
+        "generator": "icon",
+        "template_source": "ember-icon-19",
+        "generation_timestamp": "2026-03-07T18:49:38.121474",
+        "dimensions": [
+          96,
+          96
+        ],
+        "format": "png",
+        "file_size": 2057,
+        "color_mode": "RGBA",
+        "has_alpha": true,
+        "dpi": 72,
+        "theme_variant": null,
+        "theme_group": null,
+        "is_animated": false,
+        "animation_type": null,
+        "frame_count": null,
+        "duration": null,
+        "usage_count": 0,
+        "last_used": null,
+        "validation_passed": true,
+        "validation_warnings": []
+      },
+      "status": "pending",
+      "feedback": null
+    },
+    {
+      "preview_id": "mega_preview_100",
+      "asset_id": "baac693dbed46f38",
+      "template_name": "ember-icon-20",
+      "category": "mega-preview/ember",
+      "timestamp": "2026-03-07T18:49:39.408679",
+      "output_paths": {
+        "png": "M:\\K_OS\\src-python\\UI\\preview\\mega_preview_100\\assets\\mega-preview\\ember\\ember-icon-20\\ember-icon-20.png",
+        "apng": "M:\\K_OS\\src-python\\UI\\preview\\mega_preview_100\\assets\\mega-preview\\ember\\ember-icon-20\\ember-icon-20_animated_wobble.apng"
+      },
+      "metadata": {
+        "name": "ember-icon-20",
+        "description": "Ember catalog icon 20",
+        "category": "mega-preview/ember",
+        "tags": [
+          "preview",
+          "theme",
+          "ember",
+          "motif-0"
+        ],
+        "generator": "icon",
+        "template_source": "ember-icon-20",
+        "generation_timestamp": "2026-03-07T18:49:38.165924",
+        "dimensions": [
+          96,
+          96
+        ],
+        "format": "png",
+        "file_size": 86349,
+        "color_mode": "RGBA",
+        "has_alpha": true,
+        "dpi": 72,
+        "theme_variant": null,
+        "theme_group": null,
+        "is_animated": true,
+        "animation_type": "wobble",
+        "frame_count": 16,
+        "duration": 1.4,
+        "usage_count": 0,
+        "last_used": null,
+        "validation_passed": true,
+        "validation_warnings": []
+      },
+      "status": "pending",
+      "feedback": null
+    },
+    {
+      "preview_id": "mega_preview_100",
+      "asset_id": "25c0cd5c8999df91",
+      "template_name": "ember-icon-21",
+      "category": "mega-preview/ember",
+      "timestamp": "2026-03-07T18:49:39.415469",
+      "output_paths": {
+        "png": "M:\\K_OS\\src-python\\UI\\preview\\mega_preview_100\\assets\\mega-preview\\ember\\ember-icon-21\\ember-icon-21.png"
+      },
+      "metadata": {
+        "name": "ember-icon-21",
+        "description": "Ember catalog icon 21",
+        "category": "mega-preview/ember",
+        "tags": [
+          "preview",
+          "theme",
+          "ember",
+          "motif-1"
+        ],
+        "generator": "icon",
+        "template_source": "ember-icon-21",
+        "generation_timestamp": "2026-03-07T18:49:38.182522",
+        "dimensions": [
+          96,
+          96
+        ],
+        "format": "png",
+        "file_size": 2604,
+        "color_mode": "RGBA",
+        "has_alpha": true,
+        "dpi": 72,
+        "theme_variant": null,
+        "theme_group": null,
+        "is_animated": false,
+        "animation_type": null,
+        "frame_count": null,
+        "duration": null,
+        "usage_count": 0,
+        "last_used": null,
+        "validation_passed": true,
+        "validation_warnings": []
+      },
+      "status": "pending",
+      "feedback": null
+    },
+    {
+      "preview_id": "mega_preview_100",
+      "asset_id": "02f022884c0111af",
+      "template_name": "ember-icon-22",
+      "category": "mega-preview/ember",
+      "timestamp": "2026-03-07T18:49:39.421501",
+      "output_paths": {
+        "png": "M:\\K_OS\\src-python\\UI\\preview\\mega_preview_100\\assets\\mega-preview\\ember\\ember-icon-22\\ember-icon-22.png"
+      },
+      "metadata": {
+        "name": "ember-icon-22",
+        "description": "Ember catalog icon 22",
+        "category": "mega-preview/ember",
+        "tags": [
+          "preview",
+          "theme",
+          "ember",
+          "motif-2"
+        ],
+        "generator": "icon",
+        "template_source": "ember-icon-22",
+        "generation_timestamp": "2026-03-07T18:49:38.196611",
+        "dimensions": [
+          96,
+          96
+        ],
+        "format": "png",
+        "file_size": 2924,
+        "color_mode": "RGBA",
+        "has_alpha": true,
+        "dpi": 72,
+        "theme_variant": null,
+        "theme_group": null,
+        "is_animated": false,
+        "animation_type": null,
+        "frame_count": null,
+        "duration": null,
+        "usage_count": 0,
+        "last_used": null,
+        "validation_passed": true,
+        "validation_warnings": []
+      },
+      "status": "pending",
+      "feedback": null
+    },
+    {
+      "preview_id": "mega_preview_100",
+      "asset_id": "c6c9d6b9561735fa",
+      "template_name": "ember-icon-23",
+      "category": "mega-preview/ember",
+      "timestamp": "2026-03-07T18:49:39.427634",
+      "output_paths": {
+        "png": "M:\\K_OS\\src-python\\UI\\preview\\mega_preview_100\\assets\\mega-preview\\ember\\ember-icon-23\\ember-icon-23.png"
+      },
+      "metadata": {
+        "name": "ember-icon-23",
+        "description": "Ember catalog icon 23",
+        "category": "mega-preview/ember",
+        "tags": [
+          "preview",
+          "theme",
+          "ember",
+          "motif-3"
+        ],
+        "generator": "icon",
+        "template_source": "ember-icon-23",
+        "generation_timestamp": "2026-03-07T18:49:38.212983",
+        "dimensions": [
+          96,
+          96
+        ],
+        "format": "png",
+        "file_size": 2989,
+        "color_mode": "RGBA",
+        "has_alpha": true,
+        "dpi": 72,
+        "theme_variant": null,
+        "theme_group": null,
+        "is_animated": false,
+        "animation_type": null,
+        "frame_count": null,
+        "duration": null,
+        "usage_count": 0,
+        "last_used": null,
+        "validation_passed": true,
+        "validation_warnings": []
+      },
+      "status": "pending",
+      "feedback": null
+    },
+    {
+      "preview_id": "mega_preview_100",
+      "asset_id": "dbf522f39c40d418",
+      "template_name": "ember-icon-24",
+      "category": "mega-preview/ember",
+      "timestamp": "2026-03-07T18:49:39.433318",
+      "output_paths": {
+        "png": "M:\\K_OS\\src-python\\UI\\preview\\mega_preview_100\\assets\\mega-preview\\ember\\ember-icon-24\\ember-icon-24.png"
+      },
+      "metadata": {
+        "name": "ember-icon-24",
+        "description": "Ember catalog icon 24",
+        "category": "mega-preview/ember",
+        "tags": [
+          "preview",
+          "theme",
+          "ember",
+          "motif-4"
+        ],
+        "generator": "icon",
+        "template_source": "ember-icon-24",
+        "generation_timestamp": "2026-03-07T18:49:38.229795",
+        "dimensions": [
+          96,
+          96
+        ],
+        "format": "png",
+        "file_size": 1681,
+        "color_mode": "RGBA",
+        "has_alpha": true,
+        "dpi": 72,
+        "theme_variant": null,
+        "theme_group": null,
+        "is_animated": false,
+        "animation_type": null,
+        "frame_count": null,
+        "duration": null,
+        "usage_count": 0,
+        "last_used": null,
+        "validation_passed": true,
+        "validation_warnings": []
+      },
+      "status": "pending",
+      "feedback": null
+    },
+    {
+      "preview_id": "mega_preview_100",
+      "asset_id": "29ee57baaa64a891",
+      "template_name": "forest-icon-00",
+      "category": "mega-preview/forest",
+      "timestamp": "2026-03-07T18:49:39.441127",
+      "output_paths": {
+        "png": "M:\\K_OS\\src-python\\UI\\preview\\mega_preview_100\\assets\\mega-preview\\forest\\forest-icon-00\\forest-icon-00.png",
+        "apng": "M:\\K_OS\\src-python\\UI\\preview\\mega_preview_100\\assets\\mega-preview\\forest\\forest-icon-00\\forest-icon-00_animated_pulse.apng"
+      },
+      "metadata": {
+        "name": "forest-icon-00",
+        "description": "Forest catalog icon 00",
+        "category": "mega-preview/forest",
+        "tags": [
+          "preview",
+          "theme",
+          "forest",
+          "motif-0"
+        ],
+        "generator": "icon",
+        "template_source": "forest-icon-00",
+        "generation_timestamp": "2026-03-07T18:49:38.263707",
+        "dimensions": [
+          96,
+          96
+        ],
+        "format": "png",
+        "file_size": 80721,
+        "color_mode": "RGBA",
+        "has_alpha": true,
+        "dpi": 72,
+        "theme_variant": null,
+        "theme_group": null,
+        "is_animated": true,
+        "animation_type": "pulse",
+        "frame_count": 16,
+        "duration": 1.4,
+        "usage_count": 0,
+        "last_used": null,
+        "validation_passed": true,
+        "validation_warnings": []
+      },
+      "status": "pending",
+      "feedback": null
+    },
+    {
+      "preview_id": "mega_preview_100",
+      "asset_id": "6163d2f6b090a76e",
+      "template_name": "forest-icon-01",
+      "category": "mega-preview/forest",
+      "timestamp": "2026-03-07T18:49:39.448497",
+      "output_paths": {
+        "png": "M:\\K_OS\\src-python\\UI\\preview\\mega_preview_100\\assets\\mega-preview\\forest\\forest-icon-01\\forest-icon-01.png"
+      },
+      "metadata": {
+        "name": "forest-icon-01",
+        "description": "Forest catalog icon 01",
+        "category": "mega-preview/forest",
+        "tags": [
+          "preview",
+          "theme",
+          "forest",
+          "motif-1"
+        ],
+        "generator": "icon",
+        "template_source": "forest-icon-01",
+        "generation_timestamp": "2026-03-07T18:49:38.279769",
+        "dimensions": [
+          96,
+          96
+        ],
+        "format": "png",
+        "file_size": 3105,
+        "color_mode": "RGBA",
+        "has_alpha": true,
+        "dpi": 72,
+        "theme_variant": null,
+        "theme_group": null,
+        "is_animated": false,
+        "animation_type": null,
+        "frame_count": null,
+        "duration": null,
+        "usage_count": 0,
+        "last_used": null,
+        "validation_passed": true,
+        "validation_warnings": []
+      },
+      "status": "pending",
+      "feedback": null
+    },
+    {
+      "preview_id": "mega_preview_100",
+      "asset_id": "2d20bdd44688ec53",
+      "template_name": "forest-icon-02",
+      "category": "mega-preview/forest",
+      "timestamp": "2026-03-07T18:49:39.454675",
+      "output_paths": {
+        "png": "M:\\K_OS\\src-python\\UI\\preview\\mega_preview_100\\assets\\mega-preview\\forest\\forest-icon-02\\forest-icon-02.png"
+      },
+      "metadata": {
+        "name": "forest-icon-02",
+        "description": "Forest catalog icon 02",
+        "category": "mega-preview/forest",
+        "tags": [
+          "preview",
+          "theme",
+          "forest",
+          "motif-2"
+        ],
+        "generator": "icon",
+        "template_source": "forest-icon-02",
+        "generation_timestamp": "2026-03-07T18:49:38.293255",
+        "dimensions": [
+          96,
+          96
+        ],
+        "format": "png",
+        "file_size": 3180,
+        "color_mode": "RGBA",
+        "has_alpha": true,
+        "dpi": 72,
+        "theme_variant": null,
+        "theme_group": null,
+        "is_animated": false,
+        "animation_type": null,
+        "frame_count": null,
+        "duration": null,
+        "usage_count": 0,
+        "last_used": null,
+        "validation_passed": true,
+        "validation_warnings": []
+      },
+      "status": "pending",
+      "feedback": null
+    },
+    {
+      "preview_id": "mega_preview_100",
+      "asset_id": "7c768454f74a3b1d",
+      "template_name": "forest-icon-03",
+      "category": "mega-preview/forest",
+      "timestamp": "2026-03-07T18:49:39.462714",
+      "output_paths": {
+        "png": "M:\\K_OS\\src-python\\UI\\preview\\mega_preview_100\\assets\\mega-preview\\forest\\forest-icon-03\\forest-icon-03.png"
+      },
+      "metadata": {
+        "name": "forest-icon-03",
+        "description": "Forest catalog icon 03",
+        "category": "mega-preview/forest",
+        "tags": [
+          "preview",
+          "theme",
+          "forest",
+          "motif-3"
+        ],
+        "generator": "icon",
+        "template_source": "forest-icon-03",
+        "generation_timestamp": "2026-03-07T18:49:38.311203",
+        "dimensions": [
+          96,
+          96
+        ],
+        "format": "png",
+        "file_size": 2980,
+        "color_mode": "RGBA",
+        "has_alpha": true,
+        "dpi": 72,
+        "theme_variant": null,
+        "theme_group": null,
+        "is_animated": false,
+        "animation_type": null,
+        "frame_count": null,
+        "duration": null,
+        "usage_count": 0,
+        "last_used": null,
+        "validation_passed": true,
+        "validation_warnings": []
+      },
+      "status": "pending",
+      "feedback": null
+    },
+    {
+      "preview_id": "mega_preview_100",
+      "asset_id": "1903409535f47561",
+      "template_name": "forest-icon-04",
+      "category": "mega-preview/forest",
+      "timestamp": "2026-03-07T18:49:39.469771",
+      "output_paths": {
+        "png": "M:\\K_OS\\src-python\\UI\\preview\\mega_preview_100\\assets\\mega-preview\\forest\\forest-icon-04\\forest-icon-04.png"
+      },
+      "metadata": {
+        "name": "forest-icon-04",
+        "description": "Forest catalog icon 04",
+        "category": "mega-preview/forest",
+        "tags": [
+          "preview",
+          "theme",
+          "forest",
+          "motif-4"
+        ],
+        "generator": "icon",
+        "template_source": "forest-icon-04",
+        "generation_timestamp": "2026-03-07T18:49:38.327795",
+        "dimensions": [
+          96,
+          96
+        ],
+        "format": "png",
+        "file_size": 1879,
+        "color_mode": "RGBA",
+        "has_alpha": true,
+        "dpi": 72,
+        "theme_variant": null,
+        "theme_group": null,
+        "is_animated": false,
+        "animation_type": null,
+        "frame_count": null,
+        "duration": null,
+        "usage_count": 0,
+        "last_used": null,
+        "validation_passed": true,
+        "validation_warnings": []
+      },
+      "status": "pending",
+      "feedback": null
+    },
+    {
+      "preview_id": "mega_preview_100",
+      "asset_id": "70e552e7fbb91ddf",
+      "template_name": "forest-icon-05",
+      "category": "mega-preview/forest",
+      "timestamp": "2026-03-07T18:49:39.477488",
+      "output_paths": {
+        "png": "M:\\K_OS\\src-python\\UI\\preview\\mega_preview_100\\assets\\mega-preview\\forest\\forest-icon-05\\forest-icon-05.png",
+        "apng": "M:\\K_OS\\src-python\\UI\\preview\\mega_preview_100\\assets\\mega-preview\\forest\\forest-icon-05\\forest-icon-05_animated_orbit.apng"
+      },
+      "metadata": {
+        "name": "forest-icon-05",
+        "description": "Forest catalog icon 05",
+        "category": "mega-preview/forest",
+        "tags": [
+          "preview",
+          "theme",
+          "forest",
+          "motif-5"
+        ],
+        "generator": "icon",
+        "template_source": "forest-icon-05",
+        "generation_timestamp": "2026-03-07T18:49:38.354902",
+        "dimensions": [
+          96,
+          96
+        ],
+        "format": "png",
+        "file_size": 99690,
+        "color_mode": "RGBA",
+        "has_alpha": true,
+        "dpi": 72,
+        "theme_variant": null,
+        "theme_group": null,
+        "is_animated": true,
+        "animation_type": "orbit",
+        "frame_count": 16,
+        "duration": 1.4,
+        "usage_count": 0,
+        "last_used": null,
+        "validation_passed": true,
+        "validation_warnings": []
+      },
+      "status": "pending",
+      "feedback": null
+    },
+    {
+      "preview_id": "mega_preview_100",
+      "asset_id": "0bde3376daab03bf",
+      "template_name": "forest-icon-06",
+      "category": "mega-preview/forest",
+      "timestamp": "2026-03-07T18:49:39.485085",
+      "output_paths": {
+        "png": "M:\\K_OS\\src-python\\UI\\preview\\mega_preview_100\\assets\\mega-preview\\forest\\forest-icon-06\\forest-icon-06.png"
+      },
+      "metadata": {
+        "name": "forest-icon-06",
+        "description": "Forest catalog icon 06",
+        "category": "mega-preview/forest",
+        "tags": [
+          "preview",
+          "theme",
+          "forest",
+          "motif-6"
+        ],
+        "generator": "icon",
+        "template_source": "forest-icon-06",
+        "generation_timestamp": "2026-03-07T18:49:38.379120",
+        "dimensions": [
+          96,
+          96
+        ],
+        "format": "png",
+        "file_size": 1960,
+        "color_mode": "RGBA",
+        "has_alpha": true,
+        "dpi": 72,
+        "theme_variant": null,
+        "theme_group": null,
+        "is_animated": false,
+        "animation_type": null,
+        "frame_count": null,
+        "duration": null,
+        "usage_count": 0,
+        "last_used": null,
+        "validation_passed": true,
+        "validation_warnings": []
+      },
+      "status": "pending",
+      "feedback": null
+    },
+    {
+      "preview_id": "mega_preview_100",
+      "asset_id": "e09c56991a84ba72",
+      "template_name": "forest-icon-07",
+      "category": "mega-preview/forest",
+      "timestamp": "2026-03-07T18:49:39.492161",
+      "output_paths": {
+        "png": "M:\\K_OS\\src-python\\UI\\preview\\mega_preview_100\\assets\\mega-preview\\forest\\forest-icon-07\\forest-icon-07.png"
+      },
+      "metadata": {
+        "name": "forest-icon-07",
+        "description": "Forest catalog icon 07",
+        "category": "mega-preview/forest",
+        "tags": [
+          "preview",
+          "theme",
+          "forest",
+          "motif-7"
+        ],
+        "generator": "icon",
+        "template_source": "forest-icon-07",
+        "generation_timestamp": "2026-03-07T18:49:38.406367",
+        "dimensions": [
+          96,
+          96
+        ],
+        "format": "png",
+        "file_size": 3176,
+        "color_mode": "RGBA",
+        "has_alpha": true,
+        "dpi": 72,
+        "theme_variant": null,
+        "theme_group": null,
+        "is_animated": false,
+        "animation_type": null,
+        "frame_count": null,
+        "duration": null,
+        "usage_count": 0,
+        "last_used": null,
+        "validation_passed": true,
+        "validation_warnings": []
+      },
+      "status": "pending",
+      "feedback": null
+    },
+    {
+      "preview_id": "mega_preview_100",
+      "asset_id": "86becd8726108f85",
+      "template_name": "forest-icon-08",
+      "category": "mega-preview/forest",
+      "timestamp": "2026-03-07T18:49:39.499937",
+      "output_paths": {
+        "png": "M:\\K_OS\\src-python\\UI\\preview\\mega_preview_100\\assets\\mega-preview\\forest\\forest-icon-08\\forest-icon-08.png"
+      },
+      "metadata": {
+        "name": "forest-icon-08",
+        "description": "Forest catalog icon 08",
+        "category": "mega-preview/forest",
+        "tags": [
+          "preview",
+          "theme",
+          "forest",
+          "motif-8"
+        ],
+        "generator": "icon",
+        "template_source": "forest-icon-08",
+        "generation_timestamp": "2026-03-07T18:49:38.424023",
+        "dimensions": [
+          96,
+          96
+        ],
+        "format": "png",
+        "file_size": 3588,
+        "color_mode": "RGBA",
+        "has_alpha": true,
+        "dpi": 72,
+        "theme_variant": null,
+        "theme_group": null,
+        "is_animated": false,
+        "animation_type": null,
+        "frame_count": null,
+        "duration": null,
+        "usage_count": 0,
+        "last_used": null,
+        "validation_passed": true,
+        "validation_warnings": []
+      },
+      "status": "pending",
+      "feedback": null
+    },
+    {
+      "preview_id": "mega_preview_100",
+      "asset_id": "f8534748cc3b5f6d",
+      "template_name": "forest-icon-09",
+      "category": "mega-preview/forest",
+      "timestamp": "2026-03-07T18:49:39.506384",
+      "output_paths": {
+        "png": "M:\\K_OS\\src-python\\UI\\preview\\mega_preview_100\\assets\\mega-preview\\forest\\forest-icon-09\\forest-icon-09.png"
+      },
+      "metadata": {
+        "name": "forest-icon-09",
+        "description": "Forest catalog icon 09",
+        "category": "mega-preview/forest",
+        "tags": [
+          "preview",
+          "theme",
+          "forest",
+          "motif-9"
+        ],
+        "generator": "icon",
+        "template_source": "forest-icon-09",
+        "generation_timestamp": "2026-03-07T18:49:38.444578",
+        "dimensions": [
+          96,
+          96
+        ],
+        "format": "png",
+        "file_size": 2397,
+        "color_mode": "RGBA",
+        "has_alpha": true,
+        "dpi": 72,
+        "theme_variant": null,
+        "theme_group": null,
+        "is_animated": false,
+        "animation_type": null,
+        "frame_count": null,
+        "duration": null,
+        "usage_count": 0,
+        "last_used": null,
+        "validation_passed": true,
+        "validation_warnings": []
+      },
+      "status": "pending",
+      "feedback": null
+    },
+    {
+      "preview_id": "mega_preview_100",
+      "asset_id": "499ec6b01ef6d81e",
+      "template_name": "forest-icon-10",
+      "category": "mega-preview/forest",
+      "timestamp": "2026-03-07T18:49:39.515371",
+      "output_paths": {
+        "png": "M:\\K_OS\\src-python\\UI\\preview\\mega_preview_100\\assets\\mega-preview\\forest\\forest-icon-10\\forest-icon-10.png",
+        "apng": "M:\\K_OS\\src-python\\UI\\preview\\mega_preview_100\\assets\\mega-preview\\forest\\forest-icon-10\\forest-icon-10_animated_float.apng"
+      },
+      "metadata": {
+        "name": "forest-icon-10",
+        "description": "Forest catalog icon 10",
+        "category": "mega-preview/forest",
+        "tags": [
+          "preview",
+          "theme",
+          "forest",
+          "motif-0"
+        ],
+        "generator": "icon",
+        "template_source": "forest-icon-10",
+        "generation_timestamp": "2026-03-07T18:49:38.470019",
+        "dimensions": [
+          96,
+          96
+        ],
+        "format": "png",
+        "file_size": 61507,
+        "color_mode": "RGBA",
+        "has_alpha": true,
+        "dpi": 72,
+        "theme_variant": null,
+        "theme_group": null,
+        "is_animated": true,
+        "animation_type": "float",
+        "frame_count": 16,
+        "duration": 1.4,
+        "usage_count": 0,
+        "last_used": null,
+        "validation_passed": true,
+        "validation_warnings": []
+      },
+      "status": "pending",
+      "feedback": null
+    },
+    {
+      "preview_id": "mega_preview_100",
+      "asset_id": "5b95097bf1fe85ff",
+      "template_name": "forest-icon-11",
+      "category": "mega-preview/forest",
+      "timestamp": "2026-03-07T18:49:39.523067",
+      "output_paths": {
+        "png": "M:\\K_OS\\src-python\\UI\\preview\\mega_preview_100\\assets\\mega-preview\\forest\\forest-icon-11\\forest-icon-11.png"
+      },
+      "metadata": {
+        "name": "forest-icon-11",
+        "description": "Forest catalog icon 11",
+        "category": "mega-preview/forest",
+        "tags": [
+          "preview",
+          "theme",
+          "forest",
+          "motif-1"
+        ],
+        "generator": "icon",
+        "template_source": "forest-icon-11",
+        "generation_timestamp": "2026-03-07T18:49:38.486991",
+        "dimensions": [
+          96,
+          96
+        ],
+        "format": "png",
+        "file_size": 3105,
+        "color_mode": "RGBA",
+        "has_alpha": true,
+        "dpi": 72,
+        "theme_variant": null,
+        "theme_group": null,
+        "is_animated": false,
+        "animation_type": null,
+        "frame_count": null,
+        "duration": null,
+        "usage_count": 0,
+        "last_used": null,
+        "validation_passed": true,
+        "validation_warnings": []
+      },
+      "status": "pending",
+      "feedback": null
+    },
+    {
+      "preview_id": "mega_preview_100",
+      "asset_id": "da6a5cff9a5e4851",
+      "template_name": "forest-icon-12",
+      "category": "mega-preview/forest",
+      "timestamp": "2026-03-07T18:49:39.530760",
+      "output_paths": {
+        "png": "M:\\K_OS\\src-python\\UI\\preview\\mega_preview_100\\assets\\mega-preview\\forest\\forest-icon-12\\forest-icon-12.png"
+      },
+      "metadata": {
+        "name": "forest-icon-12",
+        "description": "Forest catalog icon 12",
+        "category": "mega-preview/forest",
+        "tags": [
+          "preview",
+          "theme",
+          "forest",
+          "motif-2"
+        ],
+        "generator": "icon",
+        "template_source": "forest-icon-12",
+        "generation_timestamp": "2026-03-07T18:49:38.501428",
+        "dimensions": [
+          96,
+          96
+        ],
+        "format": "png",
+        "file_size": 3180,
+        "color_mode": "RGBA",
+        "has_alpha": true,
+        "dpi": 72,
+        "theme_variant": null,
+        "theme_group": null,
+        "is_animated": false,
+        "animation_type": null,
+        "frame_count": null,
+        "duration": null,
+        "usage_count": 0,
+        "last_used": null,
+        "validation_passed": true,
+        "validation_warnings": []
+      },
+      "status": "pending",
+      "feedback": null
+    },
+    {
+      "preview_id": "mega_preview_100",
+      "asset_id": "136389756541bdbb",
+      "template_name": "forest-icon-13",
+      "category": "mega-preview/forest",
+      "timestamp": "2026-03-07T18:49:39.538821",
+      "output_paths": {
+        "png": "M:\\K_OS\\src-python\\UI\\preview\\mega_preview_100\\assets\\mega-preview\\forest\\forest-icon-13\\forest-icon-13.png"
+      },
+      "metadata": {
+        "name": "forest-icon-13",
+        "description": "Forest catalog icon 13",
+        "category": "mega-preview/forest",
+        "tags": [
+          "preview",
+          "theme",
+          "forest",
+          "motif-3"
+        ],
+        "generator": "icon",
+        "template_source": "forest-icon-13",
+        "generation_timestamp": "2026-03-07T18:49:38.518503",
+        "dimensions": [
+          96,
+          96
+        ],
+        "format": "png",
+        "file_size": 2980,
+        "color_mode": "RGBA",
+        "has_alpha": true,
+        "dpi": 72,
+        "theme_variant": null,
+        "theme_group": null,
+        "is_animated": false,
+        "animation_type": null,
+        "frame_count": null,
+        "duration": null,
+        "usage_count": 0,
+        "last_used": null,
+        "validation_passed": true,
+        "validation_warnings": []
+      },
+      "status": "pending",
+      "feedback": null
+    },
+    {
+      "preview_id": "mega_preview_100",
+      "asset_id": "b1c09f2711a0f8c2",
+      "template_name": "forest-icon-14",
+      "category": "mega-preview/forest",
+      "timestamp": "2026-03-07T18:49:39.547199",
+      "output_paths": {
+        "png": "M:\\K_OS\\src-python\\UI\\preview\\mega_preview_100\\assets\\mega-preview\\forest\\forest-icon-14\\forest-icon-14.png"
+      },
+      "metadata": {
+        "name": "forest-icon-14",
+        "description": "Forest catalog icon 14",
+        "category": "mega-preview/forest",
+        "tags": [
+          "preview",
+          "theme",
+          "forest",
+          "motif-4"
+        ],
+        "generator": "icon",
+        "template_source": "forest-icon-14",
+        "generation_timestamp": "2026-03-07T18:49:38.535543",
+        "dimensions": [
+          96,
+          96
+        ],
+        "format": "png",
+        "file_size": 1879,
+        "color_mode": "RGBA",
+        "has_alpha": true,
+        "dpi": 72,
+        "theme_variant": null,
+        "theme_group": null,
+        "is_animated": false,
+        "animation_type": null,
+        "frame_count": null,
+        "duration": null,
+        "usage_count": 0,
+        "last_used": null,
+        "validation_passed": true,
+        "validation_warnings": []
+      },
+      "status": "pending",
+      "feedback": null
+    },
+    {
+      "preview_id": "mega_preview_100",
+      "asset_id": "98e19cd43d2e471e",
+      "template_name": "forest-icon-15",
+      "category": "mega-preview/forest",
+      "timestamp": "2026-03-07T18:49:39.556346",
+      "output_paths": {
+        "png": "M:\\K_OS\\src-python\\UI\\preview\\mega_preview_100\\assets\\mega-preview\\forest\\forest-icon-15\\forest-icon-15.png",
+        "apng": "M:\\K_OS\\src-python\\UI\\preview\\mega_preview_100\\assets\\mega-preview\\forest\\forest-icon-15\\forest-icon-15_animated_shake.apng"
+      },
+      "metadata": {
+        "name": "forest-icon-15",
+        "description": "Forest catalog icon 15",
+        "category": "mega-preview/forest",
+        "tags": [
+          "preview",
+          "theme",
+          "forest",
+          "motif-5"
+        ],
+        "generator": "icon",
+        "template_source": "forest-icon-15",
+        "generation_timestamp": "2026-03-07T18:49:38.563679",
+        "dimensions": [
+          96,
+          96
+        ],
+        "format": "png",
+        "file_size": 93649,
+        "color_mode": "RGBA",
+        "has_alpha": true,
+        "dpi": 72,
+        "theme_variant": null,
+        "theme_group": null,
+        "is_animated": true,
+        "animation_type": "shake",
+        "frame_count": 16,
+        "duration": 1.4,
+        "usage_count": 0,
+        "last_used": null,
+        "validation_passed": true,
+        "validation_warnings": []
+      },
+      "status": "pending",
+      "feedback": null
+    },
+    {
+      "preview_id": "mega_preview_100",
+      "asset_id": "765c6c883a07b20d",
+      "template_name": "forest-icon-16",
+      "category": "mega-preview/forest",
+      "timestamp": "2026-03-07T18:49:39.563955",
+      "output_paths": {
+        "png": "M:\\K_OS\\src-python\\UI\\preview\\mega_preview_100\\assets\\mega-preview\\forest\\forest-icon-16\\forest-icon-16.png"
+      },
+      "metadata": {
+        "name": "forest-icon-16",
+        "description": "Forest catalog icon 16",
+        "category": "mega-preview/forest",
+        "tags": [
+          "preview",
+          "theme",
+          "forest",
+          "motif-6"
+        ],
+        "generator": "icon",
+        "template_source": "forest-icon-16",
+        "generation_timestamp": "2026-03-07T18:49:38.588268",
+        "dimensions": [
+          96,
+          96
+        ],
+        "format": "png",
+        "file_size": 1960,
+        "color_mode": "RGBA",
+        "has_alpha": true,
+        "dpi": 72,
+        "theme_variant": null,
+        "theme_group": null,
+        "is_animated": false,
+        "animation_type": null,
+        "frame_count": null,
+        "duration": null,
+        "usage_count": 0,
+        "last_used": null,
+        "validation_passed": true,
+        "validation_warnings": []
+      },
+      "status": "pending",
+      "feedback": null
+    },
+    {
+      "preview_id": "mega_preview_100",
+      "asset_id": "96220a4ee0a57f7d",
+      "template_name": "forest-icon-17",
+      "category": "mega-preview/forest",
+      "timestamp": "2026-03-07T18:49:39.572939",
+      "output_paths": {
+        "png": "M:\\K_OS\\src-python\\UI\\preview\\mega_preview_100\\assets\\mega-preview\\forest\\forest-icon-17\\forest-icon-17.png"
+      },
+      "metadata": {
+        "name": "forest-icon-17",
+        "description": "Forest catalog icon 17",
+        "category": "mega-preview/forest",
+        "tags": [
+          "preview",
+          "theme",
+          "forest",
+          "motif-7"
+        ],
+        "generator": "icon",
+        "template_source": "forest-icon-17",
+        "generation_timestamp": "2026-03-07T18:49:38.615362",
+        "dimensions": [
+          96,
+          96
+        ],
+        "format": "png",
+        "file_size": 3176,
+        "color_mode": "RGBA",
+        "has_alpha": true,
+        "dpi": 72,
+        "theme_variant": null,
+        "theme_group": null,
+        "is_animated": false,
+        "animation_type": null,
+        "frame_count": null,
+        "duration": null,
+        "usage_count": 0,
+        "last_used": null,
+        "validation_passed": true,
+        "validation_warnings": []
+      },
+      "status": "pending",
+      "feedback": null
+    },
+    {
+      "preview_id": "mega_preview_100",
+      "asset_id": "7e0f1f24cbb5669f",
+      "template_name": "forest-icon-18",
+      "category": "mega-preview/forest",
+      "timestamp": "2026-03-07T18:49:39.581174",
+      "output_paths": {
+        "png": "M:\\K_OS\\src-python\\UI\\preview\\mega_preview_100\\assets\\mega-preview\\forest\\forest-icon-18\\forest-icon-18.png"
+      },
+      "metadata": {
+        "name": "forest-icon-18",
+        "description": "Forest catalog icon 18",
+        "category": "mega-preview/forest",
+        "tags": [
+          "preview",
+          "theme",
+          "forest",
+          "motif-8"
+        ],
+        "generator": "icon",
+        "template_source": "forest-icon-18",
+        "generation_timestamp": "2026-03-07T18:49:38.632270",
+        "dimensions": [
+          96,
+          96
+        ],
+        "format": "png",
+        "file_size": 3588,
+        "color_mode": "RGBA",
+        "has_alpha": true,
+        "dpi": 72,
+        "theme_variant": null,
+        "theme_group": null,
+        "is_animated": false,
+        "animation_type": null,
+        "frame_count": null,
+        "duration": null,
+        "usage_count": 0,
+        "last_used": null,
+        "validation_passed": true,
+        "validation_warnings": []
+      },
+      "status": "pending",
+      "feedback": null
+    },
+    {
+      "preview_id": "mega_preview_100",
+      "asset_id": "fff1a5e5251b9938",
+      "template_name": "forest-icon-19",
+      "category": "mega-preview/forest",
+      "timestamp": "2026-03-07T18:49:39.590006",
+      "output_paths": {
+        "png": "M:\\K_OS\\src-python\\UI\\preview\\mega_preview_100\\assets\\mega-preview\\forest\\forest-icon-19\\forest-icon-19.png"
+      },
+      "metadata": {
+        "name": "forest-icon-19",
+        "description": "Forest catalog icon 19",
+        "category": "mega-preview/forest",
+        "tags": [
+          "preview",
+          "theme",
+          "forest",
+          "motif-9"
+        ],
+        "generator": "icon",
+        "template_source": "forest-icon-19",
+        "generation_timestamp": "2026-03-07T18:49:38.652071",
+        "dimensions": [
+          96,
+          96
+        ],
+        "format": "png",
+        "file_size": 2397,
+        "color_mode": "RGBA",
+        "has_alpha": true,
+        "dpi": 72,
+        "theme_variant": null,
+        "theme_group": null,
+        "is_animated": false,
+        "animation_type": null,
+        "frame_count": null,
+        "duration": null,
+        "usage_count": 0,
+        "last_used": null,
+        "validation_passed": true,
+        "validation_warnings": []
+      },
+      "status": "pending",
+      "feedback": null
+    },
+    {
+      "preview_id": "mega_preview_100",
+      "asset_id": "c81a29e30aa65170",
+      "template_name": "forest-icon-20",
+      "category": "mega-preview/forest",
+      "timestamp": "2026-03-07T18:49:39.599121",
+      "output_paths": {
+        "png": "M:\\K_OS\\src-python\\UI\\preview\\mega_preview_100\\assets\\mega-preview\\forest\\forest-icon-20\\forest-icon-20.png",
+        "apng": "M:\\K_OS\\src-python\\UI\\preview\\mega_preview_100\\assets\\mega-preview\\forest\\forest-icon-20\\forest-icon-20_animated_wobble.apng"
+      },
+      "metadata": {
+        "name": "forest-icon-20",
+        "description": "Forest catalog icon 20",
+        "category": "mega-preview/forest",
+        "tags": [
+          "preview",
+          "theme",
+          "forest",
+          "motif-0"
+        ],
+        "generator": "icon",
+        "template_source": "forest-icon-20",
+        "generation_timestamp": "2026-03-07T18:49:38.695264",
+        "dimensions": [
+          96,
+          96
+        ],
+        "format": "png",
+        "file_size": 89935,
+        "color_mode": "RGBA",
+        "has_alpha": true,
+        "dpi": 72,
+        "theme_variant": null,
+        "theme_group": null,
+        "is_animated": true,
+        "animation_type": "wobble",
+        "frame_count": 16,
+        "duration": 1.4,
+        "usage_count": 0,
+        "last_used": null,
+        "validation_passed": true,
+        "validation_warnings": []
+      },
+      "status": "pending",
+      "feedback": null
+    },
+    {
+      "preview_id": "mega_preview_100",
+      "asset_id": "c528194f76ab6f18",
+      "template_name": "forest-icon-21",
+      "category": "mega-preview/forest",
+      "timestamp": "2026-03-07T18:49:39.608513",
+      "output_paths": {
+        "png": "M:\\K_OS\\src-python\\UI\\preview\\mega_preview_100\\assets\\mega-preview\\forest\\forest-icon-21\\forest-icon-21.png"
+      },
+      "metadata": {
+        "name": "forest-icon-21",
+        "description": "Forest catalog icon 21",
+        "category": "mega-preview/forest",
+        "tags": [
+          "preview",
+          "theme",
+          "forest",
+          "motif-1"
+        ],
+        "generator": "icon",
+        "template_source": "forest-icon-21",
+        "generation_timestamp": "2026-03-07T18:49:38.711248",
+        "dimensions": [
+          96,
+          96
+        ],
+        "format": "png",
+        "file_size": 3105,
+        "color_mode": "RGBA",
+        "has_alpha": true,
+        "dpi": 72,
+        "theme_variant": null,
+        "theme_group": null,
+        "is_animated": false,
+        "animation_type": null,
+        "frame_count": null,
+        "duration": null,
+        "usage_count": 0,
+        "last_used": null,
+        "validation_passed": true,
+        "validation_warnings": []
+      },
+      "status": "pending",
+      "feedback": null
+    },
+    {
+      "preview_id": "mega_preview_100",
+      "asset_id": "0f20c55a71939ea9",
+      "template_name": "forest-icon-22",
+      "category": "mega-preview/forest",
+      "timestamp": "2026-03-07T18:49:39.617934",
+      "output_paths": {
+        "png": "M:\\K_OS\\src-python\\UI\\preview\\mega_preview_100\\assets\\mega-preview\\forest\\forest-icon-22\\forest-icon-22.png"
+      },
+      "metadata": {
+        "name": "forest-icon-22",
+        "description": "Forest catalog icon 22",
+        "category": "mega-preview/forest",
+        "tags": [
+          "preview",
+          "theme",
+          "forest",
+          "motif-2"
+        ],
+        "generator": "icon",
+        "template_source": "forest-icon-22",
+        "generation_timestamp": "2026-03-07T18:49:38.726626",
+        "dimensions": [
+          96,
+          96
+        ],
+        "format": "png",
+        "file_size": 3180,
+        "color_mode": "RGBA",
+        "has_alpha": true,
+        "dpi": 72,
+        "theme_variant": null,
+        "theme_group": null,
+        "is_animated": false,
+        "animation_type": null,
+        "frame_count": null,
+        "duration": null,
+        "usage_count": 0,
+        "last_used": null,
+        "validation_passed": true,
+        "validation_warnings": []
+      },
+      "status": "pending",
+      "feedback": null
+    },
+    {
+      "preview_id": "mega_preview_100",
+      "asset_id": "6d86a0719bbbb4ef",
+      "template_name": "forest-icon-23",
+      "category": "mega-preview/forest",
+      "timestamp": "2026-03-07T18:49:39.626061",
+      "output_paths": {
+        "png": "M:\\K_OS\\src-python\\UI\\preview\\mega_preview_100\\assets\\mega-preview\\forest\\forest-icon-23\\forest-icon-23.png"
+      },
+      "metadata": {
+        "name": "forest-icon-23",
+        "description": "Forest catalog icon 23",
+        "category": "mega-preview/forest",
+        "tags": [
+          "preview",
+          "theme",
+          "forest",
+          "motif-3"
+        ],
+        "generator": "icon",
+        "template_source": "forest-icon-23",
+        "generation_timestamp": "2026-03-07T18:49:38.741370",
+        "dimensions": [
+          96,
+          96
+        ],
+        "format": "png",
+        "file_size": 2980,
+        "color_mode": "RGBA",
+        "has_alpha": true,
+        "dpi": 72,
+        "theme_variant": null,
+        "theme_group": null,
+        "is_animated": false,
+        "animation_type": null,
+        "frame_count": null,
+        "duration": null,
+        "usage_count": 0,
+        "last_used": null,
+        "validation_passed": true,
+        "validation_warnings": []
+      },
+      "status": "pending",
+      "feedback": null
+    },
+    {
+      "preview_id": "mega_preview_100",
+      "asset_id": "ee5ba9052d457d11",
+      "template_name": "forest-icon-24",
+      "category": "mega-preview/forest",
+      "timestamp": "2026-03-07T18:49:39.636501",
+      "output_paths": {
+        "png": "M:\\K_OS\\src-python\\UI\\preview\\mega_preview_100\\assets\\mega-preview\\forest\\forest-icon-24\\forest-icon-24.png"
+      },
+      "metadata": {
+        "name": "forest-icon-24",
+        "description": "Forest catalog icon 24",
+        "category": "mega-preview/forest",
+        "tags": [
+          "preview",
+          "theme",
+          "forest",
+          "motif-4"
+        ],
+        "generator": "icon",
+        "template_source": "forest-icon-24",
+        "generation_timestamp": "2026-03-07T18:49:38.756516",
+        "dimensions": [
+          96,
+          96
+        ],
+        "format": "png",
+        "file_size": 1879,
+        "color_mode": "RGBA",
+        "has_alpha": true,
+        "dpi": 72,
+        "theme_variant": null,
+        "theme_group": null,
+        "is_animated": false,
+        "animation_type": null,
+        "frame_count": null,
+        "duration": null,
+        "usage_count": 0,
+        "last_used": null,
+        "validation_passed": true,
+        "validation_warnings": []
+      },
+      "status": "pending",
+      "feedback": null
+    },
+    {
+      "preview_id": "mega_preview_100",
+      "asset_id": "60386e7d3676adee",
+      "template_name": "violet-icon-00",
+      "category": "mega-preview/violet",
+      "timestamp": "2026-03-07T18:49:39.645270",
+      "output_paths": {
+        "png": "M:\\K_OS\\src-python\\UI\\preview\\mega_preview_100\\assets\\mega-preview\\violet\\violet-icon-00\\violet-icon-00.png",
+        "apng": "M:\\K_OS\\src-python\\UI\\preview\\mega_preview_100\\assets\\mega-preview\\violet\\violet-icon-00\\violet-icon-00_animated_pulse.apng"
+      },
+      "metadata": {
+        "name": "violet-icon-00",
+        "description": "Violet catalog icon 00",
+        "category": "mega-preview/violet",
+        "tags": [
+          "preview",
+          "theme",
+          "violet",
+          "motif-0"
+        ],
+        "generator": "icon",
+        "template_source": "violet-icon-00",
+        "generation_timestamp": "2026-03-07T18:49:38.786669",
+        "dimensions": [
+          96,
+          96
+        ],
+        "format": "png",
+        "file_size": 80733,
+        "color_mode": "RGBA",
+        "has_alpha": true,
+        "dpi": 72,
+        "theme_variant": null,
+        "theme_group": null,
+        "is_animated": true,
+        "animation_type": "pulse",
+        "frame_count": 16,
+        "duration": 1.4,
+        "usage_count": 0,
+        "last_used": null,
+        "validation_passed": true,
+        "validation_warnings": []
+      },
+      "status": "pending",
+      "feedback": null
+    },
+    {
+      "preview_id": "mega_preview_100",
+      "asset_id": "174ed473c0838d8a",
+      "template_name": "violet-icon-01",
+      "category": "mega-preview/violet",
+      "timestamp": "2026-03-07T18:49:39.655800",
+      "output_paths": {
+        "png": "M:\\K_OS\\src-python\\UI\\preview\\mega_preview_100\\assets\\mega-preview\\violet\\violet-icon-01\\violet-icon-01.png"
+      },
+      "metadata": {
+        "name": "violet-icon-01",
+        "description": "Violet catalog icon 01",
+        "category": "mega-preview/violet",
+        "tags": [
+          "preview",
+          "theme",
+          "violet",
+          "motif-1"
+        ],
+        "generator": "icon",
+        "template_source": "violet-icon-01",
+        "generation_timestamp": "2026-03-07T18:49:38.802289",
+        "dimensions": [
+          96,
+          96
+        ],
+        "format": "png",
+        "file_size": 2752,
+        "color_mode": "RGBA",
+        "has_alpha": true,
+        "dpi": 72,
+        "theme_variant": null,
+        "theme_group": null,
+        "is_animated": false,
+        "animation_type": null,
+        "frame_count": null,
+        "duration": null,
+        "usage_count": 0,
+        "last_used": null,
+        "validation_passed": true,
+        "validation_warnings": []
+      },
+      "status": "pending",
+      "feedback": null
+    },
+    {
+      "preview_id": "mega_preview_100",
+      "asset_id": "150a191a6e18c43c",
+      "template_name": "violet-icon-02",
+      "category": "mega-preview/violet",
+      "timestamp": "2026-03-07T18:49:39.665337",
+      "output_paths": {
+        "png": "M:\\K_OS\\src-python\\UI\\preview\\mega_preview_100\\assets\\mega-preview\\violet\\violet-icon-02\\violet-icon-02.png"
+      },
+      "metadata": {
+        "name": "violet-icon-02",
+        "description": "Violet catalog icon 02",
+        "category": "mega-preview/violet",
+        "tags": [
+          "preview",
+          "theme",
+          "violet",
+          "motif-2"
+        ],
+        "generator": "icon",
+        "template_source": "violet-icon-02",
+        "generation_timestamp": "2026-03-07T18:49:38.815402",
+        "dimensions": [
+          96,
+          96
+        ],
+        "format": "png",
+        "file_size": 3093,
+        "color_mode": "RGBA",
+        "has_alpha": true,
+        "dpi": 72,
+        "theme_variant": null,
+        "theme_group": null,
+        "is_animated": false,
+        "animation_type": null,
+        "frame_count": null,
+        "duration": null,
+        "usage_count": 0,
+        "last_used": null,
+        "validation_passed": true,
+        "validation_warnings": []
+      },
+      "status": "pending",
+      "feedback": null
+    },
+    {
+      "preview_id": "mega_preview_100",
+      "asset_id": "6b5d77568bf578a7",
+      "template_name": "violet-icon-03",
+      "category": "mega-preview/violet",
+      "timestamp": "2026-03-07T18:49:39.673413",
+      "output_paths": {
+        "png": "M:\\K_OS\\src-python\\UI\\preview\\mega_preview_100\\assets\\mega-preview\\violet\\violet-icon-03\\violet-icon-03.png"
+      },
+      "metadata": {
+        "name": "violet-icon-03",
+        "description": "Violet catalog icon 03",
+        "category": "mega-preview/violet",
+        "tags": [
+          "preview",
+          "theme",
+          "violet",
+          "motif-3"
+        ],
+        "generator": "icon",
+        "template_source": "violet-icon-03",
+        "generation_timestamp": "2026-03-07T18:49:38.829477",
+        "dimensions": [
+          96,
+          96
+        ],
+        "format": "png",
+        "file_size": 3129,
+        "color_mode": "RGBA",
+        "has_alpha": true,
+        "dpi": 72,
+        "theme_variant": null,
+        "theme_group": null,
+        "is_animated": false,
+        "animation_type": null,
+        "frame_count": null,
+        "duration": null,
+        "usage_count": 0,
+        "last_used": null,
+        "validation_passed": true,
+        "validation_warnings": []
+      },
+      "status": "pending",
+      "feedback": null
+    },
+    {
+      "preview_id": "mega_preview_100",
+      "asset_id": "f324a18ab9fbfa92",
+      "template_name": "violet-icon-04",
+      "category": "mega-preview/violet",
+      "timestamp": "2026-03-07T18:49:39.685387",
+      "output_paths": {
+        "png": "M:\\K_OS\\src-python\\UI\\preview\\mega_preview_100\\assets\\mega-preview\\violet\\violet-icon-04\\violet-icon-04.png"
+      },
+      "metadata": {
+        "name": "violet-icon-04",
+        "description": "Violet catalog icon 04",
+        "category": "mega-preview/violet",
+        "tags": [
+          "preview",
+          "theme",
+          "violet",
+          "motif-4"
+        ],
+        "generator": "icon",
+        "template_source": "violet-icon-04",
+        "generation_timestamp": "2026-03-07T18:49:38.842476",
+        "dimensions": [
+          96,
+          96
+        ],
+        "format": "png",
+        "file_size": 1739,
+        "color_mode": "RGBA",
+        "has_alpha": true,
+        "dpi": 72,
+        "theme_variant": null,
+        "theme_group": null,
+        "is_animated": false,
+        "animation_type": null,
+        "frame_count": null,
+        "duration": null,
+        "usage_count": 0,
+        "last_used": null,
+        "validation_passed": true,
+        "validation_warnings": []
+      },
+      "status": "pending",
+      "feedback": null
+    },
+    {
+      "preview_id": "mega_preview_100",
+      "asset_id": "b30085114e8934fb",
+      "template_name": "violet-icon-05",
+      "category": "mega-preview/violet",
+      "timestamp": "2026-03-07T18:49:39.695488",
+      "output_paths": {
+        "png": "M:\\K_OS\\src-python\\UI\\preview\\mega_preview_100\\assets\\mega-preview\\violet\\violet-icon-05\\violet-icon-05.png",
+        "apng": "M:\\K_OS\\src-python\\UI\\preview\\mega_preview_100\\assets\\mega-preview\\violet\\violet-icon-05\\violet-icon-05_animated_orbit.apng"
+      },
+      "metadata": {
+        "name": "violet-icon-05",
+        "description": "Violet catalog icon 05",
+        "category": "mega-preview/violet",
+        "tags": [
+          "preview",
+          "theme",
+          "violet",
+          "motif-5"
+        ],
+        "generator": "icon",
+        "template_source": "violet-icon-05",
+        "generation_timestamp": "2026-03-07T18:49:38.870890",
+        "dimensions": [
+          96,
+          96
+        ],
+        "format": "png",
+        "file_size": 100688,
+        "color_mode": "RGBA",
+        "has_alpha": true,
+        "dpi": 72,
+        "theme_variant": null,
+        "theme_group": null,
+        "is_animated": true,
+        "animation_type": "orbit",
+        "frame_count": 16,
+        "duration": 1.4,
+        "usage_count": 0,
+        "last_used": null,
+        "validation_passed": true,
+        "validation_warnings": []
+      },
+      "status": "pending",
+      "feedback": null
+    },
+    {
+      "preview_id": "mega_preview_100",
+      "asset_id": "ff33557be9f990e3",
+      "template_name": "violet-icon-06",
+      "category": "mega-preview/violet",
+      "timestamp": "2026-03-07T18:49:39.704895",
+      "output_paths": {
+        "png": "M:\\K_OS\\src-python\\UI\\preview\\mega_preview_100\\assets\\mega-preview\\violet\\violet-icon-06\\violet-icon-06.png"
+      },
+      "metadata": {
+        "name": "violet-icon-06",
+        "description": "Violet catalog icon 06",
+        "category": "mega-preview/violet",
+        "tags": [
+          "preview",
+          "theme",
+          "violet",
+          "motif-6"
+        ],
+        "generator": "icon",
+        "template_source": "violet-icon-06",
+        "generation_timestamp": "2026-03-07T18:49:38.893436",
+        "dimensions": [
+          96,
+          96
+        ],
+        "format": "png",
+        "file_size": 1951,
+        "color_mode": "RGBA",
+        "has_alpha": true,
+        "dpi": 72,
+        "theme_variant": null,
+        "theme_group": null,
+        "is_animated": false,
+        "animation_type": null,
+        "frame_count": null,
+        "duration": null,
+        "usage_count": 0,
+        "last_used": null,
+        "validation_passed": true,
+        "validation_warnings": []
+      },
+      "status": "pending",
+      "feedback": null
+    },
+    {
+      "preview_id": "mega_preview_100",
+      "asset_id": "5ff53ab8f3352efa",
+      "template_name": "violet-icon-07",
+      "category": "mega-preview/violet",
+      "timestamp": "2026-03-07T18:49:39.714979",
+      "output_paths": {
+        "png": "M:\\K_OS\\src-python\\UI\\preview\\mega_preview_100\\assets\\mega-preview\\violet\\violet-icon-07\\violet-icon-07.png"
+      },
+      "metadata": {
+        "name": "violet-icon-07",
+        "description": "Violet catalog icon 07",
+        "category": "mega-preview/violet",
+        "tags": [
+          "preview",
+          "theme",
+          "violet",
+          "motif-7"
+        ],
+        "generator": "icon",
+        "template_source": "violet-icon-07",
+        "generation_timestamp": "2026-03-07T18:49:38.918124",
+        "dimensions": [
+          96,
+          96
+        ],
+        "format": "png",
+        "file_size": 3195,
+        "color_mode": "RGBA",
+        "has_alpha": true,
+        "dpi": 72,
+        "theme_variant": null,
+        "theme_group": null,
+        "is_animated": false,
+        "animation_type": null,
+        "frame_count": null,
+        "duration": null,
+        "usage_count": 0,
+        "last_used": null,
+        "validation_passed": true,
+        "validation_warnings": []
+      },
+      "status": "pending",
+      "feedback": null
+    },
+    {
+      "preview_id": "mega_preview_100",
+      "asset_id": "b6e7bbaa321969ed",
+      "template_name": "violet-icon-08",
+      "category": "mega-preview/violet",
+      "timestamp": "2026-03-07T18:49:39.725585",
+      "output_paths": {
+        "png": "M:\\K_OS\\src-python\\UI\\preview\\mega_preview_100\\assets\\mega-preview\\violet\\violet-icon-08\\violet-icon-08.png"
+      },
+      "metadata": {
+        "name": "violet-icon-08",
+        "description": "Violet catalog icon 08",
+        "category": "mega-preview/violet",
+        "tags": [
+          "preview",
+          "theme",
+          "violet",
+          "motif-8"
+        ],
+        "generator": "icon",
+        "template_source": "violet-icon-08",
+        "generation_timestamp": "2026-03-07T18:49:38.933250",
+        "dimensions": [
+          96,
+          96
+        ],
+        "format": "png",
+        "file_size": 3483,
+        "color_mode": "RGBA",
+        "has_alpha": true,
+        "dpi": 72,
+        "theme_variant": null,
+        "theme_group": null,
+        "is_animated": false,
+        "animation_type": null,
+        "frame_count": null,
+        "duration": null,
+        "usage_count": 0,
+        "last_used": null,
+        "validation_passed": true,
+        "validation_warnings": []
+      },
+      "status": "pending",
+      "feedback": null
+    },
+    {
+      "preview_id": "mega_preview_100",
+      "asset_id": "6ca62d64c9c3a4e8",
+      "template_name": "violet-icon-09",
+      "category": "mega-preview/violet",
+      "timestamp": "2026-03-07T18:49:39.735619",
+      "output_paths": {
+        "png": "M:\\K_OS\\src-python\\UI\\preview\\mega_preview_100\\assets\\mega-preview\\violet\\violet-icon-09\\violet-icon-09.png"
+      },
+      "metadata": {
+        "name": "violet-icon-09",
+        "description": "Violet catalog icon 09",
+        "category": "mega-preview/violet",
+        "tags": [
+          "preview",
+          "theme",
+          "violet",
+          "motif-9"
+        ],
+        "generator": "icon",
+        "template_source": "violet-icon-09",
+        "generation_timestamp": "2026-03-07T18:49:38.951148",
+        "dimensions": [
+          96,
+          96
+        ],
+        "format": "png",
+        "file_size": 2053,
+        "color_mode": "RGBA",
+        "has_alpha": true,
+        "dpi": 72,
+        "theme_variant": null,
+        "theme_group": null,
+        "is_animated": false,
+        "animation_type": null,
+        "frame_count": null,
+        "duration": null,
+        "usage_count": 0,
+        "last_used": null,
+        "validation_passed": true,
+        "validation_warnings": []
+      },
+      "status": "pending",
+      "feedback": null
+    },
+    {
+      "preview_id": "mega_preview_100",
+      "asset_id": "1aeae3d0aa61d4e5",
+      "template_name": "violet-icon-10",
+      "category": "mega-preview/violet",
+      "timestamp": "2026-03-07T18:49:39.750155",
+      "output_paths": {
+        "png": "M:\\K_OS\\src-python\\UI\\preview\\mega_preview_100\\assets\\mega-preview\\violet\\violet-icon-10\\violet-icon-10.png",
+        "apng": "M:\\K_OS\\src-python\\UI\\preview\\mega_preview_100\\assets\\mega-preview\\violet\\violet-icon-10\\violet-icon-10_animated_float.apng"
+      },
+      "metadata": {
+        "name": "violet-icon-10",
+        "description": "Violet catalog icon 10",
+        "category": "mega-preview/violet",
+        "tags": [
+          "preview",
+          "theme",
+          "violet",
+          "motif-0"
+        ],
+        "generator": "icon",
+        "template_source": "violet-icon-10",
+        "generation_timestamp": "2026-03-07T18:49:38.976557",
+        "dimensions": [
+          96,
+          96
+        ],
+        "format": "png",
+        "file_size": 62164,
+        "color_mode": "RGBA",
+        "has_alpha": true,
+        "dpi": 72,
+        "theme_variant": null,
+        "theme_group": null,
+        "is_animated": true,
+        "animation_type": "float",
+        "frame_count": 16,
+        "duration": 1.4,
+        "usage_count": 0,
+        "last_used": null,
+        "validation_passed": true,
+        "validation_warnings": []
+      },
+      "status": "pending",
+      "feedback": null
+    },
+    {
+      "preview_id": "mega_preview_100",
+      "asset_id": "9fd04134ddedcc36",
+      "template_name": "violet-icon-11",
+      "category": "mega-preview/violet",
+      "timestamp": "2026-03-07T18:49:39.760839",
+      "output_paths": {
+        "png": "M:\\K_OS\\src-python\\UI\\preview\\mega_preview_100\\assets\\mega-preview\\violet\\violet-icon-11\\violet-icon-11.png"
+      },
+      "metadata": {
+        "name": "violet-icon-11",
+        "description": "Violet catalog icon 11",
+        "category": "mega-preview/violet",
+        "tags": [
+          "preview",
+          "theme",
+          "violet",
+          "motif-1"
+        ],
+        "generator": "icon",
+        "template_source": "violet-icon-11",
+        "generation_timestamp": "2026-03-07T18:49:38.991438",
+        "dimensions": [
+          96,
+          96
+        ],
+        "format": "png",
+        "file_size": 2752,
+        "color_mode": "RGBA",
+        "has_alpha": true,
+        "dpi": 72,
+        "theme_variant": null,
+        "theme_group": null,
+        "is_animated": false,
+        "animation_type": null,
+        "frame_count": null,
+        "duration": null,
+        "usage_count": 0,
+        "last_used": null,
+        "validation_passed": true,
+        "validation_warnings": []
+      },
+      "status": "pending",
+      "feedback": null
+    },
+    {
+      "preview_id": "mega_preview_100",
+      "asset_id": "e7cbb2bc21b7dc8c",
+      "template_name": "violet-icon-12",
+      "category": "mega-preview/violet",
+      "timestamp": "2026-03-07T18:49:39.769755",
+      "output_paths": {
+        "png": "M:\\K_OS\\src-python\\UI\\preview\\mega_preview_100\\assets\\mega-preview\\violet\\violet-icon-12\\violet-icon-12.png"
+      },
+      "metadata": {
+        "name": "violet-icon-12",
+        "description": "Violet catalog icon 12",
+        "category": "mega-preview/violet",
+        "tags": [
+          "preview",
+          "theme",
+          "violet",
+          "motif-2"
+        ],
+        "generator": "icon",
+        "template_source": "violet-icon-12",
+        "generation_timestamp": "2026-03-07T18:49:39.004367",
+        "dimensions": [
+          96,
+          96
+        ],
+        "format": "png",
+        "file_size": 3093,
+        "color_mode": "RGBA",
+        "has_alpha": true,
+        "dpi": 72,
+        "theme_variant": null,
+        "theme_group": null,
+        "is_animated": false,
+        "animation_type": null,
+        "frame_count": null,
+        "duration": null,
+        "usage_count": 0,
+        "last_used": null,
+        "validation_passed": true,
+        "validation_warnings": []
+      },
+      "status": "pending",
+      "feedback": null
+    },
+    {
+      "preview_id": "mega_preview_100",
+      "asset_id": "cdb01a648ca20b2c",
+      "template_name": "violet-icon-13",
+      "category": "mega-preview/violet",
+      "timestamp": "2026-03-07T18:49:39.781993",
+      "output_paths": {
+        "png": "M:\\K_OS\\src-python\\UI\\preview\\mega_preview_100\\assets\\mega-preview\\violet\\violet-icon-13\\violet-icon-13.png"
+      },
+      "metadata": {
+        "name": "violet-icon-13",
+        "description": "Violet catalog icon 13",
+        "category": "mega-preview/violet",
+        "tags": [
+          "preview",
+          "theme",
+          "violet",
+          "motif-3"
+        ],
+        "generator": "icon",
+        "template_source": "violet-icon-13",
+        "generation_timestamp": "2026-03-07T18:49:39.018091",
+        "dimensions": [
+          96,
+          96
+        ],
+        "format": "png",
+        "file_size": 3129,
+        "color_mode": "RGBA",
+        "has_alpha": true,
+        "dpi": 72,
+        "theme_variant": null,
+        "theme_group": null,
+        "is_animated": false,
+        "animation_type": null,
+        "frame_count": null,
+        "duration": null,
+        "usage_count": 0,
+        "last_used": null,
+        "validation_passed": true,
+        "validation_warnings": []
+      },
+      "status": "pending",
+      "feedback": null
+    },
+    {
+      "preview_id": "mega_preview_100",
+      "asset_id": "290ddcaede6ad5a7",
+      "template_name": "violet-icon-14",
+      "category": "mega-preview/violet",
+      "timestamp": "2026-03-07T18:49:39.792451",
+      "output_paths": {
+        "png": "M:\\K_OS\\src-python\\UI\\preview\\mega_preview_100\\assets\\mega-preview\\violet\\violet-icon-14\\violet-icon-14.png"
+      },
+      "metadata": {
+        "name": "violet-icon-14",
+        "description": "Violet catalog icon 14",
+        "category": "mega-preview/violet",
+        "tags": [
+          "preview",
+          "theme",
+          "violet",
+          "motif-4"
+        ],
+        "generator": "icon",
+        "template_source": "violet-icon-14",
+        "generation_timestamp": "2026-03-07T18:49:39.032977",
+        "dimensions": [
+          96,
+          96
+        ],
+        "format": "png",
+        "file_size": 1739,
+        "color_mode": "RGBA",
+        "has_alpha": true,
+        "dpi": 72,
+        "theme_variant": null,
+        "theme_group": null,
+        "is_animated": false,
+        "animation_type": null,
+        "frame_count": null,
+        "duration": null,
+        "usage_count": 0,
+        "last_used": null,
+        "validation_passed": true,
+        "validation_warnings": []
+      },
+      "status": "pending",
+      "feedback": null
+    },
+    {
+      "preview_id": "mega_preview_100",
+      "asset_id": "be4ee4e9a93083e8",
+      "template_name": "violet-icon-15",
+      "category": "mega-preview/violet",
+      "timestamp": "2026-03-07T18:49:39.803776",
+      "output_paths": {
+        "png": "M:\\K_OS\\src-python\\UI\\preview\\mega_preview_100\\assets\\mega-preview\\violet\\violet-icon-15\\violet-icon-15.png",
+        "apng": "M:\\K_OS\\src-python\\UI\\preview\\mega_preview_100\\assets\\mega-preview\\violet\\violet-icon-15\\violet-icon-15_animated_shake.apng"
+      },
+      "metadata": {
+        "name": "violet-icon-15",
+        "description": "Violet catalog icon 15",
+        "category": "mega-preview/violet",
+        "tags": [
+          "preview",
+          "theme",
+          "violet",
+          "motif-5"
+        ],
+        "generator": "icon",
+        "template_source": "violet-icon-15",
+        "generation_timestamp": "2026-03-07T18:49:39.058305",
+        "dimensions": [
+          96,
+          96
+        ],
+        "format": "png",
+        "file_size": 94565,
+        "color_mode": "RGBA",
+        "has_alpha": true,
+        "dpi": 72,
+        "theme_variant": null,
+        "theme_group": null,
+        "is_animated": true,
+        "animation_type": "shake",
+        "frame_count": 16,
+        "duration": 1.4,
+        "usage_count": 0,
+        "last_used": null,
+        "validation_passed": true,
+        "validation_warnings": []
+      },
+      "status": "pending",
+      "feedback": null
+    },
+    {
+      "preview_id": "mega_preview_100",
+      "asset_id": "44205ea72960ccdc",
+      "template_name": "violet-icon-16",
+      "category": "mega-preview/violet",
+      "timestamp": "2026-03-07T18:49:39.815423",
+      "output_paths": {
+        "png": "M:\\K_OS\\src-python\\UI\\preview\\mega_preview_100\\assets\\mega-preview\\violet\\violet-icon-16\\violet-icon-16.png"
+      },
+      "metadata": {
+        "name": "violet-icon-16",
+        "description": "Violet catalog icon 16",
+        "category": "mega-preview/violet",
+        "tags": [
+          "preview",
+          "theme",
+          "violet",
+          "motif-6"
+        ],
+        "generator": "icon",
+        "template_source": "violet-icon-16",
+        "generation_timestamp": "2026-03-07T18:49:39.082172",
+        "dimensions": [
+          96,
+          96
+        ],
+        "format": "png",
+        "file_size": 1951,
+        "color_mode": "RGBA",
+        "has_alpha": true,
+        "dpi": 72,
+        "theme_variant": null,
+        "theme_group": null,
+        "is_animated": false,
+        "animation_type": null,
+        "frame_count": null,
+        "duration": null,
+        "usage_count": 0,
+        "last_used": null,
+        "validation_passed": true,
+        "validation_warnings": []
+      },
+      "status": "pending",
+      "feedback": null
+    },
+    {
+      "preview_id": "mega_preview_100",
+      "asset_id": "433524d30614aaa1",
+      "template_name": "violet-icon-17",
+      "category": "mega-preview/violet",
+      "timestamp": "2026-03-07T18:49:39.826402",
+      "output_paths": {
+        "png": "M:\\K_OS\\src-python\\UI\\preview\\mega_preview_100\\assets\\mega-preview\\violet\\violet-icon-17\\violet-icon-17.png"
+      },
+      "metadata": {
+        "name": "violet-icon-17",
+        "description": "Violet catalog icon 17",
+        "category": "mega-preview/violet",
+        "tags": [
+          "preview",
+          "theme",
+          "violet",
+          "motif-7"
+        ],
+        "generator": "icon",
+        "template_source": "violet-icon-17",
+        "generation_timestamp": "2026-03-07T18:49:39.105749",
+        "dimensions": [
+          96,
+          96
+        ],
+        "format": "png",
+        "file_size": 3195,
+        "color_mode": "RGBA",
+        "has_alpha": true,
+        "dpi": 72,
+        "theme_variant": null,
+        "theme_group": null,
+        "is_animated": false,
+        "animation_type": null,
+        "frame_count": null,
+        "duration": null,
+        "usage_count": 0,
+        "last_used": null,
+        "validation_passed": true,
+        "validation_warnings": []
+      },
+      "status": "pending",
+      "feedback": null
+    },
+    {
+      "preview_id": "mega_preview_100",
+      "asset_id": "89565014d3706e11",
+      "template_name": "violet-icon-18",
+      "category": "mega-preview/violet",
+      "timestamp": "2026-03-07T18:49:39.837551",
+      "output_paths": {
+        "png": "M:\\K_OS\\src-python\\UI\\preview\\mega_preview_100\\assets\\mega-preview\\violet\\violet-icon-18\\violet-icon-18.png"
+      },
+      "metadata": {
+        "name": "violet-icon-18",
+        "description": "Violet catalog icon 18",
+        "category": "mega-preview/violet",
+        "tags": [
+          "preview",
+          "theme",
+          "violet",
+          "motif-8"
+        ],
+        "generator": "icon",
+        "template_source": "violet-icon-18",
+        "generation_timestamp": "2026-03-07T18:49:39.120802",
+        "dimensions": [
+          96,
+          96
+        ],
+        "format": "png",
+        "file_size": 3483,
+        "color_mode": "RGBA",
+        "has_alpha": true,
+        "dpi": 72,
+        "theme_variant": null,
+        "theme_group": null,
+        "is_animated": false,
+        "animation_type": null,
+        "frame_count": null,
+        "duration": null,
+        "usage_count": 0,
+        "last_used": null,
+        "validation_passed": true,
+        "validation_warnings": []
+      },
+      "status": "pending",
+      "feedback": null
+    },
+    {
+      "preview_id": "mega_preview_100",
+      "asset_id": "3d442d473087a063",
+      "template_name": "violet-icon-19",
+      "category": "mega-preview/violet",
+      "timestamp": "2026-03-07T18:49:39.848542",
+      "output_paths": {
+        "png": "M:\\K_OS\\src-python\\UI\\preview\\mega_preview_100\\assets\\mega-preview\\violet\\violet-icon-19\\violet-icon-19.png"
+      },
+      "metadata": {
+        "name": "violet-icon-19",
+        "description": "Violet catalog icon 19",
+        "category": "mega-preview/violet",
+        "tags": [
+          "preview",
+          "theme",
+          "violet",
+          "motif-9"
+        ],
+        "generator": "icon",
+        "template_source": "violet-icon-19",
+        "generation_timestamp": "2026-03-07T18:49:39.137779",
+        "dimensions": [
+          96,
+          96
+        ],
+        "format": "png",
+        "file_size": 2053,
+        "color_mode": "RGBA",
+        "has_alpha": true,
+        "dpi": 72,
+        "theme_variant": null,
+        "theme_group": null,
+        "is_animated": false,
+        "animation_type": null,
+        "frame_count": null,
+        "duration": null,
+        "usage_count": 0,
+        "last_used": null,
+        "validation_passed": true,
+        "validation_warnings": []
+      },
+      "status": "pending",
+      "feedback": null
+    },
+    {
+      "preview_id": "mega_preview_100",
+      "asset_id": "e43e1788316dd7e7",
+      "template_name": "violet-icon-20",
+      "category": "mega-preview/violet",
+      "timestamp": "2026-03-07T18:49:39.859637",
+      "output_paths": {
+        "png": "M:\\K_OS\\src-python\\UI\\preview\\mega_preview_100\\assets\\mega-preview\\violet\\violet-icon-20\\violet-icon-20.png",
+        "apng": "M:\\K_OS\\src-python\\UI\\preview\\mega_preview_100\\assets\\mega-preview\\violet\\violet-icon-20\\violet-icon-20_animated_wobble.apng"
+      },
+      "metadata": {
+        "name": "violet-icon-20",
+        "description": "Violet catalog icon 20",
+        "category": "mega-preview/violet",
+        "tags": [
+          "preview",
+          "theme",
+          "violet",
+          "motif-0"
+        ],
+        "generator": "icon",
+        "template_source": "violet-icon-20",
+        "generation_timestamp": "2026-03-07T18:49:39.179186",
+        "dimensions": [
+          96,
+          96
+        ],
+        "format": "png",
+        "file_size": 91828,
+        "color_mode": "RGBA",
+        "has_alpha": true,
+        "dpi": 72,
+        "theme_variant": null,
+        "theme_group": null,
+        "is_animated": true,
+        "animation_type": "wobble",
+        "frame_count": 16,
+        "duration": 1.4,
+        "usage_count": 0,
+        "last_used": null,
+        "validation_passed": true,
+        "validation_warnings": []
+      },
+      "status": "pending",
+      "feedback": null
+    },
+    {
+      "preview_id": "mega_preview_100",
+      "asset_id": "f2bf18c73293363e",
+      "template_name": "violet-icon-21",
+      "category": "mega-preview/violet",
+      "timestamp": "2026-03-07T18:49:39.870908",
+      "output_paths": {
+        "png": "M:\\K_OS\\src-python\\UI\\preview\\mega_preview_100\\assets\\mega-preview\\violet\\violet-icon-21\\violet-icon-21.png"
+      },
+      "metadata": {
+        "name": "violet-icon-21",
+        "description": "Violet catalog icon 21",
+        "category": "mega-preview/violet",
+        "tags": [
+          "preview",
+          "theme",
+          "violet",
+          "motif-1"
+        ],
+        "generator": "icon",
+        "template_source": "violet-icon-21",
+        "generation_timestamp": "2026-03-07T18:49:39.196447",
+        "dimensions": [
+          96,
+          96
+        ],
+        "format": "png",
+        "file_size": 2752,
+        "color_mode": "RGBA",
+        "has_alpha": true,
+        "dpi": 72,
+        "theme_variant": null,
+        "theme_group": null,
+        "is_animated": false,
+        "animation_type": null,
+        "frame_count": null,
+        "duration": null,
+        "usage_count": 0,
+        "last_used": null,
+        "validation_passed": true,
+        "validation_warnings": []
+      },
+      "status": "pending",
+      "feedback": null
+    },
+    {
+      "preview_id": "mega_preview_100",
+      "asset_id": "f1bf05449deb28e1",
+      "template_name": "violet-icon-22",
+      "category": "mega-preview/violet",
+      "timestamp": "2026-03-07T18:49:39.881964",
+      "output_paths": {
+        "png": "M:\\K_OS\\src-python\\UI\\preview\\mega_preview_100\\assets\\mega-preview\\violet\\violet-icon-22\\violet-icon-22.png"
+      },
+      "metadata": {
+        "name": "violet-icon-22",
+        "description": "Violet catalog icon 22",
+        "category": "mega-preview/violet",
+        "tags": [
+          "preview",
+          "theme",
+          "violet",
+          "motif-2"
+        ],
+        "generator": "icon",
+        "template_source": "violet-icon-22",
+        "generation_timestamp": "2026-03-07T18:49:39.207845",
+        "dimensions": [
+          96,
+          96
+        ],
+        "format": "png",
+        "file_size": 3093,
+        "color_mode": "RGBA",
+        "has_alpha": true,
+        "dpi": 72,
+        "theme_variant": null,
+        "theme_group": null,
+        "is_animated": false,
+        "animation_type": null,
+        "frame_count": null,
+        "duration": null,
+        "usage_count": 0,
+        "last_used": null,
+        "validation_passed": true,
+        "validation_warnings": []
+      },
+      "status": "pending",
+      "feedback": null
+    },
+    {
+      "preview_id": "mega_preview_100",
+      "asset_id": "0a764beb58d6ebf2",
+      "template_name": "violet-icon-23",
+      "category": "mega-preview/violet",
+      "timestamp": "2026-03-07T18:49:39.893952",
+      "output_paths": {
+        "png": "M:\\K_OS\\src-python\\UI\\preview\\mega_preview_100\\assets\\mega-preview\\violet\\violet-icon-23\\violet-icon-23.png"
+      },
+      "metadata": {
+        "name": "violet-icon-23",
+        "description": "Violet catalog icon 23",
+        "category": "mega-preview/violet",
+        "tags": [
+          "preview",
+          "theme",
+          "violet",
+          "motif-3"
+        ],
+        "generator": "icon",
+        "template_source": "violet-icon-23",
+        "generation_timestamp": "2026-03-07T18:49:39.222441",
+        "dimensions": [
+          96,
+          96
+        ],
+        "format": "png",
+        "file_size": 3129,
+        "color_mode": "RGBA",
+        "has_alpha": true,
+        "dpi": 72,
+        "theme_variant": null,
+        "theme_group": null,
+        "is_animated": false,
+        "animation_type": null,
+        "frame_count": null,
+        "duration": null,
+        "usage_count": 0,
+        "last_used": null,
+        "validation_passed": true,
+        "validation_warnings": []
+      },
+      "status": "pending",
+      "feedback": null
+    },
+    {
+      "preview_id": "mega_preview_100",
+      "asset_id": "36cff626284cead7",
+      "template_name": "violet-icon-24",
+      "category": "mega-preview/violet",
+      "timestamp": "2026-03-07T18:49:39.905038",
+      "output_paths": {
+        "png": "M:\\K_OS\\src-python\\UI\\preview\\mega_preview_100\\assets\\mega-preview\\violet\\violet-icon-24\\violet-icon-24.png"
+      },
+      "metadata": {
+        "name": "violet-icon-24",
+        "description": "Violet catalog icon 24",
+        "category": "mega-preview/violet",
+        "tags": [
+          "preview",
+          "theme",
+          "violet",
+          "motif-4"
+        ],
+        "generator": "icon",
+        "template_source": "violet-icon-24",
+        "generation_timestamp": "2026-03-07T18:49:39.237417",
+        "dimensions": [
+          96,
+          96
+        ],
+        "format": "png",
+        "file_size": 1739,
+        "color_mode": "RGBA",
+        "has_alpha": true,
+        "dpi": 72,
+        "theme_variant": null,
+        "theme_group": null,
+        "is_animated": false,
+        "animation_type": null,
+        "frame_count": null,
+        "duration": null,
+        "usage_count": 0,
+        "last_used": null,
+        "validation_passed": true,
+        "validation_warnings": []
+      },
+      "status": "pending",
+      "feedback": null
+    }
+  ]
+}

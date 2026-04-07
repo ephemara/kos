@@ -1,0 +1,25 @@
+# KAutoPBR AI/ML Requirements
+# =============================
+# Install with: pip install -r requirements-autopbr.txt
+
+# Core ML
+torch>=2.0.0
+torchvision>=0.15.0
+onnxruntime-gpu>=1.16.0  # Use onnxruntime for CPU-only
+numpy>=1.24.0
+
+# Image Processing
+Pillow>=10.0.0
+opencv-python>=4.8.0
+
+# AI Models
+diffusers>=0.21.0
+transformers>=4.30.0
+accelerate>=0.20.0
+safetensors>=0.3.0
+# Utilities
+tqdm>=4.65.0
+requests>=2.31.0
+
+# USD Export
+usd-core>=23.11  # Pixar USD Python bindings

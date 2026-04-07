@@ -1,0 +1,32 @@
+{
+  "name": "motion-swirl-ripple",
+  "description": "Expanded motion demo: swirl+ripple",
+  "category": "motion-overhaul",
+  "tags": [
+    "motion-demo",
+    "swirl",
+    "ripple"
+  ],
+  "generator": "icon",
+  "template_source": "motion-swirl-ripple",
+  "generation_timestamp": "2026-03-07T19:06:10.961581",
+  "dimensions": [
+    96,
+    96
+  ],
+  "format": "png",
+  "file_size": 71560,
+  "color_mode": "RGBA",
+  "has_alpha": true,
+  "dpi": 72,
+  "theme_variant": null,
+  "theme_group": null,
+  "is_animated": true,
+  "animation_type": "swirl,ripple",
+  "frame_count": 25,
+  "duration": 1.6,
+  "usage_count": 0,
+  "last_used": null,
+  "validation_passed": true,
+  "validation_warnings": []
+}

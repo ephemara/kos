@@ -1,0 +1,32 @@
+{
+  "name": "swaying-tree",
+  "description": "Tree swaying in wind",
+  "category": "animated",
+  "tags": [
+    "tree",
+    "sway",
+    "nature"
+  ],
+  "generator": "icon",
+  "template_source": "swaying-tree",
+  "generation_timestamp": "2026-03-07T17:19:51.001806",
+  "dimensions": [
+    128,
+    128
+  ],
+  "format": "png",
+  "file_size": 2435,
+  "color_mode": "RGBA",
+  "has_alpha": true,
+  "dpi": 72,
+  "theme_variant": null,
+  "theme_group": null,
+  "is_animated": true,
+  "animation_type": "sway",
+  "frame_count": 90,
+  "duration": 3.0,
+  "usage_count": 0,
+  "last_used": null,
+  "validation_passed": true,
+  "validation_warnings": []
+}

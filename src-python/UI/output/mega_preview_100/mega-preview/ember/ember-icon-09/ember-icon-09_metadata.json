@@ -1,0 +1,33 @@
+{
+  "name": "ember-icon-09",
+  "description": "Ember catalog icon 09",
+  "category": "mega-preview/ember",
+  "tags": [
+    "preview",
+    "theme",
+    "ember",
+    "motif-9"
+  ],
+  "generator": "icon",
+  "template_source": "ember-icon-09",
+  "generation_timestamp": "2026-03-07T18:49:37.912256",
+  "dimensions": [
+    96,
+    96
+  ],
+  "format": "png",
+  "file_size": 2057,
+  "color_mode": "RGBA",
+  "has_alpha": true,
+  "dpi": 72,
+  "theme_variant": null,
+  "theme_group": null,
+  "is_animated": false,
+  "animation_type": null,
+  "frame_count": null,
+  "duration": null,
+  "usage_count": 0,
+  "last_used": null,
+  "validation_passed": true,
+  "validation_warnings": []
+}

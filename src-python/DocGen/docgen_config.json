@@ -1,0 +1,40 @@
+{
+  "llm": {
+    "provider": "openrouter",
+    "model": "qwen/qwen3-coder:free",
+    "api_key_env": "OPENROUTER_API_KEY",
+    "max_tokens": 4000,
+    "temperature": 0.3,
+    "pricing": {
+      "prompt_tokens_per_dollar": 0,
+      "completion_tokens_per_dollar": 0
+    }
+  },
+  "embedding": {
+    "model": "sentence-transformers/all-MiniLM-L6-v2",
+    "use_gpu": true,
+    "batch_size": 32,
+    "precision": "fp16"
+  },
+  "indexing": {
+    "target_directories": ["crates", "src-frontend", "src-tauri"],
+    "excluded_patterns": ["**/node_modules/**", "**/target/**", "**/.git/**"],
+    "file_extensions": [".rs", ".ts", ".tsx", ".py", ".wgsl", ".json"],
+    "max_file_size_kb": 500
+  },
+  "generation": {
+    "staleness_disclaimer": "*This README may be out of date and inspecting the current code is the best way. NEVER ASSUME THIS README IS CURRENT ARCHITECTURE, BUT RATHER TREAT IT AS A BASELINE FOR what's in this folder*",
+    "max_readme_words": 1000,
+    "include_examples": true,
+    "cross_reference_count": 5
+  },
+  "performance": {
+    "max_concurrent_requests": 3,
+    "rate_limit_delay_ms": 1000,
+    "cache_ttl_hours": 24
+  },
+  "costs": {
+    "max_cost_per_run_usd": 5.0,
+    "warn_threshold_usd": 3.0
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "name": "status-signal-bars",
+  "description": "Cartoon status suite icon",
+  "category": "cartoon-suite/status",
+  "tags": [
+    "cartoon",
+    "suite",
+    "status",
+    "bounce",
+    "transparent",
+    "solid-color"
+  ],
+  "generator": "icon",
+  "template_source": "status-signal-bars",
+  "generation_timestamp": "2026-03-07T19:00:07.789117",
+  "dimensions": [
+    96,
+    96
+  ],
+  "format": "png",
+  "file_size": 14263,
+  "color_mode": "RGBA",
+  "has_alpha": true,
+  "dpi": 72,
+  "theme_variant": null,
+  "theme_group": null,
+  "is_animated": true,
+  "animation_type": "bounce",
+  "frame_count": 17,
+  "duration": 1.25,
+  "usage_count": 0,
+  "last_used": null,
+  "validation_passed": true,
+  "validation_warnings": []
+}

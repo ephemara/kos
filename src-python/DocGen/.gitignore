@@ -1,0 +1,30 @@
+# Environment files
+.env
+
+# Cache and database
+.cache/
+.lancedb/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Distribution / packaging
+dist/
+build/
+*.egg-info/
+
+# Logs
+*.log
+mcp_server.log
+cost_log.json
+metrics_history.json
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo

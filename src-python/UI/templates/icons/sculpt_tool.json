@@ -1,0 +1,44 @@
+{
+  "name": "Sculpt Tool Icon",
+  "description": "Icon for sculpting tools with circular design",
+  "generator_type": "icon",
+  "category": "toolbar",
+  "tags": ["sculpt", "tool", "3d"],
+  "parent_template": "base_icon.yaml",
+  "colors": ["$primary", "$accent"],
+  "theme_variants": ["light", "dark"],
+  "params": {
+    "layers": [
+      {
+        "type": "circle",
+        "geometry": {
+          "cx": 32,
+          "cy": 32,
+          "r": 24
+        },
+        "fill": {
+          "type": "solid",
+          "colors": ["$primary"]
+        },
+        "blend_mode": "normal",
+        "opacity": 1.0
+      },
+      {
+        "type": "circle",
+        "geometry": {
+          "cx": 32,
+          "cy": 32,
+          "r": 16
+        },
+        "fill": {
+          "type": "solid",
+          "colors": ["$accent"]
+        },
+        "blend_mode": "normal",
+        "opacity": 0.8
+      }
+    ]
+  },
+  "version": "1.0",
+  "author": "UI Forge"
+}

@@ -1,0 +1,35 @@
+{
+  "name": "nav-zoom-plus",
+  "description": "Cartoon nav suite icon",
+  "category": "cartoon-suite/nav",
+  "tags": [
+    "cartoon",
+    "suite",
+    "nav",
+    "float",
+    "transparent",
+    "solid-color"
+  ],
+  "generator": "icon",
+  "template_source": "nav-zoom-plus",
+  "generation_timestamp": "2026-03-07T19:00:06.872583",
+  "dimensions": [
+    96,
+    96
+  ],
+  "format": "png",
+  "file_size": 22523,
+  "color_mode": "RGBA",
+  "has_alpha": true,
+  "dpi": 72,
+  "theme_variant": null,
+  "theme_group": null,
+  "is_animated": true,
+  "animation_type": "float",
+  "frame_count": 17,
+  "duration": 1.25,
+  "usage_count": 0,
+  "last_used": null,
+  "validation_passed": true,
+  "validation_warnings": []
+}

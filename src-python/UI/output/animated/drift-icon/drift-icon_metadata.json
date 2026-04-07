@@ -1,0 +1,31 @@
+{
+  "name": "drift-icon",
+  "description": "Drifting motion",
+  "category": "animated",
+  "tags": [
+    "animation",
+    "drift"
+  ],
+  "generator": "icon",
+  "template_source": "drift-icon",
+  "generation_timestamp": "2026-03-07T17:35:11.470657",
+  "dimensions": [
+    128,
+    128
+  ],
+  "format": "png",
+  "file_size": 65951,
+  "color_mode": "RGBA",
+  "has_alpha": true,
+  "dpi": 72,
+  "theme_variant": null,
+  "theme_group": null,
+  "is_animated": true,
+  "animation_type": "drift",
+  "frame_count": 48,
+  "duration": 2.0,
+  "usage_count": 0,
+  "last_used": null,
+  "validation_passed": true,
+  "validation_warnings": []
+}

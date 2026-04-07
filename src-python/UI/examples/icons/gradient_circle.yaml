@@ -1,0 +1,42 @@
+# Example: Gradient Circle Icon
+# Demonstrates: Linear gradient fill, single layer, theme variants
+
+name: "Gradient Circle Icon"
+description: "Simple circular icon with linear gradient fill"
+generator_type: "icon"
+category: "examples"
+tags: ["circle", "gradient", "simple"]
+
+output_formats:
+  - "png"
+  - "svg"
+
+dimensions:
+  width: 64
+  height: 64
+
+theme_variants:
+  - "light"
+  - "dark"
+
+colors:
+  - "$primary"
+  - "$accent"
+
+params:
+  padding: 8
+  antialias_factor: 2
+  layers:
+    - type: "circle"
+      geometry:
+        cx: 32
+        cy: 32
+        r: 24
+      fill:
+        type: "linear_gradient"
+        colors: ["$primary", "$accent"]
+        angle: 45
+      blend_mode: "normal"
+      opacity: 1.0
+
+version: "1.0"

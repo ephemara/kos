@@ -1,0 +1,235 @@
+# Kain repair lane: plugin context :: manager :: limits :: monitor
+
+struct PluginContext:
+    capabilities: Map<String, Bool>
+    restricted_resources: Array<String>
+    data: Map<String, serde_json::Value>
+    plugin_name: String
+
+    impl PluginContext:
+        fn new_() -> Self_:
+            # <expr>
+
+            fn with_name(plugin_name: impl_ Into<String>) -> Self_:
+                # <expr>
+
+                fn plugin_name(_self: &Self_) -> &String:
+                    # <expr>
+
+                    fn register_capability(_self: &mut Self_, capability: impl_ Into<String>):
+                        # <expr>
+
+                        fn has_capability(_self: &Self_, capability: &String) -> Bool:
+                            # <expr>
+
+                            fn require_capability(_self: &Self_, capability: &String) -> Result<(), Error>:
+                                # <expr>
+
+                                fn add_restricted_resource(_self: &mut Self_, resource: impl_ Into<String>):
+                                    # <expr>
+
+                                    fn is_resource_restricted(_self: &Self_, resource: &String) -> Bool:
+                                        # <expr>
+
+                                        fn check_resource_access(_self: &Self_, resource: &String) -> Result<(), Error>:
+                                            # <expr>
+
+                                            fn set_data(_self: &mut Self_, key: impl_ Into<String>, value: serde_json::Value):
+                                                # <expr>
+
+                                                fn get_data(_self: &Self_, key: &String) -> Option<serde_json::Value>:
+                                                    # <expr>
+
+                                                    fn remove_data(_self: &mut Self_, key: &String) -> Option<serde_json::Value>:
+                                                        # <expr>
+
+                                                        fn clear_data(_self: &mut Self_):
+                                                            # <expr>
+
+                                                            fn log(_self: &Self_, level: LogLevel, message: &String):
+                                                                # <expr>
+
+                                                                impl Default for PluginContext:
+                                                                    fn default_() -> Self_:
+                                                                        # <expr>
+
+                                                                        enum LogLevel:
+                                                                            Trace
+                                                                            Debug
+                                                                            Info
+                                                                            Warn
+                                                                            Error
+
+                                                                            enum PluginError:
+                                                                                PluginNotFound(String)
+                                                                                PluginAlreadyLoaded(String)
+                                                                                LoadError(String)
+                                                                                IncompatibleVersion { plugin_version: String, required_version: String }
+                                                                                InitializationError(String)
+                                                                                ShutdownError(String)
+                                                                                SymbolNotFound(String)
+                                                                                ResourceLimitExceeded { resource: String, limit: u64, current: u64 }
+                                                                                AccessDenied(String)
+                                                                                OperationFailed(String)
+                                                                                IoError(std::io::Error)
+                                                                                SemverError(semver::Error)
+                                                                                Other(String)
+
+                                                                                struct LoadedPlugin:
+                                                                                    plugin: impl_ Plugin
+                                                                                    library: libloading::Library
+                                                                                    context: crate::PluginContext
+                                                                                    resource_monitor: crate::ResourceMonitor
+                                                                                    path: std::path::PathBuf
+
+                                                                                    struct PluginManager:
+                                                                                        plugin_dir: std::path::PathBuf
+                                                                                        plugins: Map<String, LoadedPlugin>
+                                                                                        default_limits: crate::ResourceLimits
+                                                                                        strict_version_check: Bool
+
+                                                                                        impl PluginManager:
+                                                                                            fn new_(plugin_dir: std::path::PathBuf) -> Self_:
+                                                                                                # <expr>
+
+                                                                                                fn set_default_limits(_self: &mut Self_, limits: crate::ResourceLimits):
+                                                                                                    # <expr>
+
+                                                                                                    fn set_strict_version_check(_self: &mut Self_, strict: Bool):
+                                                                                                        # <expr>
+
+                                                                                                        fn validate_api_version(_self: &Self_, plugin_api_version: &String) -> Result<(), Error>:
+                                                                                                            # <expr>
+
+                                                                                                            fn plugin_dir(_self: &Self_) -> &std::path::Path:
+                                                                                                                # <expr>
+
+                                                                                                                fn load_plugin(_self: &mut Self_, path: &std::path::Path) -> Result<(), Error>:
+                                                                                                                    # host dynamic loading boundary
+                                                                                                                    # <expr>
+
+                                                                                                                    fn unload_plugin(_self: &mut Self_, name: &String) -> Result<(), Error>:
+                                                                                                                        # <expr>
+
+                                                                                                                        fn get_plugin_info(_self: &Self_, name: &String) -> Option<(String, String, String)>:
+                                                                                                                            # <expr>
+
+                                                                                                                            fn list_plugins(_self: &Self_) -> Array<String>:
+                                                                                                                                # <expr>
+
+                                                                                                                                fn get_plugin_metadata(_self: &Self_, name: &String) -> Option<serde_json::Value>:
+                                                                                                                                    # <expr>
+
+                                                                                                                                    fn update(_self: &mut Self_, delta_time: f32) -> Result<(), Error>:
+                                                                                                                                        # <expr>
+
+                                                                                                                                        fn unload_all(_self: &mut Self_) -> Result<(), Error>:
+                                                                                                                                            # <expr>
+
+                                                                                                                                            fn load_all_plugins(_self: &mut Self_) -> Result<(), Error>:
+                                                                                                                                                # <expr>
+
+                                                                                                                                                impl Drop for PluginManager:
+                                                                                                                                                    fn drop(_self: &mut Self_):
+                                                                                                                                                        # <expr>
+
+                                                                                                                                                        trait Plugin:
+                                                                                                                                                            fn name(_self: &Self_) -> &String:
+                                                                                                                                                                pass
+                                                                                                                                                                fn version(_self: &Self_) -> &String:
+                                                                                                                                                                    pass
+                                                                                                                                                                    fn api_version(_self: &Self_) -> &String:
+                                                                                                                                                                        pass
+                                                                                                                                                                        fn description(_self: &Self_) -> &String:
+                                                                                                                                                                            "No description provided"
+                                                                                                                                                                            fn author(_self: &Self_) -> &String:
+                                                                                                                                                                                "Unknown"
+                                                                                                                                                                                fn initialize(_self: &mut Self_, context: &mut crate::PluginContext) -> Result<(), Error>:
+                                                                                                                                                                                    pass
+                                                                                                                                                                                    fn shutdown(_self: &mut Self_) -> Result<(), Error>:
+                                                                                                                                                                                        pass
+                                                                                                                                                                                        fn update(_self: &mut Self_, _delta_time: f32) -> Result<(), Error>:
+                                                                                                                                                                                            # <expr>
+                                                                                                                                                                                            fn metadata(_self: &Self_) -> serde_json::Value:
+                                                                                                                                                                                                # <expr>
+
+                                                                                                                                                                                                struct ResourceLimits:
+                                                                                                                                                                                                    max_memory_bytes: u64
+                                                                                                                                                                                                    max_cpu_time_ms: u64
+                                                                                                                                                                                                    max_file_handles: u32
+                                                                                                                                                                                                    max_init_time_secs: u64
+
+                                                                                                                                                                                                    impl Default for ResourceLimits:
+                                                                                                                                                                                                        fn default_() -> Self_:
+                                                                                                                                                                                                            # <expr>
+
+                                                                                                                                                                                                            impl ResourceLimits:
+                                                                                                                                                                                                                fn unlimited() -> Self_:
+                                                                                                                                                                                                                    # <expr>
+
+                                                                                                                                                                                                                    fn strict() -> Self_:
+                                                                                                                                                                                                                        # <expr>
+
+                                                                                                                                                                                                                        fn relaxed() -> Self_:
+                                                                                                                                                                                                                            # <expr>
+
+                                                                                                                                                                                                                            struct ResourceMonitor:
+                                                                                                                                                                                                                                limits: ResourceLimits
+                                                                                                                                                                                                                                memory_usage: u64
+                                                                                                                                                                                                                                file_handles: u32
+                                                                                                                                                                                                                                operation_start: Option<std::time::Instant>
+                                                                                                                                                                                                                                system: sysinfo::System
+                                                                                                                                                                                                                                plugin_name: String
+
+                                                                                                                                                                                                                                impl ResourceMonitor:
+                                                                                                                                                                                                                                    fn new_(plugin_name: impl_ Into<String>, limits: ResourceLimits) -> Self_:
+                                                                                                                                                                                                                                        # <expr>
+
+                                                                                                                                                                                                                                        fn start_operation(_self: &Self_):
+                                                                                                                                                                                                                                            # <expr>
+
+                                                                                                                                                                                                                                            fn check_operation_time(_self: &Self_) -> Result<(), Error>:
+                                                                                                                                                                                                                                                # <expr>
+
+                                                                                                                                                                                                                                                fn end_operation(_self: &Self_):
+                                                                                                                                                                                                                                                    # <expr>
+
+                                                                                                                                                                                                                                                    fn allocate_memory(_self: &Self_, bytes: u64) -> Result<(), Error>:
+                                                                                                                                                                                                                                                        # <expr>
+
+                                                                                                                                                                                                                                                        fn deallocate_memory(_self: &Self_, bytes: u64):
+                                                                                                                                                                                                                                                            # <expr>
+
+                                                                                                                                                                                                                                                            fn memory_usage(_self: &Self_) -> u64:
+                                                                                                                                                                                                                                                                # <expr>
+
+                                                                                                                                                                                                                                                                fn open_file_handle(_self: &Self_) -> Result<(), Error>:
+                                                                                                                                                                                                                                                                    # <expr>
+
+                                                                                                                                                                                                                                                                    fn close_file_handle(_self: &Self_):
+                                                                                                                                                                                                                                                                        # <expr>
+
+                                                                                                                                                                                                                                                                        fn file_handle_count(_self: &Self_) -> u32:
+                                                                                                                                                                                                                                                                            # <expr>
+
+                                                                                                                                                                                                                                                                            fn limits(_self: &Self_) -> &ResourceLimits:
+                                                                                                                                                                                                                                                                                # <expr>
+
+                                                                                                                                                                                                                                                                                fn usage_summary(_self: &Self_) -> ResourceUsage:
+                                                                                                                                                                                                                                                                                    # <expr>
+
+                                                                                                                                                                                                                                                                                    fn is_near_limit(_self: &Self_) -> Bool:
+                                                                                                                                                                                                                                                                                        # <expr>
+
+                                                                                                                                                                                                                                                                                        struct ResourceUsage:
+                                                                                                                                                                                                                                                                                            memory_bytes: u64
+                                                                                                                                                                                                                                                                                            file_handles: u32
+                                                                                                                                                                                                                                                                                            memory_limit: u64
+                                                                                                                                                                                                                                                                                            file_handle_limit: u32
+
+                                                                                                                                                                                                                                                                                            impl ResourceUsage:
+                                                                                                                                                                                                                                                                                                fn memory_percent(_self: &Self_) -> f64:
+                                                                                                                                                                                                                                                                                                    # <expr>
+
+                                                                                                                                                                                                                                                                                                    fn file_handle_percent(_self: &Self_) -> f64:
+                                                                                                                                                                                                                                                                                                        # <expr>

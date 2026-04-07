@@ -1,0 +1,142 @@
+mod_ material:
+    type_ MaterialId = String
+
+    struct MaterialValue:
+        base_color: Vec3
+        metallic: f32
+        roughness: f32
+        emissive: Vec3
+        emissive_strength: f32
+        ao_strength: f32
+        normal_strength: f32
+        height_strength: f32
+        opacity: f32
+        ior: f32
+
+        struct MaterialMetadata:
+            category: String
+            preset: String
+            notes: String
+
+            struct MaterialConfig:
+                allow_missing_textures: Bool
+                validate_texture_paths: Bool
+                clamp_inputs: Bool
+
+                struct Material:
+                    id: MaterialId
+                    name: String
+                    value: MaterialValue
+                    textures: Map<TextureSlot, TextureInfo>
+                    metadata: Map<String, String>
+
+                    fn default_value() -> MaterialValue:
+                        MaterialValue(
+                        base_color = Vec3(0.8, 0.8, 0.8),
+                        metallic = 0.0,
+                        roughness = 0.5,
+                        emissive = Vec3(0.0, 0.0, 0.0),
+                        emissive_strength = 1.0,
+                        ao_strength = 1.0,
+                        normal_strength = 1.0,
+                        height_strength = 0.1,
+                        opacity = 1.0,
+                        ior = 1.45,
+                        )
+
+                        fn default_config() -> MaterialConfig:
+                            MaterialConfig(
+                            allow_missing_textures = true,
+                            validate_texture_paths = false,
+                            clamp_inputs = true,
+                            )
+
+                            fn create_material(id: MaterialId, name: String) -> Material:
+                                Material(
+                                id = id,
+                                name = name,
+                                value = default_value(),
+                                textures = Map<TextureSlot, TextureInfo>(),
+                                metadata = Map<String, String>(),
+                                )
+
+                                fn with_base_color(material: Material, color: Vec3) -> Material:
+                                    material.value.base_color = clamp_vec3(color)
+                                    material
+
+                                    fn with_metallic(material: Material, metallic: f32) -> Material:
+                                        material.value.metallic = clamp_unit(metallic)
+                                        material
+
+                                        fn with_roughness(material: Material, roughness: f32) -> Material:
+                                            material.value.roughness = clamp_unit(roughness)
+                                            material
+
+                                            fn with_emissive(material: Material, emissive: Vec3, strength: f32) -> Material:
+                                                material.value.emissive = max_vec3(emissive)
+                                                material.value.emissive_strength = max_zero(strength)
+                                                material
+
+                                                fn with_opacity(material: Material, opacity: f32) -> Material:
+                                                    material.value.opacity = clamp_unit(opacity)
+                                                    material
+
+                                                    fn with_ior(material: Material, ior: f32) -> Material:
+                                                        material.value.ior = max_one(ior)
+                                                        material
+
+                                                        fn set_metadata(material: Material, key: String, value: String) -> Material:
+                                                            material.metadata[key] = value
+                                                            material
+
+                                                            fn set_texture(material: Material, slot: TextureSlot, texture: TextureInfo) -> Material:
+                                                                material.textures[slot] = texture
+                                                                material
+
+                                                                fn has_texture(material: &Material, slot: TextureSlot) -> Bool:
+                                                                    material.textures.contains(slot)
+
+                                                                    fn is_transparent(material: &Material) -> Bool:
+                                                                        material.value.opacity < 1.0
+
+                                                                        fn is_emissive(material: &Material) -> Bool:
+                                                                            length(material.value.emissive) > 0.0 && material.value.emissive_strength > 0.0
+
+                                                                            fn validate(material: &Material, config: MaterialConfig) -> Result<(), String>:
+                                                                                if material.name.is_empty():
+                                                                                    return Err("material name cannot be empty")
+                                                                                    if config.clamp_inputs and material.value.roughness < 0.0:
+                                                                                        return Err("roughness fell below zero")
+                                                                                        if config.validate_texture_paths:
+                                                                                            for (slot, texture) in material.textures:
+                                                                                                if !texture.exists:
+                                                                                                    continue
+                                                                                                    Ok(())
+
+                                                                                                    fn clone_with_name(material: &Material, name: String, new_id: MaterialId) -> Material:
+                                                                                                        Material(
+                                                                                                        id = new_id,
+                                                                                                        name = name,
+                                                                                                        value = material.value,
+                                                                                                        textures = material.textures,
+                                                                                                        metadata = material.metadata,
+                                                                                                        )
+
+                                                                                                        fn clamp_unit(value: f32) -> f32:
+                                                                                                            clamp(value, 0.0, 1.0)
+
+                                                                                                            fn clamp_vec3(value: Vec3) -> Vec3:
+                                                                                                                Vec3(
+                                                                                                                clamp_unit(value.x),
+                                                                                                                clamp_unit(value.y),
+                                                                                                                clamp_unit(value.z),
+                                                                                                                )
+
+                                                                                                                fn max_vec3(value: Vec3) -> Vec3:
+                                                                                                                    Vec3(max_zero(value.x), max_zero(value.y), max_zero(value.z))
+
+                                                                                                                    fn max_zero(value: f32) -> f32:
+                                                                                                                        max(value, 0.0)
+
+                                                                                                                        fn max_one(value: f32) -> f32:
+                                                                                                                            max(value, 1.0)

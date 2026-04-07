@@ -1,0 +1,33 @@
+{
+  "name": "violet-icon-19",
+  "description": "Violet catalog icon 19",
+  "category": "mega-preview/violet",
+  "tags": [
+    "preview",
+    "theme",
+    "violet",
+    "motif-9"
+  ],
+  "generator": "icon",
+  "template_source": "violet-icon-19",
+  "generation_timestamp": "2026-03-07T18:49:39.137779",
+  "dimensions": [
+    96,
+    96
+  ],
+  "format": "png",
+  "file_size": 2053,
+  "color_mode": "RGBA",
+  "has_alpha": true,
+  "dpi": 72,
+  "theme_variant": null,
+  "theme_group": null,
+  "is_animated": false,
+  "animation_type": null,
+  "frame_count": null,
+  "duration": null,
+  "usage_count": 0,
+  "last_used": null,
+  "validation_passed": true,
+  "validation_warnings": []
+}

@@ -1,0 +1,26 @@
+# Example: Vignette Overlay
+# Demonstrates: Radial gradient overlay with alpha
+
+name: "Vignette Overlay"
+description: "Subtle vignette effect for viewport focus"
+generator_type: "overlay"
+category: "viewport"
+tags: ["overlay", "vignette", "effect"]
+
+output_formats:
+  - "png"
+
+dimensions:
+  width: 1920
+  height: 1080
+
+alpha_mode: "embedded"
+
+params:
+  overlay_type: "vignette"
+  intensity: 0.5
+  radius: 0.8
+  softness: 0.3
+  color: "#000000"
+
+version: "1.0"

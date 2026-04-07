@@ -1,0 +1,32 @@
+{
+  "name": "shaking-bell",
+  "description": "Notification bell shaking",
+  "category": "animated",
+  "tags": [
+    "bell",
+    "notification",
+    "alert"
+  ],
+  "generator": "icon",
+  "template_source": "shaking-bell",
+  "generation_timestamp": "2026-03-07T17:19:50.886906",
+  "dimensions": [
+    128,
+    128
+  ],
+  "format": "png",
+  "file_size": 1004,
+  "color_mode": "RGBA",
+  "has_alpha": true,
+  "dpi": 72,
+  "theme_variant": null,
+  "theme_group": null,
+  "is_animated": true,
+  "animation_type": "shake",
+  "frame_count": 15,
+  "duration": 0.5,
+  "usage_count": 0,
+  "last_used": null,
+  "validation_passed": true,
+  "validation_warnings": []
+}

@@ -1,0 +1,26 @@
+# Example: Perlin Noise Pattern
+# Demonstrates: Procedural noise pattern generation
+
+name: "Perlin Noise Pattern"
+description: "Procedural Perlin noise pattern for textures"
+generator_type: "pattern"
+category: "procedural"
+tags: ["pattern", "noise", "perlin", "procedural"]
+
+output_formats:
+  - "png"
+
+dimensions:
+  width: 256
+  height: 256
+
+params:
+  pattern_type: "noise"
+  noise_type: "perlin"
+  scale: 0.05
+  octaves: 4
+  persistence: 0.5
+  lacunarity: 2.0
+  tileable: true
+
+version: "1.0"

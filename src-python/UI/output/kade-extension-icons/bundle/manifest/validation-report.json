@@ -1,0 +1,258 @@
+{
+  "summary": {
+    "icon_count": 8,
+    "theme": "light",
+    "category": "chrome",
+    "all_passed": true
+  },
+  "icons": {
+    "activity": {
+      "warnings": [],
+      "formats": {
+        "svg": {
+          "passed": true,
+          "errors": [],
+          "warnings": [],
+          "checks": {
+            "file_exists": true,
+            "file_size": true,
+            "svg_viewbox": true,
+            "svg_paths": true,
+            "svg_structure": true,
+            "svg_rendering": true
+          }
+        },
+        "png": {
+          "passed": true,
+          "errors": [],
+          "warnings": [],
+          "checks": {
+            "file_exists": true,
+            "file_size": true,
+            "dimensions": true,
+            "color_mode": true,
+            "alpha_channel": true,
+            "dpi": true
+          }
+        }
+      }
+    },
+    "chat": {
+      "warnings": [],
+      "formats": {
+        "svg": {
+          "passed": true,
+          "errors": [],
+          "warnings": [],
+          "checks": {
+            "file_exists": true,
+            "file_size": true,
+            "svg_viewbox": true,
+            "svg_paths": true,
+            "svg_structure": true,
+            "svg_rendering": true
+          }
+        },
+        "png": {
+          "passed": true,
+          "errors": [],
+          "warnings": [],
+          "checks": {
+            "file_exists": true,
+            "file_size": true,
+            "dimensions": true,
+            "color_mode": true,
+            "alpha_channel": true,
+            "dpi": true
+          }
+        }
+      }
+    },
+    "new-task": {
+      "warnings": [],
+      "formats": {
+        "svg": {
+          "passed": true,
+          "errors": [],
+          "warnings": [],
+          "checks": {
+            "file_exists": true,
+            "file_size": true,
+            "svg_viewbox": true,
+            "svg_paths": true,
+            "svg_structure": true,
+            "svg_rendering": true
+          }
+        },
+        "png": {
+          "passed": true,
+          "errors": [],
+          "warnings": [],
+          "checks": {
+            "file_exists": true,
+            "file_size": true,
+            "dimensions": true,
+            "color_mode": true,
+            "alpha_channel": true,
+            "dpi": true
+          }
+        }
+      }
+    },
+    "history": {
+      "warnings": [],
+      "formats": {
+        "svg": {
+          "passed": true,
+          "errors": [],
+          "warnings": [],
+          "checks": {
+            "file_exists": true,
+            "file_size": true,
+            "svg_viewbox": true,
+            "svg_paths": true,
+            "svg_structure": true,
+            "svg_rendering": true
+          }
+        },
+        "png": {
+          "passed": true,
+          "errors": [],
+          "warnings": [],
+          "checks": {
+            "file_exists": true,
+            "file_size": true,
+            "dimensions": true,
+            "color_mode": true,
+            "alpha_channel": true,
+            "dpi": true
+          }
+        }
+      }
+    },
+    "settings": {
+      "warnings": [],
+      "formats": {
+        "svg": {
+          "passed": true,
+          "errors": [],
+          "warnings": [],
+          "checks": {
+            "file_exists": true,
+            "file_size": true,
+            "svg_viewbox": true,
+            "svg_paths": true,
+            "svg_structure": true,
+            "svg_rendering": true
+          }
+        },
+        "png": {
+          "passed": true,
+          "errors": [],
+          "warnings": [],
+          "checks": {
+            "file_exists": true,
+            "file_size": true,
+            "dimensions": true,
+            "color_mode": true,
+            "alpha_channel": true,
+            "dpi": true
+          }
+        }
+      }
+    },
+    "popout": {
+      "warnings": [],
+      "formats": {
+        "svg": {
+          "passed": true,
+          "errors": [],
+          "warnings": [],
+          "checks": {
+            "file_exists": true,
+            "file_size": true,
+            "svg_viewbox": true,
+            "svg_paths": true,
+            "svg_structure": true,
+            "svg_rendering": true
+          }
+        },
+        "png": {
+          "passed": true,
+          "errors": [],
+          "warnings": [],
+          "checks": {
+            "file_exists": true,
+            "file_size": true,
+            "dimensions": true,
+            "color_mode": true,
+            "alpha_channel": true,
+            "dpi": true
+          }
+        }
+      }
+    },
+    "help": {
+      "warnings": [],
+      "formats": {
+        "svg": {
+          "passed": true,
+          "errors": [],
+          "warnings": [],
+          "checks": {
+            "file_exists": true,
+            "file_size": true,
+            "svg_viewbox": true,
+            "svg_paths": true,
+            "svg_structure": true,
+            "svg_rendering": true
+          }
+        },
+        "png": {
+          "passed": true,
+          "errors": [],
+          "warnings": [],
+          "checks": {
+            "file_exists": true,
+            "file_size": true,
+            "dimensions": true,
+            "color_mode": true,
+            "alpha_channel": true,
+            "dpi": true
+          }
+        }
+      }
+    },
+    "profile": {
+      "warnings": [],
+      "formats": {
+        "svg": {
+          "passed": true,
+          "errors": [],
+          "warnings": [],
+          "checks": {
+            "file_exists": true,
+            "file_size": true,
+            "svg_viewbox": true,
+            "svg_paths": true,
+            "svg_structure": true,
+            "svg_rendering": true
+          }
+        },
+        "png": {
+          "passed": true,
+          "errors": [],
+          "warnings": [],
+          "checks": {
+            "file_exists": true,
+            "file_size": true,
+            "dimensions": true,
+            "color_mode": true,
+            "alpha_channel": true,
+            "dpi": true
+          }
+        }
+      }
+    }
+  }
+}

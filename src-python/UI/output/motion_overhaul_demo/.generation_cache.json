@@ -1,0 +1,202 @@
+{
+  "ca13ae44749e4a84": {
+    "template_hash": "71707192fc2390a5d9518421447b3b53c1b6c7ee8999ab565edeb1f26baa3726",
+    "generated_at": "2026-03-07T19:06:10.434082",
+    "asset_name": "motion-hover",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 55312
+  },
+  "5b51ea1c5cf8c221": {
+    "template_hash": "946421b9d00702ce4de9128b8567f9a6c727b039e12bd285687a975514f4a560",
+    "generated_at": "2026-03-07T19:06:10.465304",
+    "asset_name": "motion-breath",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 64307
+  },
+  "9ff2303566767389": {
+    "template_hash": "112ffda20bcd328beee86aa9170d81a8716ef93a9896af4416878636c472987a",
+    "generated_at": "2026-03-07T19:06:10.497072",
+    "asset_name": "motion-jelly",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 12725
+  },
+  "898a552e96ff491b": {
+    "template_hash": "4b89ea14c042a3d9497c4a831a82c00ea8c342c9619e1090e66d4ac9f423f5cb",
+    "generated_at": "2026-03-07T19:06:10.520569",
+    "asset_name": "motion-snap",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 19436
+  },
+  "74a77f364057dde1": {
+    "template_hash": "bda10802b6831177fb6c1b3a5960415bfa5073065023a2ecb177419508cac2d5",
+    "generated_at": "2026-03-07T19:06:10.532723",
+    "asset_name": "motion-blink",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 403
+  },
+  "5bcef702e7ae4857": {
+    "template_hash": "2f84194ca4c3250dcd9b71e148a0a06fb93b26b63603a7f34c2e98c70616df52",
+    "generated_at": "2026-03-07T19:06:10.551113",
+    "asset_name": "motion-pop",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 27755
+  },
+  "137ea7d70a414cfb": {
+    "template_hash": "2e90b635939cfb74d6f88334f54b8d8536e719c6541a7ed58b9f1b13d39d9f14",
+    "generated_at": "2026-03-07T19:06:10.565827",
+    "asset_name": "motion-twitch",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 403
+  },
+  "60b1a123435cbc11": {
+    "template_hash": "d1468d480a32c76b2af77646b03bb75dc313e196c68f0d92af88bcff96b67a52",
+    "generated_at": "2026-03-07T19:06:10.580908",
+    "asset_name": "motion-helix",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 29339
+  },
+  "405ebcd7f05475cb": {
+    "template_hash": "8f51939c1ddb8e7c6bebc4774f1883951314f41213b7446e15e777212e2671e1",
+    "generated_at": "2026-03-07T19:06:10.623818",
+    "asset_name": "motion-spiral",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 66445
+  },
+  "6f08456a3cf0a6dd": {
+    "template_hash": "45bc6b149d17054742df205dddeb63058f37a418d190702e026a6bb59b6f04bc",
+    "generated_at": "2026-03-07T19:06:10.638042",
+    "asset_name": "motion-zigzag",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 10185
+  },
+  "65c730eb5e34cbfe": {
+    "template_hash": "1422234c8030561cb344babd1d2977f2790744e55f911cd3601a53106a20191d",
+    "generated_at": "2026-03-07T19:06:10.675852",
+    "asset_name": "motion-ricochet",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 43088
+  },
+  "d8d602218d39539b": {
+    "template_hash": "6629939d3a5956d858c81a235b8ab0f8f5c60144500136f3c1cdd5596e0f047a",
+    "generated_at": "2026-03-07T19:06:10.717874",
+    "asset_name": "motion-swirl",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 47680
+  },
+  "31c24fc4c45ecdbd": {
+    "template_hash": "38b634ee84c554aab00f6d7e16aaf14aea595f893bbfecd07f6b5d8e619daa69",
+    "generated_at": "2026-03-07T19:06:10.742371",
+    "asset_name": "motion-ripple",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 59350
+  },
+  "1ff36888bf96a50e": {
+    "template_hash": "54a749416f6dbee09f7dd6c628c99d725e46563ed4460518c3f6fde4b1f3f5b1",
+    "generated_at": "2026-03-07T19:06:10.765991",
+    "asset_name": "motion-ping",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 48538
+  },
+  "4778189b80e9f34b": {
+    "template_hash": "826b1149f44b3a973a747ae633c1d56f715fed599fdf93a4324cd0f7db194825",
+    "generated_at": "2026-03-07T19:06:10.808640",
+    "asset_name": "motion-jitter",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 38731
+  },
+  "db2f31125b7a9cf9": {
+    "template_hash": "4f65f37a047109be0a8c1b92f5a4198f0dc9571c1338be132293b142c9cc2d36",
+    "generated_at": "2026-03-07T19:06:10.820303",
+    "asset_name": "motion-glide",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 403
+  },
+  "aa5174887a1f09e4": {
+    "template_hash": "4fd2e1f3daf163d67c5ca401295f9e7e55bdf4e6151683e744adf8190830f768",
+    "generated_at": "2026-03-07T19:06:10.842497",
+    "asset_name": "motion-orbital_pulse",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 38220
+  },
+  "596faad421d7c313": {
+    "template_hash": "1480bd6a7aac06e03382a1366c83efea83465bc2c9e1d2f39de75b3d0c6eedf6",
+    "generated_at": "2026-03-07T19:06:10.889749",
+    "asset_name": "motion-hover-pulse",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 58335
+  },
+  "273e451ff1e2af3d": {
+    "template_hash": "13c9719a7686ef3f5f891c0e509783cc4e9d866a51ca9641e3083c6ba9ed7d34",
+    "generated_at": "2026-03-07T19:06:10.963089",
+    "asset_name": "motion-swirl-ripple",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 71560
+  },
+  "4148c53bbca39a6c": {
+    "template_hash": "1b32170c5734933185cb1798c9060d6027ffc8760629b462654446d81d314d90",
+    "generated_at": "2026-03-07T19:06:11.015295",
+    "asset_name": "motion-jelly-jitter",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 38365
+  }
+}

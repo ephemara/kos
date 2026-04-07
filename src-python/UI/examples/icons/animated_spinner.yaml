@@ -1,0 +1,49 @@
+# Example: Animated Loading Spinner
+# Demonstrates: Animation system, orbit motion, SVG SMIL output
+
+name: "Animated Loading Spinner"
+description: "Rotating loading spinner with orbit animation"
+generator_type: "icon"
+category: "examples"
+tags: ["animated", "spinner", "loading"]
+
+output_formats:
+  - "svg"
+
+dimensions:
+  width: 64
+  height: 64
+
+params:
+  padding: 8
+  antialias_factor: 2
+  layers:
+    - type: "circle"
+      geometry:
+        cx: 32
+        cy: 32
+        r: 24
+      fill: null
+      stroke:
+        color: "#2563eb"
+        width: 4
+        cap: "round"
+      blend_mode: "normal"
+      opacity: 1.0
+
+animation:
+  enabled: true
+  motion_types:
+    - "orbit"
+  duration: 2.0
+  fps: 30
+  loop: true
+  easing: "linear"
+  output_type: "svg_smil"
+  motion_params:
+    orbit:
+      radius: 0
+      speed: 1.0
+      axis: "z"
+
+version: "1.0"

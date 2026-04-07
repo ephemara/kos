@@ -1,0 +1,138 @@
+name: "Quantum Flux - Insane"
+description: "Multi-layer quantum effect with complex gradients"
+generator_type: "icon"
+category: "showcase"
+tags: ["insane", "quantum", "complex"]
+
+output_formats: ["png", "svg"]
+dimensions:
+  width: 128
+  height: 128
+
+colors: ["#00ffff", "#ff00ff", "#ffff00", "#00ff00"]
+
+params:
+  padding: 8
+  antialias_factor: 3
+  layers:
+    # Background glow
+    - type: "circle"
+      geometry:
+        cx: 64
+        cy: 64
+        r: 55
+      fill:
+        type: "radial_gradient"
+        colors: ["#ff00ff", "#00ffff", "#000000"]
+        stops: [0.0, 0.5, 1.0]
+      opacity: 0.6
+      blend_mode: "screen"
+    
+    # Outer ring
+    - type: "circle"
+      geometry:
+        cx: 64
+        cy: 64
+        r: 50
+      fill: null
+      stroke:
+        color: "#00ffff"
+        width: 3
+      opacity: 1.0
+    
+    # Middle ring
+    - type: "circle"
+      geometry:
+        cx: 64
+        cy: 64
+        r: 38
+      fill: null
+      stroke:
+        color: "#ff00ff"
+        width: 2
+      opacity: 0.8
+    
+    # Inner ring
+    - type: "circle"
+      geometry:
+        cx: 64
+        cy: 64
+        r: 26
+      fill: null
+      stroke:
+        color: "#ffff00"
+        width: 2
+      opacity: 0.8
+    
+    # Core sphere
+    - type: "circle"
+      geometry:
+        cx: 64
+        cy: 64
+        r: 18
+      fill:
+        type: "radial_gradient"
+        colors: ["#ffffff", "#00ffff", "#ff00ff"]
+        stops: [0.0, 0.5, 1.0]
+      opacity: 1.0
+    
+    # Energy particles (small circles)
+    - type: "circle"
+      geometry:
+        cx: 64
+        cy: 30
+        r: 4
+      fill:
+        type: "solid"
+        colors: ["#00ff00"]
+      opacity: 0.9
+      blend_mode: "screen"
+    
+    - type: "circle"
+      geometry:
+        cx: 90
+        cy: 64
+        r: 4
+      fill:
+        type: "solid"
+        colors: ["#ffff00"]
+      opacity: 0.9
+      blend_mode: "screen"
+    
+    - type: "circle"
+      geometry:
+        cx: 64
+        cy: 98
+        r: 4
+      fill:
+        type: "solid"
+        colors: ["#ff00ff"]
+      opacity: 0.9
+      blend_mode: "screen"
+    
+    - type: "circle"
+      geometry:
+        cx: 38
+        cy: 64
+        r: 4
+      fill:
+        type: "solid"
+        colors: ["#00ffff"]
+      opacity: 0.9
+      blend_mode: "screen"
+
+animation:
+  enabled: true
+  motion_types: ["orbit", "pulse"]
+  duration: 3.0
+  fps: 30
+  loop: true
+  easing: "linear"
+  output_type: "svg_smil"
+  motion_params:
+    orbit:
+      radius: 0
+      speed: 1.0
+    pulse:
+      scale_min: 0.95
+      scale_max: 1.05

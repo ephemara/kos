@@ -1,0 +1,124 @@
+# Clean repair lane for k-os-asset-pipeline core types
+
+enum_ AssetType:
+    Mesh
+    Texture
+    Material
+    Animation
+    Scene
+    Unknown
+
+    struct_ Asset:
+        id: String
+        asset_type: AssetType
+        source_path: std::path::PathBuf
+        data: AssetData
+        metadata: Map<String, String>
+        thumbnail: Option<std::path::PathBuf>
+
+        enum_ AssetData:
+            Mesh(MeshData)
+            Texture(TextureData)
+            Material(MaterialData)
+            Animation(AnimationData)
+            Scene(SceneData)
+            Raw(Array<u8>)
+
+            struct_ MeshData:
+                positions: Array<f32>
+                normals: Option<Array<f32>>
+                tangents: Option<Array<f32>>
+                uvs: Option<Array<f32>>
+                colors: Option<Array<f32>>
+                indices: Option<Array<u32>>
+                submeshes: Array<(u32, u32, Option<usize>)>
+
+                struct_ TextureData:
+                    width: u32
+                    height: u32
+                    format: TextureFormat
+                    data: Array<u8>
+                    mip_levels: u32
+
+                    enum_ TextureFormat:
+                        R8
+                        Rg8
+                        Rgb8
+                        Rgba8
+                        R16
+                        Rg16
+                        Rgb16
+                        Rgba16
+                        R32F
+                        Rg32F
+                        Rgb32F
+                        Rgba32F
+
+                        struct_ MaterialData:
+                            name: String
+                            base_color: Array<f32>
+                            metallic: f32
+                            roughness: f32
+                            emissive: Array<f32>
+                            textures: Map<String, std::path::PathBuf>
+
+                            struct_ AnimationData:
+                                name: String
+                                duration: f32
+                                channels: Array<AnimationChannel>
+
+                                struct_ AnimationChannel:
+                                    target: String
+                                    channel_type: AnimationChannelType
+                                    times: Array<f32>
+                                    values: Array<f32>
+
+                                    enum_ AnimationChannelType:
+                                        Translation
+                                        Rotation
+                                        Scale
+
+                                        struct_ SceneData:
+                                            name: String
+                                            nodes: Array<SceneNode>
+                                            meshes: Array<MeshData>
+                                            materials: Array<MaterialData>
+
+                                            struct_ SceneNode:
+                                                name: String
+                                                transform: Array<f32>
+                                                mesh_index: Option<usize>
+                                                children: Array<SceneNode>
+
+                                                impl_ Asset:
+                                                    fn new_(id: String, asset_type: AssetType, source_path: std::path::PathBuf, data: AssetData) -> Self_:
+                                                        Self_:
+                                                            id: id
+                                                            asset_type: asset_type
+                                                            source_path: source_path
+                                                            data: data
+                                                            metadata: Map<String, String>::new()
+                                                            thumbnail: None
+
+                                                            fn add_metadata(_self: &mut Self_, key: String, value: String):
+                                                                _self.metadata.insert(key, value)
+
+                                                                fn get_metadata(_self: &Self_, key: &String) -> Option<&String>:
+                                                                    _self.metadata.get(key)
+
+                                                                    fn empty_mesh() -> MeshData:
+                                                                        MeshData:
+                                                                            positions: Array<f32>::new()
+                                                                            normals: None
+                                                                            tangents: None
+                                                                            uvs: None
+                                                                            colors: None
+                                                                            indices: None
+                                                                            submeshes: Array<(u32, u32, Option<usize>)>::new()
+
+                                                                            fn empty_scene(name: String) -> SceneData:
+                                                                                SceneData:
+                                                                                    name: name
+                                                                                    nodes: Array<SceneNode>::new()
+                                                                                    meshes: Array<MeshData>::new()
+                                                                                    materials: Array<MaterialData>::new()

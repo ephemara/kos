@@ -1,0 +1,32 @@
+{
+  "name": "motion-jelly-jitter",
+  "description": "Expanded motion demo: jelly+jitter",
+  "category": "motion-overhaul",
+  "tags": [
+    "motion-demo",
+    "jelly",
+    "jitter"
+  ],
+  "generator": "icon",
+  "template_source": "motion-jelly-jitter",
+  "generation_timestamp": "2026-03-07T19:06:11.014739",
+  "dimensions": [
+    96,
+    96
+  ],
+  "format": "png",
+  "file_size": 38365,
+  "color_mode": "RGBA",
+  "has_alpha": true,
+  "dpi": 72,
+  "theme_variant": null,
+  "theme_group": null,
+  "is_animated": true,
+  "animation_type": "jelly,jitter",
+  "frame_count": 25,
+  "duration": 1.6,
+  "usage_count": 0,
+  "last_used": null,
+  "validation_passed": true,
+  "validation_warnings": []
+}

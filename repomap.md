@@ -293,10 +293,19 @@ Companion artifacts:
         └── 📂 mesh
         └── 📂 mesh_processing
         └── 📂 mocap_engine
+        └── 📂 notes
         └── 📂 photogrammetry
         └── 📂 plugin
+        └── 📂 raw
         └── 📂 render
         └── 📂 renderer
+        └── 📂 repair
+            └── 📂 animation
+            └── 📂 asset_pipeline
+            └── 📂 material
+            └── 📂 registry_config_plugin
+            └── 📂 scene
+        └── 📂 reports
         └── 📂 rig
         └── 📂 runtime
         └── 📂 scatter
@@ -305,6 +314,45 @@ Companion artifacts:
         └── 📂 sculpt
         └── 📂 sim
         └── 📂 undo
+        └── 📂 validation
+            └── 📂 repair_proofs
+            └── 📂 repair_tree_proof
+                └── 📂 animation
+                └── 📂 asset_pipeline
+                └── 📂 material
+                └── 📂 registry_config_plugin
+                └── 📂 scene
+            └── 📂 repair_tree_proof_out
+            └── 📂 repair_tree_proof_v2
+                └── 📂 animation
+                └── 📂 asset_pipeline
+                └── 📂 material
+                └── 📂 registry_config_plugin
+                └── 📂 scene
+            └── 📂 repair_tree_proof_v3
+                └── 📂 animation
+                └── 📂 asset_pipeline
+                └── 📂 material
+                └── 📂 registry_config_plugin
+                └── 📂 scene
+            └── 📂 repair_tree_proof_v4
+                └── 📂 animation
+                └── 📂 asset_pipeline
+                └── 📂 material
+                └── 📂 registry_config_plugin
+                └── 📂 scene
+            └── 📂 repair_tree_proof_v5
+                └── 📂 animation
+                └── 📂 asset_pipeline
+                └── 📂 material
+                └── 📂 registry_config_plugin
+                └── 📂 scene
+            └── 📂 repair_tree_proof_v6
+                └── 📂 animation
+                └── 📂 asset_pipeline
+                └── 📂 material
+                └── 📂 registry_config_plugin
+                └── 📂 scene
         └── 📂 wasm
         └── 📂 workspace_registry
         └── 📂 zen

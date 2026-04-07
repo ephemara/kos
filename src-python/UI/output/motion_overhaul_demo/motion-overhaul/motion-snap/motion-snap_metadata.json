@@ -1,0 +1,31 @@
+{
+  "name": "motion-snap",
+  "description": "Expanded motion demo: snap",
+  "category": "motion-overhaul",
+  "tags": [
+    "motion-demo",
+    "snap"
+  ],
+  "generator": "icon",
+  "template_source": "motion-snap",
+  "generation_timestamp": "2026-03-07T19:06:10.519333",
+  "dimensions": [
+    96,
+    96
+  ],
+  "format": "png",
+  "file_size": 19436,
+  "color_mode": "RGBA",
+  "has_alpha": true,
+  "dpi": 72,
+  "theme_variant": null,
+  "theme_group": null,
+  "is_animated": true,
+  "animation_type": "snap",
+  "frame_count": 25,
+  "duration": 1.6,
+  "usage_count": 0,
+  "last_used": null,
+  "validation_passed": true,
+  "validation_warnings": []
+}

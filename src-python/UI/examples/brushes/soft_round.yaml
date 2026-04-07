@@ -1,0 +1,26 @@
+# Example: Soft Round Brush
+# Demonstrates: Circular brush with smooth falloff
+
+name: "Soft Round Brush"
+description: "Standard soft round brush with smooth falloff"
+generator_type: "brush"
+category: "paint"
+tags: ["brush", "round", "soft", "painting"]
+
+output_formats:
+  - "png"
+
+dimensions:
+  width: 256
+  height: 256
+
+params:
+  shape: "circular"
+  size: 128
+  hardness: 0.3
+  spacing: 0.25
+  falloff_curve: "smooth"
+  stroke_preview: true
+  texture: null
+
+version: "1.0"

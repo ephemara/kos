@@ -1,0 +1,33 @@
+{
+  "name": "forest-icon-05",
+  "description": "Forest catalog icon 05",
+  "category": "mega-preview/forest",
+  "tags": [
+    "preview",
+    "theme",
+    "forest",
+    "motif-5"
+  ],
+  "generator": "icon",
+  "template_source": "forest-icon-05",
+  "generation_timestamp": "2026-03-07T18:49:38.354902",
+  "dimensions": [
+    96,
+    96
+  ],
+  "format": "png",
+  "file_size": 99690,
+  "color_mode": "RGBA",
+  "has_alpha": true,
+  "dpi": 72,
+  "theme_variant": null,
+  "theme_group": null,
+  "is_animated": true,
+  "animation_type": "orbit",
+  "frame_count": 16,
+  "duration": 1.4,
+  "usage_count": 0,
+  "last_used": null,
+  "validation_passed": true,
+  "validation_warnings": []
+}

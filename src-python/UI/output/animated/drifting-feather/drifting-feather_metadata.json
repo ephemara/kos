@@ -1,0 +1,32 @@
+{
+  "name": "drifting-feather",
+  "description": "Feather drifting down",
+  "category": "animated",
+  "tags": [
+    "feather",
+    "drift",
+    "light"
+  ],
+  "generator": "icon",
+  "template_source": "drifting-feather",
+  "generation_timestamp": "2026-03-07T17:19:51.357978",
+  "dimensions": [
+    128,
+    128
+  ],
+  "format": "png",
+  "file_size": 6525,
+  "color_mode": "RGBA",
+  "has_alpha": true,
+  "dpi": 72,
+  "theme_variant": null,
+  "theme_group": null,
+  "is_animated": true,
+  "animation_type": "drift",
+  "frame_count": 120,
+  "duration": 4.0,
+  "usage_count": 0,
+  "last_used": null,
+  "validation_passed": true,
+  "validation_warnings": []
+}

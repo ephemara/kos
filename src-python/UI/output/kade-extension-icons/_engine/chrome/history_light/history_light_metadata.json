@@ -1,0 +1,32 @@
+{
+  "name": "history_light",
+  "description": "Open prior sessions, previous tasks, and resumable context.",
+  "category": "chrome",
+  "tags": [
+    "history",
+    "sessions",
+    "recents"
+  ],
+  "generator": "icon",
+  "template_source": "history_light",
+  "generation_timestamp": "2026-03-17T16:28:37.511552",
+  "dimensions": [
+    64,
+    64
+  ],
+  "format": "svg",
+  "file_size": 3242,
+  "color_mode": "RGBA",
+  "has_alpha": true,
+  "dpi": 72,
+  "theme_variant": "light",
+  "theme_group": "history_theme_group",
+  "is_animated": false,
+  "animation_type": null,
+  "frame_count": null,
+  "duration": null,
+  "usage_count": 0,
+  "last_used": null,
+  "validation_passed": true,
+  "validation_warnings": []
+}

@@ -1,0 +1,33 @@
+{
+  "name": "aurora-icon-10",
+  "description": "Aurora catalog icon 10",
+  "category": "mega-preview/aurora",
+  "tags": [
+    "preview",
+    "theme",
+    "aurora",
+    "motif-0"
+  ],
+  "generator": "icon",
+  "template_source": "aurora-icon-10",
+  "generation_timestamp": "2026-03-07T18:49:37.401232",
+  "dimensions": [
+    96,
+    96
+  ],
+  "format": "png",
+  "file_size": 64017,
+  "color_mode": "RGBA",
+  "has_alpha": true,
+  "dpi": 72,
+  "theme_variant": null,
+  "theme_group": null,
+  "is_animated": true,
+  "animation_type": "float",
+  "frame_count": 16,
+  "duration": 1.4,
+  "usage_count": 0,
+  "last_used": null,
+  "validation_passed": true,
+  "validation_warnings": []
+}

@@ -1,0 +1,113 @@
+mod_ preset:
+    fn gold() -> Material:
+        create_material("MAT_GOLD", "Gold")
+        |> with_base_color(Vec3(1.0, 0.766, 0.336))
+        |> with_metallic(1.0)
+        |> with_roughness(0.15)
+        |> set_metadata("category", "Metal")
+        |> set_metadata("preset", "gold")
+
+        fn silver() -> Material:
+            create_material("MAT_SILVER", "Silver")
+            |> with_base_color(Vec3(0.972, 0.960, 0.915))
+            |> with_metallic(1.0)
+            |> with_roughness(0.1)
+            |> set_metadata("category", "Metal")
+            |> set_metadata("preset", "silver")
+
+            fn copper() -> Material:
+                create_material("MAT_COPPER", "Copper")
+                |> with_base_color(Vec3(0.955, 0.637, 0.538))
+                |> with_metallic(1.0)
+                |> with_roughness(0.2)
+                |> set_metadata("category", "Metal")
+                |> set_metadata("preset", "copper")
+
+                fn plastic_matte() -> Material:
+                    create_material("MAT_PLASTIC_MATTE", "Matte Plastic")
+                    |> with_base_color(Vec3(0.8, 0.8, 0.8))
+                    |> with_metallic(0.0)
+                    |> with_roughness(0.7)
+                    |> set_metadata("category", "Plastic")
+                    |> set_metadata("preset", "plastic_matte")
+
+                    fn plastic_glossy() -> Material:
+                        create_material("MAT_PLASTIC_GLOSSY", "Glossy Plastic")
+                        |> with_base_color(Vec3(0.8, 0.8, 0.8))
+                        |> with_metallic(0.0)
+                        |> with_roughness(0.1)
+                        |> set_metadata("category", "Plastic")
+                        |> set_metadata("preset", "plastic_glossy")
+
+                        fn glass() -> Material:
+                            create_material("MAT_GLASS", "Glass")
+                            |> with_base_color(Vec3(1.0, 1.0, 1.0))
+                            |> with_metallic(0.0)
+                            |> with_roughness(0.0)
+                            |> with_opacity(0.1)
+                            |> with_ior(1.5)
+                            |> set_metadata("category", "Glass")
+                            |> set_metadata("preset", "glass")
+
+                            fn wood() -> Material:
+                                create_material("MAT_WOOD", "Wood")
+                                |> with_base_color(Vec3(0.6, 0.4, 0.2))
+                                |> with_metallic(0.0)
+                                |> with_roughness(0.8)
+                                |> set_metadata("category", "Wood")
+                                |> set_metadata("preset", "wood")
+
+                                fn stone() -> Material:
+                                    create_material("MAT_STONE", "Stone")
+                                    |> with_base_color(Vec3(0.5, 0.5, 0.5))
+                                    |> with_metallic(0.0)
+                                    |> with_roughness(0.9)
+                                    |> set_metadata("category", "Stone")
+                                    |> set_metadata("preset", "stone")
+
+                                    fn fabric() -> Material:
+                                        create_material("MAT_FABRIC", "Fabric")
+                                        |> with_base_color(Vec3(0.7, 0.7, 0.7))
+                                        |> with_metallic(0.0)
+                                        |> with_roughness(0.95)
+                                        |> set_metadata("category", "Fabric")
+                                        |> set_metadata("preset", "fabric")
+
+                                        fn neon(color: Vec3) -> Material:
+                                            create_material("MAT_NEON", "Neon")
+                                            |> with_base_color(color)
+                                            |> with_emissive(color, 8.0)
+                                            |> with_metallic(0.0)
+                                            |> with_roughness(0.2)
+                                            |> set_metadata("category", "Emissive")
+                                            |> set_metadata("preset", "neon")
+
+                                            fn default_() -> Material:
+                                                create_material("MAT_DEFAULT", "Default Material")
+
+                                                fn white() -> Material:
+                                                    create_material("MAT_WHITE", "White")
+                                                    |> with_base_color(Vec3(1.0, 1.0, 1.0))
+                                                    |> set_metadata("preset", "white")
+
+                                                    fn black() -> Material:
+                                                        create_material("MAT_BLACK", "Black")
+                                                        |> with_base_color(Vec3(0.0, 0.0, 0.0))
+                                                        |> set_metadata("preset", "black")
+
+                                                        fn get_preset(name: String) -> Option<Material>:
+                                                            match name:
+                                                                "gold" => Some(gold())
+                                                                "silver" => Some(silver())
+                                                                "copper" => Some(copper())
+                                                                "plastic_matte" => Some(plastic_matte())
+                                                                "plastic_glossy" => Some(plastic_glossy())
+                                                                "glass" => Some(glass())
+                                                                "wood" => Some(wood())
+                                                                "stone" => Some(stone())
+                                                                "fabric" => Some(fabric())
+                                                                "neon" => Some(neon(Vec3(0.8, 0.1, 1.0)))
+                                                                "default" => Some(default_())
+                                                                "white" => Some(white())
+                                                                "black" => Some(black())
+                                                                _ => None

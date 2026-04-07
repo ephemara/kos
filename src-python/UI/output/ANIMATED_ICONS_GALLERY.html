@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>20 Animated Icons Gallery</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            padding: 40px 20px;
+            min-height: 100vh;
+        }
+        
+        .container { max-width: 1600px; margin: 0 auto; }
+        
+        h1 {
+            color: #fff;
+            text-align: center;
+            font-size: 3.5em;
+            margin-bottom: 20px;
+            text-shadow: 0 0 30px rgba(139, 92, 246, 0.5);
+            font-weight: 800;
+            letter-spacing: -1px;
+        }
+        
+        .subtitle {
+            color: rgba(255, 255, 255, 0.9);
+            text-align: center;
+            font-size: 1.3em;
+            margin-bottom: 60px;
+            font-weight: 300;
+        }
+        
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+        }
+        
+        .card {
+            background: rgba(30, 41, 59, 0.8);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 20px;
+            padding: 30px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #8b5cf6, #ec4899, #06b6d4);
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(139, 92, 246, 0.6);
+            box-shadow: 0 20px 60px rgba(139, 92, 246, 0.3);
+        }
+        
+        .card:hover::before { transform: scaleX(1); }
+        
+        .icon-container {
+            width: 100%;
+            height: 180px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(15, 23, 42, 0.6);
+            border-radius: 16px;
+            margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .icon-container::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 16px;
+            border: 2px solid rgba(139, 92, 246, 0.2);
+        }
+        
+        .icon-container img {
+            max-width: 128px;
+            max-height: 128px;
+            filter: drop-shadow(0 0 20px rgba(139, 92, 246, 0.4));
+        }
+        
+        .title {
+            font-size: 1.4em;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 10px;
+            text-transform: capitalize;
+        }
+        
+        .description {
+            font-size: 0.9em;
+            color: #94a3b8;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+        
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        
+        .tag {
+            background: rgba(139, 92, 246, 0.2);
+            color: #c4b5fd;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border: 1px solid rgba(139, 92, 246, 0.3);
+        }
+        
+        .stats {
+            margin-top: 60px;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.1em;
+            padding: 30px;
+            background: rgba(30, 41, 59, 0.5);
+            border-radius: 20px;
+            border: 1px solid rgba(139, 92, 246, 0.2);
+        }
+        
+        .stats strong {
+            color: #a78bfa;
+            font-size: 1.3em;
+        }
+        
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5em; }
+            .gallery { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>✨ 20 Animated Icons</h1>
+        <p class="subtitle">Procedurally Generated with Motion Effects</p>
+        
+        <div class="gallery">
+
+            <div class="card">
+                <div class="icon-container">
+                    <img src="output\animated\loading-spinner\loading-spinner.png" alt="loading spinner">
+                </div>
+                <div class="title">loading spinner</div>
+                <div class="description">Classic loading spinner with orbit animation</div>
+                <div class="tags">
+                    <span class="tag">loading</span>
+                    <span class="tag">spinner</span>
+                    <span class="tag">ui</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="icon-container" style="left: 5px; top: 22px;">
+                    <img src="output\animated\pulse-heart\pulse-heart.png" alt="pulse heart">
+                </div>
+                <div class="title">pulse heart</div>
+                <div class="description">Pulsing heart icon</div>
+                <div class="tags">
+                    <span class="tag">heart</span>
+                    <span class="tag">pulse</span>
+                    <span class="tag">like</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="icon-container" style="left: 106px; top: -30px;">
+                    <img src="output\animated\bouncing-ball\bouncing-ball.png" alt="bouncing ball">
+                </div>
+                <div class="title">bouncing ball</div>
+                <div class="description">Bouncing ball animation</div>
+                <div class="tags">
+                    <span class="tag">bounce</span>
+                    <span class="tag">ball</span>
+                    <span class="tag">physics</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="icon-container" style="left: -122px; top: -16px;">
+                    <img src="output\animated\floating-cloud\floating-cloud.png" alt="floating cloud">
+                </div>
+                <div class="title">floating cloud</div>
+                <div class="description">Gently floating cloud</div>
+                <div class="tags">
+                    <span class="tag">cloud</span>
+                    <span class="tag">float</span>
+                    <span class="tag">weather</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="icon-container" style="left: -16px; top: -82px;">
+                    <img src="output\animated\shaking-bell\shaking-bell.png" alt="shaking bell">
+                </div>
+                <div class="title">shaking bell</div>
+                <div class="description">Notification bell shaking</div>
+                <div class="tags">
+                    <span class="tag">bell</span>
+                    <span class="tag">notification</span>
+                    <span class="tag">alert</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="icon-container">
+                    <img src="output\animated\wobbling-star\wobbling-star.png" alt="wobbling star">
+                </div>
+                <div class="title">wobbling star</div>
+                <div class="description">Star with wobble effect</div>
+                <div class="tags">
+                    <span class="tag">star</span>
+                    <span class="tag">wobble</span>
+                    <span class="tag">favorite</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="icon-container">
+                    <img src="output\animated\glitching-eye\glitching-eye.png" alt="glitching eye">
+                </div>
+                <div class="title">glitching eye</div>
+                <div class="description">Eye with glitch effect</div>
+                <div class="tags">
+                    <span class="tag">eye</span>
+                    <span class="tag">glitch</span>
+                    <span class="tag">view</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="icon-container">
+                    <img src="output\animated\tumbling-dice\tumbling-dice.png" alt="tumbling dice">
+                </div>
+                <div class="title">tumbling dice</div>
+                <div class="description">Dice tumbling animation</div>
+                <div class="tags">
+                    <span class="tag">dice</span>
+                    <span class="tag">tumble</span>
+                    <span class="tag">game</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="icon-container">
+                    <img src="output\animated\strobing-lightning\strobing-lightning.png" alt="strobing lightning">
+                </div>
+                <div class="title">strobing lightning</div>
+                <div class="description">Lightning bolt with strobe effect</div>
+                <div class="tags">
+                    <span class="tag">lightning</span>
+                    <span class="tag">strobe</span>
+                    <span class="tag">power</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="icon-container">
+                    <img src="output\animated\swaying-tree\swaying-tree.png" alt="swaying tree">
+                </div>
+                <div class="title">swaying tree</div>
+                <div class="description">Tree swaying in wind</div>
+                <div class="tags">
+                    <span class="tag">tree</span>
+                    <span class="tag">sway</span>
+                    <span class="tag">nature</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="icon-container">
+                    <img src="output\animated\pendulum-clock\pendulum-clock.png" alt="pendulum clock">
+                </div>
+                <div class="title">pendulum clock</div>
+                <div class="description">Clock pendulum swinging</div>
+                <div class="tags">
+                    <span class="tag">clock</span>
+                    <span class="tag">pendulum</span>
+                    <span class="tag">time</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="icon-container">
+                    <img src="output\animated\figure8-infinity\figure8-infinity.png" alt="figure8 infinity">
+                </div>
+                <div class="title">figure8 infinity</div>
+                <div class="description">Infinity symbol with figure-8 motion</div>
+                <div class="tags">
+                    <span class="tag">infinity</span>
+                    <span class="tag">figure8</span>
+                    <span class="tag">loop</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="icon-container">
+                    <img src="output\animated\heartbeat-monitor\heartbeat-monitor.png" alt="heartbeat monitor">
+                </div>
+                <div class="title">heartbeat monitor</div>
+                <div class="description">ECG heartbeat line</div>
+                <div class="tags">
+                    <span class="tag">heartbeat</span>
+                    <span class="tag">health</span>
+                    <span class="tag">monitor</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="icon-container">
+                    <img src="output\animated\corkscrew-rocket\corkscrew-rocket.png" alt="corkscrew rocket">
+                </div>
+                <div class="title">corkscrew rocket</div>
+                <div class="description">Rocket with corkscrew motion</div>
+                <div class="tags">
+                    <span class="tag">rocket</span>
+                    <span class="tag">corkscrew</span>
+                    <span class="tag">launch</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="icon-container">
+                    <img src="output\animated\shivering-snowflake\shivering-snowflake.png" alt="shivering snowflake">
+                </div>
+                <div class="title">shivering snowflake</div>
+                <div class="description">Snowflake with shiver effect</div>
+                <div class="tags">
+                    <span class="tag">snowflake</span>
+                    <span class="tag">shiver</span>
+                    <span class="tag">winter</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="icon-container">
+                    <img src="output\animated\flipping-coin\flipping-coin.png" alt="flipping coin">
+                </div>
+                <div class="title">flipping coin</div>
+                <div class="description">Coin flip animation</div>
+                <div class="tags">
+                    <span class="tag">coin</span>
+                    <span class="tag">flip</span>
+                    <span class="tag">money</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="icon-container">
+                    <img src="output\animated\tremor-earthquake\tremor-earthquake.png" alt="tremor earthquake">
+                </div>
+                <div class="title">tremor earthquake</div>
+                <div class="description">Earthquake tremor effect</div>
+                <div class="tags">
+                    <span class="tag">earthquake</span>
+                    <span class="tag">tremor</span>
+                    <span class="tag">warning</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="icon-container">
+                    <img src="output\animated\scanning-radar\scanning-radar.png" alt="scanning radar">
+                </div>
+                <div class="title">scanning radar</div>
+                <div class="description">Radar scanning animation</div>
+                <div class="tags">
+                    <span class="tag">radar</span>
+                    <span class="tag">scan</span>
+                    <span class="tag">search</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="icon-container">
+                    <img src="output\animated\warping-portal\warping-portal.png" alt="warping portal">
+                </div>
+                <div class="title">warping portal</div>
+                <div class="description">Portal with warp effect</div>
+                <div class="tags">
+                    <span class="tag">portal</span>
+                    <span class="tag">warp</span>
+                    <span class="tag">teleport</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="icon-container">
+                    <img src="output\animated\drifting-feather\drifting-feather.png" alt="drifting feather">
+                </div>
+                <div class="title">drifting feather</div>
+                <div class="description">Feather drifting down</div>
+                <div class="tags">
+                    <span class="tag">feather</span>
+                    <span class="tag">drift</span>
+                    <span class="tag">light</span>
+                </div>
+            </div>
+
+        </div>
+        
+        <div class="stats">
+            <p>Generated <strong>20/20</strong> animated icons in <strong>0.61s</strong></p>
+            <p style="margin-top: 10px; font-size: 0.9em; opacity: 0.8;">
+                Powered by UI Forge - Validation-Free Icon Generation
+            </p>
+        </div>
+    </div>
+</body>
+</html>

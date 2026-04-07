@@ -1,0 +1,6 @@
+{
+  "file": "M:\\K_OS\\kain\\validation\\repair_tree_proof\\animation\\animation.kn",
+  "exit": 0,
+  "out": "M:\\K_OS\\kain\\validation\\repair_tree_proof_out\\animation.ks",
+  "err": " \u001b[1;31merror\u001b[0m: 1 error(s) found:  --- [1/1] ---  \u001b[1;31merror[Parse Error]\u001b[0m: <input>:5:26: Unexpected token: ':'   \u001b[1;34m-->\u001b[0m M:\\K_OS\\kain\\validation\\repair_tree_proof\\animation\\animation.kn:4:27    \u001b[1;34m|\u001b[0m \u001b[1;34m  4 |\u001b[0m enum_ AnimationSourceKind:    \u001b[1;34m|\u001b[0m                           \u001b[1;31m^\u001b[0m    \u001b[1;34m|\u001b[0m "
+}

@@ -1,0 +1,32 @@
+{
+  "name": "shivering-snowflake",
+  "description": "Snowflake with shiver effect",
+  "category": "animated",
+  "tags": [
+    "snowflake",
+    "shiver",
+    "winter"
+  ],
+  "generator": "icon",
+  "template_source": "shivering-snowflake",
+  "generation_timestamp": "2026-03-07T17:19:51.161747",
+  "dimensions": [
+    128,
+    128
+  ],
+  "format": "png",
+  "file_size": 1390,
+  "color_mode": "RGBA",
+  "has_alpha": true,
+  "dpi": 72,
+  "theme_variant": null,
+  "theme_group": null,
+  "is_animated": true,
+  "animation_type": "shiver",
+  "frame_count": 30,
+  "duration": 1.0,
+  "usage_count": 0,
+  "last_used": null,
+  "validation_passed": true,
+  "validation_warnings": []
+}

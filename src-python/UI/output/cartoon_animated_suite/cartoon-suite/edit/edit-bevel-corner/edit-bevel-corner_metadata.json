@@ -1,0 +1,35 @@
+{
+  "name": "edit-bevel-corner",
+  "description": "Cartoon edit suite icon",
+  "category": "cartoon-suite/edit",
+  "tags": [
+    "cartoon",
+    "suite",
+    "edit",
+    "shake",
+    "transparent",
+    "solid-color"
+  ],
+  "generator": "icon",
+  "template_source": "edit-bevel-corner",
+  "generation_timestamp": "2026-03-07T19:00:07.334968",
+  "dimensions": [
+    96,
+    96
+  ],
+  "format": "png",
+  "file_size": 2059,
+  "color_mode": "RGBA",
+  "has_alpha": true,
+  "dpi": 72,
+  "theme_variant": null,
+  "theme_group": null,
+  "is_animated": true,
+  "animation_type": "shake",
+  "frame_count": 17,
+  "duration": 1.25,
+  "usage_count": 0,
+  "last_used": null,
+  "validation_passed": true,
+  "validation_warnings": []
+}

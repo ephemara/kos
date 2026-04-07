@@ -1,0 +1,31 @@
+{
+  "name": "motion-jelly",
+  "description": "Expanded motion demo: jelly",
+  "category": "motion-overhaul",
+  "tags": [
+    "motion-demo",
+    "jelly"
+  ],
+  "generator": "icon",
+  "template_source": "motion-jelly",
+  "generation_timestamp": "2026-03-07T19:06:10.495359",
+  "dimensions": [
+    96,
+    96
+  ],
+  "format": "png",
+  "file_size": 12725,
+  "color_mode": "RGBA",
+  "has_alpha": true,
+  "dpi": 72,
+  "theme_variant": null,
+  "theme_group": null,
+  "is_animated": true,
+  "animation_type": "jelly",
+  "frame_count": 25,
+  "duration": 1.6,
+  "usage_count": 0,
+  "last_used": null,
+  "validation_passed": true,
+  "validation_warnings": []
+}

@@ -1,0 +1,25 @@
+# Example: Grid Pattern
+# Demonstrates: Simple grid pattern with customizable spacing
+
+name: "Grid Pattern"
+description: "Simple grid pattern for overlays and guides"
+generator_type: "pattern"
+category: "geometric"
+tags: ["pattern", "grid", "guide"]
+
+output_formats:
+  - "png"
+
+dimensions:
+  width: 256
+  height: 256
+
+params:
+  pattern_type: "grid"
+  grid_size: 32
+  line_width: 2
+  line_color: "#64748b"
+  background_color: null
+  tileable: true
+
+version: "1.0"

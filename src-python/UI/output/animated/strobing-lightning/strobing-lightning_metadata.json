@@ -1,0 +1,32 @@
+{
+  "name": "strobing-lightning",
+  "description": "Lightning bolt with strobe effect",
+  "category": "animated",
+  "tags": [
+    "lightning",
+    "strobe",
+    "power"
+  ],
+  "generator": "icon",
+  "template_source": "strobing-lightning",
+  "generation_timestamp": "2026-03-07T17:19:50.972066",
+  "dimensions": [
+    128,
+    128
+  ],
+  "format": "png",
+  "file_size": 1845,
+  "color_mode": "RGBA",
+  "has_alpha": true,
+  "dpi": 72,
+  "theme_variant": null,
+  "theme_group": null,
+  "is_animated": true,
+  "animation_type": "strobe",
+  "frame_count": 24,
+  "duration": 0.8,
+  "usage_count": 0,
+  "last_used": null,
+  "validation_passed": true,
+  "validation_warnings": []
+}

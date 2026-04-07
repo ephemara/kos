@@ -1,0 +1,28 @@
+# Example: Textured Brush
+# Demonstrates: Brush with texture overlay (requires texture file)
+
+name: "Textured Brush"
+description: "Brush with procedural texture overlay"
+generator_type: "brush"
+category: "paint"
+tags: ["brush", "textured", "artistic"]
+
+output_formats:
+  - "png"
+
+dimensions:
+  width: 256
+  height: 256
+
+params:
+  shape: "circular"
+  size: 128
+  hardness: 0.5
+  spacing: 0.2
+  falloff_curve: "smooth"
+  stroke_preview: true
+  # Note: texture path would reference an actual texture file
+  # texture: "textures/noise_01.png"
+  texture: null
+
+version: "1.0"

@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VS Code Icon Theme - Preview Gallery</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 40px 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+            color: white;
+        }
+        
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            letter-spacing: -1px;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+        
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 20px;
+        }
+        
+        .stat {
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(10px);
+            padding: 15px 30px;
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-top: 5px;
+        }
+        
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        
+        .icon-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 16px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            border: 2px solid transparent;
+        }
+        
+        .icon-card:hover {
+            transform: translateY(-8px) scale(1.05);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.2);
+            border-color: #667eea;
+        }
+        
+        .icon-wrapper {
+            width: 80px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border-radius: 12px;
+            padding: 10px;
+        }
+        
+        .icon-card:hover .icon-wrapper {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .icon-card img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            filter: drop-shadow(0 2px 8px rgba(0,0,0,0.1));
+        }
+        
+        .icon-name {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #2d3748;
+            text-align: center;
+            word-break: break-word;
+            line-height: 1.3;
+        }
+        
+        .icon-extensions {
+            font-size: 0.7rem;
+            color: #718096;
+            text-align: center;
+            font-weight: 400;
+            max-width: 100%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        
+        footer {
+            text-align: center;
+            color: white;
+            margin-top: 60px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        footer p {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        @media (max-width: 768px) {
+            .gallery {
+                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+                gap: 15px;
+            }
+            
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .stats {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎨 VS Code Icon Theme</h1>
+            <p class="subtitle">Every file type gets its own unique personality</p>
+            <div class="stats">
+                <div class="stat">
+                    <div class="stat-number" id="icon-count">71</div>
+                    <div class="stat-label">Unique Icons</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number" id="ext-count">195</div>
+                    <div class="stat-label">File Extensions</div>
+                </div>
+            </div>
+        </header>
+        
+        <div class="gallery" id="gallery">
+            <!-- Icons will be injected here -->
+        </div>
+        
+        <footer>
+            <p>Generated with UI Forge • No Generic Icons • 100% Unique Designs</p>
+        </footer>
+    </div>
+    
+    <script>
+        // Icon data from icon-theme.json
+        const icons = [
+            { name: "Rust", icon: "rust.svg", exts: ".rs" },
+            { name: "Python", icon: "python.svg", exts: ".py, .pyw, .pyx" },
+            { name: "JavaScript", icon: "javascript.svg", exts: ".js, .mjs, .cjs" },
+            { name: "TypeScript", icon: "typescript.svg", exts: ".ts, .tsx, .mts" },
+            { name: "C++", icon: "cpp.svg", exts: ".cpp, .cc, .cxx, .hpp" },
+            { name: "C", icon: "c.svg", exts: ".c, .h" },
+            { name: "C#", icon: "csharp.svg", exts: ".cs, .csx" },
+            { name: "Java", icon: "java.svg", exts: ".java, .class, .jar" },
+            { name: "Go", icon: "go.svg", exts: ".go" },
+            { name: "Ruby", icon: "ruby.svg", exts: ".rb, .rake" },
+            { name: "PHP", icon: "php.svg", exts: ".php, .phtml" },
+            { name: "Swift", icon: "swift.svg", exts: ".swift" },
+            { name: "Kotlin", icon: "kotlin.svg", exts: ".kt, .kts" },
+            { name: "Dart", icon: "dart.svg", exts: ".dart" },
+            { name: "Lua", icon: "lua.svg", exts: ".lua" },
+            { name: "Zig", icon: "zig.svg", exts: ".zig" },
+            { name: "Elixir", icon: "elixir.svg", exts: ".ex, .exs" },
+            { name: "Haskell", icon: "haskell.svg", exts: ".hs, .lhs" },
+            { name: "R", icon: "r.svg", exts: ".r, .R, .rmd" },
+            { name: "Scala", icon: "scala.svg", exts: ".scala, .sc" },
+            { name: "Clojure", icon: "clojure.svg", exts: ".clj, .cljs" },
+            { name: "Erlang", icon: "erlang.svg", exts: ".erl, .hrl" },
+            { name: "OCaml", icon: "ocaml.svg", exts: ".ml, .mli" },
+            { name: "HTML", icon: "html.svg", exts: ".html, .htm" },
+            { name: "CSS", icon: "css.svg", exts: ".css" },
+            { name: "SCSS", icon: "scss.svg", exts: ".scss" },
+            { name: "Sass", icon: "sass.svg", exts: ".sass" },
+            { name: "Less", icon: "less.svg", exts: ".less" },
+            { name: "JSON", icon: "json.svg", exts: ".json, .jsonc" },
+            { name: "YAML", icon: "yaml.svg", exts: ".yaml, .yml" },
+            { name: "TOML", icon: "toml.svg", exts: ".toml" },
+            { name: "XML", icon: "xml.svg", exts: ".xml, .xsd" },
+            { name: "Markdown", icon: "markdown.svg", exts: ".md, .markdown" },
+            { name: "GLSL", icon: "glsl.svg", exts: ".glsl, .vert, .frag" },
+            { name: "HLSL", icon: "hlsl.svg", exts: ".hlsl, .fx" },
+            { name: "WGSL", icon: "wgsl.svg", exts: ".wgsl" },
+            { name: "SPIR-V", icon: "spv.svg", exts: ".spv, .spirv" },
+            { name: "KAIN", icon: "kain.svg", exts: ".kn, .kain" },
+            { name: "Dockerfile", icon: "dockerfile.svg", exts: "dockerfile" },
+            { name: "Makefile", icon: "makefile.svg", exts: "makefile, .mk" },
+            { name: "Git", icon: "git.svg", exts: ".gitattributes" },
+            { name: "Gitignore", icon: "gitignore.svg", exts: ".gitignore" },
+            { name: "Environment", icon: "env.svg", exts: ".env" },
+            { name: "EditorConfig", icon: "editorconfig.svg", exts: ".editorconfig" },
+            { name: "Lock Files", icon: "lock.svg", exts: ".lock, package-lock.json" },
+            { name: "Database", icon: "database.svg", exts: ".db, .sqlite" },
+            { name: "SQL", icon: "sql.svg", exts: ".sql" },
+            { name: "3D Model", icon: "model3d.svg", exts: ".obj, .fbx, .gltf, .blend" },
+            { name: "Shell", icon: "shell.svg", exts: ".sh, .bash" },
+            { name: "PowerShell", icon: "powershell.svg", exts: ".ps1" },
+            { name: "Executable", icon: "exe.svg", exts: ".exe, .msi" },
+            { name: "DMG", icon: "dmg.svg", exts: ".dmg" },
+            { name: "App", icon: "app.svg", exts: ".app" },
+            { name: "Debian", icon: "deb.svg", exts: ".deb, .rpm" },
+            { name: "DLL", icon: "dll.svg", exts: ".dll" },
+            { name: "INI", icon: "ini.svg", exts: ".ini, .cfg, .conf" },
+            { name: "Ink", icon: "ink.svg", exts: ".ink" },
+            { name: "UAsset", icon: "uasset.svg", exts: ".uasset" },
+            { name: "UProject", icon: "uproject.svg", exts: ".uproject" },
+            { name: "PDF", icon: "pdf.svg", exts: ".pdf" },
+            { name: "Text", icon: "txt.svg", exts: ".txt" },
+            { name: "Log", icon: "log.svg", exts: ".log" },
+            { name: "Image", icon: "image.svg", exts: ".png, .jpg, .gif" },
+            { name: "Video", icon: "video.svg", exts: ".mp4, .avi, .mov" },
+            { name: "Audio", icon: "audio.svg", exts: ".mp3, .wav, .flac" },
+            { name: "Font", icon: "font.svg", exts: ".ttf, .otf, .woff" },
+            { name: "ZIP", icon: "zip.svg", exts: ".zip" },
+            { name: "Archive", icon: "archive.svg", exts: ".tar, .gz, .7z" },
+            { name: "CMake", icon: "cmake.svg", exts: ".cmake" },
+            { name: "Gradle", icon: "gradle.svg", exts: ".gradle" },
+            { name: "NPM", icon: "npm.svg", exts: ".npmrc" },
+        ];
+        
+        // Render gallery
+        const gallery = document.getElementById('gallery');
+        icons.forEach(icon => {
+            const card = document.createElement('div');
+            card.className = 'icon-card';
+            card.innerHTML = `
+                <div class="icon-wrapper">
+                    <img src="icons/${icon.icon}" alt="${icon.name}">
+                </div>
+                <div class="icon-name">${icon.name}</div>
+                <div class="icon-extensions">${icon.exts}</div>
+            `;
+            gallery.appendChild(card);
+        });
+    </script>
+</body>
+</html>

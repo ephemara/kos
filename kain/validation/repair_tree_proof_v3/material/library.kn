@@ -1,0 +1,106 @@
+mod_ library:
+    struct_ MaterialLibrary:
+        name: String
+        materials: Map<MaterialId, Material>
+        name_index: Map<String, MaterialId>
+
+        fn create_library(name: String) -> MaterialLibrary:
+            MaterialLibrary(
+            name = name,
+            materials = Map<MaterialId, Material>(),
+            name_index = Map<String, MaterialId>(),
+            )
+
+            fn default_library() -> MaterialLibrary:
+                create_library("Default Library")
+
+                fn add_material(library: MaterialLibrary, material: Material) -> MaterialId:
+                    library.name_index[material.name] = material.id
+                    library.materials[material.id] = material
+                    material.id
+
+                    fn get_material(library: &MaterialLibrary, id: MaterialId) -> Option<Material>:
+                        library.materials.get(id)
+
+                        fn get_material_by_name(library: &MaterialLibrary, name: String) -> Option<Material>:
+                            if !library.name_index.contains(name):
+                                return None
+                                let id = library.name_index[name]
+                                library.materials.get(id)
+
+                                fn contains_material(library: &MaterialLibrary, id: MaterialId) -> Bool:
+                                    library.materials.contains(id)
+
+                                    fn contains_name(library: &MaterialLibrary, name: String) -> Bool:
+                                        library.name_index.contains(name)
+
+                                        fn remove_material(library: MaterialLibrary, id: MaterialId) -> Option<Material>:
+                                            if !library.materials.contains(id):
+                                                return None
+                                                let material = library.materials.remove(id)
+                                                library.name_index.remove(material.name)
+                                                Some(material)
+
+                                                fn rename_material(library: MaterialLibrary, id: MaterialId, new_name: String) -> Result<(), String>:
+                                                    if new_name.is_empty():
+                                                        return Err("material name cannot be empty")
+                                                        if library.name_index.contains(new_name):
+                                                            return Err("material name already exists")
+                                                            let material = library.materials.get_mut(id)
+                                                            if material.is_none():
+                                                                return Err("material not found")
+                                                                let old_name = material.name
+                                                                material.name = new_name
+                                                                library.name_index.remove(old_name)
+                                                                library.name_index[material.name] = id
+                                                                Ok(())
+
+                                                                fn duplicate_material(library: MaterialLibrary, id: MaterialId, new_name: String, new_id: MaterialId) -> Result<MaterialId, String>:
+                                                                    if library.name_index.contains(new_name):
+                                                                        return Err("material name already exists")
+                                                                        let source = library.materials.get(id)
+                                                                        if source.is_none():
+                                                                            return Err("material not found")
+                                                                            let cloned = clone_with_name(source, new_name, new_id)
+                                                                            let inserted_id = add_material(library, cloned)
+                                                                            Ok(inserted_id)
+
+                                                                            fn material_count(library: &MaterialLibrary) -> usize:
+                                                                                library.materials.len()
+
+                                                                                fn is_empty(library: &MaterialLibrary) -> Bool:
+                                                                                    material_count(library) == 0
+
+                                                                                    fn clear(library: MaterialLibrary):
+                                                                                        library.materials.clear()
+                                                                                        library.name_index.clear()
+
+                                                                                        fn material_ids(library: &MaterialLibrary) -> Array<MaterialId>:
+                                                                                            library.materials.keys()
+
+                                                                                            fn material_names(library: &MaterialLibrary) -> Array<String>:
+                                                                                                library.name_index.keys()
+
+                                                                                                fn materials(library: &MaterialLibrary) -> Array<Material>:
+                                                                                                    library.materials.values()
+
+                                                                                                    fn merge(library: MaterialLibrary, other: &MaterialLibrary) -> Array<MaterialId>:
+                                                                                                        let added = Array<MaterialId>()
+                                                                                                        for material in other.materials.values():
+                                                                                                            let candidate_name = material.name
+                                                                                                            let candidate_id = material.id
+                                                                                                            if !library.name_index.contains(candidate_name):
+                                                                                                                add_material(library, clone_with_name(material, candidate_name, candidate_id))
+                                                                                                                added.push(candidate_id)
+                                                                                                                added
+
+                                                                                                                fn validate(library: &MaterialLibrary, config: MaterialConfig) -> Result<(), String>:
+                                                                                                                    for material in library.materials.values():
+                                                                                                                        validate(material, config)?
+                                                                                                                        Ok(())
+
+                                                                                                                        fn load_materials_from_path(path: PathBuf) -> Result<MaterialLibrary, String>:
+                                                                                                                            Err("persistence is skeletal in this repair lane")
+
+                                                                                                                            fn save_materials_to_path(library: &MaterialLibrary, path: PathBuf) -> Result<(), String>:
+                                                                                                                                Err("persistence is skeletal in this repair lane")

@@ -1,0 +1,65 @@
+# Example: Layered Icon with Multiple Shapes
+# Demonstrates: Multiple layers, blend modes, stroke and fill
+
+name: "Layered Icon"
+description: "Icon with multiple overlapping shapes demonstrating layering"
+generator_type: "icon"
+category: "examples"
+tags: ["layered", "complex", "shapes"]
+
+output_formats:
+  - "png"
+  - "svg"
+
+dimensions:
+  width: 64
+  height: 64
+
+params:
+  padding: 8
+  antialias_factor: 2
+  background: null
+  layers:
+    # Background circle
+    - type: "circle"
+      geometry:
+        cx: 32
+        cy: 32
+        r: 28
+      fill:
+        type: "solid"
+        colors: ["#3b82f6"]
+      blend_mode: "normal"
+      opacity: 1.0
+    
+    # Middle rectangle
+    - type: "rect"
+      geometry:
+        x: 16
+        y: 16
+        width: 32
+        height: 32
+      fill:
+        type: "solid"
+        colors: ["#f59e0b"]
+      blend_mode: "multiply"
+      opacity: 0.7
+    
+    # Foreground circle with stroke
+    - type: "circle"
+      geometry:
+        cx: 32
+        cy: 32
+        r: 16
+      fill:
+        type: "radial_gradient"
+        colors: ["#ffffff", "#e0e0e0"]
+      stroke:
+        color: "#1e40af"
+        width: 2
+        cap: "round"
+        join: "round"
+      blend_mode: "normal"
+      opacity: 1.0
+
+version: "1.0"

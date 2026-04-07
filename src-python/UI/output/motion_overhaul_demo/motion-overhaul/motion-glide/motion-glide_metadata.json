@@ -1,0 +1,31 @@
+{
+  "name": "motion-glide",
+  "description": "Expanded motion demo: glide",
+  "category": "motion-overhaul",
+  "tags": [
+    "motion-demo",
+    "glide"
+  ],
+  "generator": "icon",
+  "template_source": "motion-glide",
+  "generation_timestamp": "2026-03-07T19:06:10.819297",
+  "dimensions": [
+    96,
+    96
+  ],
+  "format": "png",
+  "file_size": 403,
+  "color_mode": "RGBA",
+  "has_alpha": true,
+  "dpi": 72,
+  "theme_variant": null,
+  "theme_group": null,
+  "is_animated": true,
+  "animation_type": "glide",
+  "frame_count": 25,
+  "duration": 1.6,
+  "usage_count": 0,
+  "last_used": null,
+  "validation_passed": true,
+  "validation_warnings": []
+}

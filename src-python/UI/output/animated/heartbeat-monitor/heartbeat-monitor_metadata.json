@@ -1,0 +1,32 @@
+{
+  "name": "heartbeat-monitor",
+  "description": "ECG heartbeat line",
+  "category": "animated",
+  "tags": [
+    "heartbeat",
+    "health",
+    "monitor"
+  ],
+  "generator": "icon",
+  "template_source": "heartbeat-monitor",
+  "generation_timestamp": "2026-03-07T17:19:51.099085",
+  "dimensions": [
+    128,
+    128
+  ],
+  "format": "png",
+  "file_size": 1312,
+  "color_mode": "RGBA",
+  "has_alpha": true,
+  "dpi": 72,
+  "theme_variant": null,
+  "theme_group": null,
+  "is_animated": true,
+  "animation_type": "heartbeat",
+  "frame_count": 45,
+  "duration": 1.5,
+  "usage_count": 0,
+  "last_used": null,
+  "validation_passed": true,
+  "validation_warnings": []
+}

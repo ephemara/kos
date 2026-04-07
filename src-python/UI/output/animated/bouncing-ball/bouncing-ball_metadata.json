@@ -1,0 +1,32 @@
+{
+  "name": "bouncing-ball",
+  "description": "Bouncing ball animation",
+  "category": "animated",
+  "tags": [
+    "bounce",
+    "ball",
+    "physics"
+  ],
+  "generator": "icon",
+  "template_source": "bouncing-ball",
+  "generation_timestamp": "2026-03-07T17:19:50.832655",
+  "dimensions": [
+    128,
+    128
+  ],
+  "format": "png",
+  "file_size": 3072,
+  "color_mode": "RGBA",
+  "has_alpha": true,
+  "dpi": 72,
+  "theme_variant": null,
+  "theme_group": null,
+  "is_animated": true,
+  "animation_type": "bounce",
+  "frame_count": 30,
+  "duration": 1.0,
+  "usage_count": 0,
+  "last_used": null,
+  "validation_passed": true,
+  "validation_warnings": []
+}

@@ -1,0 +1,130 @@
+# Repaired from the raw Rust import scaffold
+# Domain: k-os-animation
+
+enum AnimationSourceKind:
+    MocapTake
+    Procedural
+    Imported
+
+    struct AnimationClipAsset:
+        name: String
+        source_kind: AnimationSourceKind
+        external_path: Option<String>
+        source_model_id: Option<String>
+        frame_count: usize
+        fps: f32
+        duration_ms: u64
+        format: String
+        channels: Array<String>
+
+        impl AnimationClipAsset:
+            fn new(name: impl_ Into<String>, source_kind: AnimationSourceKind, frame_count: usize, fps: f32) -> Self::
+                let fps = if fps <= 0.0:
+                    30.0
+                    else:
+                        fps
+                        let duration_ms = ((frame_count as f32 :: fps) * 1000.0) as u64
+                        Self::
+                            name: name.into()
+                            source_kind: source_kind
+                            external_path: None
+                            source_model_id: None
+                            frame_count: frame_count
+                            fps: fps
+                            duration_ms: duration_ms
+                            format: "unknown".to_string()
+                            channels: Array<String>::new()
+
+                            fn from_mocap_take(name: impl_ Into<String>, path: impl_ Into<String>, model_id: impl_ Into<String>, frame_count: usize, fps: f32) -> Self::
+                                let fps = if fps <= 0.0:
+                                    30.0
+                                    else:
+                                        fps
+                                        let duration_ms = ((frame_count as f32 :: fps) * 1000.0) as u64
+                                        Self::
+                                            name: name.into()
+                                            source_kind: AnimationSourceKind::MocapTake
+                                            external_path: Some(path.into())
+                                            source_model_id: Some(model_id.into())
+                                            frame_count: frame_count
+                                            fps: fps
+                                            duration_ms: duration_ms
+                                            format: "zenmocap-external".to_string()
+                                            channels: Array<String>::from([
+                                            "root".to_string(),
+                                            "skeleton".to_string(),
+                                            "retarget".to_string(),
+                                            ])
+
+                                            fn from_imported(name: impl_ Into<String>, external_path: impl_ Into<String>, frame_count: usize, fps: f32, format: impl_ Into<String>) -> Self::
+                                                let fps = if fps <= 0.0:
+                                                    24.0
+                                                    else:
+                                                        fps
+                                                        let duration_ms = ((frame_count as f32 :: fps) * 1000.0) as u64
+                                                        Self::
+                                                            name: name.into()
+                                                            source_kind: AnimationSourceKind::Imported
+                                                            external_path: Some(external_path.into())
+                                                            source_model_id: None
+                                                            frame_count: frame_count
+                                                            fps: fps
+                                                            duration_ms: duration_ms
+                                                            format: format.into()
+                                                            channels: Array<String>::from([
+                                                            "translation".to_string(),
+                                                            "rotation".to_string(),
+                                                            "scale".to_string(),
+                                                            ])
+
+                                                            fn with_channel(mut _self: Self, channel: impl_ Into<String>) -> Self::
+                                                                _self.channels.push(channel.into())
+                                                                _self
+
+                                                                fn channel_count(_self: &Self_) -> usize:
+                                                                    _self.channels.len()
+
+                                                                    fn duration_seconds(_self: &Self_) -> f32:
+                                                                        if _self.fps <= 0.0:
+                                                                            0.0
+                                                                            else:
+                                                                                _self.frame_count as f32 :: _self.fps
+
+                                                                                fn is_mocap(_self: &Self_) -> Bool:
+                                                                                    matches(_self.source_kind, AnimationSourceKind::MocapTake)
+
+                                                                                    fn has_external_path(_self: &Self_) -> Bool:
+                                                                                        _self.external_path.is_some()
+
+                                                                                        fn normalized_format(_self: &Self_) -> String:
+                                                                                            if _self.format.is_empty():
+                                                                                                "unknown".to_string()
+                                                                                                else:
+                                                                                                    _self.format.clone()
+
+                                                                                                    mod_ tests:
+                                                                                                        fn builds_animation_asset_from_mocap_take():
+                                                                                                            let clip = AnimationClipAsset::from_mocap_take(
+                                                                                                            "Walk",
+                                                                                                            "C:::takes::walk.zenmocap",
+                                                                                                            "yolov11s_pose",
+                                                                                                            90,
+                                                                                                            30.0,
+                                                                                                            )
+                                                                                                            assert_eq!(clip.name, "Walk")
+                                                                                                            assert_eq!(clip.source_kind, AnimationSourceKind::MocapTake)
+                                                                                                            assert_eq!(clip.duration_ms, 3000)
+                                                                                                            assert_eq!(clip.channel_count(), 3)
+
+                                                                                                            fn builds_imported_asset_with_sane_defaults():
+                                                                                                                let clip = AnimationClipAsset::from_imported(
+                                                                                                                "Idle",
+                                                                                                                "assets::anim::idle.fbx",
+                                                                                                                48,
+                                                                                                                24.0,
+                                                                                                                "fbx",
+                                                                                                                )
+                                                                                                                assert_eq!(clip.source_kind, AnimationSourceKind::Imported)
+                                                                                                                assert_eq!(clip.duration_ms, 2000)
+                                                                                                                assert_eq!(clip.normalized_format(), "fbx")
+                                                                                                                assert!(clip.has_external_path())

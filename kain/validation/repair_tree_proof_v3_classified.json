@@ -1,0 +1,62 @@
+[
+  {
+    "file": "M:\\K_OS\\kain\\validation\\repair_tree_proof_v3\\animation\\animation.kn",
+    "status": "parse_fail",
+    "output": " KAIN Compiler v0.1.0 (build 1774833052)\r\n\r\nerror: 1 error(s) found:\r\n\r\n--- [1/1] ---\r\n\r\nerror[Parse Error]: <input>:5:26: Unexpected token: ':'\r\n  --> M:\\K_OS\\kain\\validation\\repair_tree_proof_v3\\animation\\animation.kn:4:27\r\n   |\r\n  4 | enum_ AnimationSourceKind:\r\n   |                           ^\r\n   |\r\n"
+  },
+  {
+    "file": "M:\\K_OS\\kain\\validation\\repair_tree_proof_v3\\asset_pipeline\\asset_core.kn",
+    "status": "parse_fail",
+    "output": " KAIN Compiler v0.1.0 (build 1774833052)\r\n\r\nerror: 1 error(s) found:\r\n\r\n--- [1/1] ---\r\n\r\nerror[Parse Error]: <input>:4:16: Unexpected token: ':'\r\n  --> M:\\K_OS\\kain\\validation\\repair_tree_proof_v3\\asset_pipeline\\asset_core.kn:3:17\r\n   |\r\n  3 | enum_ AssetType:\r\n   |                 ^\r\n   |\r\n"
+  },
+  {
+    "file": "M:\\K_OS\\kain\\validation\\repair_tree_proof_v3\\asset_pipeline\\cache.kn",
+    "status": "parse_fail",
+    "output": " KAIN Compiler v0.1.0 (build 1774833052)\r\n\r\nerror: 1 error(s) found:\r\n\r\n--- [1/1] ---\r\n\r\nerror[Parse Error]: <input>:4:19: Unexpected token: ':'\r\n  --> M:\\K_OS\\kain\\validation\\repair_tree_proof_v3\\asset_pipeline\\cache.kn:3:20\r\n   |\r\n  3 | struct_ AssetCache:\r\n   |                    ^\r\n   |\r\n"
+  },
+  {
+    "file": "M:\\K_OS\\kain\\validation\\repair_tree_proof_v3\\asset_pipeline\\pipeline.kn",
+    "status": "parse_fail",
+    "output": " KAIN Compiler v0.1.0 (build 1774833052)\r\n\r\nerror: 1 error(s) found:\r\n\r\n--- [1/1] ---\r\n\r\nerror[Parse Error]: <input>:4:21: Unexpected token: ':'\r\n  --> M:\\K_OS\\kain\\validation\\repair_tree_proof_v3\\asset_pipeline\\pipeline.kn:3:22\r\n   |\r\n  3 | trait_ AssetImporter:\r\n   |                      ^\r\n   |\r\n"
+  },
+  {
+    "file": "M:\\K_OS\\kain\\validation\\repair_tree_proof_v3\\material\\library.kn",
+    "status": "parse_fail",
+    "output": " KAIN Compiler v0.1.0 (build 1774833052)\r\n\r\nerror: 1 error(s) found:\r\n\r\n--- [1/1] ---\r\n\r\nerror[Parse Error]: <input>:2:13: Unexpected token: ':'\r\n  --> M:\\K_OS\\kain\\validation\\repair_tree_proof_v3\\material\\library.kn:1:14\r\n   |\r\n  1 | mod_ library:\r\n   |              ^\r\n   |\r\n"
+  },
+  {
+    "file": "M:\\K_OS\\kain\\validation\\repair_tree_proof_v3\\material\\material.kn",
+    "status": "parse_fail",
+    "output": " KAIN Compiler v0.1.0 (build 1774833052)\r\n\r\nerror: 1 error(s) found:\r\n\r\n--- [1/1] ---\r\n\r\nerror[Parse Error]: <input>:2:14: Unexpected token: ':'\r\n  --> M:\\K_OS\\kain\\validation\\repair_tree_proof_v3\\material\\material.kn:1:15\r\n   |\r\n  1 | mod_ material:\r\n   |               ^\r\n   |\r\n"
+  },
+  {
+    "file": "M:\\K_OS\\kain\\validation\\repair_tree_proof_v3\\material\\preset.kn",
+    "status": "parse_fail",
+    "output": " KAIN Compiler v0.1.0 (build 1774833052)\r\n\r\nerror: 1 error(s) found:\r\n\r\n--- [1/1] ---\r\n\r\nerror[Parse Error]: <input>:2:12: Unexpected token: ':'\r\n  --> M:\\K_OS\\kain\\validation\\repair_tree_proof_v3\\material\\preset.kn:1:13\r\n   |\r\n  1 | mod_ preset:\r\n   |             ^\r\n   |\r\n"
+  },
+  {
+    "file": "M:\\K_OS\\kain\\validation\\repair_tree_proof_v3\\material\\texture.kn",
+    "status": "parse_fail",
+    "output": " KAIN Compiler v0.1.0 (build 1774833052)\r\n\r\nerror: 1 error(s) found:\r\n\r\n--- [1/1] ---\r\n\r\nerror[Parse Error]: <input>:2:13: Unexpected token: ':'\r\n  --> M:\\K_OS\\kain\\validation\\repair_tree_proof_v3\\material\\texture.kn:1:14\r\n   |\r\n  1 | mod_ texture:\r\n   |              ^\r\n   |\r\n"
+  },
+  {
+    "file": "M:\\K_OS\\kain\\validation\\repair_tree_proof_v3\\registry_config_plugin\\config.kn",
+    "status": "parse_fail",
+    "output": " KAIN Compiler v0.1.0 (build 1774833052)\r\n\r\nerror: 1 error(s) found:\r\n\r\n--- [1/1] ---\r\n\r\nerror[Parse Error]: <input>:4:21: Unexpected token: ':'\r\n  --> M:\\K_OS\\kain\\validation\\repair_tree_proof_v3\\registry_config_plugin\\config.kn:3:22\r\n   |\r\n  3 | struct_ ConfigLoader:\r\n   |                      ^\r\n   |\r\n"
+  },
+  {
+    "file": "M:\\K_OS\\kain\\validation\\repair_tree_proof_v3\\registry_config_plugin\\plugin.kn",
+    "status": "parse_fail",
+    "output": " KAIN Compiler v0.1.0 (build 1774833052)\r\n\r\nerror: 1 error(s) found:\r\n\r\n--- [1/1] ---\r\n\r\nerror[Parse Error]: <input>:4:22: Unexpected token: ':'\r\n  --> M:\\K_OS\\kain\\validation\\repair_tree_proof_v3\\registry_config_plugin\\plugin.kn:3:23\r\n   |\r\n  3 | struct_ PluginContext:\r\n   |                       ^\r\n   |\r\n"
+  },
+  {
+    "file": "M:\\K_OS\\kain\\validation\\repair_tree_proof_v3\\registry_config_plugin\\registry.kn",
+    "status": "parse_fail",
+    "output": " KAIN Compiler v0.1.0 (build 1774833052)\r\n\r\nerror: 1 error(s) found:\r\n\r\n--- [1/1] ---\r\n\r\nerror[Parse Error]: <input>:4:34: Unexpected token: ':'\r\n  --> M:\\K_OS\\kain\\validation\\repair_tree_proof_v3\\registry_config_plugin\\registry.kn:3:35\r\n   |\r\n  3 | struct_ WorkspaceRegistryDocument:\r\n   |                                   ^\r\n   |\r\n"
+  },
+  {
+    "file": "M:\\K_OS\\kain\\validation\\repair_tree_proof_v3\\scene\\scene.kn",
+    "status": "parse_fail",
+    "output": " KAIN Compiler v0.1.0 (build 1774833052)\r\n\r\nerror: 1 error(s) found:\r\n\r\n--- [1/1] ---\r\n\r\nerror[Parse Error]: <input>:5:28: Unexpected token: ':'\r\n  --> M:\\K_OS\\kain\\validation\\repair_tree_proof_v3\\scene\\scene.kn:4:29\r\n   |\r\n  4 | struct_ MeshSourceComponent:\r\n   |                             ^\r\n   |\r\n"
+  }
+]

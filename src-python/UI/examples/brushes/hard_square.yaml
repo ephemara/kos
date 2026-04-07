@@ -1,0 +1,26 @@
+# Example: Hard Square Brush
+# Demonstrates: Square brush with sharp falloff
+
+name: "Hard Square Brush"
+description: "Hard-edged square brush for precise painting"
+generator_type: "brush"
+category: "paint"
+tags: ["brush", "square", "hard", "precise"]
+
+output_formats:
+  - "png"
+
+dimensions:
+  width: 256
+  height: 256
+
+params:
+  shape: "square"
+  size: 128
+  hardness: 0.9
+  spacing: 0.1
+  falloff_curve: "sharp"
+  stroke_preview: true
+  texture: null
+
+version: "1.0"

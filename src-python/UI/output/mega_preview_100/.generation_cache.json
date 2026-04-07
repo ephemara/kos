@@ -1,0 +1,1002 @@
+{
+  "731cd619e8fa2967": {
+    "template_hash": "2b89df7d4052ddde3508ef3b76c1f086bcde5fe61fd7990d1f8095d5b6b1283c",
+    "generated_at": "2026-03-07T18:49:37.168608",
+    "asset_name": "aurora-icon-00",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 84449
+  },
+  "71df260b6e117782": {
+    "template_hash": "45c0b3b83bfef071d65118b176e774383f8fd250bdf68bc31208737b5dbbd757",
+    "generated_at": "2026-03-07T18:49:37.186413",
+    "asset_name": "aurora-icon-01",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 2944
+  },
+  "39182994560cae6c": {
+    "template_hash": "0100223602975642cf4fe98ade6b68b50e41b8c2f95e9a3e25cc7e700b4e046e",
+    "generated_at": "2026-03-07T18:49:37.200124",
+    "asset_name": "aurora-icon-02",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 3119
+  },
+  "dd997de74e46e982": {
+    "template_hash": "9117f43d7c8001581ae47be22f2199ebc34c94037ffd8246c87e54d1edb072bc",
+    "generated_at": "2026-03-07T18:49:37.219618",
+    "asset_name": "aurora-icon-03",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 3121
+  },
+  "5cfd58527b704f98": {
+    "template_hash": "84975e6e8fba4ca40351321a68e101d05a50300be5a668d0e3b321f474b74f05",
+    "generated_at": "2026-03-07T18:49:37.237165",
+    "asset_name": "aurora-icon-04",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 1884
+  },
+  "9af3e045c5d3adde": {
+    "template_hash": "b524e428b815b8d1411279249e92b6ed5f4d5f3f16fcc72ca5f2c108dc2adc0d",
+    "generated_at": "2026-03-07T18:49:37.272576",
+    "asset_name": "aurora-icon-05",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 101297
+  },
+  "db5f9109272d0da0": {
+    "template_hash": "74021f0c7269202477cf32948237fc6045702ba695c85f2ce2d63475a198dc0b",
+    "generated_at": "2026-03-07T18:49:37.307126",
+    "asset_name": "aurora-icon-06",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 1979
+  },
+  "10420edf33299618": {
+    "template_hash": "e7ac78d50c778986cec9986357b88545b3f4618e61084b327509abca0ca2df71",
+    "generated_at": "2026-03-07T18:49:37.336386",
+    "asset_name": "aurora-icon-07",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 3175
+  },
+  "32beaff8c407579a": {
+    "template_hash": "b4426881d2519fc7a03b79b6caffa665aaa1157044b349a0fcd6819b966fd6e5",
+    "generated_at": "2026-03-07T18:49:37.353839",
+    "asset_name": "aurora-icon-08",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 3424
+  },
+  "f8c7d5651df3988c": {
+    "template_hash": "fa095c8b03ad9c57a30e5c6fd62aa6c42da9b57b6fc1e3c7912c2027051801a6",
+    "generated_at": "2026-03-07T18:49:37.373963",
+    "asset_name": "aurora-icon-09",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 2166
+  },
+  "e227e3acefce554b": {
+    "template_hash": "d53e1c1dfa424f35f6478f66b6aafdb0ca3cf1a7ab2fdb3098d20554b7ab7fc5",
+    "generated_at": "2026-03-07T18:49:37.401232",
+    "asset_name": "aurora-icon-10",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 64017
+  },
+  "a46a2d84b749dd9b": {
+    "template_hash": "dec186d7155f9811a0fe1b0e34e2ca48fd832cb2b356c0c0684320662bd65e58",
+    "generated_at": "2026-03-07T18:49:37.419667",
+    "asset_name": "aurora-icon-11",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 2944
+  },
+  "74c03097c1f4e62d": {
+    "template_hash": "1b739ae4b2f7869eaed5431b247e7a8603ce256ba64600b270e5be1aaff512ee",
+    "generated_at": "2026-03-07T18:49:37.433087",
+    "asset_name": "aurora-icon-12",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 3119
+  },
+  "7af4d3d6f9b7fcbc": {
+    "template_hash": "8d8e749249c634284c87728a5193e22d17521cfbc140adbfb9c2ed2270ddb846",
+    "generated_at": "2026-03-07T18:49:37.450369",
+    "asset_name": "aurora-icon-13",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 3121
+  },
+  "e065b6b38851ce39": {
+    "template_hash": "fbbcf2da1c252fd6b7ba94a7c89a5e1e0d54b75e0bb79ea0a16b04cf0b5f1cf3",
+    "generated_at": "2026-03-07T18:49:37.467270",
+    "asset_name": "aurora-icon-14",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 1884
+  },
+  "06a45770c41e73e1": {
+    "template_hash": "a6bbc9ebd0c071040f59a887fa2946ac3a4f967e6420e9ac14f56c1da1a797ac",
+    "generated_at": "2026-03-07T18:49:37.495434",
+    "asset_name": "aurora-icon-15",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 95179
+  },
+  "1c11a7a1bc998118": {
+    "template_hash": "22cb72ddc233748a3a0b2ec3afb6431026df62cae2d6f7243927b9ea1596b138",
+    "generated_at": "2026-03-07T18:49:37.520501",
+    "asset_name": "aurora-icon-16",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 1979
+  },
+  "57ad005696e42698": {
+    "template_hash": "815421402cf53855271043ab75a3a05d85537325282293eccdc817feae37c8a7",
+    "generated_at": "2026-03-07T18:49:37.549159",
+    "asset_name": "aurora-icon-17",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 3175
+  },
+  "c84ef22cefe46dc4": {
+    "template_hash": "e2d5f67bdca18700a2cd3e18034971d13abae0f3c89e6102a8c81430dcdda855",
+    "generated_at": "2026-03-07T18:49:37.568138",
+    "asset_name": "aurora-icon-18",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 3424
+  },
+  "003773c5fa7db7e1": {
+    "template_hash": "6f6459434497deff88cee3b6f9e4f3dc978ff72e343416a93d2ff35b8df6b96f",
+    "generated_at": "2026-03-07T18:49:37.588965",
+    "asset_name": "aurora-icon-19",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 2166
+  },
+  "89d4ba5e188656d0": {
+    "template_hash": "ae43c76dd560f8e8c34030a85e4fa88d1c99e022573a0f659509d9d11eda2d89",
+    "generated_at": "2026-03-07T18:49:37.633002",
+    "asset_name": "aurora-icon-20",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 93495
+  },
+  "62f5717a14efe1cd": {
+    "template_hash": "eb508b9f3d4b6932125b7a16acf92c183a4e33c2a4f895571a7b0d0cee2ea3a6",
+    "generated_at": "2026-03-07T18:49:37.649494",
+    "asset_name": "aurora-icon-21",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 2944
+  },
+  "0ed2c61f514291dd": {
+    "template_hash": "07e4f03098eba702fb4ea4eb838d8de326f94936e24668bd1994209c4e32a3d1",
+    "generated_at": "2026-03-07T18:49:37.664899",
+    "asset_name": "aurora-icon-22",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 3119
+  },
+  "423768d2b48ac8a0": {
+    "template_hash": "24e16d68226e33215e313c5a05c165c57248ad2c86a26733c8634370bf5c5150",
+    "generated_at": "2026-03-07T18:49:37.681706",
+    "asset_name": "aurora-icon-23",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 3121
+  },
+  "ada41ab8eb17a873": {
+    "template_hash": "f002c3c0d5384dd19aefbaf9bf38a1ba53166eaf1e46402ca0c1d8ab957f02a1",
+    "generated_at": "2026-03-07T18:49:37.698998",
+    "asset_name": "aurora-icon-24",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 1884
+  },
+  "2ee62e3816d8b83b": {
+    "template_hash": "11fc445afb898e298ea2dd30932b90276e47c367799dd9d7ab80bd12a28fe09f",
+    "generated_at": "2026-03-07T18:49:37.733107",
+    "asset_name": "ember-icon-00",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 77965
+  },
+  "900fa18a6bc7440a": {
+    "template_hash": "629dec112f03ef31786fe86143a049b4e816d6fcf2328de8382e7a554bec9c08",
+    "generated_at": "2026-03-07T18:49:37.750002",
+    "asset_name": "ember-icon-01",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 2604
+  },
+  "f581fc2942d7ed16": {
+    "template_hash": "422761bb8a7d7695fbee7060d91478ae073812853417e1026e2c43d2fd35f487",
+    "generated_at": "2026-03-07T18:49:37.763314",
+    "asset_name": "ember-icon-02",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 2924
+  },
+  "305b49a7433ea82b": {
+    "template_hash": "b3964b7b13bdfd5d22cf8dda4eb3c4809dd4ad4e0b81292f9c6c5abdd544e7fe",
+    "generated_at": "2026-03-07T18:49:37.779187",
+    "asset_name": "ember-icon-03",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 2989
+  },
+  "5e131c4c5dffbfd2": {
+    "template_hash": "d4ae48960357ce7ebfa81b8063d3c8c10dfc32b4e6a82bc302549e2635c351fe",
+    "generated_at": "2026-03-07T18:49:37.795260",
+    "asset_name": "ember-icon-04",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 1681
+  },
+  "d13cb54eea715d99": {
+    "template_hash": "110e890888de1d79862cea5a6a0fe289ff9fa7ca475f8b4f9b55122661396786",
+    "generated_at": "2026-03-07T18:49:37.823272",
+    "asset_name": "ember-icon-05",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 100873
+  },
+  "a0e99335075aca1d": {
+    "template_hash": "6f908dee87d1ac95eaaf96522df3ed034046252373d20c6aefa9ff134ff7da5c",
+    "generated_at": "2026-03-07T18:49:37.848628",
+    "asset_name": "ember-icon-06",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 1842
+  },
+  "0ac05582672285c8": {
+    "template_hash": "4d24bdb5b5885e92476e04ec1a0a14352486d46e652ff8ec2a110fb8a2a6dd27",
+    "generated_at": "2026-03-07T18:49:37.874837",
+    "asset_name": "ember-icon-07",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 3131
+  },
+  "9dc84fddf341c9d9": {
+    "template_hash": "0d872cc0113b9b3ce13a3c80b1aadbf0d8ac2ffa6893a1a16ac3cad4125674c0",
+    "generated_at": "2026-03-07T18:49:37.892262",
+    "asset_name": "ember-icon-08",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 3089
+  },
+  "0de65164c60a1188": {
+    "template_hash": "359573675553c7f23a3738f982a64bf8985e7f46c03353dd85936ca7aad8404c",
+    "generated_at": "2026-03-07T18:49:37.912762",
+    "asset_name": "ember-icon-09",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 2057
+  },
+  "49bbd07a294d22bf": {
+    "template_hash": "5a890735922555c471d0b1174f4cc54fa1ad20b192bb5d75f9dd841bcbd44d22",
+    "generated_at": "2026-03-07T18:49:37.941228",
+    "asset_name": "ember-icon-10",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 58936
+  },
+  "cc55e248fa83b898": {
+    "template_hash": "88febf0feba4a897edd78dd4928f7d9b04d10f9bcae46c58410732a407fc1ece",
+    "generated_at": "2026-03-07T18:49:37.958703",
+    "asset_name": "ember-icon-11",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 2604
+  },
+  "c681b3fc6e30428d": {
+    "template_hash": "822298167199371a03c4b53d8f8524b53db6ab7d906b99331db51a603b60df7b",
+    "generated_at": "2026-03-07T18:49:37.972190",
+    "asset_name": "ember-icon-12",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 2924
+  },
+  "5fd9ef5debbf2984": {
+    "template_hash": "23cd20a94f135636e6f7ea00be422a9682430500fe7226007d6b5908f6e3a32c",
+    "generated_at": "2026-03-07T18:49:37.988763",
+    "asset_name": "ember-icon-13",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 2989
+  },
+  "1fa948a2fa3999ba": {
+    "template_hash": "664d8284ea458403397a972fca1162acd859dd76cbb9f2836a51402bded36dc4",
+    "generated_at": "2026-03-07T18:49:38.005156",
+    "asset_name": "ember-icon-14",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 1681
+  },
+  "32116b5d9554c6f5": {
+    "template_hash": "f9a68c7911fb1a9960befcb1a4db004287e6a328f785a5d5ab56915ee9604b15",
+    "generated_at": "2026-03-07T18:49:38.032791",
+    "asset_name": "ember-icon-15",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 94699
+  },
+  "59ca4d60542454a8": {
+    "template_hash": "27d297a9eeeea9d19e8d048a76760c3127a134ddd4f81881b6c7d66a8769dffc",
+    "generated_at": "2026-03-07T18:49:38.058504",
+    "asset_name": "ember-icon-16",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 1842
+  },
+  "b5d2686f04925e33": {
+    "template_hash": "219d66a28ec2707e179a38bf5d82a098941cec0971eb8d6601d2a2a894587b8e",
+    "generated_at": "2026-03-07T18:49:38.084261",
+    "asset_name": "ember-icon-17",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 3131
+  },
+  "9bfadc12ab4772d6": {
+    "template_hash": "59361c8de89381586d259788d7539095d46d2b05b68a2a246fefaf2712631bf2",
+    "generated_at": "2026-03-07T18:49:38.102257",
+    "asset_name": "ember-icon-18",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 3089
+  },
+  "723b5e29d1f75a11": {
+    "template_hash": "7ee6fa4f1cde2e567ba0fe422ffe37b2a4f11e3381e1c9da9ec58514ad36298a",
+    "generated_at": "2026-03-07T18:49:38.122505",
+    "asset_name": "ember-icon-19",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 2057
+  },
+  "baac693dbed46f38": {
+    "template_hash": "06900878ee17b5eb7080b307570948df2081171570fa9a389698e36a4a8d137b",
+    "generated_at": "2026-03-07T18:49:38.165924",
+    "asset_name": "ember-icon-20",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 86349
+  },
+  "25c0cd5c8999df91": {
+    "template_hash": "827c9e944cdb9b735556f570604eb65a73d455e603df72ef66483f21e6a9dae8",
+    "generated_at": "2026-03-07T18:49:38.183235",
+    "asset_name": "ember-icon-21",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 2604
+  },
+  "02f022884c0111af": {
+    "template_hash": "8a11dee27217366535ada52455612e8f34fe282bfe4a50ae02bc3d1ee47b6845",
+    "generated_at": "2026-03-07T18:49:38.197146",
+    "asset_name": "ember-icon-22",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 2924
+  },
+  "c6c9d6b9561735fa": {
+    "template_hash": "534c44341ae7d440845f3e78f4a45e921cf7cfa93d59f82b9365d6734eaf67fd",
+    "generated_at": "2026-03-07T18:49:38.212983",
+    "asset_name": "ember-icon-23",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 2989
+  },
+  "dbf522f39c40d418": {
+    "template_hash": "3934fc9afb2e37520a2a7fc947c67e9bab3072df6d4702e3fd787a80ae65afb2",
+    "generated_at": "2026-03-07T18:49:38.229795",
+    "asset_name": "ember-icon-24",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 1681
+  },
+  "29ee57baaa64a891": {
+    "template_hash": "9a39ad920da9a0ab2048c6c8f6f1c6ab3bcb7c9cd6ef123e9c6590c7a6edb326",
+    "generated_at": "2026-03-07T18:49:38.264249",
+    "asset_name": "forest-icon-00",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 80721
+  },
+  "6163d2f6b090a76e": {
+    "template_hash": "6184bf874ea4107499f3acd3d630b06cb8893a72bb8fb3f78d2632d456ca1721",
+    "generated_at": "2026-03-07T18:49:38.280810",
+    "asset_name": "forest-icon-01",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 3105
+  },
+  "2d20bdd44688ec53": {
+    "template_hash": "627bb13137e8fe3f484f8f3ccfb12a66fbccb5cc103be521cd4060e653276244",
+    "generated_at": "2026-03-07T18:49:38.293255",
+    "asset_name": "forest-icon-02",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 3180
+  },
+  "7c768454f74a3b1d": {
+    "template_hash": "679fc7d8649450d00c23d19e9534d6b04e82f3e77eed5c5070b780b02ebc99f2",
+    "generated_at": "2026-03-07T18:49:38.311203",
+    "asset_name": "forest-icon-03",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 2980
+  },
+  "1903409535f47561": {
+    "template_hash": "64fd50e274bba721217717cbda414eec506505236f2bc1258ccc4458ec2722af",
+    "generated_at": "2026-03-07T18:49:38.328400",
+    "asset_name": "forest-icon-04",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 1879
+  },
+  "70e552e7fbb91ddf": {
+    "template_hash": "c479742f5902b447b00b501878103b6fe0cc01801c70ae74acbc57d3809e2f50",
+    "generated_at": "2026-03-07T18:49:38.356450",
+    "asset_name": "forest-icon-05",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 99690
+  },
+  "0bde3376daab03bf": {
+    "template_hash": "349339d709daee47a3eb0b078ca5ffe7c548dbc554ac444d277cf7824116203c",
+    "generated_at": "2026-03-07T18:49:38.380666",
+    "asset_name": "forest-icon-06",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 1960
+  },
+  "e09c56991a84ba72": {
+    "template_hash": "b524cebb07071a45bf11ed5ca2345ca824661b4faa8e71fd2ab2319856340388",
+    "generated_at": "2026-03-07T18:49:38.406367",
+    "asset_name": "forest-icon-07",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 3176
+  },
+  "86becd8726108f85": {
+    "template_hash": "ff27f915eb225fa80a1aa4d076ccb1188f2b4c0e57a532a7c8af78d592434df4",
+    "generated_at": "2026-03-07T18:49:38.425023",
+    "asset_name": "forest-icon-08",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 3588
+  },
+  "f8534748cc3b5f6d": {
+    "template_hash": "1ba6f047c744e8f4c83f579c1d439bba2fa045e274a274a9ad42a9eebdef615d",
+    "generated_at": "2026-03-07T18:49:38.445576",
+    "asset_name": "forest-icon-09",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 2397
+  },
+  "499ec6b01ef6d81e": {
+    "template_hash": "0fa77d31c0277961c98991f6f6566d0ba527ec448bed040313a5ba3df5066a31",
+    "generated_at": "2026-03-07T18:49:38.470655",
+    "asset_name": "forest-icon-10",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 61507
+  },
+  "5b95097bf1fe85ff": {
+    "template_hash": "c5c1bdd8cf8de214673ba2de29448ab53bbfaba2ff7b3ac971ee5b1dc393ad2d",
+    "generated_at": "2026-03-07T18:49:38.487572",
+    "asset_name": "forest-icon-11",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 3105
+  },
+  "da6a5cff9a5e4851": {
+    "template_hash": "fa976b368ca12e0c5db8ff0d784c1cb69c9c7afc256030ba3d291c4ad1618493",
+    "generated_at": "2026-03-07T18:49:38.502758",
+    "asset_name": "forest-icon-12",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 3180
+  },
+  "136389756541bdbb": {
+    "template_hash": "27645351a8200ef6a280fc16143cbf1be41c7329f83141225d0c801a85a98cbc",
+    "generated_at": "2026-03-07T18:49:38.519060",
+    "asset_name": "forest-icon-13",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 2980
+  },
+  "b1c09f2711a0f8c2": {
+    "template_hash": "e1e682a1779e790733d7ebc93c3a34006a5697faed4c5af9996b24ef0db6ecac",
+    "generated_at": "2026-03-07T18:49:38.535543",
+    "asset_name": "forest-icon-14",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 1879
+  },
+  "98e19cd43d2e471e": {
+    "template_hash": "13a234d8051e9ef1dd97bbe99b719f1b300bb58dcacf0a5736b56a650047cb45",
+    "generated_at": "2026-03-07T18:49:38.564217",
+    "asset_name": "forest-icon-15",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 93649
+  },
+  "765c6c883a07b20d": {
+    "template_hash": "e2dbe761da37d24714ab9548ec41df69b403dc7f0a777d69154b1f93037183b2",
+    "generated_at": "2026-03-07T18:49:38.588804",
+    "asset_name": "forest-icon-16",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 1960
+  },
+  "96220a4ee0a57f7d": {
+    "template_hash": "ee14730ea87bf6ae64227f280ac438ed12c357c5fbe2c38ad254b458c985a24d",
+    "generated_at": "2026-03-07T18:49:38.616004",
+    "asset_name": "forest-icon-17",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 3176
+  },
+  "7e0f1f24cbb5669f": {
+    "template_hash": "3d3c7d7794ae4f54393592ca0337325884b4c81a8bfaf3007ab2d7c0f86e0798",
+    "generated_at": "2026-03-07T18:49:38.632898",
+    "asset_name": "forest-icon-18",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 3588
+  },
+  "fff1a5e5251b9938": {
+    "template_hash": "10ffe8ca2a2c4e98b9029ed46755e7776f283c02174537386749d330e4b92bae",
+    "generated_at": "2026-03-07T18:49:38.652610",
+    "asset_name": "forest-icon-19",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 2397
+  },
+  "c81a29e30aa65170": {
+    "template_hash": "7859ca479858fa9bc418317959aac9f0ac1bd5e7c04da98da6d0b7f694edcb31",
+    "generated_at": "2026-03-07T18:49:38.695797",
+    "asset_name": "forest-icon-20",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 89935
+  },
+  "c528194f76ab6f18": {
+    "template_hash": "da752bfb016e6997d6e7d70d7a25da1263c31c356ec43c84e7c03e9b0253b590",
+    "generated_at": "2026-03-07T18:49:38.712258",
+    "asset_name": "forest-icon-21",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 3105
+  },
+  "0f20c55a71939ea9": {
+    "template_hash": "76470069f1914c3e0cd462cf421d1e76a6b022f260a25b6f86b41b1b7b854d71",
+    "generated_at": "2026-03-07T18:49:38.727642",
+    "asset_name": "forest-icon-22",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 3180
+  },
+  "6d86a0719bbbb4ef": {
+    "template_hash": "e7845395da48cbf0cf65a26d8a9932ae3ec36b2513b8dd4c61e797905b55a505",
+    "generated_at": "2026-03-07T18:49:38.742916",
+    "asset_name": "forest-icon-23",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 2980
+  },
+  "ee5ba9052d457d11": {
+    "template_hash": "45057879765e5401d7ddc207d62d1bc45c67d59d3857fb33a2599ea7f43fcf6a",
+    "generated_at": "2026-03-07T18:49:38.756516",
+    "asset_name": "forest-icon-24",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 1879
+  },
+  "60386e7d3676adee": {
+    "template_hash": "2d5511913baee74b9df0c5b54b00f2cc9169a9865673227be06729f27e34e9c0",
+    "generated_at": "2026-03-07T18:49:38.787422",
+    "asset_name": "violet-icon-00",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 80733
+  },
+  "174ed473c0838d8a": {
+    "template_hash": "d09d68a6850cf94a748f33092915870f8e46ae989b591849e0e75bce9ee0558f",
+    "generated_at": "2026-03-07T18:49:38.803328",
+    "asset_name": "violet-icon-01",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 2752
+  },
+  "150a191a6e18c43c": {
+    "template_hash": "2629a7962b4e4d0c7c492f5d7d5c4aace93eeb2ee18d83cac18290448a8c9f1f",
+    "generated_at": "2026-03-07T18:49:38.815402",
+    "asset_name": "violet-icon-02",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 3093
+  },
+  "6b5d77568bf578a7": {
+    "template_hash": "dde369671aa3f947378693bb42d51e4408c2e90350b25529f17a4a6b6c51070e",
+    "generated_at": "2026-03-07T18:49:38.829477",
+    "asset_name": "violet-icon-03",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 3129
+  },
+  "f324a18ab9fbfa92": {
+    "template_hash": "7da9ea14a96470bd0ec73a0863487d823f2e90affe0e9ab8afcac92503d21a55",
+    "generated_at": "2026-03-07T18:49:38.843981",
+    "asset_name": "violet-icon-04",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 1739
+  },
+  "b30085114e8934fb": {
+    "template_hash": "f7fbdb4e0375ff359a09f21e05964cfebf0ae0b030510b14f73b29bc22c13eec",
+    "generated_at": "2026-03-07T18:49:38.870890",
+    "asset_name": "violet-icon-05",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 100688
+  },
+  "ff33557be9f990e3": {
+    "template_hash": "bb3071db3f2bbfc32b05755e5ae5e7fe0770b5411aa6afd5b004aa58c09f091f",
+    "generated_at": "2026-03-07T18:49:38.894620",
+    "asset_name": "violet-icon-06",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 1951
+  },
+  "5ff53ab8f3352efa": {
+    "template_hash": "b3d7caa1507df5b604515c3661169bb791276f5438b45d3a480d725d7c800f27",
+    "generated_at": "2026-03-07T18:49:38.919126",
+    "asset_name": "violet-icon-07",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 3195
+  },
+  "b6e7bbaa321969ed": {
+    "template_hash": "f6bb17f3e18085fcbca97512786fc39b11e0748460c864d3fe803fd3822cbac6",
+    "generated_at": "2026-03-07T18:49:38.934295",
+    "asset_name": "violet-icon-08",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 3483
+  },
+  "6ca62d64c9c3a4e8": {
+    "template_hash": "cf17996c9321839efac81c8c6b5251aeb6f47127945df45f4caa6e49255ae676",
+    "generated_at": "2026-03-07T18:49:38.952191",
+    "asset_name": "violet-icon-09",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 2053
+  },
+  "1aeae3d0aa61d4e5": {
+    "template_hash": "72711ad55a31757419807cc56e3ac76a5ecdb3b7739c6455cc499b0d66628d36",
+    "generated_at": "2026-03-07T18:49:38.977557",
+    "asset_name": "violet-icon-10",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 62164
+  },
+  "9fd04134ddedcc36": {
+    "template_hash": "75ac2359e3bebd7f0124574e1ab0e45b27c406e307bf1e32d1bbad0109b95f57",
+    "generated_at": "2026-03-07T18:49:38.992479",
+    "asset_name": "violet-icon-11",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 2752
+  },
+  "e7cbb2bc21b7dc8c": {
+    "template_hash": "b4755489566f71fe8040524e3bd04ad0114cae689afba0fe33d93f4549c21492",
+    "generated_at": "2026-03-07T18:49:39.005408",
+    "asset_name": "violet-icon-12",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 3093
+  },
+  "cdb01a648ca20b2c": {
+    "template_hash": "63af38280c661f6f586e07b68e51425f7b79899d61114bb1e24ddfa0a0d13b2b",
+    "generated_at": "2026-03-07T18:49:39.019121",
+    "asset_name": "violet-icon-13",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 3129
+  },
+  "290ddcaede6ad5a7": {
+    "template_hash": "8a2a040be2fa0e265426b35a28f028541177120216f2eec16c0d3c1c109f18dd",
+    "generated_at": "2026-03-07T18:49:39.032977",
+    "asset_name": "violet-icon-14",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 1739
+  },
+  "be4ee4e9a93083e8": {
+    "template_hash": "9001b27863039dde7f668ea61b9e6b707ca0b84151a9a0443abaa2677a8b799d",
+    "generated_at": "2026-03-07T18:49:39.059355",
+    "asset_name": "violet-icon-15",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 94565
+  },
+  "44205ea72960ccdc": {
+    "template_hash": "04f90858f122fc50681482e733ac3e56923a3e5be764e55bb39b182372788158",
+    "generated_at": "2026-03-07T18:49:39.082878",
+    "asset_name": "violet-icon-16",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 1951
+  },
+  "433524d30614aaa1": {
+    "template_hash": "3d6a45c06d3b60bdbfc9ed0a9ea5246c2bbdcf4e1b456da127cb2304af193130",
+    "generated_at": "2026-03-07T18:49:39.106296",
+    "asset_name": "violet-icon-17",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 3195
+  },
+  "89565014d3706e11": {
+    "template_hash": "73fa7489afb778e1da785e1437b2e0af24b7038262e83e60a66e3858cbcf9a97",
+    "generated_at": "2026-03-07T18:49:39.120802",
+    "asset_name": "violet-icon-18",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 3483
+  },
+  "3d442d473087a063": {
+    "template_hash": "3b11554900f9b849c14220c55b2d846326b1d8a863132f5c544841dc6c9019ea",
+    "generated_at": "2026-03-07T18:49:39.138820",
+    "asset_name": "violet-icon-19",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 2053
+  },
+  "e43e1788316dd7e7": {
+    "template_hash": "8e31514bb81a588abd9ef15c984fd756687b37a59f52e0132b65ed405525a142",
+    "generated_at": "2026-03-07T18:49:39.179697",
+    "asset_name": "violet-icon-20",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 91828
+  },
+  "f2bf18c73293363e": {
+    "template_hash": "b23dda330ad37da7a95374b2ccffe9e7791bf8c03b306a5652a61e65c755a38b",
+    "generated_at": "2026-03-07T18:49:39.196447",
+    "asset_name": "violet-icon-21",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 2752
+  },
+  "f1bf05449deb28e1": {
+    "template_hash": "d73d42d38fb8adc6dd8687df12ca3ef362e294573960ea3d122d17b0a09d7ee7",
+    "generated_at": "2026-03-07T18:49:39.208385",
+    "asset_name": "violet-icon-22",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 3093
+  },
+  "0a764beb58d6ebf2": {
+    "template_hash": "2a5c6859b767e8fa2f820ef11898cf08f4f7308ba06073d652fba2702230cc2c",
+    "generated_at": "2026-03-07T18:49:39.222984",
+    "asset_name": "violet-icon-23",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 3129
+  },
+  "36cff626284cead7": {
+    "template_hash": "9758cf09673b36c9c0fb4505f83a933d3003ad155e8b4d6ca17ea65f634a4e9b",
+    "generated_at": "2026-03-07T18:49:39.237417",
+    "asset_name": "violet-icon-24",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 1739
+  }
+}

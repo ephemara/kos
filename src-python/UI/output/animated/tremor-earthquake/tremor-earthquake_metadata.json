@@ -1,0 +1,32 @@
+{
+  "name": "tremor-earthquake",
+  "description": "Earthquake tremor effect",
+  "category": "animated",
+  "tags": [
+    "earthquake",
+    "tremor",
+    "warning"
+  ],
+  "generator": "icon",
+  "template_source": "tremor-earthquake",
+  "generation_timestamp": "2026-03-07T17:19:51.222558",
+  "dimensions": [
+    128,
+    128
+  ],
+  "format": "png",
+  "file_size": 1453,
+  "color_mode": "RGBA",
+  "has_alpha": true,
+  "dpi": 72,
+  "theme_variant": null,
+  "theme_group": null,
+  "is_animated": true,
+  "animation_type": "tremor",
+  "frame_count": 18,
+  "duration": 0.6,
+  "usage_count": 0,
+  "last_used": null,
+  "validation_passed": true,
+  "validation_warnings": []
+}

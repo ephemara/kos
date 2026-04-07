@@ -1,0 +1,32 @@
+{
+  "name": "help_light",
+  "description": "Documentation, walkthroughs, and guided product support.",
+  "category": "chrome",
+  "tags": [
+    "help",
+    "docs",
+    "support"
+  ],
+  "generator": "icon",
+  "template_source": "help_light",
+  "generation_timestamp": "2026-03-17T16:28:37.819823",
+  "dimensions": [
+    64,
+    64
+  ],
+  "format": "svg",
+  "file_size": 3094,
+  "color_mode": "RGBA",
+  "has_alpha": true,
+  "dpi": 72,
+  "theme_variant": "light",
+  "theme_group": "help_theme_group",
+  "is_animated": false,
+  "animation_type": null,
+  "frame_count": null,
+  "duration": null,
+  "usage_count": 0,
+  "last_used": null,
+  "validation_passed": true,
+  "validation_warnings": []
+}

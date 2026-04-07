@@ -1,0 +1,30 @@
+# Example: Grid Overlay
+# Demonstrates: Viewport overlay with transparency
+
+name: "Grid Overlay"
+description: "Viewport grid overlay for 3D navigation"
+generator_type: "overlay"
+category: "viewport"
+tags: ["overlay", "grid", "viewport", "guide"]
+
+output_formats:
+  - "png"
+
+dimensions:
+  width: 1920
+  height: 1080
+
+alpha_mode: "embedded"
+
+params:
+  overlay_type: "grid"
+  grid_size: 100
+  line_width: 1
+  line_color: "#ffffff"
+  line_opacity: 0.3
+  major_grid_interval: 5
+  major_line_width: 2
+  major_line_opacity: 0.5
+  background: null
+
+version: "1.0"

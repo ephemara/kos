@@ -1,0 +1,412 @@
+{
+  "d9008d451bef2174": {
+    "template_hash": "abd69ee1edf6389003c54fcdcefb99fc989f67d0f1d07abeeb521ef043ae6465",
+    "generated_at": "2026-03-07T17:19:50.788501",
+    "asset_name": "loading-spinner",
+    "dimensions": [
+      128,
+      128
+    ],
+    "file_size": 7671
+  },
+  "9c3bdbad0a04237b": {
+    "template_hash": "76a0a9f5749b07607ee7ce803e91648677d8daec9dabe724e98d88127a7d61f0",
+    "generated_at": "2026-03-07T17:19:50.817041",
+    "asset_name": "pulse-heart",
+    "dimensions": [
+      128,
+      128
+    ],
+    "file_size": 2344
+  },
+  "51a2280f9bbf3bf8": {
+    "template_hash": "640bdb20da9b1963594e12ad3c383e0f6b1ad597b5ae758bc5917aa0abfdfd33",
+    "generated_at": "2026-03-07T17:19:50.832655",
+    "asset_name": "bouncing-ball",
+    "dimensions": [
+      128,
+      128
+    ],
+    "file_size": 3072
+  },
+  "ff23804591fc29c7": {
+    "template_hash": "91027688b58f426b8f0a9bf3c77cb58358528d2127a43224de311366a617e787",
+    "generated_at": "2026-03-07T17:19:50.865556",
+    "asset_name": "floating-cloud",
+    "dimensions": [
+      128,
+      128
+    ],
+    "file_size": 2810
+  },
+  "1b9519ee412394ff": {
+    "template_hash": "ffbfb7821a4b1f6cb7cd13b1ed6046da215c548534be9ace00c55f8c8410f27c",
+    "generated_at": "2026-03-07T17:19:50.888010",
+    "asset_name": "shaking-bell",
+    "dimensions": [
+      128,
+      128
+    ],
+    "file_size": 1004
+  },
+  "177ce53123b55428": {
+    "template_hash": "99552e84eb759043da74fc4107d0926add6dcda7f4591f232c2bbc97f06b3df5",
+    "generated_at": "2026-03-07T17:19:50.901483",
+    "asset_name": "wobbling-star",
+    "dimensions": [
+      128,
+      128
+    ],
+    "file_size": 2417
+  },
+  "ee48f8ec07cf7244": {
+    "template_hash": "6236a6448d350d2c973b744cee0c2127adc14d89803907b01aab2d7306dc262e",
+    "generated_at": "2026-03-07T17:19:50.925042",
+    "asset_name": "glitching-eye",
+    "dimensions": [
+      128,
+      128
+    ],
+    "file_size": 10106
+  },
+  "c236c2b870d3aa4e": {
+    "template_hash": "f99466fb3594ab9cddb40827c40b5a0b764f6bc223c4106b5e7df45a26655516",
+    "generated_at": "2026-03-07T17:19:50.959434",
+    "asset_name": "tumbling-dice",
+    "dimensions": [
+      128,
+      128
+    ],
+    "file_size": 1194
+  },
+  "4f276c7de71b34ca": {
+    "template_hash": "3d217c9498d14d32e10439070ffe867221b09d5bba61f4a8047df22bc58aa9d7",
+    "generated_at": "2026-03-07T17:19:50.972066",
+    "asset_name": "strobing-lightning",
+    "dimensions": [
+      128,
+      128
+    ],
+    "file_size": 1845
+  },
+  "bd0be443b4089e2f": {
+    "template_hash": "02202e37f596247f79925bcdcc9f39bcc9db96f863b75c60d0805fc67698de3f",
+    "generated_at": "2026-03-07T17:19:51.002321",
+    "asset_name": "swaying-tree",
+    "dimensions": [
+      128,
+      128
+    ],
+    "file_size": 2435
+  },
+  "891e72fde398c170": {
+    "template_hash": "12975a296ccd3de07bc9f3ae700c7c3abe7c3a984a4213143062aa2b6a9d561d",
+    "generated_at": "2026-03-07T17:19:51.040231",
+    "asset_name": "pendulum-clock",
+    "dimensions": [
+      128,
+      128
+    ],
+    "file_size": 4670
+  },
+  "63e32d3601fe04c5": {
+    "template_hash": "c70f8c487501525010f145d9151e2b02d2643466d435431aa5c4a048fb589975",
+    "generated_at": "2026-03-07T17:19:51.080115",
+    "asset_name": "figure8-infinity",
+    "dimensions": [
+      128,
+      128
+    ],
+    "file_size": 3896
+  },
+  "b7a3d8bf55748427": {
+    "template_hash": "9b30221f8bd67dc154c6128e9b31005e521eca7e5cb0174b650c292fb02b9687",
+    "generated_at": "2026-03-07T17:19:51.100093",
+    "asset_name": "heartbeat-monitor",
+    "dimensions": [
+      128,
+      128
+    ],
+    "file_size": 1312
+  },
+  "c6f81ea7d957d158": {
+    "template_hash": "6249ac98c9f51346adfe6b052ebbd42ea6331cfdca70b33f0679197e854e4cbd",
+    "generated_at": "2026-03-07T17:19:51.127655",
+    "asset_name": "corkscrew-rocket",
+    "dimensions": [
+      128,
+      128
+    ],
+    "file_size": 1112
+  },
+  "d69e3742e17ac8e4": {
+    "template_hash": "f7da616c7de394541d12d90315ed9d9db98a842766b24d997aa31121cddb70d6",
+    "generated_at": "2026-03-07T17:19:51.163318",
+    "asset_name": "shivering-snowflake",
+    "dimensions": [
+      128,
+      128
+    ],
+    "file_size": 1390
+  },
+  "2e460d3a92529e62": {
+    "template_hash": "4dd3356c996b1cac9450925f24c826e6c054107691f085e6c0947aa9c617ff04",
+    "generated_at": "2026-03-07T17:19:51.198702",
+    "asset_name": "flipping-coin",
+    "dimensions": [
+      128,
+      128
+    ],
+    "file_size": 4154
+  },
+  "2d84c1a994ed8fb0": {
+    "template_hash": "e7e1e5badaa90865e4127bb52ba8c3a5c5983eded87563e5dda9c10bf1db94c8",
+    "generated_at": "2026-03-07T17:19:51.222558",
+    "asset_name": "tremor-earthquake",
+    "dimensions": [
+      128,
+      128
+    ],
+    "file_size": 1453
+  },
+  "a772bc3e0a9845fa": {
+    "template_hash": "38ad8b2d75d9ef5fee51597b315bb7cacb7479467bdba2eca7dd6bc9c526a463",
+    "generated_at": "2026-03-07T17:19:51.273144",
+    "asset_name": "scanning-radar",
+    "dimensions": [
+      128,
+      128
+    ],
+    "file_size": 8379
+  },
+  "d72d318f93da4229": {
+    "template_hash": "37f22053a4875881e5bfed31e95c4e8765f8c5aa5cdd91912c9113ebde68c50f",
+    "generated_at": "2026-03-07T17:19:51.327519",
+    "asset_name": "warping-portal",
+    "dimensions": [
+      128,
+      128
+    ],
+    "file_size": 10240
+  },
+  "d7b891c10f99044a": {
+    "template_hash": "e5999dcf632151df00a1130a41499117b2d2556bc027a2472876787a860405ba",
+    "generated_at": "2026-03-07T17:19:51.357978",
+    "asset_name": "drifting-feather",
+    "dimensions": [
+      128,
+      128
+    ],
+    "file_size": 6525
+  },
+  "b2c847864e59bfae": {
+    "template_hash": "7ab73cc6a698ac1e48f89594e7c89ef869f3f3f95446f5d17133ac191a456230",
+    "generated_at": "2026-03-07T17:35:08.972493",
+    "asset_name": "orbit-icon",
+    "dimensions": [
+      128,
+      128
+    ],
+    "file_size": 72819
+  },
+  "e3153f631288bf44": {
+    "template_hash": "1c0506ada1c28a38f04c9a65e325537d57a4556f885be33b061c99bc571b2f85",
+    "generated_at": "2026-03-07T17:35:09.117556",
+    "asset_name": "pulse-icon",
+    "dimensions": [
+      128,
+      128
+    ],
+    "file_size": 241679
+  },
+  "3aa826074b9fd555": {
+    "template_hash": "f06472cd7dff5236528811bd41b6df85879d84d4834e71dd3c171b57ff22b070",
+    "generated_at": "2026-03-07T17:35:09.239728",
+    "asset_name": "bounce-icon",
+    "dimensions": [
+      128,
+      128
+    ],
+    "file_size": 77972
+  },
+  "539da64e94d29bee": {
+    "template_hash": "37716e92d51580882b090cb1ab5353ffbff17ecba9e10a098704a86dcf80ddaa",
+    "generated_at": "2026-03-07T17:35:09.344821",
+    "asset_name": "float-icon",
+    "dimensions": [
+      128,
+      128
+    ],
+    "file_size": 69928
+  },
+  "5ba22ac72e4e4860": {
+    "template_hash": "1bf2462facf89437b48b787ebdd78edd76c62694cb96055b8a08e5de2c6d8a37",
+    "generated_at": "2026-03-07T17:35:09.473182",
+    "asset_name": "shake-icon",
+    "dimensions": [
+      128,
+      128
+    ],
+    "file_size": 71140
+  },
+  "131b24a538433c44": {
+    "template_hash": "cfdeed1e7d2efab16ca0ce468557c5ea6169bb80bc64beec152acd1bb377b886",
+    "generated_at": "2026-03-07T17:35:09.648888",
+    "asset_name": "wobble-icon",
+    "dimensions": [
+      128,
+      128
+    ],
+    "file_size": 239635
+  },
+  "f1e9dc4c5350cb24": {
+    "template_hash": "1e6b950e7555c3effdd40213667ae8542ff2435995f2f70c5849a654c907d70f",
+    "generated_at": "2026-03-07T17:35:09.765491",
+    "asset_name": "glitch-icon",
+    "dimensions": [
+      128,
+      128
+    ],
+    "file_size": 64798
+  },
+  "b50fd646e1d1778a": {
+    "template_hash": "00e497ae14214ffa77febd729238055ebe857696bdb9ea75cac83b503786634c",
+    "generated_at": "2026-03-07T17:35:09.946019",
+    "asset_name": "tumble-icon",
+    "dimensions": [
+      128,
+      128
+    ],
+    "file_size": 264899
+  },
+  "68da23f4e53dea2d": {
+    "template_hash": "f3d35dd82d3c75dbead167be5604e3b9db342d5ab5ce7761d3a9d0d8cc391041",
+    "generated_at": "2026-03-07T17:35:10.061283",
+    "asset_name": "strobe-icon",
+    "dimensions": [
+      128,
+      128
+    ],
+    "file_size": 74000
+  },
+  "b400ed7ab14aeb4d": {
+    "template_hash": "f6eedb94ccfb89f604020d2ffd27f06ca6b6e4abd5b8807f2e15a3caf3d294f6",
+    "generated_at": "2026-03-07T17:35:10.261775",
+    "asset_name": "sway-icon",
+    "dimensions": [
+      128,
+      128
+    ],
+    "file_size": 225971
+  },
+  "a879c5ce7230d6ef": {
+    "template_hash": "c1eeffa21dc17fb17669018f0d0f172c3385733cc38c0ab87c711d454617e9cd",
+    "generated_at": "2026-03-07T17:35:10.456705",
+    "asset_name": "pendulum-icon",
+    "dimensions": [
+      128,
+      128
+    ],
+    "file_size": 259838
+  },
+  "949a2a1ec7fb86de": {
+    "template_hash": "c9b99155db65cdec122ea0c86a8b3f4bf6427ae982a9d380026b13965df995f0",
+    "generated_at": "2026-03-07T17:35:10.561035",
+    "asset_name": "figure8-icon",
+    "dimensions": [
+      128,
+      128
+    ],
+    "file_size": 71374
+  },
+  "97d9b64a154801c9": {
+    "template_hash": "abc8687d62302c56951d6fec2d354fcbab40cf1ea444d2e21c2a96b08eb54276",
+    "generated_at": "2026-03-07T17:35:10.675097",
+    "asset_name": "heartbeat-icon",
+    "dimensions": [
+      128,
+      128
+    ],
+    "file_size": 126353
+  },
+  "5178fea0e41b731d": {
+    "template_hash": "ca78438a2560eca1f6460666e79ee8265d964a70a833bc5f16471a737d1e8ad5",
+    "generated_at": "2026-03-07T17:35:10.779157",
+    "asset_name": "corkscrew-icon",
+    "dimensions": [
+      128,
+      128
+    ],
+    "file_size": 71839
+  },
+  "90bdd1dbd5ebe466": {
+    "template_hash": "5ce2dc31e30893864d71a78d78f88aa6195c5dad8e04f9d6997c4897cbd9a42c",
+    "generated_at": "2026-03-07T17:35:10.885917",
+    "asset_name": "shiver-icon",
+    "dimensions": [
+      128,
+      128
+    ],
+    "file_size": 65245
+  },
+  "0d431e8cda56e8b1": {
+    "template_hash": "899ca2c84d36daf979a2762fd74a55a63e4ee0060d823cd8c9535261a97ff284",
+    "generated_at": "2026-03-07T17:35:10.998333",
+    "asset_name": "flip-icon",
+    "dimensions": [
+      128,
+      128
+    ],
+    "file_size": 109118
+  },
+  "474bf5f545eba1a9": {
+    "template_hash": "880497e9b5d2eec5d60b3bc0bcb627fa9bf30b923355ccb5c752ccdbb13a61c3",
+    "generated_at": "2026-03-07T17:35:11.107978",
+    "asset_name": "tremor-icon",
+    "dimensions": [
+      128,
+      128
+    ],
+    "file_size": 69626
+  },
+  "cd4fb8f7aab0be9f": {
+    "template_hash": "91c65744ccf6f0294ec893e9f6480695a883122c6875ad75e32ff747d4437486",
+    "generated_at": "2026-03-07T17:35:11.214555",
+    "asset_name": "scan-icon",
+    "dimensions": [
+      128,
+      128
+    ],
+    "file_size": 63737
+  },
+  "f3854cb45f089bbf": {
+    "template_hash": "d2af68c802baa4916a6e8e760956d94085c7374315f55ea4f363e1cfc6218e7c",
+    "generated_at": "2026-03-07T17:35:11.363851",
+    "asset_name": "warp-icon",
+    "dimensions": [
+      128,
+      128
+    ],
+    "file_size": 260018
+  },
+  "3393958703ae95b3": {
+    "template_hash": "d16290488e887751c7d71ec64f4c1c86fe1b466cc65ca00bab9a6a7393cdf7b8",
+    "generated_at": "2026-03-07T17:35:11.471633",
+    "asset_name": "drift-icon",
+    "dimensions": [
+      128,
+      128
+    ],
+    "file_size": 65951
+  },
+  "8ba996128ef67bd0": {
+    "template_hash": "3ef60b6807df480a5eecf49e80606abc340bca7bef524ef4d30ad07183ad2033",
+    "generated_at": "2026-03-08T01:15:14.479491",
+    "asset_name": "zentako-logo-1024",
+    "dimensions": [
+      128,
+      128
+    ],
+    "file_size": 420
+  }
+}

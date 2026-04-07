@@ -1,0 +1,32 @@
+{
+  "name": "zentako-logo-1024",
+  "description": "zentako logo 1024",
+  "category": "branding",
+  "tags": [
+    "zentako",
+    "logo",
+    "company"
+  ],
+  "generator": "icon",
+  "template_source": "zentako-logo-1024",
+  "generation_timestamp": "2026-03-08T01:16:10.343313",
+  "dimensions": [
+    1024,
+    1024
+  ],
+  "format": "png",
+  "file_size": 151732,
+  "color_mode": "RGBA",
+  "has_alpha": true,
+  "dpi": 72,
+  "theme_variant": null,
+  "theme_group": null,
+  "is_animated": false,
+  "animation_type": null,
+  "frame_count": null,
+  "duration": null,
+  "usage_count": 0,
+  "last_used": null,
+  "validation_passed": true,
+  "validation_warnings": []
+}

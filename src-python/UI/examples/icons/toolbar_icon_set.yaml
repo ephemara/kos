@@ -1,0 +1,39 @@
+# Example: Toolbar Icon with Template Inheritance
+# Demonstrates: Template inheritance, color tokens, multiple formats
+
+name: "Toolbar Icon"
+description: "Standard toolbar icon inheriting from base template"
+generator_type: "icon"
+category: "toolbar"
+tags: ["toolbar", "ui", "interface"]
+
+parent_template: "../../templates/icons/base_icon.yaml"
+
+theme_variants:
+  - "light"
+  - "dark"
+
+colors:
+  - "$primary"
+  - "$foreground"
+
+params:
+  layers:
+    - type: "rect"
+      geometry:
+        x: 12
+        y: 12
+        width: 40
+        height: 40
+        rx: 4
+        ry: 4
+      fill:
+        type: "solid"
+        colors: ["$primary"]
+      stroke:
+        color: "$foreground"
+        width: 2
+      blend_mode: "normal"
+      opacity: 1.0
+
+version: "1.0"

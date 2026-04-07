@@ -1,0 +1,242 @@
+{
+  "f2690a56a3958206": {
+    "template_hash": "2dfead4701aaf244147e628c0ee8986ea056c9e6fa484bcee57cd02b13735fb1",
+    "generated_at": "2026-03-07T19:00:06.530716",
+    "asset_name": "tool-select-cursor",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 403
+  },
+  "6d8628ac0da36ec0": {
+    "template_hash": "ba3cccd9a16e0587afd3d11b8654173a2296fcedadf04e5a024b5c29cb790a54",
+    "generated_at": "2026-03-07T19:00:06.613050",
+    "asset_name": "tool-move-gizmo",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 61038
+  },
+  "dc5c4112692b1795": {
+    "template_hash": "052cc295f7fbc73eee39d613e318d1ced05122a16d4906aebc720162bb4de777",
+    "generated_at": "2026-03-07T19:00:06.652020",
+    "asset_name": "tool-rotate-swoosh",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 12830
+  },
+  "00464e6f83351ecb": {
+    "template_hash": "f13b16ab21ee1008d58c3c743358cfd9db625c73cd19c45d25ca9e664ccf057e",
+    "generated_at": "2026-03-07T19:00:06.735839",
+    "asset_name": "tool-scale-corners",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 32800
+  },
+  "53b410adceea9fc0": {
+    "template_hash": "ff1b7f5ad14af7ba1456b339c8ec93ba222ff5e5d4ba0851db13bb224e68f668",
+    "generated_at": "2026-03-07T19:00:06.779226",
+    "asset_name": "nav-orbit-camera",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 19261
+  },
+  "fb3f7f224d1b1ffb": {
+    "template_hash": "e7171554285856a50487afa9eb92537640dd969ba71fb7ceec94ec9cb71f2b5f",
+    "generated_at": "2026-03-07T19:00:06.803015",
+    "asset_name": "nav-hand-pan",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 403
+  },
+  "9e6aac2fe3a6a9fe": {
+    "template_hash": "605f0fbcbae111ae3c5a81586e64dd70afd7a619d29b235ea3922540d168feed",
+    "generated_at": "2026-03-07T19:00:06.874583",
+    "asset_name": "nav-zoom-plus",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 22523
+  },
+  "6e4f51f19a81a21c": {
+    "template_hash": "1801741250cc839a55bd8a4d5f9a6f541fd5e37e359ec8f93274dcc28693d040",
+    "generated_at": "2026-03-07T19:00:07.014193",
+    "asset_name": "nav-compass-burst",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 58272
+  },
+  "a2579a92eb54bd67": {
+    "template_hash": "ff50f1fd4f2ff556199d7c6ea62f5379d8ef5c109b14ff748003ae6eee07be83",
+    "generated_at": "2026-03-07T19:00:07.141886",
+    "asset_name": "object-cube-block",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 52382
+  },
+  "c9372e19ac479f33": {
+    "template_hash": "5a1e2a3f22c2b92fc4884e35e414b042a171e8189f28291d2d27e774e3a73e56",
+    "generated_at": "2026-03-07T19:00:07.202267",
+    "asset_name": "object-sphere-bounce",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 46879
+  },
+  "f74e2c37cb0607cf": {
+    "template_hash": "de667611e25c148712960fc8cc2f834516fb98f95072be36258c19481f2ab5de",
+    "generated_at": "2026-03-07T19:00:07.258393",
+    "asset_name": "object-gem-diamond",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 47244
+  },
+  "666c679fa25cb11d": {
+    "template_hash": "11d07c964fd7c5b2b6ebb7cdfad8eab64d2d24ce9b40e4faa3bb6ed1e86c731c",
+    "generated_at": "2026-03-07T19:00:07.312685",
+    "asset_name": "object-stacked-assets",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 18610
+  },
+  "58ab59f4efb2b6b9": {
+    "template_hash": "77f526b3252f2c12b02d402fe9153a1855990d8b99a13380280c492e2274e5f7",
+    "generated_at": "2026-03-07T19:00:07.336970",
+    "asset_name": "edit-bevel-corner",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 2059
+  },
+  "181044af3f5743a0": {
+    "template_hash": "857f43d9d7a60bedf4d0acaa6cfa9397059cba32cd61edd44bca7ce58555101c",
+    "generated_at": "2026-03-07T19:00:07.364549",
+    "asset_name": "edit-loop-cut",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 2096
+  },
+  "a1a4abaa666b2bf9": {
+    "template_hash": "b4973dbba3e1ba080ca953a56dc8439da00b76f17f6479110dd7fd491767a4b4",
+    "generated_at": "2026-03-07T19:00:07.393533",
+    "asset_name": "edit-knife-slice",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 2682
+  },
+  "9b7d5ef8c1bbaba9": {
+    "template_hash": "43da3c563e6c9aa01f210d7d50ca0232752fd4e836fcfbcf4447eb7162db5c88",
+    "generated_at": "2026-03-07T19:00:07.437379",
+    "asset_name": "edit-extrude-face",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 3128
+  },
+  "288fac42322675aa": {
+    "template_hash": "5565705d1367669d24b48a7ebed6193d904b2ed11666d0545deb7c370da5f266",
+    "generated_at": "2026-03-07T19:00:07.477852",
+    "asset_name": "paint-brush-tip",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 2756
+  },
+  "4bb8c1bca09a8955": {
+    "template_hash": "7c675ff9e40b163b48eaa066662b13130b87e1ade79caa560538476e3aca93c7",
+    "generated_at": "2026-03-07T19:00:07.517979",
+    "asset_name": "paint-paint-drop",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 403
+  },
+  "9896541e149e153e": {
+    "template_hash": "bda210b0e2c062b9cd04b7dd88f7858714c5f6b7ae6377dd06e854a1b649924a",
+    "generated_at": "2026-03-07T19:00:07.603581",
+    "asset_name": "paint-spray-burst",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 12114
+  },
+  "544d279b67410ffd": {
+    "template_hash": "8a6768c08936275389b6cca975becbf7d11f724080f3a063dc448beaedc7bff5",
+    "generated_at": "2026-03-07T19:00:07.633721",
+    "asset_name": "paint-ink-star",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 17768
+  },
+  "283e035fa75c5d3b": {
+    "template_hash": "41921596037d0e413f1f78d7137904230cc6e353abf763f238b61fa62a319426",
+    "generated_at": "2026-03-07T19:00:07.676623",
+    "asset_name": "status-spark-badge",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 63082
+  },
+  "a164ea5b1d32d572": {
+    "template_hash": "49f7326f9af53bd720d6a6f995d7669ffb2064ebc756ed48c498255aee12ed57",
+    "generated_at": "2026-03-07T19:00:07.711424",
+    "asset_name": "status-bell-ring",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 11964
+  },
+  "5dfc69e3c2d76e8c": {
+    "template_hash": "dc5af41bbf4e175e2b27d2242152f5a1b3b532dae7ff53862cf23066f0936454",
+    "generated_at": "2026-03-07T19:00:07.740701",
+    "asset_name": "status-pin-drop",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 11805
+  },
+  "d4edd56c9d9b1942": {
+    "template_hash": "86d826aa6b459b49a2191a6e783150b0bfd5db241c4418a083829033baf92731",
+    "generated_at": "2026-03-07T19:00:07.790633",
+    "asset_name": "status-signal-bars",
+    "dimensions": [
+      96,
+      96
+    ],
+    "file_size": 14263
+  }
+}

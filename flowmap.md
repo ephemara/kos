@@ -1,7 +1,7 @@
 # K_OS Flow Map
 
 - Directory: `M:\K_OS`
-- Generated (UTC): `2026-03-30T00:00:19.974117+00:00`
+- Generated (UTC): `2026-04-07T04:00:08.926301+00:00`
 - Languages: `JSON, Markdown, Python, Rust, TOML, TSX, TypeScript`
 - Entry files: `src-frontend/App.tsx, src-tauri/src/main.rs, Cargo.toml, src-tauri/Cargo.toml`
 - Manifests: `cargo, cargo, npm, cargo, npm, cargo, cargo, cargo, cargo, cargo, cargo, cargo`
@@ -14,8 +14,8 @@ flowchart LR
   dir_src_mocap["src-mocap"]
   dir_src_frontend["src-frontend"]
   dir_src_python["src-python"]
+  dir_kain["kain"]
   dir_test_docgen["test-docgen"]
-  dir_src_tauri["src-tauri"]
   file_src_frontend_app_tsx["src-frontend/App.tsx"]
   file_src_tauri_src_main_rs["src-tauri/src/main.rs"]
   file_cargo_toml["Cargo.toml"]
@@ -47,10 +47,10 @@ flowchart LR
   file_src_tauri_src_main_rs -->|targets| lane_web_wasm_lane
   dir_dir -->|supports| lane_web_wasm_lane
   dir_dir -->|contains| dir_crates
+  dir_dir -->|contains| dir_kain
   dir_dir -->|contains| dir_src_frontend
   dir_dir -->|contains| dir_src_mocap
   dir_dir -->|contains| dir_src_python
-  dir_dir -->|contains| dir_src_tauri
   dir_dir -->|contains| dir_test_docgen
 ```
 

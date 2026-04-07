@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Kade Light Chrome Icons</title>
+  <style>
+    body {
+      margin: 0;
+      font: 14px/1.5 "Segoe UI", sans-serif;
+      background: #f4f8fc;
+      color: #132235;
+    }
+    header {
+      position: sticky;
+      top: 0;
+      padding: 18px 20px;
+      background: rgba(244, 248, 252, 0.94);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid #d7e2ef;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    main {
+      padding: 20px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+    }
+    .card {
+      background: #fff;
+      border: 1px solid #d7e2ef;
+      border-radius: 18px;
+      padding: 16px;
+      box-shadow: 0 8px 24px rgba(16, 24, 40, 0.05);
+    }
+    .card img {
+      width: 48px;
+      height: 48px;
+      display: block;
+      margin-bottom: 12px;
+    }
+    .card h3 {
+      margin: 0 0 6px;
+      font-size: 15px;
+    }
+    .card p {
+      margin: 0 0 10px;
+      color: #5c7087;
+      min-height: 42px;
+    }
+    .card code {
+      color: #2563eb;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div>
+      <strong>Kade Light Chrome Icons</strong><br />
+      <span>8 icons, 1 theme</span>
+    </div>
+    <div>light only</div>
+  </header>
+  <main><article class="card">
+          <img data-icon-path="activity.svg" src="svg/light/chrome/activity.svg" alt="Activity" />
+          <h3>Activity</h3>
+          <p>Primary Kade entry icon for the VS Code activity bar and extension surface.</p>
+          <code>activity</code>
+        </article>
+<article class="card">
+          <img data-icon-path="chat.svg" src="svg/light/chrome/chat.svg" alt="Chat" />
+          <h3>Chat</h3>
+          <p>Main conversational workspace for prompts and responses.</p>
+          <code>chat</code>
+        </article>
+<article class="card">
+          <img data-icon-path="new-task.svg" src="svg/light/chrome/new-task.svg" alt="New Task" />
+          <h3>New Task</h3>
+          <p>Create a fresh task, prompt, or agent request.</p>
+          <code>new-task</code>
+        </article>
+<article class="card">
+          <img data-icon-path="history.svg" src="svg/light/chrome/history.svg" alt="History" />
+          <h3>History</h3>
+          <p>Open prior sessions, previous tasks, and resumable context.</p>
+          <code>history</code>
+        </article>
+<article class="card">
+          <img data-icon-path="settings.svg" src="svg/light/chrome/settings.svg" alt="Settings" />
+          <h3>Settings</h3>
+          <p>Open Kade settings, modes, and preference controls.</p>
+          <code>settings</code>
+        </article>
+<article class="card">
+          <img data-icon-path="popout.svg" src="svg/light/chrome/popout.svg" alt="Popout" />
+          <h3>Popout</h3>
+          <p>Open the Kade surface in a separate tab or window.</p>
+          <code>popout</code>
+        </article>
+<article class="card">
+          <img data-icon-path="help.svg" src="svg/light/chrome/help.svg" alt="Help" />
+          <h3>Help</h3>
+          <p>Documentation, walkthroughs, and guided product support.</p>
+          <code>help</code>
+        </article>
+<article class="card">
+          <img data-icon-path="profile.svg" src="svg/light/chrome/profile.svg" alt="Profile" />
+          <h3>Profile</h3>
+          <p>User profile and account identity state.</p>
+          <code>profile</code>
+        </article></main>
+  <script>
+    const images = [...document.querySelectorAll("[data-icon-path]")];
+    for (const image of images) {
+      image.src = `svg/light/chrome/${image.dataset.iconPath}`;
+    }
+  </script>
+</body>
+</html>

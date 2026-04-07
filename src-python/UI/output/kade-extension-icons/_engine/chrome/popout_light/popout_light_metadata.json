@@ -1,0 +1,32 @@
+{
+  "name": "popout_light",
+  "description": "Open the Kade surface in a separate tab or window.",
+  "category": "chrome",
+  "tags": [
+    "popout",
+    "external",
+    "tab"
+  ],
+  "generator": "icon",
+  "template_source": "popout_light",
+  "generation_timestamp": "2026-03-17T16:28:37.724261",
+  "dimensions": [
+    64,
+    64
+  ],
+  "format": "svg",
+  "file_size": 2801,
+  "color_mode": "RGBA",
+  "has_alpha": true,
+  "dpi": 72,
+  "theme_variant": "light",
+  "theme_group": "popout_theme_group",
+  "is_animated": false,
+  "animation_type": null,
+  "frame_count": null,
+  "duration": null,
+  "usage_count": 0,
+  "last_used": null,
+  "validation_passed": true,
+  "validation_warnings": []
+}

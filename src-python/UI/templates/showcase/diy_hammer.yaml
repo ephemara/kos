@@ -1,0 +1,112 @@
+name: "DIY Hammer - Hand Drawn"
+description: "Sketchy hand-drawn hammer tool icon"
+generator_type: "icon"
+category: "showcase"
+tags: ["diy", "handdrawn", "tool"]
+
+output_formats: ["png", "svg"]
+dimensions:
+  width: 128
+  height: 128
+
+colors: ["#8b4513", "#d2691e", "#2c2c2c"]
+
+params:
+  padding: 12
+  antialias_factor: 2
+  layers:
+    # Hammer handle (rough rectangle)
+    - type: "rect"
+      geometry:
+        x: 54
+        y: 70
+        width: 20
+        height: 50
+        rx: 3
+      fill:
+        type: "linear_gradient"
+        colors: ["#d2691e", "#8b4513"]
+        angle: 45
+      opacity: 1.0
+    
+    # Handle texture lines (sketchy)
+    - type: "rect"
+      geometry:
+        x: 56
+        y: 75
+        width: 16
+        height: 2
+      fill:
+        type: "solid"
+        colors: ["#2c2c2c"]
+      opacity: 0.3
+    
+    - type: "rect"
+      geometry:
+        x: 56
+        y: 85
+        width: 16
+        height: 2
+      fill:
+        type: "solid"
+        colors: ["#2c2c2c"]
+      opacity: 0.3
+    
+    - type: "rect"
+      geometry:
+        x: 56
+        y: 95
+        width: 16
+        height: 2
+      fill:
+        type: "solid"
+        colors: ["#2c2c2c"]
+      opacity: 0.3
+    
+    # Hammer head (rough rectangle)
+    - type: "rect"
+      geometry:
+        x: 30
+        y: 45
+        width: 68
+        height: 30
+        rx: 4
+      fill:
+        type: "solid"
+        colors: ["#2c2c2c"]
+      opacity: 1.0
+    
+    # Hammer head highlight (sketchy)
+    - type: "rect"
+      geometry:
+        x: 35
+        y: 50
+        width: 25
+        height: 8
+      fill:
+        type: "solid"
+        colors: ["#ffffff"]
+      opacity: 0.4
+      blend_mode: "overlay"
+    
+    # Claw side (triangle-ish)
+    - type: "polygon"
+      geometry:
+        points: [[30, 60], [20, 50], [30, 45]]
+      fill:
+        type: "solid"
+        colors: ["#2c2c2c"]
+      opacity: 1.0
+
+animation:
+  enabled: true
+  motion_types: ["shake"]
+  duration: 1.5
+  fps: 24
+  loop: true
+  easing: "ease-in-out"
+  output_type: "svg_smil"
+  motion_params:
+    shake:
+      intensity: 0.05
+      frequency: 8

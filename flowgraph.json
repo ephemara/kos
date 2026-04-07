@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at_utc": "2026-03-30T00:00:19.974117+00:00",
+  "generated_at_utc": "2026-04-07T04:00:08.926301+00:00",
   "display_name": "K_OS",
   "directory": "M:\\K_OS",
   "summary": {
@@ -25,8 +25,8 @@
       "src-mocap",
       "src-frontend",
       "src-python",
-      "test-docgen",
-      "src-tauri"
+      "kain",
+      "test-docgen"
     ],
     "manifests": [
       {
@@ -149,16 +149,16 @@
       "path": "M:\\K_OS\\src-python"
     },
     {
+      "id": "dir_kain",
+      "label": "kain",
+      "kind": "subdir",
+      "path": "M:\\K_OS\\kain"
+    },
+    {
       "id": "dir_test_docgen",
       "label": "test-docgen",
       "kind": "subdir",
       "path": "M:\\K_OS\\test-docgen"
-    },
-    {
-      "id": "dir_src_tauri",
-      "label": "src-tauri",
-      "kind": "subdir",
-      "path": "M:\\K_OS\\src-tauri"
     },
     {
       "id": "file_src_frontend_app_tsx",
@@ -323,6 +323,11 @@
     },
     {
       "from": "dir_dir",
+      "to": "dir_kain",
+      "kind": "contains"
+    },
+    {
+      "from": "dir_dir",
       "to": "dir_src_frontend",
       "kind": "contains"
     },
@@ -334,11 +339,6 @@
     {
       "from": "dir_dir",
       "to": "dir_src_python",
-      "kind": "contains"
-    },
-    {
-      "from": "dir_dir",
-      "to": "dir_src_tauri",
       "kind": "contains"
     },
     {

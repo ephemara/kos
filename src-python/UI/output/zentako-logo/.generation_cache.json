@@ -1,0 +1,22 @@
+{
+  "cc360fde51990d22": {
+    "template_hash": "07ee49d023992826a45c037412a3cf205bd9710ab40d6ad44dab4fa0be0030a8",
+    "generated_at": "2026-03-08T01:15:59.010489",
+    "asset_name": "zentako-logo-32",
+    "dimensions": [
+      32,
+      32
+    ],
+    "file_size": 2051
+  },
+  "8ba996128ef67bd0": {
+    "template_hash": "884c9ab14da320c6b1faf657e77c6794327249d5ee927bd620da18e1221605cd",
+    "generated_at": "2026-03-08T01:16:10.343820",
+    "asset_name": "zentako-logo-1024",
+    "dimensions": [
+      1024,
+      1024
+    ],
+    "file_size": 151732
+  }
+}

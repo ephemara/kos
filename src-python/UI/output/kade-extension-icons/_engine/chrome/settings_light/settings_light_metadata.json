@@ -1,0 +1,32 @@
+{
+  "name": "settings_light",
+  "description": "Open Kade settings, modes, and preference controls.",
+  "category": "chrome",
+  "tags": [
+    "settings",
+    "config",
+    "preferences"
+  ],
+  "generator": "icon",
+  "template_source": "settings_light",
+  "generation_timestamp": "2026-03-17T16:28:37.613664",
+  "dimensions": [
+    64,
+    64
+  ],
+  "format": "svg",
+  "file_size": 3087,
+  "color_mode": "RGBA",
+  "has_alpha": true,
+  "dpi": 72,
+  "theme_variant": "light",
+  "theme_group": "settings_theme_group",
+  "is_animated": false,
+  "animation_type": null,
+  "frame_count": null,
+  "duration": null,
+  "usage_count": 0,
+  "last_used": null,
+  "validation_passed": true,
+  "validation_warnings": []
+}

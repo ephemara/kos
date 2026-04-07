@@ -1,0 +1,99 @@
+mod_ texture:
+    enum_ TextureSlot:
+        BaseColor
+        Metallic
+        Roughness
+        Normal
+        AmbientOcclusion
+        Emissive
+        Height
+        Opacity
+
+        struct_ TextureInfo:
+            path: PathBuf
+            uv_channel: u8
+            scale_x: f32
+            scale_y: f32
+            offset_x: f32
+            offset_y: f32
+            rotation: f32
+            srgb: Bool
+
+            fn texture_slot_name(slot: TextureSlot) -> String:
+                match slot:
+                    BaseColor => "Base Color"
+                    Metallic => "Metallic"
+                    Roughness => "Roughness"
+                    Normal => "Normal"
+                    AmbientOcclusion => "Ambient Occlusion"
+                    Emissive => "Emissive"
+                    Height => "Height"
+                    Opacity => "Opacity"
+
+                    fn texture_slot_suffix(slot: TextureSlot) -> String:
+                        match slot:
+                            BaseColor => "_albedo"
+                            Metallic => "_metallic"
+                            Roughness => "_roughness"
+                            Normal => "_normal"
+                            AmbientOcclusion => "_ao"
+                            Emissive => "_emissive"
+                            Height => "_height"
+                            Opacity => "_opacity"
+
+                            fn all_texture_slots() -> Array<TextureSlot>:
+                                [
+                                TextureSlot::BaseColor,
+                                TextureSlot::Metallic,
+                                TextureSlot::Roughness,
+                                TextureSlot::Normal,
+                                TextureSlot::AmbientOcclusion,
+                                TextureSlot::Emissive,
+                                TextureSlot::Height,
+                                TextureSlot::Opacity,
+                                ]
+
+                                fn create_texture_info(path: PathBuf) -> TextureInfo:
+                                    TextureInfo(
+                                    path = path,
+                                    uv_channel = 0,
+                                    scale_x = 1.0,
+                                    scale_y = 1.0,
+                                    offset_x = 0.0,
+                                    offset_y = 0.0,
+                                    rotation = 0.0,
+                                    srgb = true,
+                                    )
+
+                                    fn create_data_texture_info(path: PathBuf) -> TextureInfo:
+                                        let info = create_texture_info(path)
+                                        info.srgb = false
+                                        info
+
+                                        fn set_uv_channel(info: TextureInfo, channel: u8) -> TextureInfo:
+                                            info.uv_channel = min(channel, 3)
+                                            info
+
+                                            fn set_scale(info: TextureInfo, scale_x: f32, scale_y: f32) -> TextureInfo:
+                                                info.scale_x = scale_x
+                                                info.scale_y = scale_y
+                                                info
+
+                                                fn set_offset(info: TextureInfo, offset_x: f32, offset_y: f32) -> TextureInfo:
+                                                    info.offset_x = offset_x
+                                                    info.offset_y = offset_y
+                                                    info
+
+                                                    fn set_rotation(info: TextureInfo, rotation: f32) -> TextureInfo:
+                                                        info.rotation = rotation
+                                                        info
+
+                                                        fn is_color_texture(slot: TextureSlot) -> Bool:
+                                                            slot == TextureSlot::BaseColor || slot == TextureSlot::Emissive
+
+                                                            fn normalize_texture_info(slot: TextureSlot, info: TextureInfo) -> TextureInfo:
+                                                                if is_color_texture(slot):
+                                                                    info.srgb = true
+                                                                    else:
+                                                                        info.srgb = false
+                                                                        info

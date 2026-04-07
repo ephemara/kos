@@ -1,0 +1,71 @@
+# Clean repair lane for cache helpers
+
+struct_ AssetCache:
+    cache_dir: std::path::PathBuf
+    memory_cache: Map<String, crate::asset::Asset>
+
+    struct_ CacheStats:
+        memory_entries: usize
+        disk_entries: usize
+
+        impl_ AssetCache:
+            fn new_(cache_dir: std::path::PathBuf) -> Result<Self_, Error>:
+                if !cache_dir.exists():
+                    std::fs::create_dir_all(&cache_dir)?
+                    Self_:
+                        cache_dir: cache_dir
+                        memory_cache: Map<String, crate::asset::Asset>::new()
+
+                        fn get(_self: &Self_, path: &std::path::Path) -> Result<Option<crate::asset::Asset>, Error>:
+                            let current_hash = crate::hash::hash_file(path)?
+                            if let Some(asset) = _self.memory_cache.get(&current_hash):
+                                return Ok(Some(asset.clone()))
+
+                                let cache_path = _self.get_cache_path(&current_hash)
+                                if cache_path.exists():
+                                    match _self.load_from_disk(&cache_path):
+                                        Ok(asset):
+                                            _self.memory_cache.insert(current_hash, asset.clone())
+                                            Ok(Some(asset))
+                                            Err(_e):
+                                                Ok(None)
+                                                else:
+                                                    Ok(None)
+
+                                                    fn put(_self: &Self_, asset: &crate::asset::Asset) -> Result<(), Error>:
+                                                        let hash = asset.id.clone()
+                                                        _self.memory_cache.insert(hash.clone(), asset.clone())
+                                                        let cache_path = _self.get_cache_path(&hash)
+                                                        _self.save_to_disk(asset, &cache_path)
+
+                                                        fn clear(_self: &Self_) -> Result<(), Error>:
+                                                            _self.memory_cache.clear()
+                                                            if _self.cache_dir.exists():
+                                                                std::fs::remove_dir_all(&_self.cache_dir)?
+                                                                std::fs::create_dir_all(&_self.cache_dir)?
+                                                                Ok(())
+
+                                                                fn stats(_self: &Self_) -> CacheStats:
+                                                                    let memory_count = _self.memory_cache.len()
+                                                                    let disk_count = match std::fs::read_dir(&_self.cache_dir):
+                                                                        Ok(entries): entries.filter_map(|e| e.ok()).count()
+                                                                        Err(_): 0
+                                                                        CacheStats:
+                                                                            memory_entries: memory_count
+                                                                            disk_entries: disk_count
+
+                                                                            fn get_cache_path(_self: &Self_, hash: &String) -> std::path::PathBuf:
+                                                                                _self.cache_dir.join(hash + ".json")
+
+                                                                                fn save_to_disk(_self: &Self_, asset: &crate::asset::Asset, path: &std::path::Path) -> Result<(), Error>:
+                                                                                    let json = serde_json::to_string_pretty(asset)?
+                                                                                    std::fs::write(path, json)?
+                                                                                    Ok(())
+
+                                                                                    fn load_from_disk(_self: &Self_, path: &std::path::Path) -> Result<crate::asset::Asset, Error>:
+                                                                                        let json = std::fs::read_to_string(path)?
+                                                                                        let asset = serde_json::from_str(&json)?
+                                                                                        Ok(asset)
+
+                                                                                        # Note: this lane keeps the cache logic concrete, but leaves persistence format migration and
+                                                                                        # cache eviction policy out of scope for now.

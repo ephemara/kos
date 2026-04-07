@@ -1,0 +1,35 @@
+{
+  "name": "object-stacked-assets",
+  "description": "Cartoon object suite icon",
+  "category": "cartoon-suite/object",
+  "tags": [
+    "cartoon",
+    "suite",
+    "object",
+    "pulse",
+    "transparent",
+    "solid-color"
+  ],
+  "generator": "icon",
+  "template_source": "object-stacked-assets",
+  "generation_timestamp": "2026-03-07T19:00:07.311685",
+  "dimensions": [
+    96,
+    96
+  ],
+  "format": "png",
+  "file_size": 18610,
+  "color_mode": "RGBA",
+  "has_alpha": true,
+  "dpi": 72,
+  "theme_variant": null,
+  "theme_group": null,
+  "is_animated": true,
+  "animation_type": "pulse",
+  "frame_count": 17,
+  "duration": 1.25,
+  "usage_count": 0,
+  "last_used": null,
+  "validation_passed": true,
+  "validation_warnings": []
+}

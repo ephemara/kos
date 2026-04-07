@@ -1,0 +1,165 @@
+name: "Cosmic Nebula - Insane"
+description: "Multi-layer cosmic effect with complex blending"
+generator_type: "icon"
+category: "showcase"
+tags: ["insane", "cosmic", "nebula"]
+
+output_formats: ["png", "svg"]
+dimensions:
+  width: 128
+  height: 128
+
+colors: ["#ff1493", "#00bfff", "#9400d3", "#ffd700"]
+
+params:
+  padding: 8
+  antialias_factor: 3
+  layers:
+    # Deep space background
+    - type: "circle"
+      geometry:
+        cx: 64
+        cy: 64
+        r: 60
+      fill:
+        type: "radial_gradient"
+        colors: ["#1a0033", "#000000"]
+        stops: [0.0, 1.0]
+      opacity: 1.0
+    
+    # Nebula cloud 1 (large)
+    - type: "circle"
+      geometry:
+        cx: 50
+        cy: 50
+        r: 35
+      fill:
+        type: "radial_gradient"
+        colors: ["#ff1493", "#9400d3", "#00000000"]
+        stops: [0.0, 0.6, 1.0]
+      opacity: 0.7
+      blend_mode: "screen"
+    
+    # Nebula cloud 2 (overlapping)
+    - type: "circle"
+      geometry:
+        cx: 78
+        cy: 78
+        r: 32
+      fill:
+        type: "radial_gradient"
+        colors: ["#00bfff", "#9400d3", "#00000000"]
+        stops: [0.0, 0.6, 1.0]
+      opacity: 0.7
+      blend_mode: "screen"
+    
+    # Nebula cloud 3 (accent)
+    - type: "circle"
+      geometry:
+        cx: 70
+        cy: 45
+        r: 25
+      fill:
+        type: "radial_gradient"
+        colors: ["#ffd700", "#ff1493", "#00000000"]
+        stops: [0.0, 0.5, 1.0]
+      opacity: 0.6
+      blend_mode: "screen"
+    
+    # Star field (small bright dots)
+    - type: "circle"
+      geometry:
+        cx: 30
+        cy: 35
+        r: 2
+      fill:
+        type: "solid"
+        colors: ["#ffffff"]
+      opacity: 0.9
+      blend_mode: "screen"
+    
+    - type: "circle"
+      geometry:
+        cx: 85
+        cy: 50
+        r: 2
+      fill:
+        type: "solid"
+        colors: ["#ffffff"]
+      opacity: 0.9
+      blend_mode: "screen"
+    
+    - type: "circle"
+      geometry:
+        cx: 45
+        cy: 90
+        r: 2
+      fill:
+        type: "solid"
+        colors: ["#ffffff"]
+      opacity: 0.9
+      blend_mode: "screen"
+    
+    - type: "circle"
+      geometry:
+        cx: 95
+        cy: 85
+        r: 2
+      fill:
+        type: "solid"
+        colors: ["#ffffff"]
+      opacity: 0.9
+      blend_mode: "screen"
+    
+    - type: "circle"
+      geometry:
+        cx: 60
+        cy: 25
+        r: 2
+      fill:
+        type: "solid"
+        colors: ["#ffffff"]
+      opacity: 0.9
+      blend_mode: "screen"
+    
+    # Bright star (center)
+    - type: "circle"
+      geometry:
+        cx: 64
+        cy: 64
+        r: 8
+      fill:
+        type: "radial_gradient"
+        colors: ["#ffffff", "#ffd700", "#00000000"]
+        stops: [0.0, 0.4, 1.0]
+      opacity: 1.0
+      blend_mode: "screen"
+    
+    # Star glow
+    - type: "circle"
+      geometry:
+        cx: 64
+        cy: 64
+        r: 16
+      fill:
+        type: "radial_gradient"
+        colors: ["#ffffff", "#00000000"]
+        stops: [0.0, 1.0]
+      opacity: 0.5
+      blend_mode: "screen"
+
+animation:
+  enabled: true
+  motion_types: ["pulse", "drift"]
+  duration: 5.0
+  fps: 30
+  loop: true
+  easing: "ease-in-out"
+  output_type: "svg_smil"
+  motion_params:
+    pulse:
+      scale_min: 0.98
+      scale_max: 1.02
+    drift:
+      amplitude: 0.03
+      frequency: 1

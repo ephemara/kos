@@ -1,0 +1,25 @@
+# Example: Checkerboard Pattern
+# Demonstrates: Tileable pattern generation
+
+name: "Checkerboard Pattern"
+description: "Classic checkerboard pattern for backgrounds"
+generator_type: "pattern"
+category: "geometric"
+tags: ["pattern", "checkerboard", "tileable"]
+
+output_formats:
+  - "png"
+
+dimensions:
+  width: 128
+  height: 128
+
+params:
+  pattern_type: "checkerboard"
+  cell_size: 16
+  colors:
+    - "#ffffff"
+    - "#cccccc"
+  tileable: true
+
+version: "1.0"

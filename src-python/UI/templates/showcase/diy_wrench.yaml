@@ -1,0 +1,93 @@
+name: "DIY Wrench - Bouncy"
+description: "Hand-drawn wrench with elastic bounce"
+generator_type: "icon"
+category: "showcase"
+tags: ["diy", "handdrawn", "tool"]
+
+output_formats: ["png", "svg"]
+dimensions:
+  width: 128
+  height: 128
+
+colors: ["#708090", "#2c2c2c"]
+
+params:
+  padding: 12
+  antialias_factor: 2
+  layers:
+    # Wrench handle
+    - type: "rect"
+      geometry:
+        x: 50
+        y: 70
+        width: 28
+        height: 50
+        rx: 4
+      fill:
+        type: "linear_gradient"
+        colors: ["#708090", "#556677"]
+        angle: 45
+      opacity: 1.0
+    
+    # Wrench head opening (two rectangles)
+    - type: "rect"
+      geometry:
+        x: 45
+        y: 30
+        width: 12
+        height: 45
+        rx: 2
+      fill:
+        type: "solid"
+        colors: ["#708090"]
+      opacity: 1.0
+    
+    - type: "rect"
+      geometry:
+        x: 71
+        y: 30
+        width: 12
+        height: 45
+        rx: 2
+      fill:
+        type: "solid"
+        colors: ["#708090"]
+      opacity: 1.0
+    
+    # Opening gap (dark)
+    - type: "rect"
+      geometry:
+        x: 57
+        y: 30
+        width: 14
+        height: 25
+      fill:
+        type: "solid"
+        colors: ["#2c2c2c"]
+      opacity: 0.6
+    
+    # Highlight
+    - type: "rect"
+      geometry:
+        x: 52
+        y: 75
+        width: 8
+        height: 20
+      fill:
+        type: "solid"
+        colors: ["#ffffff"]
+      opacity: 0.3
+      blend_mode: "overlay"
+
+animation:
+  enabled: true
+  motion_types: ["elastic"]
+  duration: 2.5
+  fps: 24
+  loop: true
+  easing: "ease-out"
+  output_type: "svg_smil"
+  motion_params:
+    elastic:
+      amplitude: 0.15
+      frequency: 4

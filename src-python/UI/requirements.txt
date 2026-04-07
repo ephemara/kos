@@ -1,0 +1,25 @@
+# UI Forge - Core Dependencies
+# Python-based procedural UI asset generation system for K_OS DCC Suite
+
+# Core Image Processing
+Pillow>=10.0.0          # Image generation and manipulation
+numpy>=1.24.0           # High-performance array operations
+
+# Vector Graphics
+svgwrite>=1.4.3         # SVG generation with proper structure
+cairosvg>=2.7.0         # SVG to raster conversion
+
+# Data Formats
+pyyaml>=6.0             # YAML template parsing
+jsonschema>=4.17.0      # Template validation
+
+# Optional Advanced Features
+scipy>=1.11.0           # Scientific computing (for morphological operations)
+scikit-image>=0.21.0    # Advanced image processing (optional)
+noise>=1.2.2            # Perlin/simplex noise generation (optional)
+
+# Development Dependencies (optional)
+pytest>=7.4.0           # Testing framework
+pytest-asyncio>=0.21.0  # Async test support
+black>=23.0.0           # Code formatting
+ruff>=0.0.280           # Fast Python linter
