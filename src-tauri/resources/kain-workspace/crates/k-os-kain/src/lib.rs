@@ -281,7 +281,9 @@ pub fn list_sources() -> &'static [KainSourceAsset] {
 }
 
 pub fn list_runtime_apps() -> &'static [KainRuntimeAppAsset] {
-    RUNTIME_APP_REGISTRY.get_or_init(load_runtime_manifest).as_slice()
+    RUNTIME_APP_REGISTRY
+        .get_or_init(load_runtime_manifest)
+        .as_slice()
 }
 
 pub fn sources_for_domain(domain: KainDomain) -> Vec<&'static KainSourceAsset> {
@@ -320,8 +322,11 @@ pub fn workspace_root() -> PathBuf {
         }
     }
 
-    find_workspace_root(Path::new(env!("CARGO_MANIFEST_DIR")))
-        .unwrap_or_else(|| PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("..").join(".."))
+    find_workspace_root(Path::new(env!("CARGO_MANIFEST_DIR"))).unwrap_or_else(|| {
+        PathBuf::from(env!("CARGO_MANIFEST_DIR"))
+            .join("..")
+            .join("..")
+    })
 }
 
 pub fn domain_dir(domain: KainDomain) -> PathBuf {
@@ -380,6 +385,31 @@ pub fn generated_runtime_ts_registry_path() -> PathBuf {
 
 pub fn generated_runtime_json_registry_path() -> PathBuf {
     generated_dir().join("json").join("runtime_registry.json")
+}
+
+pub fn fabric_dir() -> PathBuf {
+    workspace_root()
+        .join("crates")
+        .join("k-os-kain")
+        .join("fabric")
+}
+
+pub fn fabric_workspace_dir(workspace_name: &str) -> PathBuf {
+    fabric_dir().join(workspace_name)
+}
+
+pub fn zen_dcc_fabric_dir() -> PathBuf {
+    fabric_workspace_dir("zen-dcc")
+}
+
+pub fn zen_dcc_fabric_manifest_path() -> PathBuf {
+    zen_dcc_fabric_dir().join("KAIN.fabric.toml")
+}
+
+pub fn zen_dcc_fabric_intent_registry_path() -> PathBuf {
+    zen_dcc_fabric_dir()
+        .join("config")
+        .join("fabric_intents.json")
 }
 
 pub fn manifest_path() -> PathBuf {
@@ -472,11 +502,9 @@ pub fn compile_source(
             | KainCliTarget::Ks
             | KainCliTarget::Hybrid
             | KainCliTarget::Rust
-            | KainCliTarget::Cpp => {
-                fs::read_to_string(&out_path)
-                    .ok()
-                    .or_else(|| String::from_utf8(out.stdout.clone()).ok())
-            }
+            | KainCliTarget::Cpp => fs::read_to_string(&out_path)
+                .ok()
+                .or_else(|| String::from_utf8(out.stdout.clone()).ok()),
             _ => fs::read(&out_path).ok().map(|bytes| base64_encode(&bytes)),
         };
 
@@ -490,7 +518,11 @@ pub fn compile_source(
             success: true,
             output,
             output_path,
-            errors: if stderr_str.is_empty() { None } else { Some(stderr_str) },
+            errors: if stderr_str.is_empty() {
+                None
+            } else {
+                Some(stderr_str)
+            },
             duration_ms,
         })
     } else {
@@ -547,7 +579,10 @@ pub fn build_file(
     }
 
     let mut cmd = Command::new(resolve_cli_bin());
-    cmd.arg("build").arg(&src_path).arg("-t").arg(target.as_str());
+    cmd.arg("build")
+        .arg(&src_path)
+        .arg("-t")
+        .arg(target.as_str());
 
     if let Some(ref out) = output {
         let out_path = if Path::new(out).is_absolute() {
@@ -668,11 +703,17 @@ pub fn validate_all_shaders_for_domain(domain: KainDomain) -> Vec<ValidationResu
 
 pub mod generated {
     pub mod spv {
-        include!(concat!(env!("CARGO_MANIFEST_DIR"), "/generated/rust/spv_registry.rs"));
+        include!(concat!(
+            env!("CARGO_MANIFEST_DIR"),
+            "/generated/rust/spv_registry.rs"
+        ));
     }
 
     pub mod runtime {
-        include!(concat!(env!("CARGO_MANIFEST_DIR"), "/generated/rust/runtime_registry.rs"));
+        include!(concat!(
+            env!("CARGO_MANIFEST_DIR"),
+            "/generated/rust/runtime_registry.rs"
+        ));
     }
 }
 
@@ -768,10 +809,18 @@ pub fn print_validation_report(results: &[ValidationResult]) {
 fn load_manifest() -> Vec<KainSourceAsset> {
     let manifest = manifest_path();
     let contents = fs::read_to_string(&manifest).unwrap_or_else(|err| {
-        panic!("Failed to load KAIN manifest '{}': {}", manifest.display(), err)
+        panic!(
+            "Failed to load KAIN manifest '{}': {}",
+            manifest.display(),
+            err
+        )
     });
     serde_json::from_str::<Vec<KainSourceAsset>>(&contents).unwrap_or_else(|err| {
-        panic!("Failed to parse KAIN manifest '{}': {}", manifest.display(), err)
+        panic!(
+            "Failed to parse KAIN manifest '{}': {}",
+            manifest.display(),
+            err
+        )
     })
 }
 
@@ -820,12 +869,28 @@ fn base64_encode(bytes: &[u8]) -> String {
     let mut out = String::with_capacity(((bytes.len() + 2) / 3) * 4);
     for chunk in bytes.chunks(3) {
         let b0 = chunk[0] as usize;
-        let b1 = if chunk.len() > 1 { chunk[1] as usize } else { 0 };
-        let b2 = if chunk.len() > 2 { chunk[2] as usize } else { 0 };
+        let b1 = if chunk.len() > 1 {
+            chunk[1] as usize
+        } else {
+            0
+        };
+        let b2 = if chunk.len() > 2 {
+            chunk[2] as usize
+        } else {
+            0
+        };
         out.push(CHARS[b0 >> 2] as char);
         out.push(CHARS[((b0 & 3) << 4) | (b1 >> 4)] as char);
-        out.push(if chunk.len() > 1 { CHARS[((b1 & 0xf) << 2) | (b2 >> 6)] as char } else { '=' });
-        out.push(if chunk.len() > 2 { CHARS[b2 & 0x3f] as char } else { '=' });
+        out.push(if chunk.len() > 1 {
+            CHARS[((b1 & 0xf) << 2) | (b2 >> 6)] as char
+        } else {
+            '='
+        });
+        out.push(if chunk.len() > 2 {
+            CHARS[b2 & 0x3f] as char
+        } else {
+            '='
+        });
     }
     out
 }
@@ -857,14 +922,18 @@ mod tests {
         assert!(!imports.is_empty());
         assert!(fluid.iter().any(|asset| asset.id == "fluid_builder_kernel"));
         assert!(brush.iter().any(|asset| asset.id == "brush_builder_kernel"));
-        assert!(shader.iter().any(|asset| asset.id == "shader_builder_kernel"));
+        assert!(shader
+            .iter()
+            .any(|asset| asset.id == "shader_builder_kernel"));
         assert!(procedural
             .iter()
             .any(|asset| asset.id == "procedural_builder_kernel"));
         assert!(kainscript
             .iter()
             .any(|asset| asset.id == "kainscript_builder_kernel"));
-        assert!(imported_sources().iter().any(|asset| asset.id == "perlin_noise"));
+        assert!(imported_sources()
+            .iter()
+            .any(|asset| asset.id == "perlin_noise"));
         assert!(imported_sources_for_language(KainImportLanguage::C)
             .iter()
             .any(|asset| asset.id == "perlin_noise"));
@@ -872,7 +941,10 @@ mod tests {
 
     #[test]
     fn import_language_directories_cover_all_enabled_importer_families() {
-        assert_eq!(imports_language_dir(KainImportLanguage::C), imports_dir().join("c"));
+        assert_eq!(
+            imports_language_dir(KainImportLanguage::C),
+            imports_dir().join("c")
+        );
         assert_eq!(
             imports_language_dir(KainImportLanguage::Typescript),
             imports_dir().join("typescript")

@@ -8,6 +8,7 @@ const __dirname = path.dirname(__filename);
 const rootDir = path.resolve(__dirname, '..');
 const manifestPath = path.join(rootDir, 'config', 'release-manifest.json');
 const manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
+const isWindows = process.platform === 'win32';
 
 function formatCommand(command, args) {
   return [command, ...args].join(' ');
@@ -61,6 +62,19 @@ function fileExists(targetPath) {
   return fs.existsSync(targetPath);
 }
 
+function normalizeExecutablePath(relativePath) {
+  return isWindows ? relativePath : relativePath.replace(/\.exe$/g, '');
+}
+
+function resolveArtifactPath(relativePath) {
+  const normalizedPath = path.join(rootDir, normalizeExecutablePath(relativePath));
+  if (fileExists(normalizedPath)) {
+    return normalizedPath;
+  }
+
+  return path.join(rootDir, relativePath);
+}
+
 function ensureLegacyDependencies(legacyWorkingDir) {
   const nodeModulesDir = path.join(legacyWorkingDir, 'node_modules');
   if (fileExists(nodeModulesDir)) {
@@ -76,6 +90,11 @@ function buildLegacyBundle() {
   const legacyWorkingDir = path.join(rootDir, legacyConfig.workingDir);
   const legacyDistDir = path.join(legacyWorkingDir, legacyConfig.distDir);
   const legacyStageDir = path.join(rootDir, legacyConfig.stageDir);
+
+  if (!fileExists(legacyWorkingDir)) {
+    console.warn(`[release] Skipping legacy bundle staging because ${legacyWorkingDir} is missing.`);
+    return false;
+  }
 
   ensureLegacyDependencies(legacyWorkingDir);
 
@@ -97,6 +116,8 @@ function buildLegacyBundle() {
     const targetPath = path.join(legacyStageDir, path.basename(extraFile));
     fs.copyFileSync(sourcePath, targetPath);
   }
+
+  return true;
 }
 
 function stageRuntimeResources() {
@@ -128,8 +149,8 @@ function stageNativeLaunchers() {
     console.log(`[release] Building native launcher '${launcher.id}'...`);
     run(launcher.build.command, launcher.build.args ?? [], { cwd: rootDir });
 
-    const binaryPath = path.join(rootDir, launcher.binary);
-    const bundleTargetPath = path.join(rootDir, launcher.bundleTarget);
+    const binaryPath = resolveArtifactPath(launcher.binary);
+    const bundleTargetPath = path.join(rootDir, normalizeExecutablePath(launcher.bundleTarget));
     if (!fileExists(binaryPath)) {
       throw new Error(`Native launcher binary missing: ${binaryPath}`);
     }
@@ -160,8 +181,14 @@ function stagePythonSidecar() {
   const pythonConfig = manifest.pythonSidecar;
   const artifactPath = path.join(rootDir, pythonConfig.artifact);
   const bundleTargetPath = path.join(rootDir, pythonConfig.bundleTarget);
-  const legacySingleFileTargetPath = path.join(rootDir, 'src-tauri', 'resources', 'bin', 'kos_python.exe');
-  const entryPointPath = path.join(artifactPath, pythonConfig.entryPoint);
+  const legacySingleFileTargetPath = path.join(
+    rootDir,
+    'src-tauri',
+    'resources',
+    'bin',
+    isWindows ? 'kos_python.exe' : 'kos_python'
+  );
+  const entryPointPath = path.join(artifactPath, normalizeExecutablePath(pythonConfig.entryPoint));
   const pythonSidecarEnabled =
     process.env.KOS_INCLUDE_PYTHON_SIDECAR === '1' ||
     pythonConfig.enabledByDefault !== false;
@@ -193,7 +220,12 @@ function stagePythonSidecar() {
 
 function verifyMainFrontendDist() {
   const distDir = path.join(rootDir, 'dist');
-  const requiredFiles = ['index.html', 'mocap-window.html', 'webcam-window.html', manifest.legacyBundle.entryPoint];
+  const requiredFiles = ['index.html', 'mocap-window.html', 'webcam-window.html'];
+
+  const legacyEntryPoint = manifest.legacyBundle?.entryPoint;
+  if (legacyEntryPoint && fileExists(path.join(distDir, legacyEntryPoint))) {
+    requiredFiles.push(legacyEntryPoint);
+  }
 
   for (const relativePath of requiredFiles) {
     const fullPath = path.join(distDir, relativePath);

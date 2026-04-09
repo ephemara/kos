@@ -26,3 +26,9 @@ keys = ["ShiftLeft", "ShiftRight"]
 
 [actions.look_modifier]
 keys = ["MouseRight"]
+
+[actions.focus_selection]
+keys = ["KeyF"]
+
+[actions.frame_scene]
+keys = ["KeyH"]

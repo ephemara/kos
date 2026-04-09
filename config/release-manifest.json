@@ -30,7 +30,7 @@
         ]
       },
       "binary": "target/release/zen.exe",
-      "bundleTarget": "src-tauri/resources/bin/zen.exe",
+      "bundleTarget": "src-tauri/resources/bin/zen/zen.exe",
       "resourceCopies": [
         {
           "source": "crates/zen/resources/runtime.toml",

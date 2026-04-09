@@ -393,9 +393,9 @@ export default function KGraphos({ sharedState, onCommit, onAlphaCommit, onMater
             targets: ['spirv', 'hlsl', 'wasm'],
             toolchain: {
                 enabled: true,
-                kainRoot: 'M:/Code/Kain',
-                asmCrateDir: 'M:/Code/Kain/crates/kain-asm',
-                webCrateDir: 'M:/Code/Kain/crates/web',
+                kainRoot: '.',
+                asmCrateDir: 'crates/k-os-kain',
+                webCrateDir: 'crates/k-os-kain',
                 cliBin: 'kain',
             },
         };

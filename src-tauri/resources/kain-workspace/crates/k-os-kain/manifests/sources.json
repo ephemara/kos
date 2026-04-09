@@ -454,6 +454,14 @@
     "target": "spirv"
   },
   {
+    "id": "renderer_zen_atmosphere",
+    "label": "Renderer Zen Atmosphere",
+    "domain": "renderer",
+    "source_path": "crates/k-os-kain/domains/renderer/renderer_zen_atmosphere.kn",
+    "compiled_path": "crates/k-os-kain/generated/spv/renderer/renderer_zen_atmosphere.spv",
+    "target": "spirv"
+  },
+  {
     "id": "material_pbr_standard",
     "label": "Material PBR Standard",
     "domain": "materials",

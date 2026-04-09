@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "intents": [
+    {
+      "id": "project.bootstrap",
+      "label": "Project Bootstrap",
+      "lane": "core",
+      "summary": "Seeds the embedded Zen DCC workspace and publishes a native session summary.",
+      "graph": "fabric/intents/project_bootstrap.fabric.toml",
+      "debounce_ms": 0,
+      "produces": ["session_summary", "viewport_seed"]
+    },
+    {
+      "id": "asset.ingest",
+      "label": "Asset Ingest",
+      "lane": "ingest",
+      "summary": "Projects a Zen-facing ingest report from the current embedded asset source.",
+      "graph": "fabric/intents/asset_ingest.fabric.toml",
+      "debounce_ms": 0,
+      "produces": ["asset_ingest_report"]
+    },
+    {
+      "id": "material.bake_preview",
+      "label": "Material Bake Preview",
+      "lane": "material",
+      "summary": "Seeds preview buffers and runs a GPU preview bake for live lookdev feedback.",
+      "graph": "fabric/intents/material_bake_preview.fabric.toml",
+      "debounce_ms": 16,
+      "produces": ["preview_dst", "preview_session_report"]
+    },
+    {
+      "id": "topology.rebuild",
+      "label": "Topology Rebuild",
+      "lane": "topology",
+      "summary": "Runs Rust graph analysis over the Zen DCC tensor buffer and emits a topology report.",
+      "graph": "fabric/intents/topology_rebuild.fabric.toml",
+      "debounce_ms": 120,
+      "produces": ["topology_report"]
+    },
+    {
+      "id": "publish.package",
+      "label": "Publish Package",
+      "lane": "publish",
+      "summary": "Bundles the current Zen DCC seed, GPU preview, and topology report into a publish summary.",
+      "graph": "fabric/intents/publish_package.fabric.toml",
+      "debounce_ms": 0,
+      "produces": ["publish_summary"]
+    }
+  ]
+}

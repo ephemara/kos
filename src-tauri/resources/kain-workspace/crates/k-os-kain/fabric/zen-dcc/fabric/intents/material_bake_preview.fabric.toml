@@ -1,0 +1,52 @@
+version = 1
+
+[workspace]
+root = "."
+search_roots = ["src", "scripts", "shaders"]
+
+[[requires]]
+key = "session.local"
+version = 1
+optional = false
+
+[[steps]]
+id = "python_seed"
+runtime = "python"
+entry = "scripts/python_seed.py"
+
+[[steps.outputs]]
+name = "project_settings"
+kind = "value"
+
+[[steps]]
+id = "zen_dcc_seed"
+runtime = "kain"
+entry = "src/seed.kn"
+depends_on = ["python_seed"]
+
+[[steps.outputs]]
+name = "preview_src"
+kind = "shared_buffer"
+
+[[steps.outputs]]
+name = "preview_dst"
+kind = "shared_buffer"
+
+[[steps.outputs]]
+name = "preview_session_report"
+kind = "value"
+
+[[steps]]
+id = "gpu_material_preview"
+runtime = "gpu_compute"
+shader_source = "shaders/material_bake_preview.kn"
+compute_key = "ZenDccMaterialBakePreview"
+depends_on = ["zen_dcc_seed"]
+
+[[steps.outputs]]
+name = "preview_dst"
+kind = "shared_buffer"
+
+[reports]
+directory = ".kain/fabric/intents/material_bake_preview"
+emit_jsonl_events = true

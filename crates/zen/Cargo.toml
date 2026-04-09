@@ -15,10 +15,10 @@ egui_dock = { version = "0.17", features = ["serde"] }
 egui-winit = "0.32"
 egui_wgpu_backend = "0.35"
 glam = "0.30"
-kain-core = { path = "../../../Code/Kain/crates/kain-core" }
-kain-host = { path = "../../../Code/Kain/crates/kain-host" }
-kain-omni = { path = "../../../Code/Kain/crates/kain-omni", default-features = false }
-kain-ui = { path = "../../../Code/Kain/crates/kain-ui" }
+kain-core = { path = "../../../../Kain/crates/kain-core" }
+kain-host = { path = "../../../../Kain/crates/kain-host" }
+kain-omni = { path = "../../../../Kain/crates/kain-omni", default-features = false }
+kain-ui = { path = "../../../../Kain/crates/kain-ui" }
 k-os-asset-pipeline = { path = "../k-os-asset-pipeline" }
 k-os-kain = { path = "../k-os-kain" }
 k-os-scene = { path = "../k-os-scene" }

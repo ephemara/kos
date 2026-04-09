@@ -321,11 +321,13 @@ fn resolve_kain_cli(app: &tauri::AppHandle, request: &KainCompileRequest) -> Str
         }
     }
 
-    if let Ok(resource_path) = app.path().resolve(
-        "resources/bin/kain.exe",
-        tauri::path::BaseDirectory::Resource,
-    ) {
-        candidates.push(resource_path.to_string_lossy().to_string());
+    for relative_path in ["resources/bin/kain", "resources/bin/kain.exe"] {
+        if let Ok(resource_path) = app
+            .path()
+            .resolve(relative_path, tauri::path::BaseDirectory::Resource)
+        {
+            candidates.push(resource_path.to_string_lossy().to_string());
+        }
     }
 
     if !request.toolchain.cli_bin.trim().is_empty() {
@@ -336,6 +338,20 @@ fn resolve_kain_cli(app: &tauri::AppHandle, request: &KainCompileRequest) -> Str
     candidates.push("M:/Code/target/release/kain.exe".to_string());
     candidates.push("M:/code/Kain/target/release/kain.exe".to_string());
     candidates.push("M:/Code/Kain/target/release/kain.exe".to_string());
+    if let Ok(current_dir) = std::env::current_dir() {
+        candidates.push(
+            current_dir
+                .join("../../Kain/target/release/kain")
+                .to_string_lossy()
+                .to_string(),
+        );
+        candidates.push(
+            current_dir
+                .join("../../Kain/target/release/kain.exe")
+                .to_string_lossy()
+                .to_string(),
+        );
+    }
 
     for candidate in candidates {
         if candidate.eq_ignore_ascii_case("kain") {
@@ -355,15 +371,37 @@ fn resolve_kain_workdir(
 ) -> std::path::PathBuf {
     use std::path::PathBuf;
 
-    let requested = PathBuf::from(&request.toolchain.kain_root);
-    if requested.exists() {
-        return requested;
+    let requested_root = request.toolchain.kain_root.trim();
+    if !requested_root.is_empty() {
+        let requested = PathBuf::from(requested_root);
+        if requested.exists() {
+            return requested;
+        }
+    }
+
+    if let Ok(env_root) = std::env::var("KAIN_WORKSPACE_ROOT") {
+        let env_root = env_root.trim();
+        if !env_root.is_empty() {
+            let env_path = PathBuf::from(env_root);
+            if env_path.exists() {
+                return env_path;
+            }
+        }
     }
 
     let workspace_crate = std::env::current_dir()
         .ok()
         .map(|cwd| cwd.join("crates").join("k-os-kain"));
     if let Some(path) = workspace_crate {
+        if path.exists() {
+            return path;
+        }
+    }
+
+    let parent_workspace_crate = std::env::current_dir()
+        .ok()
+        .and_then(|cwd| cwd.parent().map(|parent| parent.join("crates").join("k-os-kain")));
+    if let Some(path) = parent_workspace_crate {
         if path.exists() {
             return path;
         }
@@ -387,9 +425,12 @@ fn resolve_kain_output_root(
 ) -> std::path::PathBuf {
     use std::path::PathBuf;
 
-    let web_crate = PathBuf::from(&request.toolchain.web_crate_dir);
-    if web_crate.exists() {
-        return web_crate.join("generated");
+    let web_crate_dir = request.toolchain.web_crate_dir.trim();
+    if !web_crate_dir.is_empty() {
+        let web_crate = PathBuf::from(web_crate_dir);
+        if web_crate.exists() {
+            return web_crate.join("generated");
+        }
     }
 
     let workspace_output = std::env::current_dir()
@@ -426,12 +467,17 @@ fn seed_bundled_runtime_env(app: &tauri::AppHandle) {
         .map(|v| v.trim().is_empty())
         .unwrap_or(true)
     {
-        if let Ok(path) = app.path().resolve(
-            "resources/bin/kain.exe",
-            tauri::path::BaseDirectory::Resource,
-        ) {
+        for relative_path in ["resources/bin/kain", "resources/bin/kain.exe"] {
+            let Ok(path) = app
+                .path()
+                .resolve(relative_path, tauri::path::BaseDirectory::Resource)
+            else {
+                continue;
+            };
+
             if path.exists() {
                 std::env::set_var("KAIN_BIN_PATH", path);
+                break;
             }
         }
     }
@@ -455,7 +501,9 @@ fn seed_bundled_runtime_env(app: &tauri::AppHandle) {
         .unwrap_or(true)
     {
         for relative_path in [
+            "resources/bin/kos_python/kos_python",
             "resources/bin/kos_python/kos_python.exe",
+            "resources/bin/kos_python",
             "resources/bin/kos_python.exe",
         ] {
             let Ok(path) = app

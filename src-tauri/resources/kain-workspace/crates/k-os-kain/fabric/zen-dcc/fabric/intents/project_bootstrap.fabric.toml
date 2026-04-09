@@ -1,0 +1,37 @@
+version = 1
+
+[workspace]
+root = "."
+search_roots = ["src", "scripts", "shaders", "local_crate"]
+
+[[requires]]
+key = "session.local"
+version = 1
+optional = false
+
+[[steps]]
+id = "python_seed"
+runtime = "python"
+entry = "scripts/python_seed.py"
+
+[[steps.outputs]]
+name = "project_settings"
+kind = "value"
+
+[[steps]]
+id = "zen_bootstrap"
+runtime = "kain"
+entry = "src/bootstrap.kn"
+depends_on = ["python_seed"]
+
+[[steps.outputs]]
+name = "session_summary"
+kind = "value"
+
+[[steps.outputs]]
+name = "viewport_seed"
+kind = "value"
+
+[reports]
+directory = ".kain/fabric/intents/project_bootstrap"
+emit_jsonl_events = true

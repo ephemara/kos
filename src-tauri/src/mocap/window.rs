@@ -203,14 +203,25 @@ fn zen_binary_candidates(app: &tauri::AppHandle) -> Vec<PathBuf> {
         }
     }
 
-    if let Ok(path) = app.path().resolve(
+    for relative_path in [
+        "resources/bin/zen/zen",
+        "resources/bin/zen/zen.exe",
+        "resources/bin/zen",
         "resources/bin/zen.exe",
-        tauri::path::BaseDirectory::Resource,
-    ) {
+    ] {
+        let Ok(path) = app
+            .path()
+            .resolve(relative_path, tauri::path::BaseDirectory::Resource)
+        else {
+            continue;
+        };
+
         candidates.push(path);
     }
 
     let workspace = k_os_kain::workspace_root();
+    candidates.push(workspace.join("target").join("release").join("zen"));
+    candidates.push(workspace.join("target").join("debug").join("zen"));
     candidates.push(workspace.join("target").join("release").join("zen.exe"));
     candidates.push(workspace.join("target").join("debug").join("zen.exe"));
 

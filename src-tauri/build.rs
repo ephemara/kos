@@ -34,7 +34,7 @@ fn main() {
     export_specta_tauri_bindings(root);
 
     // Sync local Kain compiler binary into bundled resources when available.
-    sync_kain_binary(tauri_dir);
+    sync_kain_binary(tauri_dir, root);
 
     // Default tauri build
     tauri_build::build();
@@ -278,13 +278,21 @@ fn append_viewport_wrappers(output: &mut String) {
     output.push_str("}\n\n");
 }
 
-fn sync_kain_binary(tauri_dir: &Path) {
+fn sync_kain_binary(tauri_dir: &Path, root: &Path) {
     let mut source_candidates: Vec<String> = Vec::new();
     if let Ok(env_path) = env::var("KAIN_BIN_PATH") {
         if !env_path.trim().is_empty() {
             source_candidates.push(env_path);
         }
     }
+    if let Ok(kain_root) = env::var("KAIN_REPO_ROOT") {
+        if !kain_root.trim().is_empty() {
+            source_candidates.push(format!("{}/target/release/kain", kain_root.trim()));
+            source_candidates.push(format!("{}/target/release/kain.exe", kain_root.trim()));
+        }
+    }
+    source_candidates.push(root.join("../../Kain/target/release/kain").display().to_string());
+    source_candidates.push(root.join("../../Kain/target/release/kain.exe").display().to_string());
     source_candidates.push("M:/code/target/release/kain.exe".to_string());
     source_candidates.push("M:/Code/target/release/kain.exe".to_string());
     source_candidates.push("M:/code/Kain/target/release/kain.exe".to_string());
@@ -297,12 +305,18 @@ fn sync_kain_binary(tauri_dir: &Path) {
         .map(|path| path.to_path_buf());
 
     let Some(source_path) = source else {
-        println!("cargo:warning=Kain binary not found. Set KAIN_BIN_PATH or place kain.exe in M:/Code/Kain/target/release");
+        println!(
+            "cargo:warning=Kain binary not found. Set KAIN_BIN_PATH or place a built kain binary in ../../Kain/target/release"
+        );
         return;
     };
 
     let target_dir = tauri_dir.join("resources").join("bin");
-    let target_path = target_dir.join("kain.exe");
+    let target_file_name = source_path
+        .file_name()
+        .and_then(|name| name.to_str())
+        .unwrap_or(if cfg!(windows) { "kain.exe" } else { "kain" });
+    let target_path = target_dir.join(target_file_name);
 
     if let Err(err) = fs::create_dir_all(&target_dir) {
         println!(

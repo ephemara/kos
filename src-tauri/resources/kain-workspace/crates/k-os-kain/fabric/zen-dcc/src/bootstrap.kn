@@ -1,0 +1,12 @@
+struct ZenBootstrapOutputs:
+    session_summary: String
+    viewport_seed: String
+
+fn main() -> ZenBootstrapOutputs:
+    let settings = fabric_inputs.python_seed.project_settings
+    let session_summary = settings.project_name + " // mode=" + settings.workspace_mode + " // shell=" + settings.shell_surface + " // packs=" + str(settings.runtime_pack_count)
+    let viewport_seed = "camera=" + settings.camera_profile + " // intent=" + settings.bootstrap_intent + " // asset=" + settings.asset_source
+    return ZenBootstrapOutputs {
+        session_summary: session_summary,
+        viewport_seed: viewport_seed
+    }

@@ -65,9 +65,9 @@ describe('kainMetaCompiler', () => {
     const request = buildKainCompileRequest(makeBrush());
     expect(request.entry).toBe('stamp_meta');
     expect(request.targets).toEqual(['spirv', 'wasm', 'typescript']);
-    expect(request.toolchain.kainRoot).toBe('M:/Code/Kain');
-    expect(request.toolchain.asmCrateDir).toBe('M:/Code/Kain/crates/kain-asm');
-    expect(request.toolchain.webCrateDir).toBe('M:/Code/Kain/crates/web');
+    expect(request.toolchain.kainRoot).toBe('.');
+    expect(request.toolchain.asmCrateDir).toBe('crates/k-os-kain');
+    expect(request.toolchain.webCrateDir).toBe('crates/k-os-kain');
   });
 
   it('returns fallback when tauri backend is unavailable', async () => {

@@ -113,14 +113,15 @@ export const useViewportStore = createStore<ViewportState>(
     name: 'viewport',
     persist: true,
     persistOptions: {
-      partialize: (state) => ({
-        cameraPosition: state.cameraPosition,
-        cameraTarget: state.cameraTarget,
-        fov: state.fov,
-        showGrid: state.showGrid,
-        wireframe: state.wireframe,
-        backgroundColor: state.backgroundColor,
-      }),
+      partialize: (state) =>
+        ({
+          cameraPosition: state.cameraPosition,
+          cameraTarget: state.cameraTarget,
+          fov: state.fov,
+          showGrid: state.showGrid,
+          wireframe: state.wireframe,
+          backgroundColor: state.backgroundColor,
+        }) as unknown as ViewportState,
     },
     devtools: true,
   },

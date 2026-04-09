@@ -126,6 +126,9 @@ function packagePortableBundle(stageDir) {
 }
 
 function main() {
+  if (process.platform !== 'win32') {
+    throw new Error('Portable self-extracting packaging is Windows-only. Use the Linux release flow instead.');
+  }
   console.log('[portable] Staging portable bundle...');
   const stageDir = stagePortableBundle();
   console.log('[portable] Building self-extracting executable...');

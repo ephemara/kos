@@ -3,7 +3,7 @@
   "total_item_count": 3107,
   "total_function_count": 469,
   "total_method_count": 1053,
-  "total_reexport_count": 575,
+  "total_reexport_count": 553,
   "packages": [
     {
       "package_name": "k-os-animation",
@@ -31668,7 +31668,7 @@
       "item_count": 258,
       "function_count": 38,
       "method_count": 58,
-      "reexport_count": 27,
+      "reexport_count": 5,
       "items": [
         {
           "target_name": "zen_mocap_engine",
@@ -32355,11 +32355,11 @@
         {
           "target_name": "zen_mocap_engine",
           "target_kind": "lib",
-          "kind": "reexport",
-          "source_kind": "reexport",
+          "kind": "const",
+          "source_kind": "definition",
           "module_path": "crate::gpu_pipeline",
           "item_path": "crate::gpu_pipeline::AUDIO_MOTION_SPV",
-          "signature": "pub use k_os_kain::generated::spv::MOCAP_AUDIO_MOTION_BYTES;",
+          "signature": "pub const AUDIO_MOTION_SPV : & [u8] = EMPTY_SPV ;",
           "file_path": "crates/zen-mocap-engine/src/gpu_pipeline.rs",
           "owner_type": ""
         },
@@ -32377,11 +32377,11 @@
         {
           "target_name": "zen_mocap_engine",
           "target_kind": "lib",
-          "kind": "reexport",
-          "source_kind": "reexport",
+          "kind": "const",
+          "source_kind": "definition",
           "module_path": "crate::gpu_pipeline",
           "item_path": "crate::gpu_pipeline::BLEND_SPV",
-          "signature": "pub use k_os_kain::generated::spv::MOCAP_BLEND_BYTES;",
+          "signature": "pub const BLEND_SPV : & [u8] = EMPTY_SPV ;",
           "file_path": "crates/zen-mocap-engine/src/gpu_pipeline.rs",
           "owner_type": ""
         },
@@ -32399,11 +32399,11 @@
         {
           "target_name": "zen_mocap_engine",
           "target_kind": "lib",
-          "kind": "reexport",
-          "source_kind": "reexport",
+          "kind": "const",
+          "source_kind": "definition",
           "module_path": "crate::gpu_pipeline",
           "item_path": "crate::gpu_pipeline::CLOTH_SIM_SPV",
-          "signature": "pub use k_os_kain::generated::spv::MOCAP_CLOTH_SIM_BYTES;",
+          "signature": "pub const CLOTH_SIM_SPV : & [u8] = EMPTY_SPV ;",
           "file_path": "crates/zen-mocap-engine/src/gpu_pipeline.rs",
           "owner_type": ""
         },
@@ -32421,11 +32421,11 @@
         {
           "target_name": "zen_mocap_engine",
           "target_kind": "lib",
-          "kind": "reexport",
-          "source_kind": "reexport",
+          "kind": "const",
+          "source_kind": "definition",
           "module_path": "crate::gpu_pipeline",
           "item_path": "crate::gpu_pipeline::CONTACT_WELD_SPV",
-          "signature": "pub use k_os_kain::generated::spv::MOCAP_CONTACT_WELD_BYTES;",
+          "signature": "pub const CONTACT_WELD_SPV : & [u8] = EMPTY_SPV ;",
           "file_path": "crates/zen-mocap-engine/src/gpu_pipeline.rs",
           "owner_type": ""
         },
@@ -32443,11 +32443,11 @@
         {
           "target_name": "zen_mocap_engine",
           "target_kind": "lib",
-          "kind": "reexport",
-          "source_kind": "reexport",
+          "kind": "const",
+          "source_kind": "definition",
           "module_path": "crate::gpu_pipeline",
           "item_path": "crate::gpu_pipeline::CROWD_SPV",
-          "signature": "pub use k_os_kain::generated::spv::MOCAP_CROWD_BYTES;",
+          "signature": "pub const CROWD_SPV : & [u8] = EMPTY_SPV ;",
           "file_path": "crates/zen-mocap-engine/src/gpu_pipeline.rs",
           "owner_type": ""
         },
@@ -32465,11 +32465,11 @@
         {
           "target_name": "zen_mocap_engine",
           "target_kind": "lib",
-          "kind": "reexport",
-          "source_kind": "reexport",
+          "kind": "const",
+          "source_kind": "definition",
           "module_path": "crate::gpu_pipeline",
           "item_path": "crate::gpu_pipeline::DENOISE_SPV",
-          "signature": "pub use k_os_kain::generated::spv::MOCAP_DENOISE_BYTES;",
+          "signature": "pub const DENOISE_SPV : & [u8] = EMPTY_SPV ;",
           "file_path": "crates/zen-mocap-engine/src/gpu_pipeline.rs",
           "owner_type": ""
         },
@@ -32487,11 +32487,11 @@
         {
           "target_name": "zen_mocap_engine",
           "target_kind": "lib",
-          "kind": "reexport",
-          "source_kind": "reexport",
+          "kind": "const",
+          "source_kind": "definition",
           "module_path": "crate::gpu_pipeline",
           "item_path": "crate::gpu_pipeline::FACIAL_BLEND_SPV",
-          "signature": "pub use k_os_kain::generated::spv::MOCAP_FACIAL_BLEND_BYTES;",
+          "signature": "pub const FACIAL_BLEND_SPV : & [u8] = EMPTY_SPV ;",
           "file_path": "crates/zen-mocap-engine/src/gpu_pipeline.rs",
           "owner_type": ""
         },
@@ -32520,11 +32520,11 @@
         {
           "target_name": "zen_mocap_engine",
           "target_kind": "lib",
-          "kind": "reexport",
-          "source_kind": "reexport",
+          "kind": "const",
+          "source_kind": "definition",
           "module_path": "crate::gpu_pipeline",
           "item_path": "crate::gpu_pipeline::HAND_FK_SPV",
-          "signature": "pub use k_os_kain::generated::spv::MOCAP_HAND_FK_BYTES;",
+          "signature": "pub const HAND_FK_SPV : & [u8] = EMPTY_SPV ;",
           "file_path": "crates/zen-mocap-engine/src/gpu_pipeline.rs",
           "owner_type": ""
         },
@@ -32542,11 +32542,11 @@
         {
           "target_name": "zen_mocap_engine",
           "target_kind": "lib",
-          "kind": "reexport",
-          "source_kind": "reexport",
+          "kind": "const",
+          "source_kind": "definition",
           "module_path": "crate::gpu_pipeline",
           "item_path": "crate::gpu_pipeline::IK_REACH_SPV",
-          "signature": "pub use k_os_kain::generated::spv::MOCAP_IK_REACH_BYTES;",
+          "signature": "pub const IK_REACH_SPV : & [u8] = EMPTY_SPV ;",
           "file_path": "crates/zen-mocap-engine/src/gpu_pipeline.rs",
           "owner_type": ""
         },
@@ -32564,11 +32564,11 @@
         {
           "target_name": "zen_mocap_engine",
           "target_kind": "lib",
-          "kind": "reexport",
-          "source_kind": "reexport",
+          "kind": "const",
+          "source_kind": "definition",
           "module_path": "crate::gpu_pipeline",
           "item_path": "crate::gpu_pipeline::LIVELINK_SPV",
-          "signature": "pub use k_os_kain::generated::spv::MOCAP_LIVELINK_BYTES;",
+          "signature": "pub const LIVELINK_SPV : & [u8] = EMPTY_SPV ;",
           "file_path": "crates/zen-mocap-engine/src/gpu_pipeline.rs",
           "owner_type": ""
         },
@@ -32586,11 +32586,11 @@
         {
           "target_name": "zen_mocap_engine",
           "target_kind": "lib",
-          "kind": "reexport",
-          "source_kind": "reexport",
+          "kind": "const",
+          "source_kind": "definition",
           "module_path": "crate::gpu_pipeline",
           "item_path": "crate::gpu_pipeline::MIRROR_SPV",
-          "signature": "pub use k_os_kain::generated::spv::MOCAP_MIRROR_BYTES;",
+          "signature": "pub const MIRROR_SPV : & [u8] = EMPTY_SPV ;",
           "file_path": "crates/zen-mocap-engine/src/gpu_pipeline.rs",
           "owner_type": ""
         },
@@ -32619,11 +32619,11 @@
         {
           "target_name": "zen_mocap_engine",
           "target_kind": "lib",
-          "kind": "reexport",
-          "source_kind": "reexport",
+          "kind": "const",
+          "source_kind": "definition",
           "module_path": "crate::gpu_pipeline",
           "item_path": "crate::gpu_pipeline::MOGRAPH_SPV",
-          "signature": "pub use k_os_kain::generated::spv::MOGRAPH_SUPERMOTION_BYTES;",
+          "signature": "pub const MOGRAPH_SPV : & [u8] = EMPTY_SPV ;",
           "file_path": "crates/zen-mocap-engine/src/gpu_pipeline.rs",
           "owner_type": ""
         },
@@ -32652,11 +32652,11 @@
         {
           "target_name": "zen_mocap_engine",
           "target_kind": "lib",
-          "kind": "reexport",
-          "source_kind": "reexport",
+          "kind": "const",
+          "source_kind": "definition",
           "module_path": "crate::gpu_pipeline",
           "item_path": "crate::gpu_pipeline::PHYSICS_SPV",
-          "signature": "pub use k_os_kain::generated::spv::MOCAP_PHYSICS_BYTES;",
+          "signature": "pub const PHYSICS_SPV : & [u8] = EMPTY_SPV ;",
           "file_path": "crates/zen-mocap-engine/src/gpu_pipeline.rs",
           "owner_type": ""
         },
@@ -32674,11 +32674,11 @@
         {
           "target_name": "zen_mocap_engine",
           "target_kind": "lib",
-          "kind": "reexport",
-          "source_kind": "reexport",
+          "kind": "const",
+          "source_kind": "definition",
           "module_path": "crate::gpu_pipeline",
           "item_path": "crate::gpu_pipeline::POSE_MATCH_SPV",
-          "signature": "pub use k_os_kain::generated::spv::MOCAP_POSE_MATCH_BYTES;",
+          "signature": "pub const POSE_MATCH_SPV : & [u8] = EMPTY_SPV ;",
           "file_path": "crates/zen-mocap-engine/src/gpu_pipeline.rs",
           "owner_type": ""
         },
@@ -32696,11 +32696,11 @@
         {
           "target_name": "zen_mocap_engine",
           "target_kind": "lib",
-          "kind": "reexport",
-          "source_kind": "reexport",
+          "kind": "const",
+          "source_kind": "definition",
           "module_path": "crate::gpu_pipeline",
           "item_path": "crate::gpu_pipeline::POSE_NORMALIZE_SPV",
-          "signature": "pub use k_os_kain::generated::spv::MOCAP_POSE_NORMALIZE_BYTES;",
+          "signature": "pub const POSE_NORMALIZE_SPV : & [u8] = EMPTY_SPV ;",
           "file_path": "crates/zen-mocap-engine/src/gpu_pipeline.rs",
           "owner_type": ""
         },
@@ -32718,11 +32718,11 @@
         {
           "target_name": "zen_mocap_engine",
           "target_kind": "lib",
-          "kind": "reexport",
-          "source_kind": "reexport",
+          "kind": "const",
+          "source_kind": "definition",
           "module_path": "crate::gpu_pipeline",
           "item_path": "crate::gpu_pipeline::PREPROCESS_SPV",
-          "signature": "pub use k_os_kain::generated::spv::PREPROCESS_BYTES;",
+          "signature": "pub const PREPROCESS_SPV : & [u8] = EMPTY_SPV ;",
           "file_path": "crates/zen-mocap-engine/src/gpu_pipeline.rs",
           "owner_type": ""
         },
@@ -32740,11 +32740,11 @@
         {
           "target_name": "zen_mocap_engine",
           "target_kind": "lib",
-          "kind": "reexport",
-          "source_kind": "reexport",
+          "kind": "const",
+          "source_kind": "definition",
           "module_path": "crate::gpu_pipeline",
           "item_path": "crate::gpu_pipeline::RETARGET_SPV",
-          "signature": "pub use k_os_kain::generated::spv::MOCAP_RETARGET_BYTES;",
+          "signature": "pub const RETARGET_SPV : & [u8] = EMPTY_SPV ;",
           "file_path": "crates/zen-mocap-engine/src/gpu_pipeline.rs",
           "owner_type": ""
         },
@@ -32762,22 +32762,22 @@
         {
           "target_name": "zen_mocap_engine",
           "target_kind": "lib",
-          "kind": "reexport",
-          "source_kind": "reexport",
+          "kind": "const",
+          "source_kind": "definition",
           "module_path": "crate::gpu_pipeline",
           "item_path": "crate::gpu_pipeline::SKELETON_SPV",
-          "signature": "pub use k_os_kain::generated::spv::MOCAP_SKELETON_BYTES;",
+          "signature": "pub const SKELETON_SPV : & [u8] = EMPTY_SPV ;",
           "file_path": "crates/zen-mocap-engine/src/gpu_pipeline.rs",
           "owner_type": ""
         },
         {
           "target_name": "zen_mocap_engine",
           "target_kind": "lib",
-          "kind": "reexport",
-          "source_kind": "reexport",
+          "kind": "const",
+          "source_kind": "definition",
           "module_path": "crate::gpu_pipeline",
           "item_path": "crate::gpu_pipeline::SPRING_FOLLOW_SPV",
-          "signature": "pub use k_os_kain::generated::spv::MOCAP_SPRING_FOLLOW_BYTES;",
+          "signature": "pub const SPRING_FOLLOW_SPV : & [u8] = EMPTY_SPV ;",
           "file_path": "crates/zen-mocap-engine/src/gpu_pipeline.rs",
           "owner_type": ""
         },
@@ -32795,11 +32795,11 @@
         {
           "target_name": "zen_mocap_engine",
           "target_kind": "lib",
-          "kind": "reexport",
-          "source_kind": "reexport",
+          "kind": "const",
+          "source_kind": "definition",
           "module_path": "crate::gpu_pipeline",
           "item_path": "crate::gpu_pipeline::STABILIZE_ROOT_SPV",
-          "signature": "pub use k_os_kain::generated::spv::MOCAP_STABILIZE_ROOT_BYTES;",
+          "signature": "pub const STABILIZE_ROOT_SPV : & [u8] = EMPTY_SPV ;",
           "file_path": "crates/zen-mocap-engine/src/gpu_pipeline.rs",
           "owner_type": ""
         },
@@ -32828,11 +32828,11 @@
         {
           "target_name": "zen_mocap_engine",
           "target_kind": "lib",
-          "kind": "reexport",
-          "source_kind": "reexport",
+          "kind": "const",
+          "source_kind": "definition",
           "module_path": "crate::gpu_pipeline",
           "item_path": "crate::gpu_pipeline::SUPERMOTION_LIVELINK_SPV",
-          "signature": "pub use k_os_kain::generated::spv::MOCAP_SUPERMOTION_LIVELINK_BYTES;",
+          "signature": "pub const SUPERMOTION_LIVELINK_SPV : & [u8] = EMPTY_SPV ;",
           "file_path": "crates/zen-mocap-engine/src/gpu_pipeline.rs",
           "owner_type": ""
         },
@@ -32872,11 +32872,11 @@
         {
           "target_name": "zen_mocap_engine",
           "target_kind": "lib",
-          "kind": "reexport",
-          "source_kind": "reexport",
+          "kind": "const",
+          "source_kind": "definition",
           "module_path": "crate::gpu_pipeline",
           "item_path": "crate::gpu_pipeline::VELOCITY_SMOOTH_SPV",
-          "signature": "pub use k_os_kain::generated::spv::MOCAP_VELOCITY_SMOOTH_BYTES;",
+          "signature": "pub const VELOCITY_SMOOTH_SPV : & [u8] = EMPTY_SPV ;",
           "file_path": "crates/zen-mocap-engine/src/gpu_pipeline.rs",
           "owner_type": ""
         },

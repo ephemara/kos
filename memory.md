@@ -1,5 +1,33 @@
 # Memory
 
+## 2026-04-09: Linux workspace normalization and root cleanup
+
+### What changed
+
+Normalized the active build path for a Linux workstation after a long Windows-first development period.
+
+Updated the workspace so Cargo can resolve the sibling upstream Kain checkout again, made the frontend and release scripts platform-aware instead of Windows-only, added a repo-local `.npmrc` so `npm ci` installs reliably with the existing dependency graph, and filled in the missing Tauri PNG icon required by `generate_context!`.
+
+Unblocked the primary build surfaces:
+
+- `npm run build:frontend`
+- `cargo check -p k-os-backend`
+- `cargo check -p zen`
+
+Also cleaned the root surface by moving loose repo-map artifacts into `docs/repo-maps`, moving helper scripts into `scripts/kain` and `scripts/testing`, and adding a root `README.md` that describes the actual top-level contract.
+
+### Durable findings
+
+- The biggest Linux blocker was not Rust itself; it was a chain of Windows-era assumptions across path dependencies, Tauri resource discovery, release staging, and npm install behavior.
+- `crates/zen` depends on an upstream Kain checkout outside this repo. On this machine the correct sibling is `/home/ephemara/Dev/Kain`; a one-directory mistake there breaks the entire workspace before Cargo can even produce diagnostics.
+- The frontend dependency graph currently needs `legacy-peer-deps` to install reproducibly. That is now encoded in `.npmrc` instead of relying on per-machine npm flags.
+- Fresh Linux checkouts may not have generated Kain SPIR-V blobs. `zen-mocap-engine` now compiles with explicit empty placeholders so the workspace can build before shader regeneration happens.
+- Tauri on Linux still expects a PNG icon in `src-tauri/icons`, even if Windows packaging mostly cared about `.ico`.
+
+### Next recommended step
+
+Regenerate the missing Kain SPIR-V assets so `zen-mocap-engine` stops relying on empty placeholders, then decide whether to keep shrinking the root by updating `DIRECTORY.md` and moving more stale documentation into `docs/` without touching the manifest and entrypoint files that the build uses directly.
+
 ## 2026-03-29: Kain migration architecture target
 
 ### What changed

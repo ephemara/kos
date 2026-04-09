@@ -45,9 +45,9 @@ const compileCache = new Map<string, KainCompileResult>();
 
 const DEFAULT_KAIN_TOOLCHAIN: KainToolchainConfig = {
   enabled: true,
-  kainRoot: 'M:/K_OS',
-  asmCrateDir: 'M:/K_OS/crates/k-os-kain',
-  webCrateDir: 'M:/K_OS/crates/k-os-kain',
+  kainRoot: '.',
+  asmCrateDir: 'crates/k-os-kain',
+  webCrateDir: 'crates/k-os-kain',
   cliBin: 'kain',
 };
 

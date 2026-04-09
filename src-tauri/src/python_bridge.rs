@@ -72,7 +72,9 @@ enum PythonLaunchTarget {
 
 fn bundled_python_sidecar_candidates(app: &tauri::AppHandle) -> Vec<PathBuf> {
     [
+        "resources/bin/kos_python/kos_python",
         "resources/bin/kos_python/kos_python.exe",
+        "resources/bin/kos_python",
         "resources/bin/kos_python.exe",
     ]
     .into_iter()

@@ -10,6 +10,8 @@ K_OS is a private multi-runtime creative tooling workspace. The repo combines:
 - an experimental Bevy host,
 - a native Zen host.
 
+Historical notes in this file may reference old Windows paths like `M:\\K_OS` and `M:\\Code\\Kain`. On this Linux workspace, treat the repo root as `/home/ephemara/Dev/Apps-3D/Zender` and the sibling upstream Kain checkout as `/home/ephemara/Dev/Kain`.
+
 Inside the Rust workspace, the important architectural rule is that heavy logic should live in owner/domain crates, while host crates stay thin composition roots.
 
 ## Workspace Shape
@@ -241,6 +243,7 @@ Testing and heavy validation should still follow the repo conversation rule: ask
 - `k-os-plugin` exists, but dynamic library loading is not the easiest first answer for this workspace. Static Cargo composition plus generated registries is simpler and safer for the current architecture.
 - Zen's `renderer_session.rs` should be treated as the current ownership boundary for scene-to-render sync. If you need draw data or selection in Zen, use that session instead of rebuilding scene buffers directly in `main.rs`.
 - `cargo metadata` is the fastest reliable way to inspect the workspace graph; use `--format-version 1`.
+- The Linux checkout currently expects the upstream Kain repo as a sibling workspace (`/home/ephemara/Dev/Kain`). If that is not true, set `KAIN_REPO_ROOT` and `KAIN_BIN_PATH` explicitly before blaming Cargo or Tauri.
 - `public_api_registry.json` is now the closest thing this workspace has to generated headers. Use it when you need to answer “what is callable from this crate?” before reaching for global `rg` on `pub fn`.
 - `api_bloat_pressure.json` is the cleanup-priority layer on top of the raw public API index. Use it to decide where crate-root curation and `pub(crate)` tightening will buy the most relief first.
 - `integration_registry.json` is the curated composition layer. It assigns each crate a stability tier and recommended entrypoints so integrators do not have to consume the full raw public surface.
@@ -252,5 +255,7 @@ Testing and heavy validation should still follow the repo conversation rule: ask
 - The workspace root manifest is virtual, so a root `build.rs` will not run. Shared generation work must live in a real package like `k-os-workspace-registry`.
 - Builds of `k-os-backend`, `k-os-bevy`, and `zen` now regenerate the workspace registry because they depend on `k-os-workspace-registry`, but arbitrary leaf-crate builds will not. If universal pre-build sync becomes necessary, add an `xtask` or wrapper command rather than trying to force it through the virtual workspace root.
 - The combined K_OS + Kain dependency graph is sensitive to `kain-import` feature selection. Modern Bevy/egui crates want the newer serde line, while `swc_common 0.38.0` still breaks on that line. For the current Zen path, keep `kain-import` on workspace serde and avoid enabling the TypeScript importer through `kain-omni` / `kain-host` unless the SWC stack is upgraded.
+- `npm ci` now relies on the repo-local `.npmrc` with `legacy-peer-deps=true`. Keep that behavior unless the frontend dependency graph is deliberately re-pinned; otherwise Linux installs regress before the app code even compiles.
 - `DIRECTORY.md` is helpful background, but it is not the authoritative Rust workspace contract. Check manifests and crate entrypoints directly before changing wiring.
+- The root folder is intentionally slimmer now: repo maps live under `docs/repo-maps`, Kain helper scripts live under `scripts/kain`, and test runners live under `scripts/testing`. Do not move manifest, HTML entrypoint, or root contract files into those folders.
 - The `Scribe` lane in a swarm should keep structural docs synchronized with the active swarm handoff docs. If Zen renderer ownership changes materially, update `ARCHITECTURE.md`, `memory.md`, and the operator guide together so future agents do not reconstruct the migration state from code alone.

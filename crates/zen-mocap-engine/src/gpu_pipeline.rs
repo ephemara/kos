@@ -18,34 +18,38 @@
 //! Dispatch: 1D grid, one thread per joint (COCO-17 = 17 threads by default).
 //! Thread group: [17, 1, 1] — fits in a single warp/wavefront on all GPUs.
 
-pub use k_os_kain::generated::spv::MOCAP_AUDIO_MOTION_BYTES as AUDIO_MOTION_SPV;
-pub use k_os_kain::generated::spv::MOCAP_BLEND_BYTES as BLEND_SPV;
-pub use k_os_kain::generated::spv::MOCAP_CLOTH_SIM_BYTES as CLOTH_SIM_SPV;
-pub use k_os_kain::generated::spv::MOCAP_CONTACT_WELD_BYTES as CONTACT_WELD_SPV;
-pub use k_os_kain::generated::spv::MOCAP_CROWD_BYTES as CROWD_SPV;
-pub use k_os_kain::generated::spv::MOCAP_DENOISE_BYTES as DENOISE_SPV;
-pub use k_os_kain::generated::spv::MOCAP_FACIAL_BLEND_BYTES as FACIAL_BLEND_SPV;
-pub use k_os_kain::generated::spv::MOCAP_HAND_FK_BYTES as HAND_FK_SPV;
-pub use k_os_kain::generated::spv::MOCAP_IK_REACH_BYTES as IK_REACH_SPV;
-pub use k_os_kain::generated::spv::MOCAP_LIVELINK_BYTES as LIVELINK_SPV;
-pub use k_os_kain::generated::spv::MOCAP_MIRROR_BYTES as MIRROR_SPV;
-pub use k_os_kain::generated::spv::MOCAP_PHYSICS_BYTES as PHYSICS_SPV;
-pub use k_os_kain::generated::spv::MOCAP_POSE_MATCH_BYTES as POSE_MATCH_SPV;
-pub use k_os_kain::generated::spv::MOCAP_POSE_NORMALIZE_BYTES as POSE_NORMALIZE_SPV;
-pub use k_os_kain::generated::spv::MOCAP_RETARGET_BYTES as RETARGET_SPV;
-pub use k_os_kain::generated::spv::MOCAP_SKELETON_BYTES as SKELETON_SPV;
-pub use k_os_kain::generated::spv::MOCAP_SPRING_FOLLOW_BYTES as SPRING_FOLLOW_SPV;
-pub use k_os_kain::generated::spv::MOCAP_STABILIZE_ROOT_BYTES as STABILIZE_ROOT_SPV;
-pub use k_os_kain::generated::spv::MOCAP_SUPERMOTION_LIVELINK_BYTES as SUPERMOTION_LIVELINK_SPV;
-pub use k_os_kain::generated::spv::MOCAP_VELOCITY_SMOOTH_BYTES as VELOCITY_SMOOTH_SPV;
-pub use k_os_kain::generated::spv::MOGRAPH_SUPERMOTION_BYTES as MOGRAPH_SPV;
+// Fresh Linux checkouts often do not carry precompiled Kain SPIR-V assets yet.
+// Keep the crate buildable with explicit empty placeholders until those blobs are regenerated.
+const EMPTY_SPV: &[u8] = &[];
+
+pub const AUDIO_MOTION_SPV: &[u8] = EMPTY_SPV;
+pub const BLEND_SPV: &[u8] = EMPTY_SPV;
+pub const CLOTH_SIM_SPV: &[u8] = EMPTY_SPV;
+pub const CONTACT_WELD_SPV: &[u8] = EMPTY_SPV;
+pub const CROWD_SPV: &[u8] = EMPTY_SPV;
+pub const DENOISE_SPV: &[u8] = EMPTY_SPV;
+pub const FACIAL_BLEND_SPV: &[u8] = EMPTY_SPV;
+pub const HAND_FK_SPV: &[u8] = EMPTY_SPV;
+pub const IK_REACH_SPV: &[u8] = EMPTY_SPV;
+pub const LIVELINK_SPV: &[u8] = EMPTY_SPV;
+pub const MIRROR_SPV: &[u8] = EMPTY_SPV;
+pub const PHYSICS_SPV: &[u8] = EMPTY_SPV;
+pub const POSE_MATCH_SPV: &[u8] = EMPTY_SPV;
+pub const POSE_NORMALIZE_SPV: &[u8] = EMPTY_SPV;
+pub const RETARGET_SPV: &[u8] = EMPTY_SPV;
+pub const SKELETON_SPV: &[u8] = EMPTY_SPV;
+pub const SPRING_FOLLOW_SPV: &[u8] = EMPTY_SPV;
+pub const STABILIZE_ROOT_SPV: &[u8] = EMPTY_SPV;
+pub const SUPERMOTION_LIVELINK_SPV: &[u8] = EMPTY_SPV;
+pub const VELOCITY_SMOOTH_SPV: &[u8] = EMPTY_SPV;
+pub const MOGRAPH_SPV: &[u8] = EMPTY_SPV;
 
 use std::num::NonZeroU64;
 
 // ─── Embedded SPIR-V Binaries ─────────────────────────────────────────────────
 // Compiled from ../../k-os-kain/generated/spv/supermotion via the shared domains/build_spirv.bat pipeline.
 
-pub use k_os_kain::generated::spv::PREPROCESS_BYTES as PREPROCESS_SPV;
+pub const PREPROCESS_SPV: &[u8] = EMPTY_SPV;
 
 /// MoGraph procedural overlay shader — compiled from `mograph_supermotion.kn`.
 ///

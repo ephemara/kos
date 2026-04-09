@@ -76,12 +76,24 @@ fn main() {
         }
     }
 
-    write_if_changed(&rust_spv_out, &render_rust_spv_registry(&spv_assets)).expect("write rust spv registry");
-    write_if_changed(&ts_spv_out, &render_ts_spv_registry(&spv_assets)).expect("write ts spv registry");
-    write_if_changed(&json_spv_out, &render_json_spv_registry(&spv_assets)).expect("write json spv registry");
-    write_if_changed(&rust_runtime_out, &render_rust_runtime_registry(&runtime_apps)).expect("write rust runtime registry");
-    write_if_changed(&ts_runtime_out, &render_ts_runtime_registry(&runtime_apps)).expect("write ts runtime registry");
-    write_if_changed(&json_runtime_out, &render_json_runtime_registry(&runtime_apps)).expect("write json runtime registry");
+    write_if_changed(&rust_spv_out, &render_rust_spv_registry(&spv_assets))
+        .expect("write rust spv registry");
+    write_if_changed(&ts_spv_out, &render_ts_spv_registry(&spv_assets))
+        .expect("write ts spv registry");
+    write_if_changed(&json_spv_out, &render_json_spv_registry(&spv_assets))
+        .expect("write json spv registry");
+    write_if_changed(
+        &rust_runtime_out,
+        &render_rust_runtime_registry(&runtime_apps),
+    )
+    .expect("write rust runtime registry");
+    write_if_changed(&ts_runtime_out, &render_ts_runtime_registry(&runtime_apps))
+        .expect("write ts runtime registry");
+    write_if_changed(
+        &json_runtime_out,
+        &render_json_runtime_registry(&runtime_apps),
+    )
+    .expect("write json runtime registry");
 }
 
 fn load_spirv_manifest() -> HashMap<String, AssetMeta> {
@@ -283,7 +295,11 @@ fn render_rust_spv_registry(assets: &[AssetMeta]) -> String {
         let label = escape_str(&asset.label);
         let id = escape_str(&asset.id);
         writeln!(out, "pub const {upper}_BYTES: &[u8] = include_bytes!(concat!(env!(\"CARGO_MANIFEST_DIR\"), \"/{compiled_suffix}\"));").unwrap();
-        writeln!(out, "pub static {upper}: crate::GeneratedSpirvAsset = crate::GeneratedSpirvAsset {{").unwrap();
+        writeln!(
+            out,
+            "pub static {upper}: crate::GeneratedSpirvAsset = crate::GeneratedSpirvAsset {{"
+        )
+        .unwrap();
         writeln!(out, "    id: \"{id}\",").unwrap();
         writeln!(out, "    label: \"{label}\",").unwrap();
         writeln!(out, "    domain: crate::KainDomain::{domain_variant},").unwrap();
@@ -291,7 +307,11 @@ fn render_rust_spv_registry(assets: &[AssetMeta]) -> String {
         writeln!(out, "    compiled_path: \"{compiled_path}\",").unwrap();
         writeln!(out, "    bytes: {upper}_BYTES,").unwrap();
         writeln!(out, "}};").unwrap();
-        writeln!(out, "pub fn {fn_name}() -> &'static crate::GeneratedSpirvAsset {{ &{upper} }}").unwrap();
+        writeln!(
+            out,
+            "pub fn {fn_name}() -> &'static crate::GeneratedSpirvAsset {{ &{upper} }}"
+        )
+        .unwrap();
         out.push('\n');
     }
 
@@ -301,13 +321,19 @@ fn render_rust_spv_registry(assets: &[AssetMeta]) -> String {
         writeln!(out, "    &{upper},").unwrap();
     }
     out.push_str("];\n\n");
-    out.push_str("pub fn assets() -> &'static [&'static crate::GeneratedSpirvAsset] { ASSETS }\n\n");
+    out.push_str(
+        "pub fn assets() -> &'static [&'static crate::GeneratedSpirvAsset] { ASSETS }\n\n",
+    );
 
     out.push_str("pub static ALL: &[GeneratedSpirvLookupEntry] = &[\n");
     for asset in assets {
         let upper = upper_ident(&asset.id);
         let id = escape_str(&asset.id);
-        writeln!(out, "    GeneratedSpirvLookupEntry {{ id: \"{id}\", asset: &{upper} }},").unwrap();
+        writeln!(
+            out,
+            "    GeneratedSpirvLookupEntry {{ id: \"{id}\", asset: &{upper} }},"
+        )
+        .unwrap();
     }
     out.push_str("];\n\n");
     out.push_str("pub fn all() -> &'static [GeneratedSpirvLookupEntry] { ALL }\n\n");
@@ -334,7 +360,11 @@ fn render_rust_runtime_registry(apps: &[RuntimeAppMeta]) -> String {
     for app in apps {
         let upper = upper_ident(&app.id);
         let outputs_ident = format!("{upper}_OUTPUTS");
-        writeln!(out, "pub static {outputs_ident}: &[crate::GeneratedRuntimeOutput] = &[").unwrap();
+        writeln!(
+            out,
+            "pub static {outputs_ident}: &[crate::GeneratedRuntimeOutput] = &["
+        )
+        .unwrap();
         for output in &app.outputs {
             let target_variant = cli_target_variant(&output.target);
             let path = escape_str(&output.path);
@@ -347,11 +377,19 @@ fn render_rust_runtime_registry(apps: &[RuntimeAppMeta]) -> String {
         let label = escape_str(&app.label);
         let source_path = escape_str(&app.source_path);
         let namespace = escape_str(&app.namespace);
-        writeln!(out, "pub static {upper}: crate::GeneratedRuntimeApp = crate::GeneratedRuntimeApp {{").unwrap();
+        writeln!(
+            out,
+            "pub static {upper}: crate::GeneratedRuntimeApp = crate::GeneratedRuntimeApp {{"
+        )
+        .unwrap();
         writeln!(out, "    id: \"{id}\",").unwrap();
         writeln!(out, "    label: \"{label}\",").unwrap();
         writeln!(out, "    source_path: \"{source_path}\",").unwrap();
-        writeln!(out, "    runtime_kind: crate::KainRuntimeKind::{runtime_variant},").unwrap();
+        writeln!(
+            out,
+            "    runtime_kind: crate::KainRuntimeKind::{runtime_variant},"
+        )
+        .unwrap();
         writeln!(out, "    host_kind: crate::KainHostKind::{host_variant},").unwrap();
         writeln!(out, "    namespace: \"{namespace}\",").unwrap();
         writeln!(out, "    outputs: {outputs_ident},").unwrap();
@@ -365,13 +403,19 @@ fn render_rust_runtime_registry(apps: &[RuntimeAppMeta]) -> String {
         writeln!(out, "    &{upper},").unwrap();
     }
     out.push_str("];\n\n");
-    out.push_str("pub fn assets() -> &'static [&'static crate::GeneratedRuntimeApp] { ASSETS }\n\n");
+    out.push_str(
+        "pub fn assets() -> &'static [&'static crate::GeneratedRuntimeApp] { ASSETS }\n\n",
+    );
 
     out.push_str("pub static ALL: &[GeneratedRuntimeLookupEntry] = &[\n");
     for app in apps {
         let upper = upper_ident(&app.id);
         let id = escape_str(&app.id);
-        writeln!(out, "    GeneratedRuntimeLookupEntry {{ id: \"{id}\", asset: &{upper} }},").unwrap();
+        writeln!(
+            out,
+            "    GeneratedRuntimeLookupEntry {{ id: \"{id}\", asset: &{upper} }},"
+        )
+        .unwrap();
     }
     out.push_str("];\n\n");
     out.push_str("pub fn all() -> &'static [GeneratedRuntimeLookupEntry] { ALL }\n\n");
@@ -413,7 +457,9 @@ fn render_ts_spv_registry(assets: &[AssetMeta]) -> String {
     out.push_str("  sourcePath: string;\n");
     out.push_str("  compiledPath: string;\n");
     out.push_str("}\n\n");
-    out.push_str("export const GENERATED_SPIRV_ASSETS: ReadonlyArray<GeneratedSpirvAssetMeta> = [\n");
+    out.push_str(
+        "export const GENERATED_SPIRV_ASSETS: ReadonlyArray<GeneratedSpirvAssetMeta> = [\n",
+    );
     for asset in assets {
         writeln!(
             out,
@@ -435,9 +481,13 @@ fn render_ts_spv_registry(assets: &[AssetMeta]) -> String {
 
 fn render_ts_runtime_registry(apps: &[RuntimeAppMeta]) -> String {
     let mut out = String::new();
-    out.push_str("export type KainGeneratedRuntimeTarget = 'wasm' | 'js' | 'ts' | 'ks' | 'hybrid';\n");
+    out.push_str(
+        "export type KainGeneratedRuntimeTarget = 'wasm' | 'js' | 'ts' | 'ks' | 'hybrid';\n",
+    );
     out.push_str("export type KainGeneratedRuntimeKind = 'tauri_frontend' | 'desktop_script' | 'compute_kernel' | 'hybrid_module';\n");
-    out.push_str("export type KainGeneratedHostKind = 'tauri' | 'webview' | 'wasm_runtime' | 'hybrid';\n\n");
+    out.push_str(
+        "export type KainGeneratedHostKind = 'tauri' | 'webview' | 'wasm_runtime' | 'hybrid';\n\n",
+    );
     out.push_str("export interface GeneratedRuntimeOutputMeta {\n");
     out.push_str("  target: KainGeneratedRuntimeTarget;\n");
     out.push_str("  path: string;\n");
@@ -451,7 +501,9 @@ fn render_ts_runtime_registry(apps: &[RuntimeAppMeta]) -> String {
     out.push_str("  namespace: string;\n");
     out.push_str("  outputs: ReadonlyArray<GeneratedRuntimeOutputMeta>;\n");
     out.push_str("}\n\n");
-    out.push_str("export const GENERATED_RUNTIME_APPS: ReadonlyArray<GeneratedRuntimeAppMeta> = [\n");
+    out.push_str(
+        "export const GENERATED_RUNTIME_APPS: ReadonlyArray<GeneratedRuntimeAppMeta> = [\n",
+    );
     for app in apps {
         let outputs = app
             .outputs
@@ -538,7 +590,11 @@ fn title_case(value: &str) -> String {
         .map(|part| {
             let mut chars = part.chars();
             match chars.next() {
-                Some(first) => format!("{}{}", first.to_ascii_uppercase(), chars.as_str().to_ascii_lowercase()),
+                Some(first) => format!(
+                    "{}{}",
+                    first.to_ascii_uppercase(),
+                    chars.as_str().to_ascii_lowercase()
+                ),
                 None => String::new(),
             }
         })

@@ -1011,7 +1011,7 @@
         "crate::SessionConfig"
       ],
       "pressure_priority": "high",
-      "pressure_score": 696,
+      "pressure_score": 652,
       "notes": [
         "intended for adapter and cross-system composition",
         "overall public surface is broad"
