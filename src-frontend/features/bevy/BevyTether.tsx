@@ -245,8 +245,8 @@ export function useBevyTether({
  * Standalone component for Bevy window tethering
  * Use when you just need window sync without custom viewport handling
  */
-export function BevyTether({ viewportRef, eguiOnly, debugPanel, onConnectionChange }: BevyTetherProps) {
-    useBevyTether({ viewportRef, eguiOnly, debugPanel, onConnectionChange });
+export function BevyTether({ viewportRef, enabled, eguiOnly, debugPanel, onConnectionChange }: BevyTetherProps) {
+    useBevyTether({ viewportRef, enabled, eguiOnly, debugPanel, onConnectionChange });
     return null; // Headless component - just handles sync
 }
 
