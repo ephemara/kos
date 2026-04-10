@@ -1,1 +1,317 @@
-[]
+[
+  {
+    "compiled_path": "crates/k-os-kain/generated/spv/materials/material_pbr_standard.spv",
+    "domain": "materials",
+    "id": "material_pbr_standard",
+    "label": "Material PBR Standard",
+    "source_path": "crates/k-os-kain/domains/materials/material_pbr_standard.kn"
+  },
+  {
+    "compiled_path": "crates/k-os-kain/generated/spv/paint/paint_surface_filter.spv",
+    "domain": "paint",
+    "id": "paint_surface_filter",
+    "label": "Paint Surface Filter",
+    "source_path": "crates/k-os-kain/domains/paint/paint_surface_filter.kn"
+  },
+  {
+    "compiled_path": "crates/k-os-kain/generated/spv/renderer/renderer_surface_pass.spv",
+    "domain": "renderer",
+    "id": "renderer_surface_pass",
+    "label": "Renderer Surface Pass",
+    "source_path": "crates/k-os-kain/domains/renderer/renderer_surface_pass.kn"
+  },
+  {
+    "compiled_path": "crates/k-os-kain/generated/spv/renderer/renderer_zen_atmosphere.spv",
+    "domain": "renderer",
+    "id": "renderer_zen_atmosphere",
+    "label": "Renderer Zen Atmosphere",
+    "source_path": "crates/k-os-kain/domains/renderer/renderer_zen_atmosphere.kn"
+  },
+  {
+    "compiled_path": "crates/k-os-kain/generated/spv/sculpting/sculpt_physics_attractor.spv",
+    "domain": "sculpting",
+    "id": "sculpt_physics_attractor",
+    "label": "Sculpt Physics Attractor",
+    "source_path": "crates/k-os-kain/domains/sculpting/sculpt_physics_attractor.kn"
+  },
+  {
+    "compiled_path": "crates/k-os-kain/generated/spv/sculpting/sculpt_physics_elastic.spv",
+    "domain": "sculpting",
+    "id": "sculpt_physics_elastic",
+    "label": "Sculpt Physics Elastic",
+    "source_path": "crates/k-os-kain/domains/sculpting/sculpt_physics_elastic.kn"
+  },
+  {
+    "compiled_path": "crates/k-os-kain/generated/spv/sculpting/sculpt_physics_gravity_drop.spv",
+    "domain": "sculpting",
+    "id": "sculpt_physics_gravity_drop",
+    "label": "Sculpt Physics Gravity Drop",
+    "source_path": "crates/k-os-kain/domains/sculpting/sculpt_physics_gravity_drop.kn"
+  },
+  {
+    "compiled_path": "crates/k-os-kain/generated/spv/sculpting/sculpt_physics_inflate_pulse.spv",
+    "domain": "sculpting",
+    "id": "sculpt_physics_inflate_pulse",
+    "label": "Sculpt Physics Inflate Pulse",
+    "source_path": "crates/k-os-kain/domains/sculpting/sculpt_physics_inflate_pulse.kn"
+  },
+  {
+    "compiled_path": "crates/k-os-kain/generated/spv/sculpting/sculpt_physics_magnet.spv",
+    "domain": "sculpting",
+    "id": "sculpt_physics_magnet",
+    "label": "Sculpt Physics Magnet",
+    "source_path": "crates/k-os-kain/domains/sculpting/sculpt_physics_magnet.kn"
+  },
+  {
+    "compiled_path": "crates/k-os-kain/generated/spv/sculpting/sculpt_physics_turbulence.spv",
+    "domain": "sculpting",
+    "id": "sculpt_physics_turbulence",
+    "label": "Sculpt Physics Turbulence",
+    "source_path": "crates/k-os-kain/domains/sculpting/sculpt_physics_turbulence.kn"
+  },
+  {
+    "compiled_path": "crates/k-os-kain/generated/spv/sculpting/sculpt_physics_vortex.spv",
+    "domain": "sculpting",
+    "id": "sculpt_physics_vortex",
+    "label": "Sculpt Physics Vortex",
+    "source_path": "crates/k-os-kain/domains/sculpting/sculpt_physics_vortex.kn"
+  },
+  {
+    "compiled_path": "crates/k-os-kain/generated/spv/sculpting/sculpt_physics_wind.spv",
+    "domain": "sculpting",
+    "id": "sculpt_physics_wind",
+    "label": "Sculpt Physics Wind",
+    "source_path": "crates/k-os-kain/domains/sculpting/sculpt_physics_wind.kn"
+  },
+  {
+    "compiled_path": "crates/k-os-kain/generated/spv/sculpting/sculpt_stamp_blob.spv",
+    "domain": "sculpting",
+    "id": "sculpt_stamp_blob",
+    "label": "Sculpt Stamp Blob",
+    "source_path": "crates/k-os-kain/domains/sculpting/sculpt_stamp_blob.kn"
+  },
+  {
+    "compiled_path": "crates/k-os-kain/generated/spv/sculpting/sculpt_stamp_clay.spv",
+    "domain": "sculpting",
+    "id": "sculpt_stamp_clay",
+    "label": "Sculpt Stamp Clay",
+    "source_path": "crates/k-os-kain/domains/sculpting/sculpt_stamp_clay.kn"
+  },
+  {
+    "compiled_path": "crates/k-os-kain/generated/spv/sculpting/sculpt_stamp_crease.spv",
+    "domain": "sculpting",
+    "id": "sculpt_stamp_crease",
+    "label": "Sculpt Stamp Crease",
+    "source_path": "crates/k-os-kain/domains/sculpting/sculpt_stamp_crease.kn"
+  },
+  {
+    "compiled_path": "crates/k-os-kain/generated/spv/sculpting/sculpt_stamp_flatten.spv",
+    "domain": "sculpting",
+    "id": "sculpt_stamp_flatten",
+    "label": "Sculpt Stamp Flatten",
+    "source_path": "crates/k-os-kain/domains/sculpting/sculpt_stamp_flatten.kn"
+  },
+  {
+    "compiled_path": "crates/k-os-kain/generated/spv/sculpting/sculpt_stamp_hpolish.spv",
+    "domain": "sculpting",
+    "id": "sculpt_stamp_hpolish",
+    "label": "Sculpt Stamp Hpolish",
+    "source_path": "crates/k-os-kain/domains/sculpting/sculpt_stamp_hpolish.kn"
+  },
+  {
+    "compiled_path": "crates/k-os-kain/generated/spv/sculpting/sculpt_stamp_inflate.spv",
+    "domain": "sculpting",
+    "id": "sculpt_stamp_inflate",
+    "label": "Sculpt Stamp Inflate",
+    "source_path": "crates/k-os-kain/domains/sculpting/sculpt_stamp_inflate.kn"
+  },
+  {
+    "compiled_path": "crates/k-os-kain/generated/spv/sculpting/sculpt_stamp_layer.spv",
+    "domain": "sculpting",
+    "id": "sculpt_stamp_layer",
+    "label": "Sculpt Stamp Layer",
+    "source_path": "crates/k-os-kain/domains/sculpting/sculpt_stamp_layer.kn"
+  },
+  {
+    "compiled_path": "crates/k-os-kain/generated/spv/sculpting/sculpt_stamp_main.spv",
+    "domain": "sculpting",
+    "id": "sculpt_stamp_main",
+    "label": "Sculpt Stamp Main",
+    "source_path": "crates/k-os-kain/domains/sculpting/sculpt_stamp_main.kn"
+  },
+  {
+    "compiled_path": "crates/k-os-kain/generated/spv/sculpting/sculpt_stamp_scrape.spv",
+    "domain": "sculpting",
+    "id": "sculpt_stamp_scrape",
+    "label": "Sculpt Stamp Scrape",
+    "source_path": "crates/k-os-kain/domains/sculpting/sculpt_stamp_scrape.kn"
+  },
+  {
+    "compiled_path": "crates/k-os-kain/generated/spv/sculpting_engine/sculpt_engine_layer_accumulate.spv",
+    "domain": "sculpting_engine",
+    "id": "sculpt_engine_layer_accumulate",
+    "label": "Sculpt Engine Layer Accumulate",
+    "source_path": "crates/k-os-kain/domains/sculpting_engine/sculpt_engine_layer_accumulate.kn"
+  },
+  {
+    "compiled_path": "crates/k-os-kain/generated/spv/sculpting_engine/sculpt_engine_surface_drag.spv",
+    "domain": "sculpting_engine",
+    "id": "sculpt_engine_surface_drag",
+    "label": "Sculpt Engine Surface Drag",
+    "source_path": "crates/k-os-kain/domains/sculpting_engine/sculpt_engine_surface_drag.kn"
+  },
+  {
+    "compiled_path": "crates/k-os-kain/generated/spv/supermotion/mocap_audio_motion.spv",
+    "domain": "supermotion",
+    "id": "mocap_audio_motion",
+    "label": "Mocap Audio Motion",
+    "source_path": "crates/k-os-kain/domains/supermotion/mocap_audio_motion.kn"
+  },
+  {
+    "compiled_path": "crates/k-os-kain/generated/spv/supermotion/mocap_blend.spv",
+    "domain": "supermotion",
+    "id": "mocap_blend",
+    "label": "Mocap Blend",
+    "source_path": "crates/k-os-kain/domains/supermotion/mocap_blend.kn"
+  },
+  {
+    "compiled_path": "crates/k-os-kain/generated/spv/supermotion/mocap_cloth_sim.spv",
+    "domain": "supermotion",
+    "id": "mocap_cloth_sim",
+    "label": "Mocap Cloth Sim",
+    "source_path": "crates/k-os-kain/domains/supermotion/mocap_cloth_sim.kn"
+  },
+  {
+    "compiled_path": "crates/k-os-kain/generated/spv/supermotion/mocap_contact_weld.spv",
+    "domain": "supermotion",
+    "id": "mocap_contact_weld",
+    "label": "Mocap Contact Weld",
+    "source_path": "crates/k-os-kain/domains/supermotion/mocap_contact_weld.kn"
+  },
+  {
+    "compiled_path": "crates/k-os-kain/generated/spv/supermotion/mocap_crowd.spv",
+    "domain": "supermotion",
+    "id": "mocap_crowd",
+    "label": "Mocap Crowd",
+    "source_path": "crates/k-os-kain/domains/supermotion/mocap_crowd.kn"
+  },
+  {
+    "compiled_path": "crates/k-os-kain/generated/spv/supermotion/mocap_denoise.spv",
+    "domain": "supermotion",
+    "id": "mocap_denoise",
+    "label": "Mocap Denoise",
+    "source_path": "crates/k-os-kain/domains/supermotion/mocap_denoise.kn"
+  },
+  {
+    "compiled_path": "crates/k-os-kain/generated/spv/supermotion/mocap_facial_blend.spv",
+    "domain": "supermotion",
+    "id": "mocap_facial_blend",
+    "label": "Mocap Facial Blend",
+    "source_path": "crates/k-os-kain/domains/supermotion/mocap_facial_blend.kn"
+  },
+  {
+    "compiled_path": "crates/k-os-kain/generated/spv/supermotion/mocap_hand_fk.spv",
+    "domain": "supermotion",
+    "id": "mocap_hand_fk",
+    "label": "Mocap Hand Fk",
+    "source_path": "crates/k-os-kain/domains/supermotion/mocap_hand_fk.kn"
+  },
+  {
+    "compiled_path": "crates/k-os-kain/generated/spv/supermotion/mocap_ik_reach.spv",
+    "domain": "supermotion",
+    "id": "mocap_ik_reach",
+    "label": "Mocap Ik Reach",
+    "source_path": "crates/k-os-kain/domains/supermotion/mocap_ik_reach.kn"
+  },
+  {
+    "compiled_path": "crates/k-os-kain/generated/spv/supermotion/mocap_livelink.spv",
+    "domain": "supermotion",
+    "id": "mocap_livelink",
+    "label": "Mocap Livelink",
+    "source_path": "crates/k-os-kain/domains/supermotion/mocap_livelink.kn"
+  },
+  {
+    "compiled_path": "crates/k-os-kain/generated/spv/supermotion/mocap_mirror.spv",
+    "domain": "supermotion",
+    "id": "mocap_mirror",
+    "label": "Mocap Mirror",
+    "source_path": "crates/k-os-kain/domains/supermotion/mocap_mirror.kn"
+  },
+  {
+    "compiled_path": "crates/k-os-kain/generated/spv/supermotion/mocap_physics.spv",
+    "domain": "supermotion",
+    "id": "mocap_physics",
+    "label": "Mocap Physics",
+    "source_path": "crates/k-os-kain/domains/supermotion/mocap_physics.kn"
+  },
+  {
+    "compiled_path": "crates/k-os-kain/generated/spv/supermotion/mocap_pose_match.spv",
+    "domain": "supermotion",
+    "id": "mocap_pose_match",
+    "label": "Mocap Pose Match",
+    "source_path": "crates/k-os-kain/domains/supermotion/mocap_pose_match.kn"
+  },
+  {
+    "compiled_path": "crates/k-os-kain/generated/spv/supermotion/mocap_pose_normalize.spv",
+    "domain": "supermotion",
+    "id": "mocap_pose_normalize",
+    "label": "Mocap Pose Normalize",
+    "source_path": "crates/k-os-kain/domains/supermotion/mocap_pose_normalize.kn"
+  },
+  {
+    "compiled_path": "crates/k-os-kain/generated/spv/supermotion/mocap_retarget.spv",
+    "domain": "supermotion",
+    "id": "mocap_retarget",
+    "label": "Mocap Retarget",
+    "source_path": "crates/k-os-kain/domains/supermotion/mocap_retarget.kn"
+  },
+  {
+    "compiled_path": "crates/k-os-kain/generated/spv/supermotion/mocap_skeleton.spv",
+    "domain": "supermotion",
+    "id": "mocap_skeleton",
+    "label": "Mocap Skeleton",
+    "source_path": "crates/k-os-kain/domains/supermotion/mocap_skeleton.kn"
+  },
+  {
+    "compiled_path": "crates/k-os-kain/generated/spv/supermotion/mocap_spring_follow.spv",
+    "domain": "supermotion",
+    "id": "mocap_spring_follow",
+    "label": "Mocap Spring Follow",
+    "source_path": "crates/k-os-kain/domains/supermotion/mocap_spring_follow.kn"
+  },
+  {
+    "compiled_path": "crates/k-os-kain/generated/spv/supermotion/mocap_stabilize_root.spv",
+    "domain": "supermotion",
+    "id": "mocap_stabilize_root",
+    "label": "Mocap Stabilize Root",
+    "source_path": "crates/k-os-kain/domains/supermotion/mocap_stabilize_root.kn"
+  },
+  {
+    "compiled_path": "crates/k-os-kain/generated/spv/supermotion/mocap_supermotion_livelink.spv",
+    "domain": "supermotion",
+    "id": "mocap_supermotion_livelink",
+    "label": "Mocap Supermotion Livelink",
+    "source_path": "crates/k-os-kain/domains/supermotion/mocap_supermotion_livelink.kn"
+  },
+  {
+    "compiled_path": "crates/k-os-kain/generated/spv/supermotion/mocap_velocity_smooth.spv",
+    "domain": "supermotion",
+    "id": "mocap_velocity_smooth",
+    "label": "Mocap Velocity Smooth",
+    "source_path": "crates/k-os-kain/domains/supermotion/mocap_velocity_smooth.kn"
+  },
+  {
+    "compiled_path": "crates/k-os-kain/generated/spv/supermotion/mograph_supermotion.spv",
+    "domain": "supermotion",
+    "id": "mograph_supermotion",
+    "label": "Mograph Supermotion",
+    "source_path": "crates/k-os-kain/domains/supermotion/mograph_supermotion.kn"
+  },
+  {
+    "compiled_path": "crates/k-os-kain/generated/spv/supermotion/preprocess.spv",
+    "domain": "supermotion",
+    "id": "preprocess",
+    "label": "Preprocess",
+    "source_path": "crates/k-os-kain/domains/supermotion/preprocess.kn"
+  }
+]

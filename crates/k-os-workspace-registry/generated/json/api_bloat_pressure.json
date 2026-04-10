@@ -42,11 +42,11 @@
     },
     {
       "package_name": "zen-mocap-engine",
-      "score": 652,
+      "score": 696,
       "priority": "high",
       "item_count": 258,
       "callable_count": 96,
-      "reexport_count": 5,
+      "reexport_count": 27,
       "notes": [
         "overall public surface is broad"
       ]

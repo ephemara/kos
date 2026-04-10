@@ -28,6 +28,24 @@ Also cleaned the root surface by moving loose repo-map artifacts into `docs/repo
 
 Regenerate the missing Kain SPIR-V assets so `zen-mocap-engine` stops relying on empty placeholders, then decide whether to keep shrinking the root by updating `DIRECTORY.md` and moving more stale documentation into `docs/` without touching the manifest and entrypoint files that the build uses directly.
 
+## 2026-04-09: Kain SPIR-V regeneration after Linux bring-up
+
+### What changed
+
+Regenerated every manifest-declared `target: "spirv"` asset in `crates/k-os-kain/manifests/sources.json` with the local Kain compiler at `/home/ephemara/Dev/Kain/target/release/kain`.
+
+That restored real shader outputs under `crates/k-os-kain/generated/spv/**`, repopulated the generated SPIR-V registries, removed the temporary empty-byte fallback in `crates/zen-mocap-engine/src/gpu_pipeline.rs`, and re-staged the Tauri runtime resources with `node scripts/prepare-release.mjs`.
+
+### Durable findings
+
+- On this workspace, shader regeneration is not automatic just because the `.kn` sources exist. The generated SPIR-V tree and generated registries can legitimately be empty on a fresh checkout until Kain is run.
+- The authoritative regeneration list is already in `crates/k-os-kain/manifests/sources.json`; using that manifest is safer than ad hoc directory loops because it keeps outputs aligned with generated registry expectations.
+- After SPIR-V regeneration, run a Rust check again so `k-os-kain` rebuilds its generated Rust registry before expecting downstream crates like `zen-mocap-engine` to see the new byte constants.
+
+### Next recommended step
+
+If this becomes a frequent workflow, add a first-class Linux `scripts/kain/regenerate_spirv.sh` wrapper around the manifest-driven regeneration command so shader recovery does not depend on remembering the exact loop.
+
 ## 2026-03-29: Kain migration architecture target
 
 ### What changed

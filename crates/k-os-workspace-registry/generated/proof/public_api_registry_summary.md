@@ -4,12 +4,12 @@
 - Public API items: 3107
 - Public functions: 469
 - Public methods: 1053
-- Public reexports: 553
+- Public reexports: 575
 
 ## Top Public Surfaces
 - `k-os-gpu-pipeline`: 448 items, 37 functions, 137 methods, 148 reexports
 - `k-os-material`: 404 items, 30 functions, 223 methods, 58 reexports
-- `zen-mocap-engine`: 258 items, 38 functions, 58 methods, 5 reexports
+- `zen-mocap-engine`: 258 items, 38 functions, 58 methods, 27 reexports
 - `k-os-io`: 245 items, 13 functions, 82 methods, 58 reexports
 - `k-os-brushes`: 176 items, 7 functions, 68 methods, 16 reexports
 - `k-os-sculpt`: 112 items, 44 functions, 16 methods, 28 reexports
