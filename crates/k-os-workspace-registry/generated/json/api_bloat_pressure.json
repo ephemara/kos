@@ -163,10 +163,10 @@
     },
     {
       "package_name": "k-os-mesh",
-      "score": 255,
+      "score": 260,
       "priority": "medium",
-      "item_count": 73,
-      "callable_count": 28,
+      "item_count": 74,
+      "callable_count": 29,
       "reexport_count": 35,
       "notes": [
         "public surface is comparatively contained"

@@ -33,7 +33,7 @@ k-os-sculpt = { path = "../crates/k-os-sculpt", features = ["physics"] }
 k-os-sim = { path = "../crates/k-os-sim" }
 k-os-scatter = { path = "../crates/k-os-scatter" }
 k-os-io = { path = "../crates/k-os-io" }
-k-os-mesh = { path = "../crates/k-os-mesh", features = ["atlas"] }
+k-os-mesh = { path = "../crates/k-os-mesh" }
 k-os-material = { path = "../crates/k-os-material" }
 k-os-photogrammetry = { path = "../crates/k-os-photogrammetry", features = ["photogrammetry"] }
 k-os-rig = { path = "../crates/k-os-rig" }

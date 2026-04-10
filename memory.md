@@ -1,5 +1,30 @@
 # Memory
 
+## 2026-04-10: Universal viewport frontend v1 on the shared shell path
+
+### What changed
+
+Converted the Universal workspace from a standalone fake multi-panel shell into a real `AppShell` consumer that uses the existing shared native viewport host.
+
+The Universal workspace now mounts through `AppShell` so `AppViewport` exists exactly once inside Universal mode, replaced the placeholder viewport panel with a real shared-viewport driver panel, added a Universal-only supported app surface for v1, and sanitized saved layouts/presets so old shell-style tool apps are migrated onto safe builtin panels instead of trying to mount nested `AppShell` workspaces inside the grid.
+
+Also narrowed Universal mode to one dedicated viewport leaf plus builtin utility panels, added diagnostics-only fallback UI when native viewport attach is unavailable or failed, and changed the main app so the normal active module surface is not mounted while Universal is open. That avoids multiple live `AppViewport` hosts competing for the same shared renderer session.
+
+Validated with:
+
+- `npm run build:frontend`
+
+### Durable findings
+
+- The critical frontend rule is now stricter: `AppViewport` should only be hosted through `AppShell`, and Universal should compose around that shell instead of trying to be its own independent renderer host.
+- Universal cannot safely mount the existing `NativeToolWorkspace` wrappers inside panel cells because those wrappers assume they own `AppShell` and the center viewport underlay. Until tool-specific embedded surfaces exist, Universal should stay limited to viewport plus utility panels.
+- Saved Universal layouts need explicit sanitization. Older layouts can legitimately contain unsupported tool ids or multiple viewport tabs from earlier experiments, so layout restore must enforce one dedicated viewport leaf before rendering.
+- While Universal is open, the normal active module surface is intentionally unmounted to keep the renderer single-hosted. That is the safest current contract even though it means module-local UI state is not preserved through a Universal toggle.
+
+### Next recommended step
+
+Start embedding the first real Universal-safe tool panel against this contract, likely `inspect` or a lightweight scene utility surface, instead of widening Universal with another nested shell. If persistent per-tool UI state across Universal toggles becomes important, move that state above the active-module mount boundary before reintroducing broader coexistence.
+
 ## 2026-04-09: Linux workspace normalization and root cleanup
 
 ### What changed

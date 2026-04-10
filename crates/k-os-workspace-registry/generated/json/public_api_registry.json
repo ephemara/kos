@@ -1,7 +1,7 @@
 {
   "package_count": 47,
-  "total_item_count": 3107,
-  "total_function_count": 469,
+  "total_item_count": 3108,
+  "total_function_count": 470,
   "total_method_count": 1053,
   "total_reexport_count": 575,
   "packages": [
@@ -20809,8 +20809,8 @@
           "src_path": "crates/k-os-mesh/src/lib.rs"
         }
       ],
-      "item_count": 73,
-      "function_count": 28,
+      "item_count": 74,
+      "function_count": 29,
       "method_count": 0,
       "reexport_count": 35,
       "items": [
@@ -20898,7 +20898,7 @@
           "source_kind": "definition",
           "module_path": "crate",
           "item_path": "crate::atlas",
-          "signature": "# [cfg (feature = \"atlas\")] pub mod atlas ;",
+          "signature": "pub mod atlas ;",
           "file_path": "crates/k-os-mesh/src/lib.rs",
           "owner_type": ""
         },
@@ -20965,6 +20965,17 @@
           "module_path": "crate::atlas",
           "item_path": "crate::atlas::unwrap_mesh_xatlas",
           "signature": "fn unwrap_mesh_xatlas (positions : Vec < f32 > , indices : Vec < u32 >) -> Result < AtlasResult , String >",
+          "file_path": "crates/k-os-mesh/src/atlas.rs",
+          "owner_type": ""
+        },
+        {
+          "target_name": "k_os_mesh",
+          "target_kind": "lib",
+          "kind": "function",
+          "source_kind": "definition",
+          "module_path": "crate::atlas",
+          "item_path": "crate::atlas::unwrap_mesh_xatlas",
+          "signature": "fn unwrap_mesh_xatlas (_positions : Vec < f32 > , _indices : Vec < u32 >) -> Result < AtlasResult , String >",
           "file_path": "crates/k-os-mesh/src/atlas.rs",
           "owner_type": ""
         },

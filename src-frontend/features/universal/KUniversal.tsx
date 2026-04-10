@@ -3,8 +3,8 @@
  *
  * THE LIGHTNING DRIVE OF K-OS.
  *
- * A Blender/UE5-style workspace where every app in the K-OS suite can run
- * simultaneously in a fully resizable, splittable panel system.
+ * A Blender/UE5-style workspace for the universal-safe viewport and utility
+ * surfaces that can run simultaneously in a resizable, splittable panel system.
  *
  * ─── Features ───────────────────────────────────────────────────────────────
  *   • Infinite binary-tree panel splitting (horizontal or vertical)
@@ -23,18 +23,25 @@
 import React, { useCallback, useRef, useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
-    Hexagon, LayoutGrid, Maximize, X, ChevronDown, Save,
-    Zap, Activity, Monitor, Layers, Settings, RefreshCw,
-    SplitSquareHorizontal, SplitSquareVertical, Grid,
-    Fullscreen, Download, PenTool, Copy,
+    LayoutGrid, Maximize, X, ChevronDown, Save,
+    Zap, Activity, Monitor, Layers,
+    SplitSquareHorizontal, Grid, PenTool,
 } from 'lucide-react';
 
 import {
     LayoutNode, LayoutPreset, LAYOUT_PRESETS,
     UniversalWorkspaceState, universalBus,
-    splitPanel, closePanel, setRatio, collectLeaves,
+    splitPanel, collectLeaves,
 } from './universalStore';
 import { LayoutRenderer } from './panels/LayoutRenderer';
+import { AppShell } from '@/ui/shell/AppShell';
+import { useViewportStore } from '@/state/stores/viewportStore';
+import {
+    findUniversalViewportPanel,
+    getUniversalNewPanelAppId,
+    sanitizeUniversalLayout,
+    type UniversalViewportDriverPolicy,
+} from './universalAppSurface';
 
 // ─── Local storage persistence ────────────────────────────────────────────────
 
@@ -217,6 +224,10 @@ function UniversalTopbar({
                 {panelCount} panels
             </div>
 
+            <div className={`rounded px-1.5 py-0.5 text-[8px] font-mono ${state.activeViewportDriverPanelId ? 'bg-emerald-500/10 text-emerald-200' : 'bg-white/[0.04] text-white/30'}`}>
+                {state.viewportDriverPolicy.toUpperCase()}
+            </div>
+
             <div className="flex-1" />
 
             {/* Bus activity indicator */}
@@ -289,35 +300,97 @@ function BusActivity() {
 
 interface KUniversalProps {
     sharedState: Record<string, any>;
-    bridgeProps: Record<string, any>;
     onExit: () => void;
 }
 
-export function KUniversal({ sharedState, bridgeProps, onExit }: KUniversalProps) {
+function UniversalStatusBar({
+    panelCount,
+    focusedAppId,
+    runtimeStatus,
+    activeViewportDriverPanelId,
+    viewportDriverPolicy,
+}: {
+    panelCount: number;
+    focusedAppId: string | null;
+    runtimeStatus: string;
+    activeViewportDriverPanelId: string | null;
+    viewportDriverPolicy: UniversalViewportDriverPolicy;
+}) {
+    return (
+        <>
+            <span className="text-[9px] font-mono text-white/25">
+                UNIVERSAL WORKSPACE · {panelCount} PANELS ACTIVE
+            </span>
+            <span className="text-[9px] font-mono text-orange-300/40">
+                FOCUS: {focusedAppId?.toUpperCase() ?? 'NONE'}
+            </span>
+            <span className="text-[9px] font-mono text-sky-300/35">
+                VIEWPORT: {runtimeStatus}
+            </span>
+            <span className="ml-auto text-[9px] font-mono text-white/20">
+                DRIVER: {activeViewportDriverPanelId ? activeViewportDriverPanelId.slice(0, 8).toUpperCase() : 'NONE'} · {viewportDriverPolicy.toUpperCase()}
+            </span>
+        </>
+    );
+}
+
+export function KUniversal({ sharedState, onExit }: KUniversalProps) {
     const containerRef = useRef<HTMLDivElement>(null);
+    const runtimeStatus = useViewportStore((state) => state.runtimeStatus);
+    const viewportDriverPolicy: UniversalViewportDriverPolicy = 'focused-panel';
 
     // Load from localStorage or default to UE5 preset
     const [root, setRoot] = useState<LayoutNode>(() => {
-        return loadLayout() ?? LAYOUT_PRESETS['UE5'].root;
+        return sanitizeUniversalLayout(loadLayout() ?? LAYOUT_PRESETS['UE5'].root);
     });
 
     const [focusedPanel, setFocusedPanel] = useState<string | null>(null);
     const [fullscreen, setFullscreen] = useState<string | null>(null);
     const [presetsOpen, setPresetsOpen] = useState(false);
-    const [currentPreset, setCurrentPreset] = useState<string | undefined>('UE5');
+    const [currentPreset, setCurrentPreset] = useState<string | undefined>(() => loadLayout() ? undefined : 'UE5');
+    const [activeViewportDriverPanelId, setActiveViewportDriverPanelId] = useState<string | null>(null);
+
+    const viewportPanel = useMemo(() => findUniversalViewportPanel(root), [root]);
+    const viewportPanelId = viewportPanel?.id ?? null;
+    const newPanelAppId = useMemo(() => getUniversalNewPanelAppId(root), [root]);
 
     // Autosave layout on change
     useEffect(() => { saveLayout(root); }, [root]);
 
+    useEffect(() => {
+        setActiveViewportDriverPanelId(viewportPanelId);
+    }, [viewportPanelId]);
+
+    useEffect(() => {
+        const leaves = collectLeaves(root);
+        if (leaves.length === 0) {
+            return;
+        }
+
+        const hasFocusedPanel = focusedPanel != null && leaves.some((leaf) => leaf.id === focusedPanel);
+        if (!hasFocusedPanel) {
+            setFocusedPanel(viewportPanelId ?? leaves[0]?.id ?? null);
+        }
+    }, [focusedPanel, root, viewportPanelId]);
+
     const panelCount = useMemo(() => collectLeaves(root).length, [root]);
+    const focusedAppId = useMemo(
+        () => collectLeaves(root).find((leaf) => leaf.id === focusedPanel)?.appId ?? null,
+        [focusedPanel, root],
+    );
+
+    const applyRootChange = useCallback((nextRoot: LayoutNode) => {
+        setRoot(sanitizeUniversalLayout(nextRoot));
+        universalBus.emit('layout:changed', {});
+    }, []);
 
     const handlePresetSelect = useCallback((preset: LayoutPreset) => {
-        setRoot(preset.root);
+        applyRootChange(preset.root);
         setCurrentPreset(preset.id);
         setFocusedPanel(null);
         setFullscreen(null);
         universalBus.emit('layout:changed', {});
-    }, []);
+    }, [applyRootChange]);
 
     const handleAddPanel = useCallback(() => {
         const leaves = collectLeaves(root);
@@ -325,14 +398,28 @@ export function KUniversal({ sharedState, bridgeProps, onExit }: KUniversalProps
         const target = focusedPanel
             ? leaves.find(l => l.id === focusedPanel) ?? leaves[leaves.length - 1]
             : leaves[leaves.length - 1];
-        setRoot(prev => splitPanel(prev, target.id, 'horizontal', 'viewport'));
-    }, [root, focusedPanel]);
+        applyRootChange(splitPanel(root, target.id, 'horizontal', newPanelAppId));
+    }, [applyRootChange, focusedPanel, newPanelAppId, root]);
 
     const handleSaveLayout = useCallback(() => {
         saveLayout(root);
         // Toast-style feedback via bus
         universalBus.emit('layout:changed', {});
     }, [root]);
+
+    const handleFocusPanel = useCallback((panelId: string) => {
+        setFocusedPanel(panelId);
+        universalBus.emit('panel:focused', { panelId });
+    }, []);
+
+    const handleFocusViewportPanel = useCallback(() => {
+        if (!viewportPanelId) {
+            return;
+        }
+
+        setFocusedPanel(viewportPanelId);
+        universalBus.emit('panel:focused', { panelId: viewportPanelId });
+    }, [viewportPanelId]);
 
     // Keyboard shortcuts
     useEffect(() => {
@@ -350,36 +437,55 @@ export function KUniversal({ sharedState, bridgeProps, onExit }: KUniversalProps
     }, [fullscreen]);
 
     return (
-        <div className="flex flex-col w-full h-full bg-[#080810] overflow-hidden">
-
-            {/* Top bar */}
-            <UniversalTopbar
-                state={{ root, focusedPanel, presetsOpen, fullscreenPanel: fullscreen }}
-                onPresetsToggle={() => setPresetsOpen(v => !v)}
-                presetsOpen={presetsOpen}
-                currentPreset={currentPreset}
-                panelCount={panelCount}
-                onSaveLayout={handleSaveLayout}
-                onExit={onExit}
-                onAddPanel={handleAddPanel}
-            />
-
-            {/* Layout area */}
-            <div ref={containerRef} className="flex-1 relative overflow-hidden">
+        <AppShell
+            layoutKey="universal"
+            className="bg-[#080810] text-gray-200"
+            centerTransparent
+            topBar={
+                <UniversalTopbar
+                    state={{
+                        root,
+                        focusedPanel,
+                        presetsOpen,
+                        fullscreenPanel: fullscreen,
+                        activeViewportDriverPanelId,
+                        viewportDriverPolicy,
+                    }}
+                    onPresetsToggle={() => setPresetsOpen(v => !v)}
+                    presetsOpen={presetsOpen}
+                    currentPreset={currentPreset}
+                    panelCount={panelCount}
+                    onSaveLayout={handleSaveLayout}
+                    onExit={onExit}
+                    onAddPanel={handleAddPanel}
+                />
+            }
+            statusBar={
+                <UniversalStatusBar
+                    panelCount={panelCount}
+                    focusedAppId={focusedAppId}
+                    runtimeStatus={runtimeStatus}
+                    activeViewportDriverPanelId={activeViewportDriverPanelId}
+                    viewportDriverPolicy={viewportDriverPolicy}
+                />
+            }
+        >
+            <div ref={containerRef} className="relative h-full w-full overflow-hidden bg-transparent">
                 <LayoutRenderer
                     node={root}
                     root={root}
                     focusedPanel={focusedPanel}
                     fullscreen={fullscreen}
+                    viewportPanelId={viewportPanelId}
+                    newPanelAppId={newPanelAppId}
                     sharedState={sharedState}
-                    bridgeProps={bridgeProps}
                     containerRef={containerRef as React.RefObject<HTMLDivElement>}
-                    onRootChange={setRoot}
-                    onFocusPanel={setFocusedPanel}
+                    onRootChange={applyRootChange}
+                    onFocusPanel={handleFocusPanel}
+                    onFocusViewportPanel={handleFocusViewportPanel}
                     onFullscreen={setFullscreen}
                 />
 
-                {/* Preset overlay */}
                 <AnimatePresence>
                     {presetsOpen && (
                         <>
@@ -399,23 +505,7 @@ export function KUniversal({ sharedState, bridgeProps, onExit }: KUniversalProps
                     )}
                 </AnimatePresence>
             </div>
-
-            {/* Status bar */}
-            <div className="h-5 flex items-center px-3 gap-4 bg-[#060609] border-t border-white/[0.04] shrink-0">
-                <span className="text-[7px] font-mono text-white/20">
-                    UNIVERSAL WORKSPACE · {panelCount} PANELS ACTIVE
-                </span>
-                {focusedPanel && (
-                    <span className="text-[7px] font-mono text-orange-400/40">
-                        FOCUS: {collectLeaves(root).find(l => l.id === focusedPanel)?.appId?.toUpperCase() ?? 'PANEL'}
-                    </span>
-                )}
-                <span className="text-[7px] font-mono text-white/10 ml-auto">
-                    Ctrl+\ = Layouts · Esc = Exit Fullscreen
-                </span>
-            </div>
-
-        </div>
+        </AppShell>
     );
 }
 

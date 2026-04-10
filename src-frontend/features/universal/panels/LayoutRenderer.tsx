@@ -8,7 +8,7 @@
  *   • Focus management
  */
 
-import React, { useCallback, useRef, useEffect, useState } from 'react';
+import React, { useCallback, useRef } from 'react';
 import {
     LayoutNode, SplitNode, PanelLeaf, KOSAppId,
     setRatio, splitPanel, closePanel, setApp, mapNode,
@@ -74,18 +74,20 @@ interface LayoutRendererProps {
     root: LayoutNode;
     focusedPanel: string | null;
     fullscreen: string | null;
+    viewportPanelId: string | null;
+    newPanelAppId: KOSAppId;
     sharedState: Record<string, any>;
-    bridgeProps: Record<string, any>;
     containerRef: React.RefObject<HTMLDivElement>;
     onRootChange: (newRoot: LayoutNode) => void;
     onFocusPanel: (id: string) => void;
+    onFocusViewportPanel: () => void;
     onFullscreen: (id: string | null) => void;
 }
 
 export function LayoutRenderer({
     node, root, focusedPanel, fullscreen,
-    sharedState, bridgeProps, containerRef,
-    onRootChange, onFocusPanel, onFullscreen,
+    viewportPanelId, newPanelAppId, sharedState, containerRef,
+    onRootChange, onFocusPanel, onFocusViewportPanel, onFullscreen,
 }: LayoutRendererProps) {
 
     if (node.kind === 'split') {
@@ -111,9 +113,12 @@ export function LayoutRenderer({
                     <LayoutRenderer
                         node={sp.a} root={root}
                         focusedPanel={focusedPanel} fullscreen={fullscreen}
-                        sharedState={sharedState} bridgeProps={bridgeProps}
+                        viewportPanelId={viewportPanelId}
+                        newPanelAppId={newPanelAppId}
+                        sharedState={sharedState}
                         containerRef={containerRef}
                         onRootChange={onRootChange} onFocusPanel={onFocusPanel}
+                        onFocusViewportPanel={onFocusViewportPanel}
                         onFullscreen={onFullscreen}
                     />
                 </div>
@@ -122,9 +127,12 @@ export function LayoutRenderer({
                     <LayoutRenderer
                         node={sp.b} root={root}
                         focusedPanel={focusedPanel} fullscreen={fullscreen}
-                        sharedState={sharedState} bridgeProps={bridgeProps}
+                        viewportPanelId={viewportPanelId}
+                        newPanelAppId={newPanelAppId}
+                        sharedState={sharedState}
                         containerRef={containerRef}
                         onRootChange={onRootChange} onFocusPanel={onFocusPanel}
+                        onFocusViewportPanel={onFocusViewportPanel}
                         onFullscreen={onFullscreen}
                     />
                 </div>
@@ -136,14 +144,18 @@ export function LayoutRenderer({
     const panel = node as PanelLeaf;
     const isFocused = focusedPanel === panel.id;
     const isFullscreen = fullscreen === panel.id;
+    const isViewportPanel = viewportPanelId === panel.id;
 
     const handleSplit = useCallback((dir: 'horizontal' | 'vertical') => {
-        onRootChange(splitPanel(root, panel.id, dir, 'viewport'));
-    }, [root, panel.id, onRootChange]);
+        onRootChange(splitPanel(root, panel.id, dir, newPanelAppId));
+    }, [newPanelAppId, root, panel.id, onRootChange]);
 
     const handleClose = useCallback(() => {
+        if (isViewportPanel) {
+            return;
+        }
         onRootChange(closePanel(root, panel.id));
-    }, [root, panel.id, onRootChange]);
+    }, [isViewportPanel, root, panel.id, onRootChange]);
 
     const handleAppChange = useCallback((appId: KOSAppId) => {
         onRootChange(setApp(root, panel.id, appId));
@@ -169,9 +181,10 @@ export function LayoutRenderer({
         <PanelHost
             panel={panel}
             focused={isFocused}
+            viewportPanelId={viewportPanelId}
             sharedState={sharedState}
-            bridgeProps={bridgeProps}
             onFocus={() => onFocusPanel(panel.id)}
+            onFocusViewportPanel={onFocusViewportPanel}
             onSplitH={() => handleSplit('horizontal')}
             onSplitV={() => handleSplit('vertical')}
             onClose={handleClose}

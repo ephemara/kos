@@ -130,11 +130,11 @@ export const LAYOUT_PRESETS: Record<string, LayoutPreset> = {
     SCULPT_STUDIO: {
         id: 'SCULPT_STUDIO',
         label: 'Sculpt Studio',
-        description: 'Sculpt + Properties + Asset Browser',
+        description: 'Viewport + Timeline + Properties + Assets',
         icon: 'PenTool',
         root: split('horizontal', 0.75,
             split('vertical', 0.80,
-                leaf('sculpt'),
+                leaf('viewport'),
                 leaf('timeline')
             ),
             split('vertical', 0.50,
@@ -159,7 +159,7 @@ export const LAYOUT_PRESETS: Record<string, LayoutPreset> = {
             ),
             split('vertical', 0.55,
                 leaf('properties'),
-                leaf('inspect')
+                leaf('terminal')
             )
         ),
     },
@@ -167,16 +167,16 @@ export const LAYOUT_PRESETS: Record<string, LayoutPreset> = {
     FULL_DCC: {
         id: 'FULL_DCC',
         label: 'Full DCC',
-        description: 'Sculpt · Painter · Quantum · Retopo in 4-way split',
+        description: 'Viewport · Assets · Outliner · Properties',
         icon: 'LayoutGrid',
         root: split('horizontal', 0.50,
             split('vertical', 0.50,
-                leaf('sculpt'),
-                leaf('painter')
+                leaf('viewport'),
+                leaf('assets')
             ),
             split('vertical', 0.50,
-                leaf('quantum'),
-                leaf('retopo')
+                leaf('outliner'),
+                leaf('properties')
             )
         ),
     },
@@ -184,16 +184,16 @@ export const LAYOUT_PRESETS: Record<string, LayoutPreset> = {
     TEXTURE_PIPELINE: {
         id: 'TEXTURE_PIPELINE',
         label: 'Texture Pipeline',
-        description: 'Painter · Atlas · Bake · Sample',
+        description: 'Viewport · Assets · Properties · Terminal',
         icon: 'Layers',
         root: split('horizontal', 0.60,
             split('vertical', 0.50,
-                leaf('painter'),
-                leaf('graphos')
+                leaf('viewport'),
+                leaf('assets')
             ),
             split('vertical', 0.50,
-                leaf('atlas'),
-                leaf('bake')
+                leaf('properties'),
+                leaf('terminal')
             )
         ),
     },
@@ -201,16 +201,16 @@ export const LAYOUT_PRESETS: Record<string, LayoutPreset> = {
     SIMULATION: {
         id: 'SIMULATION',
         label: 'Simulation Lab',
-        description: 'Quantum CFD + Tecton + Scatter + Properties',
+        description: 'Viewport · Outliner · Properties · Terminal',
         icon: 'Activity',
         root: split('horizontal', 0.70,
             split('vertical', 0.60,
-                leaf('quantum'),
-                leaf('tecton')
+                leaf('viewport'),
+                leaf('outliner')
             ),
             split('vertical', 0.50,
-                leaf('scatter'),
-                leaf('properties')
+                leaf('properties'),
+                leaf('terminal')
             )
         ),
     },
@@ -218,9 +218,9 @@ export const LAYOUT_PRESETS: Record<string, LayoutPreset> = {
     SINGLE: {
         id: 'SINGLE',
         label: 'Single Viewport',
-        description: 'One full-screen app',
+        description: 'One full-screen viewport',
         icon: 'Maximize',
-        root: leaf('sculpt'),
+        root: leaf('viewport'),
     },
 };
 
@@ -265,6 +265,8 @@ export interface UniversalWorkspaceState {
     focusedPanel: string | null;   // panelId
     presetsOpen: boolean;
     fullscreenPanel: string | null;  // panelId to fill entire workspace
+    activeViewportDriverPanelId: string | null;
+    viewportDriverPolicy: 'focused-panel';
 }
 
 /** Immutable helpers that return new tree copies */
@@ -341,4 +343,8 @@ export function setApp(root: LayoutNode, panelId: string, appId: KOSAppId): Layo
 export function collectLeaves(root: LayoutNode): PanelLeaf[] {
     if (root.kind === 'panel') return [root];
     return [...collectLeaves(root.a), ...collectLeaves(root.b)];
+}
+
+export function findLeafByAppId(root: LayoutNode, appId: KOSAppId): PanelLeaf | null {
+    return collectLeaves(root).find((leaf) => leaf.appId === appId) ?? null;
 }

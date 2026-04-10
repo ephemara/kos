@@ -506,7 +506,6 @@ export default function App() {
                         >
                             <KUniversal
                                 sharedState={BridgeProps.sharedState}
-                                bridgeProps={BridgeProps}
                                 onExit={() => setUniversalMode(false)}
                             />
                         </motion.div>
@@ -790,7 +789,7 @@ export default function App() {
 
                 {/* ACTIVE LOGIC LAYER */}
                 <main className="flex-1 relative bg-transparent overflow-hidden">
-                    {ALL_MODULES.map(mod => {
+                    {!universalMode && ALL_MODULES.map(mod => {
                         const isActive = mod.id === settings.activeModuleId;
 
                         // Simple mount logic: only render the active module

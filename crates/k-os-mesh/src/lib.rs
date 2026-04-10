@@ -2,12 +2,10 @@
 //!
 //! This crate is the ownership boundary for mesh operations.
 
-#[cfg(feature = "atlas")]
 pub mod atlas;
 pub mod optimize;
 pub mod primitive_gen;
 
-#[cfg(feature = "atlas")]
 pub use atlas::{
     classify_mesh, unwrap_and_optimize, unwrap_mesh_xatlas, AtlasResult, ClassificationResult,
     UnwrapOptimizeResult,

@@ -238,6 +238,8 @@ Testing and heavy validation should still follow the repo conversation rule: ask
 
 ## Common Errors
 
+- Treat `AppShell` as the only valid host for `AppViewport`. If a frontend surface needs the native renderer, layer its UI above the shell center underlay instead of mounting another renderer host.
+- Universal mode is intentionally narrower than the standalone module surface. Do not embed `NativeToolWorkspace` or other shell-owning tool workspaces inside Universal panels until they are rewritten as panel-safe embedded surfaces.
 - Do not assume host crates are the right place for new logic. Prefer pushing ownership down into a domain crate and surfacing it through composition data.
 - Avoid adding new string-literal crate IDs or hardcoded asset paths when a manifest or schema already exists nearby.
 - `k-os-plugin` exists, but dynamic library loading is not the easiest first answer for this workspace. Static Cargo composition plus generated registries is simpler and safer for the current architecture.

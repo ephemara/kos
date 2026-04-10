@@ -503,7 +503,7 @@
         "crate::SimplifyResult"
       ],
       "pressure_priority": "medium",
-      "pressure_score": 255,
+      "pressure_score": 260,
       "notes": [
         "prefer indirect use through curated adapters",
         "public surface is comparatively contained"

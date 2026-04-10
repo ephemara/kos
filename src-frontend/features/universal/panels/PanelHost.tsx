@@ -6,49 +6,25 @@
  * and app-picker overlay.
  */
 
-import React, { useState, useCallback, useRef } from 'react';
+import React, { useState, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
     PenTool, Grid, Rocket, Sprout, Map, Disc, Brush, Aperture, Paintbrush,
     Weight, Copy, Search, Globe, Atom, Terminal, Database, Box, Sliders,
-    GitBranch, Layers, Monitor, Maximize, Minimize, X, Plus, ChevronDown,
-    SplitSquareVertical, SplitSquareHorizontal, LayoutGrid, Zap, RefreshCw,
+    GitBranch, Layers, Monitor, Maximize, X, Plus,
+    SplitSquareVertical, SplitSquareHorizontal, Zap,
 } from 'lucide-react';
 
 import {
     KOSAppId, APP_REGISTRY, PanelLeaf, universalBus,
-    KOS_APP_IDS,
 } from '../universalStore';
 import { KAINConsole, KAINRuntimeBrowser } from '@/kain';
-
-// ─── App component lazy registry ─────────────────────────────────────────────
-// Apps are lazily imported to keep initial bundle small and avoid initializing
-// heavy engines (Three.js, WebGPU) for panels not yet visible.
-
-const APP_COMPONENTS: Record<KOSAppId, React.LazyExoticComponent<React.ComponentType<any>> | null> = {
-    sculpt: React.lazy(() => import('@/features/native/runtimeModules').then(m => ({ default: m.KSculptNative }))),
-    retopo: React.lazy(() => import('@/features/native/runtimeModules').then(m => ({ default: m.KRetopoNative }))),
-    greeble: React.lazy(() => import('@/features/native/runtimeModules').then(m => ({ default: m.KGreebleNative }))),
-    scatter: React.lazy(() => import('@/features/native/runtimeModules').then(m => ({ default: m.KScatterNative }))),
-    atlas: React.lazy(() => import('@/features/native/runtimeModules').then(m => ({ default: m.KAtlasNative }))),
-    bake: React.lazy(() => import('@/features/native/runtimeModules').then(m => ({ default: m.KBakeNative }))),
-    graphos: React.lazy(() => import('@/features/native/runtimeModules').then(m => ({ default: m.KGraphosNative }))),
-    autopbr: React.lazy(() => import('@/features/native/runtimeModules').then(m => ({ default: m.KAutopbrNative }))),
-    painter: React.lazy(() => import('@/features/native/runtimeModules').then(m => ({ default: m.KPainterNative }))),
-    weight: React.lazy(() => import('@/features/native/runtimeModules').then(m => ({ default: m.KWeightNative }))),
-    cloner: React.lazy(() => import('@/features/native/runtimeModules').then(m => ({ default: m.KClonerNative }))),
-    inspect: React.lazy(() => import('@/features/native/runtimeModules').then(m => ({ default: m.KInspectNative }))),
-    tecton: React.lazy(() => import('@/features/native/runtimeModules').then(m => ({ default: m.KTectonNative }))),
-    quantum: React.lazy(() => import('@/features/native/runtimeModules').then(m => ({ default: m.KQuantumNative }))),
-    kain: null,
-    // Built-ins are defined inline below
-    terminal: null,
-    assets: null,
-    viewport: null,
-    properties: null,
-    timeline: null,
-    outliner: null,
-};
+import { UniversalViewportPanel } from './UniversalViewportPanel';
+import {
+    UNIVERSAL_SUPPORTED_APP_IDS,
+    UNIVERSAL_VIEWPORT_APP_ID,
+    isUniversalSupportedAppId,
+} from '../universalAppSurface';
 
 // ─── Icon map ─────────────────────────────────────────────────────────────────
 
@@ -65,19 +41,7 @@ function AppIcon({ iconName, size = 12, className = '' }: { iconName: string; si
 
 // ─── Builtin app placeholders ─────────────────────────────────────────────────
 
-function ViewportBuiltin() {
-    return (
-        <div className="w-full h-full flex items-center justify-center bg-[#0b0b0f]">
-            <div className="text-center space-y-2">
-                <Box size={32} className="text-white/20 mx-auto" />
-                <p className="text-[10px] font-mono text-white/30">3D VIEWPORT</p>
-                <p className="text-[8px] text-white/15">Drop a scene object to preview</p>
-            </div>
-        </div>
-    );
-}
-
-function OutlinerBuiltin({ panelId }: { panelId: string }) {
+function OutlinerBuiltin() {
     return (
         <div className="w-full h-full bg-[#0d0d12] flex flex-col">
             <div className="px-3 py-2 border-b border-white/[0.06]">
@@ -146,49 +110,30 @@ function TimelineBuiltin() {
     );
 }
 
-function TerminalBuiltin() {
-    const [lines, setLines] = useState<string[]>(['KAIN Terminal v1.0', '> ']);
-    const [input, setInput] = useState('');
+function AssetsBuiltin({ sharedState }: { sharedState: Record<string, any> }) {
+    const assetCards = [
+        { label: 'Artifacts', value: sharedState?.storage?.length ?? 0 },
+        { label: 'Materials', value: sharedState?.materials?.length ?? 0 },
+        { label: 'Alphas', value: sharedState?.alphas?.length ?? 0 },
+    ];
 
-    const handleKey = (e: React.KeyboardEvent) => {
-        if (e.key === 'Enter') {
-            setLines(prev => [...prev, `> ${input}`, `[${input}] — not implemented in preview`]);
-            setInput('');
-        }
-    };
-
-    return (
-        <div className="w-full h-full bg-[#060608] flex flex-col font-mono text-[9px]">
-            <div className="flex-1 p-3 overflow-y-auto space-y-0.5">
-                {lines.map((l, i) => (
-                    <p key={i} className="text-green-400/70">{l}</p>
-                ))}
-            </div>
-            <div className="flex items-center gap-2 px-3 py-2 border-t border-white/[0.06]">
-                <span className="text-green-400/50">&gt;</span>
-                <input
-                    className="flex-1 bg-transparent outline-none text-green-400/80 caret-green-400 placeholder-white/15"
-                    placeholder="kain run ..."
-                    value={input}
-                    onChange={e => setInput(e.target.value)}
-                    onKeyDown={handleKey}
-                />
-            </div>
-        </div>
-    );
-}
-
-function AssetsBuiltin() {
     return (
         <div className="w-full h-full bg-[#0d0d12] flex flex-col">
             <div className="px-3 py-2 border-b border-white/[0.06]">
                 <p className="text-[9px] font-mono text-white/50 uppercase tracking-wider">Asset Browser</p>
             </div>
+            <div className="grid grid-cols-3 gap-2 border-b border-white/[0.06] p-3">
+                {assetCards.map((card) => (
+                    <div key={card.label} className="rounded-xl border border-white/[0.06] bg-white/[0.02] px-2 py-3 text-center">
+                        <div className="text-[8px] font-mono uppercase tracking-[0.16em] text-white/30">{card.label}</div>
+                        <div className="mt-1 text-[14px] font-black text-white/70">{card.value}</div>
+                    </div>
+                ))}
+            </div>
             <div className="p-2 grid grid-cols-3 gap-1 overflow-y-auto">
-                {['Mat_001', 'Brush_Clay', 'Alpha_Skin', 'Tex_Bark', 'Mesh_Rock', 'HDR_Studio'].map(name => (
+                {['Kernel', 'Materials', 'Alphas', 'Imports', 'Scratch', 'Procedural'].map(name => (
                     <div key={name}
-                        className="rounded-md border border-white/[0.06] bg-white/[0.02] p-1.5 cursor-pointer
-                                    hover:border-white/15 transition-colors text-center">
+                        className="rounded-md border border-white/[0.06] bg-white/[0.02] p-1.5 text-center">
                         <div className="w-full aspect-square bg-white/[0.03] rounded mb-1 flex items-center justify-center">
                             <Database size={12} className="text-white/20" />
                         </div>
@@ -213,9 +158,10 @@ const CATEGORY_LABELS = {
     BUILTIN: 'Built-in',
 };
 
-function AppPicker({ onSelect, onClose }: {
+function AppPicker({ onSelect, onClose, supportedAppIds }: {
     onSelect: (id: KOSAppId) => void;
     onClose: () => void;
+    supportedAppIds: readonly KOSAppId[];
 }) {
     const [search, setSearch] = useState('');
     const q = search.toLowerCase();
@@ -253,7 +199,7 @@ function AppPicker({ onSelect, onClose }: {
 
                 <div className="overflow-y-auto flex-1 p-3 space-y-3 custom-scrollbar">
                     {CATEGORY_ORDER.map(cat => {
-                        const apps = KOS_APP_IDS.filter(id => {
+                        const apps = supportedAppIds.filter(id => {
                             const def = APP_REGISTRY[id];
                             return def.category === cat &&
                                 (q === '' || def.label.toLowerCase().includes(q) || id.includes(q));
@@ -301,6 +247,8 @@ function AppPicker({ onSelect, onClose }: {
 interface PanelHeaderProps {
     panel: PanelLeaf;
     focused: boolean;
+    canPickApp: boolean;
+    canClose: boolean;
     onFocus: () => void;
     onPickApp: () => void;
     onSplitH: () => void;
@@ -312,12 +260,10 @@ interface PanelHeaderProps {
 }
 
 function PanelHeader({
-    panel, focused, onFocus, onPickApp,
+    panel, focused, canPickApp, canClose, onFocus, onPickApp,
     onSplitH, onSplitV, onClose, onFullscreen,
     onTabSelect, onTabClose,
 }: PanelHeaderProps) {
-    const [ctxOpen, setCtxOpen] = useState(false);
-
     return (
         <div
             className={`flex items-stretch shrink-0 border-b transition-colors select-none
@@ -359,12 +305,14 @@ function PanelHeader({
                 })}
 
                 {/* Add tab */}
-                <button
-                    onClick={onPickApp}
-                    className="flex shrink-0 items-center px-2 text-white/20 hover:text-white/50 transition-colors"
-                >
-                    <Plus size={10} />
-                </button>
+                {canPickApp && (
+                    <button
+                        onClick={onPickApp}
+                        className="flex shrink-0 items-center px-2 text-white/20 hover:text-white/50 transition-colors"
+                    >
+                        <Plus size={10} />
+                    </button>
+                )}
             </div>
 
             {/* Panel controls */}
@@ -381,10 +329,12 @@ function PanelHeader({
                     className="p-0.5 text-white/20 hover:text-white/60 transition-colors rounded">
                     <Maximize size={10} />
                 </button>
-                <button onClick={onClose} title="Close Panel"
-                    className="p-0.5 text-white/20 hover:text-red-400/70 transition-colors rounded">
-                    <X size={10} />
-                </button>
+                {canClose && (
+                    <button onClick={onClose} title="Close Panel"
+                        className="p-0.5 text-white/20 hover:text-red-400/70 transition-colors rounded">
+                        <X size={10} />
+                    </button>
+                )}
             </div>
         </div>
     );
@@ -395,9 +345,10 @@ function PanelHeader({
 interface PanelHostProps {
     panel: PanelLeaf;
     focused: boolean;
+    viewportPanelId: string | null;
     sharedState: Record<string, any>;
-    bridgeProps: Record<string, any>;
     onFocus: () => void;
+    onFocusViewportPanel: () => void;
     onSplitH: () => void;
     onSplitV: () => void;
     onClose: () => void;
@@ -408,18 +359,26 @@ interface PanelHostProps {
 }
 
 export function PanelHost({
-    panel, focused, sharedState, bridgeProps,
-    onFocus, onSplitH, onSplitV, onClose, onFullscreen,
+    panel, focused, viewportPanelId, sharedState,
+    onFocus, onFocusViewportPanel, onSplitH, onSplitV, onClose, onFullscreen,
     onAppChange, onTabSelect, onTabClose,
 }: PanelHostProps) {
     const [pickerOpen, setPickerOpen] = useState(false);
     const appId = panel.appId;
+    const isViewportPanel = viewportPanelId === panel.id;
 
     const handlePickApp = useCallback((id: KOSAppId) => {
         setPickerOpen(false);
+        if (id === UNIVERSAL_VIEWPORT_APP_ID && viewportPanelId && viewportPanelId !== panel.id) {
+            onFocusViewportPanel();
+            return;
+        }
+        if (isViewportPanel) {
+            return;
+        }
         onAppChange(id);
         universalBus.emit('panel:app:changed', { panelId: panel.id, appId: id });
-    }, [onAppChange, panel.id]);
+    }, [isViewportPanel, onAppChange, onFocusViewportPanel, panel.id, viewportPanelId]);
 
     // Render app content
     const renderContent = () => {
@@ -439,50 +398,50 @@ export function PanelHost({
 
         // Builtin apps
         const builtins: Record<string, React.ReactNode> = {
-            viewport: <ViewportBuiltin />,
-            outliner: <OutlinerBuiltin panelId={panel.id} />,
+            viewport: <UniversalViewportPanel panelId={panel.id} sharedState={sharedState} />,
+            outliner: <OutlinerBuiltin />,
             properties: <PropertiesBuiltin />,
             timeline: <TimelineBuiltin />,
             terminal: <KAINConsole embedded />,
             kain: <KAINRuntimeBrowser embedded />,
-            assets: <AssetsBuiltin />,
+            assets: <AssetsBuiltin sharedState={sharedState} />,
         };
         if (appId in builtins) {
             return <div className="flex-1 overflow-hidden">{builtins[appId]}</div>;
         }
 
-        // Lazy-loaded DCC apps
-        const Component = APP_COMPONENTS[appId];
-        if (!Component) {
+        if (!isUniversalSupportedAppId(appId)) {
             return (
-                <div className="flex-1 flex items-center justify-center">
-                    <p className="text-[9px] font-mono text-white/30">App not found: {appId}</p>
+                <div className="flex-1 flex items-center justify-center bg-[#0b0b0f]">
+                    <div className="text-center space-y-2">
+                        <Zap size={24} className="text-white/20 mx-auto" />
+                        <p className="text-[10px] font-mono text-white/40">UNSUPPORTED IN UNIVERSAL V1</p>
+                        <p className="text-[8px] text-white/20">This workspace only exposes viewport and utility surfaces for now.</p>
+                    </div>
                 </div>
             );
         }
 
         return (
-            <React.Suspense fallback={
-                <div className="flex-1 flex items-center justify-center">
-                    <div className="text-center space-y-2">
-                        <div className="w-6 h-6 border border-orange-500/40 border-t-orange-500 rounded-full animate-spin mx-auto" />
-                        <p className="text-[8px] font-mono text-white/30">Loading {APP_REGISTRY[appId]?.label}…</p>
-                    </div>
+            <div className="flex-1 flex items-center justify-center bg-[#0b0b0f]">
+                <div className="text-center space-y-2">
+                    <Zap size={24} className="text-white/20 mx-auto" />
+                    <p className="text-[10px] font-mono text-white/40">UTILITY PANEL ONLY</p>
+                    <p className="text-[8px] text-white/20">{APP_REGISTRY[appId]?.label ?? appId}</p>
                 </div>
-            }>
-                <div className="flex-1 overflow-hidden">
-                    <Component {...(bridgeProps as any)} sharedState={sharedState} />
-                </div>
-            </React.Suspense>
+            </div>
         );
     };
 
     return (
         <div className={`relative flex flex-col w-full h-full overflow-hidden transition-all duration-100
-                         ${focused ? 'ring-1 ring-inset ring-orange-500/25' : ''}`}>
+                         ${focused ? 'ring-1 ring-inset ring-orange-500/25' : ''}`}
+            onPointerDownCapture={onFocus}>
             <PanelHeader
                 panel={panel}
                 focused={focused}
+                canPickApp={!isViewportPanel}
+                canClose={!isViewportPanel}
                 onFocus={onFocus}
                 onPickApp={() => setPickerOpen(true)}
                 onSplitH={onSplitH}
@@ -501,6 +460,7 @@ export function PanelHost({
                     <AppPicker
                         onSelect={handlePickApp}
                         onClose={() => setPickerOpen(false)}
+                        supportedAppIds={UNIVERSAL_SUPPORTED_APP_IDS}
                     />
                 )}
             </AnimatePresence>

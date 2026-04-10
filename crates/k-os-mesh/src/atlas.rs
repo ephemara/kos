@@ -1,6 +1,7 @@
 //! CPU atlas unwrap and mesh classification helpers.
 
 use serde::Serialize;
+#[cfg(feature = "atlas")]
 use xatlas::{ChartOptions, IndexFormat, MeshDecl, PackOptions, Xatlas};
 
 #[derive(Serialize)]
@@ -10,6 +11,7 @@ pub struct AtlasResult {
     pub uvs: Vec<f32>,
 }
 
+#[cfg(feature = "atlas")]
 pub fn unwrap_mesh_xatlas(positions: Vec<f32>, indices: Vec<u32>) -> Result<AtlasResult, String> {
     log::info!(
         "KAtlas: Starting XAtlas unwrap for {} verts, {} indices",
@@ -128,6 +130,11 @@ pub fn unwrap_mesh_xatlas(positions: Vec<f32>, indices: Vec<u32>) -> Result<Atla
         indices: new_indices,
         uvs: new_uvs,
     })
+}
+
+#[cfg(not(feature = "atlas"))]
+pub fn unwrap_mesh_xatlas(_positions: Vec<f32>, _indices: Vec<u32>) -> Result<AtlasResult, String> {
+    Err("XAtlas UV unwrap is unavailable in this build. Re-enable the `atlas` feature on `k-os-mesh` once the native xatlas linker path is fixed on Linux.".to_string())
 }
 
 #[derive(Serialize, Clone)]
