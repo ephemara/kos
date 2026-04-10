@@ -1,5 +1,29 @@
 # Memory
 
+## 2026-04-10: Tauri Universal viewport host bring-up on Linux
+
+### What changed
+
+Repaired the actual native presentation path behind the Tauri frontend so Universal can launch a visible renderer host instead of creating only a logical renderer session.
+
+`src-tauri/src/viewport_host.rs` now resolves and spawns the built `target/debug/k-os-bevy` host, exposes the missing leash commands for visibility, window sync, egui/debug flags, and model loading, and tracks shared viewport session count so the host is shut down when the last Tauri viewport closes instead of being left orphaned on the leash port. `src-tauri/src/main.rs` now registers the added `leash_load_model` command.
+
+Validated with:
+
+- `cargo check -p k-os-backend`
+- `cargo build -p k-os-bevy`
+
+### Durable findings
+
+- The current Tauri frontend does not present the viewport through Zen yet. Zen is the target native host architecture, but the live Tauri viewport path still presents through `crates/k-os-bevy` over the leash transport documented in `docs/NATIVE_RENDERER_PROGRESS.md`.
+- `src-tauri/src/commands/viewport.rs` can succeed at logical viewport creation even when no visible native host exists. When debugging a blank Tauri viewport, verify the leash host binary exists and that `viewport_host.rs` is actually spawning and talking to it.
+- Leaving the native host orphaned across app restarts is dangerous because the next spawned host can miss the UDP leash port and silently fall back to standalone behavior. Shared-session shutdown in the Tauri adapter is part of the runtime contract now, not optional cleanup.
+- Universal's primitive fallback is only useful if the native host presentation path is alive. A blank Universal viewport with a primitive fallback configured is usually a host-launch or host-sync failure, not a panel-layout problem.
+
+### Next recommended step
+
+If you want to move the Tauri shell off the leash architecture, treat that as a real Zen cutover project: wire Tauri presentation onto the shared renderer plus Zen-native host boundary, then delete the Bevy host path deliberately. Do not assume that cutover already happened just because the Zen crates exist.
+
 ## 2026-04-10: Universal viewport frontend v1 on the shared shell path
 
 ### What changed

@@ -9,10 +9,15 @@ use tauri::Manager;
 use std::os::windows::process::CommandExt;
 
 static NATIVE_VIEWPORT_HOST: OnceLock<Mutex<Option<Child>>> = OnceLock::new();
+static NATIVE_VIEWPORT_SESSION_COUNT: OnceLock<Mutex<u32>> = OnceLock::new();
 const LEASH_PORT: &str = "127.0.0.1:19876";
 
 fn native_viewport_host_slot() -> &'static Mutex<Option<Child>> {
     NATIVE_VIEWPORT_HOST.get_or_init(|| Mutex::new(None))
+}
+
+fn native_viewport_session_count() -> &'static Mutex<u32> {
+    NATIVE_VIEWPORT_SESSION_COUNT.get_or_init(|| Mutex::new(0))
 }
 
 fn resolve_bevy_binary(app: &tauri::AppHandle) -> Result<PathBuf, String> {
@@ -100,12 +105,28 @@ fn send_leash(bytes: &[u8]) -> Result<(), String> {
     Ok(())
 }
 
+fn shutdown_native_viewport_host() -> Result<(), String> {
+    let _ = send_leash(&[255u8]);
+    let slot = native_viewport_host_slot();
+    let mut guard = slot.lock().map_err(|e| e.to_string())?;
+    if let Some(child) = guard.as_mut() {
+        let _ = child.try_wait();
+        let _ = child.kill();
+        let _ = child.wait();
+    }
+    *guard = None;
+    Ok(())
+}
+
 pub fn create_native_viewport_session(
     app: &tauri::AppHandle,
     _viewport: ViewportHandle,
     _config: &ViewportConfig,
 ) -> Result<(), String> {
     ensure_native_viewport_host(app)?;
+    let count = native_viewport_session_count();
+    let mut guard = count.lock().map_err(|e| e.to_string())?;
+    *guard = guard.saturating_add(1);
     Ok(())
 }
 
@@ -113,6 +134,18 @@ pub fn close_native_viewport_session(
     _app: &tauri::AppHandle,
     _viewport: ViewportHandle,
 ) -> Result<(), String> {
+    let count = native_viewport_session_count();
+    let mut guard = count.lock().map_err(|e| e.to_string())?;
+    if *guard > 0 {
+        *guard -= 1;
+    }
+    let should_shutdown = *guard == 0;
+    drop(guard);
+
+    if should_shutdown {
+        shutdown_native_viewport_host()?;
+    }
+
     Ok(())
 }
 
@@ -120,6 +153,15 @@ pub fn send_viewport_payload_path(path: &str) -> Result<(), String> {
     let path_bytes = path.as_bytes();
     let mut bytes = Vec::with_capacity(5 + path_bytes.len());
     bytes.push(24);
+    bytes.extend_from_slice(&(path_bytes.len() as u32).to_le_bytes());
+    bytes.extend_from_slice(path_bytes);
+    send_leash(&bytes)
+}
+
+pub fn send_model_load(path: &str) -> Result<(), String> {
+    let path_bytes = path.as_bytes();
+    let mut bytes = Vec::with_capacity(5 + path_bytes.len());
+    bytes.push(7);
     bytes.extend_from_slice(&(path_bytes.len() as u32).to_le_bytes());
     bytes.extend_from_slice(path_bytes);
     send_leash(&bytes)
@@ -230,4 +272,10 @@ pub async fn leash_debug_ui(app: tauri::AppHandle, enabled: bool) -> Result<(), 
 pub async fn leash_egui_only(app: tauri::AppHandle, enabled: bool) -> Result<(), String> {
     ensure_native_viewport_host(&app)?;
     send_set_egui_only(enabled)
+}
+
+#[tauri::command]
+pub async fn leash_load_model(app: tauri::AppHandle, path: String) -> Result<(), String> {
+    ensure_native_viewport_host(&app)?;
+    send_model_load(&path)
 }

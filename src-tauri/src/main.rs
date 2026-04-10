@@ -778,6 +778,7 @@ fn main() {
             viewport_host::sync_bevy_window,
             viewport_host::leash_debug_ui,
             viewport_host::leash_egui_only,
+            viewport_host::leash_load_model,
             commands::gizmo::gizmo_session_create,
             commands::gizmo::gizmo_session_dispose,
             commands::gizmo::gizmo_session_update,
