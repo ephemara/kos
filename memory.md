@@ -1,5 +1,52 @@
 # Memory
 
+## 2026-04-10: Zen native painter workspace is live and compiling
+
+### What changed
+
+Finished the first real native painter lane in `zen` instead of leaving material authoring as a shell concept with no host-side state.
+
+`crates/zen/resources/workspace_ui.toml` now defaults the native shell to a painter-first preset with import, materials, brushes, and layers panels. `crates/zen/resources/theme.toml` now shifts the shell onto a warmer painter-oriented palette. `crates/zen-editor/src/lib.rs` now recognizes a native `Painter` feature kind. `crates/zen/src/kain_ui_host.rs` now carries native painter workspace state, read-only import diagnostics, nearby PBR texture discovery, material-slot editing, brush rack controls, SVG stencil parsing through `usvg`, and FBX ingest summaries through `k-os-io`.
+
+Validated with:
+
+- `cargo check -p zen`
+
+### Durable findings
+
+- The shortest path away from TypeScript for this repo is the native `zen` host, not another web shell and not a Bevy-UI-first rewrite. The core missing piece was painter-specific workspace semantics and import/material/brush presentation on the existing native shell path.
+- `crates/zen/resources/workspace_ui.toml` is now the primary composition seam for painter workflow. Presets, topbar grouping, and panel identity should keep moving through that manifest instead of drifting back into hardcoded host layout.
+- The import contract must stay honest in the UI: GLTF, GLB, and OBJ are real native scene imports, SVG is real stencil metadata, and FBX is still metadata-first only.
+- This pass wires native painter state and diagnostics, not full live GPU stroke execution. The next real milestone is connecting the active material, brush, stencil, and viewport-hit state to the renderer-side paint path.
+
+### Next recommended step
+
+Bridge the native painter workspace into real renderer-side paint execution so brush/material/stencil state can drive live PBR stroke application in the Zen viewport instead of stopping at rack management and import summaries.
+
+## 2026-04-10: Zen native shell chrome now follows a workspace-manifest lane
+
+### What changed
+
+Started the first real old-frontend-to-Zen shell port on the native host path instead of treating the Zen UI as a one-off egui skin.
+
+`crates/zen-editor/src/lib.rs` now supports a data-driven `menubar` section in the workspace manifest with typed menu item kinds for host actions, document selection, workspace presets, asset import, and workspace reset. `crates/zen/resources/workspace_ui.toml` now declares a real native menu bar plus richer topbar groups for Stage, Runtime, and Pipeline lanes. `crates/zen/src/kain_ui_host.rs` now renders that manifest-driven menu chrome, executes menu and topbar actions through the existing Zen host/runtime seams, upgrades the expanded toolbar from dead scaffold text into real action buttons, and restyles the viewport/status chrome toward the older TypeScript shell layout language.
+
+Validated with:
+
+- `cargo check -p zen-editor`
+- `cargo check -p zen`
+
+### Durable findings
+
+- The right porting seam from the old TypeScript shell into Zen is the workspace manifest plus the native host action boundary, not a second parallel frontend layer. Zen already had enough composition hooks; the problem was underpowered shell chrome and missing manifest shape.
+- Menu bar wiring needs to stay data-driven. Hardcoding editor menus directly into `kain_ui_host.rs` would repeat the same maintenance trap as hand-curated registry or Fabric surfaces.
+- The existing topbar group model is useful once it actually owns actions. An expanded toolbar that only shows descriptive text is effectively dead UI in a native editor shell.
+- `cargo check -p zen-editor` is still the fastest low-noise validation target for workspace-manifest schema work, but the full `zen` binary now also compiles with the painter helper block wired in.
+
+### Next recommended step
+
+Finish the second porting lane by moving more of the old shell’s panel semantics into the manifest and native draw surfaces: panel headers, contextual tool strips, and command-palette grouping should all read from the same workspace-driven configuration instead of staying implicit in `kain_ui_host.rs`.
+
 ## 2026-04-10: Tauri Universal viewport host bring-up on Linux
 
 ### What changed
@@ -23,6 +70,29 @@ Validated with:
 ### Next recommended step
 
 If you want to move the Tauri shell off the leash architecture, treat that as a real Zen cutover project: wire Tauri presentation onto the shared renderer plus Zen-native host boundary, then delete the Bevy host path deliberately. Do not assume that cutover already happened just because the Zen crates exist.
+
+## 2026-04-10: Native viewport hole must stay visually transparent
+
+### What changed
+
+Removed the opaque fallback styling from the live `NativeViewport` host so the Bevy leash surface can actually show through the Tauri shell once the window is synced and connected.
+
+The important behavior change is in `src-frontend/features/viewport/NativeViewport.tsx`: when the native leash session is online, the host div now goes fully transparent instead of painting a dark gradient and border over the center underlay. `crates/k-os-bevy/src/main.rs` also now documents the correct leash-host contract instead of the older “Bevy owns the app window” story.
+
+Validated with:
+
+- `npm run build:frontend`
+- `cargo check -p k-os-bevy`
+
+### Durable findings
+
+- `AppShell` can expose a transparent center and still fail visually if `NativeViewport` paints its own opaque background. When the synced native window exists behind Tauri, that frontend paint layer will hide the renderer completely.
+- A detached or separately visible Bevy window does not prove the shell embedding path is correct. It usually means the leash host is alive while the React/Tauri viewport hole is still wrong.
+- The current Tauri path is still a synced native window, not a true child-surface embed. The shell contract therefore depends on two things at once: accurate bounds sync and a genuinely transparent frontend hole at the target viewport surface.
+
+### Next recommended step
+
+If the renderer still appears detached after a transparent host fix, debug geometry and z-order next: verify the live DOM rect being passed into `sync_bevy_window`, then inspect compositor-specific behavior on Linux before widening the frontend again.
 
 ## 2026-04-10: Universal viewport frontend v1 on the shared shell path
 

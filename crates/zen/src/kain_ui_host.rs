@@ -5,7 +5,10 @@ use crate::FlyCamera;
 use egui::{Color32, RichText, Stroke, Vec2, WidgetText};
 use egui_dock::{DockArea, DockState, TabViewer};
 use k_os_asset_pipeline::importers::{GltfImporter, ObjImporter};
-use k_os_asset_pipeline::AssetPipeline;
+use k_os_asset_pipeline::{Asset as PipelineAsset, AssetData as PipelineAssetData, AssetPipeline};
+use k_os_brushes::{BrushKernel, BrushParams, KBrushAsset};
+use k_os_io::{import_export::ImportExportEngine, Asset as IoAsset, AssetType as IoAssetType};
+use k_os_material::{Material, MaterialLibrary, MaterialPreset, TextureSlot};
 use k_os_workspace_registry::{
     adapter_manifest_for_target, adapter_manifests, integration_contract_for_package,
     integration_registry, packages_for_host, workspace_registry,
@@ -27,7 +30,7 @@ use zen_editor::{
     sanitize_dock_state, sanitize_user_layouts, ZenDockTab, ZenEditorSession, ZenFeatureRegistry,
     ZenInspectorField, ZenInspectorFieldValue, ZenInspectorSchema, ZenInspectorSection,
     ZenUiFeature, ZenUiFeatureKind, ZenUserWorkspaceLayout, ZenWorkspaceDocument,
-    ZenWorkspaceManifest,
+    ZenWorkspaceManifest, ZenWorkspaceMenu, ZenWorkspaceMenuBar, ZenWorkspaceMenuItem,
 };
 use zen_host::{ZenHostAction, ZenHostApi, ZenHostBindingKind};
 use zen_kain_api::ZenKainContract;
@@ -92,6 +95,212 @@ enum WorkspacePanelAction {
     DeleteUserLayout(String),
 }
 
+#[derive(Clone, Debug)]
+enum WorkspaceChromeAction {
+    HostAction(String),
+    SelectDocument(String),
+    ApplyPreset(String),
+    ImportAsset,
+    ResetWorkspace,
+}
+
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+enum PainterPanelMode {
+    Import,
+    Materials,
+    Brushes,
+    Layers,
+}
+
+impl PainterPanelMode {
+    fn from_feature(feature: &ZenUiFeature) -> Self {
+        match feature
+            .props
+            .get("painter_panel")
+            .map(|value| value.as_str())
+            .unwrap_or("import")
+        {
+            "materials" => Self::Materials,
+            "brushes" => Self::Brushes,
+            "layers" => Self::Layers,
+            _ => Self::Import,
+        }
+    }
+}
+
+#[derive(Clone, Debug)]
+struct PainterMeshSource {
+    format_label: String,
+    source_label: String,
+    imported_objects: usize,
+    imported_vertices: usize,
+    imported_triangles: usize,
+    import_note: String,
+}
+
+#[derive(Clone, Debug)]
+struct PainterFbxIngest {
+    source_label: String,
+    asset_count: usize,
+    metadata_count: usize,
+    status_note: String,
+}
+
+#[derive(Clone, Debug)]
+struct SvgStencilSummary {
+    source_label: String,
+    size: [f32; 2],
+    node_count: usize,
+}
+
+#[derive(Clone, Debug)]
+struct PainterWorkspaceState {
+    material_library: MaterialLibrary,
+    active_material_name: String,
+    brushes: Vec<KBrushAsset>,
+    active_brush_id: String,
+    active_texture_slot: TextureSlot,
+    mesh_source: Option<PainterMeshSource>,
+    fbx_ingest: Option<PainterFbxIngest>,
+    svg_stencil: Option<SvgStencilSummary>,
+    session_note: String,
+}
+
+impl PainterWorkspaceState {
+    fn new() -> Self {
+        let mut material_library = MaterialLibrary::with_name("Zen Painter Rack");
+        for material in [
+            MaterialPreset::plastic_red(),
+            MaterialPreset::gold(),
+            MaterialPreset::glass(),
+            MaterialPreset::wood_polished(),
+        ] {
+            material_library.add_material(material);
+        }
+
+        let brushes = default_painter_brushes();
+        let active_material_name = material_library
+            .iter()
+            .next()
+            .map(|material| material.name().to_string())
+            .unwrap_or_else(|| "Material".to_string());
+        let active_brush_id = brushes
+            .first()
+            .map(|brush| brush.id.clone())
+            .unwrap_or_else(|| "paint_surface".to_string());
+
+        Self {
+            material_library,
+            active_material_name,
+            brushes,
+            active_brush_id,
+            active_texture_slot: TextureSlot::BaseColor,
+            mesh_source: None,
+            fbx_ingest: None,
+            svg_stencil: None,
+            session_note: "Painter workspace ready".to_string(),
+        }
+    }
+
+    fn material_names(&self) -> Vec<String> {
+        let mut names = self
+            .material_library
+            .iter()
+            .map(|material| material.name().to_string())
+            .collect::<Vec<_>>();
+        names.sort();
+        names
+    }
+
+    fn active_material(&self) -> Option<&Material> {
+        self.material_library
+            .get_material_by_name(&self.active_material_name)
+    }
+
+    fn active_material_mut(&mut self) -> Option<&mut Material> {
+        let active_name = self.active_material_name.clone();
+        let material_id = self
+            .material_library
+            .material_ids()
+            .into_iter()
+            .find(|id| {
+                self.material_library
+                    .get_material(id)
+                    .map(|material| material.name() == active_name)
+                    .unwrap_or(false)
+            })?;
+        self.material_library.get_material_mut(&material_id)
+    }
+
+    fn active_brush(&self) -> Option<&KBrushAsset> {
+        self.brushes
+            .iter()
+            .find(|brush| brush.id == self.active_brush_id)
+    }
+
+    fn active_brush_mut(&mut self) -> Option<&mut KBrushAsset> {
+        self.brushes
+            .iter_mut()
+            .find(|brush| brush.id == self.active_brush_id)
+    }
+
+    fn set_mesh_source(&mut self, source: PainterMeshSource) {
+        self.mesh_source = Some(source);
+        self.fbx_ingest = None;
+    }
+
+    fn set_fbx_ingest(&mut self, ingest: PainterFbxIngest) {
+        self.fbx_ingest = Some(ingest);
+    }
+
+    fn set_svg_stencil(&mut self, summary: SvgStencilSummary) {
+        self.svg_stencil = Some(summary);
+    }
+
+    fn assign_texture_to_active_material(&mut self, path: &Path) -> Result<String, String> {
+        let slot = self.active_texture_slot;
+        let material_name = self.active_material_name.clone();
+        let Some(material) = self.active_material_mut() else {
+            return Err("no active material".to_string());
+        };
+        material.set_texture(slot, path);
+        let note = format!(
+            "assigned {} to {} on {}",
+            path.file_name().and_then(|value| value.to_str()).unwrap_or("texture"),
+            slot.display_name(),
+            material_name
+        );
+        self.session_note = note.clone();
+        Ok(note)
+    }
+
+    fn discover_textures_near_source(&mut self, source_path: &Path) -> usize {
+        let Some(directory) = source_path.parent() else {
+            return 0;
+        };
+        let source_stem = source_path
+            .file_stem()
+            .and_then(|value| value.to_str())
+            .map(|value| value.to_ascii_lowercase())
+            .unwrap_or_default();
+        let mut assigned = 0usize;
+
+        for slot in TextureSlot::all() {
+            if let Some(texture_path) = discover_texture_for_slot(directory, &source_stem, *slot) {
+                self.active_texture_slot = *slot;
+                if self.assign_texture_to_active_material(&texture_path).is_ok() {
+                    assigned += 1;
+                }
+            }
+        }
+
+        if assigned > 0 {
+            self.session_note = format!("discovered {assigned} nearby PBR textures");
+        }
+        assigned
+    }
+}
+
 pub(crate) struct ZenKainUiHost {
     config: KainUiConfig,
     theme: ZenUiTheme,
@@ -115,6 +324,7 @@ pub(crate) struct ZenKainUiHost {
     workspace_status: String,
     activity_status: String,
     import_status: String,
+    painter: PainterWorkspaceState,
     inspector: InspectorDraft,
     viewport_request: Option<[u32; 2]>,
     viewport_rect_pixels: Option<[f32; 4]>,
@@ -170,7 +380,7 @@ impl ZenKainUiHost {
         let (asset_pipeline, import_status) = match build_asset_pipeline() {
             Ok(pipeline) => (
                 Some(pipeline),
-                "asset import ready // gltf glb obj".to_string(),
+                "asset import ready // gltf glb obj fbx svg png jpg exr".to_string(),
             ),
             Err(err) => (None, format!("asset import unavailable: {err}")),
         };
@@ -198,6 +408,7 @@ impl ZenKainUiHost {
             shell_status: "Kain shell idle".to_string(),
             activity_status: "workspace ready".to_string(),
             import_status,
+            painter: PainterWorkspaceState::new(),
             inspector: InspectorDraft::default(),
             viewport_request: None,
             viewport_rect_pixels: None,
@@ -442,8 +653,10 @@ impl ZenKainUiHost {
 
     fn import_asset_from_dialog(&mut self, scene: &mut ZenScene) {
         let Some(path) = rfd::FileDialog::new()
-            .set_title("Import Asset Into Zen")
-            .add_filter("3D Assets", &["gltf", "glb", "obj"])
+            .set_title("Import Asset Into Zen Painter")
+            .add_filter("Mesh Assets", &["gltf", "glb", "obj", "fbx"])
+            .add_filter("Texture Maps", &["png", "jpg", "jpeg", "tga", "bmp", "exr"])
+            .add_filter("Vector Stencils", &["svg"])
             .pick_file()
         else {
             self.import_status = "asset import cancelled".to_string();
@@ -454,6 +667,28 @@ impl ZenKainUiHost {
     }
 
     fn import_asset_path(&mut self, path: PathBuf, scene: &mut ZenScene) {
+        let extension = path
+            .extension()
+            .and_then(|value| value.to_str())
+            .map(|value| value.to_ascii_lowercase())
+            .unwrap_or_default();
+
+        match extension.as_str() {
+            "fbx" => {
+                self.import_fbx_path(&path);
+                return;
+            }
+            "svg" => {
+                self.import_svg_path(&path);
+                return;
+            }
+            "png" | "jpg" | "jpeg" | "tga" | "bmp" | "exr" => {
+                self.import_texture_path(&path);
+                return;
+            }
+            _ => {}
+        }
+
         let Some(pipeline) = self.asset_pipeline.as_ref() else {
             self.import_status = "asset import unavailable".to_string();
             self.activity_status = self.import_status.clone();
@@ -463,17 +698,31 @@ impl ZenKainUiHost {
         match pipeline.import(&path) {
             Ok(asset) => match scene.import_asset(&asset) {
                 Ok(report) => {
-                    let document = runtime_document_from_asset(&asset);
-                    self.upsert_runtime_document(document.clone());
-                    self.ensure_document_buffer(&document);
+                    let document = runtime_document_from_import_path(&asset.source_path, &asset);
+                    let buffer = import_document_buffer_from_asset(&asset, &report);
+                    self.upsert_runtime_document_with_buffer(document.clone(), buffer);
                     self.session.active_document = Some(document.key.clone());
                     self.open_feature_tab("workspace.file_editor");
+                    let discovered_textures = self.painter.discover_textures_near_source(&path);
+                    self.painter.set_mesh_source(painter_mesh_source_from_asset(
+                        &asset,
+                        &report,
+                        discovered_textures,
+                    ));
                     self.import_status = format!(
                         "imported {} // {} objects",
                         report.label, report.imported_objects
                     );
-                    self.activity_status =
-                        format!("imported {} from {}", report.label, path.display());
+                    self.activity_status = if discovered_textures > 0 {
+                        format!(
+                            "imported {} from {} // {} textures bound",
+                            report.label,
+                            path.display(),
+                            discovered_textures
+                        )
+                    } else {
+                        format!("imported {} from {}", report.label, path.display())
+                    };
                 }
                 Err(err) => {
                     self.import_status = format!("scene import failed: {err}");
@@ -482,6 +731,101 @@ impl ZenKainUiHost {
             },
             Err(err) => {
                 self.import_status = format!("asset import failed: {err}");
+                self.activity_status = self.import_status.clone();
+            }
+        }
+    }
+
+    fn import_texture_path(&mut self, path: &Path) {
+        match self.painter.assign_texture_to_active_material(path) {
+            Ok(note) => {
+                let document = runtime_document_for_external_path(path, "Imported Texture");
+                let buffer = external_text_document_buffer(
+                    path,
+                    "Texture Assignment",
+                    &[
+                        format!("active material: {}", self.painter.active_material_name),
+                        format!(
+                            "target channel: {}",
+                            self.painter.active_texture_slot.display_name()
+                        ),
+                        note.clone(),
+                    ],
+                );
+                self.upsert_runtime_document_with_buffer(document.clone(), buffer);
+                self.session.active_document = Some(document.key.clone());
+                self.open_feature_tab("workspace.file_editor");
+                self.import_status = note.clone();
+                self.activity_status = note;
+            }
+            Err(err) => {
+                self.import_status = format!("texture assignment failed: {err}");
+                self.activity_status = self.import_status.clone();
+            }
+        }
+    }
+
+    fn import_fbx_path(&mut self, path: &Path) {
+        let engine = match ImportExportEngine::new() {
+            Ok(engine) => engine,
+            Err(err) => {
+                self.import_status = format!("fbx ingest unavailable: {err}");
+                self.activity_status = self.import_status.clone();
+                return;
+            }
+        };
+
+        match engine.import_file(path) {
+            Ok(result) => {
+                let pending_assets = result
+                    .metadata
+                    .iter()
+                    .filter(|metadata| metadata.asset_type == IoAssetType::BinaryBlob)
+                    .count();
+                let note = format!(
+                    "FBX ingest is metadata-first today: {} payloads staged, {} still pending full geometry parse",
+                    result.assets.len(),
+                    pending_assets
+                );
+                self.painter.set_fbx_ingest(PainterFbxIngest {
+                    source_label: path.display().to_string(),
+                    asset_count: result.assets.len(),
+                    metadata_count: result.metadata.len(),
+                    status_note: note.clone(),
+                });
+                let document = runtime_document_for_external_path(path, "Imported FBX");
+                let buffer = import_document_buffer_from_fbx(path, &result, &note);
+                self.upsert_runtime_document_with_buffer(document.clone(), buffer);
+                self.session.active_document = Some(document.key.clone());
+                self.open_feature_tab("workspace.file_editor");
+                self.import_status = format!("ingested FBX {}", path.display());
+                self.activity_status = note;
+            }
+            Err(err) => {
+                self.import_status = format!("fbx ingest failed: {err}");
+                self.activity_status = self.import_status.clone();
+            }
+        }
+    }
+
+    fn import_svg_path(&mut self, path: &Path) {
+        match parse_svg_stencil_summary(path) {
+            Ok(summary) => {
+                let note = format!(
+                    "loaded SVG stencil {} // {:.0} x {:.0} // {} nodes",
+                    summary.source_label, summary.size[0], summary.size[1], summary.node_count
+                );
+                self.painter.set_svg_stencil(summary.clone());
+                let document = runtime_document_for_external_path(path, "Imported SVG");
+                let buffer = import_document_buffer_from_svg(&summary);
+                self.upsert_runtime_document_with_buffer(document.clone(), buffer);
+                self.session.active_document = Some(document.key.clone());
+                self.open_feature_tab("workspace.file_editor");
+                self.import_status = note.clone();
+                self.activity_status = note;
+            }
+            Err(err) => {
+                self.import_status = format!("svg ingest failed: {err}");
                 self.activity_status = self.import_status.clone();
             }
         }
@@ -499,6 +843,16 @@ impl ZenKainUiHost {
             self.runtime_documents
                 .sort_by(|left, right| left.title.cmp(&right.title));
         }
+    }
+
+    fn upsert_runtime_document_with_buffer(
+        &mut self,
+        document: ZenWorkspaceDocument,
+        buffer: DocumentEditorBuffer,
+    ) {
+        let document_key = document.key.clone();
+        self.upsert_runtime_document(document);
+        self.document_buffers.insert(document_key, buffer);
     }
 
     fn ensure_document_buffer(&mut self, document: &ZenWorkspaceDocument) {
@@ -746,10 +1100,11 @@ impl ZenKainUiHost {
                 });
         }
 
-        render_workspace_topbar(
+        let chrome_action = render_workspace_topbar(
             ctx,
             &self.theme,
             &self.workspace,
+            &self.host_api,
             &self.workspace.workspace.title,
             self.session.active_document.as_deref(),
             &self.session.viewport_layout,
@@ -758,6 +1113,38 @@ impl ZenKainUiHost {
             &mut self.active_topbar_group,
             &mut self.topbar_expanded,
         );
+        let mut chrome_scene_changed = false;
+        let mut chrome_reload_requested = false;
+        if let Some(action) = chrome_action {
+            match action {
+                WorkspaceChromeAction::HostAction(action_key) => {
+                    let result = execute_ui_action(
+                        &self.host_api,
+                        &mut self.activity_status,
+                        Some(action_key.as_str()),
+                        scene,
+                        runtime,
+                        camera,
+                        fabric_service,
+                    );
+                    chrome_scene_changed = result.scene_changed;
+                    chrome_reload_requested = result.reload_requested;
+                }
+                WorkspaceChromeAction::SelectDocument(document_key) => {
+                    self.select_document(&document_key);
+                }
+                WorkspaceChromeAction::ApplyPreset(preset_key) => {
+                    self.apply_workspace_preset(&preset_key);
+                }
+                WorkspaceChromeAction::ImportAsset => {
+                    self.import_asset_from_dialog(scene);
+                    chrome_scene_changed = true;
+                }
+                WorkspaceChromeAction::ResetWorkspace => {
+                    self.reset_workspace_layout();
+                }
+            }
+        }
 
         let documents = self.combined_documents();
         let palette_action = draw_command_palette(
@@ -772,12 +1159,12 @@ impl ZenKainUiHost {
             &self.session,
             &self.user_layouts,
         );
-        let mut palette_scene_changed = false;
-        let mut palette_reload_requested = false;
+        let mut palette_scene_changed = chrome_scene_changed;
+        let mut palette_reload_requested = chrome_reload_requested;
         if let Some(selection) = palette_action {
             let result = self.apply_palette_selection(selection, scene, runtime, camera, fabric_service);
-            palette_scene_changed = result.scene_changed;
-            palette_reload_requested = result.reload_requested;
+            palette_scene_changed |= result.scene_changed;
+            palette_reload_requested |= result.reload_requested;
         }
 
         let host_api_status = self.host_api_status.clone();
@@ -793,6 +1180,7 @@ impl ZenKainUiHost {
         let theme = &self.theme;
         let dock_state = &mut self.dock_state;
         let inspector = &mut self.inspector;
+        let painter = &mut self.painter;
         let document_buffers = &mut self.document_buffers;
         let activity_status = &mut self.activity_status;
         let mut viewer = ZenDockViewer {
@@ -805,6 +1193,7 @@ impl ZenKainUiHost {
             host_api,
             theme,
             inspector,
+            painter,
             activity_status,
             scene,
             runtime,
@@ -831,7 +1220,7 @@ impl ZenKainUiHost {
 
         egui::TopBottomPanel::bottom("zen-workspace-statusbar")
             .resizable(false)
-            .exact_height(30.0)
+            .exact_height(38.0)
             .frame(
                 egui::Frame::default()
                     .fill(self.theme.palette.status_bg)
@@ -840,6 +1229,7 @@ impl ZenKainUiHost {
             .show(ctx, |ui| {
                 render_workspace_statusbar(
                     ui,
+                    &self.theme,
                     viewer.activity_status,
                     &shell_status,
                     &contract_status,
@@ -893,6 +1283,7 @@ struct ZenDockViewer<'a> {
     host_api: &'a ZenHostApi,
     theme: &'a ZenUiTheme,
     inspector: &'a mut InspectorDraft,
+    painter: &'a mut PainterWorkspaceState,
     activity_status: &'a mut String,
     scene: &'a mut ZenScene,
     runtime: &'a mut ZenRuntimeSession,
@@ -1035,6 +1426,18 @@ impl<'a> ZenDockViewer<'a> {
                         ZenHostBindingKind::EngineTimeline,
                     );
                     draw_timeline_panel(ui, self.theme, feature);
+                });
+            }
+            ZenUiFeatureKind::Painter => {
+                draw_feature_panel(ui, self.theme, feature, false, |ui| {
+                    draw_painter_panel(
+                        ui,
+                        self.theme,
+                        feature,
+                        self.painter,
+                        self.import_status,
+                        self.scene.selected_details(),
+                    );
                 });
             }
             ZenUiFeatureKind::HostApi => {
@@ -1190,6 +1593,7 @@ fn render_workspace_topbar(
     ctx: &egui::Context,
     theme: &ZenUiTheme,
     workspace: &ZenWorkspaceManifest,
+    host_api: &ZenHostApi,
     workspace_title: &str,
     active_document: Option<&str>,
     viewport_layout: &str,
@@ -1197,7 +1601,7 @@ fn render_workspace_topbar(
     selected: Option<SelectedObjectDetails>,
     active_topbar_group: &mut Option<String>,
     topbar_expanded: &mut bool,
-) {
+) -> Option<WorkspaceChromeAction> {
     if active_topbar_group
         .as_deref()
         .map(|group_key| {
@@ -1212,6 +1616,7 @@ fn render_workspace_topbar(
         *active_topbar_group = resolve_default_topbar_group(workspace);
     }
 
+    let mut chosen_action = None;
     let active_group = active_topbar_group.as_deref().and_then(|group_key| {
         workspace
             .topbar
@@ -1220,82 +1625,107 @@ fn render_workspace_topbar(
             .find(|group| group.key == group_key)
     });
     let expanded_height = if *topbar_expanded && active_group.is_some() {
-        64.0
+        58.0
     } else {
         0.0
     };
     egui::TopBottomPanel::top("zen-workspace-topbar")
         .resizable(false)
-        .exact_height(56.0 + expanded_height)
+        .exact_height(78.0 + expanded_height)
         .frame(
             egui::Frame::default()
                 .fill(theme.palette.toolbar_bg)
-                .inner_margin(egui::Margin::symmetric(14, 10)),
+                .inner_margin(egui::Margin::symmetric(14, 12)),
         )
         .show(ctx, |ui| {
             let panel_rect = ui.max_rect();
-            let glow_rect = egui::Rect::from_min_max(
-                egui::pos2(panel_rect.left(), panel_rect.bottom() - 2.0),
-                panel_rect.right_bottom(),
+            let painter = ui.painter();
+            let upper_band = egui::Rect::from_min_max(
+                panel_rect.left_top(),
+                egui::pos2(panel_rect.right(), panel_rect.top() + 40.0),
             );
-            ui.painter().rect_filled(
-                glow_rect,
+            painter.rect_filled(
+                upper_band,
                 corner_radius(theme.rounding.overlay),
-                Color32::from_rgba_unmultiplied(52, 214, 191, 120),
+                Color32::from_rgba_unmultiplied(
+                    theme.palette.panel_bg_alt.r(),
+                    theme.palette.panel_bg_alt.g(),
+                    theme.palette.panel_bg_alt.b(),
+                    92,
+                ),
+            );
+            painter.line_segment(
+                [
+                    egui::pos2(panel_rect.left(), panel_rect.bottom() - 1.0),
+                    egui::pos2(panel_rect.right(), panel_rect.bottom() - 1.0),
+                ],
+                Stroke::new(1.0, theme.palette.border_subtle),
             );
 
             ui.vertical(|ui| {
-                ui.horizontal(|ui| {
-                    ui.spacing_mut().item_spacing = egui::vec2(10.0, 0.0);
-                    ui.vertical(|ui| {
-                        ui.label(
-                            RichText::new(workspace_title)
-                                .strong()
-                                .size(18.0)
-                                .color(ctx.style().visuals.strong_text_color()),
-                        );
-                        ui.label(
-                            RichText::new("ZEN DCC // NATIVE SHELL")
-                                .small()
-                                .monospace()
-                                .color(theme.palette.text_muted),
-                        );
-                    });
+                ui.spacing_mut().item_spacing = egui::vec2(10.0, 8.0);
+                ui.horizontal_wrapped(|ui| {
+                    ui.spacing_mut().item_spacing = egui::vec2(8.0, 8.0);
+                    render_workspace_menubar(ui, theme, &workspace.menubar, &mut chosen_action);
 
-                    ui.add_space(18.0);
+                    egui::Frame::default()
+                        .fill(theme.palette.panel_bg_alt)
+                        .stroke(Stroke::new(1.0, theme.palette.border_subtle))
+                        .corner_radius(corner_radius(theme.rounding.panel))
+                        .inner_margin(egui::Margin::symmetric(12, 8))
+                        .show(ui, |ui| {
+                            ui.vertical(|ui| {
+                                ui.spacing_mut().item_spacing = egui::vec2(2.0, 2.0);
+                                ui.label(
+                                    RichText::new(workspace_title)
+                                        .strong()
+                                        .size(16.0)
+                                        .color(theme.palette.text_primary),
+                                );
+                                ui.label(
+                                    RichText::new("ZEN NATIVE WORKSPACE")
+                                        .small()
+                                        .monospace()
+                                        .color(theme.palette.text_muted),
+                                );
+                            });
+                        });
+
+                    ui.separator();
                     for group in &workspace.topbar.groups {
                         let is_active = active_topbar_group.as_deref() == Some(group.key.as_str());
-                        let group_label = if is_active && *topbar_expanded {
-                            format!("{}  v", group.label)
-                        } else {
-                            format!("{}  >", group.label)
-                        };
                         let button = egui::Button::new(
-                            RichText::new(group_label)
+                            RichText::new(&group.label)
                                 .strong()
-                                .size(14.0)
+                                .size(13.0)
                                 .color(if is_active {
-                                    ctx.style().visuals.strong_text_color()
+                                    theme.palette.text_primary
                                 } else {
                                     theme.palette.text_secondary
                                 }),
                         )
-                        .min_size(Vec2::new(96.0, 30.0))
+                        .min_size(Vec2::new(84.0, 28.0))
                         .corner_radius(corner_radius(theme.rounding.panel))
                         .fill(if is_active {
-                            theme.palette.panel_bg_alt
+                            theme.palette.accent_soft
                         } else {
-                            Color32::from_rgba_unmultiplied(255, 255, 255, 10)
+                            Color32::from_rgba_unmultiplied(
+                                theme.palette.panel_bg_alt.r(),
+                                theme.palette.panel_bg_alt.g(),
+                                theme.palette.panel_bg_alt.b(),
+                                120,
+                            )
                         })
                         .stroke(Stroke::new(
                             1.0,
                             if is_active {
-                                theme.palette.accent
+                                theme.palette.selection_stroke
                             } else {
                                 theme.palette.border_subtle
                             },
                         ));
-                        if ui.add(button).clicked() {
+                        let response = ui.add(button);
+                        if response.clicked() {
                             if is_active && *topbar_expanded {
                                 *topbar_expanded = false;
                             } else {
@@ -1303,80 +1733,206 @@ fn render_workspace_topbar(
                                 *topbar_expanded = true;
                             }
                         }
+                        response.on_hover_text(&group.description);
                     }
 
+                    ui.add_space(8.0);
                     ui.with_layout(egui::Layout::right_to_left(egui::Align::Center), |ui| {
+                        render_status_chip(ui, theme, "cmd+p palette", theme.palette.text_muted);
+                        render_status_chip(
+                            ui,
+                            theme,
+                            format!("layout {}", viewport_layout),
+                            theme.palette.text_secondary,
+                        );
+                        render_status_chip(
+                            ui,
+                            theme,
+                            format!("document {}", active_document.unwrap_or("none")),
+                            theme.palette.text_muted,
+                        );
+                        render_status_chip(
+                            ui,
+                            theme,
+                            format!("mode {}", format!("{play_mode:?}").to_ascii_lowercase()),
+                            theme.palette.warning,
+                        );
                         if let Some(selected) = selected {
-                            ui.label(
-                                RichText::new(format!("selected {}", selected.name))
-                                    .small()
-                                    .color(ctx.style().visuals.hyperlink_color),
+                            render_status_chip(
+                                ui,
+                                theme,
+                                format!("selected {}", selected.name),
+                                theme.palette.accent,
                             );
-                            ui.separator();
                         }
-                        ui.label(
-                            RichText::new(format!("{:?}", play_mode).to_ascii_uppercase())
-                                .small()
-                                .strong()
-                                .color(ctx.style().visuals.warn_fg_color),
-                        );
-                        ui.separator();
-                        ui.label(
-                            RichText::new(format!("layout {}", viewport_layout))
-                                .small()
-                                .color(theme.palette.text_muted),
-                        );
-                        ui.separator();
-                        ui.label(
-                            RichText::new(format!("doc {}", active_document.unwrap_or("none")))
-                                .small()
-                                .color(theme.palette.text_muted),
-                        );
                     });
                 });
 
                 if *topbar_expanded {
                     if let Some(group) = active_group {
-                        ui.add_space(8.0);
                         egui::Frame::default()
-                            .fill(theme.palette.panel_bg_alt)
+                            .fill(Color32::from_rgba_unmultiplied(
+                                theme.palette.panel_bg_alt.r(),
+                                theme.palette.panel_bg_alt.g(),
+                                theme.palette.panel_bg_alt.b(),
+                                160,
+                            ))
                             .stroke(Stroke::new(1.0, theme.palette.border_subtle))
                             .corner_radius(corner_radius(theme.rounding.overlay))
-                            .inner_margin(egui::Margin::symmetric(14, 10))
+                            .inner_margin(egui::Margin::symmetric(12, 10))
                             .show(ui, |ui| {
                                 ui.horizontal_wrapped(|ui| {
-                                    ui.label(
-                                        RichText::new(&group.label)
-                                            .strong()
-                                            .size(16.0)
-                                            .color(ctx.style().visuals.strong_text_color()),
-                                    );
-                                    ui.separator();
-                                    ui.label(
-                                        RichText::new(&group.description)
-                                            .small()
-                                            .color(theme.palette.text_secondary),
-                                    );
+                                    ui.spacing_mut().item_spacing = egui::vec2(10.0, 8.0);
+                                    ui.vertical(|ui| {
+                                        ui.label(
+                                            RichText::new(&group.label)
+                                                .strong()
+                                                .size(15.0)
+                                                .color(theme.palette.text_primary),
+                                        );
+                                        ui.label(
+                                            RichText::new(&group.description)
+                                                .small()
+                                                .color(theme.palette.text_muted),
+                                        );
+                                    });
+                                    ui.add_space(10.0);
+                                    for action_key in &group.actions {
+                                        if let Some(action) = host_api.action(action_key) {
+                                            let response = ui.add(
+                                                egui::Button::new(
+                                                    RichText::new(&action.label)
+                                                        .strong()
+                                                        .size(12.0)
+                                                        .color(theme.palette.text_primary),
+                                                )
+                                                .min_size(Vec2::new(108.0, 28.0))
+                                                .corner_radius(corner_radius(theme.rounding.panel))
+                                                .fill(theme.palette.panel_bg)
+                                                .stroke(Stroke::new(
+                                                    1.0,
+                                                    theme.palette.border_strong,
+                                                )),
+                                            );
+                                            if response.clicked() {
+                                                chosen_action = Some(WorkspaceChromeAction::HostAction(
+                                                    action.key.clone(),
+                                                ));
+                                            }
+                                            response.on_hover_text(&action.description);
+                                        } else {
+                                            ui.label(
+                                                RichText::new(format!("missing {}", action_key))
+                                                    .small()
+                                                    .monospace()
+                                                    .color(theme.palette.danger),
+                                            );
+                                        }
+                                    }
+                                    if group.actions.is_empty() {
+                                        ui.label(
+                                            RichText::new("No actions bound to this group yet.")
+                                                .small()
+                                                .color(theme.palette.text_muted),
+                                        );
+                                    }
                                 });
-                                if group.actions.is_empty() {
-                                    ui.add_space(6.0);
-                                    ui.label(
-                                        RichText::new(
-                                            "This group is scaffolded and ready to grow. Top-level sculpt tools will slot into this expandable surface next.",
-                                        )
-                                        .small()
-                                        .color(theme.palette.text_muted),
-                                    );
-                                }
                             });
                     }
                 }
             });
         });
+    chosen_action
+}
+
+fn render_workspace_menubar(
+    ui: &mut egui::Ui,
+    theme: &ZenUiTheme,
+    menubar: &ZenWorkspaceMenuBar,
+    chosen_action: &mut Option<WorkspaceChromeAction>,
+) {
+    for menu in &menubar.menus {
+        render_workspace_menu(ui, theme, menu, chosen_action);
+    }
+}
+
+fn render_workspace_menu(
+    ui: &mut egui::Ui,
+    theme: &ZenUiTheme,
+    menu: &ZenWorkspaceMenu,
+    chosen_action: &mut Option<WorkspaceChromeAction>,
+) {
+    let label = RichText::new(&menu.label)
+        .strong()
+        .size(12.0)
+        .color(theme.palette.text_primary);
+    ui.menu_button(label, |ui| {
+        ui.set_min_width(220.0);
+        ui.spacing_mut().item_spacing = egui::vec2(6.0, 4.0);
+        for item in &menu.items {
+            match item {
+                ZenWorkspaceMenuItem::Separator => {
+                    ui.separator();
+                }
+                ZenWorkspaceMenuItem::HostAction { label, action, .. } => {
+                    if ui.button(label).clicked() {
+                        *chosen_action = Some(WorkspaceChromeAction::HostAction(action.clone()));
+                        ui.close();
+                    }
+                }
+                ZenWorkspaceMenuItem::Document {
+                    label, document, ..
+                } => {
+                    if ui.button(label).clicked() {
+                        *chosen_action = Some(WorkspaceChromeAction::SelectDocument(
+                            document.clone(),
+                        ));
+                        ui.close();
+                    }
+                }
+                ZenWorkspaceMenuItem::Preset { label, preset, .. } => {
+                    if ui.button(label).clicked() {
+                        *chosen_action =
+                            Some(WorkspaceChromeAction::ApplyPreset(preset.clone()));
+                        ui.close();
+                    }
+                }
+                ZenWorkspaceMenuItem::ImportAsset { label, .. } => {
+                    if ui.button(label).clicked() {
+                        *chosen_action = Some(WorkspaceChromeAction::ImportAsset);
+                        ui.close();
+                    }
+                }
+                ZenWorkspaceMenuItem::ResetWorkspace { label, .. } => {
+                    if ui.button(label).clicked() {
+                        *chosen_action = Some(WorkspaceChromeAction::ResetWorkspace);
+                        ui.close();
+                    }
+                }
+            }
+        }
+    });
+}
+
+fn render_status_chip(ui: &mut egui::Ui, theme: &ZenUiTheme, label: impl Into<String>, color: Color32) {
+    egui::Frame::default()
+        .fill(Color32::from_rgba_unmultiplied(
+            theme.palette.panel_bg_alt.r(),
+            theme.palette.panel_bg_alt.g(),
+            theme.palette.panel_bg_alt.b(),
+            190,
+        ))
+        .stroke(Stroke::new(1.0, theme.palette.border_subtle))
+        .corner_radius(corner_radius(theme.rounding.panel))
+        .inner_margin(egui::Margin::symmetric(8, 4))
+        .show(ui, |ui| {
+            ui.label(RichText::new(label.into()).small().color(color));
+        });
 }
 
 fn render_workspace_statusbar(
     ui: &mut egui::Ui,
+    theme: &ZenUiTheme,
     activity_status: &str,
     shell_status: &str,
     contract_status: &str,
@@ -1385,41 +1941,13 @@ fn render_workspace_statusbar(
     kain_status: &str,
 ) {
     ui.horizontal_wrapped(|ui| {
-        ui.label(
-            RichText::new(activity_status)
-                .small()
-                .color(ui.style().visuals.strong_text_color()),
-        );
-        ui.separator();
-        ui.label(
-            RichText::new(shell_status)
-                .small()
-                .color(ui.style().visuals.text_color()),
-        );
-        ui.separator();
-        ui.label(
-            RichText::new(contract_status)
-                .small()
-                .color(ui.style().visuals.hyperlink_color),
-        );
-        ui.separator();
-        ui.label(
-            RichText::new(registry_status)
-                .small()
-                .color(ui.style().visuals.text_color()),
-        );
-        ui.separator();
-        ui.label(
-            RichText::new(fabric_status)
-                .small()
-                .color(ui.style().visuals.hyperlink_color),
-        );
-        ui.separator();
-        ui.label(
-            RichText::new(kain_status)
-                .small()
-                .color(ui.style().visuals.warn_fg_color),
-        );
+        ui.spacing_mut().item_spacing = egui::vec2(6.0, 4.0);
+        render_status_chip(ui, theme, activity_status, theme.palette.text_primary);
+        render_status_chip(ui, theme, shell_status, theme.palette.text_secondary);
+        render_status_chip(ui, theme, contract_status, theme.palette.accent);
+        render_status_chip(ui, theme, registry_status, theme.palette.text_muted);
+        render_status_chip(ui, theme, fabric_status, theme.palette.accent);
+        render_status_chip(ui, theme, kain_status, theme.palette.warning);
     });
 }
 
@@ -2107,6 +2635,517 @@ fn draw_runtime_inspector(
             .text("Grid")
             .clamping(egui::SliderClamping::Always),
     );
+}
+
+fn draw_painter_panel(
+    ui: &mut egui::Ui,
+    theme: &ZenUiTheme,
+    feature: &ZenUiFeature,
+    painter: &mut PainterWorkspaceState,
+    import_status: &str,
+    selected_details: Option<SelectedObjectDetails>,
+) {
+    let mode = PainterPanelMode::from_feature(feature);
+    egui::ScrollArea::vertical()
+        .id_salt(("painter", feature.key.as_str()))
+        .show(ui, |ui| {
+            ui.horizontal_wrapped(|ui| {
+                ui.label(
+                    RichText::new("Zen Painter")
+                        .strong()
+                        .color(theme.palette.text_primary),
+                );
+                ui.label(
+                    RichText::new(format!("active material {}", painter.active_material_name))
+                        .small()
+                        .color(theme.palette.text_muted),
+                );
+                ui.label(
+                    RichText::new(painter.session_note.as_str())
+                        .small()
+                        .color(theme.palette.warning),
+                );
+            });
+            if !import_status.is_empty() {
+                ui.label(
+                    RichText::new(import_status)
+                        .small()
+                        .color(theme.palette.text_muted),
+                );
+            }
+            ui.add_space(8.0);
+
+            match mode {
+                PainterPanelMode::Import => {
+                    draw_painter_import_panel(ui, theme, painter, selected_details);
+                }
+                PainterPanelMode::Materials => {
+                    draw_painter_materials_panel(ui, theme, feature.key.as_str(), painter);
+                }
+                PainterPanelMode::Brushes => {
+                    draw_painter_brushes_panel(ui, theme, feature.key.as_str(), painter);
+                }
+                PainterPanelMode::Layers => {
+                    draw_painter_layers_panel(ui, theme, painter);
+                }
+            }
+        });
+}
+
+fn draw_painter_import_panel(
+    ui: &mut egui::Ui,
+    theme: &ZenUiTheme,
+    painter: &PainterWorkspaceState,
+    selected_details: Option<SelectedObjectDetails>,
+) {
+    ui.group(|ui| {
+        ui.label(
+            RichText::new("Import Surface")
+                .strong()
+                .color(theme.palette.text_secondary),
+        );
+        ui.label(
+            RichText::new("Use File > Import Asset or the host import action. GLTF, GLB, and OBJ bind into the native scene. FBX is metadata-first until the parser grows real geometry decode.")
+                .small()
+                .color(theme.palette.text_muted),
+        );
+        ui.add_space(6.0);
+        ui.horizontal_wrapped(|ui| {
+            for label in ["GLTF", "GLB", "OBJ", "FBX", "SVG", "PNG", "EXR"] {
+                ui.label(
+                    RichText::new(label)
+                        .small()
+                        .color(theme.palette.warning),
+                );
+            }
+        });
+    });
+
+    ui.add_space(8.0);
+    if let Some(source) = painter.mesh_source.as_ref() {
+        ui.group(|ui| {
+            ui.label(
+                RichText::new("Mesh Source")
+                    .strong()
+                    .color(theme.palette.text_secondary),
+            );
+            ui.label(
+                RichText::new(format!("{} // {}", source.format_label, source.source_label))
+                    .small()
+                    .color(theme.palette.text_primary),
+            );
+            ui.horizontal_wrapped(|ui| {
+                ui.label(format!("objects {}", source.imported_objects));
+                ui.label(format!("verts {}", source.imported_vertices));
+                ui.label(format!("tris {}", source.imported_triangles));
+            });
+            ui.label(
+                RichText::new(source.import_note.as_str())
+                    .small()
+                    .color(theme.palette.text_muted),
+            );
+        });
+    } else {
+        ui.group(|ui| {
+            ui.label(
+                RichText::new("No imported mesh yet")
+                    .strong()
+                    .color(theme.palette.warning),
+            );
+            ui.label(
+                RichText::new("Painter opens on the native viewport immediately, but geometry arrives after a GLTF, GLB, or OBJ import.")
+                    .small()
+                    .color(theme.palette.text_muted),
+            );
+        });
+    }
+
+    if let Some(details) = selected_details {
+        ui.add_space(8.0);
+        ui.group(|ui| {
+            ui.label(
+                RichText::new("Viewport Selection")
+                    .strong()
+                    .color(theme.palette.text_secondary),
+            );
+            ui.label(
+                RichText::new(format!("{} #{}", details.name, details.summary.handle.raw()))
+                    .small()
+                    .color(theme.palette.text_primary),
+            );
+            ui.horizontal_wrapped(|ui| {
+                ui.label(format!("verts {}", details.summary.vertex_count));
+                ui.label(format!("tris {}", details.summary.face_count));
+                ui.label(format!(
+                    "scale {:.2}, {:.2}, {:.2}",
+                    details.summary.scale[0], details.summary.scale[1], details.summary.scale[2]
+                ));
+            });
+        });
+    }
+
+    if let Some(ingest) = painter.fbx_ingest.as_ref() {
+        ui.add_space(8.0);
+        ui.group(|ui| {
+            ui.label(
+                RichText::new("FBX Ingest")
+                    .strong()
+                    .color(theme.palette.text_secondary),
+            );
+            ui.label(
+                RichText::new(ingest.source_label.as_str())
+                    .small()
+                    .color(theme.palette.text_primary),
+            );
+            ui.horizontal_wrapped(|ui| {
+                ui.label(format!("assets {}", ingest.asset_count));
+                ui.label(format!("metadata {}", ingest.metadata_count));
+            });
+            ui.label(
+                RichText::new(ingest.status_note.as_str())
+                    .small()
+                    .color(theme.palette.text_muted),
+            );
+        });
+    }
+
+    if let Some(stencil) = painter.svg_stencil.as_ref() {
+        ui.add_space(8.0);
+        ui.group(|ui| {
+            ui.label(
+                RichText::new("SVG Stencil")
+                    .strong()
+                    .color(theme.palette.text_secondary),
+            );
+            ui.label(
+                RichText::new(stencil.source_label.as_str())
+                    .small()
+                    .color(theme.palette.text_primary),
+            );
+            ui.horizontal_wrapped(|ui| {
+                ui.label(format!("size {:.0} x {:.0}", stencil.size[0], stencil.size[1]));
+                ui.label(format!("nodes {}", stencil.node_count));
+            });
+            ui.label(
+                RichText::new("Stencil metadata is parsed natively with usvg and kept ready for the paint lane.")
+                    .small()
+                    .color(theme.palette.text_muted),
+            );
+        });
+    }
+}
+
+fn draw_painter_materials_panel(
+    ui: &mut egui::Ui,
+    theme: &ZenUiTheme,
+    panel_key: &str,
+    painter: &mut PainterWorkspaceState,
+) {
+    let material_names = painter.material_names();
+    ui.horizontal_wrapped(|ui| {
+        ui.label(
+            RichText::new("Material Rack")
+                .strong()
+                .color(theme.palette.text_secondary),
+        );
+        egui::ComboBox::from_id_salt(("painter-material", panel_key))
+            .selected_text(painter.active_material_name.as_str())
+            .show_ui(ui, |ui| {
+                for material_name in &material_names {
+                    ui.selectable_value(
+                        &mut painter.active_material_name,
+                        material_name.clone(),
+                        material_name.as_str(),
+                    );
+                }
+            });
+        egui::ComboBox::from_id_salt(("painter-slot", panel_key))
+            .selected_text(painter.active_texture_slot.display_name())
+            .show_ui(ui, |ui| {
+                for slot in TextureSlot::all() {
+                    ui.selectable_value(
+                        &mut painter.active_texture_slot,
+                        *slot,
+                        slot.display_name(),
+                    );
+                }
+            });
+    });
+
+    let active_slot = painter.active_texture_slot;
+    if let Some(material) = painter.active_material_mut() {
+        let base = material.base_color();
+        let mut base_color = [base.x, base.y, base.z];
+        let mut metallic = material.metallic();
+        let mut roughness = material.roughness();
+        let mut emissive_strength = material.emissive_strength();
+        let mut opacity = material.opacity();
+        let mut ior = material.ior();
+        let swatch = vec3_to_color32(base_color);
+
+        ui.add_space(8.0);
+        ui.colored_label(swatch, "base color preview");
+        ui.add(
+            egui::Slider::new(&mut base_color[0], 0.0..=1.0)
+                .text("Base R")
+                .clamping(egui::SliderClamping::Always),
+        );
+        ui.add(
+            egui::Slider::new(&mut base_color[1], 0.0..=1.0)
+                .text("Base G")
+                .clamping(egui::SliderClamping::Always),
+        );
+        ui.add(
+            egui::Slider::new(&mut base_color[2], 0.0..=1.0)
+                .text("Base B")
+                .clamping(egui::SliderClamping::Always),
+        );
+        ui.add(
+            egui::Slider::new(&mut metallic, 0.0..=1.0)
+                .text("Metallic")
+                .clamping(egui::SliderClamping::Always),
+        );
+        ui.add(
+            egui::Slider::new(&mut roughness, 0.0..=1.0)
+                .text("Roughness")
+                .clamping(egui::SliderClamping::Always),
+        );
+        ui.add(
+            egui::Slider::new(&mut emissive_strength, 0.0..=8.0)
+                .text("Emissive")
+                .clamping(egui::SliderClamping::Always),
+        );
+        ui.add(
+            egui::Slider::new(&mut opacity, 0.0..=1.0)
+                .text("Opacity")
+                .clamping(egui::SliderClamping::Always),
+        );
+        ui.add(
+            egui::Slider::new(&mut ior, 1.0..=2.5)
+                .text("IOR")
+                .clamping(egui::SliderClamping::Always),
+        );
+
+        material.set_base_color(glam::Vec3::new(base_color[0], base_color[1], base_color[2]));
+        material.set_metallic(metallic);
+        material.set_roughness(roughness);
+        material.set_emissive_strength(emissive_strength);
+        material.set_opacity(opacity);
+        material.set_ior(ior);
+
+        ui.add_space(8.0);
+        ui.group(|ui| {
+            ui.label(
+                RichText::new("Texture Bindings")
+                    .strong()
+                    .color(theme.palette.text_secondary),
+            );
+            for slot in TextureSlot::all() {
+                let label = material
+                    .get_texture(*slot)
+                    .map(|texture| texture.path().display().to_string())
+                    .unwrap_or_else(|| "unassigned".to_string());
+                let color = if *slot == active_slot {
+                    theme.palette.warning
+                } else {
+                    theme.palette.text_muted
+                };
+                ui.horizontal_wrapped(|ui| {
+                    ui.label(
+                        RichText::new(slot.display_name())
+                            .small()
+                            .color(color),
+                    );
+                    ui.label(
+                        RichText::new(label)
+                            .small()
+                            .monospace()
+                            .color(theme.palette.text_primary),
+                    );
+                });
+            }
+        });
+    } else {
+        ui.label(
+            RichText::new("No active material")
+                .strong()
+                .color(theme.palette.warning),
+        );
+    }
+}
+
+fn draw_painter_brushes_panel(
+    ui: &mut egui::Ui,
+    theme: &ZenUiTheme,
+    panel_key: &str,
+    painter: &mut PainterWorkspaceState,
+) {
+    ui.horizontal_wrapped(|ui| {
+        ui.label(
+            RichText::new("Brush Rack")
+                .strong()
+                .color(theme.palette.text_secondary),
+        );
+        egui::ComboBox::from_id_salt(("painter-brush", panel_key))
+            .selected_text(
+                painter
+                    .active_brush()
+                    .map(|brush| brush.name.as_str())
+                    .unwrap_or("No Brush"),
+            )
+            .show_ui(ui, |ui| {
+                for brush in &painter.brushes {
+                    ui.selectable_value(
+                        &mut painter.active_brush_id,
+                        brush.id.clone(),
+                        format!("{} // {}", brush.name, brush.category),
+                    );
+                }
+            });
+    });
+
+    if let Some(brush) = painter.active_brush_mut() {
+        ui.label(
+            RichText::new(format!(
+                "{} // kernel {} // entry {}",
+                brush.category,
+                brush.kernel.shader_name(),
+                brush.kernel.default_entry_point()
+            ))
+            .small()
+            .color(theme.palette.text_muted),
+        );
+        ui.add_space(8.0);
+
+        ui.add(
+            egui::Slider::new(&mut brush.params.radius, 0.01..=2.0)
+                .text("Radius")
+                .clamping(egui::SliderClamping::Always),
+        );
+        ui.add(
+            egui::Slider::new(&mut brush.params.strength, 0.0..=2.0)
+                .text("Strength")
+                .clamping(egui::SliderClamping::Always),
+        );
+        ui.add(
+            egui::Slider::new(&mut brush.params.hardness, 0.0..=1.0)
+                .text("Hardness")
+                .clamping(egui::SliderClamping::Always),
+        );
+        ui.add(
+            egui::Slider::new(&mut brush.params.spacing, 0.01..=1.0)
+                .text("Spacing")
+                .clamping(egui::SliderClamping::Always),
+        );
+        ui.add(
+            egui::Slider::new(&mut brush.params.lazy_radius, 0.0..=1.0)
+                .text("Lazy Radius")
+                .clamping(egui::SliderClamping::Always),
+        );
+        ui.add(
+            egui::Slider::new(&mut brush.params.jitter_position, 0.0..=1.0)
+                .text("Jitter Position")
+                .clamping(egui::SliderClamping::Always),
+        );
+        ui.add(
+            egui::Slider::new(&mut brush.params.jitter_strength, 0.0..=1.0)
+                .text("Jitter Strength")
+                .clamping(egui::SliderClamping::Always),
+        );
+        ui.checkbox(&mut brush.params.subtract, "Subtract");
+        ui.checkbox(&mut brush.params.front_faces_only, "Front Faces Only");
+        ui.checkbox(&mut brush.params.accumulate, "Accumulate");
+
+        let extras = brush
+            .params
+            .extras
+            .iter()
+            .map(|(key, value)| format!("{key}={value:.2}"))
+            .collect::<Vec<_>>()
+            .join(", ");
+        if !extras.is_empty() {
+            ui.label(
+                RichText::new(format!("extras {extras}"))
+                    .small()
+                    .color(theme.palette.text_muted),
+            );
+        }
+        if let Some(stencil) = painter.svg_stencil.as_ref() {
+            ui.label(
+                RichText::new(format!("stencil ready {}", stencil.source_label))
+                    .small()
+                    .color(theme.palette.warning),
+            );
+        }
+    } else {
+        ui.label(
+            RichText::new("No active brush")
+                .strong()
+                .color(theme.palette.warning),
+        );
+    }
+}
+
+fn draw_painter_layers_panel(
+    ui: &mut egui::Ui,
+    theme: &ZenUiTheme,
+    painter: &PainterWorkspaceState,
+) {
+    let material_count = painter.material_library.material_count();
+    let assigned_texture_count = painter
+        .active_material()
+        .map(|material| material.texture_slots().len())
+        .unwrap_or(0);
+
+    ui.group(|ui| {
+        ui.label(
+            RichText::new("Painter Stack")
+                .strong()
+                .color(theme.palette.text_secondary),
+        );
+        ui.label(
+            RichText::new("This pass gives Zen a native painter workspace shell. The renderer-side live stroke bridge into the GPU PBR paint backend is still the next integration cut.")
+                .small()
+                .color(theme.palette.text_muted),
+        );
+    });
+    ui.add_space(8.0);
+    for row in [
+        format!(
+            "Geometry // {}",
+            painter
+                .mesh_source
+                .as_ref()
+                .map(|source| source.source_label.clone())
+                .unwrap_or_else(|| "primitive preview or pending import".to_string())
+        ),
+        format!("Materials // {material_count} loaded"),
+        format!("Texture Channels // {assigned_texture_count} assigned on active material"),
+        format!(
+            "Brush // {}",
+            painter
+                .active_brush()
+                .map(|brush| brush.name.clone())
+                .unwrap_or_else(|| "none".to_string())
+        ),
+        format!(
+            "Stencil // {}",
+            painter
+                .svg_stencil
+                .as_ref()
+                .map(|stencil| stencil.source_label.clone())
+                .unwrap_or_else(|| "none".to_string())
+        ),
+    ] {
+        ui.group(|ui| {
+            ui.label(
+                RichText::new(row)
+                    .small()
+                    .color(theme.palette.text_primary),
+            );
+        });
+        ui.add_space(6.0);
+    }
 }
 
 fn draw_host_api_inspector(
@@ -3185,7 +4224,7 @@ fn draw_viewport_panel(
 
     let title_badge = egui::Rect::from_min_size(
         rect.left_top() + egui::vec2(16.0, 16.0),
-        Vec2::new((rect.width() * 0.34).clamp(220.0, 360.0), 48.0),
+        Vec2::new((rect.width() * 0.32).clamp(240.0, 360.0), 62.0),
     );
     painter.rect_filled(
         title_badge,
@@ -3193,38 +4232,64 @@ fn draw_viewport_panel(
         theme.palette.overlay_bg,
     );
     painter.text(
-        title_badge.left_top() + egui::vec2(14.0, 10.0),
+        title_badge.left_top() + egui::vec2(14.0, 8.0),
+        egui::Align2::LEFT_TOP,
+        profile_label.to_ascii_uppercase(),
+        egui::TextStyle::Small.resolve(ui.style()),
+        theme.palette.text_muted,
+    );
+    painter.text(
+        title_badge.left_top() + egui::vec2(14.0, 24.0),
         egui::Align2::LEFT_TOP,
         title,
         egui::TextStyle::Heading.resolve(ui.style()),
         theme.palette.text_primary,
     );
     painter.text(
-        title_badge.left_top() + egui::vec2(14.0, 28.0),
+        title_badge.left_top() + egui::vec2(14.0, 44.0),
         egui::Align2::LEFT_TOP,
         format!(
-            "{} // {} // cam {:.1}, {:.1}, {:.1} // dir {:.2}, {:.2}, {:.2} // {}x{}",
-            profile_label.to_ascii_uppercase(),
+            "{} // {}x{} // cam {:.1}, {:.1}, {:.1}",
             mode_label,
+            hud.viewport_extent[0],
+            hud.viewport_extent[1],
             hud.camera_position[0],
             hud.camera_position[1],
             hud.camera_position[2],
-            hud.camera_forward[0],
-            hud.camera_forward[1],
-            hud.camera_forward[2],
-            hud.viewport_extent[0],
-            hud.viewport_extent[1]
         ),
         egui::TextStyle::Small.resolve(ui.style()),
         theme.palette.text_secondary,
     );
 
-    let footer = egui::Rect::from_min_size(
-        egui::pos2(rect.left() + 16.0, rect.bottom() - 58.0),
-        Vec2::new((rect.width() - 32.0).max(180.0), 40.0),
+    let mode_badge = egui::Rect::from_min_size(
+        egui::pos2(rect.right() - 168.0, rect.top() + 16.0),
+        Vec2::new(152.0, 28.0),
     );
     painter.rect_filled(
-        footer,
+        mode_badge,
+        corner_radius(theme.rounding.overlay),
+        theme.palette.overlay_bg,
+    );
+    painter.text(
+        mode_badge.center(),
+        egui::Align2::CENTER_CENTER,
+        format!(
+            "{} // dir {:.2}, {:.2}, {:.2}",
+            format!("{mode_label}").to_ascii_uppercase(),
+            hud.camera_forward[0],
+            hud.camera_forward[1],
+            hud.camera_forward[2],
+        ),
+        egui::TextStyle::Small.resolve(ui.style()),
+        theme.palette.text_primary,
+    );
+
+    let selection_badge = egui::Rect::from_min_size(
+        egui::pos2(rect.left() + 16.0, rect.bottom() - 64.0),
+        Vec2::new((rect.width() * 0.4).clamp(260.0, 420.0), 48.0),
+    );
+    painter.rect_filled(
+        selection_badge,
         corner_radius(theme.rounding.overlay),
         theme.palette.overlay_bg,
     );
@@ -3233,19 +4298,43 @@ fn draw_viewport_panel(
         .map(|details| format!("selected {}#{}", details.name, details.summary.handle.raw()))
         .unwrap_or_else(|| "selected none".to_string());
     painter.text(
-        footer.left_top() + egui::vec2(14.0, 10.0),
+        selection_badge.left_top() + egui::vec2(14.0, 10.0),
         egui::Align2::LEFT_TOP,
         format!(
-            "{} // scene {} verts // {} indices // {}",
-            selection_label, hud.vertex_count, hud.index_count, kain_status
+            "{} // {} verts // {} indices",
+            selection_label, hud.vertex_count, hud.index_count
         ),
         egui::TextStyle::Small.resolve(ui.style()),
         theme.palette.warning,
     );
     painter.text(
-        footer.left_top() + egui::vec2(14.0, 24.0),
+        selection_badge.left_top() + egui::vec2(14.0, 26.0),
         egui::Align2::LEFT_TOP,
-        "WASD move | RMB freelook | left click selects | F focus | H frame",
+        kain_status,
+        egui::TextStyle::Small.resolve(ui.style()),
+        theme.palette.text_muted,
+    );
+
+    let shortcut_badge = egui::Rect::from_min_size(
+        egui::pos2(rect.right() - 260.0, rect.bottom() - 64.0),
+        Vec2::new(244.0, 48.0),
+    );
+    painter.rect_filled(
+        shortcut_badge,
+        corner_radius(theme.rounding.overlay),
+        theme.palette.overlay_bg,
+    );
+    painter.text(
+        shortcut_badge.left_top() + egui::vec2(14.0, 10.0),
+        egui::Align2::LEFT_TOP,
+        "WASD move // RMB freelook // click select",
+        egui::TextStyle::Small.resolve(ui.style()),
+        theme.palette.text_primary,
+    );
+    painter.text(
+        shortcut_badge.left_top() + egui::vec2(14.0, 26.0),
+        egui::Align2::LEFT_TOP,
+        "F focus // H frame // native renderer session",
         egui::TextStyle::Small.resolve(ui.style()),
         theme.palette.text_muted,
     );
@@ -3497,6 +4586,463 @@ fn runtime_document_from_asset(asset: &k_os_asset_pipeline::Asset) -> ZenWorkspa
         source_path: Some(source_path),
         primary: false,
     }
+}
+
+fn runtime_document_from_import_path(
+    path: &Path,
+    asset: &k_os_asset_pipeline::Asset,
+) -> ZenWorkspaceDocument {
+    let mut document = runtime_document_from_asset(asset);
+    let source_path = path.to_string_lossy().to_string();
+    document.key = runtime_document_key(path);
+    document.path = Some(source_path.clone());
+    document.source_path = Some(source_path);
+    document
+}
+
+fn runtime_document_for_external_path(path: &Path, kind: &str) -> ZenWorkspaceDocument {
+    let source_path = path.to_string_lossy().to_string();
+    let title = path
+        .file_name()
+        .and_then(|name| name.to_str())
+        .map(str::to_string)
+        .unwrap_or_else(|| source_path.clone());
+    ZenWorkspaceDocument {
+        key: runtime_document_key(path),
+        title,
+        kind: kind.to_string(),
+        path: Some(source_path.clone()),
+        source_path: Some(source_path),
+        primary: false,
+    }
+}
+
+fn import_document_buffer_from_asset(
+    asset: &PipelineAsset,
+    report: &zen_scene::SceneImportReport,
+) -> DocumentEditorBuffer {
+    let source_label = asset.source_path.display().to_string();
+    let mut lines = vec![
+        "Zen Painter Import Summary".to_string(),
+        format!("source: {source_label}"),
+        format!("asset type: {:?}", asset.asset_type),
+        format!("scene label: {}", report.label),
+        format!("imported objects: {}", report.imported_objects),
+    ];
+
+    match &asset.data {
+        PipelineAssetData::Mesh(mesh) => {
+            lines.push(format!("vertices: {}", mesh.positions.len() / 3));
+            lines.push(format!(
+                "triangles: {}",
+                mesh.indices.as_ref().map(|indices| indices.len() / 3).unwrap_or(0)
+            ));
+            lines.push(format!(
+                "uvs: {}",
+                mesh.uvs.as_ref().map(|uvs| uvs.len() / 2).unwrap_or(0)
+            ));
+            lines.push(format!(
+                "normals: {}",
+                mesh.normals.as_ref().map(|normals| normals.len() / 3).unwrap_or(0)
+            ));
+        }
+        PipelineAssetData::Scene(scene) => {
+            let vertex_count = scene
+                .meshes
+                .iter()
+                .map(|mesh| mesh.positions.len() / 3)
+                .sum::<usize>();
+            let triangle_count = scene
+                .meshes
+                .iter()
+                .map(|mesh| mesh.indices.as_ref().map(|indices| indices.len() / 3).unwrap_or(0))
+                .sum::<usize>();
+            lines.push(format!("nodes: {}", scene.nodes.len()));
+            lines.push(format!("meshes: {}", scene.meshes.len()));
+            lines.push(format!("materials: {}", scene.materials.len()));
+            lines.push(format!("vertices: {vertex_count}"));
+            lines.push(format!("triangles: {triangle_count}"));
+        }
+        PipelineAssetData::Texture(texture) => {
+            lines.push(format!("resolution: {} x {}", texture.width, texture.height));
+            lines.push(format!("mips: {}", texture.mip_levels));
+        }
+        PipelineAssetData::Material(material) => {
+            lines.push(format!("material: {}", material.name));
+            lines.push(format!("texture bindings: {}", material.textures.len()));
+        }
+        PipelineAssetData::Animation(animation) => {
+            lines.push(format!("animation: {}", animation.name));
+            lines.push(format!("channels: {}", animation.channels.len()));
+            lines.push(format!("duration: {:.2}s", animation.duration));
+        }
+        PipelineAssetData::Raw(bytes) => {
+            lines.push(format!("raw bytes: {}", bytes.len()));
+        }
+    }
+
+    if !asset.metadata.is_empty() {
+        lines.push(String::new());
+        lines.push("metadata:".to_string());
+        let mut metadata = asset.metadata.iter().collect::<Vec<_>>();
+        metadata.sort_by(|left, right| left.0.cmp(right.0));
+        for (key, value) in metadata {
+            lines.push(format!("- {key}: {value}"));
+        }
+    }
+
+    read_only_document_buffer(
+        source_label,
+        lines.join("\n"),
+        "generated import summary".to_string(),
+    )
+}
+
+fn external_text_document_buffer(
+    path: &Path,
+    title: &str,
+    lines: &[String],
+) -> DocumentEditorBuffer {
+    let mut text = format!("{title}\nsource: {}\n", path.display());
+    if !lines.is_empty() {
+        text.push('\n');
+        text.push_str(&lines.join("\n"));
+    }
+    read_only_document_buffer(
+        path.display().to_string(),
+        text,
+        "generated external asset summary".to_string(),
+    )
+}
+
+fn import_document_buffer_from_fbx(
+    path: &Path,
+    result: &k_os_io::import_export::ImportResult,
+    note: &str,
+) -> DocumentEditorBuffer {
+    let mut text = format!(
+        "FBX Ingest Summary\nsource: {}\nformat: {}\n\n{}\n\nassets: {}\nmetadata: {}\n",
+        path.display(),
+        result.format,
+        note,
+        result.assets.len(),
+        result.metadata.len(),
+    );
+
+    if !result.assets.is_empty() {
+        text.push_str("\nasset payloads:\n");
+        for (index, asset) in result.assets.iter().enumerate() {
+            text.push_str(&format!(
+                "- {}. {}\n",
+                index + 1,
+                io_asset_summary_label(asset)
+            ));
+        }
+    }
+
+    if !result.metadata.is_empty() {
+        text.push_str("\nmetadata entries:\n");
+        for (index, metadata) in result.metadata.iter().enumerate() {
+            text.push_str(&format!(
+                "- {}. {:?} // {} bytes // {} tags\n",
+                index + 1,
+                metadata.asset_type,
+                metadata.size_bytes,
+                metadata.tags.join(", ")
+            ));
+        }
+    }
+
+    read_only_document_buffer(
+        path.display().to_string(),
+        text,
+        "generated fbx ingest summary".to_string(),
+    )
+}
+
+fn parse_svg_stencil_summary(path: &Path) -> Result<SvgStencilSummary, String> {
+    let data = fs::read(path).map_err(|err| format!("failed to read svg: {err}"))?;
+    let options = usvg::Options::default();
+    let tree =
+        usvg::Tree::from_data(&data, &options).map_err(|err| format!("failed to parse svg: {err}"))?;
+    let size = tree.size();
+    Ok(SvgStencilSummary {
+        source_label: path.display().to_string(),
+        size: [size.width(), size.height()],
+        node_count: count_svg_nodes(tree.root()),
+    })
+}
+
+fn import_document_buffer_from_svg(summary: &SvgStencilSummary) -> DocumentEditorBuffer {
+    let text = format!(
+        "SVG Stencil Summary\nsource: {}\nsize: {:.0} x {:.0}\nnodes: {}\n\nThe SVG stencil was parsed natively and is available to the painter workspace for future masking and projection work.",
+        summary.source_label,
+        summary.size[0],
+        summary.size[1],
+        summary.node_count,
+    );
+    read_only_document_buffer(
+        summary.source_label.clone(),
+        text,
+        "generated svg stencil summary".to_string(),
+    )
+}
+
+fn painter_mesh_source_from_asset(
+    asset: &PipelineAsset,
+    report: &zen_scene::SceneImportReport,
+    discovered_textures: usize,
+) -> PainterMeshSource {
+    let (imported_vertices, imported_triangles) = match &asset.data {
+        PipelineAssetData::Mesh(mesh) => (
+            mesh.positions.len() / 3,
+            mesh.indices
+                .as_ref()
+                .map(|indices| indices.len() / 3)
+                .unwrap_or(0),
+        ),
+        PipelineAssetData::Scene(scene) => (
+            scene
+                .meshes
+                .iter()
+                .map(|mesh| mesh.positions.len() / 3)
+                .sum::<usize>(),
+            scene
+                .meshes
+                .iter()
+                .map(|mesh| mesh.indices.as_ref().map(|indices| indices.len() / 3).unwrap_or(0))
+                .sum::<usize>(),
+        ),
+        _ => (0, 0),
+    };
+
+    let extension = asset
+        .source_path
+        .extension()
+        .and_then(|value| value.to_str())
+        .map(|value| value.to_ascii_uppercase())
+        .unwrap_or_else(|| "ASSET".to_string());
+    let source_label = asset
+        .source_path
+        .file_name()
+        .and_then(|name| name.to_str())
+        .map(str::to_string)
+        .unwrap_or_else(|| asset.source_path.display().to_string());
+    let import_note = if discovered_textures > 0 {
+        format!(
+            "{} imported into the native scene and {} nearby PBR textures were bound",
+            report.label, discovered_textures
+        )
+    } else {
+        format!("{} imported into the native scene", report.label)
+    };
+
+    PainterMeshSource {
+        format_label: extension,
+        source_label,
+        imported_objects: report.imported_objects,
+        imported_vertices,
+        imported_triangles,
+        import_note,
+    }
+}
+
+fn default_painter_brushes() -> Vec<KBrushAsset> {
+    vec![
+        KBrushAsset {
+            id: "paint_surface".to_string(),
+            name: "Surface Paint".to_string(),
+            category: "Paint/Color".to_string(),
+            tags: vec!["paint".to_string(), "surface".to_string(), "pbr".to_string()],
+            kernel: BrushKernel::PaintColor,
+            params: BrushParams {
+                radius: 0.18,
+                strength: 0.85,
+                hardness: 0.62,
+                spacing: 0.06,
+                accumulate: true,
+                extras: HashMap::from([
+                    ("flow".to_string(), 0.88),
+                    ("stabilize".to_string(), 0.35),
+                ]),
+                ..Default::default()
+            },
+            ..Default::default()
+        },
+        KBrushAsset {
+            id: "paint_soft_fill".to_string(),
+            name: "Soft Fill".to_string(),
+            category: "Paint/Color".to_string(),
+            tags: vec!["paint".to_string(), "soft".to_string(), "fill".to_string()],
+            kernel: BrushKernel::PaintColor,
+            params: BrushParams {
+                radius: 0.42,
+                strength: 0.55,
+                hardness: 0.18,
+                spacing: 0.03,
+                accumulate: true,
+                extras: HashMap::from([
+                    ("flow".to_string(), 0.65),
+                    ("projection".to_string(), 1.0),
+                ]),
+                ..Default::default()
+            },
+            ..Default::default()
+        },
+        KBrushAsset {
+            id: "paint_mask_cut".to_string(),
+            name: "Mask Cut".to_string(),
+            category: "Paint/Mask".to_string(),
+            tags: vec!["mask".to_string(), "cut".to_string(), "stencil".to_string()],
+            kernel: BrushKernel::PaintMask,
+            params: BrushParams {
+                radius: 0.22,
+                strength: 1.0,
+                hardness: 0.86,
+                spacing: 0.08,
+                front_faces_only: true,
+                extras: HashMap::from([
+                    ("falloff".to_string(), 0.92),
+                    ("edge_bias".to_string(), 0.15),
+                ]),
+                ..Default::default()
+            },
+            ..Default::default()
+        },
+        KBrushAsset {
+            id: "paint_edge_wear".to_string(),
+            name: "Edge Wear".to_string(),
+            category: "Paint/Material".to_string(),
+            tags: vec!["wear".to_string(), "edge".to_string(), "roughness".to_string()],
+            kernel: BrushKernel::PaintColor,
+            params: BrushParams {
+                radius: 0.12,
+                strength: 0.48,
+                hardness: 0.74,
+                spacing: 0.05,
+                jitter_strength: 0.12,
+                extras: HashMap::from([
+                    ("roughness_push".to_string(), 0.72),
+                    ("metal_expose".to_string(), 0.4),
+                ]),
+                ..Default::default()
+            },
+            ..Default::default()
+        },
+    ]
+}
+
+fn discover_texture_for_slot(
+    directory: &Path,
+    source_stem: &str,
+    slot: TextureSlot,
+) -> Option<PathBuf> {
+    let aliases: &[&str] = match slot {
+        TextureSlot::BaseColor => &["basecolor", "base_color", "albedo", "diffuse", "color"],
+        TextureSlot::Metallic => &["metallic", "metalness", "metal"],
+        TextureSlot::Roughness => &["roughness", "rough"],
+        TextureSlot::Normal => &["normal", "nrm", "nor"],
+        TextureSlot::AmbientOcclusion => &["ambientocclusion", "occlusion", "ao"],
+        TextureSlot::Emissive => &["emissive", "emit"],
+        TextureSlot::Height => &["height", "displacement", "disp"],
+        TextureSlot::Opacity => &["opacity", "alpha", "mask"],
+    };
+    let source_hint = source_stem
+        .split(['_', '-', ' '])
+        .find(|token| !token.is_empty())
+        .unwrap_or(source_stem);
+
+    let mut candidates = fs::read_dir(directory)
+        .ok()?
+        .filter_map(Result::ok)
+        .map(|entry| entry.path())
+        .filter(|path| path.is_file())
+        .filter(|path| {
+            path.extension()
+                .and_then(|ext| ext.to_str())
+                .map(|ext| {
+                    matches!(
+                        ext.to_ascii_lowercase().as_str(),
+                        "png" | "jpg" | "jpeg" | "tga" | "bmp" | "exr"
+                    )
+                })
+                .unwrap_or(false)
+        })
+        .filter_map(|path| {
+            let stem = path.file_stem()?.to_str()?.to_ascii_lowercase();
+            let mentions_slot = aliases.iter().any(|alias| stem.contains(alias));
+            let mentions_source = source_stem.is_empty()
+                || stem.contains(source_stem)
+                || (!source_hint.is_empty() && stem.contains(source_hint));
+            if mentions_slot && mentions_source {
+                Some(path)
+            } else {
+                None
+            }
+        })
+        .collect::<Vec<_>>();
+    candidates.sort();
+    candidates.into_iter().next()
+}
+
+fn read_only_document_buffer(
+    source_label: String,
+    text: String,
+    status: String,
+) -> DocumentEditorBuffer {
+    DocumentEditorBuffer {
+        source_path: None,
+        source_label,
+        text: text.clone(),
+        saved_text: text,
+        status,
+        read_only: true,
+    }
+}
+
+fn io_asset_summary_label(asset: &IoAsset) -> String {
+    match asset {
+        IoAsset::Mesh(mesh) => format!(
+            "mesh // {} verts // {} tris",
+            mesh.positions.len() / 3,
+            mesh.indices.len() / 3
+        ),
+        IoAsset::Animation(animation) => {
+            format!("animation // {:.2}s // {} curves", animation.duration, animation.curves.len())
+        }
+        IoAsset::Texture(texture) => {
+            format!("texture // {} x {} // {:?}", texture.width, texture.height, texture.format)
+        }
+        IoAsset::Material(material) => {
+            format!("material // {} params // {} textures", material.parameters.len(), material.textures.len())
+        }
+        IoAsset::SceneGraph(scene) => {
+            format!("scene graph // {} nodes", scene.nodes.len())
+        }
+        IoAsset::BinaryBlob(bytes) => format!("binary blob // {} bytes", bytes.len()),
+    }
+}
+
+fn count_svg_nodes(group: &usvg::Group) -> usize {
+    let mut count = 0usize;
+    for node in group.children() {
+        count += 1;
+        if let usvg::Node::Group(subgroup) = node {
+            count += count_svg_nodes(subgroup);
+        }
+        node.subroots(|subroot| {
+            count += count_svg_nodes(subroot);
+        });
+    }
+    count
+}
+
+fn vec3_to_color32(color: [f32; 3]) -> Color32 {
+    Color32::from_rgb(
+        (color[0].clamp(0.0, 1.0) * 255.0) as u8,
+        (color[1].clamp(0.0, 1.0) * 255.0) as u8,
+        (color[2].clamp(0.0, 1.0) * 255.0) as u8,
+    )
 }
 
 fn runtime_document_key(path: &Path) -> String {

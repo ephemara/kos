@@ -662,6 +662,8 @@ export function NativeViewport({
     });
   }, []);
 
+  const showTransparentNativeSurface = available && bevyConnected;
+
   return (
     <div
       ref={hostRef}
@@ -670,10 +672,12 @@ export function NativeViewport({
         position: 'absolute',
         inset: 0,
         overflow: 'hidden',
-        background:
-          'radial-gradient(circle at 20% 20%, rgba(56,189,248,0.14), transparent 30%), radial-gradient(circle at 80% 30%, rgba(249,115,22,0.12), transparent 28%), #06090d',
-        border: '1px solid rgba(125,211,252,0.12)',
+        background: showTransparentNativeSurface
+          ? 'transparent'
+          : 'radial-gradient(circle at 20% 20%, rgba(56,189,248,0.14), transparent 30%), radial-gradient(circle at 80% 30%, rgba(249,115,22,0.12), transparent 28%), #06090d',
+        border: showTransparentNativeSurface ? 'none' : '1px solid rgba(125,211,252,0.12)',
         pointerEvents: captureInput ? 'auto' : 'none',
+        transition: 'background-color 120ms ease, border-color 120ms ease',
       }}
       onPointerDown={handlePointerDown}
       onPointerUp={handlePointerUp}

@@ -22,6 +22,7 @@ pub struct ZenEditorSession {
 pub struct ZenWorkspaceManifest {
     pub workspace: ZenWorkspaceMeta,
     pub topbar: ZenWorkspaceTopBar,
+    pub menubar: ZenWorkspaceMenuBar,
     pub documents: Vec<ZenWorkspaceDocument>,
     pub presets: Vec<ZenWorkspacePreset>,
     pub features: Vec<ZenUiFeature>,
@@ -49,6 +50,46 @@ pub struct ZenWorkspaceTopBarGroup {
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct ZenWorkspaceMenuBar {
+    pub menus: Vec<ZenWorkspaceMenu>,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct ZenWorkspaceMenu {
+    pub key: String,
+    pub label: String,
+    pub items: Vec<ZenWorkspaceMenuItem>,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub enum ZenWorkspaceMenuItem {
+    Separator,
+    HostAction {
+        key: String,
+        label: String,
+        action: String,
+    },
+    Document {
+        key: String,
+        label: String,
+        document: String,
+    },
+    Preset {
+        key: String,
+        label: String,
+        preset: String,
+    },
+    ImportAsset {
+        key: String,
+        label: String,
+    },
+    ResetWorkspace {
+        key: String,
+        label: String,
+    },
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct ZenUiFeature {
     pub key: String,
     pub title: String,
@@ -68,6 +109,7 @@ pub enum ZenUiFeatureKind {
     SelectionInspector,
     RuntimeInspector,
     Timeline,
+    Painter,
     HostApi,
     Registry,
     KainStatus,
@@ -198,6 +240,11 @@ impl ZenWorkspaceManifest {
             .map(parse_workspace_topbar)
             .transpose()?
             .unwrap_or_else(default_workspace_topbar);
+        let menubar = manifest
+            .menubar
+            .map(parse_workspace_menubar)
+            .transpose()?
+            .unwrap_or_else(default_workspace_menubar);
         let documents = manifest
             .documents
             .unwrap_or_default()
@@ -270,6 +317,7 @@ impl ZenWorkspaceManifest {
         Ok(Self {
             workspace,
             topbar,
+            menubar,
             documents,
             presets,
             features,
@@ -396,6 +444,7 @@ impl ZenUiFeatureKind {
             "selection_inspector" => Ok(Self::SelectionInspector),
             "runtime_inspector" => Ok(Self::RuntimeInspector),
             "timeline" => Ok(Self::Timeline),
+            "painter" => Ok(Self::Painter),
             "host_api" => Ok(Self::HostApi),
             "registry" => Ok(Self::Registry),
             "kain_status" => Ok(Self::KainStatus),
@@ -641,6 +690,7 @@ pub fn sanitize_user_layouts(
 struct ZenWorkspaceManifestFile {
     workspace: ZenWorkspaceMetaFile,
     topbar: Option<ZenWorkspaceTopBarFile>,
+    menubar: Option<ZenWorkspaceMenuBarFile>,
     documents: Option<Vec<ZenWorkspaceDocumentFile>>,
     presets: Option<Vec<ZenWorkspacePresetFile>>,
     features: Vec<ZenUiFeatureFile>,
@@ -665,6 +715,28 @@ struct ZenWorkspaceTopBarGroupFile {
     label: String,
     description: Option<String>,
     actions: Option<Vec<String>>,
+}
+
+#[derive(Debug, Deserialize)]
+struct ZenWorkspaceMenuBarFile {
+    menus: Option<Vec<ZenWorkspaceMenuFile>>,
+}
+
+#[derive(Debug, Deserialize)]
+struct ZenWorkspaceMenuFile {
+    key: String,
+    label: String,
+    items: Vec<ZenWorkspaceMenuItemFile>,
+}
+
+#[derive(Debug, Deserialize)]
+struct ZenWorkspaceMenuItemFile {
+    kind: Option<String>,
+    key: Option<String>,
+    label: Option<String>,
+    action: Option<String>,
+    document: Option<String>,
+    preset: Option<String>,
 }
 
 #[derive(Debug, Deserialize)]
@@ -807,6 +879,229 @@ fn default_workspace_topbar() -> ZenWorkspaceTopBar {
     }
 }
 
+fn parse_workspace_menubar(file: ZenWorkspaceMenuBarFile) -> Result<ZenWorkspaceMenuBar, String> {
+    let menus = file
+        .menus
+        .unwrap_or_default()
+        .into_iter()
+        .map(|menu| {
+            let items = menu
+                .items
+                .into_iter()
+                .map(parse_workspace_menu_item)
+                .collect::<Result<Vec<_>, _>>()?;
+            if items.is_empty() {
+                return Err("Zen workspace menu must declare at least one item".to_string());
+            }
+            Ok::<ZenWorkspaceMenu, String>(ZenWorkspaceMenu {
+                key: required("menu key", menu.key)?,
+                label: required("menu label", menu.label)?,
+                items,
+            })
+        })
+        .collect::<Result<Vec<_>, _>>()?;
+
+    if menus.is_empty() {
+        return Err("Zen workspace menubar must declare at least one menu".to_string());
+    }
+
+    Ok(ZenWorkspaceMenuBar { menus })
+}
+
+fn parse_workspace_menu_item(file: ZenWorkspaceMenuItemFile) -> Result<ZenWorkspaceMenuItem, String> {
+    let kind = file
+        .kind
+        .unwrap_or_else(|| "action".to_string())
+        .trim()
+        .to_ascii_lowercase();
+    match kind.as_str() {
+        "separator" => Ok(ZenWorkspaceMenuItem::Separator),
+        "action" => Ok(ZenWorkspaceMenuItem::HostAction {
+            key: file
+                .key
+                .map(|value| value.trim().to_string())
+                .filter(|value| !value.is_empty())
+                .unwrap_or_else(|| {
+                    file.action
+                        .as_deref()
+                        .map(slug_menu_fragment)
+                        .unwrap_or_else(|| "menu-action".to_string())
+                }),
+            label: required(
+                "menu item label",
+                file.label.unwrap_or_else(|| "Action".to_string()),
+            )?,
+            action: required(
+                "menu item action",
+                file.action.unwrap_or_else(|| "".to_string()),
+            )?,
+        }),
+        "document" => Ok(ZenWorkspaceMenuItem::Document {
+            key: file
+                .key
+                .map(|value| value.trim().to_string())
+                .filter(|value| !value.is_empty())
+                .unwrap_or_else(|| {
+                    file.document
+                        .as_deref()
+                        .map(slug_menu_fragment)
+                        .unwrap_or_else(|| "menu-document".to_string())
+                }),
+            label: required(
+                "menu item label",
+                file.label.unwrap_or_else(|| "Document".to_string()),
+            )?,
+            document: required(
+                "menu item document",
+                file.document.unwrap_or_else(|| "".to_string()),
+            )?,
+        }),
+        "preset" => Ok(ZenWorkspaceMenuItem::Preset {
+            key: file
+                .key
+                .map(|value| value.trim().to_string())
+                .filter(|value| !value.is_empty())
+                .unwrap_or_else(|| {
+                    file.preset
+                        .as_deref()
+                        .map(slug_menu_fragment)
+                        .unwrap_or_else(|| "menu-preset".to_string())
+                }),
+            label: required(
+                "menu item label",
+                file.label.unwrap_or_else(|| "Preset".to_string()),
+            )?,
+            preset: required(
+                "menu item preset",
+                file.preset.unwrap_or_else(|| "".to_string()),
+            )?,
+        }),
+        "import_asset" => Ok(ZenWorkspaceMenuItem::ImportAsset {
+            key: file
+                .key
+                .map(|value| value.trim().to_string())
+                .filter(|value| !value.is_empty())
+                .unwrap_or_else(|| "menu-import-asset".to_string()),
+            label: required(
+                "menu item label",
+                file.label.unwrap_or_else(|| "Import Asset".to_string()),
+            )?,
+        }),
+        "reset_workspace" => Ok(ZenWorkspaceMenuItem::ResetWorkspace {
+            key: file
+                .key
+                .map(|value| value.trim().to_string())
+                .filter(|value| !value.is_empty())
+                .unwrap_or_else(|| "menu-reset-workspace".to_string()),
+            label: required(
+                "menu item label",
+                file.label.unwrap_or_else(|| "Reset Workspace".to_string()),
+            )?,
+        }),
+        other => Err(format!("Unsupported Zen workspace menu item kind '{other}'")),
+    }
+}
+
+fn default_workspace_menubar() -> ZenWorkspaceMenuBar {
+    ZenWorkspaceMenuBar {
+        menus: vec![
+            ZenWorkspaceMenu {
+                key: "workspace.menu.file".to_string(),
+                label: "File".to_string(),
+                items: vec![
+                    ZenWorkspaceMenuItem::Document {
+                        key: "workspace.menu.file.main-scene".to_string(),
+                        label: "Main Scene".to_string(),
+                        document: "document.scene.default".to_string(),
+                    },
+                    ZenWorkspaceMenuItem::Document {
+                        key: "workspace.menu.file.material-graph".to_string(),
+                        label: "Material Graph".to_string(),
+                        document: "document.graph.material".to_string(),
+                    },
+                    ZenWorkspaceMenuItem::Document {
+                        key: "workspace.menu.file.timeline".to_string(),
+                        label: "Master Timeline".to_string(),
+                        document: "document.timeline.master".to_string(),
+                    },
+                    ZenWorkspaceMenuItem::Separator,
+                    ZenWorkspaceMenuItem::ImportAsset {
+                        key: "workspace.menu.file.import".to_string(),
+                        label: "Import Asset".to_string(),
+                    },
+                    ZenWorkspaceMenuItem::HostAction {
+                        key: "workspace.menu.file.reload-shell".to_string(),
+                        label: "Reload Shell".to_string(),
+                        action: "shell.reload".to_string(),
+                    },
+                ],
+            },
+            ZenWorkspaceMenu {
+                key: "workspace.menu.view".to_string(),
+                label: "View".to_string(),
+                items: vec![
+                    ZenWorkspaceMenuItem::Preset {
+                        key: "workspace.menu.view.core".to_string(),
+                        label: "Core".to_string(),
+                        preset: "preset.universal".to_string(),
+                    },
+                    ZenWorkspaceMenuItem::Preset {
+                        key: "workspace.menu.view.lookdev".to_string(),
+                        label: "Lookdev".to_string(),
+                        preset: "preset.lookdev".to_string(),
+                    },
+                    ZenWorkspaceMenuItem::Preset {
+                        key: "workspace.menu.view.quad".to_string(),
+                        label: "Quad View".to_string(),
+                        preset: "preset.quad".to_string(),
+                    },
+                    ZenWorkspaceMenuItem::Separator,
+                    ZenWorkspaceMenuItem::ResetWorkspace {
+                        key: "workspace.menu.view.reset".to_string(),
+                        label: "Reset Workspace".to_string(),
+                    },
+                ],
+            },
+            ZenWorkspaceMenu {
+                key: "workspace.menu.runtime".to_string(),
+                label: "Runtime".to_string(),
+                items: vec![
+                    ZenWorkspaceMenuItem::HostAction {
+                        key: "workspace.menu.runtime.edit".to_string(),
+                        label: "Edit".to_string(),
+                        action: "runtime.edit".to_string(),
+                    },
+                    ZenWorkspaceMenuItem::HostAction {
+                        key: "workspace.menu.runtime.simulate".to_string(),
+                        label: "Simulate".to_string(),
+                        action: "runtime.simulate".to_string(),
+                    },
+                    ZenWorkspaceMenuItem::HostAction {
+                        key: "workspace.menu.runtime.play".to_string(),
+                        label: "Play".to_string(),
+                        action: "runtime.play".to_string(),
+                    },
+                ],
+            },
+        ],
+    }
+}
+
+fn slug_menu_fragment(value: &str) -> String {
+    let mut slug = String::new();
+    let mut last_dash = false;
+    for ch in value.chars() {
+        if ch.is_ascii_alphanumeric() {
+            slug.push(ch.to_ascii_lowercase());
+            last_dash = false;
+        } else if !last_dash {
+            slug.push('-');
+            last_dash = true;
+        }
+    }
+    slug.trim_matches('-').to_string()
+}
+
 fn tab_vec(keys: &[String]) -> Vec<ZenDockTab> {
     keys.iter()
         .map(|key| ZenDockTab {
@@ -879,6 +1174,7 @@ mod tests {
         assert!(manifest.feature("workspace.viewport.perspective").is_some());
         assert!(manifest.feature("workspace.file_editor").is_some());
         assert!(manifest.primary_document().is_some());
+        assert!(!manifest.menubar.menus.is_empty());
         assert_eq!(
             manifest
                 .document("document.scene.default")

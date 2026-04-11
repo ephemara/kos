@@ -229,9 +229,9 @@
     },
     {
       "package_name": "zen-editor",
-      "score": 117,
+      "score": 120,
       "priority": "low",
-      "item_count": 37,
+      "item_count": 40,
       "callable_count": 20,
       "reexport_count": 0,
       "notes": [

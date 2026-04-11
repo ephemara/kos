@@ -83,7 +83,11 @@ Zen now also embeds a first-class Fabric service in [`M:\K_OS\crates\zen\src\fab
 
 [`M:\K_OS\crates\zen-scene\src\lib.rs`](M:\K_OS\crates\zen-scene\src\lib.rs) still exposes a scene payload bridge helper for host extraction, but the actual viewport payload evaluation now flows through [`M:\K_OS\crates\k-os-scene-runtime\src\mesh_state.rs`](M:\K_OS\crates\k-os-scene-runtime\src\mesh_state.rs).
 
-Zen's native shell now also exposes a generated registry surface and an embedded Fabric panel in [`M:\K_OS\crates\zen\src\kain_ui_host.rs`](M:\K_OS\crates\zen\src\kain_ui_host.rs). The command palette, `workspace.tools` action strip, and dedicated `workspace.registry` and `workspace.fabric` tabs read generated registry data plus Fabric session/report state directly so the shell can discover Zen-facing packages, run Fabric intents, and inspect orchestration work without hand-curated crate lists.
+Zen's native shell now also exposes a generated registry surface and an embedded Fabric panel in [`M:\K_OS\crates\zen\src\kain_ui_host.rs`](M:\K_OS\crates\zen\src\kain_ui_host.rs). The command palette, `workspace.tools` action strip, dedicated `workspace.registry` and `workspace.fabric` tabs, and the newer manifest-driven shell chrome all read generated registry data plus Fabric session/report state directly so the shell can discover Zen-facing packages, run Fabric intents, and inspect orchestration work without hand-curated crate lists.
+
+The shell chrome porting seam for Zen now lives in the workspace manifest as well as the host renderer. [`M:\K_OS\crates\zen\resources\workspace_ui.toml`](M:\K_OS\crates\zen\resources\workspace_ui.toml) owns both the topbar groups and the higher-level menu bar, parsed through [`M:\K_OS\crates\zen-editor\src\lib.rs`](M:\K_OS\crates\zen-editor\src\lib.rs), so future native shell passes should extend that manifest first and then project it through [`M:\K_OS\crates\zen\src\kain_ui_host.rs`](M:\K_OS\crates\zen\src\kain_ui_host.rs).
+
+Zen's native editor lane now also includes a painter-first workspace. The workspace manifest at [`M:\K_OS\crates\zen\resources\workspace_ui.toml`](M:\K_OS\crates\zen\resources\workspace_ui.toml) now defaults to a painter preset with import, materials, brushes, and layers panels, the palette in [`M:\K_OS\crates\zen\resources\theme.toml`](M:\K_OS\crates\zen\resources\theme.toml) is tuned for that workflow, and [`M:\K_OS\crates\zen\src\kain_ui_host.rs`](M:\K_OS\crates\zen\src\kain_ui_host.rs) now owns native painter workspace state for mesh ingest, nearby PBR texture discovery, material-slot binding, brush rack state, SVG stencil metadata, and read-only import summaries. The truthful current import contract is: GLTF, GLB, and OBJ are real scene imports through `k-os-asset-pipeline`; SVG is real stencil metadata ingest through `usvg`; FBX still routes through `k-os-io` as metadata-first staging rather than a full geometry import path.
 
 ## Existing Data-Driven Systems
 
@@ -239,12 +243,15 @@ Testing and heavy validation should still follow the repo conversation rule: ask
 ## Common Errors
 
 - Treat `AppShell` as the only valid host for `AppViewport`. If a frontend surface needs the native renderer, layer its UI above the shell center underlay instead of mounting another renderer host.
+- Treat the `NativeViewport` host element as part of the shell hole contract. In the live leash path it must stay visually transparent once the native window is connected, or the Tauri UI will paint over the renderer even when bounds sync is correct.
 - Universal mode is intentionally narrower than the standalone module surface. Do not embed `NativeToolWorkspace` or other shell-owning tool workspaces inside Universal panels until they are rewritten as panel-safe embedded surfaces.
 - Do not assume the Tauri shell already presents through Zen just because Zen has the target renderer architecture. The current visible Tauri viewport path still goes through `src-tauri/src/viewport_host.rs` plus `crates/k-os-bevy` on the leash port.
+- Zen painter ingest is intentionally asymmetric right now. GLTF, GLB, and OBJ are real native scene imports; SVG is real stencil metadata; FBX is summary-only metadata staging until a real parser lands.
 - Do not assume host crates are the right place for new logic. Prefer pushing ownership down into a domain crate and surfacing it through composition data.
 - Avoid adding new string-literal crate IDs or hardcoded asset paths when a manifest or schema already exists nearby.
 - `k-os-plugin` exists, but dynamic library loading is not the easiest first answer for this workspace. Static Cargo composition plus generated registries is simpler and safer for the current architecture.
 - Zen's `renderer_session.rs` should be treated as the current ownership boundary for scene-to-render sync. If you need draw data or selection in Zen, use that session instead of rebuilding scene buffers directly in `main.rs`.
+- For Zen shell/UI work, extend `crates/zen/resources/workspace_ui.toml` and `crates/zen/resources/theme.toml` first. `kain_ui_host.rs` should project those manifests and state, not become another hardcoded layout file.
 - `cargo metadata` is the fastest reliable way to inspect the workspace graph; use `--format-version 1`.
 - The Linux checkout currently expects the upstream Kain repo as a sibling workspace (`/home/ephemara/Dev/Kain`). If that is not true, set `KAIN_REPO_ROOT` and `KAIN_BIN_PATH` explicitly before blaming Cargo or Tauri.
 - `public_api_registry.json` is now the closest thing this workspace has to generated headers. Use it when you need to answer “what is callable from this crate?” before reaching for global `rg` on `pub fn`.

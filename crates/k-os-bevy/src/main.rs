@@ -1651,9 +1651,9 @@ fn main() {
     };
 
     let mut app = App::new();
-    // === BEVY-FIRST ARCHITECTURE ===
-    // Bevy is now the primary window owner. Tauri overlay launches on top.
-    // Custom titlebar will be rendered by React overlay.
+    // Leash host mode:
+    // Tauri owns the shell and React overlay, while this window stays hidden
+    // until the frontend syncs it to a transparent viewport hole.
     let asset_path = workspace_assets_dir();
 
     app.add_plugins(
@@ -1661,13 +1661,13 @@ fn main() {
             .set(WindowPlugin {
                 primary_window: Some(Window {
                     title: "K_OS".into(),
-                    resolution: WindowResolution::new(1600, 900),
-                    decorations: false, // Custom titlebar via React overlay
+                    resolution: WindowResolution::new(1, 1),
+                    decorations: false, // Treat the host like a shell-owned viewport surface
                     window_level: WindowLevel::Normal,
                     present_mode: bevy::window::PresentMode::AutoNoVsync,
-                    transparent: false, // No longer need transparency - Bevy is the base
-                    visible: true,      // Bevy window is primary and visible immediately
-                    skip_taskbar: false, // Show in taskbar - this is the main window now
+                    transparent: false, // Tauri provides the transparent hole; Bevy stays fully opaque
+                    visible: false,      // Wait until Tauri syncs bounds before mapping
+                    skip_taskbar: true, // Treat the leash window like a viewport surface, not a second app
                     resizable: true,
                     ..default()
                 }),

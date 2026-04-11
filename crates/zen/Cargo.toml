@@ -20,7 +20,10 @@ kain-host = { path = "../../../../Kain/crates/kain-host" }
 kain-omni = { path = "../../../../Kain/crates/kain-omni", default-features = false }
 kain-ui = { path = "../../../../Kain/crates/kain-ui" }
 k-os-asset-pipeline = { path = "../k-os-asset-pipeline" }
+k-os-brushes = { path = "../k-os-brushes" }
+k-os-io = { path = "../k-os-io" }
 k-os-kain = { path = "../k-os-kain" }
+k-os-material = { path = "../k-os-material" }
 k-os-scene = { path = "../k-os-scene" }
 k-os-scene-runtime = { path = "../k-os-scene-runtime" }
 k-os-workspace-registry = { path = "../k-os-workspace-registry" }
@@ -32,6 +35,7 @@ rfd = "0.15"
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
 toml = "0.8"
+usvg = "0.42"
 wgpu = "26"
 winit = "0.30"
 zen-core = { path = "../zen-core" }

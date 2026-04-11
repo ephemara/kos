@@ -3,13 +3,157 @@ key = "zen.workspace.default.v2"
 title = "Zen Workspace"
 
 [topbar]
-default_group = "workspace.topbar.sculpt"
+default_group = "workspace.topbar.paint"
 
 [[topbar.groups]]
-key = "workspace.topbar.sculpt"
-label = "Sculpt"
-description = "Primary sculpt workflow lane. This top-level group is the first native toolbar seed and is designed to expand into additional tool families over time."
+key = "workspace.topbar.paint"
+label = "Paint"
+description = "Painter-first workspace lane for mesh ingest, PBR channel authoring, SVG stencils, and material iteration."
 actions = []
+
+[[topbar.groups]]
+key = "workspace.topbar.stage"
+label = "Stage"
+description = "Scene navigation, framing, and selection tools for the active workspace."
+actions = [
+  "scene.focus_selection",
+  "scene.frame_scene",
+  "scene.select_previous",
+  "scene.select_next",
+  "scene.clear_selection",
+  "scene.spawn_box",
+]
+
+[[topbar.groups]]
+key = "workspace.topbar.runtime"
+label = "Runtime"
+description = "Editor, simulate, and play controls for the native renderer session."
+actions = ["runtime.edit", "runtime.simulate", "runtime.play"]
+
+[[topbar.groups]]
+key = "workspace.topbar.pipeline"
+label = "Pipeline"
+description = "Embedded Fabric jobs for ingest, material bake, topology rebuild, and publish."
+actions = [
+  "fabric.bootstrap",
+  "fabric.asset_ingest",
+  "fabric.material_bake",
+  "fabric.topology_rebuild",
+  "fabric.publish_package",
+  "shell.reload",
+]
+
+[menubar]
+
+[[menubar.menus]]
+key = "workspace.menu.file"
+label = "File"
+
+[[menubar.menus.items]]
+kind = "document"
+label = "Main Scene"
+document = "document.scene.default"
+
+[[menubar.menus.items]]
+kind = "document"
+label = "Material Graph"
+document = "document.graph.material"
+
+[[menubar.menus.items]]
+kind = "document"
+label = "Master Timeline"
+document = "document.timeline.master"
+
+[[menubar.menus.items]]
+kind = "separator"
+
+[[menubar.menus.items]]
+kind = "import_asset"
+label = "Import Asset"
+
+[[menubar.menus.items]]
+kind = "action"
+label = "Reload Shell"
+action = "shell.reload"
+
+[[menubar.menus]]
+key = "workspace.menu.view"
+label = "View"
+
+[[menubar.menus.items]]
+kind = "preset"
+label = "Core Workspace"
+preset = "preset.universal"
+
+[[menubar.menus.items]]
+kind = "preset"
+label = "Painter Workspace"
+preset = "preset.painter"
+
+[[menubar.menus.items]]
+kind = "preset"
+label = "Lookdev Workspace"
+preset = "preset.lookdev"
+
+[[menubar.menus.items]]
+kind = "preset"
+label = "Quad View"
+preset = "preset.quad"
+
+[[menubar.menus.items]]
+kind = "separator"
+
+[[menubar.menus.items]]
+kind = "reset_workspace"
+label = "Reset Workspace"
+
+[[menubar.menus]]
+key = "workspace.menu.runtime"
+label = "Runtime"
+
+[[menubar.menus.items]]
+kind = "action"
+label = "Edit"
+action = "runtime.edit"
+
+[[menubar.menus.items]]
+kind = "action"
+label = "Simulate"
+action = "runtime.simulate"
+
+[[menubar.menus.items]]
+kind = "action"
+label = "Play"
+action = "runtime.play"
+
+[[menubar.menus]]
+key = "workspace.menu.fabric"
+label = "Fabric"
+
+[[menubar.menus.items]]
+kind = "action"
+label = "Bootstrap"
+action = "fabric.bootstrap"
+
+[[menubar.menus.items]]
+kind = "action"
+label = "Asset Ingest"
+action = "fabric.asset_ingest"
+
+[[menubar.menus.items]]
+kind = "action"
+label = "Material Bake"
+action = "fabric.material_bake"
+
+[[menubar.menus.items]]
+kind = "action"
+label = "Topology Rebuild"
+action = "fabric.topology_rebuild"
+
+[[menubar.menus.items]]
+kind = "action"
+label = "Publish Package"
+action = "fabric.publish_package"
 
 [[documents]]
 key = "document.scene.default"
@@ -32,6 +176,20 @@ title = "Master Timeline"
 kind = "timeline"
 path = "workspace://timeline/master"
 source_path = "workspace/master_timeline.toml"
+
+[[presets]]
+key = "preset.painter"
+title = "Painter"
+viewport_layout = "painter"
+
+[presets.layout]
+center_tabs = ["workspace.viewport.perspective"]
+left_tabs = ["workspace.painter.import", "workspace.documents", "workspace.outliner"]
+right_tabs = ["workspace.painter.materials", "workspace.painter.brushes", "workspace.selection"]
+bottom_tabs = ["workspace.painter.layers", "workspace.file_editor", "workspace.runtime"]
+left_ratio = 0.18
+right_ratio = 0.24
+bottom_ratio = 0.26
 
 [[presets]]
 key = "preset.universal"
@@ -200,6 +358,38 @@ closable = true
 default_open = false
 
 [[features]]
+key = "workspace.painter.import"
+title = "Painter Ingest"
+kind = "painter"
+closable = true
+default_open = true
+props = { painter_panel = "import" }
+
+[[features]]
+key = "workspace.painter.materials"
+title = "Materials"
+kind = "painter"
+closable = true
+default_open = true
+props = { painter_panel = "materials" }
+
+[[features]]
+key = "workspace.painter.brushes"
+title = "Brushes"
+kind = "painter"
+closable = true
+default_open = true
+props = { painter_panel = "brushes" }
+
+[[features]]
+key = "workspace.painter.layers"
+title = "Channels"
+kind = "painter"
+closable = true
+default_open = true
+props = { painter_panel = "layers" }
+
+[[features]]
 key = "workspace.host_api"
 title = "Host API"
 kind = "host_api"
@@ -239,9 +429,9 @@ default_open = false
 
 [layout]
 center_tabs = ["workspace.viewport.perspective"]
-left_tabs = ["workspace.outliner", "workspace.documents"]
-right_tabs = ["workspace.selection", "workspace.runtime"]
-bottom_tabs = ["workspace.file_editor", "workspace.timeline", "workspace.fabric", "workspace.registry"]
-left_ratio = 0.16
-right_ratio = 0.2
-bottom_ratio = 0.22
+left_tabs = ["workspace.painter.import", "workspace.documents", "workspace.outliner"]
+right_tabs = ["workspace.painter.materials", "workspace.painter.brushes", "workspace.selection"]
+bottom_tabs = ["workspace.painter.layers", "workspace.file_editor", "workspace.runtime", "workspace.fabric", "workspace.registry"]
+left_ratio = 0.18
+right_ratio = 0.24
+bottom_ratio = 0.24

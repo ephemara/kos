@@ -2,7 +2,7 @@
   "registry_version": 1,
   "workspace_root": ".",
   "package_count": 47,
-  "local_dependency_edge_count": 101,
+  "local_dependency_edge_count": 104,
   "aggregator_packages": [
     "k-os-backend",
     "k-os-bevy",
@@ -1466,7 +1466,10 @@
       "features": [],
       "workspace_dependencies": [
         "k-os-asset-pipeline",
+        "k-os-brushes",
+        "k-os-io",
         "k-os-kain",
+        "k-os-material",
         "k-os-renderer",
         "k-os-scene",
         "k-os-scene-runtime",
@@ -1479,7 +1482,7 @@
         "zen-runtime",
         "zen-scene"
       ],
-      "local_dependency_count": 13,
+      "local_dependency_count": 16,
       "roles": [
         "aggregator",
         "binary",

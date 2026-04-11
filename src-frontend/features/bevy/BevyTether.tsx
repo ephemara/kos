@@ -56,6 +56,55 @@ export function useBevyTether({
     const unlistenersRef = useRef<UnlistenFn[]>([]);
     const syncTimeoutRef = useRef<number | null>(null);
 
+    const syncViewport = useCallback(async () => {
+        if (!enabled || !viewportRef?.current) return false;
+
+        try {
+            const win = getCurrentWindow();
+            const [windowPos, scaleFactor] = await Promise.all([
+                win.innerPosition(),
+                win.scaleFactor(),
+            ]);
+            const rect = viewportRef.current.getBoundingClientRect();
+
+            const bounds: WindowBounds = {
+                x: Math.round(windowPos.x + rect.left * scaleFactor),
+                y: Math.round(windowPos.y + rect.top * scaleFactor),
+                width: Math.max(1, Math.round(rect.width * scaleFactor)),
+                height: Math.max(1, Math.round(rect.height * scaleFactor)),
+            };
+
+            const last = lastSyncRef.current;
+            if (!last ||
+                bounds.x !== last.x ||
+                bounds.y !== last.y ||
+                bounds.width !== last.width ||
+                bounds.height !== last.height
+            ) {
+                await invoke('sync_bevy_window', {
+                    x: bounds.x,
+                    y: bounds.y,
+                    width: bounds.width,
+                    height: bounds.height
+                });
+                lastSyncRef.current = bounds;
+            }
+
+            if (!isConnected) {
+                setIsConnected(true);
+                onConnectionChange?.(true);
+            }
+
+            return true;
+        } catch (e) {
+            if (isConnected) {
+                setIsConnected(false);
+                onConnectionChange?.(false);
+            }
+            return false;
+        }
+    }, [enabled, viewportRef, isConnected, onConnectionChange]);
+
     // =========================================================================
     // BEVY VISIBILITY - Show Bevy on mount, hide on unmount (only when enabled)
     // =========================================================================
@@ -65,22 +114,35 @@ export function useBevyTether({
             return;
         }
 
-        console.log('[BevyTether] Enabled! Showing Bevy window...');
-        // Show Bevy window when Advanced mode activates
-        invoke('set_bevy_visible', { visible: true })
-            .then(() => console.log('[BevyTether] set_bevy_visible(true) succeeded'))
-            .catch((e) => console.error('[BevyTether] set_bevy_visible(true) failed:', e));
-        // Enable egui debug panel on mount
-        invoke('leash_debug_ui', { enabled: debugPanel }).catch(() => { });
+        console.log('[BevyTether] Enabled! Syncing viewport before showing Bevy window...');
+        let cancelled = false;
+
+        void (async () => {
+            const synced = await syncViewport();
+            if (cancelled) {
+                return;
+            }
+
+            if (!synced) {
+                console.warn('[BevyTether] Initial viewport sync failed; skipping Bevy show');
+                return;
+            }
+
+            await invoke('set_bevy_visible', { visible: true })
+                .then(() => console.log('[BevyTether] set_bevy_visible(true) succeeded'))
+                .catch((e) => console.error('[BevyTether] set_bevy_visible(true) failed:', e));
+            invoke('leash_debug_ui', { enabled: debugPanel }).catch(() => { });
+        })();
 
         return () => {
+            cancelled = true;
             console.log('[BevyTether] Cleanup - hiding Bevy window');
             // Cleanup: ensure overlay isn't stuck in click-through mode
             getCurrentWindow().setIgnoreCursorEvents(false).catch(() => { });
             // Hide Bevy window when leaving Advanced mode
             invoke('set_bevy_visible', { visible: false }).catch(() => { });
         };
-    }, [enabled, debugPanel]);
+    }, [enabled, debugPanel, syncViewport]);
 
     // =========================================================================
     // EGUI-ONLY MODE (Click-through overlay so Bevy receives mouse input)
@@ -94,50 +156,6 @@ export function useBevyTether({
     // =========================================================================
     // VIEWPORT SYNC - Efficient position/size sync with debouncing
     // =========================================================================
-    const syncViewport = useCallback(async () => {
-        if (!enabled || !viewportRef?.current) return;
-
-        try {
-            const win = getCurrentWindow();
-            const windowPos = await win.outerPosition();
-            const rect = viewportRef.current.getBoundingClientRect();
-
-            const bounds: WindowBounds = {
-                x: Math.round(windowPos.x + rect.left),
-                y: Math.round(windowPos.y + rect.top),
-                width: Math.round(rect.width),
-                height: Math.round(rect.height),
-            };
-
-            // Only sync if changed (reduce IPC noise)
-            const last = lastSyncRef.current;
-            if (!last ||
-                bounds.x !== last.x ||
-                bounds.y !== last.y ||
-                bounds.width !== last.width ||
-                bounds.height !== last.height
-            ) {
-                await invoke('sync_bevy_window', { 
-                    x: bounds.x, 
-                    y: bounds.y, 
-                    width: bounds.width, 
-                    height: bounds.height 
-                });
-                lastSyncRef.current = bounds;
-                
-                if (!isConnected) {
-                    setIsConnected(true);
-                    onConnectionChange?.(true);
-                }
-            }
-        } catch (e) {
-            if (isConnected) {
-                setIsConnected(false);
-                onConnectionChange?.(false);
-            }
-        }
-    }, [enabled, viewportRef, isConnected, onConnectionChange]);
-
     // =========================================================================
     // WINDOW EVENT LISTENERS - React to window move/resize
     // =========================================================================
