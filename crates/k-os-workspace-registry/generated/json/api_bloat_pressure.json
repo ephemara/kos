@@ -152,10 +152,10 @@
     },
     {
       "package_name": "k-os-kain",
-      "score": 274,
+      "score": 302,
       "priority": "medium",
-      "item_count": 70,
-      "callable_count": 51,
+      "item_count": 78,
+      "callable_count": 56,
       "reexport_count": 0,
       "notes": [
         "public surface is comparatively contained"

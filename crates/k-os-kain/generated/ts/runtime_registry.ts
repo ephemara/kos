@@ -1,6 +1,6 @@
-export type KainGeneratedRuntimeTarget = 'wasm' | 'js' | 'ts' | 'ks' | 'hybrid';
-export type KainGeneratedRuntimeKind = 'tauri_frontend' | 'desktop_script' | 'compute_kernel' | 'hybrid_module';
-export type KainGeneratedHostKind = 'tauri' | 'webview' | 'wasm_runtime' | 'hybrid';
+export type KainGeneratedRuntimeTarget = 'wasm' | 'llvm' | 'spirv' | 'js' | 'ts' | 'ks' | 'hybrid' | 'rust' | 'cpp' | 'run' | 'test' | 'hlsl' | 'usf' | 'ue5' | 'ue5editor';
+export type KainGeneratedRuntimeKind = 'tauri_frontend' | 'desktop_script' | 'compute_kernel' | 'hybrid_module' | 'native_ui_app' | 'viewport3d_app' | 'python_bridge' | 'node_bridge' | 'rust_crate_bridge' | 'c_abi_bridge' | 'omni_pipeline' | 'selfhost_harness';
+export type KainGeneratedHostKind = 'tauri' | 'webview' | 'wasm_runtime' | 'hybrid' | 'native_runtime' | 'python' | 'node' | 'rust_host' | 'c_abi' | 'ue5' | 'cli';
 
 export interface GeneratedRuntimeOutputMeta {
   target: KainGeneratedRuntimeTarget;

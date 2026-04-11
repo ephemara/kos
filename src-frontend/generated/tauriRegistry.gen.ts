@@ -17,15 +17,19 @@ export type RegistryPublicApiSummary = { package_name: string; package_path: str
 
 export type RegistrySearchRequest = { stability_tier: string | null; adapter_target: string | null; capability: string | null; package_name_contains: string | null }
 
-export type KainCliTarget = "wasm" | "spirv" | "ts" | "js" | "ks" | "hybrid" | "rust" | "cpp" | "run" | "test" | "hlsl" | "usf"
+export type KainCliTarget = "wasm" | "llvm" | "spirv" | "ts" | "js" | "ks" | "hybrid" | "rust" | "cpp" | "run" | "test" | "hlsl" | "usf" | "ue5" | "ue5editor"
 
 export type KainSourceDomain = "fluid" | "sculpt" | "mocap" | "paint" | "renderer" | "materials" | "imports" | "sculpting_engine" | "brush" | "shader" | "procedural" | "kainscript"
 
 export type KainRegistryTargetKind = "spirv" | "source"
 
-export type KainRuntimeKind = "tauri_frontend" | "desktop_script" | "compute_kernel" | "hybrid_module"
+export type KainRuntimeKind = "tauri_frontend" | "desktop_script" | "compute_kernel" | "hybrid_module" | "native_ui_app" | "viewport3d_app" | "python_bridge" | "node_bridge" | "rust_crate_bridge" | "c_abi_bridge" | "omni_pipeline" | "selfhost_harness"
 
-export type KainHostKind = "tauri" | "webview" | "wasm_runtime" | "hybrid"
+export type KainHostKind = "tauri" | "webview" | "wasm_runtime" | "hybrid" | "native_runtime" | "python" | "node" | "rust_host" | "c_abi" | "ue5" | "cli"
+
+export type KainCapabilityCategory = "language_frontend" | "codegen" | "importer" | "runtime_bridge" | "app_runtime" | "orchestration" | "gpu_runtime" | "unreal" | "intent_system"
+
+export type KainIntegrationStatus = "active_in_kos" | "partially_adopted" | "modeled_for_adoption" | "upstream_only"
 
 export type KainCompileResponse = { success: boolean; output: string | null; outputPath: string | null; errors: string | null; durationMs: number }
 
@@ -36,6 +40,8 @@ export type KainSourceRegistryEntry = { id: string; label: string; domain: KainS
 export type KainRuntimeOutputRegistryEntry = { target: KainCliTarget; path: string }
 
 export type KainRuntimeRegistryEntry = { id: string; label: string; sourcePath: string; runtimeKind: KainRuntimeKind; hostKind: KainHostKind; namespace: string; outputs: KainRuntimeOutputRegistryEntry[] }
+
+export type KainUpstreamCapabilityEntry = { id: string; label: string; category: KainCapabilityCategory; integrationStatus: KainIntegrationStatus; summary: string; commands: string[]; compileTargets: KainCliTarget[]; runtimeKinds: KainRuntimeKind[]; hostKinds: KainHostKind[]; upstreamCrates: string[]; recommendedKosNextStep: string; notes: string[] }
 
 export type RendererMode = "native" | "threeFallback"
 
@@ -91,6 +97,10 @@ export async function kainListSources(): Promise<KainSourceRegistryEntry[]> {
 
 export async function kainListRuntimeApps(): Promise<KainRuntimeRegistryEntry[]> {
   return invoke<KainRuntimeRegistryEntry[]>('kain_list_runtime_apps');
+}
+
+export async function kainListUpstreamCapabilities(): Promise<KainUpstreamCapabilityEntry[]> {
+  return invoke<KainUpstreamCapabilityEntry[]>('kain_list_upstream_capabilities');
 }
 
 export async function kainReadSource(path: string): Promise<string> {

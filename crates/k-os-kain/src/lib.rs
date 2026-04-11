@@ -621,7 +621,7 @@ pub fn compile_source(
     if success {
         let output = match target {
             KainCliTarget::Llvm
-            KainCliTarget::Ts
+            | KainCliTarget::Ts
             | KainCliTarget::Js
             | KainCliTarget::Ks
             | KainCliTarget::Hybrid

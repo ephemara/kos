@@ -17,7 +17,7 @@
 - `k-os-gpu-pipeline`: tier integration, adapters [bevy, external, tauri, zen], entrypoints [crate::GpuComputeDevice, crate::GpuMeshBridge, crate::GpuNormalCompute, crate::GpuSculptCompute, crate::gpu]
 - `k-os-hdr`: tier integration, adapters [external], entrypoints [crate::*]
 - `k-os-io`: tier integration, adapters [external, tauri], entrypoints [crate::Asset, crate::AssetHandle, crate::AssetMetadata, crate::AssetQuery, crate::AssetType, crate::StorageBackend]
-- `k-os-kain`: tier integration, adapters [external, tauri, zen], entrypoints [crate::build_file, crate::compile_source, crate::generated_runtime_app_by_id, crate::generated_spirv_by_id, crate::list_runtime_apps, crate::list_sources]
+- `k-os-kain`: tier integration, adapters [external, tauri, zen], entrypoints [crate::build_file, crate::compile_source, crate::generated_runtime_app_by_id, crate::generated_spirv_by_id, crate::list_runtime_apps, crate::list_sources, crate::list_upstream_capabilities]
 - `k-os-material`: tier integration, adapters [external], entrypoints [crate::AlphaMode, crate::ClearcoatExtension, crate::Material, crate::MaterialError, crate::MaterialLibrary, crate::MaterialPreset]
 - `k-os-photogrammetry`: tier integration, adapters [external], entrypoints [crate::*]
 - `k-os-renderer`: tier integration, adapters [external], entrypoints [crate::BridgeError, crate::CameraState, crate::DirectRendererUploadBridge, crate::DispatchTopology, crate::DrawPacket, crate::EvaluatedMeshSource]

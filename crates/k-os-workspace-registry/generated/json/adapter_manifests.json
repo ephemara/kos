@@ -228,8 +228,10 @@
             "gpu",
             "k-os",
             "kain",
+            "modern-kain-parity",
             "runtime-app-registry",
-            "spirv-source-registry"
+            "spirv-source-registry",
+            "upstream-capability-registry"
           ],
           "recommended_entrypoints": [
             "crate::build_file",
@@ -237,7 +239,8 @@
             "crate::generated_runtime_app_by_id",
             "crate::generated_spirv_by_id",
             "crate::list_runtime_apps",
-            "crate::list_sources"
+            "crate::list_sources",
+            "crate::list_upstream_capabilities"
           ],
           "pressure_priority": "medium"
         },
@@ -653,8 +656,10 @@
             "gpu",
             "k-os",
             "kain",
+            "modern-kain-parity",
             "runtime-app-registry",
-            "spirv-source-registry"
+            "spirv-source-registry",
+            "upstream-capability-registry"
           ],
           "recommended_entrypoints": [
             "crate::build_file",
@@ -662,7 +667,8 @@
             "crate::generated_runtime_app_by_id",
             "crate::generated_spirv_by_id",
             "crate::list_runtime_apps",
-            "crate::list_sources"
+            "crate::list_sources",
+            "crate::list_upstream_capabilities"
           ],
           "pressure_priority": "medium"
         },
@@ -785,8 +791,10 @@
             "gpu",
             "k-os",
             "kain",
+            "modern-kain-parity",
             "runtime-app-registry",
-            "spirv-source-registry"
+            "spirv-source-registry",
+            "upstream-capability-registry"
           ],
           "recommended_entrypoints": [
             "crate::build_file",
@@ -794,7 +802,8 @@
             "crate::generated_runtime_app_by_id",
             "crate::generated_spirv_by_id",
             "crate::list_runtime_apps",
-            "crate::list_sources"
+            "crate::list_sources",
+            "crate::list_upstream_capabilities"
           ],
           "pressure_priority": "medium"
         },
