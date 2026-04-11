@@ -31,15 +31,19 @@ import {
     kainCompile,
     kainListRuntimeApps,
     kainListSources,
+    kainListUpstreamCapabilities,
     kainReadSource,
     kainRun,
     kainWriteSource,
+    type KainCapabilityCategory as NativeKainCapabilityCategory,
     type KainCliTarget,
     type KainHostKind as NativeKainHostKind,
+    type KainIntegrationStatus as NativeKainIntegrationStatus,
     type KainRuntimeKind as NativeKainRuntimeKind,
     type KainRuntimeRegistryEntry,
     type KainSourceDomain as NativeKainSourceDomain,
     type KainSourceRegistryEntry,
+    type KainUpstreamCapabilityEntry,
 } from '@/generated/tauriRegistry.gen';
 import { GENERATED_KAIN_RUNTIME_REGISTRY } from '../runtime/generatedRegistry';
 
@@ -91,6 +95,8 @@ export interface KAINSourceFile {
 export type KAINSourceDomain = NativeKainSourceDomain | 'physics' | 'plugin' | 'custom';
 export type KAINRuntimeKind = NativeKainRuntimeKind;
 export type KAINHostKind = NativeKainHostKind;
+export type KAINCapabilityCategory = NativeKainCapabilityCategory;
+export type KAINIntegrationStatus = NativeKainIntegrationStatus;
 
 export interface KAINRuntimeOutputFile {
     target: KAINTarget;
@@ -105,6 +111,21 @@ export interface KAINRuntimeApp {
     hostKind: KAINHostKind;
     namespace: string;
     outputs: KAINRuntimeOutputFile[];
+}
+
+export interface KAINUpstreamCapability {
+    id: string;
+    label: string;
+    category: KAINCapabilityCategory;
+    integrationStatus: KAINIntegrationStatus;
+    summary: string;
+    commands: string[];
+    compileTargets: KAINTarget[];
+    runtimeKinds: KAINRuntimeKind[];
+    hostKinds: KAINHostKind[];
+    upstreamCrates: string[];
+    recommendedKosNextStep: string;
+    notes: string[];
 }
 
 export const KAIN_SOURCE_REGISTRY: KAINSourceFile[] = [];
@@ -166,12 +187,32 @@ function mapNativeRuntimeEntry(entry: KainRuntimeRegistryEntry): KAINRuntimeApp 
     };
 }
 
+function mapUpstreamCapabilityEntry(
+    entry: KainUpstreamCapabilityEntry,
+): KAINUpstreamCapability {
+    return {
+        id: entry.id,
+        label: entry.label,
+        category: entry.category,
+        integrationStatus: entry.integrationStatus,
+        summary: entry.summary,
+        commands: [...entry.commands],
+        compileTargets: [...entry.compileTargets],
+        runtimeKinds: [...entry.runtimeKinds],
+        hostKinds: [...entry.hostKinds],
+        upstreamCrates: [...entry.upstreamCrates],
+        recommendedKosNextStep: entry.recommendedKosNextStep,
+        notes: [...entry.notes],
+    };
+}
+
 // ─── KAINBridge class ─────────────────────────────────────────────────────────
 
 export class KAINBridge {
     private static _instance: KAINBridge;
     private nativeRegistryCache: KAINSourceFile[] | null = null;
     private nativeRuntimeRegistryCache: KAINRuntimeApp[] | null = null;
+    private nativeCapabilityCache: KAINUpstreamCapability[] | null = null;
 
     static get instance(): KAINBridge {
         if (!KAINBridge._instance) KAINBridge._instance = new KAINBridge();
@@ -386,6 +427,20 @@ export class KAINBridge {
 
     listRuntimeApps(): KAINRuntimeApp[] {
         return this.nativeRuntimeRegistryCache ?? KAIN_RUNTIME_REGISTRY;
+    }
+
+    async listUpstreamCapabilitiesFromBackend(): Promise<KAINUpstreamCapability[]> {
+        if (this.nativeCapabilityCache) {
+            return this.nativeCapabilityCache;
+        }
+
+        const entries = await kainListUpstreamCapabilities();
+        this.nativeCapabilityCache = entries.map(mapUpstreamCapabilityEntry);
+        return this.nativeCapabilityCache;
+    }
+
+    listUpstreamCapabilities(): KAINUpstreamCapability[] {
+        return this.nativeCapabilityCache ?? [];
     }
 
     async listRuntimeAppsForHost(hostKind: KAINHostKind): Promise<KAINRuntimeApp[]> {

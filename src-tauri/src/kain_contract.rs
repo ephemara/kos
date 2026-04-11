@@ -5,6 +5,7 @@ use specta::Type;
 #[serde(rename_all = "lowercase")]
 pub enum KainCliTarget {
     Wasm,
+    Llvm,
     Spirv,
     Ts,
     Js,
@@ -16,6 +17,8 @@ pub enum KainCliTarget {
     Test,
     Hlsl,
     Usf,
+    Ue5,
+    Ue5Editor,
 }
 
 #[derive(Debug, Clone, Copy, Serialize, Deserialize, Type)]
@@ -49,6 +52,14 @@ pub enum KainRuntimeKind {
     DesktopScript,
     ComputeKernel,
     HybridModule,
+    NativeUiApp,
+    Viewport3dApp,
+    PythonBridge,
+    NodeBridge,
+    RustCrateBridge,
+    CAbiBridge,
+    OmniPipeline,
+    SelfhostHarness,
 }
 
 #[derive(Debug, Clone, Copy, Serialize, Deserialize, Type)]
@@ -58,6 +69,36 @@ pub enum KainHostKind {
     Webview,
     WasmRuntime,
     Hybrid,
+    NativeRuntime,
+    Python,
+    Node,
+    RustHost,
+    CAbi,
+    Ue5,
+    Cli,
+}
+
+#[derive(Debug, Clone, Copy, Serialize, Deserialize, Type)]
+#[serde(rename_all = "snake_case")]
+pub enum KainCapabilityCategory {
+    LanguageFrontend,
+    Codegen,
+    Importer,
+    RuntimeBridge,
+    AppRuntime,
+    Orchestration,
+    GpuRuntime,
+    Unreal,
+    IntentSystem,
+}
+
+#[derive(Debug, Clone, Copy, Serialize, Deserialize, Type)]
+#[serde(rename_all = "snake_case")]
+pub enum KainIntegrationStatus {
+    ActiveInKos,
+    PartiallyAdopted,
+    ModeledForAdoption,
+    UpstreamOnly,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize, Type)]
@@ -107,4 +148,21 @@ pub struct KainRuntimeRegistryEntry {
     pub host_kind: KainHostKind,
     pub namespace: String,
     pub outputs: Vec<KainRuntimeOutputRegistryEntry>,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize, Type)]
+#[serde(rename_all = "camelCase")]
+pub struct KainUpstreamCapabilityEntry {
+    pub id: String,
+    pub label: String,
+    pub category: KainCapabilityCategory,
+    pub integration_status: KainIntegrationStatus,
+    pub summary: String,
+    pub commands: Vec<String>,
+    pub compile_targets: Vec<KainCliTarget>,
+    pub runtime_kinds: Vec<KainRuntimeKind>,
+    pub host_kinds: Vec<KainHostKind>,
+    pub upstream_crates: Vec<String>,
+    pub recommended_kos_next_step: String,
+    pub notes: Vec<String>,
 }

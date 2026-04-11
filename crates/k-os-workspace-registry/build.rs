@@ -581,6 +581,12 @@ fn collect_external_registry_inputs(
                 manifests.push(manifest);
                 artifacts.extend(new_artifacts);
             }
+            "kain_upstream_capabilities" => {
+                let (manifest, new_artifacts) =
+                    load_kain_upstream_capabilities_manifest(key, relative_path, &manifest_path);
+                manifests.push(manifest);
+                artifacts.extend(new_artifacts);
+            }
             "zen_runtime" => {
                 let (manifest, new_artifacts) =
                     load_zen_runtime_manifest(key, relative_path, &manifest_path);
@@ -761,6 +767,95 @@ fn load_kain_runtime_apps_manifest(
             runtime_kind: runtime_kind.to_string(),
             host_kind: host_kind.to_string(),
             domain: String::new(),
+            tags,
+        });
+    }
+
+    (
+        WorkspaceExternalManifestRecord {
+            key: key.to_string(),
+            owner_package: "k-os-kain".to_string(),
+            relative_path: relative_path.to_string(),
+            format: "json".to_string(),
+            item_count: item_ids.len(),
+            item_ids,
+        },
+        artifacts,
+    )
+}
+
+fn load_kain_upstream_capabilities_manifest(
+    key: &str,
+    relative_path: &str,
+    manifest_path: &Path,
+) -> (
+    WorkspaceExternalManifestRecord,
+    Vec<WorkspaceArtifactRecord>,
+) {
+    let items = read_json_array(manifest_path);
+    let mut item_ids = Vec::new();
+    let mut artifacts = Vec::new();
+
+    for item in items {
+        let Some(id) = item.get("id").and_then(Value::as_str) else {
+            continue;
+        };
+        let label = item
+            .get("label")
+            .and_then(Value::as_str)
+            .map(str::to_string)
+            .unwrap_or_else(|| title_case(id));
+        let category = item
+            .get("category")
+            .and_then(Value::as_str)
+            .unwrap_or_default();
+        let integration_status = item
+            .get("integration_status")
+            .and_then(Value::as_str)
+            .unwrap_or_default();
+        let summary = item
+            .get("summary")
+            .and_then(Value::as_str)
+            .unwrap_or_default();
+        let tags = unique_strings(
+            item.get("compile_targets")
+                .and_then(Value::as_array)
+                .into_iter()
+                .flatten()
+                .filter_map(Value::as_str)
+                .map(str::to_string)
+                .chain(
+                    item.get("runtime_kinds")
+                        .and_then(Value::as_array)
+                        .into_iter()
+                        .flatten()
+                        .filter_map(Value::as_str)
+                        .map(str::to_string),
+                )
+                .chain(
+                    item.get("host_kinds")
+                        .and_then(Value::as_array)
+                        .into_iter()
+                        .flatten()
+                        .filter_map(Value::as_str)
+                        .map(str::to_string),
+                )
+                .chain([category.to_string(), integration_status.to_string()]),
+        );
+
+        item_ids.push(id.to_string());
+        artifacts.push(WorkspaceArtifactRecord {
+            id: id.to_string(),
+            label,
+            kind: "kain_upstream_capability".to_string(),
+            owner_package: "k-os-kain".to_string(),
+            manifest_key: key.to_string(),
+            source_path: relative_path.to_string(),
+            compiled_path: String::new(),
+            namespace: summary.to_string(),
+            runtime_kind: integration_status.to_string(),
+            host_kind: String::new(),
+            domain: category.to_string(),
             tags,
         });
     }

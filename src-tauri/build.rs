@@ -48,9 +48,10 @@ fn main() {
 
 fn export_specta_tauri_bindings(root: &Path) {
     use kain_contract::{
-        KainCliTarget, KainCompileResponse, KainHostKind, KainRunResponse, KainRuntimeKind,
+        KainCapabilityCategory, KainCliTarget, KainCompileResponse, KainHostKind,
+        KainIntegrationStatus, KainRunResponse, KainRuntimeKind,
         KainRuntimeOutputRegistryEntry, KainRuntimeRegistryEntry, KainSourceDomain,
-        KainSourceRegistryEntry,
+        KainSourceRegistryEntry, KainUpstreamCapabilityEntry,
     };
     use registry_contract::{
         RegistryAdapterManifest, RegistryAdapterPackageBinding, RegistryAdapterTargetSummary,
@@ -82,11 +83,14 @@ fn export_specta_tauri_bindings(root: &Path) {
     append_typescript_export::<kain_contract::KainRegistryTargetKind>(&mut output);
     append_typescript_export::<KainRuntimeKind>(&mut output);
     append_typescript_export::<KainHostKind>(&mut output);
+    append_typescript_export::<KainCapabilityCategory>(&mut output);
+    append_typescript_export::<KainIntegrationStatus>(&mut output);
     append_typescript_export::<KainCompileResponse>(&mut output);
     append_typescript_export::<KainRunResponse>(&mut output);
     append_typescript_export::<KainSourceRegistryEntry>(&mut output);
     append_typescript_export::<KainRuntimeOutputRegistryEntry>(&mut output);
     append_typescript_export::<KainRuntimeRegistryEntry>(&mut output);
+    append_typescript_export::<KainUpstreamCapabilityEntry>(&mut output);
     append_typescript_export::<RendererMode>(&mut output);
     append_typescript_export::<ShadingMode>(&mut output);
     append_typescript_export::<ViewportConfig>(&mut output);
@@ -189,6 +193,14 @@ fn append_kain_wrappers(output: &mut String) {
         "export async function kainListRuntimeApps(): Promise<KainRuntimeRegistryEntry[]> {\n",
     );
     output.push_str("  return invoke<KainRuntimeRegistryEntry[]>('kain_list_runtime_apps');\n");
+    output.push_str("}\n\n");
+
+    output.push_str(
+        "export async function kainListUpstreamCapabilities(): Promise<KainUpstreamCapabilityEntry[]> {\n",
+    );
+    output.push_str(
+        "  return invoke<KainUpstreamCapabilityEntry[]>('kain_list_upstream_capabilities');\n",
+    );
     output.push_str("}\n\n");
 
     output.push_str("export async function kainReadSource(path: string): Promise<string> {\n");

@@ -98,6 +98,7 @@ Several parts of the repo already use manifests and registries instead of hardco
 - `k-os-kain` tracks source and runtime assets in manifests:
   - [`M:\K_OS\crates\k-os-kain\manifests\sources.json`](M:\K_OS\crates\k-os-kain\manifests\sources.json)
   - [`M:\K_OS\crates\k-os-kain\manifests\runtime_apps.json`](M:\K_OS\crates\k-os-kain\manifests\runtime_apps.json)
+  - [`M:\K_OS\crates\k-os-kain\manifests\upstream_capabilities.json`](M:\K_OS\crates\k-os-kain\manifests\upstream_capabilities.json)
 - `k-os-config` owns typed config registries and JSON-schema-backed config surfaces:
   - [`M:\K_OS\crates\k-os-config\src\config`](M:\K_OS\crates\k-os-config\src\config)
 - Zen loads runtime, host API, and UI manifests:
@@ -124,6 +125,7 @@ This crate is the composition layer above Cargo. It does not replace Cargo linki
 4. extracts manifest and artifact ownership from:
    - [`M:\K_OS\crates\k-os-kain\manifests\sources.json`](M:\K_OS\crates\k-os-kain\manifests\sources.json)
    - [`M:\K_OS\crates\k-os-kain\manifests\runtime_apps.json`](M:\K_OS\crates\k-os-kain\manifests\runtime_apps.json)
+   - [`M:\K_OS\crates\k-os-kain\manifests\upstream_capabilities.json`](M:\K_OS\crates\k-os-kain\manifests\upstream_capabilities.json)
    - [`M:\K_OS\crates\zen\resources\runtime.toml`](M:\K_OS\crates\zen\resources\runtime.toml)
    - [`M:\K_OS\crates\zen\resources\modules.toml`](M:\K_OS\crates\zen\resources\modules.toml)
    - [`M:\K_OS\crates\zen\resources\host_api.toml`](M:\K_OS\crates\zen\resources\host_api.toml)
@@ -169,6 +171,11 @@ The workspace is only partially data-driven today.
 - Cargo handles real compile-time linking through explicit path dependencies.
 - Runtime crates already understand manifests, profiles, adapters, and registries.
 - Host crates still contain a lot of direct crate dependencies and string-literal identities for runtime hosts, renderer contracts, shader IDs, and asset paths.
+- `k-os-kain` now has two distinct registry truths that should not be conflated:
+  - local K_OS-owned Kain assets under `sources.json` and `runtime_apps.json`
+  - upstream Kain capability/adoption truth under `upstream_capabilities.json`
+
+The important rule is: do not fake parity by inventing local runtime apps for upstream Kain features that are not actually wired into K_OS yet. Model upstream firepower explicitly in the capability manifest, then promote specific lanes into local runtime/source manifests once they are real.
 
 From a workspace-only dependency audit:
 

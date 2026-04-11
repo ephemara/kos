@@ -33,6 +33,7 @@ struct RuntimeAppMeta {
 fn main() {
     println!("cargo:rerun-if-changed=manifests/sources.json");
     println!("cargo:rerun-if-changed=manifests/runtime_apps.json");
+    println!("cargo:rerun-if-changed=manifests/upstream_capabilities.json");
     println!("cargo:rerun-if-changed=generated/spv");
     println!("cargo:rerun-if-changed=domains");
     println!("cargo:rerun-if-changed=../../src-kain");
@@ -60,10 +61,13 @@ fn main() {
         &json_root,
         &runtime_root,
         &runtime_root.join("wasm"),
+        &runtime_root.join("llvm"),
         &runtime_root.join("js"),
         &runtime_root.join("ts"),
         &runtime_root.join("ks"),
         &runtime_root.join("hybrid"),
+        &runtime_root.join("ue5"),
+        &runtime_root.join("ue5editor"),
     ] {
         let _ = fs::create_dir_all(dir);
     }
@@ -482,11 +486,11 @@ fn render_ts_spv_registry(assets: &[AssetMeta]) -> String {
 fn render_ts_runtime_registry(apps: &[RuntimeAppMeta]) -> String {
     let mut out = String::new();
     out.push_str(
-        "export type KainGeneratedRuntimeTarget = 'wasm' | 'js' | 'ts' | 'ks' | 'hybrid';\n",
+        "export type KainGeneratedRuntimeTarget = 'wasm' | 'llvm' | 'spirv' | 'js' | 'ts' | 'ks' | 'hybrid' | 'rust' | 'cpp' | 'run' | 'test' | 'hlsl' | 'usf' | 'ue5' | 'ue5editor';\n",
     );
-    out.push_str("export type KainGeneratedRuntimeKind = 'tauri_frontend' | 'desktop_script' | 'compute_kernel' | 'hybrid_module';\n");
+    out.push_str("export type KainGeneratedRuntimeKind = 'tauri_frontend' | 'desktop_script' | 'compute_kernel' | 'hybrid_module' | 'native_ui_app' | 'viewport3d_app' | 'python_bridge' | 'node_bridge' | 'rust_crate_bridge' | 'c_abi_bridge' | 'omni_pipeline' | 'selfhost_harness';\n");
     out.push_str(
-        "export type KainGeneratedHostKind = 'tauri' | 'webview' | 'wasm_runtime' | 'hybrid';\n\n",
+        "export type KainGeneratedHostKind = 'tauri' | 'webview' | 'wasm_runtime' | 'hybrid' | 'native_runtime' | 'python' | 'node' | 'rust_host' | 'c_abi' | 'ue5' | 'cli';\n\n",
     );
     out.push_str("export interface GeneratedRuntimeOutputMeta {\n");
     out.push_str("  target: KainGeneratedRuntimeTarget;\n");
@@ -659,6 +663,7 @@ fn domain_variant(domain: &str) -> &'static str {
 fn cli_target_variant(target: &str) -> &'static str {
     match target {
         "wasm" => "Wasm",
+        "llvm" => "Llvm",
         "spirv" => "Spirv",
         "ts" => "Ts",
         "js" => "Js",
@@ -670,6 +675,8 @@ fn cli_target_variant(target: &str) -> &'static str {
         "test" => "Test",
         "hlsl" => "Hlsl",
         "usf" => "Usf",
+        "ue5" => "Ue5",
+        "ue5editor" => "Ue5Editor",
         _ => panic!("unsupported CLI target in runtime manifest: {target}"),
     }
 }
@@ -680,6 +687,14 @@ fn runtime_kind_variant(kind: &str) -> &'static str {
         "desktop_script" => "DesktopScript",
         "compute_kernel" => "ComputeKernel",
         "hybrid_module" => "HybridModule",
+        "native_ui_app" => "NativeUiApp",
+        "viewport3d_app" => "Viewport3dApp",
+        "python_bridge" => "PythonBridge",
+        "node_bridge" => "NodeBridge",
+        "rust_crate_bridge" => "RustCrateBridge",
+        "c_abi_bridge" => "CAbiBridge",
+        "omni_pipeline" => "OmniPipeline",
+        "selfhost_harness" => "SelfhostHarness",
         _ => panic!("unsupported runtime kind in runtime manifest: {kind}"),
     }
 }
@@ -690,6 +705,13 @@ fn host_kind_variant(kind: &str) -> &'static str {
         "webview" => "Webview",
         "wasm_runtime" => "WasmRuntime",
         "hybrid" => "Hybrid",
+        "native_runtime" => "NativeRuntime",
+        "python" => "Python",
+        "node" => "Node",
+        "rust_host" => "RustHost",
+        "c_abi" => "CAbi",
+        "ue5" => "Ue5",
+        "cli" => "Cli",
         _ => panic!("unsupported host kind in runtime manifest: {kind}"),
     }
 }

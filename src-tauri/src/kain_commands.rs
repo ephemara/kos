@@ -12,21 +12,24 @@
 //! sculpt brush GPU shaders and FluidDynamics.kn.
 
 use crate::kain_contract::{
+    KainCapabilityCategory as ContractKainCapabilityCategory,
     KainCliTarget, KainCompileResponse, KainHostKind as ContractKainHostKind,
-    KainRegistryTargetKind, KainRunResponse, KainRuntimeKind as ContractKainRuntimeKind,
+    KainIntegrationStatus as ContractKainIntegrationStatus, KainRegistryTargetKind,
+    KainRunResponse, KainRuntimeKind as ContractKainRuntimeKind,
     KainRuntimeOutputRegistryEntry, KainRuntimeRegistryEntry, KainSourceDomain,
-    KainSourceRegistryEntry,
+    KainSourceRegistryEntry, KainUpstreamCapabilityEntry,
 };
 use k_os_kain::{
-    build_file, compile_source, list_runtime_apps, list_sources, run_source,
-    KainCliTarget as NativeKainCliTarget, KainDomain, KainHostKind, KainRuntimeKind,
-    KainTargetKind,
+    build_file, compile_source, list_runtime_apps, list_sources, list_upstream_capabilities,
+    run_source, KainCapabilityCategory, KainCliTarget as NativeKainCliTarget, KainDomain,
+    KainHostKind, KainIntegrationStatus, KainRuntimeKind, KainTargetKind,
 };
 use std::path::{Path, PathBuf};
 
 fn into_native_cli_target(target: KainCliTarget) -> NativeKainCliTarget {
     match target {
         KainCliTarget::Wasm => NativeKainCliTarget::Wasm,
+        KainCliTarget::Llvm => NativeKainCliTarget::Llvm,
         KainCliTarget::Spirv => NativeKainCliTarget::Spirv,
         KainCliTarget::Ts => NativeKainCliTarget::Ts,
         KainCliTarget::Js => NativeKainCliTarget::Js,
@@ -38,6 +41,8 @@ fn into_native_cli_target(target: KainCliTarget) -> NativeKainCliTarget {
         KainCliTarget::Test => NativeKainCliTarget::Test,
         KainCliTarget::Hlsl => NativeKainCliTarget::Hlsl,
         KainCliTarget::Usf => NativeKainCliTarget::Usf,
+        KainCliTarget::Ue5 => NativeKainCliTarget::Ue5,
+        KainCliTarget::Ue5Editor => NativeKainCliTarget::Ue5Editor,
     }
 }
 
@@ -71,6 +76,14 @@ fn into_contract_runtime_kind(kind: KainRuntimeKind) -> ContractKainRuntimeKind 
         KainRuntimeKind::DesktopScript => ContractKainRuntimeKind::DesktopScript,
         KainRuntimeKind::ComputeKernel => ContractKainRuntimeKind::ComputeKernel,
         KainRuntimeKind::HybridModule => ContractKainRuntimeKind::HybridModule,
+        KainRuntimeKind::NativeUiApp => ContractKainRuntimeKind::NativeUiApp,
+        KainRuntimeKind::Viewport3dApp => ContractKainRuntimeKind::Viewport3dApp,
+        KainRuntimeKind::PythonBridge => ContractKainRuntimeKind::PythonBridge,
+        KainRuntimeKind::NodeBridge => ContractKainRuntimeKind::NodeBridge,
+        KainRuntimeKind::RustCrateBridge => ContractKainRuntimeKind::RustCrateBridge,
+        KainRuntimeKind::CAbiBridge => ContractKainRuntimeKind::CAbiBridge,
+        KainRuntimeKind::OmniPipeline => ContractKainRuntimeKind::OmniPipeline,
+        KainRuntimeKind::SelfhostHarness => ContractKainRuntimeKind::SelfhostHarness,
     }
 }
 
@@ -80,6 +93,44 @@ fn into_contract_host_kind(kind: KainHostKind) -> ContractKainHostKind {
         KainHostKind::Webview => ContractKainHostKind::Webview,
         KainHostKind::WasmRuntime => ContractKainHostKind::WasmRuntime,
         KainHostKind::Hybrid => ContractKainHostKind::Hybrid,
+        KainHostKind::NativeRuntime => ContractKainHostKind::NativeRuntime,
+        KainHostKind::Python => ContractKainHostKind::Python,
+        KainHostKind::Node => ContractKainHostKind::Node,
+        KainHostKind::RustHost => ContractKainHostKind::RustHost,
+        KainHostKind::CAbi => ContractKainHostKind::CAbi,
+        KainHostKind::Ue5 => ContractKainHostKind::Ue5,
+        KainHostKind::Cli => ContractKainHostKind::Cli,
+    }
+}
+
+fn into_contract_capability_category(
+    category: KainCapabilityCategory,
+) -> ContractKainCapabilityCategory {
+    match category {
+        KainCapabilityCategory::LanguageFrontend => ContractKainCapabilityCategory::LanguageFrontend,
+        KainCapabilityCategory::Codegen => ContractKainCapabilityCategory::Codegen,
+        KainCapabilityCategory::Importer => ContractKainCapabilityCategory::Importer,
+        KainCapabilityCategory::RuntimeBridge => ContractKainCapabilityCategory::RuntimeBridge,
+        KainCapabilityCategory::AppRuntime => ContractKainCapabilityCategory::AppRuntime,
+        KainCapabilityCategory::Orchestration => ContractKainCapabilityCategory::Orchestration,
+        KainCapabilityCategory::GpuRuntime => ContractKainCapabilityCategory::GpuRuntime,
+        KainCapabilityCategory::Unreal => ContractKainCapabilityCategory::Unreal,
+        KainCapabilityCategory::IntentSystem => ContractKainCapabilityCategory::IntentSystem,
+    }
+}
+
+fn into_contract_integration_status(
+    status: KainIntegrationStatus,
+) -> ContractKainIntegrationStatus {
+    match status {
+        KainIntegrationStatus::ActiveInKos => ContractKainIntegrationStatus::ActiveInKos,
+        KainIntegrationStatus::PartiallyAdopted => {
+            ContractKainIntegrationStatus::PartiallyAdopted
+        }
+        KainIntegrationStatus::ModeledForAdoption => {
+            ContractKainIntegrationStatus::ModeledForAdoption
+        }
+        KainIntegrationStatus::UpstreamOnly => ContractKainIntegrationStatus::UpstreamOnly,
     }
 }
 
@@ -87,6 +138,7 @@ fn into_contract_cli_target(target: &str) -> Result<KainCliTarget, String> {
     match NativeKainCliTarget::try_from(target) {
         Ok(native_target) => Ok(match native_target {
             NativeKainCliTarget::Wasm => KainCliTarget::Wasm,
+            NativeKainCliTarget::Llvm => KainCliTarget::Llvm,
             NativeKainCliTarget::Spirv => KainCliTarget::Spirv,
             NativeKainCliTarget::Ts => KainCliTarget::Ts,
             NativeKainCliTarget::Js => KainCliTarget::Js,
@@ -98,6 +150,8 @@ fn into_contract_cli_target(target: &str) -> Result<KainCliTarget, String> {
             NativeKainCliTarget::Test => KainCliTarget::Test,
             NativeKainCliTarget::Hlsl => KainCliTarget::Hlsl,
             NativeKainCliTarget::Usf => KainCliTarget::Usf,
+            NativeKainCliTarget::Ue5 => KainCliTarget::Ue5,
+            NativeKainCliTarget::Ue5Editor => KainCliTarget::Ue5Editor,
         }),
         Err(error) => Err(error.to_string()),
     }
@@ -210,6 +264,42 @@ pub async fn kain_list_runtime_apps() -> Result<Vec<KainRuntimeRegistryEntry>, S
         .collect();
 
     Ok(apps)
+}
+
+#[tauri::command]
+pub async fn kain_list_upstream_capabilities() -> Result<Vec<KainUpstreamCapabilityEntry>, String> {
+    let capabilities = list_upstream_capabilities()
+        .iter()
+        .map(|entry| KainUpstreamCapabilityEntry {
+            id: entry.id.to_string(),
+            label: entry.label.to_string(),
+            category: into_contract_capability_category(entry.category),
+            integration_status: into_contract_integration_status(entry.integration_status),
+            summary: entry.summary.to_string(),
+            commands: entry.commands.clone(),
+            compile_targets: entry
+                .compile_targets
+                .iter()
+                .map(|target| into_contract_cli_target(target.as_str()))
+                .collect::<Result<Vec<_>, _>>()
+                .expect("upstream capability compile targets should always be valid"),
+            runtime_kinds: entry
+                .runtime_kinds
+                .iter()
+                .map(|kind| into_contract_runtime_kind(*kind))
+                .collect(),
+            host_kinds: entry
+                .host_kinds
+                .iter()
+                .map(|kind| into_contract_host_kind(*kind))
+                .collect(),
+            upstream_crates: entry.upstream_crates.clone(),
+            recommended_kos_next_step: entry.recommended_kos_next_step.to_string(),
+            notes: entry.notes.clone(),
+        })
+        .collect();
+
+    Ok(capabilities)
 }
 
 #[tauri::command]

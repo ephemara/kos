@@ -1,0 +1,222 @@
+[
+  {
+    "id": "multi_target_codegen",
+    "label": "Multi-Target Codegen",
+    "category": "codegen",
+    "integration_status": "partially_adopted",
+    "summary": "Current Kain can compile one .kn source into web, system, GPU, Unreal, and execution-lane targets.",
+    "commands": ["kain doctor", "kain build"],
+    "compile_targets": ["wasm", "llvm", "spirv", "hlsl", "usf", "js", "ts", "rust", "hybrid", "cpp", "ue5", "ue5editor", "run", "test", "ks"],
+    "runtime_kinds": [],
+    "host_kinds": ["cli"],
+    "upstream_crates": ["kain-core", "kain-driver", "kain-build"],
+    "recommended_kos_next_step": "Stop treating Kain as a TS/SPIR-V-only lane and widen KOS-side build affordances to llvm, ue5, ue5editor, and hybrid packaging.",
+    "notes": [
+      "KOS already shells out through the Kain CLI, but the current contract only modeled an older target subset.",
+      "This pass widens the contract surface so the newer targets can flow through manifests and Tauri calls."
+    ]
+  },
+  {
+    "id": "foreign_source_importers",
+    "label": "Foreign Source Importers",
+    "category": "importer",
+    "integration_status": "modeled_for_adoption",
+    "summary": "Upstream Kain actively supports C, Rust, TypeScript, and assembly import pipelines into Kain program form.",
+    "commands": ["kain import-c", "kain import-rust", "kain import-crate", "kain import-ts", "kain import-asm"],
+    "compile_targets": ["run", "test", "ks"],
+    "runtime_kinds": [],
+    "host_kinds": ["cli"],
+    "upstream_crates": ["kain-import", "kain-core", "kain-driver", "kain-crate-ffi"],
+    "recommended_kos_next_step": "Replace one-off importer assumptions in KOS with manifest-backed import jobs so C, Rust, TS, and crate ingestion use the modern Kain CLI surface.",
+    "notes": [
+      "This is separate from host-backed runtime bridges.",
+      "The crate-ffi lane is modeled separately because it becomes a live runtime bridge after import."
+    ]
+  },
+  {
+    "id": "native_ui_apps",
+    "label": "Native UI Apps",
+    "category": "app_runtime",
+    "integration_status": "modeled_for_adoption",
+    "summary": "Kain can materialize desktop-native applications through the native-ui build lane instead of only emitting source text.",
+    "commands": ["kain build native-ui"],
+    "compile_targets": [],
+    "runtime_kinds": ["native_ui_app"],
+    "host_kinds": ["native_runtime", "cli"],
+    "upstream_crates": ["kain-ui", "kain-ui-native", "kain-driver", "kain-host"],
+    "recommended_kos_next_step": "Wire native-ui packaging into Zen/Tauri orchestration so authored world/native_ui roots can become first-class launchable tools from KOS.",
+    "notes": [
+      "This is a packaged app lane, not a normal -t compile target.",
+      "It pairs naturally with world/native_ui roots and runtime bundle generation."
+    ]
+  },
+  {
+    "id": "viewport3d_runtime",
+    "label": "Viewport3D Runtime",
+    "category": "app_runtime",
+    "integration_status": "partially_adopted",
+    "summary": "Upstream Kain now includes a real 3D runtime and viewport lane rather than just codegen stubs.",
+    "commands": ["kain build native-ui", "kain run"],
+    "compile_targets": ["run", "test"],
+    "runtime_kinds": ["viewport3d_app"],
+    "host_kinds": ["native_runtime"],
+    "upstream_crates": ["kain-3D", "kain-ui-native", "kain-fast3d-runtime"],
+    "recommended_kos_next_step": "Bridge Kain-authored viewport apps into the existing Zen/Tauri viewport shells instead of keeping the Kain 3D lane and KOS viewport lane conceptually separate.",
+    "notes": [
+      "KOS already has strong viewport infrastructure, but it has not been modeled as a first-class Kain runtime app lane.",
+      "This pairs especially well with compiler-owned world projections."
+    ]
+  },
+  {
+    "id": "python_bridge",
+    "label": "Python Bridge",
+    "category": "runtime_bridge",
+    "integration_status": "partially_adopted",
+    "summary": "Modern Kain includes an embedded Python runtime bridge for DCC- and tool-oriented workflows.",
+    "commands": ["kain run", "kain omni"],
+    "compile_targets": ["run", "test"],
+    "runtime_kinds": ["python_bridge"],
+    "host_kinds": ["python", "cli"],
+    "upstream_crates": ["kain-python", "kain-host", "kain-interop"],
+    "recommended_kos_next_step": "Unify the existing KOS Python sidecar with the Kain runtime bridge contract instead of treating Python as a completely separate subsystem.",
+    "notes": [
+      "KOS already exposes Python commands in Tauri, so this is a strong parity target rather than a greenfield feature.",
+      "This is one of the highest-value DCC integration lanes."
+    ]
+  },
+  {
+    "id": "node_bridge",
+    "label": "Node Bridge",
+    "category": "runtime_bridge",
+    "integration_status": "upstream_only",
+    "summary": "Kain can execute with a Node/JS host bridge for local JS helpers, packaging, and mixed-runtime flows.",
+    "commands": ["kain run", "kain omni"],
+    "compile_targets": ["js", "ts", "ks", "run", "test"],
+    "runtime_kinds": ["node_bridge"],
+    "host_kinds": ["node", "cli"],
+    "upstream_crates": ["kain-node", "kain-host", "kain-interop"],
+    "recommended_kos_next_step": "Add a Node-hosted Kain runtime lane for tool packaging, script adapters, and asset pipeline helper execution.",
+    "notes": [
+      "This is different from emitting JS/TS as a compile artifact.",
+      "The bridge matters when Kain wants to call live JS runtime helpers."
+    ]
+  },
+  {
+    "id": "rust_crate_ffi",
+    "label": "Rust Crate FFI",
+    "category": "runtime_bridge",
+    "integration_status": "modeled_for_adoption",
+    "summary": "Kain can import and bind Rust crates as a live runtime bridge instead of only compiling Rust output text.",
+    "commands": ["kain import-crate", "kain run", "kain test"],
+    "compile_targets": ["run", "test"],
+    "runtime_kinds": ["rust_crate_bridge"],
+    "host_kinds": ["rust_host", "cli"],
+    "upstream_crates": ["kain-crate-ffi", "kain-host", "kain-reflect"],
+    "recommended_kos_next_step": "Expose selected owner-crate APIs in KOS through a manifest-backed Rust-crate bridge instead of duplicating glue in every host surface.",
+    "notes": [
+      "This is potentially the cleanest way to let Kain drive existing Rust-heavy owner crates in KOS.",
+      "Strong candidate for mesh ops, asset transforms, and simulation helpers."
+    ]
+  },
+  {
+    "id": "c_abi_bridge",
+    "label": "C ABI Bridge",
+    "category": "runtime_bridge",
+    "integration_status": "upstream_only",
+    "summary": "Kain supports a host-backed C ABI lane for native/runtime interop and shared payload contracts.",
+    "commands": ["kain run", "kain test"],
+    "compile_targets": ["run", "test"],
+    "runtime_kinds": ["c_abi_bridge"],
+    "host_kinds": ["c_abi", "cli"],
+    "upstream_crates": ["kain-c-ffi", "kain-interop", "kain-host"],
+    "recommended_kos_next_step": "Adopt the C ABI bridge only when a native/runtime seam in KOS genuinely needs a stable binary contract; do not use it where Rust-crate FFI is sufficient.",
+    "notes": [
+      "This is more useful for external/native interop than for purely internal KOS glue.",
+      "It becomes more relevant if KOS grows more mixed-language runtime boundaries."
+    ]
+  },
+  {
+    "id": "gpu_runtime_executor",
+    "label": "GPU Runtime Executor",
+    "category": "gpu_runtime",
+    "integration_status": "modeled_for_adoption",
+    "summary": "Modern Kain has a runtime-facing GPU execution lane in addition to plain shader artifact generation.",
+    "commands": ["kain gpu-artifacts", "kain run"],
+    "compile_targets": ["spirv", "hlsl", "usf", "run", "test"],
+    "runtime_kinds": [],
+    "host_kinds": ["cli"],
+    "upstream_crates": ["kain-gpu-runtime", "gpu", "kain-interop"],
+    "recommended_kos_next_step": "Evaluate where KOS should consume Kain GPU runtime payloads directly versus only treating Kain as a shader source generator.",
+    "notes": [
+      "This is stronger than the older KOS assumption that Kain mainly emits SPIR-V blobs.",
+      "It is especially relevant for simulation, compute, and authored GPU workflows."
+    ]
+  },
+  {
+    "id": "ue5_codegen",
+    "label": "UE5 Codegen",
+    "category": "unreal",
+    "integration_status": "modeled_for_adoption",
+    "summary": "Upstream Kain now has a broad Unreal-facing stack spanning runtime, editor, shaders, materials, graphs, blueprints, and config-adjacent surfaces.",
+    "commands": ["kain build", "kain inject"],
+    "compile_targets": ["ue5", "ue5editor", "usf", "hlsl"],
+    "runtime_kinds": [],
+    "host_kinds": ["ue5", "cli"],
+    "upstream_crates": ["ue5", "ue5-editor", "ue5-shaders", "ue5-materials", "ue5-graphs", "ue5-blueprints", "ue5-config", "ue5-gas"],
+    "recommended_kos_next_step": "Make Unreal a first-class Kain publish target in KOS instead of keeping UE integration implicit in docs and side workflows.",
+    "notes": [
+      "This is one of the highest-value strategic parity gaps for KOS.",
+      "The backend is broader than just emitting USF shaders."
+    ]
+  },
+  {
+    "id": "omni_orchestration",
+    "label": "Omni Orchestration",
+    "category": "orchestration",
+    "integration_status": "upstream_only",
+    "summary": "Kain Omni coordinates mixed-language pipelines across Kain, Rust, Python, Node, shader, and Unreal-oriented surfaces.",
+    "commands": ["kain omni"],
+    "compile_targets": ["run", "test", "ts", "rust", "spirv", "ue5"],
+    "runtime_kinds": ["omni_pipeline"],
+    "host_kinds": ["cli"],
+    "upstream_crates": ["kain-omni", "kain-python", "kain-node", "kain-crate-ffi", "kain-c-ffi"],
+    "recommended_kos_next_step": "Use the new capability registry to define where KOS should invoke omni as the orchestration layer instead of rebuilding every mixed-runtime lane manually.",
+    "notes": [
+      "This is a major firepower jump over the older KOS-side Kain model.",
+      "It pairs well with KOS pipeline manifests and Fabric-style orchestration."
+    ]
+  },
+  {
+    "id": "selfhost_lane",
+    "label": "Selfhost Lane",
+    "category": "orchestration",
+    "integration_status": "upstream_only",
+    "summary": "Kain now has an explicit selfhost lane for compiler evolution and deeper Rust/Kain crossover workflows.",
+    "commands": ["kain selfhost", "kain import-rust"],
+    "compile_targets": ["run", "test", "rust", "llvm"],
+    "runtime_kinds": ["selfhost_harness"],
+    "host_kinds": ["cli"],
+    "upstream_crates": ["kain-selfhost", "kain-core", "kain-driver"],
+    "recommended_kos_next_step": "Treat selfhost as a compiler/toolchain lane, not a normal content pipeline lane, but keep it visible in KOS so compiler-oriented workflows are not buried.",
+    "notes": [
+      "This is mainly relevant for language/toolchain work rather than end-user asset workflows."
+    ]
+  },
+  {
+    "id": "compiler_owned_intents",
+    "label": "Compiler-Owned Intents",
+    "category": "intent_system",
+    "integration_status": "modeled_for_adoption",
+    "summary": "Kain now ships the compiler-owned intent quartet: patch, converge, world, and orchestrate.",
+    "commands": ["kain run", "kain build native-ui"],
+    "compile_targets": ["run", "test"],
+    "runtime_kinds": ["native_ui_app", "viewport3d_app", "omni_pipeline"],
+    "host_kinds": ["native_runtime", "cli"],
+    "upstream_crates": ["kain-core", "kain-driver", "kain-ui-native", "kain-3D"],
+    "recommended_kos_next_step": "Model patch/converge/world/orchestrate in KOS-facing tooling and manifests so Kain-authored editor/runtime intent flows can stay structured instead of collapsing into opaque script blobs.",
+    "notes": [
+      "patch and converge are the most immediately practical parts today.",
+      "world and orchestrate are useful but still earlier on the execution/integration side."
+    ]
+  }
+]

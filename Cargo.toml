@@ -97,6 +97,7 @@ kos_prefixes = ["k-os-"]
 [workspace.metadata.kos.external_manifests]
 kain_spirv_sources = "crates/k-os-kain/manifests/sources.json"
 kain_runtime_apps = "crates/k-os-kain/manifests/runtime_apps.json"
+kain_upstream_capabilities = "crates/k-os-kain/manifests/upstream_capabilities.json"
 zen_runtime = "crates/zen/resources/runtime.toml"
 zen_modules = "crates/zen/resources/modules.toml"
 zen_host_api = "crates/zen/resources/host_api.toml"
@@ -124,13 +125,14 @@ adapter_targets = ["zen"]
 
 [workspace.metadata.kos.overrides.k-os-kain]
 roles = ["registry", "artifact-provider"]
-capabilities = ["spirv-source-registry", "runtime-app-registry", "domain-metadata"]
+capabilities = ["spirv-source-registry", "runtime-app-registry", "upstream-capability-registry", "modern-kain-parity", "domain-metadata"]
 hosts = ["backend", "zen"]
 stability_tier = "integration"
 adapter_targets = ["tauri", "zen", "external"]
 recommended_entrypoints = [
   "crate::list_sources",
   "crate::list_runtime_apps",
+  "crate::list_upstream_capabilities",
   "crate::generated_spirv_by_id",
   "crate::generated_runtime_app_by_id",
   "crate::compile_source",

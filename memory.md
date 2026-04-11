@@ -1,5 +1,48 @@
 # Memory
 
+## 2026-04-11: K_OS-side Kain parity model widened to the modern upstream surface
+
+The K_OS integration was no longer a truthful model of current Kain. It still treated Kain mostly as an older SPIR-V/TS/runtime-app registry, while the real upstream repo now includes broader targets, host bridges, native UI/runtime lanes, Omni, and the compiler-owned intent system.
+
+What changed:
+
+- Updated `crates/k-os-kain/src/lib.rs`
+  - Added modern CLI targets: `llvm`, `ue5`, `ue5editor`.
+  - Added modern runtime kinds and host kinds for native UI, viewport3d, Python, Node, Rust crate FFI, C ABI, Omni, and selfhost lanes.
+  - Added a new upstream capability registry with typed category/status enums plus query helpers.
+- Added `crates/k-os-kain/manifests/upstream_capabilities.json`
+  - Captures the current upstream Kain firepower separately from the older local K_OS runtime/source manifests.
+  - Models what is already active in K_OS, what is partially adopted, what is only modeled for adoption, and what is still upstream-only.
+- Updated `src-tauri/src/kain_contract.rs`, `src-tauri/src/kain_commands.rs`, `src-tauri/src/main.rs`, and `src-tauri/build.rs`
+  - Exposed the wider target/runtime/host enums to Specta/TS.
+  - Added `kain_list_upstream_capabilities` so frontend or host tooling can inspect upstream Kain capability truth instead of guessing from stale hardcoded assumptions.
+- Updated `src-frontend/kain/bridge/KAINBridge.ts`
+  - Added frontend-facing upstream capability types and a backend fetch path for capability inspection.
+- Updated `Cargo.toml`, `crates/k-os-workspace-registry/build.rs`, and `ARCHITECTURE.md`
+  - Registered the new Kain capability manifest in workspace metadata and extraction.
+  - Recorded the architectural rule that upstream Kain capability truth must stay separate from local K_OS runtime-app truth.
+
+Validation completed:
+
+- `cargo test -p k-os-kain`
+- `cargo check -p k-os-backend`
+
+Design decisions:
+
+- Chose a separate upstream capability manifest instead of stuffing fake runtime apps into `runtime_apps.json`. That keeps local runtime ownership honest while still giving K_OS visibility into current Kain firepower.
+- Widened the typed enums now, even where the current local manifest does not yet use every new value, so future Kain adoption work does not keep hitting artificial contract ceilings.
+- Registered the capability manifest in the workspace registry so other host/integration layers can discover the parity surface without special-case file reads.
+
+Current risks:
+
+- This is parity modeling plus contract widening, not a full execution-layer adoption of Omni, Node bridge, crate FFI, native-ui packaging, or UE5 injection inside K_OS.
+- `src-tauri/resources/kain-workspace` is still a separate bundled workspace copy; if future release flows depend on that copy directly, it can drift unless the release sync path stays disciplined.
+- The older `src-frontend/systems/kain` lane still exists alongside `src-frontend/kain`; future Kain UI work should avoid letting those surfaces diverge again.
+
+Recommended next step:
+
+- Pick one or two high-leverage lanes from the new capability registry and make them real in K_OS end to end, likely Rust-crate FFI plus native-ui/world-root packaging or Python bridge unification plus UE5 publish orchestration.
+
 ## 2026-04-10: Zen native painter workspace is live and compiling
 
 ### What changed

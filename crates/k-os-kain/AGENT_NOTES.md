@@ -3,6 +3,7 @@
 ## Purpose
 `k-os-kain` is the K_OS-side registry/runtime bridge for Kain assets. It centralizes:
 - manifest-backed source/runtime app discovery (`sources.json`, `runtime_apps.json`)
+- manifest-backed upstream capability discovery (`upstream_capabilities.json`)
 - typed domain/runtime/target enums used across Tauri + Rust callers
 - workspace-relative path resolution for domains/imports/generated outputs
 - CLI-backed compile/run helpers for ad-hoc Kain execution
@@ -12,10 +13,11 @@ Primary sources:
 - [`M:/K_OS/crates/k-os-kain/src/lib.rs`](M:/K_OS/crates/k-os-kain/src/lib.rs)
 - [`M:/K_OS/crates/k-os-kain/manifests/sources.json`](M:/K_OS/crates/k-os-kain/manifests/sources.json)
 - [`M:/K_OS/crates/k-os-kain/manifests/runtime_apps.json`](M:/K_OS/crates/k-os-kain/manifests/runtime_apps.json)
+- [`M:/K_OS/crates/k-os-kain/manifests/upstream_capabilities.json`](M:/K_OS/crates/k-os-kain/manifests/upstream_capabilities.json)
 
 ## Data Flow And Ownership
-1. Startup callers query `list_sources()` / `list_runtime_apps()`; both are lazily loaded into `OnceCell` caches from manifest JSON.
-2. Feature layers filter by domain/runtime/host using typed selectors (`sources_for_domain`, `runtime_apps_for_kind`, `runtime_apps_for_host`).
+1. Startup callers query `list_sources()` / `list_runtime_apps()` / `list_upstream_capabilities()`; all are lazily loaded into `OnceCell` caches from manifest JSON.
+2. Feature layers filter by domain/runtime/host/status using typed selectors (`sources_for_domain`, `runtime_apps_for_kind`, `runtime_apps_for_host`, `upstream_capabilities_for_category`, `upstream_capabilities_for_status`).
 3. Build/run entry points (`compile_source`, `build_file`, `run_source`) resolve the `kain` CLI binary and invoke deterministic command templates.
 4. Generated registries (`generated::spv`, `generated::runtime`) provide compile-time embedded metadata used by runtime lookups.
 5. Validation helpers parse generated `.spv` with `naga` and emit per-shader health summaries.
@@ -24,6 +26,7 @@ Ownership boundaries:
 - This crate owns registry contracts, path derivation, and CLI orchestration wrappers.
 - It does not own UI/domain mapping policy in hosts (for example `src-tauri` command dispatch), which must stay synchronized with enum growth.
 - Manifest content is data-owned under `manifests/*.json`; code should consume it rather than hardcode asset ids.
+- Keep local K_OS runtime/source truth separate from upstream Kain capability truth. `runtime_apps.json` should only describe lanes that are actually wired in K_OS. `upstream_capabilities.json` is where parity/adoption modeling belongs.
 
 ## Current Data Snapshot
 From manifest JSON as of this run:

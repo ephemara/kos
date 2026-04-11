@@ -924,6 +924,7 @@ fn main() {
             kain_commands::kain_build_file,
             kain_commands::kain_list_sources,
             kain_commands::kain_list_runtime_apps,
+            kain_commands::kain_list_upstream_capabilities,
             kain_commands::kain_read_source,
             kain_commands::kain_write_source,
             // === SCATTER ===

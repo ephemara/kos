@@ -8,6 +8,8 @@ use thiserror::Error;
 
 const SOURCE_MANIFEST_PATH: &str = "crates/k-os-kain/manifests/sources.json";
 const RUNTIME_APP_MANIFEST_PATH: &str = "crates/k-os-kain/manifests/runtime_apps.json";
+const UPSTREAM_CAPABILITY_MANIFEST_PATH: &str =
+    "crates/k-os-kain/manifests/upstream_capabilities.json";
 
 #[derive(Debug, Clone, Copy)]
 pub struct GeneratedSpirvAsset {
@@ -109,6 +111,14 @@ pub enum KainRuntimeKind {
     DesktopScript,
     ComputeKernel,
     HybridModule,
+    NativeUiApp,
+    Viewport3dApp,
+    PythonBridge,
+    NodeBridge,
+    RustCrateBridge,
+    CAbiBridge,
+    OmniPipeline,
+    SelfhostHarness,
 }
 
 impl KainRuntimeKind {
@@ -118,6 +128,14 @@ impl KainRuntimeKind {
             Self::DesktopScript => "desktop_script",
             Self::ComputeKernel => "compute_kernel",
             Self::HybridModule => "hybrid_module",
+            Self::NativeUiApp => "native_ui_app",
+            Self::Viewport3dApp => "viewport3d_app",
+            Self::PythonBridge => "python_bridge",
+            Self::NodeBridge => "node_bridge",
+            Self::RustCrateBridge => "rust_crate_bridge",
+            Self::CAbiBridge => "c_abi_bridge",
+            Self::OmniPipeline => "omni_pipeline",
+            Self::SelfhostHarness => "selfhost_harness",
         }
     }
 }
@@ -129,6 +147,13 @@ pub enum KainHostKind {
     Webview,
     WasmRuntime,
     Hybrid,
+    NativeRuntime,
+    Python,
+    Node,
+    RustHost,
+    CAbi,
+    Ue5,
+    Cli,
 }
 
 impl KainHostKind {
@@ -138,6 +163,13 @@ impl KainHostKind {
             Self::Webview => "webview",
             Self::WasmRuntime => "wasm_runtime",
             Self::Hybrid => "hybrid",
+            Self::NativeRuntime => "native_runtime",
+            Self::Python => "python",
+            Self::Node => "node",
+            Self::RustHost => "rust_host",
+            Self::CAbi => "c_abi",
+            Self::Ue5 => "ue5",
+            Self::Cli => "cli",
         }
     }
 }
@@ -146,6 +178,7 @@ impl KainHostKind {
 #[serde(rename_all = "lowercase")]
 pub enum KainCliTarget {
     Wasm,
+    Llvm,
     Spirv,
     Ts,
     Js,
@@ -157,12 +190,15 @@ pub enum KainCliTarget {
     Test,
     Hlsl,
     Usf,
+    Ue5,
+    Ue5Editor,
 }
 
 impl KainCliTarget {
     pub fn as_str(self) -> &'static str {
         match self {
             Self::Wasm => "wasm",
+            Self::Llvm => "llvm",
             Self::Spirv => "spirv",
             Self::Ts => "ts",
             Self::Js => "js",
@@ -174,6 +210,8 @@ impl KainCliTarget {
             Self::Test => "test",
             Self::Hlsl => "hlsl",
             Self::Usf => "usf",
+            Self::Ue5 => "ue5",
+            Self::Ue5Editor => "ue5editor",
         }
     }
 }
@@ -184,6 +222,7 @@ impl TryFrom<&str> for KainCliTarget {
     fn try_from(value: &str) -> Result<Self, Self::Error> {
         Ok(match value {
             "wasm" => Self::Wasm,
+            "llvm" => Self::Llvm,
             "spirv" => Self::Spirv,
             "ts" => Self::Ts,
             "js" => Self::Js,
@@ -195,6 +234,8 @@ impl TryFrom<&str> for KainCliTarget {
             "test" => Self::Test,
             "hlsl" => Self::Hlsl,
             "usf" => Self::Usf,
+            "ue5" => Self::Ue5,
+            "ue5editor" => Self::Ue5Editor,
             _ => return Err(KainError::InvalidTarget(value.to_string())),
         })
     }
@@ -229,6 +270,51 @@ pub struct KainRuntimeAppAsset {
     pub host_kind: KainHostKind,
     pub namespace: String,
     pub outputs: Vec<KainRuntimeAppOutput>,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
+pub enum KainCapabilityCategory {
+    LanguageFrontend,
+    Codegen,
+    Importer,
+    RuntimeBridge,
+    AppRuntime,
+    Orchestration,
+    GpuRuntime,
+    Unreal,
+    IntentSystem,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
+pub enum KainIntegrationStatus {
+    ActiveInKos,
+    PartiallyAdopted,
+    ModeledForAdoption,
+    UpstreamOnly,
+}
+
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
+pub struct KainUpstreamCapability {
+    pub id: String,
+    pub label: String,
+    pub category: KainCapabilityCategory,
+    pub integration_status: KainIntegrationStatus,
+    pub summary: String,
+    #[serde(default)]
+    pub commands: Vec<String>,
+    #[serde(default)]
+    pub compile_targets: Vec<KainCliTarget>,
+    #[serde(default)]
+    pub runtime_kinds: Vec<KainRuntimeKind>,
+    #[serde(default)]
+    pub host_kinds: Vec<KainHostKind>,
+    #[serde(default)]
+    pub upstream_crates: Vec<String>,
+    pub recommended_kos_next_step: String,
+    #[serde(default)]
+    pub notes: Vec<String>,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -275,6 +361,7 @@ pub enum KainError {
 
 static SOURCE_REGISTRY: OnceCell<Vec<KainSourceAsset>> = OnceCell::new();
 static RUNTIME_APP_REGISTRY: OnceCell<Vec<KainRuntimeAppAsset>> = OnceCell::new();
+static UPSTREAM_CAPABILITY_REGISTRY: OnceCell<Vec<KainUpstreamCapability>> = OnceCell::new();
 
 pub fn list_sources() -> &'static [KainSourceAsset] {
     SOURCE_REGISTRY.get_or_init(load_manifest).as_slice()
@@ -283,6 +370,12 @@ pub fn list_sources() -> &'static [KainSourceAsset] {
 pub fn list_runtime_apps() -> &'static [KainRuntimeAppAsset] {
     RUNTIME_APP_REGISTRY
         .get_or_init(load_runtime_manifest)
+        .as_slice()
+}
+
+pub fn list_upstream_capabilities() -> &'static [KainUpstreamCapability] {
+    UPSTREAM_CAPABILITY_REGISTRY
+        .get_or_init(load_upstream_capability_manifest)
         .as_slice()
 }
 
@@ -308,6 +401,30 @@ pub fn runtime_apps_for_host(host: KainHostKind) -> Vec<&'static KainRuntimeAppA
     list_runtime_apps()
         .iter()
         .filter(|asset| asset.host_kind == host)
+        .collect()
+}
+
+pub fn upstream_capability_by_id(id: &str) -> Option<&'static KainUpstreamCapability> {
+    list_upstream_capabilities()
+        .iter()
+        .find(|capability| capability.id == id)
+}
+
+pub fn upstream_capabilities_for_category(
+    category: KainCapabilityCategory,
+) -> Vec<&'static KainUpstreamCapability> {
+    list_upstream_capabilities()
+        .iter()
+        .filter(|capability| capability.category == category)
+        .collect()
+}
+
+pub fn upstream_capabilities_for_status(
+    status: KainIntegrationStatus,
+) -> Vec<&'static KainUpstreamCapability> {
+    list_upstream_capabilities()
+        .iter()
+        .filter(|capability| capability.integration_status == status)
         .collect()
 }
 
@@ -420,6 +537,10 @@ pub fn runtime_manifest_path() -> PathBuf {
     workspace_root().join(RUNTIME_APP_MANIFEST_PATH)
 }
 
+pub fn upstream_capability_manifest_path() -> PathBuf {
+    workspace_root().join(UPSTREAM_CAPABILITY_MANIFEST_PATH)
+}
+
 pub fn src_kain_dir() -> PathBuf {
     workspace_root().join("src-kain")
 }
@@ -452,6 +573,7 @@ pub fn compile_source(
     let src_path = tmp_dir.join(format!("kain_tmp_{}.kn", std::process::id()));
     let ext = match target {
         KainCliTarget::Wasm => "wasm",
+        KainCliTarget::Llvm => "ll",
         KainCliTarget::Spirv => "spv",
         KainCliTarget::Ts => "ts",
         KainCliTarget::Js => "js",
@@ -461,6 +583,7 @@ pub fn compile_source(
         KainCliTarget::Cpp => "cpp",
         KainCliTarget::Hlsl => "hlsl",
         KainCliTarget::Usf => "usf",
+        KainCliTarget::Ue5 | KainCliTarget::Ue5Editor => "out",
         _ => "out",
     };
     let out_path = tmp_dir.join(format!("{}_{}.{}", output_name, std::process::id(), ext));
@@ -497,6 +620,7 @@ pub fn compile_source(
 
     if success {
         let output = match target {
+            KainCliTarget::Llvm
             KainCliTarget::Ts
             | KainCliTarget::Js
             | KainCliTarget::Ks
@@ -842,6 +966,24 @@ fn load_runtime_manifest() -> Vec<KainRuntimeAppAsset> {
     })
 }
 
+fn load_upstream_capability_manifest() -> Vec<KainUpstreamCapability> {
+    let manifest = upstream_capability_manifest_path();
+    let contents = fs::read_to_string(&manifest).unwrap_or_else(|err| {
+        panic!(
+            "Failed to load KAIN upstream capability manifest '{}': {}",
+            manifest.display(),
+            err
+        )
+    });
+    serde_json::from_str::<Vec<KainUpstreamCapability>>(&contents).unwrap_or_else(|err| {
+        panic!(
+            "Failed to parse KAIN upstream capability manifest '{}': {}",
+            manifest.display(),
+            err
+        )
+    })
+}
+
 fn resolve_cli_bin() -> String {
     if let Ok(path) = std::env::var("KAIN_BIN_PATH") {
         if !path.trim().is_empty() {
@@ -1027,6 +1169,10 @@ mod tests {
             generated_runtime_target_dir(KainCliTarget::Wasm),
             generated_runtime_root().join("wasm")
         );
+        assert_eq!(
+            generated_runtime_target_dir(KainCliTarget::Llvm),
+            generated_runtime_root().join("llvm")
+        );
     }
 
     #[test]
@@ -1043,5 +1189,32 @@ mod tests {
         assert!(generated_spirv_by_id("sculpt_stamp_main").is_some());
         assert!(generated_spirv_by_id("mocap_denoise").is_some());
         assert!(generated_spirv_by_id("material_pbr_standard").is_some());
+    }
+
+    #[test]
+    fn upstream_capability_registry_tracks_modern_kain_surfaces() {
+        assert!(upstream_capability_by_id("native_ui_apps").is_some());
+        assert!(upstream_capability_by_id("python_bridge").is_some());
+        assert!(upstream_capability_by_id("compiler_owned_intents").is_some());
+        assert!(upstream_capability_by_id("ue5_codegen")
+            .expect("ue5 capability should exist")
+            .compile_targets
+            .contains(&KainCliTarget::Ue5));
+        assert!(upstream_capabilities_for_category(KainCapabilityCategory::RuntimeBridge)
+            .iter()
+            .any(|capability| capability.id == "python_bridge"));
+        assert!(upstream_capabilities_for_status(KainIntegrationStatus::ModeledForAdoption)
+            .iter()
+            .any(|capability| capability.id == "native_ui_apps"));
+    }
+
+    #[test]
+    fn modern_targets_parse_from_strings() {
+        assert_eq!(KainCliTarget::try_from("llvm").unwrap(), KainCliTarget::Llvm);
+        assert_eq!(KainCliTarget::try_from("ue5").unwrap(), KainCliTarget::Ue5);
+        assert_eq!(
+            KainCliTarget::try_from("ue5editor").unwrap(),
+            KainCliTarget::Ue5Editor
+        );
     }
 }
