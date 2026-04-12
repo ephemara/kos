@@ -270,15 +270,15 @@ class TitanBackupApp:
         
         # Row 2: Cargo Core Commands
         d_row2 = tk.Frame(self.dev_content, bg="#111"); d_row2.pack(fill="x", pady=2)
-        self.create_btn(d_row2, "CARGO CHECK", "#ffb74d", lambda: self.run_cmd("cargo check", "Checking types...", cwd=os.path.join(PROJECT_ROOT, "src-tauri")))
-        self.create_btn(d_row2, "CARGO BUILD", "#ffb74d", lambda: self.run_cmd("cargo build", "Building debug...", cwd=os.path.join(PROJECT_ROOT, "src-tauri")))
-        self.create_btn(d_row2, "BUILD RELEASE", "#81c784", lambda: self.run_cmd("cargo build --release", "Building release...", cwd=os.path.join(PROJECT_ROOT, "src-tauri")))
+        self.create_btn(d_row2, "CARGO CHECK", "#ffb74d", lambda: self.run_cmd("cargo check", "Checking types...", cwd=os.path.join(PROJECT_ROOT, "apps", "k-os-backend")))
+        self.create_btn(d_row2, "CARGO BUILD", "#ffb74d", lambda: self.run_cmd("cargo build", "Building debug...", cwd=os.path.join(PROJECT_ROOT, "apps", "k-os-backend")))
+        self.create_btn(d_row2, "BUILD RELEASE", "#81c784", lambda: self.run_cmd("cargo build --release", "Building release...", cwd=os.path.join(PROJECT_ROOT, "apps", "k-os-backend")))
         
         # Row 3: Cargo Maintenance
         d_row3 = tk.Frame(self.dev_content, bg="#111"); d_row3.pack(fill="x", pady=2)
-        self.create_btn(d_row3, "CARGO CLEAN", "#e57373", lambda: self.run_cmd("cargo clean", "Cleaning target...", cwd=os.path.join(PROJECT_ROOT, "src-tauri")))
-        self.create_btn(d_row3, "CARGO UPDATE", "#ba68c8", lambda: self.run_cmd("cargo update", "Updating deps...", cwd=os.path.join(PROJECT_ROOT, "src-tauri")))
-        self.create_btn(d_row3, "CARGO DOC", "#4fc3f7", lambda: self.run_cmd("cargo doc --open", "Building docs...", cwd=os.path.join(PROJECT_ROOT, "src-tauri")))
+        self.create_btn(d_row3, "CARGO CLEAN", "#e57373", lambda: self.run_cmd("cargo clean", "Cleaning target...", cwd=os.path.join(PROJECT_ROOT, "apps", "k-os-backend")))
+        self.create_btn(d_row3, "CARGO UPDATE", "#ba68c8", lambda: self.run_cmd("cargo update", "Updating deps...", cwd=os.path.join(PROJECT_ROOT, "apps", "k-os-backend")))
+        self.create_btn(d_row3, "CARGO DOC", "#4fc3f7", lambda: self.run_cmd("cargo doc --open", "Building docs...", cwd=os.path.join(PROJECT_ROOT, "apps", "k-os-backend")))
         
         # Row 4: NPM & Git
         d_row4 = tk.Frame(self.dev_content, bg="#111"); d_row4.pack(fill="x", pady=2)
@@ -512,7 +512,7 @@ class TitanBackupApp:
             try:
                 # Run cargo with --standalone flag
                 cmd = "cargo run --bin k-os-bevy -- --standalone"
-                cwd = os.path.join(PROJECT_ROOT, "src-tauri")
+                cwd = os.path.join(PROJECT_ROOT, "apps", "k-os-backend")
                 
                 # Use Popen to start in background - WITH visible console for debugging!
                 process = subprocess.Popen(
@@ -616,7 +616,7 @@ class TitanBackupApp:
             # Clear stuck cache files (the infamous ash library issue)
             # UPDATED: Now checking root target folder due to workspace structure
             target_path = os.path.join(PROJECT_ROOT, "target", "debug", "deps")
-            legacy_target_path = os.path.join(PROJECT_ROOT, "src-tauri", "target", "debug", "deps")
+            legacy_target_path = os.path.join(PROJECT_ROOT, "apps", "k-os-backend", "target", "debug", "deps")
             
             paths_to_check = [target_path, legacy_target_path]
             
@@ -1230,7 +1230,7 @@ class TitanBackupApp:
             cleared = 0
             
             # Clear cargo target
-            target = os.path.join(PROJECT_ROOT, "src-tauri", "target")
+            target = os.path.join(PROJECT_ROOT, "apps", "k-os-backend", "target")
             if os.path.exists(target):
                 try:
                     self.log("  Clearing cargo target...")
@@ -1469,8 +1469,8 @@ class TitanBackupApp:
                 f"-x{os.path.join(PROJECT_ROOT, 'backups')}",
                 # Exclude build artifacts (Root + Crates)
                 f"-x{os.path.join(PROJECT_ROOT, 'target')}",
-                f"-x{os.path.join(PROJECT_ROOT, 'src-tauri', 'target')}",
-                f"-x{os.path.join(PROJECT_ROOT, 'src-tauri', 'gen')}",
+                f"-x{os.path.join(PROJECT_ROOT, 'apps', 'k-os-backend', 'target')}",
+                f"-x{os.path.join(PROJECT_ROOT, 'apps', 'k-os-backend', 'gen')}",
                 f"-x{os.path.join(PROJECT_ROOT, 'crates', 'k-os-bevy', 'target')}",
                 f"-x{os.path.join(PROJECT_ROOT, 'crates', 'k-os-engine', 'target')}",
                 "-x*.bat", "-x*.zip", "-x*.rar", "-xCargo.lock",
@@ -1663,8 +1663,8 @@ class TitanBackupApp:
             f"-x{os.path.join(PROJECT_ROOT, 'backups')}",
             # Exclude build artifacts (Root + Crates)
             f"-x{os.path.join(PROJECT_ROOT, 'target')}",
-            f"-x{os.path.join(PROJECT_ROOT, 'src-tauri', 'target')}",
-            f"-x{os.path.join(PROJECT_ROOT, 'src-tauri', 'gen')}",
+            f"-x{os.path.join(PROJECT_ROOT, 'apps', 'k-os-backend', 'target')}",
+            f"-x{os.path.join(PROJECT_ROOT, 'apps', 'k-os-backend', 'gen')}",
             f"-x{os.path.join(PROJECT_ROOT, 'crates', 'k-os-bevy', 'target')}",
             f"-x{os.path.join(PROJECT_ROOT, 'crates', 'k-os-engine', 'target')}",
             # Exclude file types

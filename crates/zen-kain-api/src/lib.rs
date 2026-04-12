@@ -85,9 +85,9 @@ mod tests {
 
     #[test]
     fn emits_contract_toml() {
-        let host = ZenHostApi::load("crates/zen/resources/host_api.toml")
+        let host = ZenHostApi::load("apps/zen/resources/host_api.toml")
             .expect("host api should load from workspace");
-        let modules = ZenKainModuleRegistry::load("crates/zen/resources/modules.toml")
+        let modules = ZenKainModuleRegistry::load("apps/zen/resources/modules.toml")
             .expect("module registry should load from workspace");
         let contract = ZenKainContract::from_host_and_modules(&host, &modules);
         let toml = contract.emit_toml().expect("contract should serialize");

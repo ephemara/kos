@@ -17,7 +17,7 @@ class KOSIconGenerator:
     def __init__(self, output_dir: str = None):
         if output_dir is None:
             # Default to K_OS frontend assets
-            output_dir = Path(__file__).parent.parent.parent.parent / "src-frontend" / "assets" / "icons"
+            output_dir = Path(__file__).parent.parent.parent.parent / "apps" / "frontend" / "src" / "assets" / "icons"
         self.output_dir = Path(output_dir)
         self.icons_dir = self.output_dir
         self.icons_dir.mkdir(parents=True, exist_ok=True)

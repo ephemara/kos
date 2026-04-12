@@ -5,17 +5,25 @@ import { fileURLToPath } from 'url';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const frontendRoot = path.resolve(__dirname, 'apps/frontend');
+const workspaceRoot = path.resolve(__dirname, '../..');
+const frontendRoot = __dirname;
 
 export default defineConfig({
-  plugins: [react()],
   root: frontendRoot,
+  envDir: workspaceRoot,
   publicDir: path.resolve(frontendRoot, 'public'),
+  plugins: [react()],
+  server: {
+    fs: {
+      allow: [workspaceRoot],
+    },
+  },
   build: {
-    outDir: path.resolve(__dirname, 'dist-mocap'),
+    outDir: path.resolve(workspaceRoot, 'dist'),
     emptyOutDir: true,
     rollupOptions: {
       input: {
+        main: path.resolve(frontendRoot, 'index.html'),
         mocap: path.resolve(frontendRoot, 'mocap-window.html'),
         webcam: path.resolve(frontendRoot, 'webcam-window.html'),
       },
@@ -28,4 +36,8 @@ export default defineConfig({
       '@shared': path.resolve(frontendRoot, './src-shared'),
     },
   },
+  define: {
+    'process.env.API_KEY': JSON.stringify(process.env.API_KEY),
+    '__KOS_WEB__': true
+  }
 });

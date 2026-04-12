@@ -11,9 +11,9 @@
 - `kain_runtime_apps` -> `crates/k-os-kain/manifests/runtime_apps.json` (owner `k-os-kain`, 10 items)
 - `kain_spirv_sources` -> `crates/k-os-kain/manifests/sources.json` (owner `k-os-kain`, 57 items)
 - `kain_upstream_capabilities` -> `crates/k-os-kain/manifests/upstream_capabilities.json` (owner `k-os-kain`, 13 items)
-- `zen_host_api` -> `crates/zen/resources/host_api.toml` (owner `zen`, 23 items)
-- `zen_modules` -> `crates/zen/resources/modules.toml` (owner `zen`, 1 items)
-- `zen_runtime` -> `crates/zen/resources/runtime.toml` (owner `zen`, 6 items)
+- `zen_host_api` -> `apps/zen/resources/host_api.toml` (owner `zen`, 23 items)
+- `zen_modules` -> `apps/zen/resources/modules.toml` (owner `zen`, 1 items)
+- `zen_runtime` -> `apps/zen/resources/runtime.toml` (owner `zen`, 6 items)
 
 ## Top Dependency Hubs
 - `k-os-backend`: 23 local deps, hosts [backend], capabilities [build-script, gpu, ipc-proxy, k-os, kain, workspace-host]

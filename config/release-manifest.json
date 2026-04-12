@@ -14,7 +14,7 @@
     "buildScript": "src-python/build.py",
     "artifact": "src-python/dist/kos_python",
     "entryPoint": "kos_python.exe",
-    "bundleTarget": "src-tauri/resources/bin/kos_python"
+    "bundleTarget": "apps/k-os-backend/resources/bin/kos_python"
   },
   "nativeLaunchers": [
     {
@@ -30,15 +30,15 @@
         ]
       },
       "binary": "target/release/zen.exe",
-      "bundleTarget": "src-tauri/resources/bin/zen/zen.exe",
+      "bundleTarget": "apps/k-os-backend/resources/bin/zen/zen.exe",
       "resourceCopies": [
         {
-          "source": "crates/zen/resources/runtime.toml",
-          "target": "src-tauri/resources/bin/zen/runtime.toml"
+          "source": "apps/zen/resources/runtime.toml",
+          "target": "apps/k-os-backend/resources/bin/zen/runtime.toml"
         },
         {
-          "source": "crates/zen/resources/input_bindings.toml",
-          "target": "src-tauri/resources/bin/zen/input_bindings.toml"
+          "source": "apps/zen/resources/input_bindings.toml",
+          "target": "apps/k-os-backend/resources/bin/zen/input_bindings.toml"
         }
       ]
     }
@@ -69,7 +69,7 @@
         "target": "k_os_wasm.dll"
       },
       {
-        "source": "src-tauri/resources",
+        "source": "apps/k-os-backend/resources",
         "target": "resources"
       }
     ]
@@ -77,35 +77,35 @@
   "resourceCopies": [
     {
       "source": "src-game/assets",
-      "target": "src-tauri/resources/runtime/game-assets"
+      "target": "apps/k-os-backend/resources/runtime/game-assets"
     },
     {
       "source": "src-python/main.py",
-      "target": "src-tauri/resources/runtime/python-source/main.py"
+      "target": "apps/k-os-backend/resources/runtime/python-source/main.py"
     },
     {
       "source": "src-python/kos",
-      "target": "src-tauri/resources/runtime/python-source/kos"
+      "target": "apps/k-os-backend/resources/runtime/python-source/kos"
     },
     {
       "source": "src-python/requirements.txt",
-      "target": "src-tauri/resources/runtime/python-source/requirements.txt"
+      "target": "apps/k-os-backend/resources/runtime/python-source/requirements.txt"
     },
     {
       "source": "src-python/requirements-autopbr.txt",
-      "target": "src-tauri/resources/runtime/python-source/requirements-autopbr.txt"
+      "target": "apps/k-os-backend/resources/runtime/python-source/requirements-autopbr.txt"
     },
     {
       "source": "src-python/requirements-photogrammetry.txt",
-      "target": "src-tauri/resources/runtime/python-source/requirements-photogrammetry.txt"
+      "target": "apps/k-os-backend/resources/runtime/python-source/requirements-photogrammetry.txt"
     },
     {
       "source": "crates/k-os-kain",
-      "target": "src-tauri/resources/kain-workspace/crates/k-os-kain"
+      "target": "apps/k-os-backend/resources/kain-workspace/crates/k-os-kain"
     },
     {
       "source": "src-kain",
-      "target": "src-tauri/resources/kain-workspace/src-kain"
+      "target": "apps/k-os-backend/resources/kain-workspace/src-kain"
     }
   ]
 }

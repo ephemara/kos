@@ -1,0 +1,76 @@
+[package]
+name = "k-os-backend"
+version = "0.1.0"
+description = "K_OS Tauri Backend - Thin Proxy to Owner Crates"
+authors = ["K_OS Team"]
+edition = "2021"
+
+# Tauri binary - thin proxy to owner crates
+[[bin]]
+name = "k-os-backend"
+path = "src/main.rs"
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+specta = { version = "1.0", features = ["typescript", "serde"] }
+toml = "0.8"
+walkdir = "2"
+
+[dependencies]
+# === K_OS OWNER CRATES ===
+k-os-brushes = { path = "../../crates/k-os-brushes" }
+k-os-config = { path = "../../crates/k-os-config" }
+k-os-eval = { path = "../../crates/k-os-eval" }
+k-os-external = { path = "../../crates/k-os-external" }
+k-os-gizmo = { package = "transform-gizmo", path = "../../crates/k-os-gizmo" }
+k-os-gpu-pipeline = { path = "../../crates/k-os-gpu-pipeline" }
+k-os-hdr = { path = "../../crates/k-os-hdr" }
+k-os-kain = { path = "../../crates/k-os-kain" }
+k-os-workspace-registry = { path = "../../crates/k-os-workspace-registry" }
+k-os-sculpt = { path = "../../crates/k-os-sculpt", features = ["physics"] }
+k-os-sim = { path = "../../crates/k-os-sim" }
+k-os-scatter = { path = "../../crates/k-os-scatter" }
+k-os-io = { path = "../../crates/k-os-io" }
+k-os-mesh = { path = "../../crates/k-os-mesh" }
+k-os-material = { path = "../../crates/k-os-material" }
+k-os-photogrammetry = { path = "../../crates/k-os-photogrammetry", features = ["photogrammetry"] }
+k-os-rig = { path = "../../crates/k-os-rig" }
+k-os-scene-runtime = { path = "../../crates/k-os-scene-runtime" }
+k-os-renderer = { path = "../../crates/k-os-renderer" }
+k-os-mesh-processing = { path = "../../crates/k-os-mesh-processing" }
+k-os-baking = { path = "../../crates/k-os-baking" }
+k-os-scene = { path = "../../crates/k-os-scene" }
+zen-mocap-engine = { path = "../../crates/zen-mocap-engine" }
+
+# === TAURI CORE (Thin proxy) ===
+tauri = { version = "2", features = [] }
+tauri-plugin-shell = "2"
+tauri-plugin-dialog = "2"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+specta = { version = "1.0", features = ["typescript", "serde"] }
+uuid = { workspace = true, features = ["v4", "serde"] }
+chrono = { version = "0.4", features = ["serde"] }
+nalgebra = { version = "0.33", features = ["serde-serialize"] }
+
+# === LOGGING ===
+log = "0.4"
+env_logger = "0.11"
+
+# === GLOBAL STATE ===
+lazy_static = "1.4"
+parking_lot = "0.12"
+dirs = "6"
+tokio = { version = "1", features = ["rt-multi-thread", "macros", "sync"] }
+
+# === SHARED WITH ENGINE (type compatibility in Tauri commands) ===
+glam = { version = "0.30", features = ["serde", "bytemuck"] }
+bytemuck = { version = "1.20", features = ["derive"] }
+
+# === IMAGE PROCESSING (for export) ===
+image = { version = "0.25", features = ["png", "jpeg", "tiff", "tga", "exr"] }
+wgpu = "26"
+
+# Note: Profile settings are inherited from workspace root Cargo.toml

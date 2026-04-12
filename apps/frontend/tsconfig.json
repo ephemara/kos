@@ -1,0 +1,58 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "experimentalDecorators": true,
+    "useDefineForClassFields": false,
+    "module": "ESNext",
+    "lib": [
+      "es2022",
+      "dom",
+      "dom.iterable"
+    ],
+    "skipLibCheck": true,
+    "types": [
+      "node"
+    ],
+    "moduleResolution": "bundler",
+    "isolatedModules": true,
+    "moduleDetection": "force",
+    "allowJs": true,
+    "jsx": "react-jsx",
+    "baseUrl": ".",
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ],
+      "@mocap/*": [
+        "./src-mocap/*"
+      ],
+      "@shared/*": [
+        "./src-shared/*"
+      ]
+    },
+    "allowImportingTsExtensions": true,
+    "noEmit": true,
+    "esModuleInterop": true
+  },
+  "include": [
+    "src",
+    "src-mocap",
+    "src-shared"
+  ],
+  "exclude": [
+    "src/z_legacycode",
+    "src/FROMNEWERBUILD",
+    "src/**/__tests__/**",
+    "src/**/*.test.ts",
+    "src/**/*.test.tsx",
+    "src/**/*.spec.ts",
+    "src/**/*.spec.tsx",
+    "src/**/_backup/**",
+    "src/features/quantum/**",
+    "src/features/tecton/**",
+    "src/ui/ConfigEditor/**",
+    "src/features/material/kautopbr/ui/AnimatedPreviewDemo.tsx",
+    "src/features/material/kautopbr/ui/AnimationTrackListDemo.tsx",
+    "src/features/bake/engine/bakeEngine.ts"
+  ]
+}

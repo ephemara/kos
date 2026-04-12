@@ -1229,12 +1229,12 @@
     },
     {
       "package_name": "k-os-backend",
-      "package_path": "src-tauri",
+      "package_path": "apps/k-os-backend",
       "entrypoints": [
         {
           "target_name": "k-os-backend",
           "target_kind": "bin",
-          "src_path": "src-tauri/src/main.rs"
+          "src_path": "apps/k-os-backend/src/main.rs"
         }
       ],
       "item_count": 0,
@@ -2439,12 +2439,12 @@
     },
     {
       "package_name": "k-os-bevy",
-      "package_path": "crates/k-os-bevy",
+      "package_path": "apps/k-os-bevy",
       "entrypoints": [
         {
           "target_name": "k-os-bevy",
           "target_kind": "bin",
-          "src_path": "crates/k-os-bevy/src/main.rs"
+          "src_path": "apps/k-os-bevy/src/main.rs"
         }
       ],
       "item_count": 9,
@@ -2460,7 +2460,7 @@
           "module_path": "crate",
           "item_path": "crate::ImportGltfEvent",
           "signature": "pub use viewport::ImportGltfEvent;",
-          "file_path": "crates/k-os-bevy/src/main.rs",
+          "file_path": "apps/k-os-bevy/src/main.rs",
           "owner_type": ""
         },
         {
@@ -2471,7 +2471,7 @@
           "module_path": "crate",
           "item_path": "crate::SpawnPrimitiveEvent",
           "signature": "# [doc = \" Event for loading primitives from egui\"] # [derive (Event , Clone , Copy , Debug)] pub struct SpawnPrimitiveEvent { pub primitive_type : u8 , }",
-          "file_path": "crates/k-os-bevy/src/main.rs",
+          "file_path": "apps/k-os-bevy/src/main.rs",
           "owner_type": ""
         },
         {
@@ -2482,7 +2482,7 @@
           "module_path": "crate",
           "item_path": "crate::gpu",
           "signature": "pub mod gpu { pub use k_os_gpu_pipeline :: gpu :: * ; pub use k_os_gpu_pipeline :: { GpuBvhRaycast , GpuRaycastMesh , RayHit } ; }",
-          "file_path": "crates/k-os-bevy/src/main.rs",
+          "file_path": "apps/k-os-bevy/src/main.rs",
           "owner_type": ""
         },
         {
@@ -2493,7 +2493,7 @@
           "module_path": "crate::gpu",
           "item_path": "crate::gpu::*",
           "signature": "pub use k_os_gpu_pipeline::gpu::*;",
-          "file_path": "crates/k-os-bevy/src/main.rs",
+          "file_path": "apps/k-os-bevy/src/main.rs",
           "owner_type": ""
         },
         {
@@ -2504,7 +2504,7 @@
           "module_path": "crate::gpu",
           "item_path": "crate::gpu::GpuBvhRaycast",
           "signature": "pub use k_os_gpu_pipeline::GpuBvhRaycast;",
-          "file_path": "crates/k-os-bevy/src/main.rs",
+          "file_path": "apps/k-os-bevy/src/main.rs",
           "owner_type": ""
         },
         {
@@ -2515,7 +2515,7 @@
           "module_path": "crate::gpu",
           "item_path": "crate::gpu::GpuRaycastMesh",
           "signature": "pub use k_os_gpu_pipeline::GpuRaycastMesh;",
-          "file_path": "crates/k-os-bevy/src/main.rs",
+          "file_path": "apps/k-os-bevy/src/main.rs",
           "owner_type": ""
         },
         {
@@ -2526,7 +2526,7 @@
           "module_path": "crate::gpu",
           "item_path": "crate::gpu::RayHit",
           "signature": "pub use k_os_gpu_pipeline::RayHit;",
-          "file_path": "crates/k-os-bevy/src/main.rs",
+          "file_path": "apps/k-os-bevy/src/main.rs",
           "owner_type": ""
         },
         {
@@ -2537,7 +2537,7 @@
           "module_path": "crate",
           "item_path": "crate::modules",
           "signature": "pub mod modules { pub use k_os_sculpt :: sculpt ; }",
-          "file_path": "crates/k-os-bevy/src/main.rs",
+          "file_path": "apps/k-os-bevy/src/main.rs",
           "owner_type": ""
         },
         {
@@ -2548,7 +2548,7 @@
           "module_path": "crate::modules",
           "item_path": "crate::modules::sculpt",
           "signature": "pub use k_os_sculpt::sculpt;",
-          "file_path": "crates/k-os-bevy/src/main.rs",
+          "file_path": "apps/k-os-bevy/src/main.rs",
           "owner_type": ""
         }
       ]
@@ -30780,12 +30780,12 @@
     },
     {
       "package_name": "zen",
-      "package_path": "crates/zen",
+      "package_path": "apps/zen",
       "entrypoints": [
         {
           "target_name": "zen",
           "target_kind": "bin",
-          "src_path": "crates/zen/src/main.rs"
+          "src_path": "apps/zen/src/main.rs"
         }
       ],
       "item_count": 0,
