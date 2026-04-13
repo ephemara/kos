@@ -120,9 +120,9 @@ What remains:
 ### 8. Game-engine product layer is still mostly architectural intent
 
 Evidence:
-- `M:/K_OS/src-game/docs/PIPELINE_ARCHITECTURE.md`
-- `M:/K_OS/src-game/docs/CRATE_ARCHITECTURE.md`
-- `M:/K_OS/src-game/docs/AUTOMATION_GUIDE.md`
+- `M:/K_OS/sources/game/docs/PIPELINE_ARCHITECTURE.md`
+- `M:/K_OS/sources/game/docs/CRATE_ARCHITECTURE.md`
+- `M:/K_OS/sources/game/docs/AUTOMATION_GUIDE.md`
 - `M:/K_OS/crates/k-os-game-runtime` exists
 - the wider `k-os-game-*` product crate layer does not yet exist
 
@@ -270,11 +270,11 @@ You want a frontier model to keep building the game engine as a real product lay
 ### Prompt
 You are working inside `M:/K_OS`. Continue building `K_OS Game` as a serious game-engine product surface using these docs as the local source of truth:
 
-- `M:/K_OS/src-game/docs/PIPELINE_ARCHITECTURE.md`
-- `M:/K_OS/src-game/docs/CRATE_ARCHITECTURE.md`
-- `M:/K_OS/src-game/docs/AUTOMATION_GUIDE.md`
-- `M:/K_OS/src-game/docs/RUN_LOG_2026-03-11.md`
-- `M:/K_OS/src-game/docs/research/*`
+- `M:/K_OS/sources/game/docs/PIPELINE_ARCHITECTURE.md`
+- `M:/K_OS/sources/game/docs/CRATE_ARCHITECTURE.md`
+- `M:/K_OS/sources/game/docs/AUTOMATION_GUIDE.md`
+- `M:/K_OS/sources/game/docs/RUN_LOG_2026-03-11.md`
+- `M:/K_OS/sources/game/docs/research/*`
 
 Your job is to move the game engine forward without creating a second monolith.
 
@@ -300,7 +300,7 @@ Good task shapes:
 
 Required outputs:
 - implemented code or architecture docs that materially reduce ambiguity
-- updates to the relevant `src-game/docs/*` files
+- updates to the relevant `sources/game/docs/*` files
 - exact verification commands and pass/fail status
 - a precise next-step recommendation if the run stops at an ownership boundary
 

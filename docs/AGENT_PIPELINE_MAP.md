@@ -3,7 +3,7 @@
 ## Priority Roots
 1. `M:\K_OS\crates`
 2. `M:\K_OS\src-tauri`
-3. `M:\K_OS\src-kain`
+3. `M:\K_OS\sources/kain`
 4. `M:\K_OS\docs`
 
 ## Role Focus Suggestions

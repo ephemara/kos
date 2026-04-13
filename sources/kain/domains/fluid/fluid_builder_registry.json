@@ -1,0 +1,25 @@
+{
+  "domain": "fluid",
+  "builder": "fluid_builder",
+  "kainscript_entry": "sources/kain/domains/fluid/fluid_brush_runtime.ks",
+  "profiles": [
+    {
+      "id": "water_smooth",
+      "label": "Water Smooth",
+      "mode": "surface_advection",
+      "shader": "fluid_surface_advect"
+    },
+    {
+      "id": "lava_viscous",
+      "label": "Lava Viscous",
+      "mode": "viscosity_lock",
+      "shader": "fluid_surface_advect"
+    }
+  ],
+  "targets": [
+    "spirv",
+    "rust_bundle",
+    "ts",
+    "ks"
+  ]
+}

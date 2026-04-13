@@ -1,0 +1,25 @@
+{
+  "domain": "kainscript",
+  "builder": "kainscript_builder",
+  "kainscript_entry": "sources/kain/domains/kainscript/kainscript_runtime_profiles.ks",
+  "profiles": [
+    {
+      "id": "ui_runtime_bundle",
+      "label": "UI Runtime Bundle",
+      "module_format": "esm",
+      "entry_module": "suite/runtime"
+    },
+    {
+      "id": "automation_runtime_bundle",
+      "label": "Automation Runtime Bundle",
+      "module_format": "esm",
+      "entry_module": "automation/runner"
+    }
+  ],
+  "targets": [
+    "ks",
+    "ts",
+    "js",
+    "rust"
+  ]
+}

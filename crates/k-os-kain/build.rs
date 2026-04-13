@@ -36,7 +36,7 @@ fn main() {
     println!("cargo:rerun-if-changed=manifests/upstream_capabilities.json");
     println!("cargo:rerun-if-changed=generated/spv");
     println!("cargo:rerun-if-changed=domains");
-    println!("cargo:rerun-if-changed=../../src-kain");
+    println!("cargo:rerun-if-changed=../../sources/kain");
 
     let source_manifest = load_spirv_manifest();
     let spv_assets = discover_spirv_assets(&source_manifest);

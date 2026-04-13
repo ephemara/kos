@@ -59,7 +59,7 @@ photogrammetry/
 - GPU-accelerated normal map generation from mesh geometry
 - Automatic roughness/metallic estimation from texture analysis
 
-### 2. Python Advanced Processing (`src-python/kos/autopbr/photogrammetry_helper.py`)
+### 2. Python Advanced Processing (`sources/python/kos/autopbr/photogrammetry_helper.py`)
 
 #### Open3D Integration
 

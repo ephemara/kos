@@ -1,0 +1,13 @@
+struct KainScriptBuilderConfig:
+    entry_module: String
+    module_format: String
+    output_root: String
+    registry_path: String
+
+fn kainscript_builder_config() -> KainScriptBuilderConfig with Pure:
+    let config = KainScriptBuilderConfig()
+    config.entry_module = "suite/runtime"
+    config.module_format = "esm"
+    config.output_root = "crates/k-os-kain/generated/runtime/ks"
+    config.registry_path = "sources/kain/domains/kainscript/kainscript_builder_registry.json"
+    config

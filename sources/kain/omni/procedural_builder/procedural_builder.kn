@@ -1,0 +1,13 @@
+struct ProceduralBuilderConfig:
+    default_domain: String
+    runtime_registry_path: String
+    profile_registry_path: String
+    output_root: String
+
+fn procedural_builder_config() -> ProceduralBuilderConfig with Pure:
+    let config = ProceduralBuilderConfig()
+    config.default_domain = "procedural"
+    config.runtime_registry_path = "crates/k-os-kain/generated/json/runtime_registry.json"
+    config.profile_registry_path = "sources/kain/domains/procedural/procedural_builder_registry.json"
+    config.output_root = "crates/k-os-kain/generated/runtime"
+    config

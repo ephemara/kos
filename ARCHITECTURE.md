@@ -228,8 +228,10 @@ Good candidates for metadata and generated registry ownership:
 - [`M:\K_OS\crates`](M:\K_OS\crates): Rust crates
 - [`M:\K_OS\src-tauri`](M:\K_OS\src-tauri): Tauri backend
 - [`M:\K_OS\src-frontend`](M:\K_OS\src-frontend): React frontend
-- [`M:\K_OS\src-game`](M:\K_OS\src-game): game-facing assets and manifests
-- [`M:\K_OS\src-kain`](M:\K_OS\src-kain): Kain sources outside crate-local manifests
+- [`M:\K_OS\sources`](M:\K_OS\sources): authored non-crate source workspaces and content trees
+- [`M:\K_OS\sources/game`](M:\K_OS\sources/game): game-facing assets and manifests
+- [`M:\K_OS\sources/kain`](M:\K_OS\sources/kain): Kain sources outside crate-local manifests
+- [`M:\K_OS\sources/python`](M:\K_OS\sources/python): Python sidecar and tooling
 - [`M:\K_OS\config`](M:\K_OS\config): repo-level config
 - [`M:\K_OS\docs`](M:\K_OS\docs): broader docs
 - [`M:\K_OS\Swarm`](M:\K_OS\Swarm): active multi-agent execution plans and lane state

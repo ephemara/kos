@@ -405,7 +405,7 @@ features = ["player"]
 id = "scene_bootstrap"
 kind = "scene"
 profile = "editor_preview"
-scene_asset = "src-game/assets/scenes/sandbox.kscene"
+scene_asset = "sources/game/assets/scenes/sandbox.kscene"
 scene_format = "k_os_scene_v1"
 schema_version = "1"
 "#

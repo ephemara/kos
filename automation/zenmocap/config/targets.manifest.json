@@ -47,8 +47,8 @@
       "label": "Kain and omni supermotion pipeline",
       "roots": [
         "M:\\K_OS\\crates\\k-os-kain",
-        "M:\\K_OS\\src-kain\\omni",
-        "M:\\K_OS\\src-kain"
+        "M:\\K_OS\\sources/kain\\omni",
+        "M:\\K_OS\\sources/kain"
       ],
       "successSignals": [
         "ZenMocap shader/runtime generation is more manifest-driven",

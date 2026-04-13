@@ -11,7 +11,7 @@ pub static BRUSH_BUILDER_OUTPUTS: &[crate::GeneratedRuntimeOutput] = &[
 pub static BRUSH_BUILDER: crate::GeneratedRuntimeApp = crate::GeneratedRuntimeApp {
     id: "brush_builder",
     label: "Brush Builder",
-    source_path: "src-kain/apps/brush_builder/main.kn",
+    source_path: "sources/kain/apps/brush_builder/main.kn",
     runtime_kind: crate::KainRuntimeKind::TauriFrontend,
     host_kind: crate::KainHostKind::Tauri,
     namespace: "brush_builder",
@@ -25,7 +25,7 @@ pub static DESKTOP_AUTOMATION_OUTPUTS: &[crate::GeneratedRuntimeOutput] = &[
 pub static DESKTOP_AUTOMATION: crate::GeneratedRuntimeApp = crate::GeneratedRuntimeApp {
     id: "desktop_automation",
     label: "Desktop Automation",
-    source_path: "src-kain/scripts/desktop_automation/main.kn",
+    source_path: "sources/kain/scripts/desktop_automation/main.kn",
     runtime_kind: crate::KainRuntimeKind::DesktopScript,
     host_kind: crate::KainHostKind::Tauri,
     namespace: "desktop_automation",
@@ -40,7 +40,7 @@ pub static FLUID_BUILDER_OUTPUTS: &[crate::GeneratedRuntimeOutput] = &[
 pub static FLUID_BUILDER: crate::GeneratedRuntimeApp = crate::GeneratedRuntimeApp {
     id: "fluid_builder",
     label: "Fluid Builder",
-    source_path: "src-kain/apps/fluid_builder/main.kn",
+    source_path: "sources/kain/apps/fluid_builder/main.kn",
     runtime_kind: crate::KainRuntimeKind::TauriFrontend,
     host_kind: crate::KainHostKind::Tauri,
     namespace: "fluid_builder",
@@ -55,7 +55,7 @@ pub static KAINSCRIPT_BUILDER_OUTPUTS: &[crate::GeneratedRuntimeOutput] = &[
 pub static KAINSCRIPT_BUILDER: crate::GeneratedRuntimeApp = crate::GeneratedRuntimeApp {
     id: "kainscript_builder",
     label: "KainScript Builder",
-    source_path: "src-kain/apps/kainscript_builder/main.kn",
+    source_path: "sources/kain/apps/kainscript_builder/main.kn",
     runtime_kind: crate::KainRuntimeKind::TauriFrontend,
     host_kind: crate::KainHostKind::Tauri,
     namespace: "kainscript_builder",
@@ -70,7 +70,7 @@ pub static MATERIAL_BUILDER_OUTPUTS: &[crate::GeneratedRuntimeOutput] = &[
 pub static MATERIAL_BUILDER: crate::GeneratedRuntimeApp = crate::GeneratedRuntimeApp {
     id: "material_builder",
     label: "Material Builder",
-    source_path: "src-kain/apps/material_builder/main.kn",
+    source_path: "sources/kain/apps/material_builder/main.kn",
     runtime_kind: crate::KainRuntimeKind::TauriFrontend,
     host_kind: crate::KainHostKind::Tauri,
     namespace: "material_builder",
@@ -85,7 +85,7 @@ pub static PROCEDURAL_BUILDER_OUTPUTS: &[crate::GeneratedRuntimeOutput] = &[
 pub static PROCEDURAL_BUILDER: crate::GeneratedRuntimeApp = crate::GeneratedRuntimeApp {
     id: "procedural_builder",
     label: "Procedural Builder",
-    source_path: "src-kain/apps/procedural_builder/main.kn",
+    source_path: "sources/kain/apps/procedural_builder/main.kn",
     runtime_kind: crate::KainRuntimeKind::TauriFrontend,
     host_kind: crate::KainHostKind::Tauri,
     namespace: "procedural_builder",
@@ -100,7 +100,7 @@ pub static SHADER_BUILDER_OUTPUTS: &[crate::GeneratedRuntimeOutput] = &[
 pub static SHADER_BUILDER: crate::GeneratedRuntimeApp = crate::GeneratedRuntimeApp {
     id: "shader_builder",
     label: "Shader Builder",
-    source_path: "src-kain/apps/shader_builder/main.kn",
+    source_path: "sources/kain/apps/shader_builder/main.kn",
     runtime_kind: crate::KainRuntimeKind::TauriFrontend,
     host_kind: crate::KainHostKind::Tauri,
     namespace: "shader_builder",
@@ -114,7 +114,7 @@ pub static SIGNAL_KERNEL_OUTPUTS: &[crate::GeneratedRuntimeOutput] = &[
 pub static SIGNAL_KERNEL: crate::GeneratedRuntimeApp = crate::GeneratedRuntimeApp {
     id: "signal_kernel",
     label: "Signal Kernel",
-    source_path: "src-kain/kernels/signal_kernel/main.kn",
+    source_path: "sources/kain/kernels/signal_kernel/main.kn",
     runtime_kind: crate::KainRuntimeKind::ComputeKernel,
     host_kind: crate::KainHostKind::WasmRuntime,
     namespace: "signal_kernel",
@@ -129,7 +129,7 @@ pub static SUITE_SHELL_OUTPUTS: &[crate::GeneratedRuntimeOutput] = &[
 pub static SUITE_SHELL: crate::GeneratedRuntimeApp = crate::GeneratedRuntimeApp {
     id: "suite_shell",
     label: "Suite Shell",
-    source_path: "src-kain/apps/suite_shell/main.kn",
+    source_path: "sources/kain/apps/suite_shell/main.kn",
     runtime_kind: crate::KainRuntimeKind::TauriFrontend,
     host_kind: crate::KainHostKind::Tauri,
     namespace: "suite_shell",
@@ -144,7 +144,7 @@ pub static VIEWPORT_BRIDGE_OUTPUTS: &[crate::GeneratedRuntimeOutput] = &[
 pub static VIEWPORT_BRIDGE: crate::GeneratedRuntimeApp = crate::GeneratedRuntimeApp {
     id: "viewport_bridge",
     label: "Viewport Bridge",
-    source_path: "src-kain/hybrid/viewport_bridge/main.kn",
+    source_path: "sources/kain/hybrid/viewport_bridge/main.kn",
     runtime_kind: crate::KainRuntimeKind::HybridModule,
     host_kind: crate::KainHostKind::Hybrid,
     namespace: "viewport_bridge",

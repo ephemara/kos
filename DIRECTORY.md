@@ -227,7 +227,7 @@ APPS USING IT:
 │  Three.js          │  IPC Commands       │  wgpu pipelines      │
 ├─────────────────────────────────────────────────────────────────┤
 │  OPTIONAL COMPONENTS                                            │
-│  src-python/       │  Python sidecar for AI/ML (JSON-RPC)       │
+│  sources/python/       │  Python sidecar for AI/ML (JSON-RPC)       │
 │  crates/k-os-bevy/ │  Bevy viewport (experimental, not primary)  │
 │  crates/k-os-wasm/ │  WASM build for web deployment             │
 └─────────────────────────────────────────────────────────────────┘
@@ -576,7 +576,7 @@ NOTE: Web deployment build using k-os-engine
       Allows running K_OS in browser with WebGPU support
 ```
 
-### src-python/ (Python Sidecar)
+### sources/python/ (Python Sidecar)
 
 ```
 ENTRY: main.py (JSON-RPC server)
@@ -606,7 +606,7 @@ SCRIPTS: kos/scripts/   # Auto-loaded, callable from frontend
   hello.py               # Minimal smoke-test script
   thumbnail.py           # Thumbnail generation helper
 
-UI TOOLING: src-python/UI/
+UI TOOLING: sources/python/UI/
   generator_manager.py   # Generator registry/dispatch
   library_manager.py     # Asset library indexing and lookup
   models.py              # Shared generator models
@@ -702,12 +702,12 @@ FIND APP UI:       src-frontend/apps/{category}/{app}/ui/
 FIND RUST MODULE:  crates/{owner-crate}/src/{module}.rs
 FIND TAURI CMD:    src-tauri/src/main.rs → invoke_handler
 FIND TS CLIENT:    src-frontend/services/{name}Client.ts
-FIND PYTHON FUNC:  src-python/kos/scripts/{name}.py
+FIND PYTHON FUNC:  sources/python/kos/scripts/{name}.py
 FIND GPU PIPELINE: crates/k-os-gpu-pipeline/src/pipelines/{name}.rs
 FIND RUST MODULE:  src-tauri/src/modules/{name}.rs
 FIND TAURI CMD:    src-tauri/src/main.rs → invoke_handler
 FIND TS CLIENT:    src/services/{name}Client.ts
-FIND PYTHON FUNC:  src-python/kos/scripts/{name}.py
+FIND PYTHON FUNC:  sources/python/kos/scripts/{name}.py
 
 ADD RUST COMMAND:
   1. Add fn to the appropriate owner crate under crates/ (for compute)
@@ -716,7 +716,7 @@ ADD RUST COMMAND:
   3. Create client in src-frontend/services/
 
 ADD PYTHON FUNCTION:
-  1. Add to src-python/kos/scripts/{name}.py
+  1. Add to sources/python/kos/scripts/{name}.py
   2. Use @register("name") decorator
   3. Call via python.runScript() from TS
 
@@ -766,7 +766,7 @@ KEEP ENTRIES COMPACT. ONE LINE PER FIELD.
 ```
 BEVYDOCS.md                                  # ⚠️ BEVY 0.17 REFERENCE (only for crates/k-os-bevy/ work)
 src-frontend/core/README.md                  # Core lib usage
-src-python/README.md                         # Python guide  
+sources/python/README.md                         # Python guide  
 src-frontend/apps/surface/paint/KPainter_Overview.md  # KPainter arch
 archive/k-os-engine/README.md                # Archived compatibility-crate documentation
 RECENT_CHANGES.md                            # Changelog (AI-native format)
@@ -853,29 +853,29 @@ RECENT_CHANGES.md                            # Changelog (AI-native format)
   - [constants.ts](src\constants.ts) `(1.0KB, 43 lines)`
   - [index.tsx](src\index.tsx) `(349B, 15 lines)`
   - [types.ts](src\types.ts) `(910B, 52 lines)`
-- **src-python/**
+- **sources/python/**
   - ****pycache**/**
   - **ilovebuttons/**
   - **kos/**
     - ****pycache**/**
     - **scripts/**
-    - [**init**.py](src-python\kos\__init__.py) `(285B, 13 lines)`
-    - [api.py](src-python\kos\api.py) `(467B, 15 lines)` - *Add scripts folder to path for dynamic loading*
-    - [mesh.py](src-python\kos\mesh.py) `(5.4KB, 171 lines)`
-    - [ml.py](src-python\kos\ml.py) `(8.0KB, 232 lines)`
-    - [procedural.py](src-python\kos\procedural.py) `(9.4KB, 288 lines)`
-    - [textures.py](src-python\kos\textures.py) `(5.8KB, 190 lines)`
+    - [**init**.py](sources/python\kos\__init__.py) `(285B, 13 lines)`
+    - [api.py](sources/python\kos\api.py) `(467B, 15 lines)` - *Add scripts folder to path for dynamic loading*
+    - [mesh.py](sources/python\kos\mesh.py) `(5.4KB, 171 lines)`
+    - [ml.py](sources/python\kos\ml.py) `(8.0KB, 232 lines)`
+    - [procedural.py](sources/python\kos\procedural.py) `(9.4KB, 288 lines)`
+    - [textures.py](sources/python\kos\textures.py) `(5.8KB, 190 lines)`
   - **windows_related_scripts/**
     - **texturedls/**
-    - [dl_hdri.py](src-python\windows_related_scripts\dl_hdri.py) `(4.3KB, 106 lines)`
-    - [dl_model.py](src-python\windows_related_scripts\dl_model.py) `(11.6KB, 352 lines)`
-    - [dl_rigmodel.py](src-python\windows_related_scripts\dl_rigmodel.py) `(12.9KB, 390 lines)`
-    - [dl_texture.py](src-python\windows_related_scripts\dl_texture.py) `(10.4KB, 328 lines)`
-    - [img_convert.py](src-python\windows_related_scripts\img_convert.py) `(3.3KB, 78 lines)`
-    - [organize_desktop.py](src-python\windows_related_scripts\organize_desktop.py) `(2.6KB, 70 lines)`
-  - [README.md](src-python\README.md) `(2.6KB, 96 lines)`
-  - [build.py](src-python\build.py) `(1.4KB, 51 lines)`
-  - [main.py](src-python\main.py) `(5.2KB, 170 lines)` - *!/usr/bin/env python3*
+    - [dl_hdri.py](sources/python\windows_related_scripts\dl_hdri.py) `(4.3KB, 106 lines)`
+    - [dl_model.py](sources/python\windows_related_scripts\dl_model.py) `(11.6KB, 352 lines)`
+    - [dl_rigmodel.py](sources/python\windows_related_scripts\dl_rigmodel.py) `(12.9KB, 390 lines)`
+    - [dl_texture.py](sources/python\windows_related_scripts\dl_texture.py) `(10.4KB, 328 lines)`
+    - [img_convert.py](sources/python\windows_related_scripts\img_convert.py) `(3.3KB, 78 lines)`
+    - [organize_desktop.py](sources/python\windows_related_scripts\organize_desktop.py) `(2.6KB, 70 lines)`
+  - [README.md](sources/python\README.md) `(2.6KB, 96 lines)`
+  - [build.py](sources/python\build.py) `(1.4KB, 51 lines)`
+  - [main.py](sources/python\main.py) `(5.2KB, 170 lines)` - *!/usr/bin/env python3*
 - **src-tauri/**
   - **assets/**
   - **capabilities/**

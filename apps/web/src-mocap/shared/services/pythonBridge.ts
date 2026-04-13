@@ -83,7 +83,7 @@ class PythonBridge {
     }
 
     /**
-     * Run a user script from src-python/kos/scripts/
+     * Run a user script from sources/python/kos/scripts/
      * @param scriptName - Script filename without .py
      * @param functionName - Function to call (default: 'main')
      * @param kwargs - Keyword arguments to pass

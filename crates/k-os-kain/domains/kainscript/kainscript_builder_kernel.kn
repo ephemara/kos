@@ -1,5 +1,5 @@
 // KainScript builder domain source seed.
-// Runtime defaults are sourced from src-kain/domains/kainscript/kainscript_builder_registry.json.
+// Runtime defaults are sourced from sources/kain/domains/kainscript/kainscript_builder_registry.json.
 
 struct KainScriptBuilderKernelConfig:
     profile_id: String
