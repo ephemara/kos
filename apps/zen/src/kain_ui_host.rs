@@ -266,7 +266,9 @@ impl PainterWorkspaceState {
         material.set_texture(slot, path);
         let note = format!(
             "assigned {} to {} on {}",
-            path.file_name().and_then(|value| value.to_str()).unwrap_or("texture"),
+            path.file_name()
+                .and_then(|value| value.to_str())
+                .unwrap_or("texture"),
             slot.display_name(),
             material_name
         );
@@ -288,7 +290,10 @@ impl PainterWorkspaceState {
         for slot in TextureSlot::all() {
             if let Some(texture_path) = discover_texture_for_slot(directory, &source_stem, *slot) {
                 self.active_texture_slot = *slot;
-                if self.assign_texture_to_active_material(&texture_path).is_ok() {
+                if self
+                    .assign_texture_to_active_material(&texture_path)
+                    .is_ok()
+                {
                     assigned += 1;
                 }
             }
@@ -1162,7 +1167,8 @@ impl ZenKainUiHost {
         let mut palette_scene_changed = chrome_scene_changed;
         let mut palette_reload_requested = chrome_reload_requested;
         if let Some(selection) = palette_action {
-            let result = self.apply_palette_selection(selection, scene, runtime, camera, fabric_service);
+            let result =
+                self.apply_palette_selection(selection, scene, runtime, camera, fabric_service);
             palette_scene_changed |= result.scene_changed;
             palette_reload_requested |= result.reload_requested;
         }
@@ -1220,11 +1226,11 @@ impl ZenKainUiHost {
 
         egui::TopBottomPanel::bottom("zen-workspace-statusbar")
             .resizable(false)
-            .exact_height(38.0)
+            .exact_height(50.0)
             .frame(
                 egui::Frame::default()
                     .fill(self.theme.palette.status_bg)
-                    .inner_margin(egui::Margin::same(6)),
+                    .inner_margin(egui::Margin::symmetric(8, 8)),
             )
             .show(ctx, |ui| {
                 render_workspace_statusbar(
@@ -1378,8 +1384,12 @@ impl<'a> ZenDockViewer<'a> {
                         egui::ScrollArea::vertical()
                             .id_salt(("selection", feature.key.as_str()))
                             .show(ui, |ui| {
-                                self.scene_changed |=
-                                    draw_scene_selection_inspector(self.inspector, ui, self.scene);
+                                self.scene_changed |= draw_scene_selection_inspector(
+                                    self.inspector,
+                                    ui,
+                                    self.theme,
+                                    self.scene,
+                                );
                             });
                     }
                 });
@@ -1625,13 +1635,13 @@ fn render_workspace_topbar(
             .find(|group| group.key == group_key)
     });
     let expanded_height = if *topbar_expanded && active_group.is_some() {
-        58.0
+        72.0
     } else {
         0.0
     };
     egui::TopBottomPanel::top("zen-workspace-topbar")
         .resizable(false)
-        .exact_height(78.0 + expanded_height)
+        .exact_height(86.0 + expanded_height)
         .frame(
             egui::Frame::default()
                 .fill(theme.palette.toolbar_bg)
@@ -1642,17 +1652,24 @@ fn render_workspace_topbar(
             let painter = ui.painter();
             let upper_band = egui::Rect::from_min_max(
                 panel_rect.left_top(),
-                egui::pos2(panel_rect.right(), panel_rect.top() + 40.0),
+                egui::pos2(panel_rect.right(), panel_rect.top() + 46.0),
             );
             painter.rect_filled(
                 upper_band,
                 corner_radius(theme.rounding.overlay),
-                Color32::from_rgba_unmultiplied(
-                    theme.palette.panel_bg_alt.r(),
-                    theme.palette.panel_bg_alt.g(),
-                    theme.palette.panel_bg_alt.b(),
-                    92,
+                tint_color(theme.palette.panel_header_bg, 232),
+            );
+            let accent_band = egui::Rect::from_min_max(
+                panel_rect.left_top(),
+                egui::pos2(
+                    panel_rect.left() + panel_rect.width() * 0.34,
+                    panel_rect.top() + 4.0,
                 ),
+            );
+            painter.rect_filled(
+                accent_band,
+                corner_radius(theme.rounding.overlay),
+                tint_color(theme.palette.panel_header_accent, 210),
             );
             painter.line_segment(
                 [
@@ -1666,13 +1683,28 @@ fn render_workspace_topbar(
                 ui.spacing_mut().item_spacing = egui::vec2(10.0, 8.0);
                 ui.horizontal_wrapped(|ui| {
                     ui.spacing_mut().item_spacing = egui::vec2(8.0, 8.0);
-                    render_workspace_menubar(ui, theme, &workspace.menubar, &mut chosen_action);
+                    egui::Frame::default()
+                        .fill(theme.palette.panel_header_bg)
+                        .stroke(Stroke::new(1.0, theme.palette.border_subtle))
+                        .corner_radius(corner_radius(theme.rounding.overlay))
+                        .inner_margin(egui::Margin::symmetric(10, 8))
+                        .show(ui, |ui| {
+                            ui.horizontal_wrapped(|ui| {
+                                ui.spacing_mut().item_spacing = egui::vec2(6.0, 0.0);
+                                render_workspace_menubar(
+                                    ui,
+                                    theme,
+                                    &workspace.menubar,
+                                    &mut chosen_action,
+                                );
+                            });
+                        });
 
                     egui::Frame::default()
-                        .fill(theme.palette.panel_bg_alt)
-                        .stroke(Stroke::new(1.0, theme.palette.border_subtle))
+                        .fill(theme.palette.panel_elevated_bg)
+                        .stroke(Stroke::new(1.0, theme.palette.panel_header_accent))
                         .corner_radius(corner_radius(theme.rounding.panel))
-                        .inner_margin(egui::Margin::symmetric(12, 8))
+                        .inner_margin(egui::Margin::symmetric(12, 9))
                         .show(ui, |ui| {
                             ui.vertical(|ui| {
                                 ui.spacing_mut().item_spacing = egui::vec2(2.0, 2.0);
@@ -1683,62 +1715,70 @@ fn render_workspace_topbar(
                                         .color(theme.palette.text_primary),
                                 );
                                 ui.label(
-                                    RichText::new("ZEN NATIVE WORKSPACE")
-                                        .small()
-                                        .monospace()
-                                        .color(theme.palette.text_muted),
+                                    RichText::new(format!(
+                                        "{} // {}",
+                                        workspace.workspace.key,
+                                        active_document.unwrap_or("no active doc")
+                                    ))
+                                    .small()
+                                    .monospace()
+                                    .color(theme.palette.text_muted),
                                 );
                             });
                         });
 
-                    ui.separator();
-                    for group in &workspace.topbar.groups {
-                        let is_active = active_topbar_group.as_deref() == Some(group.key.as_str());
-                        let button = egui::Button::new(
-                            RichText::new(&group.label)
-                                .strong()
-                                .size(13.0)
-                                .color(if is_active {
-                                    theme.palette.text_primary
-                                } else {
-                                    theme.palette.text_secondary
-                                }),
-                        )
-                        .min_size(Vec2::new(84.0, 28.0))
-                        .corner_radius(corner_radius(theme.rounding.panel))
-                        .fill(if is_active {
-                            theme.palette.accent_soft
-                        } else {
-                            Color32::from_rgba_unmultiplied(
-                                theme.palette.panel_bg_alt.r(),
-                                theme.palette.panel_bg_alt.g(),
-                                theme.palette.panel_bg_alt.b(),
-                                120,
-                            )
-                        })
-                        .stroke(Stroke::new(
-                            1.0,
-                            if is_active {
-                                theme.palette.selection_stroke
-                            } else {
-                                theme.palette.border_subtle
-                            },
-                        ));
-                        let response = ui.add(button);
-                        if response.clicked() {
-                            if is_active && *topbar_expanded {
-                                *topbar_expanded = false;
-                            } else {
-                                *active_topbar_group = Some(group.key.clone());
-                                *topbar_expanded = true;
-                            }
-                        }
-                        response.on_hover_text(&group.description);
-                    }
+                    egui::Frame::default()
+                        .fill(theme.palette.panel_header_bg)
+                        .stroke(Stroke::new(1.0, theme.palette.border_subtle))
+                        .corner_radius(corner_radius(theme.rounding.overlay))
+                        .inner_margin(egui::Margin::symmetric(8, 6))
+                        .show(ui, |ui| {
+                            ui.horizontal_wrapped(|ui| {
+                                ui.spacing_mut().item_spacing = egui::vec2(6.0, 6.0);
+                                for group in &workspace.topbar.groups {
+                                    let is_active =
+                                        active_topbar_group.as_deref() == Some(group.key.as_str());
+                                    let button = egui::Button::new(
+                                        RichText::new(&group.label).strong().size(13.0).color(
+                                            if is_active {
+                                                theme.palette.text_primary
+                                            } else {
+                                                theme.palette.text_secondary
+                                            },
+                                        ),
+                                    )
+                                    .min_size(Vec2::new(90.0, 30.0))
+                                    .corner_radius(corner_radius(theme.rounding.overlay))
+                                    .fill(if is_active {
+                                        theme.palette.chip_active_bg
+                                    } else {
+                                        theme.palette.chip_bg
+                                    })
+                                    .stroke(Stroke::new(
+                                        1.0,
+                                        if is_active {
+                                            theme.palette.selection_stroke
+                                        } else {
+                                            theme.palette.chip_outline
+                                        },
+                                    ));
+                                    let response = ui.add(button);
+                                    if response.clicked() {
+                                        if is_active && *topbar_expanded {
+                                            *topbar_expanded = false;
+                                        } else {
+                                            *active_topbar_group = Some(group.key.clone());
+                                            *topbar_expanded = true;
+                                        }
+                                    }
+                                    response.on_hover_text(&group.description);
+                                }
+                            });
+                        });
 
                     ui.add_space(8.0);
                     ui.with_layout(egui::Layout::right_to_left(egui::Align::Center), |ui| {
-                        render_status_chip(ui, theme, "cmd+p palette", theme.palette.text_muted);
+                        render_status_chip(ui, theme, "cmd+p palette", theme.palette.success);
                         render_status_chip(
                             ui,
                             theme,
@@ -1771,71 +1811,76 @@ fn render_workspace_topbar(
                 if *topbar_expanded {
                     if let Some(group) = active_group {
                         egui::Frame::default()
-                            .fill(Color32::from_rgba_unmultiplied(
-                                theme.palette.panel_bg_alt.r(),
-                                theme.palette.panel_bg_alt.g(),
-                                theme.palette.panel_bg_alt.b(),
-                                160,
-                            ))
+                            .fill(theme.palette.panel_elevated_bg)
                             .stroke(Stroke::new(1.0, theme.palette.border_subtle))
                             .corner_radius(corner_radius(theme.rounding.overlay))
-                            .inner_margin(egui::Margin::symmetric(12, 10))
+                            .inner_margin(egui::Margin::symmetric(14, 12))
                             .show(ui, |ui| {
-                                ui.horizontal_wrapped(|ui| {
-                                    ui.spacing_mut().item_spacing = egui::vec2(10.0, 8.0);
-                                    ui.vertical(|ui| {
-                                        ui.label(
-                                            RichText::new(&group.label)
-                                                .strong()
-                                                .size(15.0)
-                                                .color(theme.palette.text_primary),
+                                ui.vertical(|ui| {
+                                    ui.spacing_mut().item_spacing = egui::vec2(10.0, 10.0);
+                                    ui.horizontal_wrapped(|ui| {
+                                        ui.spacing_mut().item_spacing = egui::vec2(8.0, 8.0);
+                                        ui.vertical(|ui| {
+                                            ui.label(
+                                                RichText::new(&group.label)
+                                                    .strong()
+                                                    .size(15.0)
+                                                    .color(theme.palette.text_primary),
+                                            );
+                                            ui.label(
+                                                RichText::new(&group.description)
+                                                    .small()
+                                                    .color(theme.palette.text_muted),
+                                            );
+                                        });
+                                        ui.add_space(6.0);
+                                        render_status_chip(
+                                            ui,
+                                            theme,
+                                            format!("{} actions", group.actions.len()),
+                                            theme.palette.accent,
                                         );
-                                        ui.label(
-                                            RichText::new(&group.description)
-                                                .small()
-                                                .color(theme.palette.text_muted),
+                                        render_status_chip(
+                                            ui,
+                                            theme,
+                                            workspace.workspace.key.clone(),
+                                            theme.palette.text_muted,
                                         );
                                     });
-                                    ui.add_space(10.0);
-                                    for action_key in &group.actions {
-                                        if let Some(action) = host_api.action(action_key) {
-                                            let response = ui.add(
-                                                egui::Button::new(
-                                                    RichText::new(&action.label)
-                                                        .strong()
-                                                        .size(12.0)
-                                                        .color(theme.palette.text_primary),
-                                                )
-                                                .min_size(Vec2::new(108.0, 28.0))
-                                                .corner_radius(corner_radius(theme.rounding.panel))
-                                                .fill(theme.palette.panel_bg)
-                                                .stroke(Stroke::new(
-                                                    1.0,
-                                                    theme.palette.border_strong,
-                                                )),
-                                            );
-                                            if response.clicked() {
-                                                chosen_action = Some(WorkspaceChromeAction::HostAction(
-                                                    action.key.clone(),
-                                                ));
-                                            }
-                                            response.on_hover_text(&action.description);
-                                        } else {
-                                            ui.label(
-                                                RichText::new(format!("missing {}", action_key))
+                                    ui.horizontal_wrapped(|ui| {
+                                        ui.spacing_mut().item_spacing = egui::vec2(10.0, 8.0);
+                                        for action_key in &group.actions {
+                                            if let Some(action) = host_api.action(action_key) {
+                                                let response =
+                                                    draw_action_button(ui, theme, action);
+                                                if response.clicked() {
+                                                    chosen_action =
+                                                        Some(WorkspaceChromeAction::HostAction(
+                                                            action.key.clone(),
+                                                        ));
+                                                }
+                                            } else {
+                                                ui.label(
+                                                    RichText::new(format!(
+                                                        "missing {}",
+                                                        action_key
+                                                    ))
                                                     .small()
                                                     .monospace()
                                                     .color(theme.palette.danger),
-                                            );
+                                                );
+                                            }
                                         }
-                                    }
-                                    if group.actions.is_empty() {
-                                        ui.label(
-                                            RichText::new("No actions bound to this group yet.")
+                                        if group.actions.is_empty() {
+                                            ui.label(
+                                                RichText::new(
+                                                    "No actions bound to this group yet.",
+                                                )
                                                 .small()
                                                 .color(theme.palette.text_muted),
-                                        );
-                                    }
+                                            );
+                                        }
+                                    });
                                 });
                             });
                     }
@@ -1884,16 +1929,14 @@ fn render_workspace_menu(
                     label, document, ..
                 } => {
                     if ui.button(label).clicked() {
-                        *chosen_action = Some(WorkspaceChromeAction::SelectDocument(
-                            document.clone(),
-                        ));
+                        *chosen_action =
+                            Some(WorkspaceChromeAction::SelectDocument(document.clone()));
                         ui.close();
                     }
                 }
                 ZenWorkspaceMenuItem::Preset { label, preset, .. } => {
                     if ui.button(label).clicked() {
-                        *chosen_action =
-                            Some(WorkspaceChromeAction::ApplyPreset(preset.clone()));
+                        *chosen_action = Some(WorkspaceChromeAction::ApplyPreset(preset.clone()));
                         ui.close();
                     }
                 }
@@ -1914,17 +1957,24 @@ fn render_workspace_menu(
     });
 }
 
-fn render_status_chip(ui: &mut egui::Ui, theme: &ZenUiTheme, label: impl Into<String>, color: Color32) {
+fn render_status_chip(
+    ui: &mut egui::Ui,
+    theme: &ZenUiTheme,
+    label: impl Into<String>,
+    color: Color32,
+) {
     egui::Frame::default()
-        .fill(Color32::from_rgba_unmultiplied(
-            theme.palette.panel_bg_alt.r(),
-            theme.palette.panel_bg_alt.g(),
-            theme.palette.panel_bg_alt.b(),
-            190,
+        .fill(theme.palette.chip_bg)
+        .stroke(Stroke::new(
+            1.0,
+            if color == theme.palette.text_muted {
+                theme.palette.chip_outline
+            } else {
+                tint_color(color, 210)
+            },
         ))
-        .stroke(Stroke::new(1.0, theme.palette.border_subtle))
-        .corner_radius(corner_radius(theme.rounding.panel))
-        .inner_margin(egui::Margin::symmetric(8, 4))
+        .corner_radius(corner_radius(theme.rounding.overlay))
+        .inner_margin(egui::Margin::symmetric(10, 5))
         .show(ui, |ui| {
             ui.label(RichText::new(label.into()).small().color(color));
         });
@@ -1940,15 +1990,22 @@ fn render_workspace_statusbar(
     fabric_status: &str,
     kain_status: &str,
 ) {
-    ui.horizontal_wrapped(|ui| {
-        ui.spacing_mut().item_spacing = egui::vec2(6.0, 4.0);
-        render_status_chip(ui, theme, activity_status, theme.palette.text_primary);
-        render_status_chip(ui, theme, shell_status, theme.palette.text_secondary);
-        render_status_chip(ui, theme, contract_status, theme.palette.accent);
-        render_status_chip(ui, theme, registry_status, theme.palette.text_muted);
-        render_status_chip(ui, theme, fabric_status, theme.palette.accent);
-        render_status_chip(ui, theme, kain_status, theme.palette.warning);
-    });
+    egui::Frame::default()
+        .fill(theme.palette.panel_header_bg)
+        .stroke(Stroke::new(1.0, theme.palette.border_subtle))
+        .corner_radius(corner_radius(theme.rounding.overlay))
+        .inner_margin(egui::Margin::symmetric(10, 7))
+        .show(ui, |ui| {
+            ui.horizontal_wrapped(|ui| {
+                ui.spacing_mut().item_spacing = egui::vec2(6.0, 4.0);
+                render_status_chip(ui, theme, activity_status, theme.palette.text_primary);
+                render_status_chip(ui, theme, shell_status, theme.palette.text_secondary);
+                render_status_chip(ui, theme, contract_status, theme.palette.accent);
+                render_status_chip(ui, theme, registry_status, theme.palette.text_muted);
+                render_status_chip(ui, theme, fabric_status, theme.palette.success);
+                render_status_chip(ui, theme, kain_status, theme.palette.warning);
+            });
+        });
 }
 
 fn draw_command_palette(
@@ -2357,16 +2414,11 @@ fn draw_feature_panel(
 ) {
     let frame = if transparent {
         egui::Frame::default()
-            .fill(Color32::from_rgba_unmultiplied(
-                theme.palette.window_bg.r(),
-                theme.palette.window_bg.g(),
-                theme.palette.window_bg.b(),
-                26,
-            ))
+            .fill(tint_color(theme.palette.window_bg, 36))
             .inner_margin(egui::Margin::same(theme.spacing.panel_margin as i8))
     } else {
         egui::Frame::default()
-            .fill(theme.palette.panel_bg)
+            .fill(theme.palette.panel_elevated_bg)
             .stroke(Stroke::new(1.0, theme.palette.border_subtle))
             .corner_radius(corner_radius(theme.rounding.panel))
             .inner_margin(egui::Margin::same(theme.spacing.panel_margin as i8))
@@ -2374,13 +2426,50 @@ fn draw_feature_panel(
 
     frame.show(ui, |ui| {
         if !transparent {
-            ui.label(
-                RichText::new(&feature.title)
-                    .strong()
-                    .size(16.0)
-                    .color(theme.palette.text_primary),
-            );
-            ui.add_space(6.0);
+            egui::Frame::default()
+                .fill(theme.palette.panel_header_bg)
+                .stroke(Stroke::new(1.0, theme.palette.chip_outline))
+                .corner_radius(corner_radius(theme.rounding.overlay))
+                .inner_margin(egui::Margin::symmetric(10, 8))
+                .show(ui, |ui| {
+                    ui.horizontal_wrapped(|ui| {
+                        ui.spacing_mut().item_spacing = egui::vec2(8.0, 6.0);
+                        ui.vertical(|ui| {
+                            ui.spacing_mut().item_spacing = egui::vec2(2.0, 2.0);
+                            ui.label(
+                                RichText::new(&feature.title)
+                                    .strong()
+                                    .size(16.0)
+                                    .color(theme.palette.text_primary),
+                            );
+                            ui.label(
+                                RichText::new(feature_metadata_label(feature))
+                                    .small()
+                                    .monospace()
+                                    .color(theme.palette.text_muted),
+                            );
+                        });
+                        ui.with_layout(egui::Layout::right_to_left(egui::Align::Center), |ui| {
+                            if !feature.actions.is_empty() {
+                                render_status_chip(
+                                    ui,
+                                    theme,
+                                    format!("{} actions", feature.actions.len()),
+                                    theme.palette.accent,
+                                );
+                            }
+                            if feature.closable {
+                                render_status_chip(
+                                    ui,
+                                    theme,
+                                    "dock tab",
+                                    theme.palette.text_secondary,
+                                );
+                            }
+                        });
+                    });
+                });
+            ui.add_space(8.0);
         }
         draw(ui);
     });
@@ -2483,11 +2572,41 @@ fn draw_action_button(
     action: &ZenHostAction,
 ) -> egui::Response {
     ui.add(
-        egui::Button::new(RichText::new(&action.label).size(13.0))
-            .fill(theme.palette.accent_soft)
-            .stroke(Stroke::new(1.0, theme.palette.border_strong)),
+        egui::Button::new(
+            RichText::new(&action.label)
+                .strong()
+                .size(12.5)
+                .color(theme.palette.text_primary),
+        )
+        .min_size(Vec2::new(114.0, 30.0))
+        .corner_radius(corner_radius(theme.rounding.overlay))
+        .fill(theme.palette.chip_active_bg)
+        .stroke(Stroke::new(1.0, theme.palette.border_strong)),
     )
     .on_hover_text(format!("{} ({})", action.description, action.key))
+}
+
+fn draw_toolbar_button(
+    ui: &mut egui::Ui,
+    theme: &ZenUiTheme,
+    label: impl Into<WidgetText>,
+) -> egui::Response {
+    draw_toolbar_button_enabled(ui, theme, true, label)
+}
+
+fn draw_toolbar_button_enabled(
+    ui: &mut egui::Ui,
+    theme: &ZenUiTheme,
+    enabled: bool,
+    label: impl Into<WidgetText>,
+) -> egui::Response {
+    ui.add_enabled(
+        enabled,
+        egui::Button::new(label)
+            .corner_radius(corner_radius(theme.rounding.overlay))
+            .fill(theme.palette.chip_bg)
+            .stroke(Stroke::new(1.0, theme.palette.chip_outline)),
+    )
 }
 
 fn draw_scene_object_entry(
@@ -2511,6 +2630,7 @@ fn draw_scene_object_entry(
 fn draw_scene_selection_inspector(
     inspector: &mut InspectorDraft,
     ui: &mut egui::Ui,
+    theme: &ZenUiTheme,
     scene: &mut ZenScene,
 ) -> bool {
     let mut changed = false;
@@ -2549,7 +2669,7 @@ fn draw_scene_selection_inspector(
 
         let schema = selection_inspector_schema(&details);
         ui.add_space(8.0);
-        render_inspector_schema(ui, &schema, None);
+        render_inspector_schema(ui, theme, &schema, None);
     } else {
         ui.group(|ui| {
             ui.label(RichText::new("No object selected").strong());
@@ -2607,7 +2727,7 @@ fn draw_runtime_inspector(
         );
     });
     let schema = runtime_inspector_schema(runtime, renderer, hud, details.as_ref());
-    render_inspector_schema(ui, &schema, None);
+    render_inspector_schema(ui, theme, &schema, None);
     ui.separator();
     ui.label(RichText::new("Renderer").strong());
     ui.add(
@@ -2730,9 +2850,12 @@ fn draw_painter_import_panel(
                     .color(theme.palette.text_secondary),
             );
             ui.label(
-                RichText::new(format!("{} // {}", source.format_label, source.source_label))
-                    .small()
-                    .color(theme.palette.text_primary),
+                RichText::new(format!(
+                    "{} // {}",
+                    source.format_label, source.source_label
+                ))
+                .small()
+                .color(theme.palette.text_primary),
             );
             ui.horizontal_wrapped(|ui| {
                 ui.label(format!("objects {}", source.imported_objects));
@@ -2769,9 +2892,13 @@ fn draw_painter_import_panel(
                     .color(theme.palette.text_secondary),
             );
             ui.label(
-                RichText::new(format!("{} #{}", details.name, details.summary.handle.raw()))
-                    .small()
-                    .color(theme.palette.text_primary),
+                RichText::new(format!(
+                    "{} #{}",
+                    details.name,
+                    details.summary.handle.raw()
+                ))
+                .small()
+                .color(theme.palette.text_primary),
             );
             ui.horizontal_wrapped(|ui| {
                 ui.label(format!("verts {}", details.summary.vertex_count));
@@ -2951,11 +3078,7 @@ fn draw_painter_materials_panel(
                     theme.palette.text_muted
                 };
                 ui.horizontal_wrapped(|ui| {
-                    ui.label(
-                        RichText::new(slot.display_name())
-                            .small()
-                            .color(color),
-                    );
+                    ui.label(RichText::new(slot.display_name()).small().color(color));
                     ui.label(
                         RichText::new(label)
                             .small()
@@ -3138,11 +3261,7 @@ fn draw_painter_layers_panel(
         ),
     ] {
         ui.group(|ui| {
-            ui.label(
-                RichText::new(row)
-                    .small()
-                    .color(theme.palette.text_primary),
-            );
+            ui.label(RichText::new(row).small().color(theme.palette.text_primary));
         });
         ui.add_space(6.0);
     }
@@ -3368,7 +3487,10 @@ fn draw_fabric_panel(
             *activity_status = "fabric status refreshed".to_string();
         }
         if ui
-            .add_enabled(fabric_service.enabled(), egui::Button::new("Run Configured Manifest"))
+            .add_enabled(
+                fabric_service.enabled(),
+                egui::Button::new("Run Configured Manifest"),
+            )
             .clicked()
         {
             match fabric_service.run_configured_manifest() {
@@ -3561,112 +3683,211 @@ fn draw_document_context_panel_with_layouts(
     let active_preset = session.workspace_preset.clone();
     let active_user_layout = session.user_layout.clone();
     let mut action = None;
-    ui.label(
-        RichText::new(format!(
-            "{} documents // {} presets // {} user layouts",
-            documents.len(),
-            workspace.presets.len(),
-            user_layouts.len()
-        ))
-        .small()
-        .color(theme.palette.text_muted),
-    );
-    ui.horizontal_wrapped(|ui| {
-        if ui.button("Import Asset").clicked() {
-            action = Some(WorkspacePanelAction::ImportAsset);
-        }
-        ui.label(
-            RichText::new(import_status)
-                .small()
-                .color(theme.palette.text_muted),
-        );
-    });
+    let import_status_color = if import_status.contains("failed") {
+        theme.palette.danger
+    } else if import_status.is_empty() {
+        theme.palette.text_muted
+    } else {
+        theme.palette.success
+    };
+
+    egui::Frame::default()
+        .fill(theme.palette.panel_header_bg)
+        .stroke(Stroke::new(1.0, theme.palette.border_subtle))
+        .corner_radius(corner_radius(theme.rounding.overlay))
+        .inner_margin(egui::Margin::symmetric(10, 8))
+        .show(ui, |ui| {
+            ui.vertical(|ui| {
+                ui.horizontal_wrapped(|ui| {
+                    ui.spacing_mut().item_spacing = egui::vec2(6.0, 6.0);
+                    render_status_chip(
+                        ui,
+                        theme,
+                        format!("{} docs", documents.len()),
+                        theme.palette.text_secondary,
+                    );
+                    render_status_chip(
+                        ui,
+                        theme,
+                        format!("{} presets", workspace.presets.len()),
+                        theme.palette.accent,
+                    );
+                    render_status_chip(
+                        ui,
+                        theme,
+                        format!("{} user layouts", user_layouts.len()),
+                        theme.palette.warning,
+                    );
+                });
+                ui.add_space(6.0);
+                ui.horizontal_wrapped(|ui| {
+                    if draw_toolbar_button(ui, theme, "Import Asset").clicked() {
+                        action = Some(WorkspacePanelAction::ImportAsset);
+                    }
+                    if !import_status.is_empty() {
+                        ui.label(
+                            RichText::new(import_status)
+                                .small()
+                                .color(import_status_color),
+                        );
+                    }
+                });
+            });
+        });
     ui.separator();
     for document in documents {
         let is_active = active_document
             .as_deref()
             .map(|selected| selected == document.key)
             .unwrap_or(false);
-        if ui
-            .selectable_label(
-                is_active,
-                format!("{}  ({})", document.title, document.kind),
-            )
-            .clicked()
-        {
-            action = Some(WorkspacePanelAction::SelectDocument(document.key.clone()));
-        }
-        if let Some(path) = document.source_path.as_deref().or(document.path.as_deref()) {
-            ui.label(RichText::new(path).small().color(theme.palette.text_muted));
-        }
+        egui::Frame::default()
+            .fill(if is_active {
+                theme.palette.chip_active_bg
+            } else {
+                theme.palette.panel_bg_alt
+            })
+            .stroke(Stroke::new(
+                1.0,
+                if is_active {
+                    theme.palette.selection_stroke
+                } else {
+                    theme.palette.border_subtle
+                },
+            ))
+            .corner_radius(corner_radius(theme.rounding.overlay))
+            .inner_margin(egui::Margin::symmetric(10, 8))
+            .show(ui, |ui| {
+                ui.horizontal_wrapped(|ui| {
+                    ui.spacing_mut().item_spacing = egui::vec2(6.0, 6.0);
+                    if ui
+                        .selectable_label(
+                            is_active,
+                            format!("{}  ({})", document.title, document.kind),
+                        )
+                        .clicked()
+                    {
+                        action = Some(WorkspacePanelAction::SelectDocument(document.key.clone()));
+                    }
+                    if document.primary {
+                        render_status_chip(ui, theme, "primary", theme.palette.success);
+                    }
+                });
+                if let Some(path) = document.source_path.as_deref().or(document.path.as_deref()) {
+                    ui.label(
+                        RichText::new(path)
+                            .small()
+                            .monospace()
+                            .color(theme.palette.text_muted),
+                    );
+                }
+            });
         ui.add_space(4.0);
     }
     if !workspace.presets.is_empty() {
         ui.separator();
-        ui.label(
-            RichText::new("Default Layouts")
-                .strong()
-                .color(theme.palette.text_secondary),
-        );
-        for preset in &workspace.presets {
-            let selected = active_preset
-                .as_deref()
-                .map(|active| active == preset.key)
-                .unwrap_or(false);
-            if ui
-                .selectable_label(
-                    selected,
-                    format!("{}  ({})", preset.title, preset.viewport_layout),
-                )
-                .clicked()
-            {
-                action = Some(WorkspacePanelAction::ApplyPreset(preset.key.clone()));
-            }
-        }
+        egui::Frame::default()
+            .fill(theme.palette.panel_header_bg)
+            .stroke(Stroke::new(1.0, theme.palette.border_subtle))
+            .corner_radius(corner_radius(theme.rounding.overlay))
+            .inner_margin(egui::Margin::symmetric(10, 8))
+            .show(ui, |ui| {
+                ui.label(
+                    RichText::new("Default Layouts")
+                        .strong()
+                        .color(theme.palette.text_secondary),
+                );
+                ui.add_space(6.0);
+                ui.horizontal_wrapped(|ui| {
+                    ui.spacing_mut().item_spacing = egui::vec2(8.0, 8.0);
+                    for preset in &workspace.presets {
+                        let selected = active_preset
+                            .as_deref()
+                            .map(|active| active == preset.key)
+                            .unwrap_or(false);
+                        let response = ui.add(
+                            egui::Button::new(
+                                RichText::new(format!(
+                                    "{}  ({})",
+                                    preset.title, preset.viewport_layout
+                                ))
+                                .color(theme.palette.text_primary),
+                            )
+                            .corner_radius(corner_radius(theme.rounding.overlay))
+                            .fill(if selected {
+                                theme.palette.chip_active_bg
+                            } else {
+                                theme.palette.chip_bg
+                            })
+                            .stroke(Stroke::new(
+                                1.0,
+                                if selected {
+                                    theme.palette.selection_stroke
+                                } else {
+                                    theme.palette.chip_outline
+                                },
+                            )),
+                        );
+                        if response.clicked() {
+                            action = Some(WorkspacePanelAction::ApplyPreset(preset.key.clone()));
+                        }
+                    }
+                });
+            });
     }
 
     ui.separator();
-    ui.label(
-        RichText::new("User Layouts")
-            .strong()
-            .color(theme.palette.text_secondary),
-    );
-    ui.horizontal(|ui| {
-        ui.label(
-            RichText::new("Name")
-                .small()
-                .color(theme.palette.text_muted),
-        );
-        ui.add(
-            egui::TextEdit::singleline(layout_name_draft)
-                .hint_text("Gameplay, Lookdev, Animation...")
-                .desired_width(f32::INFINITY),
-        );
-    });
-    ui.horizontal_wrapped(|ui| {
-        if ui.button("Save Current").clicked() {
-            action = Some(WorkspacePanelAction::SaveCurrentLayout(
-                layout_name_draft.clone(),
-            ));
-        }
-        if ui.button("Reset Workspace").clicked() {
-            action = Some(WorkspacePanelAction::ResetWorkspace);
-        }
-    });
-    if let Some(active) = active_user_layout.as_deref() {
-        ui.label(
-            RichText::new(format!("active user layout {}", active))
-                .small()
-                .color(theme.palette.warning),
-        );
-    } else if let Some(active) = active_preset.as_deref() {
-        ui.label(
-            RichText::new(format!("active default {}", active))
-                .small()
-                .color(theme.palette.text_muted),
-        );
-    }
-    ui.add_space(4.0);
+    egui::Frame::default()
+        .fill(theme.palette.panel_header_bg)
+        .stroke(Stroke::new(1.0, theme.palette.border_subtle))
+        .corner_radius(corner_radius(theme.rounding.overlay))
+        .inner_margin(egui::Margin::symmetric(10, 8))
+        .show(ui, |ui| {
+            ui.label(
+                RichText::new("User Layouts")
+                    .strong()
+                    .color(theme.palette.text_secondary),
+            );
+            ui.add_space(6.0);
+            ui.horizontal(|ui| {
+                ui.label(
+                    RichText::new("Name")
+                        .small()
+                        .color(theme.palette.text_muted),
+                );
+                ui.add(
+                    egui::TextEdit::singleline(layout_name_draft)
+                        .hint_text("Gameplay, Lookdev, Animation...")
+                        .desired_width(f32::INFINITY),
+                );
+            });
+            ui.add_space(6.0);
+            ui.horizontal_wrapped(|ui| {
+                if draw_toolbar_button(ui, theme, "Save Current").clicked() {
+                    action = Some(WorkspacePanelAction::SaveCurrentLayout(
+                        layout_name_draft.clone(),
+                    ));
+                }
+                if draw_toolbar_button(ui, theme, "Reset Workspace").clicked() {
+                    action = Some(WorkspacePanelAction::ResetWorkspace);
+                }
+                if let Some(active) = active_user_layout.as_deref() {
+                    render_status_chip(
+                        ui,
+                        theme,
+                        format!("active user {}", active),
+                        theme.palette.warning,
+                    );
+                } else if let Some(active) = active_preset.as_deref() {
+                    render_status_chip(
+                        ui,
+                        theme,
+                        format!("active preset {}", active),
+                        theme.palette.text_muted,
+                    );
+                }
+            });
+        });
+    ui.add_space(6.0);
     if user_layouts.is_empty() {
         ui.label(
             RichText::new("No saved user layouts yet. Save the current dock to create one.")
@@ -3679,30 +3900,50 @@ fn draw_document_context_panel_with_layouts(
                 .as_deref()
                 .map(|active| active == layout.key)
                 .unwrap_or(false);
-            ui.group(|ui| {
-                ui.horizontal_wrapped(|ui| {
-                    if ui
-                        .selectable_label(
-                            selected,
-                            format!("{}  ({})", layout.title, layout.viewport_layout),
-                        )
-                        .clicked()
-                    {
-                        action = Some(WorkspacePanelAction::ApplyUserLayout(layout.key.clone()));
-                    }
-                    if ui.small_button("Load").clicked() {
-                        action = Some(WorkspacePanelAction::ApplyUserLayout(layout.key.clone()));
-                    }
-                    if ui.small_button("Delete").clicked() {
-                        action = Some(WorkspacePanelAction::DeleteUserLayout(layout.key.clone()));
-                    }
+            egui::Frame::default()
+                .fill(if selected {
+                    theme.palette.chip_active_bg
+                } else {
+                    theme.palette.panel_bg_alt
+                })
+                .stroke(Stroke::new(
+                    1.0,
+                    if selected {
+                        theme.palette.selection_stroke
+                    } else {
+                        theme.palette.border_subtle
+                    },
+                ))
+                .corner_radius(corner_radius(theme.rounding.overlay))
+                .inner_margin(egui::Margin::symmetric(10, 8))
+                .show(ui, |ui| {
+                    ui.horizontal_wrapped(|ui| {
+                        if ui
+                            .selectable_label(
+                                selected,
+                                format!("{}  ({})", layout.title, layout.viewport_layout),
+                            )
+                            .clicked()
+                        {
+                            action =
+                                Some(WorkspacePanelAction::ApplyUserLayout(layout.key.clone()));
+                        }
+                        if draw_toolbar_button(ui, theme, "Load").clicked() {
+                            action =
+                                Some(WorkspacePanelAction::ApplyUserLayout(layout.key.clone()));
+                        }
+                        if draw_toolbar_button(ui, theme, "Delete").clicked() {
+                            action =
+                                Some(WorkspacePanelAction::DeleteUserLayout(layout.key.clone()));
+                        }
+                    });
+                    ui.label(
+                        RichText::new(layout.key.as_str())
+                            .small()
+                            .monospace()
+                            .color(theme.palette.text_muted),
+                    );
                 });
-                ui.label(
-                    RichText::new(layout.key.as_str())
-                        .small()
-                        .color(theme.palette.text_muted),
-                );
-            });
             ui.add_space(4.0);
         }
     }
@@ -3719,16 +3960,23 @@ fn draw_document_editor_panel(
     activity_status: &mut String,
 ) {
     let Some(document_key) = session.active_document.as_deref() else {
-        ui.label(
-            RichText::new("No active document")
-                .strong()
-                .color(theme.palette.text_primary),
-        );
-        ui.label(
-            RichText::new("Select a document from the Workspace tab to open it here.")
-                .small()
-                .color(theme.palette.text_muted),
-        );
+        egui::Frame::default()
+            .fill(theme.palette.panel_header_bg)
+            .stroke(Stroke::new(1.0, theme.palette.border_subtle))
+            .corner_radius(corner_radius(theme.rounding.overlay))
+            .inner_margin(egui::Margin::symmetric(10, 8))
+            .show(ui, |ui| {
+                ui.label(
+                    RichText::new("No active document")
+                        .strong()
+                        .color(theme.palette.text_primary),
+                );
+                ui.label(
+                    RichText::new("Select a document from the Workspace tab to open it here.")
+                        .small()
+                        .color(theme.palette.text_muted),
+                );
+            });
         return;
     };
 
@@ -3736,16 +3984,25 @@ fn draw_document_editor_panel(
         .iter()
         .find(|document| document.key == document_key)
     else {
-        ui.label(
-            RichText::new("Missing document")
-                .strong()
-                .color(theme.palette.danger),
-        );
-        ui.label(
-            RichText::new("The active document no longer exists in the workspace manifest.")
-                .small()
-                .color(theme.palette.text_muted),
-        );
+        egui::Frame::default()
+            .fill(theme.palette.panel_header_bg)
+            .stroke(Stroke::new(1.0, theme.palette.danger))
+            .corner_radius(corner_radius(theme.rounding.overlay))
+            .inner_margin(egui::Margin::symmetric(10, 8))
+            .show(ui, |ui| {
+                ui.label(
+                    RichText::new("Missing document")
+                        .strong()
+                        .color(theme.palette.danger),
+                );
+                ui.label(
+                    RichText::new(
+                        "The active document no longer exists in the workspace manifest.",
+                    )
+                    .small()
+                    .color(theme.palette.text_muted),
+                );
+            });
         return;
     };
 
@@ -3753,76 +4010,87 @@ fn draw_document_editor_panel(
         .entry(document.key.clone())
         .or_insert_with(|| load_document_editor_buffer(document).unwrap_or_default());
     let dirty = buffer.text != buffer.saved_text;
+    let buffer_status_color = if buffer.status.contains("failed") {
+        theme.palette.danger
+    } else if dirty {
+        theme.palette.warning
+    } else {
+        theme.palette.success
+    };
 
-    ui.horizontal_wrapped(|ui| {
-        ui.label(
-            RichText::new(&document.title)
-                .strong()
-                .size(16.0)
-                .color(theme.palette.text_primary),
-        );
-        ui.label(
-            RichText::new(format!("kind {}", document.kind))
-                .small()
-                .color(theme.palette.text_muted),
-        );
-        if dirty {
-            ui.label(
-                RichText::new("modified")
-                    .small()
-                    .color(theme.palette.warning),
-            );
-        } else {
-            ui.label(
-                RichText::new("saved")
-                    .small()
-                    .color(theme.palette.text_muted),
-            );
-        }
-    });
-    ui.label(
-        RichText::new(&buffer.source_label)
-            .small()
-            .monospace()
-            .color(theme.palette.text_muted),
-    );
-    ui.add_space(6.0);
-
-    ui.horizontal_wrapped(|ui| {
-        let save_enabled = buffer.source_path.is_some() && !buffer.read_only;
-        if ui
-            .add_enabled(save_enabled, egui::Button::new("Save"))
-            .clicked()
-        {
-            match save_document_editor_buffer(buffer) {
-                Ok(status) => {
-                    *activity_status = status.clone();
-                    buffer.status = status;
-                }
-                Err(err) => {
-                    *activity_status = format!("document save failed: {err}");
-                    buffer.status = err;
-                }
-            }
-        }
-        if ui.button("Reload From Disk").clicked() {
-            match load_document_editor_buffer(document) {
-                Ok(reloaded) => {
-                    *buffer = reloaded;
-                    *activity_status = format!("reloaded {}", document.title);
-                }
-                Err(err) => {
-                    *activity_status = format!("document reload failed: {err}");
-                    buffer.status = err;
-                }
-            }
-        }
-        ui.label(
-            RichText::new(&buffer.status)
-                .small()
-                .color(theme.palette.text_muted),
-        );
-    });
+    egui::Frame::default()
+        .fill(theme.palette.panel_header_bg)
+        .stroke(Stroke::new(1.0, theme.palette.border_subtle))
+        .corner_radius(corner_radius(theme.rounding.overlay))
+        .inner_margin(egui::Margin::symmetric(10, 8))
+        .show(ui, |ui| {
+            ui.vertical(|ui| {
+                ui.horizontal_wrapped(|ui| {
+                    ui.spacing_mut().item_spacing = egui::vec2(6.0, 6.0);
+                    ui.label(
+                        RichText::new(&document.title)
+                            .strong()
+                            .size(16.0)
+                            .color(theme.palette.text_primary),
+                    );
+                    render_status_chip(
+                        ui,
+                        theme,
+                        format!("kind {}", document.kind),
+                        theme.palette.text_secondary,
+                    );
+                    render_status_chip(
+                        ui,
+                        theme,
+                        if dirty { "modified" } else { "saved" },
+                        if dirty {
+                            theme.palette.warning
+                        } else {
+                            theme.palette.success
+                        },
+                    );
+                });
+                ui.label(
+                    RichText::new(&buffer.source_label)
+                        .small()
+                        .monospace()
+                        .color(theme.palette.text_muted),
+                );
+                ui.add_space(6.0);
+                ui.horizontal_wrapped(|ui| {
+                    let save_enabled = buffer.source_path.is_some() && !buffer.read_only;
+                    if draw_toolbar_button_enabled(ui, theme, save_enabled, "Save").clicked() {
+                        match save_document_editor_buffer(buffer) {
+                            Ok(status) => {
+                                *activity_status = status.clone();
+                                buffer.status = status;
+                            }
+                            Err(err) => {
+                                *activity_status = format!("document save failed: {err}");
+                                buffer.status = err;
+                            }
+                        }
+                    }
+                    if draw_toolbar_button(ui, theme, "Reload From Disk").clicked() {
+                        match load_document_editor_buffer(document) {
+                            Ok(reloaded) => {
+                                *buffer = reloaded;
+                                *activity_status = format!("reloaded {}", document.title);
+                            }
+                            Err(err) => {
+                                *activity_status = format!("document reload failed: {err}");
+                                buffer.status = err;
+                            }
+                        }
+                    }
+                    ui.label(
+                        RichText::new(&buffer.status)
+                            .small()
+                            .color(buffer_status_color),
+                    );
+                });
+            });
+        });
     ui.separator();
 
     let editor = egui::TextEdit::multiline(&mut buffer.text)
@@ -3830,7 +4098,14 @@ fn draw_document_editor_panel(
         .desired_rows(28)
         .font(egui::TextStyle::Monospace)
         .code_editor();
-    ui.add_enabled(!buffer.read_only, editor);
+    egui::Frame::default()
+        .fill(theme.palette.panel_bg)
+        .stroke(Stroke::new(1.0, theme.palette.border_subtle))
+        .corner_radius(corner_radius(theme.rounding.overlay))
+        .inner_margin(egui::Margin::same(8))
+        .show(ui, |ui| {
+            ui.add_enabled(!buffer.read_only, editor);
+        });
 }
 
 fn load_document_editor_buffer(
@@ -3904,59 +4179,81 @@ fn save_document_editor_buffer(buffer: &mut DocumentEditorBuffer) -> Result<Stri
 
 fn render_inspector_schema(
     ui: &mut egui::Ui,
+    theme: &ZenUiTheme,
     schema: &ZenInspectorSchema,
     mut on_edit: Option<&mut dyn FnMut(&str, &ZenInspectorFieldValue)>,
 ) {
-    ui.label(RichText::new(&schema.title).strong());
+    egui::Frame::default()
+        .fill(theme.palette.panel_header_bg)
+        .stroke(Stroke::new(1.0, theme.palette.border_subtle))
+        .corner_radius(corner_radius(theme.rounding.overlay))
+        .inner_margin(egui::Margin::symmetric(10, 8))
+        .show(ui, |ui| {
+            ui.label(
+                RichText::new(&schema.title)
+                    .strong()
+                    .color(theme.palette.text_primary),
+            );
+        });
     for section in &schema.sections {
-        ui.add_space(6.0);
-        ui.group(|ui| {
-            ui.label(RichText::new(&section.title).strong());
-            for field in &section.fields {
-                ui.horizontal_wrapped(|ui| {
-                    ui.label(
-                        RichText::new(&field.label)
-                            .small()
-                            .color(ui.style().visuals.weak_text_color()),
-                    );
-                    match &field.value {
-                        ZenInspectorFieldValue::Text(value) => {
-                            if field.editable {
-                                let mut draft = value.clone();
-                                if ui.text_edit_singleline(&mut draft).changed() {
-                                    if let Some(edit_handler) = on_edit.as_deref_mut() {
-                                        edit_handler(
-                                            &field.key,
-                                            &ZenInspectorFieldValue::Text(draft),
-                                        );
+        ui.add_space(8.0);
+        egui::Frame::default()
+            .fill(theme.palette.panel_bg_alt)
+            .stroke(Stroke::new(1.0, theme.palette.border_subtle))
+            .corner_radius(corner_radius(theme.rounding.overlay))
+            .inner_margin(egui::Margin::symmetric(10, 8))
+            .show(ui, |ui| {
+                ui.label(
+                    RichText::new(&section.title)
+                        .strong()
+                        .color(theme.palette.text_secondary),
+                );
+                ui.add_space(4.0);
+                for field in &section.fields {
+                    ui.horizontal_wrapped(|ui| {
+                        ui.label(
+                            RichText::new(&field.label)
+                                .small()
+                                .color(theme.palette.text_muted),
+                        );
+                        match &field.value {
+                            ZenInspectorFieldValue::Text(value) => {
+                                if field.editable {
+                                    let mut draft = value.clone();
+                                    if ui.text_edit_singleline(&mut draft).changed() {
+                                        if let Some(edit_handler) = on_edit.as_deref_mut() {
+                                            edit_handler(
+                                                &field.key,
+                                                &ZenInspectorFieldValue::Text(draft),
+                                            );
+                                        }
                                     }
+                                } else {
+                                    ui.monospace(value);
                                 }
-                            } else {
-                                ui.monospace(value);
+                            }
+                            ZenInspectorFieldValue::Number(value) => {
+                                ui.monospace(format!("{value:.3}"));
+                            }
+                            ZenInspectorFieldValue::Integer(value) => {
+                                ui.monospace(value.to_string());
+                            }
+                            ZenInspectorFieldValue::Vec3(value) => {
+                                ui.monospace(format!(
+                                    "{:.2}, {:.2}, {:.2}",
+                                    value[0], value[1], value[2]
+                                ));
+                            }
+                            ZenInspectorFieldValue::Quaternion(value) => {
+                                ui.monospace(format!(
+                                    "{:.2}, {:.2}, {:.2}, {:.2}",
+                                    value[0], value[1], value[2], value[3]
+                                ));
                             }
                         }
-                        ZenInspectorFieldValue::Number(value) => {
-                            ui.monospace(format!("{value:.3}"));
-                        }
-                        ZenInspectorFieldValue::Integer(value) => {
-                            ui.monospace(value.to_string());
-                        }
-                        ZenInspectorFieldValue::Vec3(value) => {
-                            ui.monospace(format!(
-                                "{:.2}, {:.2}, {:.2}",
-                                value[0], value[1], value[2]
-                            ));
-                        }
-                        ZenInspectorFieldValue::Quaternion(value) => {
-                            ui.monospace(format!(
-                                "{:.2}, {:.2}, {:.2}, {:.2}",
-                                value[0], value[1], value[2], value[3]
-                            ));
-                        }
-                    }
-                });
-            }
-        });
+                    });
+                }
+            });
     }
 }
 
@@ -4192,6 +4489,11 @@ fn draw_viewport_panel(
         viewport_rect.height() * pixels_per_point,
     ]);
 
+    ui.painter().rect_filled(
+        viewport_rect,
+        corner_radius(theme.rounding.viewport),
+        theme.palette.panel_bg,
+    );
     if let Some(texture_id) = hud.viewport_texture_id {
         ui.put(
             viewport_rect,
@@ -4206,6 +4508,14 @@ fn draw_viewport_panel(
         corner_radius(theme.rounding.viewport),
         Stroke::new(1.25, outline_color),
         egui::StrokeKind::Inside,
+    );
+    painter.rect_filled(
+        egui::Rect::from_min_max(
+            viewport_rect.left_top(),
+            egui::pos2(viewport_rect.right(), viewport_rect.top() + 3.0),
+        ),
+        corner_radius(theme.rounding.overlay),
+        tint_color(theme.palette.panel_header_accent, 200),
     );
     if hud.viewport_texture_id.is_none() {
         painter.rect_filled(
@@ -4224,31 +4534,16 @@ fn draw_viewport_panel(
 
     let title_badge = egui::Rect::from_min_size(
         rect.left_top() + egui::vec2(16.0, 16.0),
-        Vec2::new((rect.width() * 0.32).clamp(240.0, 360.0), 62.0),
+        Vec2::new((rect.width() * 0.32).clamp(248.0, 372.0), 68.0),
     );
-    painter.rect_filled(
+    paint_overlay_badge(
+        painter,
+        ui.style(),
+        theme,
         title_badge,
-        corner_radius(theme.rounding.overlay),
-        theme.palette.overlay_bg,
-    );
-    painter.text(
-        title_badge.left_top() + egui::vec2(14.0, 8.0),
-        egui::Align2::LEFT_TOP,
-        profile_label.to_ascii_uppercase(),
-        egui::TextStyle::Small.resolve(ui.style()),
-        theme.palette.text_muted,
-    );
-    painter.text(
-        title_badge.left_top() + egui::vec2(14.0, 24.0),
-        egui::Align2::LEFT_TOP,
+        &profile_label.to_ascii_uppercase(),
         title,
-        egui::TextStyle::Heading.resolve(ui.style()),
-        theme.palette.text_primary,
-    );
-    painter.text(
-        title_badge.left_top() + egui::vec2(14.0, 44.0),
-        egui::Align2::LEFT_TOP,
-        format!(
+        &format!(
             "{} // {}x{} // cam {:.1}, {:.1}, {:.1}",
             mode_label,
             hud.viewport_extent[0],
@@ -4257,86 +4552,62 @@ fn draw_viewport_panel(
             hud.camera_position[1],
             hud.camera_position[2],
         ),
-        egui::TextStyle::Small.resolve(ui.style()),
-        theme.palette.text_secondary,
+        theme.palette.panel_header_accent,
     );
 
     let mode_badge = egui::Rect::from_min_size(
-        egui::pos2(rect.right() - 168.0, rect.top() + 16.0),
-        Vec2::new(152.0, 28.0),
+        egui::pos2(rect.right() - 220.0, rect.top() + 16.0),
+        Vec2::new(204.0, 52.0),
     );
-    painter.rect_filled(
+    paint_overlay_badge(
+        painter,
+        ui.style(),
+        theme,
         mode_badge,
-        corner_radius(theme.rounding.overlay),
-        theme.palette.overlay_bg,
-    );
-    painter.text(
-        mode_badge.center(),
-        egui::Align2::CENTER_CENTER,
-        format!(
-            "{} // dir {:.2}, {:.2}, {:.2}",
-            format!("{mode_label}").to_ascii_uppercase(),
-            hud.camera_forward[0],
-            hud.camera_forward[1],
-            hud.camera_forward[2],
+        "VIEW MODE",
+        &mode_label.to_ascii_uppercase(),
+        &format!(
+            "dir {:.2}, {:.2}, {:.2}",
+            hud.camera_forward[0], hud.camera_forward[1], hud.camera_forward[2]
         ),
-        egui::TextStyle::Small.resolve(ui.style()),
-        theme.palette.text_primary,
+        theme.palette.text_secondary,
     );
 
     let selection_badge = egui::Rect::from_min_size(
-        egui::pos2(rect.left() + 16.0, rect.bottom() - 64.0),
-        Vec2::new((rect.width() * 0.4).clamp(260.0, 420.0), 48.0),
-    );
-    painter.rect_filled(
-        selection_badge,
-        corner_radius(theme.rounding.overlay),
-        theme.palette.overlay_bg,
+        egui::pos2(rect.left() + 16.0, rect.bottom() - 70.0),
+        Vec2::new((rect.width() * 0.4).clamp(280.0, 440.0), 54.0),
     );
     let selection_label = scene
         .selected_details()
         .map(|details| format!("selected {}#{}", details.name, details.summary.handle.raw()))
         .unwrap_or_else(|| "selected none".to_string());
-    painter.text(
-        selection_badge.left_top() + egui::vec2(14.0, 10.0),
-        egui::Align2::LEFT_TOP,
-        format!(
-            "{} // {} verts // {} indices",
-            selection_label, hud.vertex_count, hud.index_count
+    paint_overlay_badge(
+        painter,
+        ui.style(),
+        theme,
+        selection_badge,
+        "SELECTION",
+        &selection_label,
+        &format!(
+            "{} verts // {} indices // {}",
+            hud.vertex_count, hud.index_count, kain_status
         ),
-        egui::TextStyle::Small.resolve(ui.style()),
         theme.palette.warning,
-    );
-    painter.text(
-        selection_badge.left_top() + egui::vec2(14.0, 26.0),
-        egui::Align2::LEFT_TOP,
-        kain_status,
-        egui::TextStyle::Small.resolve(ui.style()),
-        theme.palette.text_muted,
     );
 
     let shortcut_badge = egui::Rect::from_min_size(
-        egui::pos2(rect.right() - 260.0, rect.bottom() - 64.0),
-        Vec2::new(244.0, 48.0),
+        egui::pos2(rect.right() - 280.0, rect.bottom() - 70.0),
+        Vec2::new(264.0, 54.0),
     );
-    painter.rect_filled(
+    paint_overlay_badge(
+        painter,
+        ui.style(),
+        theme,
         shortcut_badge,
-        corner_radius(theme.rounding.overlay),
-        theme.palette.overlay_bg,
-    );
-    painter.text(
-        shortcut_badge.left_top() + egui::vec2(14.0, 10.0),
-        egui::Align2::LEFT_TOP,
-        "WASD move // RMB freelook // click select",
-        egui::TextStyle::Small.resolve(ui.style()),
-        theme.palette.text_primary,
-    );
-    painter.text(
-        shortcut_badge.left_top() + egui::vec2(14.0, 26.0),
-        egui::Align2::LEFT_TOP,
-        "F focus // H frame // native renderer session",
-        egui::TextStyle::Small.resolve(ui.style()),
-        theme.palette.text_muted,
+        "CONTROLS",
+        "WASD move // RMB freelook",
+        "click select // F focus // H frame",
+        theme.palette.success,
     );
 }
 
@@ -4352,25 +4623,49 @@ fn draw_kain_status_panel(
     registry_status: &str,
     debug_tree: &str,
 ) {
-    ui.label(
-        RichText::new(kain_status)
-            .strong()
-            .color(theme.palette.warning),
-    );
-    ui.monospace(shell_status);
-    ui.monospace(source_label);
-    ui.monospace(host_api_status);
-    ui.monospace(module_status);
-    ui.monospace(contract_status);
-    ui.monospace(registry_status);
+    egui::Frame::default()
+        .fill(theme.palette.panel_header_bg)
+        .stroke(Stroke::new(1.0, theme.palette.border_subtle))
+        .corner_radius(corner_radius(theme.rounding.overlay))
+        .inner_margin(egui::Margin::symmetric(10, 8))
+        .show(ui, |ui| {
+            ui.vertical(|ui| {
+                ui.horizontal_wrapped(|ui| {
+                    render_status_chip(ui, theme, kain_status, theme.palette.warning);
+                    render_status_chip(ui, theme, shell_status, theme.palette.text_secondary);
+                    render_status_chip(ui, theme, contract_status, theme.palette.accent);
+                });
+                ui.add_space(6.0);
+                for line in [
+                    source_label,
+                    host_api_status,
+                    module_status,
+                    registry_status,
+                ] {
+                    ui.label(
+                        RichText::new(line)
+                            .small()
+                            .monospace()
+                            .color(theme.palette.text_muted),
+                    );
+                }
+            });
+        });
     if !debug_tree.trim().is_empty() {
         ui.separator();
-        ui.label(
-            RichText::new("Compiled Shell")
-                .strong()
-                .color(theme.palette.text_secondary),
-        );
-        ui.code(debug_tree);
+        egui::Frame::default()
+            .fill(theme.palette.panel_bg_alt)
+            .stroke(Stroke::new(1.0, theme.palette.border_subtle))
+            .corner_radius(corner_radius(theme.rounding.overlay))
+            .inner_margin(egui::Margin::same(8))
+            .show(ui, |ui| {
+                ui.label(
+                    RichText::new("Compiled Shell")
+                        .strong()
+                        .color(theme.palette.text_secondary),
+                );
+                ui.code(debug_tree);
+            });
     }
 }
 
@@ -4382,6 +4677,81 @@ fn draw_missing_feature(ui: &mut egui::Ui, feature_key: &str) {
                 .color(ui.style().visuals.error_fg_color),
         );
     });
+}
+
+fn feature_metadata_label(feature: &ZenUiFeature) -> String {
+    feature
+        .binding
+        .as_deref()
+        .map(|binding| format!("{} // {}", feature_kind_label(&feature.kind), binding))
+        .unwrap_or_else(|| feature_kind_label(&feature.kind).to_string())
+}
+
+fn feature_kind_label(kind: &ZenUiFeatureKind) -> &'static str {
+    match kind {
+        ZenUiFeatureKind::ActionStrip => "action strip",
+        ZenUiFeatureKind::Viewport => "viewport",
+        ZenUiFeatureKind::SceneTree => "scene tree",
+        ZenUiFeatureKind::SelectionInspector => "selection inspector",
+        ZenUiFeatureKind::RuntimeInspector => "runtime inspector",
+        ZenUiFeatureKind::Timeline => "timeline",
+        ZenUiFeatureKind::Painter => "painter",
+        ZenUiFeatureKind::HostApi => "host api",
+        ZenUiFeatureKind::Registry => "registry",
+        ZenUiFeatureKind::KainStatus => "kain status",
+        ZenUiFeatureKind::Fabric => "fabric",
+        ZenUiFeatureKind::DocumentContext => "document context",
+        ZenUiFeatureKind::FileEditor => "file editor",
+    }
+}
+
+fn paint_overlay_badge(
+    painter: &egui::Painter,
+    style: &egui::Style,
+    theme: &ZenUiTheme,
+    rect: egui::Rect,
+    eyebrow: &str,
+    title: &str,
+    detail: &str,
+    accent: Color32,
+) {
+    painter.rect_filled(
+        rect,
+        corner_radius(theme.rounding.overlay),
+        theme.palette.overlay_bg,
+    );
+    painter.rect_stroke(
+        rect,
+        corner_radius(theme.rounding.overlay),
+        Stroke::new(1.0, tint_color(accent, 196)),
+        egui::StrokeKind::Inside,
+    );
+    painter.rect_filled(
+        egui::Rect::from_min_max(rect.left_top(), egui::pos2(rect.right(), rect.top() + 3.0)),
+        corner_radius(theme.rounding.overlay),
+        tint_color(accent, 220),
+    );
+    painter.text(
+        rect.left_top() + egui::vec2(12.0, 7.0),
+        egui::Align2::LEFT_TOP,
+        eyebrow,
+        egui::TextStyle::Small.resolve(style),
+        theme.palette.text_muted,
+    );
+    painter.text(
+        rect.left_top() + egui::vec2(12.0, 23.0),
+        egui::Align2::LEFT_TOP,
+        title,
+        egui::TextStyle::Button.resolve(style),
+        theme.palette.text_primary,
+    );
+    painter.text(
+        rect.left_top() + egui::vec2(12.0, 40.0),
+        egui::Align2::LEFT_TOP,
+        detail,
+        egui::TextStyle::Small.resolve(style),
+        theme.palette.text_secondary,
+    );
 }
 
 fn render_surface_frame(
@@ -4405,6 +4775,10 @@ fn render_surface_frame(
 
 fn corner_radius(value: f32) -> egui::CornerRadius {
     egui::CornerRadius::same(value.round().clamp(0.0, 255.0) as u8)
+}
+
+fn tint_color(color: Color32, alpha: u8) -> Color32 {
+    Color32::from_rgba_unmultiplied(color.r(), color.g(), color.b(), alpha)
 }
 
 struct UiActionResult {
@@ -4545,11 +4919,13 @@ fn build_asset_pipeline() -> Result<AssetPipeline, String> {
 }
 
 fn resolve_default_topbar_group(workspace: &ZenWorkspaceManifest) -> Option<String> {
-    workspace
-        .topbar
-        .default_group
-        .clone()
-        .or_else(|| workspace.topbar.groups.first().map(|group| group.key.clone()))
+    workspace.topbar.default_group.clone().or_else(|| {
+        workspace
+            .topbar
+            .groups
+            .first()
+            .map(|group| group.key.clone())
+    })
 }
 
 fn asset_cache_dir() -> PathBuf {
@@ -4635,7 +5011,10 @@ fn import_document_buffer_from_asset(
             lines.push(format!("vertices: {}", mesh.positions.len() / 3));
             lines.push(format!(
                 "triangles: {}",
-                mesh.indices.as_ref().map(|indices| indices.len() / 3).unwrap_or(0)
+                mesh.indices
+                    .as_ref()
+                    .map(|indices| indices.len() / 3)
+                    .unwrap_or(0)
             ));
             lines.push(format!(
                 "uvs: {}",
@@ -4643,7 +5022,10 @@ fn import_document_buffer_from_asset(
             ));
             lines.push(format!(
                 "normals: {}",
-                mesh.normals.as_ref().map(|normals| normals.len() / 3).unwrap_or(0)
+                mesh.normals
+                    .as_ref()
+                    .map(|normals| normals.len() / 3)
+                    .unwrap_or(0)
             ));
         }
         PipelineAssetData::Scene(scene) => {
@@ -4655,7 +5037,12 @@ fn import_document_buffer_from_asset(
             let triangle_count = scene
                 .meshes
                 .iter()
-                .map(|mesh| mesh.indices.as_ref().map(|indices| indices.len() / 3).unwrap_or(0))
+                .map(|mesh| {
+                    mesh.indices
+                        .as_ref()
+                        .map(|indices| indices.len() / 3)
+                        .unwrap_or(0)
+                })
                 .sum::<usize>();
             lines.push(format!("nodes: {}", scene.nodes.len()));
             lines.push(format!("meshes: {}", scene.meshes.len()));
@@ -4664,7 +5051,10 @@ fn import_document_buffer_from_asset(
             lines.push(format!("triangles: {triangle_count}"));
         }
         PipelineAssetData::Texture(texture) => {
-            lines.push(format!("resolution: {} x {}", texture.width, texture.height));
+            lines.push(format!(
+                "resolution: {} x {}",
+                texture.width, texture.height
+            ));
             lines.push(format!("mips: {}", texture.mip_levels));
         }
         PipelineAssetData::Material(material) => {
@@ -4763,8 +5153,8 @@ fn import_document_buffer_from_fbx(
 fn parse_svg_stencil_summary(path: &Path) -> Result<SvgStencilSummary, String> {
     let data = fs::read(path).map_err(|err| format!("failed to read svg: {err}"))?;
     let options = usvg::Options::default();
-    let tree =
-        usvg::Tree::from_data(&data, &options).map_err(|err| format!("failed to parse svg: {err}"))?;
+    let tree = usvg::Tree::from_data(&data, &options)
+        .map_err(|err| format!("failed to parse svg: {err}"))?;
     let size = tree.size();
     Ok(SvgStencilSummary {
         source_label: path.display().to_string(),
@@ -4810,7 +5200,12 @@ fn painter_mesh_source_from_asset(
             scene
                 .meshes
                 .iter()
-                .map(|mesh| mesh.indices.as_ref().map(|indices| indices.len() / 3).unwrap_or(0))
+                .map(|mesh| {
+                    mesh.indices
+                        .as_ref()
+                        .map(|indices| indices.len() / 3)
+                        .unwrap_or(0)
+                })
                 .sum::<usize>(),
         ),
         _ => (0, 0),
@@ -4853,7 +5248,11 @@ fn default_painter_brushes() -> Vec<KBrushAsset> {
             id: "paint_surface".to_string(),
             name: "Surface Paint".to_string(),
             category: "Paint/Color".to_string(),
-            tags: vec!["paint".to_string(), "surface".to_string(), "pbr".to_string()],
+            tags: vec![
+                "paint".to_string(),
+                "surface".to_string(),
+                "pbr".to_string(),
+            ],
             kernel: BrushKernel::PaintColor,
             params: BrushParams {
                 radius: 0.18,
@@ -4913,7 +5312,11 @@ fn default_painter_brushes() -> Vec<KBrushAsset> {
             id: "paint_edge_wear".to_string(),
             name: "Edge Wear".to_string(),
             category: "Paint/Material".to_string(),
-            tags: vec!["wear".to_string(), "edge".to_string(), "roughness".to_string()],
+            tags: vec![
+                "wear".to_string(),
+                "edge".to_string(),
+                "roughness".to_string(),
+            ],
             kernel: BrushKernel::PaintColor,
             params: BrushParams {
                 radius: 0.12,
@@ -5008,13 +5411,24 @@ fn io_asset_summary_label(asset: &IoAsset) -> String {
             mesh.indices.len() / 3
         ),
         IoAsset::Animation(animation) => {
-            format!("animation // {:.2}s // {} curves", animation.duration, animation.curves.len())
+            format!(
+                "animation // {:.2}s // {} curves",
+                animation.duration,
+                animation.curves.len()
+            )
         }
         IoAsset::Texture(texture) => {
-            format!("texture // {} x {} // {:?}", texture.width, texture.height, texture.format)
+            format!(
+                "texture // {} x {} // {:?}",
+                texture.width, texture.height, texture.format
+            )
         }
         IoAsset::Material(material) => {
-            format!("material // {} params // {} textures", material.parameters.len(), material.textures.len())
+            format!(
+                "material // {} params // {} textures",
+                material.parameters.len(),
+                material.textures.len()
+            )
         }
         IoAsset::SceneGraph(scene) => {
             format!("scene graph // {} nodes", scene.nodes.len())

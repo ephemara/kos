@@ -18,7 +18,10 @@ pub struct ZenUiTheme {
 pub struct ZenThemePalette {
     pub window_bg: Color32,
     pub panel_bg: Color32,
+    pub panel_elevated_bg: Color32,
     pub panel_bg_alt: Color32,
+    pub panel_header_bg: Color32,
+    pub panel_header_accent: Color32,
     pub toolbar_bg: Color32,
     pub status_bg: Color32,
     pub overlay_bg: Color32,
@@ -29,6 +32,10 @@ pub struct ZenThemePalette {
     pub text_muted: Color32,
     pub accent: Color32,
     pub accent_soft: Color32,
+    pub chip_bg: Color32,
+    pub chip_active_bg: Color32,
+    pub chip_outline: Color32,
+    pub success: Color32,
     pub warning: Color32,
     pub danger: Color32,
     pub selection_fill: Color32,
@@ -103,39 +110,90 @@ impl ZenUiTheme {
         let parsed: ZenThemeFile = toml::from_str(source)
             .map_err(|err| format!("Failed to parse Zen theme manifest: {err}"))?;
 
+        let window_bg = parse_color("window_bg", &parsed.palette.window_bg)?;
+        let panel_bg = parse_color("panel_bg", &parsed.palette.panel_bg)?;
+        let panel_bg_alt = parse_color("panel_bg_alt", &parsed.palette.panel_bg_alt)?;
+        let toolbar_bg = parse_color("toolbar_bg", &parsed.palette.toolbar_bg)?;
+        let status_bg = parse_color("status_bg", &parsed.palette.status_bg)?;
+        let overlay_bg = parse_color("overlay_bg", &parsed.palette.overlay_bg)?;
+        let border_subtle = parse_color("border_subtle", &parsed.palette.border_subtle)?;
+        let border_strong = parse_color("border_strong", &parsed.palette.border_strong)?;
+        let text_primary = parse_color("text_primary", &parsed.palette.text_primary)?;
+        let text_secondary = parse_color("text_secondary", &parsed.palette.text_secondary)?;
+        let text_muted = parse_color("text_muted", &parsed.palette.text_muted)?;
+        let accent = parse_color("accent", &parsed.palette.accent)?;
+        let accent_soft = parse_color("accent_soft", &parsed.palette.accent_soft)?;
+        let warning = parse_color("warning", &parsed.palette.warning)?;
+        let danger = parse_color("danger", &parsed.palette.danger)?;
+        let selection_fill = parse_color("selection_fill", &parsed.palette.selection_fill)?;
+        let selection_stroke = parse_color("selection_stroke", &parsed.palette.selection_stroke)?;
+        let viewport_outline = parse_color("viewport_outline", &parsed.palette.viewport_outline)?;
+        let viewport_outline_hover = parse_color(
+            "viewport_outline_hover",
+            &parsed.palette.viewport_outline_hover,
+        )?;
+        let timeline_track = parse_color("timeline_track", &parsed.palette.timeline_track)?;
+        let timeline_tick = parse_color("timeline_tick", &parsed.palette.timeline_tick)?;
+        let timeline_clip = parse_color("timeline_clip", &parsed.palette.timeline_clip)?;
+        let panel_elevated_bg = parse_optional_color(
+            "panel_elevated_bg",
+            parsed.palette.panel_elevated_bg.as_deref(),
+            panel_bg_alt,
+        )?;
+        let panel_header_bg = parse_optional_color(
+            "panel_header_bg",
+            parsed.palette.panel_header_bg.as_deref(),
+            panel_elevated_bg,
+        )?;
+        let panel_header_accent = parse_optional_color(
+            "panel_header_accent",
+            parsed.palette.panel_header_accent.as_deref(),
+            accent,
+        )?;
+        let chip_bg = parse_optional_color("chip_bg", parsed.palette.chip_bg.as_deref(), panel_bg)?;
+        let chip_active_bg = parse_optional_color(
+            "chip_active_bg",
+            parsed.palette.chip_active_bg.as_deref(),
+            panel_elevated_bg,
+        )?;
+        let chip_outline = parse_optional_color(
+            "chip_outline",
+            parsed.palette.chip_outline.as_deref(),
+            border_subtle,
+        )?;
+        let success = parse_optional_color("success", parsed.palette.success.as_deref(), accent)?;
+
         Ok(Self {
             palette: ZenThemePalette {
-                window_bg: parse_color("window_bg", &parsed.palette.window_bg)?,
-                panel_bg: parse_color("panel_bg", &parsed.palette.panel_bg)?,
-                panel_bg_alt: parse_color("panel_bg_alt", &parsed.palette.panel_bg_alt)?,
-                toolbar_bg: parse_color("toolbar_bg", &parsed.palette.toolbar_bg)?,
-                status_bg: parse_color("status_bg", &parsed.palette.status_bg)?,
-                overlay_bg: parse_color("overlay_bg", &parsed.palette.overlay_bg)?,
-                border_subtle: parse_color("border_subtle", &parsed.palette.border_subtle)?,
-                border_strong: parse_color("border_strong", &parsed.palette.border_strong)?,
-                text_primary: parse_color("text_primary", &parsed.palette.text_primary)?,
-                text_secondary: parse_color("text_secondary", &parsed.palette.text_secondary)?,
-                text_muted: parse_color("text_muted", &parsed.palette.text_muted)?,
-                accent: parse_color("accent", &parsed.palette.accent)?,
-                accent_soft: parse_color("accent_soft", &parsed.palette.accent_soft)?,
-                warning: parse_color("warning", &parsed.palette.warning)?,
-                danger: parse_color("danger", &parsed.palette.danger)?,
-                selection_fill: parse_color("selection_fill", &parsed.palette.selection_fill)?,
-                selection_stroke: parse_color(
-                    "selection_stroke",
-                    &parsed.palette.selection_stroke,
-                )?,
-                viewport_outline: parse_color(
-                    "viewport_outline",
-                    &parsed.palette.viewport_outline,
-                )?,
-                viewport_outline_hover: parse_color(
-                    "viewport_outline_hover",
-                    &parsed.palette.viewport_outline_hover,
-                )?,
-                timeline_track: parse_color("timeline_track", &parsed.palette.timeline_track)?,
-                timeline_tick: parse_color("timeline_tick", &parsed.palette.timeline_tick)?,
-                timeline_clip: parse_color("timeline_clip", &parsed.palette.timeline_clip)?,
+                window_bg,
+                panel_bg,
+                panel_elevated_bg,
+                panel_bg_alt,
+                panel_header_bg,
+                panel_header_accent,
+                toolbar_bg,
+                status_bg,
+                overlay_bg,
+                border_subtle,
+                border_strong,
+                text_primary,
+                text_secondary,
+                text_muted,
+                accent,
+                accent_soft,
+                chip_bg,
+                chip_active_bg,
+                chip_outline,
+                success,
+                warning,
+                danger,
+                selection_fill,
+                selection_stroke,
+                viewport_outline,
+                viewport_outline_hover,
+                timeline_track,
+                timeline_tick,
+                timeline_clip,
             },
             spacing: ZenThemeSpacing {
                 item: parsed.spacing.item,
@@ -196,25 +254,25 @@ impl ZenUiTheme {
         style.visuals = egui::Visuals::dark();
         style.visuals.panel_fill = self.palette.window_bg;
         style.visuals.extreme_bg_color = self.palette.window_bg;
-        style.visuals.faint_bg_color = self.palette.panel_bg_alt;
+        style.visuals.faint_bg_color = self.palette.panel_elevated_bg;
         style.visuals.window_fill = self.palette.panel_bg;
         style.visuals.selection.bg_fill = self.palette.selection_fill;
         style.visuals.selection.stroke = egui::Stroke::new(1.0, self.palette.selection_stroke);
         style.visuals.hyperlink_color = self.palette.accent;
-        style.visuals.widgets.noninteractive.bg_fill = self.palette.panel_bg_alt;
-        style.visuals.widgets.noninteractive.weak_bg_fill = self.palette.panel_bg_alt;
+        style.visuals.widgets.noninteractive.bg_fill = self.palette.panel_header_bg;
+        style.visuals.widgets.noninteractive.weak_bg_fill = self.palette.panel_elevated_bg;
         style.visuals.widgets.noninteractive.bg_stroke =
             egui::Stroke::new(1.0, self.palette.border_subtle);
-        style.visuals.widgets.inactive.bg_fill = self.palette.panel_bg;
-        style.visuals.widgets.inactive.weak_bg_fill = self.palette.panel_bg;
+        style.visuals.widgets.inactive.bg_fill = self.palette.panel_elevated_bg;
+        style.visuals.widgets.inactive.weak_bg_fill = self.palette.panel_bg_alt;
         style.visuals.widgets.inactive.bg_stroke =
             egui::Stroke::new(1.0, self.palette.border_subtle);
-        style.visuals.widgets.hovered.bg_fill = self.palette.accent_soft;
-        style.visuals.widgets.hovered.weak_bg_fill = self.palette.accent_soft;
+        style.visuals.widgets.hovered.bg_fill = self.palette.chip_active_bg;
+        style.visuals.widgets.hovered.weak_bg_fill = self.palette.chip_active_bg;
         style.visuals.widgets.hovered.bg_stroke =
             egui::Stroke::new(1.0, self.palette.border_strong);
-        style.visuals.widgets.active.bg_fill = self.palette.selection_fill;
-        style.visuals.widgets.active.weak_bg_fill = self.palette.selection_fill;
+        style.visuals.widgets.active.bg_fill = self.palette.accent_soft;
+        style.visuals.widgets.active.weak_bg_fill = self.palette.accent_soft;
         style.visuals.widgets.active.bg_stroke =
             egui::Stroke::new(1.0, self.palette.selection_stroke);
     }
@@ -300,7 +358,10 @@ struct ZenThemeFile {
 struct ZenThemePaletteFile {
     window_bg: String,
     panel_bg: String,
+    panel_elevated_bg: Option<String>,
     panel_bg_alt: String,
+    panel_header_bg: Option<String>,
+    panel_header_accent: Option<String>,
     toolbar_bg: String,
     status_bg: String,
     overlay_bg: String,
@@ -311,6 +372,10 @@ struct ZenThemePaletteFile {
     text_muted: String,
     accent: String,
     accent_soft: String,
+    chip_bg: Option<String>,
+    chip_active_bg: Option<String>,
+    chip_outline: Option<String>,
+    success: Option<String>,
     warning: String,
     danger: String,
     selection_fill: String,
@@ -391,6 +456,16 @@ fn parse_hex_u8(value: &str, label: &str) -> Result<u8, String> {
     u8::from_str_radix(value, 16).map_err(|err| {
         format!("Invalid hex component '{value}' in Zen theme color '{label}': {err}")
     })
+}
+
+fn parse_optional_color(
+    label: &str,
+    raw: Option<&str>,
+    fallback: Color32,
+) -> Result<Color32, String> {
+    raw.map(|value| parse_color(label, value))
+        .transpose()
+        .map(|parsed| parsed.unwrap_or(fallback))
 }
 
 fn color32_to_wgpu(color: Color32) -> wgpu::Color {

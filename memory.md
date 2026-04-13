@@ -1,5 +1,63 @@
 # Memory
 
+## 2026-04-13: Zen shell visual system upgraded without widening host sprawl
+
+The native Zen editor had crossed the line from "plain" into "debug-tool ugly." The right fix was not another host rewrite and not more ad hoc `egui` widgets. The shortest useful move was to strengthen the existing manifest/theme lane so the editor shell, dock surfaces, and viewport overlays all read as one intentional system.
+
+What changed:
+
+- Expanded `apps/zen/resources/theme.toml` with richer shell tokens for elevated surfaces, panel headers, status chips, success state, and stronger dock contrast.
+- Updated `apps/zen/src/theme.rs` so those new palette fields load with backward-compatible fallbacks instead of breaking older theme manifests.
+- Reworked `apps/zen/src/kain_ui_host.rs` around the new visual contract:
+  - stronger workspace topbar chrome and expanded action shelf
+  - more intentional statusbar and chip styling
+  - dock feature panels with real metadata-bearing headers
+  - upgraded workspace/document panels and document editor controls
+  - styled inspector sections and Kain status presentation
+  - cleaner viewport overlays that look like product UI instead of temporary debug badges
+
+Validation completed:
+
+- `rustfmt --edition 2021 apps/zen/src/kain_ui_host.rs apps/zen/src/theme.rs`
+- `cargo check -p zen`
+
+Durable findings:
+
+- The fastest path to a funding-facing Zen editor is still the current native host with a stronger theme/surface system, not another UI framework reset. The problem was mostly visual hierarchy and chrome discipline, not missing host capability.
+- `apps/zen/resources/theme.toml` is now a higher-value control surface. Future polish should keep moving through theme tokens and reusable draw helpers rather than reintroducing local one-off colors and frames inside `kain_ui_host.rs`.
+- Viewport overlays, panel headers, and workspace/document surfaces can be made to look materially better inside the current host architecture. That means the next aesthetic upgrades should focus on deeper panel semantics and higher-value workflows, not on replacing the shell again.
+
+Current risks:
+
+- `apps/zen/src/kain_ui_host.rs` is still very large. This pass improved the visual system, but the file still wants eventual decomposition into reusable shell surface helpers and panel-specific modules.
+- `cargo fmt --all` remains noisy at workspace scope because unrelated files outside the Zen shell path already fail formatting/parsing. Continue using targeted formatting on touched Zen files unless the broader workspace cleanup becomes the task.
+
+## 2026-04-12: Source workspaces now live under a single `sources/` root
+
+The repo still had three noisy top-level authored source trees at the root: `src-kain`, `src-python`, and `src-game`. That layout fought the new `apps/` split and kept the root harder to scan than it needed to be.
+
+What changed:
+
+- Moved the remaining authored source trees under a single `sources/` bucket:
+  - `src-kain` -> `sources/kain`
+  - `src-python` -> `sources/python`
+  - `src-game` -> `sources/game`
+- Moved the bundled Kain workspace mirror under `apps/tauri/resources/kain-workspace/sources/kain` so release staging follows the same structure as the live repo.
+- Updated live build/config/runtime references to the new paths across Tauri, Bevy, Kain manifests, release staging, and root docs.
+- Added `sources/README.md` as the placement guide for authored source workspaces and content trees that do not belong in `apps/` or `crates/`.
+- Fixed `scripts/testing/run_tests.py` and `scripts/testing/run_tests_with_output.py` so they resolve `sources/python` from repo root instead of incorrectly looking under `scripts/testing/`.
+
+Design decisions:
+
+- The right cleanup was one `sources/` bucket, not three renamed root folders. That reduces root noise while preserving a clear distinction between runnable hosts (`apps/*`), Rust packages (`crates/*`), and authored source/content workspaces (`sources/*`).
+- `sources/game` stays outside `apps/` because it is authored content and manifest ownership, not a runnable host.
+- The Python test runners now compute repo-root-relative paths so they remain valid regardless of the caller's current working directory.
+
+Current risks:
+
+- Historical specs, archived changelogs, and generated repo maps still mention the old `src-*` layout. Those references are intentionally left alone for now because they are historical artifacts, not live runtime/build inputs.
+- `DIRECTORY.md` still needs a deeper re-audit if it is going to be treated as a precise path map rather than a general orientation document.
+
 ## 2026-04-12: App surfaces now use host-aligned names under `apps/`
 
 The runnable surfaces were still using a mix of legacy and ambiguous folder names, which made it harder to tell where new work should land. The clearest fix was to name app folders by host or runtime boundary instead of by historical implementation terms.
@@ -66,8 +124,8 @@ Design decisions:
 Current risks:
 
 - This is parity modeling plus contract widening, not a full execution-layer adoption of Omni, Node bridge, crate FFI, native-ui packaging, or UE5 injection inside K_OS.
-- `src-tauri/resources/kain-workspace` is still a separate bundled workspace copy; if future release flows depend on that copy directly, it can drift unless the release sync path stays disciplined.
-- The older `src-frontend/systems/kain` lane still exists alongside `src-frontend/kain`; future Kain UI work should avoid letting those surfaces diverge again.
+- `apps/tauri/resources/kain-workspace` is still a separate bundled workspace copy; if future release flows depend on that copy directly, it can drift unless the release sync path stays disciplined.
+- The older `apps/web/src/systems/kain` lane still exists alongside `apps/web/src/kain`; future Kain UI work should avoid letting those surfaces diverge again.
 
 Recommended next step:
 
