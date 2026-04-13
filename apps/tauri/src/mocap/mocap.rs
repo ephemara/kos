@@ -1494,7 +1494,7 @@ pub fn mocap_prepare_video_preview(path: String) -> Result<String, String> {
 
 // ─── Model Management Commands ────────────────────────────────────────────────
 
-/// Returns the source-tree `src-tauri/resources/models/` directory.
+/// Returns the source-tree `apps/tauri/resources/models/` directory.
 /// Only valid in dev builds where CARGO_MANIFEST_DIR is available.
 fn dev_resources_models_dir() -> Option<std::path::PathBuf> {
     // CARGO_MANIFEST_DIR is set at compile time — safe to use in dev.

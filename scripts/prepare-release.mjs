@@ -183,7 +183,8 @@ function stagePythonSidecar() {
   const bundleTargetPath = path.join(rootDir, pythonConfig.bundleTarget);
   const legacySingleFileTargetPath = path.join(
     rootDir,
-    'src-tauri',
+    'apps',
+    'tauri',
     'resources',
     'bin',
     isWindows ? 'kos_python.exe' : 'kos_python'

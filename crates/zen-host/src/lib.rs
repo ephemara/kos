@@ -4,7 +4,7 @@ use std::fs;
 use std::path::{Path, PathBuf};
 use zen_core::{ZenCommand, ZenPlayMode};
 
-const DEFAULT_ZEN_HOST_API: &str = include_str!("../../zen/resources/host_api.toml");
+const DEFAULT_ZEN_HOST_API: &str = include_str!("../../../apps/zen/resources/host_api.toml");
 
 #[derive(Clone, Debug)]
 pub struct ZenHostApi {

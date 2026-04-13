@@ -1,4 +1,4 @@
-# K_OS /src-tauri RUST BACKEND MAP
+# K_OS /apps/tauri Rust Backend Map
 
 > **FOR AI AGENTS** | This is the **TAURI IPC PROXY** of a desktop 3D creative suite
 >
@@ -11,7 +11,7 @@
 STACK: Rust + Tauri v2 (IPC Proxy Only)
 TOTAL_CRATES: ~60 (across workspace)
 COMMANDS: 50+ Tauri IPC commands
-WORKSPACE: owner crates + src-tauri + crates/k-os-bevy
+WORKSPACE: owner crates + apps/tauri + apps/bevy
 ```
 
 ---
@@ -24,14 +24,14 @@ WORKSPACE: owner crates + src-tauri + crates/k-os-bevy
 ├─────────────────────────────────────────────────────────────────────────┤
 │                                                                         │
 │   ┌─────────────────────────────────────────────────────────────────┐   │
-│   │                 src-frontend/ (React Frontend)                   │   │
+│   │                 apps/web/ (React Frontend)                   │   │
 │   │    UI Layer - calls YOU via invoke()                            │   │
 │   └─────────────────────────────────────────────────────────────────┘   │
 │                                    │                                    │
 │                          invoke() via Tauri IPC                         │
 │                                    ▼                                    │
 │   ┌─────────────────────────────────────────────────────────────────┐   │
-│   │              ★ YOU ARE HERE: src-tauri/ ★                       │   │
+│   │              ★ YOU ARE HERE: apps/tauri/ ★                       │   │
 │   │                                                                 │   │
 │   │   main.rs ─────────────────────────────────────────────────     │   │
 │   │   │ Tauri entry point                                           │   │
@@ -73,7 +73,7 @@ WORKSPACE: owner crates + src-tauri + crates/k-os-bevy
 │   └─────────────────────────────────────────────────────────────────┘   │
 │                                                                         │
 │   ┌─────────────────────────────────────────────────────────────────┐   │
-│   │              crates/k-os-bevy/ (Bevy Renderer)                  │   │
+│   │              apps/bevy/ (Bevy Renderer)                  │   │
 │   │    Bevy 0.17 + egui 3D viewport                                 │   │
 │   └─────────────────────────────────────────────────────────────────┘   │
 │                                                                         │
@@ -108,7 +108,7 @@ WORKSPACE: owner crates + src-tauri + crates/k-os-bevy
 > **FULL CRATE LIST:** See `../docs/CARGO_ARSENAL.md` in project root!
 > **HEAVY COMPUTE:** Now in owner crates under `crates/`
 > **GPU PIPELINES:** Now in `crates/k-os-gpu-pipeline/src/`
-> **BEVY RENDERER:** Now in `crates/k-os-bevy/src/`
+> **BEVY RENDERER:** Now in `apps/bevy/src/`
 ```
 
 ---
@@ -116,7 +116,7 @@ WORKSPACE: owner crates + src-tauri + crates/k-os-bevy
 ## FOLDER STRUCTURE (POST-REFACTOR)
 
 ```
-src-tauri/                      # ★ THIN IPC PROXY ONLY ★
+apps/tauri/                  # ★ THIN IPC PROXY ONLY ★
 ├── Cargo.toml                  # Dependencies (minimal)
 ├── build.rs                    # "The Sentry" - compile-time checks
 ├── tauri.conf.json             # Tauri config
@@ -126,9 +126,9 @@ src-tauri/                      # ★ THIN IPC PROXY ONLY ★
     ├── leash.rs               # 16KB - UDP IPC to Bevy (LeashMaster)
     ├── python_bridge.rs       # 11KB - JSON-RPC to Python sidecar
     │
-    └── bevy/                  # [MOVED] Legacy files - use crates/k-os-bevy/ instead
+    └── bevy/                  # [MOVED] Legacy files - use apps/bevy/ instead
         # NOTE: This folder only contains legacy stubs
-        # Actual Bevy code is now in crates/k-os-bevy/
+        # Actual Bevy code is now in apps/bevy/
 ```
 
 ## WORKSPACE STRUCTURE
@@ -140,10 +140,10 @@ src-tauri/                      # ★ THIN IPC PROXY ONLY ★
 │   ├── k-os-mesh/            # Mesh ops + atlas
 │   └── ...                   # Other domain owners
 │
-├── src-tauri/                 # ★ IPC PROXY ★
+├── apps/tauri/             # ★ IPC PROXY ★
 │   └── src/main.rs            # Command registration only
 │
-└── crates/k-os-bevy/          # ★ BEVY RENDERER ★
+└── apps/bevy/                # ★ BEVY RENDERER ★
     └── src/                   # Bevy plugins + egui UI
 ```
 
@@ -332,7 +332,7 @@ pub fn my_operation(data: &[f32]) -> Vec<f32> {
     data.par_iter().map(|x| x * 2.0).collect()
 }
 
-// 2. Add command wrapper in src-tauri/src/main.rs
+// 2. Add command wrapper in apps/tauri/src/main.rs
 #[tauri::command]
 fn my_command(input: Vec<f32>) -> Result<Vec<f32>, String> {
     Ok(k_os_engine::your_module::my_operation(&input))
@@ -344,7 +344,7 @@ fn my_command(input: Vec<f32>) -> Result<Vec<f32>, String> {
     // ... existing commands
 ])
 
-// 4. Create TypeScript client in src-frontend/services/myClient.ts
+// 4. Create TypeScript client in apps/web/src/services/myClient.ts
 export async function myOperation(input: number[]): Promise<number[]> {
     return await invoke('my_command', { input });
 }
@@ -426,7 +426,7 @@ Compile-time checks that FAIL THE BUILD if:
 ### Dev Build (Fast Compile)
 
 ```bash
-cd src-tauri && bacon  # Live TUI, auto-rebuild
+cd apps/tauri && bacon  # Live TUI, auto-rebuild
 # OR
 cargo build           # Single build
 ```
@@ -489,6 +489,6 @@ main.rs                   16KB    Tauri entry, commands
 ../DIRECTORY.md              # Complete project map (NEW STRUCTURE)
 ../RECENT_CHANGES.md         # Recent modifications
 ../docs/BEVYDOCS.md          # Bevy 0.17 syntax reference
-../crates/k-os-bevy/         # Bevy renderer code
+../apps/bevy/                # Bevy renderer code
 ../crates/                   # Owner crates
 ```

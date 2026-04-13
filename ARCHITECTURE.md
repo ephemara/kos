@@ -10,20 +10,20 @@ K_OS is a private multi-runtime creative tooling workspace. The repo combines:
 - an experimental Bevy host,
 - a native Zen host.
 
-Historical notes in this file may reference old Windows paths like `M:\\K_OS` and `M:\\Code\\Kain`. On this Linux workspace, treat the repo root as `/home/ephemara/Dev/Apps-3D/Zender` and the sibling upstream Kain checkout as `/home/ephemara/Dev/Kain`.
+Historical notes in this file may reference old Windows paths like `M:\\K_OS` and `M:\\Code\\Kain`. On this Linux workspace, treat the repo root as `/home/ephemara/Dev/Kain/zender` and the sibling upstream Kain checkout as `/home/ephemara/Dev/Kain`.
 
 Inside the Rust workspace, the important architectural rule is that heavy logic should live in owner/domain crates, while host crates stay thin composition roots.
 
 ## Workspace Shape
 
-The workspace root is [`M:\K_OS\Cargo.toml`](M:\K_OS\Cargo.toml). It currently contains 47 workspace packages under `src-tauri` and `crates/*`.
+The workspace root is [`/home/ephemara/Dev/Kain/zender/Cargo.toml`](/home/ephemara/Dev/Kain/zender/Cargo.toml). It currently contains 47 workspace packages under `apps/*` and `crates/*`.
 
 The most important crate groups are:
 
 - Hosts and composition roots:
-  - [`M:\K_OS\src-tauri`](M:\K_OS\src-tauri)
-  - [`M:\K_OS\crates\k-os-bevy`](M:\K_OS\crates\k-os-bevy)
-  - [`M:\K_OS\crates\zen`](M:\K_OS\crates\zen)
+  - [`/home/ephemara/Dev/Kain/zender/apps/tauri`](/home/ephemara/Dev/Kain/zender/apps/tauri)
+  - [`/home/ephemara/Dev/Kain/zender/apps/bevy`](/home/ephemara/Dev/Kain/zender/apps/bevy)
+  - [`/home/ephemara/Dev/Kain/zender/apps/zen`](/home/ephemara/Dev/Kain/zender/apps/zen)
 - Foundation crates:
   - [`M:\K_OS\crates\k-os-scene`](M:\K_OS\crates\k-os-scene)
   - [`M:\K_OS\crates\k-os-eval`](M:\K_OS\crates\k-os-eval)
@@ -40,9 +40,9 @@ The most important crate groups are:
 
 ### Tauri
 
-[`M:\K_OS\src-tauri\Cargo.toml`](M:\K_OS\src-tauri\Cargo.toml) is a thin backend proxy in intent, but today it statically depends on many owner crates directly. It exposes functionality through Tauri command modules in [`M:\K_OS\src-tauri\src\commands`](M:\K_OS\src-tauri\src\commands).
+[`/home/ephemara/Dev/Kain/zender/apps/tauri/Cargo.toml`](/home/ephemara/Dev/Kain/zender/apps/tauri/Cargo.toml) is a thin backend proxy in intent, but today it statically depends on many owner crates directly. It exposes functionality through Tauri command modules in [`/home/ephemara/Dev/Kain/zender/apps/tauri/src/commands`](/home/ephemara/Dev/Kain/zender/apps/tauri/src/commands).
 
-The host now also exposes a registry-backed composition surface from [`M:\K_OS\src-tauri\src\commands\registry.rs`](M:\K_OS\src-tauri\src\commands\registry.rs). Those commands let the frontend or other host-side consumers query:
+The host now also exposes a registry-backed composition surface from [`/home/ephemara/Dev/Kain/zender/apps/tauri/src/commands/registry.rs`](/home/ephemara/Dev/Kain/zender/apps/tauri/src/commands/registry.rs). Those commands let the frontend or other host-side consumers query:
 
 - workspace summary
 - adapter targets and adapter manifests
@@ -52,30 +52,30 @@ The host now also exposes a registry-backed composition surface from [`M:\K_OS\s
 
 The Tauri boundary now has three shared contract modules:
 
-- [`M:\K_OS\src-tauri\src\registry_contract.rs`](M:\K_OS\src-tauri\src\registry_contract.rs)
-- [`M:\K_OS\src-tauri\src\kain_contract.rs`](M:\K_OS\src-tauri\src\kain_contract.rs)
-- [`M:\K_OS\src-tauri\src\viewport_contract.rs`](M:\K_OS\src-tauri\src\viewport_contract.rs)
+- [`/home/ephemara/Dev/Kain/zender/apps/tauri/src/registry_contract.rs`](/home/ephemara/Dev/Kain/zender/apps/tauri/src/registry_contract.rs)
+- [`/home/ephemara/Dev/Kain/zender/apps/tauri/src/kain_contract.rs`](/home/ephemara/Dev/Kain/zender/apps/tauri/src/kain_contract.rs)
+- [`/home/ephemara/Dev/Kain/zender/apps/tauri/src/viewport_contract.rs`](/home/ephemara/Dev/Kain/zender/apps/tauri/src/viewport_contract.rs)
 
-`src-tauri/build.rs` exports those contracts through Specta into [`M:\K_OS\src-frontend\generated\tauriRegistry.gen.ts`](M:\K_OS\src-frontend\generated\tauriRegistry.gen.ts), so the frontend can consume typed registry, Kain, and viewport commands without hand-maintaining TS interfaces.
+`apps/tauri/build.rs` exports those contracts through Specta into [`/home/ephemara/Dev/Kain/zender/apps/web/src/generated/tauriRegistry.gen.ts`](/home/ephemara/Dev/Kain/zender/apps/web/src/generated/tauriRegistry.gen.ts), so the frontend can consume typed registry, Kain, and viewport commands without hand-maintaining TS interfaces.
 
 The durable Zen-facing contract note is [`M:\K_OS\docs\zen_contract_surface.md`](M:\K_OS\docs\zen_contract_surface.md). It defines the stable host/integration/internal split for Zen consumption and points Delta at the registry lookups and entrypoints it should use instead of rediscovering crates manually.
 
 On the frontend side, the current native viewport composition root is the shared session plus app viewport path:
 
-- [`M:\K_OS\src-frontend\features\viewport\sharedViewportSession.tsx`](M:\K_OS\src-frontend\features\viewport\sharedViewportSession.tsx) is the owner-registration seam for whichever feature currently claims the shared viewport
-- [`M:\K_OS\src-frontend\ui\viewport\AppViewport.tsx`](M:\K_OS\src-frontend\ui\viewport\AppViewport.tsx) is the shell-facing bridge that mounts the native viewport and instruments runtime callbacks into shared state
-- [`M:\K_OS\src-frontend\features\viewport\NativeViewport.tsx`](M:\K_OS\src-frontend\features\viewport\NativeViewport.tsx) owns the actual native viewport lifecycle and pointer/camera/gizmo interaction wiring
-- [`M:\K_OS\src-frontend\state\stores\viewportStore.ts`](M:\K_OS\src-frontend\state\stores\viewportStore.ts) is the shared frontend control plane for native viewport availability, session status, handles, stats, selection, and persistent viewport preferences
+- [`/home/ephemara/Dev/Kain/zender/apps/web/src/features/viewport/sharedViewportSession.tsx`](/home/ephemara/Dev/Kain/zender/apps/web/src/features/viewport/sharedViewportSession.tsx) is the owner-registration seam for whichever feature currently claims the shared viewport
+- [`/home/ephemara/Dev/Kain/zender/apps/web/src/ui/viewport/AppViewport.tsx`](/home/ephemara/Dev/Kain/zender/apps/web/src/ui/viewport/AppViewport.tsx) is the shell-facing bridge that mounts the native viewport and instruments runtime callbacks into shared state
+- [`/home/ephemara/Dev/Kain/zender/apps/web/src/features/viewport/NativeViewport.tsx`](/home/ephemara/Dev/Kain/zender/apps/web/src/features/viewport/NativeViewport.tsx) owns the actual native viewport lifecycle and pointer/camera/gizmo interaction wiring
+- [`/home/ephemara/Dev/Kain/zender/apps/web/src/state/stores/viewportStore.ts`](/home/ephemara/Dev/Kain/zender/apps/web/src/state/stores/viewportStore.ts) is the shared frontend control plane for native viewport availability, session status, handles, stats, selection, and persistent viewport preferences
 
 The intended pattern is: feature modules register a shared viewport request, `AppViewport` binds that request to the native renderer bridge, and shell UI reads runtime state from `viewportStore` instead of inventing per-feature viewport session state.
 
 ### Bevy
 
-[`M:\K_OS\crates\k-os-bevy\Cargo.toml`](M:\K_OS\crates\k-os-bevy\Cargo.toml) is an experimental host that aggregates renderer, sculpt, GPU, and gameplay crates directly.
+[`/home/ephemara/Dev/Kain/zender/apps/bevy/Cargo.toml`](/home/ephemara/Dev/Kain/zender/apps/bevy/Cargo.toml) is an experimental host that aggregates renderer, sculpt, GPU, and gameplay crates directly.
 
 ### Zen
 
-[`M:\K_OS\crates\zen\Cargo.toml`](M:\K_OS\crates\zen\Cargo.toml) is a native host that composes Kain, renderer, asset pipeline, and the `zen-*` crates.
+[`/home/ephemara/Dev/Kain/zender/apps/zen/Cargo.toml`](/home/ephemara/Dev/Kain/zender/apps/zen/Cargo.toml) is a native host that composes Kain, renderer, asset pipeline, and the `zen-*` crates.
 
 Zen's current native renderer cutover now lives in [`M:\K_OS\crates\zen\src\renderer_session.rs`](M:\K_OS\crates\zen\src\renderer_session.rs). That session owns the shared `k-os-renderer` service, mirrors Zen scene data into `k-os-scene-runtime` as the canonical eval bridge, forwards camera state, handles selection requests, and caches scene geometry, while [`M:\K_OS\crates\zen\src\main.rs`](M:\K_OS\crates\zen\src\main.rs) keeps the surface/presentation/post seam.
 
@@ -258,7 +258,7 @@ Testing and heavy validation should still follow the repo conversation rule: ask
 - Avoid adding new string-literal crate IDs or hardcoded asset paths when a manifest or schema already exists nearby.
 - `k-os-plugin` exists, but dynamic library loading is not the easiest first answer for this workspace. Static Cargo composition plus generated registries is simpler and safer for the current architecture.
 - Zen's `renderer_session.rs` should be treated as the current ownership boundary for scene-to-render sync. If you need draw data or selection in Zen, use that session instead of rebuilding scene buffers directly in `main.rs`.
-- For Zen shell/UI work, extend `crates/zen/resources/workspace_ui.toml` and `crates/zen/resources/theme.toml` first. `kain_ui_host.rs` should project those manifests and state, not become another hardcoded layout file.
+- For Zen shell/UI work, extend `apps/zen/resources/workspace_ui.toml` and `apps/zen/resources/theme.toml` first. `kain_ui_host.rs` should project those manifests and state, not become another hardcoded layout file.
 - `cargo metadata` is the fastest reliable way to inspect the workspace graph; use `--format-version 1`.
 - The Linux checkout currently expects the upstream Kain repo as a sibling workspace (`/home/ephemara/Dev/Kain`). If that is not true, set `KAIN_REPO_ROOT` and `KAIN_BIN_PATH` explicitly before blaming Cargo or Tauri.
 - `public_api_registry.json` is now the closest thing this workspace has to generated headers. Use it when you need to answer “what is callable from this crate?” before reaching for global `rg` on `pub fn`.

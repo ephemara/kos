@@ -7,7 +7,7 @@
 pub fn save_temp_glb(data: Vec<u8>) -> Result<String, String> {
     use std::io::Write;
     let cwd = std::env::current_dir().map_err(|e| e.to_string())?;
-    // Move UP one level to avoid triggering the watcher in src-tauri
+    // Move up one level to avoid triggering the watcher in apps/tauri
     let assets_dir = cwd.parent().unwrap_or(&cwd).join("assets");
     if !assets_dir.exists() {
         std::fs::create_dir_all(&assets_dir).map_err(|e| e.to_string())?;

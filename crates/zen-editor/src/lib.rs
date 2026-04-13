@@ -5,7 +5,8 @@ use std::fs;
 use std::path::{Path, PathBuf};
 use zen_core::ZenPlayMode;
 
-const DEFAULT_WORKSPACE_MANIFEST: &str = include_str!("../../zen/resources/workspace_ui.toml");
+const DEFAULT_WORKSPACE_MANIFEST: &str =
+    include_str!("../../../apps/zen/resources/workspace_ui.toml");
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct ZenEditorSession {

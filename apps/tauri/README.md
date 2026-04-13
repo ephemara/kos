@@ -1,11 +1,11 @@
-# src-tauri Architecture
+# apps/tauri Architecture
 
 The Rust backend for K_OS. This powers **both** the Tauri desktop shell and the sidecar Bevy 3D viewport.
 
 ## 📂 Directory Structure
 
 ```
-src-tauri/
+apps/tauri/
 ├── src/
 │   ├── gpu/                 # WGPU Compute (shared by Tauri + Bevy)
 │   │   ├── device.rs        # Singleton GPU device (wgpu::Device + Queue)

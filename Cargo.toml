@@ -7,9 +7,9 @@
 
 [workspace]
 members = [
-    "apps/k-os-backend",
+    "apps/tauri",
     "apps/zen",
-    "apps/k-os-bevy",
+    "apps/bevy",
     "crates/zen-assets",
     "crates/zen-core",
     "crates/zen-editor",

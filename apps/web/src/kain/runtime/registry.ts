@@ -12,6 +12,13 @@ export const KAIN_RUNTIME_HOST_LABELS: Readonly<Record<KAINHostKind, string>> = 
     webview: 'Webview',
     wasm_runtime: 'WASM Runtime',
     hybrid: 'Hybrid',
+    native_runtime: 'Native Runtime',
+    python: 'Python',
+    node: 'Node',
+    rust_host: 'Rust Host',
+    c_abi: 'C ABI',
+    ue_5: 'UE5',
+    cli: 'CLI',
 };
 
 export const KAIN_RUNTIME_KIND_LABELS: Readonly<Record<KAINRuntimeApp['runtimeKind'], string>> = {
@@ -19,6 +26,14 @@ export const KAIN_RUNTIME_KIND_LABELS: Readonly<Record<KAINRuntimeApp['runtimeKi
     desktop_script: 'Desktop Script',
     compute_kernel: 'Compute Kernel',
     hybrid_module: 'Hybrid Module',
+    native_ui_app: 'Native UI App',
+    viewport_3d_app: 'Viewport 3D App',
+    python_bridge: 'Python Bridge',
+    node_bridge: 'Node Bridge',
+    rust_crate_bridge: 'Rust Crate Bridge',
+    c_abi_bridge: 'C ABI Bridge',
+    omni_pipeline: 'Omni Pipeline',
+    selfhost_harness: 'Selfhost Harness',
 };
 
 export function sortRuntimeApps(apps: readonly KAINRuntimeApp[]): KAINRuntimeApp[] {

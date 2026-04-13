@@ -4,7 +4,7 @@ KAutoPBR AI/ML Module
 AI-powered texture processing: upscaling, denoising, inpainting, material classification
 
 Uses ONNX Runtime for high-performance inference.
-Models are downloaded on-demand and cached in apps/k-os-backend/resources/models/
+Models are downloaded on-demand and cached in apps/tauri/resources/models/
 """
 
 import os
@@ -63,8 +63,8 @@ class ModelManager:
     
     def __init__(self, models_dir: Optional[Path] = None):
         if models_dir is None:
-            # Default to apps/k-os-backend/resources/models
-            self.models_dir = Path(__file__).parent.parent.parent.parent / "apps" / "k-os-backend" / "resources" / "models"
+            # Default to apps/tauri/resources/models
+            self.models_dir = Path(__file__).parent.parent.parent.parent / "apps" / "tauri" / "resources" / "models"
         else:
             self.models_dir = Path(models_dir)
         

@@ -87,8 +87,8 @@
       "name": "k-os-backend",
       "version": "0.1.0",
       "description": "K_OS Tauri Backend - Thin Proxy to Owner Crates",
-      "manifest_path": "apps/k-os-backend/Cargo.toml",
-      "package_path": "apps/k-os-backend",
+      "manifest_path": "apps/tauri/Cargo.toml",
+      "package_path": "apps/tauri",
       "target_names": [
         "build-script-build",
         "k-os-backend"
@@ -192,8 +192,8 @@
       "name": "k-os-bevy",
       "version": "0.1.0",
       "description": "K_OS Bevy Renderer - High-Performance 3D Viewport",
-      "manifest_path": "apps/k-os-bevy/Cargo.toml",
-      "package_path": "apps/k-os-bevy",
+      "manifest_path": "apps/bevy/Cargo.toml",
+      "package_path": "apps/bevy",
       "target_names": [
         "k-os-bevy"
       ],

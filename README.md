@@ -4,11 +4,13 @@ Private multi-runtime creative tooling workspace for the K_OS / Zen stack.
 
 ## Main Surfaces
 
-- `src-frontend`: primary React/Vite application shell
-- `src-tauri`: desktop backend and Tauri packaging boundary
+- `apps/web`: primary React/Vite application shell
+- `apps/tauri`: desktop backend and Tauri packaging boundary
+- `apps/bevy`: experimental viewport host
+- `apps/zen`: native Zen host
+- `apps/README.md`: placement guide for deciding which app surface owns new work
 - `crates`: Rust workspace packages for rendering, scene, config, IO, gameplay, mocap, and host integration
-- `crates/zen`: native Zen host
-- `src-mocap`: mocap-focused frontend surface
+- `apps/web/src-mocap`: mocap-focused frontend surface
 - `src-kain`: in-repo Kain source workspace and authored runtime assets
 - `src-python`: Python sidecar and tooling
 
@@ -22,7 +24,7 @@ Private multi-runtime creative tooling workspace for the K_OS / Zen stack.
 ## Linux Build Path
 
 - `npm ci --no-audit --no-fund`
-- `npm run build:frontend`
+- `npm run build:web`
 - `cargo check -p k-os-backend`
 - `cargo check -p zen`
 - `npm run build`

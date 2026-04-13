@@ -6,12 +6,12 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const workspaceRoot = path.resolve(__dirname, '../..');
-const frontendRoot = __dirname;
+const webRoot = __dirname;
 
 export default defineConfig({
-  root: frontendRoot,
+  root: webRoot,
   envDir: workspaceRoot,
-  publicDir: path.resolve(frontendRoot, 'public'),
+  publicDir: path.resolve(webRoot, 'public'),
   plugins: [react()],
   server: {
     fs: {
@@ -23,17 +23,17 @@ export default defineConfig({
     emptyOutDir: true,
     rollupOptions: {
       input: {
-        main: path.resolve(frontendRoot, 'index.html'),
-        mocap: path.resolve(frontendRoot, 'mocap-window.html'),
-        webcam: path.resolve(frontendRoot, 'webcam-window.html'),
+        main: path.resolve(webRoot, 'index.html'),
+        mocap: path.resolve(webRoot, 'mocap-window.html'),
+        webcam: path.resolve(webRoot, 'webcam-window.html'),
       },
     },
   },
   resolve: {
     alias: {
-      '@': path.resolve(frontendRoot, './src'),
-      '@mocap': path.resolve(frontendRoot, './src-mocap'),
-      '@shared': path.resolve(frontendRoot, './src-shared'),
+      '@': path.resolve(webRoot, './src'),
+      '@mocap': path.resolve(webRoot, './src-mocap'),
+      '@shared': path.resolve(webRoot, './src-shared'),
     },
   },
   define: {

@@ -5,27 +5,27 @@ import { fileURLToPath } from 'url';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const frontendRoot = path.resolve(__dirname, 'apps/frontend');
+const webRoot = path.resolve(__dirname, 'apps/web');
 
 export default defineConfig({
   plugins: [react()],
-  root: frontendRoot,
-  publicDir: path.resolve(frontendRoot, 'public'),
+  root: webRoot,
+  publicDir: path.resolve(webRoot, 'public'),
   build: {
     outDir: path.resolve(__dirname, 'dist-mocap'),
     emptyOutDir: true,
     rollupOptions: {
       input: {
-        mocap: path.resolve(frontendRoot, 'mocap-window.html'),
-        webcam: path.resolve(frontendRoot, 'webcam-window.html'),
+        mocap: path.resolve(webRoot, 'mocap-window.html'),
+        webcam: path.resolve(webRoot, 'webcam-window.html'),
       },
     },
   },
   resolve: {
     alias: {
-      '@': path.resolve(frontendRoot, './src'),
-      '@mocap': path.resolve(frontendRoot, './src-mocap'),
-      '@shared': path.resolve(frontendRoot, './src-shared'),
+      '@': path.resolve(webRoot, './src'),
+      '@mocap': path.resolve(webRoot, './src-mocap'),
+      '@shared': path.resolve(webRoot, './src-shared'),
     },
   },
 });

@@ -3,7 +3,7 @@ import react from '@vitejs/plugin-react';
 import path from 'path';
 
 const workspaceRoot = path.resolve(__dirname, '../..');
-const frontendRoot = __dirname;
+const webRoot = __dirname;
 
 export default defineConfig({
   root: workspaceRoot,
@@ -11,10 +11,10 @@ export default defineConfig({
   test: {
     globals: true,
     environment: 'jsdom',
-    setupFiles: [path.resolve(frontendRoot, './src/tests/setup.ts')],
+    setupFiles: [path.resolve(webRoot, './src/tests/setup.ts')],
     include: [
-      'apps/frontend/src/**/*.{test,spec}.{ts,tsx}',
-      'apps/frontend/src-mocap/**/*.{test,spec}.{ts,tsx}',
+      'apps/web/src/**/*.{test,spec}.{ts,tsx}',
+      'apps/web/src-mocap/**/*.{test,spec}.{ts,tsx}',
     ],
     // Exclude Three.js heavy modules that don't run in jsdom (WebGPU, etc.)
     exclude: [
@@ -31,7 +31,7 @@ export default defineConfig({
       reporter: ['text', 'json', 'html'],
       exclude: [
         'node_modules/',
-        'apps/frontend/src/tests/',
+        'apps/web/src/tests/',
         '**/*.d.ts',
         '**/*.config.*',
         '**/mockData',
@@ -41,9 +41,9 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      '@': path.resolve(frontendRoot, './src'),
-      '@mocap': path.resolve(frontendRoot, './src-mocap'),
-      '@shared': path.resolve(frontendRoot, './src-shared'),
+      '@': path.resolve(webRoot, './src'),
+      '@mocap': path.resolve(webRoot, './src-mocap'),
+      '@shared': path.resolve(webRoot, './src-shared'),
     },
   },
 });

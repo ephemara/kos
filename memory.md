@@ -1,5 +1,35 @@
 # Memory
 
+## 2026-04-12: App surfaces now use host-aligned names under `apps/`
+
+The runnable surfaces were still using a mix of legacy and ambiguous folder names, which made it harder to tell where new work should land. The clearest fix was to name app folders by host or runtime boundary instead of by historical implementation terms.
+
+What changed:
+
+- Renamed app folders to the current host-aligned layout:
+  - `apps/frontend` -> `apps/web`
+  - `apps/desktop` -> `apps/tauri`
+  - `apps/k-os-bevy` -> `apps/bevy`
+  - kept `apps/zen` as the native Zen host
+- Updated workspace, package, release, generated-registry, Python resource, and Zen manifest/resource references to the new app paths.
+- Added `apps/README.md` as the durable placement guide for deciding whether new work belongs in `apps/web`, `apps/tauri`, `apps/bevy`, `apps/zen`, or `crates/`.
+
+Validation completed:
+
+- `cargo check -p k-os-backend`
+- `cargo check -p zen`
+
+Design decisions:
+
+- Folder clarity matters more here than forcing every internal package ID to change immediately. The Tauri package and bin still use the historical `k-os-backend` Cargo identity for now, while the filesystem layout now exposes the host role clearly as `apps/tauri`.
+- `apps/tauri` and `apps/zen` must stay distinct because they are different native hosts with different responsibilities: Tauri owns desktop shell packaging and IPC, while Zen owns the separate native renderer/editor shell.
+- New app folders should be named after runtime or host boundaries, not generic labels like `frontend` or legacy internal names.
+
+Current risks:
+
+- Some historical docs and external notes outside the main app surface may still describe the old naming model in prose even though the live paths are updated.
+- The remaining package/bin names (`k-os-backend`, `k-os-bevy`) are still historical. That is intentional for now, but a later identity cleanup would need a separate pass through release tooling and any external callers.
+
 ## 2026-04-11: K_OS-side Kain parity model widened to the modern upstream surface
 
 The K_OS integration was no longer a truthful model of current Kain. It still treated Kain mostly as an older SPIR-V/TS/runtime-app registry, while the real upstream repo now includes broader targets, host bridges, native UI/runtime lanes, Omni, and the compiler-owned intent system.
@@ -49,7 +79,7 @@ Recommended next step:
 
 Finished the first real native painter lane in `zen` instead of leaving material authoring as a shell concept with no host-side state.
 
-`crates/zen/resources/workspace_ui.toml` now defaults the native shell to a painter-first preset with import, materials, brushes, and layers panels. `crates/zen/resources/theme.toml` now shifts the shell onto a warmer painter-oriented palette. `crates/zen-editor/src/lib.rs` now recognizes a native `Painter` feature kind. `crates/zen/src/kain_ui_host.rs` now carries native painter workspace state, read-only import diagnostics, nearby PBR texture discovery, material-slot editing, brush rack controls, SVG stencil parsing through `usvg`, and FBX ingest summaries through `k-os-io`.
+`apps/zen/resources/workspace_ui.toml` now defaults the native shell to a painter-first preset with import, materials, brushes, and layers panels. `apps/zen/resources/theme.toml` now shifts the shell onto a warmer painter-oriented palette. `crates/zen-editor/src/lib.rs` now recognizes a native `Painter` feature kind. `crates/zen/src/kain_ui_host.rs` now carries native painter workspace state, read-only import diagnostics, nearby PBR texture discovery, material-slot editing, brush rack controls, SVG stencil parsing through `usvg`, and FBX ingest summaries through `k-os-io`.
 
 Validated with:
 
@@ -58,7 +88,7 @@ Validated with:
 ### Durable findings
 
 - The shortest path away from TypeScript for this repo is the native `zen` host, not another web shell and not a Bevy-UI-first rewrite. The core missing piece was painter-specific workspace semantics and import/material/brush presentation on the existing native shell path.
-- `crates/zen/resources/workspace_ui.toml` is now the primary composition seam for painter workflow. Presets, topbar grouping, and panel identity should keep moving through that manifest instead of drifting back into hardcoded host layout.
+- `apps/zen/resources/workspace_ui.toml` is now the primary composition seam for painter workflow. Presets, topbar grouping, and panel identity should keep moving through that manifest instead of drifting back into hardcoded host layout.
 - The import contract must stay honest in the UI: GLTF, GLB, and OBJ are real native scene imports, SVG is real stencil metadata, and FBX is still metadata-first only.
 - This pass wires native painter state and diagnostics, not full live GPU stroke execution. The next real milestone is connecting the active material, brush, stencil, and viewport-hit state to the renderer-side paint path.
 
@@ -72,7 +102,7 @@ Bridge the native painter workspace into real renderer-side paint execution so b
 
 Started the first real old-frontend-to-Zen shell port on the native host path instead of treating the Zen UI as a one-off egui skin.
 
-`crates/zen-editor/src/lib.rs` now supports a data-driven `menubar` section in the workspace manifest with typed menu item kinds for host actions, document selection, workspace presets, asset import, and workspace reset. `crates/zen/resources/workspace_ui.toml` now declares a real native menu bar plus richer topbar groups for Stage, Runtime, and Pipeline lanes. `crates/zen/src/kain_ui_host.rs` now renders that manifest-driven menu chrome, executes menu and topbar actions through the existing Zen host/runtime seams, upgrades the expanded toolbar from dead scaffold text into real action buttons, and restyles the viewport/status chrome toward the older TypeScript shell layout language.
+`crates/zen-editor/src/lib.rs` now supports a data-driven `menubar` section in the workspace manifest with typed menu item kinds for host actions, document selection, workspace presets, asset import, and workspace reset. `apps/zen/resources/workspace_ui.toml` now declares a real native menu bar plus richer topbar groups for Stage, Runtime, and Pipeline lanes. `crates/zen/src/kain_ui_host.rs` now renders that manifest-driven menu chrome, executes menu and topbar actions through the existing Zen host/runtime seams, upgrades the expanded toolbar from dead scaffold text into real action buttons, and restyles the viewport/status chrome toward the older TypeScript shell layout language.
 
 Validated with:
 
@@ -732,8 +762,8 @@ Captured the current state of the Kain-facing crates under [`M:\K_OS\crates`](M:
 - The local `KainCliTarget` enum in `k-os-kain` still models only `wasm`, `spirv`, `ts`, `js`, `ks`, `hybrid`, `rust`, `cpp`, `run`, `test`, `hlsl`, and `usf`. Any host surface built on that enum is therefore structurally behind upstream Kain.
 - The Tauri Kain bridge in `src-tauri/src/kain_commands.rs` is still documented and exposed as a narrow compile/run/build-file wrapper. It does not model the newer upstream command surface, packaging lanes, or richer target space.
 - Zen is robust as a native host shell, but its Kain integration is currently shell-centric and renderer-centric. It directly depends on upstream `kain-core` and `kain-ui`, loads a tiny module registry, and uses `k-os-kain` mainly for shell path resolution and SPIR-V-backed renderer/runtime assets.
-- Zen's module registry is intentionally simple right now: one shell entry (`zen.shell.main`) backed by `crates/zen/resources/zen_shell.kn`. This is a solid composition root, but it is not yet a broader registry of modern Kain applications or native-ui bundles.
-- Runtime config in `crates/zen/resources/runtime.toml` keeps Kain dispatch disabled by default and treats Kain mostly as staged renderer/UI infrastructure, not as a fully exposed multi-target application runtime.
+- Zen's module registry is intentionally simple right now: one shell entry (`zen.shell.main`) backed by `apps/zen/resources/zen_shell.kn`. This is a solid composition root, but it is not yet a broader registry of modern Kain applications or native-ui bundles.
+- Runtime config in `apps/zen/resources/runtime.toml` keeps Kain dispatch disabled by default and treats Kain mostly as staged renderer/UI infrastructure, not as a fully exposed multi-target application runtime.
 - Manifest coverage is incomplete relative to the authored/generated asset surface:
   - `sources.json` currently contains 57 entries, of which 45 are `spirv` assets.
   - `generated/spv` currently contains 73 `.spv` files.
