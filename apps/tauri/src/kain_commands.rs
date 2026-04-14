@@ -12,10 +12,9 @@
 //! sculpt brush GPU shaders and FluidDynamics.kn.
 
 use crate::kain_contract::{
-    KainCapabilityCategory as ContractKainCapabilityCategory,
-    KainCliTarget, KainCompileResponse, KainHostKind as ContractKainHostKind,
-    KainIntegrationStatus as ContractKainIntegrationStatus, KainRegistryTargetKind,
-    KainRunResponse, KainRuntimeKind as ContractKainRuntimeKind,
+    KainCapabilityCategory as ContractKainCapabilityCategory, KainCliTarget, KainCompileResponse,
+    KainHostKind as ContractKainHostKind, KainIntegrationStatus as ContractKainIntegrationStatus,
+    KainRegistryTargetKind, KainRunResponse, KainRuntimeKind as ContractKainRuntimeKind,
     KainRuntimeOutputRegistryEntry, KainRuntimeRegistryEntry, KainSourceDomain,
     KainSourceRegistryEntry, KainUpstreamCapabilityEntry,
 };
@@ -107,7 +106,9 @@ fn into_contract_capability_category(
     category: KainCapabilityCategory,
 ) -> ContractKainCapabilityCategory {
     match category {
-        KainCapabilityCategory::LanguageFrontend => ContractKainCapabilityCategory::LanguageFrontend,
+        KainCapabilityCategory::LanguageFrontend => {
+            ContractKainCapabilityCategory::LanguageFrontend
+        }
         KainCapabilityCategory::Codegen => ContractKainCapabilityCategory::Codegen,
         KainCapabilityCategory::Importer => ContractKainCapabilityCategory::Importer,
         KainCapabilityCategory::RuntimeBridge => ContractKainCapabilityCategory::RuntimeBridge,
@@ -124,9 +125,7 @@ fn into_contract_integration_status(
 ) -> ContractKainIntegrationStatus {
     match status {
         KainIntegrationStatus::ActiveInKos => ContractKainIntegrationStatus::ActiveInKos,
-        KainIntegrationStatus::PartiallyAdopted => {
-            ContractKainIntegrationStatus::PartiallyAdopted
-        }
+        KainIntegrationStatus::PartiallyAdopted => ContractKainIntegrationStatus::PartiallyAdopted,
         KainIntegrationStatus::ModeledForAdoption => {
             ContractKainIntegrationStatus::ModeledForAdoption
         }

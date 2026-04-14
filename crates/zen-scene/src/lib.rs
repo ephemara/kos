@@ -2,8 +2,7 @@ use bytemuck::{Pod, Zeroable};
 use glam::{Mat4, Quat, Vec3};
 use k_os_asset_pipeline::asset::{Asset, AssetData, MeshData, SceneData, SceneNode};
 use k_os_scene::{
-    MeshHandle, SceneParentComponent, SceneTransformComponent, SceneWorld,
-    ViewportStateComponent,
+    MeshHandle, SceneParentComponent, SceneTransformComponent, SceneWorld, ViewportStateComponent,
 };
 use std::collections::{HashMap, HashSet};
 
@@ -392,10 +391,9 @@ impl ZenScene {
             let source = self.world.mesh_source(handle).map_err(|err| {
                 format!("Failed to fetch mesh source for {}: {err}", handle.raw())
             })?;
-            let viewport_state = self
-                .world
-                .viewport_state(handle)
-                .map_err(|err| format!("Failed to fetch viewport state for {}: {err}", handle.raw()))?;
+            let viewport_state = self.world.viewport_state(handle).map_err(|err| {
+                format!("Failed to fetch viewport state for {}: {err}", handle.raw())
+            })?;
             let world = self.world_transform(handle, &mut HashSet::new())?;
             let normal_transform = world.inverse().transpose();
 

@@ -2908,12 +2908,27 @@ required_fields = ["package_asset", "source_dir", "export_path", "package_format
             .join("src-game/build/player/windows/k_os_game_windows_dev/build.contract.json")
             .exists());
         assert!(temp_root
+<<<<<<< Updated upstream
             .join("src-game/build/player/windows/k_os_game_windows_dev/k_os_game_windows_dev.exe")
+||||||| Stash base
+            .join("sources/game/build/player/windows/k_os_game_windows_dev/k_os_game_windows_dev.exe")
+=======
+            .join(
+                "sources/game/build/player/windows/k_os_game_windows_dev/k_os_game_windows_dev.exe"
+            )
+>>>>>>> Stashed changes
             .exists());
         assert!(temp_root
             .join("dist/game/k_os_game_windows_dev.zip")
             .exists());
+<<<<<<< Updated upstream
         let cook_contract_path = temp_root.join("src-game/build/cooked/windows/cook.contract.json");
+||||||| Stash base
+        let cook_contract_path = temp_root.join("sources/game/build/cooked/windows/cook.contract.json");
+=======
+        let cook_contract_path =
+            temp_root.join("sources/game/build/cooked/windows/cook.contract.json");
+>>>>>>> Stashed changes
         let build_contract_path = temp_root
             .join("src-game/build/player/windows/k_os_game_windows_dev/build.contract.json");
         let export_contract_path = temp_root.join("dist/game/k_os_game_windows_dev.zip");

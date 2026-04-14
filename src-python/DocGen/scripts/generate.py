@@ -621,7 +621,7 @@ def get_target_directories(root_path: Path, config: dict, specific_path: Optiona
         return [target]
     
     # Process all target directories from config
-    target_dirs = config.get('indexing', {}).get('target_directories', ['crates', 'src-frontend', 'src-tauri'])
+    target_dirs = config.get('indexing', {}).get('target_directories', ['crates', 'apps', 'sources'])
     
     directories = []
     for target_dir in target_dirs:

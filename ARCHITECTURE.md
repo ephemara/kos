@@ -77,17 +77,17 @@ The intended pattern is: feature modules register a shared viewport request, `Ap
 
 [`/home/ephemara/Dev/Kain/zender/apps/zen/Cargo.toml`](/home/ephemara/Dev/Kain/zender/apps/zen/Cargo.toml) is a native host that composes Kain, renderer, asset pipeline, and the `zen-*` crates.
 
-Zen's current native renderer cutover now lives in [`M:\K_OS\crates\zen\src\renderer_session.rs`](M:\K_OS\crates\zen\src\renderer_session.rs). That session owns the shared `k-os-renderer` service, mirrors Zen scene data into `k-os-scene-runtime` as the canonical eval bridge, forwards camera state, handles selection requests, and caches scene geometry, while [`M:\K_OS\crates\zen\src\main.rs`](M:\K_OS\crates\zen\src\main.rs) keeps the surface/presentation/post seam.
+Zen's current native renderer cutover now lives in [`M:\K_OS\apps\zen\src\renderer_session.rs`](M:\K_OS\apps\zen\src\renderer_session.rs). That session owns the shared `k-os-renderer` service, mirrors Zen scene data into `k-os-scene-runtime` as the canonical eval bridge, forwards camera state, handles selection requests, and caches scene geometry, while [`M:\K_OS\apps\zen\src\main.rs`](M:\K_OS\apps\zen\src\main.rs) keeps the surface/presentation/post seam.
 
-Zen now also embeds a first-class Fabric service in [`M:\K_OS\crates\zen\src\fabric.rs`](M:\K_OS\crates\zen\src\fabric.rs). This service resolves and executes a configured `KAIN.fabric.toml` through upstream `kain-host`, reads an intent registry from `config/fabric_intents.json`, exposes intent buttons and reports in the native shell, and can auto-run configured Fabric intents on scene-dirty runtime events. The current default embedded workspace lives under [`M:\K_OS\crates\k-os-kain\fabric\zen-dcc`](M:\K_OS\crates\k-os-kain\fabric\zen-dcc).
+Zen now also embeds a first-class Fabric service in [`M:\K_OS\apps\zen\src\fabric.rs`](M:\K_OS\apps\zen\src\fabric.rs). This service resolves and executes a configured `KAIN.fabric.toml` through upstream `kain-host`, reads an intent registry from `config/fabric_intents.json`, exposes intent buttons and reports in the native shell, and can auto-run configured Fabric intents on scene-dirty runtime events. The current default embedded workspace lives under [`M:\K_OS\crates\k-os-kain\fabric\zen-dcc`](M:\K_OS\crates\k-os-kain\fabric\zen-dcc).
 
 [`M:\K_OS\crates\zen-scene\src\lib.rs`](M:\K_OS\crates\zen-scene\src\lib.rs) still exposes a scene payload bridge helper for host extraction, but the actual viewport payload evaluation now flows through [`M:\K_OS\crates\k-os-scene-runtime\src\mesh_state.rs`](M:\K_OS\crates\k-os-scene-runtime\src\mesh_state.rs).
 
-Zen's native shell now also exposes a generated registry surface and an embedded Fabric panel in [`M:\K_OS\crates\zen\src\kain_ui_host.rs`](M:\K_OS\crates\zen\src\kain_ui_host.rs). The command palette, `workspace.tools` action strip, dedicated `workspace.registry` and `workspace.fabric` tabs, and the newer manifest-driven shell chrome all read generated registry data plus Fabric session/report state directly so the shell can discover Zen-facing packages, run Fabric intents, and inspect orchestration work without hand-curated crate lists.
+Zen's native shell now also exposes a generated registry surface and an embedded Fabric panel in [`M:\K_OS\apps\zen\src\kain_ui_host.rs`](M:\K_OS\apps\zen\src\kain_ui_host.rs). The command palette, `workspace.tools` action strip, dedicated `workspace.registry` and `workspace.fabric` tabs, and the newer manifest-driven shell chrome all read generated registry data plus Fabric session/report state directly so the shell can discover Zen-facing packages, run Fabric intents, and inspect orchestration work without hand-curated crate lists.
 
-The shell chrome porting seam for Zen now lives in the workspace manifest as well as the host renderer. [`M:\K_OS\crates\zen\resources\workspace_ui.toml`](M:\K_OS\crates\zen\resources\workspace_ui.toml) owns both the topbar groups and the higher-level menu bar, parsed through [`M:\K_OS\crates\zen-editor\src\lib.rs`](M:\K_OS\crates\zen-editor\src\lib.rs), so future native shell passes should extend that manifest first and then project it through [`M:\K_OS\crates\zen\src\kain_ui_host.rs`](M:\K_OS\crates\zen\src\kain_ui_host.rs).
+The shell chrome porting seam for Zen now lives in the workspace manifest as well as the host renderer. [`M:\K_OS\apps\zen\resources\workspace_ui.toml`](M:\K_OS\apps\zen\resources\workspace_ui.toml) owns both the topbar groups and the higher-level menu bar, parsed through [`M:\K_OS\crates\zen-editor\src\lib.rs`](M:\K_OS\crates\zen-editor\src\lib.rs), so future native shell passes should extend that manifest first and then project it through [`M:\K_OS\apps\zen\src\kain_ui_host.rs`](M:\K_OS\apps\zen\src\kain_ui_host.rs).
 
-Zen's native editor lane now also includes a painter-first workspace. The workspace manifest at [`M:\K_OS\crates\zen\resources\workspace_ui.toml`](M:\K_OS\crates\zen\resources\workspace_ui.toml) now defaults to a painter preset with import, materials, brushes, and layers panels, the palette in [`M:\K_OS\crates\zen\resources\theme.toml`](M:\K_OS\crates\zen\resources\theme.toml) is tuned for that workflow, and [`M:\K_OS\crates\zen\src\kain_ui_host.rs`](M:\K_OS\crates\zen\src\kain_ui_host.rs) now owns native painter workspace state for mesh ingest, nearby PBR texture discovery, material-slot binding, brush rack state, SVG stencil metadata, and read-only import summaries. The truthful current import contract is: GLTF, GLB, and OBJ are real scene imports through `k-os-asset-pipeline`; SVG is real stencil metadata ingest through `usvg`; FBX still routes through `k-os-io` as metadata-first staging rather than a full geometry import path.
+Zen's native editor lane now also includes a painter-first workspace. The workspace manifest at [`M:\K_OS\apps\zen\resources\workspace_ui.toml`](M:\K_OS\apps\zen\resources\workspace_ui.toml) now defaults to a painter preset with import, materials, brushes, and layers panels, the palette in [`M:\K_OS\apps\zen\resources\theme.toml`](M:\K_OS\apps\zen\resources\theme.toml) is tuned for that workflow, and [`M:\K_OS\apps\zen\src\kain_ui_host.rs`](M:\K_OS\apps\zen\src\kain_ui_host.rs) now owns native painter workspace state for mesh ingest, nearby PBR texture discovery, material-slot binding, brush rack state, SVG stencil metadata, and read-only import summaries. The truthful current import contract is: GLTF, GLB, and OBJ are real scene imports through `k-os-asset-pipeline`; SVG is real stencil metadata ingest through `usvg`; FBX still routes through `k-os-io` as metadata-first staging rather than a full geometry import path.
 
 ## Existing Data-Driven Systems
 
@@ -102,10 +102,10 @@ Several parts of the repo already use manifests and registries instead of hardco
 - `k-os-config` owns typed config registries and JSON-schema-backed config surfaces:
   - [`M:\K_OS\crates\k-os-config\src\config`](M:\K_OS\crates\k-os-config\src\config)
 - Zen loads runtime, host API, and UI manifests:
-  - [`M:\K_OS\crates\zen\src\config.rs`](M:\K_OS\crates\zen\src\config.rs)
-  - [`M:\K_OS\crates\zen\resources\runtime.toml`](M:\K_OS\crates\zen\resources\runtime.toml)
+  - [`M:\K_OS\apps\zen\src\config.rs`](M:\K_OS\apps\zen\src\config.rs)
+  - [`M:\K_OS\apps\zen\resources\runtime.toml`](M:\K_OS\apps\zen\resources\runtime.toml)
 - Zen now also loads embedded Fabric configuration from the runtime manifest and resolves the default workspace under:
-  - [`M:\K_OS\crates\zen\resources\runtime.toml`](M:\K_OS\crates\zen\resources\runtime.toml)
+  - [`M:\K_OS\apps\zen\resources\runtime.toml`](M:\K_OS\apps\zen\resources\runtime.toml)
   - [`M:\K_OS\crates\k-os-kain\fabric\zen-dcc\KAIN.fabric.toml`](M:\K_OS\crates\k-os-kain\fabric\zen-dcc\KAIN.fabric.toml)
 - Zen's embedded Fabric lane is now also registry-driven through:
   - [`M:\K_OS\crates\k-os-kain\fabric\zen-dcc\config\fabric_intents.json`](M:\K_OS\crates\k-os-kain\fabric\zen-dcc\config\fabric_intents.json)
@@ -126,9 +126,9 @@ This crate is the composition layer above Cargo. It does not replace Cargo linki
    - [`M:\K_OS\crates\k-os-kain\manifests\sources.json`](M:\K_OS\crates\k-os-kain\manifests\sources.json)
    - [`M:\K_OS\crates\k-os-kain\manifests\runtime_apps.json`](M:\K_OS\crates\k-os-kain\manifests\runtime_apps.json)
    - [`M:\K_OS\crates\k-os-kain\manifests\upstream_capabilities.json`](M:\K_OS\crates\k-os-kain\manifests\upstream_capabilities.json)
-   - [`M:\K_OS\crates\zen\resources\runtime.toml`](M:\K_OS\crates\zen\resources\runtime.toml)
-   - [`M:\K_OS\crates\zen\resources\modules.toml`](M:\K_OS\crates\zen\resources\modules.toml)
-   - [`M:\K_OS\crates\zen\resources\host_api.toml`](M:\K_OS\crates\zen\resources\host_api.toml)
+   - [`M:\K_OS\apps\zen\resources\runtime.toml`](M:\K_OS\apps\zen\resources\runtime.toml)
+   - [`M:\K_OS\apps\zen\resources\modules.toml`](M:\K_OS\apps\zen\resources\modules.toml)
+   - [`M:\K_OS\apps\zen\resources\host_api.toml`](M:\K_OS\apps\zen\resources\host_api.toml)
 5. writes generated proof artifacts:
    - [`M:\K_OS\crates\k-os-workspace-registry\generated\json\workspace_registry.json`](M:\K_OS\crates\k-os-workspace-registry\generated\json\workspace_registry.json)
    - [`M:\K_OS\crates\k-os-workspace-registry\generated\proof\workspace_registry_summary.md`](M:\K_OS\crates\k-os-workspace-registry\generated\proof\workspace_registry_summary.md)
@@ -158,9 +158,9 @@ The current generated snapshot proves:
 
 The three main host crates now depend on `k-os-workspace-registry`:
 
-- [`M:\K_OS\src-tauri\Cargo.toml`](M:\K_OS\src-tauri\Cargo.toml)
-- [`M:\K_OS\crates\k-os-bevy\Cargo.toml`](M:\K_OS\crates\k-os-bevy\Cargo.toml)
-- [`M:\K_OS\crates\zen\Cargo.toml`](M:\K_OS\crates\zen\Cargo.toml)
+- [`M:\K_OS\apps\tauri\Cargo.toml`](M:\K_OS\apps\tauri\Cargo.toml)
+- [`M:\K_OS\apps\bevy\Cargo.toml`](M:\K_OS\apps\bevy\Cargo.toml)
+- [`M:\K_OS\apps\zen\Cargo.toml`](M:\K_OS\apps\zen\Cargo.toml)
 
 That means normal builds of those composition roots will also build and regenerate the registry crate.
 
@@ -202,7 +202,7 @@ The target model is:
 - `k-os-renderer` owns viewport lifecycle, mesh sync, selection, stats, and render execution
 - `zen-host`, `zen-kain-api`, and `zen-kain-modules` define the host/tool contract surfaces
 
-The current implementation is still hybrid. [`M:\K_OS\crates\zen\src\renderer_session.rs`](M:\K_OS\crates\zen\src\renderer_session.rs) already syncs `SceneRenderPayload` data into `k-os-renderer::RendererService`, but it still builds host-local `SceneGeometry` buffers from `ZenScene::build_render_mesh()` for presentation and count reporting. [`M:\K_OS\crates\zen\src\main.rs`](M:\K_OS\crates\zen\src\main.rs) also still contains inline WGSL shader ownership and local render-path responsibilities Atlas identified for removal.
+The current implementation is still hybrid. [`M:\K_OS\apps\zen\src\renderer_session.rs`](M:\K_OS\apps\zen\src\renderer_session.rs) already syncs `SceneRenderPayload` data into `k-os-renderer::RendererService`, but it still builds host-local `SceneGeometry` buffers from `ZenScene::build_render_mesh()` for presentation and count reporting. [`M:\K_OS\apps\zen\src\main.rs`](M:\K_OS\apps\zen\src\main.rs) also still contains inline WGSL shader ownership and local render-path responsibilities Atlas identified for removal.
 
 For future work, treat Zen's renderer migration as a cutover problem, not a greenfield renderer design problem. The job is to finish moving Zen onto the shared renderer path and then delete the duplicate host-local path.
 
@@ -226,10 +226,26 @@ Good candidates for metadata and generated registry ownership:
 ## Important Folders
 
 - [`M:\K_OS\crates`](M:\K_OS\crates): Rust crates
+<<<<<<< Updated upstream
 - [`M:\K_OS\src-tauri`](M:\K_OS\src-tauri): Tauri backend
 - [`M:\K_OS\src-frontend`](M:\K_OS\src-frontend): React frontend
 - [`M:\K_OS\src-game`](M:\K_OS\src-game): game-facing assets and manifests
 - [`M:\K_OS\src-kain`](M:\K_OS\src-kain): Kain sources outside crate-local manifests
+||||||| Stash base
+- [`M:\K_OS\src-tauri`](M:\K_OS\src-tauri): Tauri backend
+- [`M:\K_OS\src-frontend`](M:\K_OS\src-frontend): React frontend
+- [`M:\K_OS\sources`](M:\K_OS\sources): authored non-crate source workspaces and content trees
+- [`M:\K_OS\sources/game`](M:\K_OS\sources/game): game-facing assets and manifests
+- [`M:\K_OS\sources/kain`](M:\K_OS\sources/kain): Kain sources outside crate-local manifests
+- [`M:\K_OS\sources/python`](M:\K_OS\sources/python): Python sidecar and tooling
+=======
+- [`M:\K_OS\apps\tauri`](M:\K_OS\apps\tauri): Tauri backend and desktop shell packaging
+- [`M:\K_OS\apps\web`](M:\K_OS\apps\web): React frontend
+- [`M:\K_OS\sources`](M:\K_OS\sources): authored non-crate source workspaces and content trees
+- [`M:\K_OS\sources/game`](M:\K_OS\sources/game): game-facing assets and manifests
+- [`M:\K_OS\sources/kain`](M:\K_OS\sources/kain): Kain sources outside crate-local manifests
+- [`M:\K_OS\sources/python`](M:\K_OS\sources/python): Python sidecar and tooling
+>>>>>>> Stashed changes
 - [`M:\K_OS\config`](M:\K_OS\config): repo-level config
 - [`M:\K_OS\docs`](M:\K_OS\docs): broader docs
 - [`M:\K_OS\Swarm`](M:\K_OS\Swarm): active multi-agent execution plans and lane state
@@ -252,7 +268,7 @@ Testing and heavy validation should still follow the repo conversation rule: ask
 - Treat `AppShell` as the only valid host for `AppViewport`. If a frontend surface needs the native renderer, layer its UI above the shell center underlay instead of mounting another renderer host.
 - Treat the `NativeViewport` host element as part of the shell hole contract. In the live leash path it must stay visually transparent once the native window is connected, or the Tauri UI will paint over the renderer even when bounds sync is correct.
 - Universal mode is intentionally narrower than the standalone module surface. Do not embed `NativeToolWorkspace` or other shell-owning tool workspaces inside Universal panels until they are rewritten as panel-safe embedded surfaces.
-- Do not assume the Tauri shell already presents through Zen just because Zen has the target renderer architecture. The current visible Tauri viewport path still goes through `src-tauri/src/viewport_host.rs` plus `crates/k-os-bevy` on the leash port.
+- Do not assume the Tauri shell already presents through Zen just because Zen has the target renderer architecture. The current visible Tauri viewport path still goes through `apps/tauri/src/viewport_host.rs` plus `apps/bevy` on the leash port.
 - Zen painter ingest is intentionally asymmetric right now. GLTF, GLB, and OBJ are real native scene imports; SVG is real stencil metadata; FBX is summary-only metadata staging until a real parser lands.
 - Do not assume host crates are the right place for new logic. Prefer pushing ownership down into a domain crate and surfacing it through composition data.
 - Avoid adding new string-literal crate IDs or hardcoded asset paths when a manifest or schema already exists nearby.
@@ -266,8 +282,8 @@ Testing and heavy validation should still follow the repo conversation rule: ask
 - `integration_registry.json` is the curated composition layer. It assigns each crate a stability tier and recommended entrypoints so integrators do not have to consume the full raw public surface.
 - `adapter_manifests.json` projects the curated composition layer into host-oriented adapter targets. Right now the generated targets are `tauri`, `bevy`, `zen`, and `external`.
 - Zen renderer work now has four durable references with different roles: the boundary proposal in [`M:\K_OS\docs\zen_renderer_unification.md`](M:\K_OS\docs\zen_renderer_unification.md), the host contract note in [`M:\K_OS\docs\zen_contract_surface.md`](M:\K_OS\docs\zen_contract_surface.md), the validation matrix in [`M:\K_OS\docs\zen_renderer_validation_matrix.md`](M:\K_OS\docs\zen_renderer_validation_matrix.md), and the operator-facing runtime guide in [`M:\K_OS\docs\zen_renderer_operator_guide.md`](M:\K_OS\docs\zen_renderer_operator_guide.md).
-- `src-tauri/build.rs` enforces crate documentation parity against [`M:\K_OS\docs\CARGO_ARSENAL.md`](M:\K_OS\docs\CARGO_ARSENAL.md). Any new Tauri dependency added to [`M:\K_OS\src-tauri\Cargo.toml`](M:\K_OS\src-tauri\Cargo.toml) must also be documented there or `cargo check -p k-os-backend` will fail before Rust compilation finishes.
-- `src-tauri/build.rs` now also generates [`M:\K_OS\src-frontend\generated\tauriRegistry.gen.ts`](M:\K_OS\src-frontend\generated\tauriRegistry.gen.ts). Despite the filename, it now contains registry, Kain, and viewport bindings. If the file looks stale, rebuild the backend with `cargo check -p k-os-backend` instead of editing the generated TS directly.
+- `apps/tauri/build.rs` enforces crate documentation parity against [`M:\K_OS\docs\CARGO_ARSENAL.md`](M:\K_OS\docs\CARGO_ARSENAL.md). Any new Tauri dependency added to [`M:\K_OS\apps\tauri\Cargo.toml`](M:\K_OS\apps\tauri\Cargo.toml) must also be documented there or `cargo check -p k-os-backend` will fail before Rust compilation finishes.
+- `apps/tauri/build.rs` now also generates [`M:\K_OS\apps\web\src\generated\tauriRegistry.gen.ts`](M:\K_OS\apps\web\src\generated\tauriRegistry.gen.ts). Despite the filename, it now contains registry, Kain, and viewport bindings. If the file looks stale, rebuild the backend with `cargo check -p k-os-backend` instead of editing the generated TS directly.
 - The generated Tauri wrappers should use camelCase argument names for command parameters even when the Rust function arguments are snake_case. Keep nested payload DTO field naming aligned with the Rust serde contract, but do not hand-write snake_case top-level invoke keys in frontend code.
 - The workspace root manifest is virtual, so a root `build.rs` will not run. Shared generation work must live in a real package like `k-os-workspace-registry`.
 - Builds of `k-os-backend`, `k-os-bevy`, and `zen` now regenerate the workspace registry because they depend on `k-os-workspace-registry`, but arbitrary leaf-crate builds will not. If universal pre-build sync becomes necessary, add an `xtask` or wrapper command rather than trying to force it through the virtual workspace root.

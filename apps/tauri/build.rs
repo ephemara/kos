@@ -52,9 +52,9 @@ fn main() {
 fn export_specta_tauri_bindings(root: &Path) {
     use kain_contract::{
         KainCapabilityCategory, KainCliTarget, KainCompileResponse, KainHostKind,
-        KainIntegrationStatus, KainRunResponse, KainRuntimeKind,
-        KainRuntimeOutputRegistryEntry, KainRuntimeRegistryEntry, KainSourceDomain,
-        KainSourceRegistryEntry, KainUpstreamCapabilityEntry,
+        KainIntegrationStatus, KainRunResponse, KainRuntimeKind, KainRuntimeOutputRegistryEntry,
+        KainRuntimeRegistryEntry, KainSourceDomain, KainSourceRegistryEntry,
+        KainUpstreamCapabilityEntry,
     };
     use registry_contract::{
         RegistryAdapterManifest, RegistryAdapterPackageBinding, RegistryAdapterTargetSummary,
@@ -306,8 +306,16 @@ fn sync_kain_binary(tauri_dir: &Path, root: &Path) {
             source_candidates.push(format!("{}/target/release/kain.exe", kain_root.trim()));
         }
     }
-    source_candidates.push(root.join("../../Kain/target/release/kain").display().to_string());
-    source_candidates.push(root.join("../../Kain/target/release/kain.exe").display().to_string());
+    source_candidates.push(
+        root.join("../../Kain/target/release/kain")
+            .display()
+            .to_string(),
+    );
+    source_candidates.push(
+        root.join("../../Kain/target/release/kain.exe")
+            .display()
+            .to_string(),
+    );
     source_candidates.push("M:/code/target/release/kain.exe".to_string());
     source_candidates.push("M:/Code/target/release/kain.exe".to_string());
     source_candidates.push("M:/code/Kain/target/release/kain.exe".to_string());

@@ -909,7 +909,9 @@ fn parse_workspace_menubar(file: ZenWorkspaceMenuBarFile) -> Result<ZenWorkspace
     Ok(ZenWorkspaceMenuBar { menus })
 }
 
-fn parse_workspace_menu_item(file: ZenWorkspaceMenuItemFile) -> Result<ZenWorkspaceMenuItem, String> {
+fn parse_workspace_menu_item(
+    file: ZenWorkspaceMenuItemFile,
+) -> Result<ZenWorkspaceMenuItem, String> {
     let kind = file
         .kind
         .unwrap_or_else(|| "action".to_string())
@@ -999,7 +1001,9 @@ fn parse_workspace_menu_item(file: ZenWorkspaceMenuItemFile) -> Result<ZenWorksp
                 file.label.unwrap_or_else(|| "Reset Workspace".to_string()),
             )?,
         }),
-        other => Err(format!("Unsupported Zen workspace menu item kind '{other}'")),
+        other => Err(format!(
+            "Unsupported Zen workspace menu item kind '{other}'"
+        )),
     }
 }
 

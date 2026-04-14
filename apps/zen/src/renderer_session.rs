@@ -1,13 +1,12 @@
 use crate::config::RendererConfig;
 use crate::FlyCamera;
 use glam::Vec3;
-use k_os_scene::MeshHandle;
 use k_os_renderer::{
     spawn_headless_service, CameraState as RendererCameraState, RenderMeshHandle,
     RendererMode as RendererViewportMode, RendererService, SelectionResult,
-    ShadingMode as RendererShadingMode, ViewportConfig as RendererViewportConfig,
-    ViewportHandle,
+    ShadingMode as RendererShadingMode, ViewportConfig as RendererViewportConfig, ViewportHandle,
 };
+use k_os_scene::MeshHandle;
 use std::collections::{HashMap, HashSet};
 use wgpu::util::DeviceExt;
 use winit::dpi::PhysicalSize;

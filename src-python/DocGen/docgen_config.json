@@ -17,7 +17,7 @@
     "precision": "fp16"
   },
   "indexing": {
-    "target_directories": ["crates", "src-frontend", "src-tauri"],
+    "target_directories": ["crates", "apps", "sources"],
     "excluded_patterns": ["**/node_modules/**", "**/target/**", "**/.git/**"],
     "file_extensions": [".rs", ".ts", ".tsx", ".py", ".wgsl", ".json"],
     "max_file_size_kb": 500

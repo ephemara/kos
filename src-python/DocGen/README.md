@@ -195,7 +195,7 @@ Add to your `mcp.json`:
     "precision": "fp16"
   },
   "indexing": {
-    "target_directories": ["crates", "src-frontend", "src-tauri"],
+    "target_directories": ["crates", "apps", "sources"],
     "excluded_patterns": ["**/node_modules/**", "**/target/**"],
     "file_extensions": [".rs", ".ts", ".tsx", ".py", ".wgsl"]
   },

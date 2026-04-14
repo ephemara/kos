@@ -142,7 +142,7 @@ python scripts/generate.py --review-mode
 python scripts/generate.py --path crates/k-os-engine --review-mode
 
 # Force regeneration with review
-python scripts/generate.py --path src-frontend/features --review-mode --force
+python scripts/generate.py --path apps/web/src/features --review-mode --force
 ```
 
 ### Batch with Auto-Approve
@@ -151,7 +151,7 @@ python scripts/generate.py --path src-frontend/features --review-mode --force
 python scripts/generate.py --path crates/
 
 # Or use review mode only for critical directories
-python scripts/generate.py --path src-tauri --review-mode
+python scripts/generate.py --path apps/tauri --review-mode
 ```
 
 ## Requirements Satisfied
@@ -220,9 +220,9 @@ Your choice [a/r/e]: a
 
 ### Example 3: Edit Content
 ```bash
-$ python scripts/generate.py --path src-frontend/features/sculpting --review-mode
+$ python scripts/generate.py --path apps/web/src/features/sculpting --review-mode
 
-Processing: src-frontend/features/sculpting
+Processing: apps/web/src/features/sculpting
 [Content displayed]
 Your choice [a/r/e]: e
 
@@ -236,7 +236,7 @@ KSculpt is the primary 3D sculpting application...
 [Ctrl+D]
 
 Write this content? [y/n]: y
-✓ Generated README: src-frontend/features/sculpting/README.md
+✓ Generated README: apps/web/src/features/sculpting/README.md
 ```
 
 ## Troubleshooting

@@ -2,10 +2,8 @@ use serde::Deserialize;
 use std::fs;
 use std::path::{Path, PathBuf};
 
-const DEFAULT_MODULE_REGISTRY: &str =
-    include_str!("../../../apps/zen/resources/modules.toml");
-const DEFAULT_ZEN_SHELL_SOURCE: &str =
-    include_str!("../../../apps/zen/resources/zen_shell.kn");
+const DEFAULT_MODULE_REGISTRY: &str = include_str!("../../../apps/zen/resources/modules.toml");
+const DEFAULT_ZEN_SHELL_SOURCE: &str = include_str!("../../../apps/zen/resources/zen_shell.kn");
 
 #[derive(Clone, Debug)]
 pub struct ZenKainModuleRegistry {

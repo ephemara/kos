@@ -136,10 +136,12 @@ impl ZenFabricService {
     }
 
     pub(crate) fn run_configured_manifest(&mut self) -> Result<&FabricExecutionResult, String> {
-        let manifest_path = self
-            .resolved_manifest_path
-            .clone()
-            .ok_or_else(|| format!("Fabric manifest path is unresolved: {}", self.config.manifest_path))?;
+        let manifest_path = self.resolved_manifest_path.clone().ok_or_else(|| {
+            format!(
+                "Fabric manifest path is unresolved: {}",
+                self.config.manifest_path
+            )
+        })?;
         self.run_manifest_at_path(manifest_path, "configured manifest".to_string())
     }
 
@@ -270,9 +272,9 @@ impl ZenFabricService {
                     .map(|intent| ZenFabricIntentProfile {
                         label: intent.label.unwrap_or_else(|| intent.id.clone()),
                         lane: intent.lane.unwrap_or_else(|| "default".to_string()),
-                        summary: intent.summary.unwrap_or_else(|| {
-                            format!("Embedded Fabric intent for {}", intent.id)
-                        }),
+                        summary: intent
+                            .summary
+                            .unwrap_or_else(|| format!("Embedded Fabric intent for {}", intent.id)),
                         graph: intent.graph,
                         debounce_ms: intent.debounce_ms.unwrap_or(0),
                         produces: intent.produces,
@@ -305,7 +307,11 @@ impl ZenFabricService {
             let error = format!("Fabric manifest missing: {}", manifest_path.display());
             self.last_error = Some(error.clone());
             self.last_run_label = Some(run_label.clone());
-            self.status_summary = format!("fabric manifest missing // {} // {}", run_label, manifest_path.display());
+            self.status_summary = format!(
+                "fabric manifest missing // {} // {}",
+                run_label,
+                manifest_path.display()
+            );
             return Err(error);
         }
 
@@ -316,13 +322,19 @@ impl ZenFabricService {
                 self.last_error = None;
                 self.last_result = Some(result);
                 self.status_summary = self.compute_status_summary();
-                Ok(self.last_result.as_ref().expect("fabric result just stored"))
+                Ok(self
+                    .last_result
+                    .as_ref()
+                    .expect("fabric result just stored"))
             }
             Err(err) => {
                 let error = format!("Fabric execution failed: {err}");
                 self.last_error = Some(error.clone());
-                self.status_summary =
-                    format!("fabric failed // {} // {}", run_label, manifest_path.display());
+                self.status_summary = format!(
+                    "fabric failed // {} // {}",
+                    run_label,
+                    manifest_path.display()
+                );
                 Err(error)
             }
         }

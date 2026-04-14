@@ -122,8 +122,8 @@ Changes detected in M:\K_OS\crates\k-os-engine\src\gpu:
 Or when skipping:
 
 ```
-Processing: M:\K_OS\src-frontend\ui\components
-⊘ Skipping M:\K_OS\src-frontend\ui\components: Only cosmetic changes detected
+Processing: M:\K_OS\apps\web\src\ui\components
+⊘ Skipping M:\K_OS\apps\web\src\ui\components: Only cosmetic changes detected
 ```
 
 ## Testing

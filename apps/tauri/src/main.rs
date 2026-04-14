@@ -398,9 +398,10 @@ fn resolve_kain_workdir(
         }
     }
 
-    let parent_workspace_crate = std::env::current_dir()
-        .ok()
-        .and_then(|cwd| cwd.parent().map(|parent| parent.join("crates").join("k-os-kain")));
+    let parent_workspace_crate = std::env::current_dir().ok().and_then(|cwd| {
+        cwd.parent()
+            .map(|parent| parent.join("crates").join("k-os-kain"))
+    });
     if let Some(path) = parent_workspace_crate {
         if path.exists() {
             return path;

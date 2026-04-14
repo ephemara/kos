@@ -18,10 +18,10 @@ K_OS is no longer in a purely Three.js-owned viewport architecture.
 The suite now has a real native viewport boundary built around:
 
 - `k-os-renderer` for viewport handles, camera state, redraw requests, stats, and selection contracts
-- `src-tauri/src/commands/viewport.rs` for the Tauri command surface
-- `src-tauri/src/viewport_host.rs` for native host transport
-- `crates/k-os-bevy` as the current WGPU-native viewport host implementation
-- `src-frontend/features/viewport/NativeViewport.tsx` as the shared React controller for native viewports
+- `apps/tauri/src/commands/viewport.rs` for the Tauri command surface
+- `apps/tauri/src/viewport_host.rs` for native host transport
+- `apps/bevy` as the current WGPU-native viewport host implementation
+- `apps/web/src/features/viewport/NativeViewport.tsx` as the shared React controller for native viewports
 
 The migration is currently in a hybrid state:
 
@@ -75,7 +75,7 @@ Viewport commands now exist for:
 
 Primary file:
 
-- [src-tauri/src/commands/viewport.rs](/abs/path-placeholder)
+- [apps/tauri/src/commands/viewport.rs](/home/ephemara/Dev/Kain/zender/apps/tauri/src/commands/viewport.rs)
 
 ### 3. Native host adapter
 
@@ -91,7 +91,7 @@ The native host adapter exists and now transports:
 
 Primary file:
 
-- [src-tauri/src/viewport_host.rs](/abs/path-placeholder)
+- [apps/tauri/src/viewport_host.rs](/home/ephemara/Dev/Kain/zender/apps/tauri/src/viewport_host.rs)
 
 ### 4. Bevy native host path
 
@@ -105,8 +105,8 @@ Important points:
 
 Primary files:
 
-- [crates/k-os-bevy/src/main.rs](/abs/path-placeholder)
-- [crates/k-os-bevy/src/leash.rs](/abs/path-placeholder)
+- [apps/bevy/src/main.rs](/home/ephemara/Dev/Kain/zender/apps/bevy/src/main.rs)
+- [apps/bevy/src/leash.rs](/home/ephemara/Dev/Kain/zender/apps/bevy/src/leash.rs)
 
 ### 5. Shared React controller
 
@@ -125,7 +125,7 @@ It currently handles:
 
 Primary file:
 
-- [src-frontend/features/viewport/NativeViewport.tsx](/abs/path-placeholder)
+- [apps/web/src/features/viewport/NativeViewport.tsx](/home/ephemara/Dev/Kain/zender/apps/web/src/features/viewport/NativeViewport.tsx)
 
 ### 6. Data-driven sync source layer
 
@@ -141,7 +141,7 @@ Supported sync source kinds:
 
 Primary file:
 
-- [src-frontend/services/nativeViewportBridge.ts](/abs/path-placeholder)
+- [apps/web/src/services/nativeViewportBridge.ts](/home/ephemara/Dev/Kain/zender/apps/web/src/services/nativeViewportBridge.ts)
 
 This is important because it makes the native host path reusable across the suite instead of KSculpt-specific.
 
@@ -162,8 +162,8 @@ The shared contract currently drives:
 
 Primary files:
 
-- [src-frontend/features/viewport/overlayCoordinates.ts](/abs/path-placeholder)
-- [src-frontend/features/viewport/NativeViewport.tsx](/abs/path-placeholder)
+- [apps/web/src/features/viewport/overlayCoordinates.ts](/home/ephemara/Dev/Kain/zender/apps/web/src/features/viewport/overlayCoordinates.ts)
+- [apps/web/src/features/viewport/NativeViewport.tsx](/home/ephemara/Dev/Kain/zender/apps/web/src/features/viewport/NativeViewport.tsx)
 
 ### 8. Phase C evaluated-mesh bridge baseline (2026-03-11)
 
@@ -178,8 +178,8 @@ Primary files:
 
 - [crates/k-os-renderer/src/bridge.rs](/abs/path-placeholder)
 - [crates/k-os-renderer/src/service.rs](/abs/path-placeholder)
-- [src-tauri/src/commands/viewport.rs](/abs/path-placeholder)
-- [src-frontend/services/nativeViewportBridge.ts](/abs/path-placeholder)
+- [apps/tauri/src/commands/viewport.rs](/home/ephemara/Dev/Kain/zender/apps/tauri/src/commands/viewport.rs)
+- [apps/web/src/services/nativeViewportBridge.ts](/home/ephemara/Dev/Kain/zender/apps/web/src/services/nativeViewportBridge.ts)
 
 ### 9. Phase C GPU upload bridge integration (2026-03-11)
 
@@ -275,8 +275,8 @@ Primary files:
 - [crates/k-os-renderer/src/types.rs](/abs/path-placeholder)
 - [crates/k-os-renderer/src/lib.rs](/abs/path-placeholder)
 - [crates/k-os-renderer/src/service.rs](/abs/path-placeholder)
-- [src-frontend/services/viewportClient.ts](/abs/path-placeholder)
-- [src-frontend/features/viewport/NativeViewport.tsx](/abs/path-placeholder)
+- [apps/web/src/services/viewportClient.ts](/home/ephemara/Dev/Kain/zender/apps/web/src/services/viewportClient.ts)
+- [apps/web/src/features/viewport/NativeViewport.tsx](/home/ephemara/Dev/Kain/zender/apps/web/src/features/viewport/NativeViewport.tsx)
 
 ## Which Apps Are On The Native Boundary
 

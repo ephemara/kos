@@ -1,6 +1,8 @@
 # K_OS CODEBASE MAP
 
 > **FOR AI AGENTS** | Structured format | All paths relative to repo root
+>
+> **Layout note (2026-04-12):** The live top-level ownership model is `apps/*`, `crates/*`, and `sources/*`. Any deeper `src-*` references below are legacy and should be cross-checked against `README.md` and `ARCHITECTURE.md` before treating them as current paths.
 
 ```
 VERSION: 0.7-alpha

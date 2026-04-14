@@ -265,7 +265,7 @@ class MCPServer:
                             },
                             'filter_path': {
                                 'type': 'string',
-                                'description': 'Optional path filter (e.g., "src-frontend")'
+                                'description': 'Optional path filter (e.g., "apps/web")'
                             }
                         },
                         'required': ['query']

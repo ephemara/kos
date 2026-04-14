@@ -162,7 +162,12 @@ pub fn sync_shared_mesh_for_source(
         {
             let mut scene = SCENE_WORLD.write().unwrap();
             scene
-                .update_mesh_source(mesh_handle, positions.clone(), indices.clone(), Some(normals))
+                .update_mesh_source(
+                    mesh_handle,
+                    positions.clone(),
+                    indices.clone(),
+                    Some(normals),
+                )
                 .map_err(|err| err.to_string())?;
             scene
                 .update_viewport_state(mesh_handle, viewport_state)

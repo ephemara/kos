@@ -1666,7 +1666,7 @@ fn main() {
                     window_level: WindowLevel::Normal,
                     present_mode: bevy::window::PresentMode::AutoNoVsync,
                     transparent: false, // Tauri provides the transparent hole; Bevy stays fully opaque
-                    visible: false,      // Wait until Tauri syncs bounds before mapping
+                    visible: false,     // Wait until Tauri syncs bounds before mapping
                     skip_taskbar: true, // Treat the leash window like a viewport surface, not a second app
                     resizable: true,
                     ..default()

@@ -1200,17 +1200,24 @@ mod tests {
             .expect("ue5 capability should exist")
             .compile_targets
             .contains(&KainCliTarget::Ue5));
-        assert!(upstream_capabilities_for_category(KainCapabilityCategory::RuntimeBridge)
-            .iter()
-            .any(|capability| capability.id == "python_bridge"));
-        assert!(upstream_capabilities_for_status(KainIntegrationStatus::ModeledForAdoption)
-            .iter()
-            .any(|capability| capability.id == "native_ui_apps"));
+        assert!(
+            upstream_capabilities_for_category(KainCapabilityCategory::RuntimeBridge)
+                .iter()
+                .any(|capability| capability.id == "python_bridge")
+        );
+        assert!(
+            upstream_capabilities_for_status(KainIntegrationStatus::ModeledForAdoption)
+                .iter()
+                .any(|capability| capability.id == "native_ui_apps")
+        );
     }
 
     #[test]
     fn modern_targets_parse_from_strings() {
-        assert_eq!(KainCliTarget::try_from("llvm").unwrap(), KainCliTarget::Llvm);
+        assert_eq!(
+            KainCliTarget::try_from("llvm").unwrap(),
+            KainCliTarget::Llvm
+        );
         assert_eq!(KainCliTarget::try_from("ue5").unwrap(), KainCliTarget::Ue5);
         assert_eq!(
             KainCliTarget::try_from("ue5editor").unwrap(),

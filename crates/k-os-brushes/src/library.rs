@@ -345,10 +345,10 @@ impl KBrushLibrary {
         // New unified location for all built-in brushes
         let resources_paths = [
             PathBuf::from("resources/KBrushes"),
-            PathBuf::from("../resources/KBrushes"), // From src-tauri subdir
+            PathBuf::from("../resources/KBrushes"), // From apps/tauri subdir
             PathBuf::from("../../resources/KBrushes"), // From target/debug
             PathBuf::from("../../../resources/KBrushes"), // From deeper build dirs
-            PathBuf::from("src-tauri/resources/KBrushes"), // From project root
+            PathBuf::from("apps/tauri/resources/KBrushes"), // From project root
         ];
 
         for resources_path in &resources_paths {

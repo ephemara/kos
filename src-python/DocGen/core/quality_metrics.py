@@ -296,7 +296,7 @@ class QualityMetricsCalculator:
         link_count = len(links)
         
         # Count file path references (e.g., crates/k-os-engine/src/...)
-        path_pattern = r'(?:crates|src-frontend|src-tauri)/[\w\-/]+\.(?:rs|ts|tsx|py)'
+        path_pattern = r'(?:crates|apps|sources)/[\w\-/]+\.(?:rs|ts|tsx|py)'
         paths = re.findall(path_pattern, content)
         path_count = len(paths)
         

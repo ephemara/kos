@@ -18,8 +18,8 @@ use glam::{Mat4, Vec3};
 use input::{Action, InputBindings, InputState, InputTrigger};
 use kain_runtime::KainRuntime;
 use kain_ui_host::{ZenKainUiHost, ZenViewportHud};
-use renderer_session::ZenRendererSession;
 use post::ZenPostProcessor;
+use renderer_session::ZenRendererSession;
 use std::fs;
 use std::io::Write;
 use std::path::PathBuf;
@@ -1435,10 +1435,10 @@ impl ZenState {
 
     fn sync_shared_renderer_scene(&mut self) -> Result<(), String> {
         self.renderer_session.sync_scene(
-                &self.device,
-                &self.scene,
-                self.viewport_target.size,
-                &self.runtime_config.renderer,
+            &self.device,
+            &self.scene,
+            self.viewport_target.size,
+            &self.runtime_config.renderer,
         )
     }
 
@@ -1459,7 +1459,9 @@ impl ZenState {
                 let Some((origin, direction)) = self.screen_ray(cursor) else {
                     return None;
                 };
-                self.scene.pick(origin, direction).map(|handle| handle.raw())
+                self.scene
+                    .pick(origin, direction)
+                    .map(|handle| handle.raw())
             });
         let changed = match selection {
             Some(handle_raw) => self.scene.select_raw_handle(handle_raw),

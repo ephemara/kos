@@ -93,7 +93,7 @@ class RepoMapGenerator:
         lance_db: LanceDB manager for semantic search
         file_access: Sandboxed file access layer
         root_path: Root directory of repository
-        target_directories: Directories to include in map (e.g., crates/, src-frontend/, src-tauri/)
+        target_directories: Directories to include in map (e.g., crates/, apps/, sources/)
     """
     
     # File extensions to include in analysis
@@ -127,12 +127,12 @@ class RepoMapGenerator:
         Args:
             lance_db: LanceDB manager for semantic search
             file_access: Sandboxed file access layer
-            target_directories: List of directories to include (default: crates, src-frontend, src-tauri)
+            target_directories: List of directories to include (default: crates, apps, sources)
         """
         self.lance_db = lance_db
         self.file_access = file_access
         self.root_path = file_access.root_path
-        self.target_directories = target_directories or ['crates', 'src-frontend', 'src-tauri']
+        self.target_directories = target_directories or ['crates', 'apps', 'sources']
         
         logger.info(f"RepoMapGenerator initialized for: {self.target_directories}")
     
@@ -217,8 +217,8 @@ class RepoMapGenerator:
         )
         sections.append("")
         sections.append("**High-Level Flow:**")
-        sections.append("1. User interacts with React UI (src-frontend/)")
-        sections.append("2. UI invokes Tauri commands via IPC (src-tauri/)")
+        sections.append("1. User interacts with React UI (apps/web/src/)")
+        sections.append("2. UI invokes Tauri commands via IPC (apps/tauri/)")
         sections.append("3. Tauri backend calls k-os-engine for compute (crates/k-os-engine/)")
         sections.append("4. GPU pipelines process data using wgpu (crates/k-os-engine/src/gpu/)")
         sections.append("5. Results flow back through Tauri to React UI")

@@ -106,7 +106,7 @@ docgen generate --path ./crates/k-os-baking
 
 **Dry run first:**
 ```bash
-docgen generate --path ./src-frontend --dry-run
+docgen generate --path ./apps/web/src --dry-run
 ```
 
 **Update embeddings after major changes:**
