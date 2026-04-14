@@ -1,5 +1,5 @@
 // Shader builder domain source seed.
-// Registry bindings are fed from src-kain/domains/shader/shader_builder_registry.json.
+// Registry bindings are fed from sources/kain/domains/shader/shader_builder_registry.json.
 
 struct ShaderBuilderKernelConfig:
     profile_id: String

@@ -1,5 +1,0 @@
-fn material_builder_name() -> String with Pure:
-    "material_builder"
-
-fn material_builder_manifest_path() -> String with Pure:
-    "src-kain/omni/material_builder/KAIN.omni.toml"

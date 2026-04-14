@@ -2,7 +2,7 @@
 
 > **FORMAT**: AI-optimized. Grouped by purpose. Quick reference for AI agents.
 > **AGENTS**: Check here before adding new packages. Use what's available!
-> **LOCATION**: `src-python/` - Python sidecar for AI/ML operations
+> **LOCATION**: `sources/python/` - Python sidecar for AI/ML operations
 
 ---
 

@@ -134,7 +134,7 @@ cargo test --features photogrammetry
 
 Test Python functions:
 ```bash
-python src-python/kos/autopbr/photogrammetry_helper.py
+python sources/python/kos/autopbr/photogrammetry_helper.py
 ```
 
 ## See Also

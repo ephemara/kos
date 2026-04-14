@@ -19,7 +19,7 @@
       }
     ],
     "runtime_kind": "tauri_frontend",
-    "source_path": "src-kain/apps/brush_builder/main.kn"
+    "source_path": "sources/kain/apps/brush_builder/main.kn"
   },
   {
     "host_kind": "tauri",
@@ -37,7 +37,7 @@
       }
     ],
     "runtime_kind": "desktop_script",
-    "source_path": "src-kain/scripts/desktop_automation/main.kn"
+    "source_path": "sources/kain/scripts/desktop_automation/main.kn"
   },
   {
     "host_kind": "tauri",
@@ -59,7 +59,7 @@
       }
     ],
     "runtime_kind": "tauri_frontend",
-    "source_path": "src-kain/apps/fluid_builder/main.kn"
+    "source_path": "sources/kain/apps/fluid_builder/main.kn"
   },
   {
     "host_kind": "tauri",
@@ -81,7 +81,7 @@
       }
     ],
     "runtime_kind": "tauri_frontend",
-    "source_path": "src-kain/apps/kainscript_builder/main.kn"
+    "source_path": "sources/kain/apps/kainscript_builder/main.kn"
   },
   {
     "host_kind": "tauri",
@@ -103,7 +103,7 @@
       }
     ],
     "runtime_kind": "tauri_frontend",
-    "source_path": "src-kain/apps/material_builder/main.kn"
+    "source_path": "sources/kain/apps/material_builder/main.kn"
   },
   {
     "host_kind": "tauri",
@@ -125,7 +125,7 @@
       }
     ],
     "runtime_kind": "tauri_frontend",
-    "source_path": "src-kain/apps/procedural_builder/main.kn"
+    "source_path": "sources/kain/apps/procedural_builder/main.kn"
   },
   {
     "host_kind": "tauri",
@@ -147,7 +147,7 @@
       }
     ],
     "runtime_kind": "tauri_frontend",
-    "source_path": "src-kain/apps/shader_builder/main.kn"
+    "source_path": "sources/kain/apps/shader_builder/main.kn"
   },
   {
     "host_kind": "wasm_runtime",
@@ -165,7 +165,7 @@
       }
     ],
     "runtime_kind": "compute_kernel",
-    "source_path": "src-kain/kernels/signal_kernel/main.kn"
+    "source_path": "sources/kain/kernels/signal_kernel/main.kn"
   },
   {
     "host_kind": "tauri",
@@ -187,7 +187,7 @@
       }
     ],
     "runtime_kind": "tauri_frontend",
-    "source_path": "src-kain/apps/suite_shell/main.kn"
+    "source_path": "sources/kain/apps/suite_shell/main.kn"
   },
   {
     "host_kind": "hybrid",
@@ -209,6 +209,6 @@
       }
     ],
     "runtime_kind": "hybrid_module",
-    "source_path": "src-kain/hybrid/viewport_bridge/main.kn"
+    "source_path": "sources/kain/hybrid/viewport_bridge/main.kn"
   }
 ]

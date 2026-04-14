@@ -2,7 +2,7 @@
   {
     "id": "suite_shell",
     "label": "Suite Shell",
-    "source_path": "src-kain/apps/suite_shell/main.kn",
+    "source_path": "sources/kain/apps/suite_shell/main.kn",
     "runtime_kind": "tauri_frontend",
     "host_kind": "tauri",
     "namespace": "suite_shell",
@@ -24,7 +24,7 @@
   {
     "id": "desktop_automation",
     "label": "Desktop Automation",
-    "source_path": "src-kain/scripts/desktop_automation/main.kn",
+    "source_path": "sources/kain/scripts/desktop_automation/main.kn",
     "runtime_kind": "desktop_script",
     "host_kind": "tauri",
     "namespace": "desktop_automation",
@@ -42,7 +42,7 @@
   {
     "id": "shader_builder",
     "label": "Shader Builder",
-    "source_path": "src-kain/apps/shader_builder/main.kn",
+    "source_path": "sources/kain/apps/shader_builder/main.kn",
     "runtime_kind": "tauri_frontend",
     "host_kind": "tauri",
     "namespace": "shader_builder",
@@ -64,7 +64,7 @@
   {
     "id": "brush_builder",
     "label": "Brush Builder",
-    "source_path": "src-kain/apps/brush_builder/main.kn",
+    "source_path": "sources/kain/apps/brush_builder/main.kn",
     "runtime_kind": "tauri_frontend",
     "host_kind": "tauri",
     "namespace": "brush_builder",
@@ -86,7 +86,7 @@
   {
     "id": "kainscript_builder",
     "label": "KainScript Builder",
-    "source_path": "src-kain/apps/kainscript_builder/main.kn",
+    "source_path": "sources/kain/apps/kainscript_builder/main.kn",
     "runtime_kind": "tauri_frontend",
     "host_kind": "tauri",
     "namespace": "kainscript_builder",
@@ -108,7 +108,7 @@
   {
     "id": "material_builder",
     "label": "Material Builder",
-    "source_path": "src-kain/apps/material_builder/main.kn",
+    "source_path": "sources/kain/apps/material_builder/main.kn",
     "runtime_kind": "tauri_frontend",
     "host_kind": "tauri",
     "namespace": "material_builder",
@@ -130,7 +130,7 @@
   {
     "id": "fluid_builder",
     "label": "Fluid Builder",
-    "source_path": "src-kain/apps/fluid_builder/main.kn",
+    "source_path": "sources/kain/apps/fluid_builder/main.kn",
     "runtime_kind": "tauri_frontend",
     "host_kind": "tauri",
     "namespace": "fluid_builder",
@@ -152,7 +152,7 @@
   {
     "id": "procedural_builder",
     "label": "Procedural Builder",
-    "source_path": "src-kain/apps/procedural_builder/main.kn",
+    "source_path": "sources/kain/apps/procedural_builder/main.kn",
     "runtime_kind": "tauri_frontend",
     "host_kind": "tauri",
     "namespace": "procedural_builder",
@@ -174,7 +174,7 @@
   {
     "id": "signal_kernel",
     "label": "Signal Kernel",
-    "source_path": "src-kain/kernels/signal_kernel/main.kn",
+    "source_path": "sources/kain/kernels/signal_kernel/main.kn",
     "runtime_kind": "compute_kernel",
     "host_kind": "wasm_runtime",
     "namespace": "signal_kernel",
@@ -192,7 +192,7 @@
   {
     "id": "viewport_bridge",
     "label": "Viewport Bridge",
-    "source_path": "src-kain/hybrid/viewport_bridge/main.kn",
+    "source_path": "sources/kain/hybrid/viewport_bridge/main.kn",
     "runtime_kind": "hybrid_module",
     "host_kind": "hybrid",
     "namespace": "viewport_bridge",

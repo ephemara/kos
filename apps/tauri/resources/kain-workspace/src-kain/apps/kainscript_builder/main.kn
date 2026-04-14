@@ -1,8 +1,0 @@
-fn kainscript_builder_name() -> String with Pure:
-    "kainscript_builder"
-
-fn kainscript_builder_manifest_path() -> String with Pure:
-    "src-kain/omni/kainscript_builder/KAIN.omni.toml"
-
-fn kainscript_builder_registry_path() -> String with Pure:
-    "src-kain/domains/kainscript/kainscript_builder_registry.json"

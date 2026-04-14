@@ -2,16 +2,8 @@
 
 ## Priority Roots
 1. `M:\K_OS\crates`
-<<<<<<< Updated upstream
-2. `M:\K_OS\src-tauri`
-3. `M:\K_OS\src-kain`
-||||||| Stash base
-2. `M:\K_OS\src-tauri`
-3. `M:\K_OS\sources/kain`
-=======
 2. `M:\K_OS\apps`
 3. `M:\K_OS\sources/kain`
->>>>>>> Stashed changes
 4. `M:\K_OS\docs`
 
 ## Role Focus Suggestions

@@ -1,8 +1,0 @@
-fn procedural_builder_name() -> String with Pure:
-    "procedural_builder"
-
-fn procedural_builder_manifest_path() -> String with Pure:
-    "src-kain/omni/procedural_builder/KAIN.omni.toml"
-
-fn procedural_builder_registry_path() -> String with Pure:
-    "src-kain/domains/procedural/procedural_builder_registry.json"

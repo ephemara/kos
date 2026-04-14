@@ -68,7 +68,7 @@ WORKSPACE: owner crates + apps/tauri + apps/bevy
 │                          JSON-RPC via stdin/stdout                      │
 │                                    ▼                                    │
 │   ┌─────────────────────────────────────────────────────────────────┐   │
-│   │                    src-python/ (Python Sidecar)                 │   │
+│   │                    sources/python/ (Python Sidecar)                 │   │
 │   │    AI/ML inference, image processing                            │   │
 │   └─────────────────────────────────────────────────────────────────┘   │
 │                                                                         │
@@ -316,7 +316,7 @@ SYNCS:
 ```rust
 // In python_bridge.rs
 pub fn run_script(script: &str, params: Value) -> Result<Value, Error> {
-    // JSON-RPC over stdin/stdout to src-python/main.py
+    // JSON-RPC over stdin/stdout to sources/python/main.py
 }
 ```
 

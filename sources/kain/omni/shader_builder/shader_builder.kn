@@ -1,0 +1,13 @@
+struct ShaderBuilderConfig:
+    profile_id: String
+    default_domain: String
+    registry_path: String
+    output_root: String
+
+fn shader_builder_config() -> ShaderBuilderConfig with Pure:
+    let config = ShaderBuilderConfig()
+    config.profile_id = "surface_pbr"
+    config.default_domain = "materials"
+    config.registry_path = "sources/kain/domains/shader/shader_builder_registry.json"
+    config.output_root = "crates/k-os-kain/generated/spv"
+    config

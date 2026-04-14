@@ -1,8 +1,0 @@
-version = "1"
-package_format = "zip"
-target_platform = "windows"
-
-[bundle]
-source_dir = "src-game/build/player/windows"
-layout = "portable"
-include_manifest = true

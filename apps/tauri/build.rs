@@ -653,8 +653,8 @@ fn check_directory_sync(root: &Path, tauri_dir: &Path) {
         }
     }
 
-    // Check Python scripts in src-python/
-    let python_dir = root.join("src-python");
+    // Check Python scripts in sources/python/
+    let python_dir = root.join("sources/python");
     if python_dir.exists() {
         for entry in WalkDir::new(&python_dir)
             .max_depth(3)

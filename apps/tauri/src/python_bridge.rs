@@ -132,7 +132,7 @@ fn resolve_python_launch_target(app: &tauri::AppHandle) -> Result<PythonLaunchTa
         .map_err(|e| e.to_string())?
         .parent()
         .ok_or("No parent dir")?
-        .join("src-python")
+        .join("sources/python")
         .join("main.py");
 
     if dev_script.exists() {

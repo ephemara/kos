@@ -6,7 +6,7 @@
 >
 > - **Rust backend** (`src-tauri/`) - 50+ native commands, IPC proxy
 > - **Owner crates** (`crates/`) - GPU compute, mesh operations, sculpting, sim, IO
-> - **Python sidecar** (`src-python/`) - AI/ML inference, image processing
+> - **Python sidecar** (`sources/python/`) - AI/ML inference, image processing
 > - **Bevy engine** (`crates/k-os-bevy/`) - Native 3D viewport for heavy operations
 > - **React frontend** (`src-frontend/`) - You are here! UI layer with Three.js viewports
 
@@ -67,7 +67,7 @@ WORKSPACE: owner crates + src-tauri + crates/k-os-bevy
 │                          JSON-RPC via stdin/stdout                      │
 │                                    ▼                                    │
 │   ┌─────────────────────────────────────────────────────────────────┐   │
-│   │                    src-python/ (Python Sidecar)                 │   │
+│   │                    sources/python/ (Python Sidecar)                 │   │
 │   │                                                                 │   │
 │   │   AI/ML & Processing Layer                                      │   │
 │   │   ├── SAM (Segment Anything) - AI masking                       │   │
@@ -420,7 +420,7 @@ crates/             Owner crates
 crates/k-os-bevy/   Bevy 0.17 Renderer
 └── src/            Bevy plugins + egui UI
 
-src-python/         Python sidecar
+sources/python/         Python sidecar
 ├── main.py         JSON-RPC server
 └── kos/
     ├── ml.py       SAM, SD, ESRGAN wrappers

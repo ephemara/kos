@@ -183,7 +183,7 @@ impl GamePipelineBootstrapConfig {
 
         let manifest_path = std::env::var("KOS_GAME_PIPELINE_MANIFEST")
             .map(PathBuf::from)
-            .unwrap_or_else(|_| workspace_root.join("src-game/config/pipeline.toml"));
+            .unwrap_or_else(|_| workspace_root.join("sources/game/config/pipeline.toml"));
 
         Self {
             enabled: parse_env_bool("KOS_GAME_PIPELINE_ENABLED", true),
@@ -254,7 +254,7 @@ fn workspace_root_dir() -> PathBuf {
     manifest_dir
         .ancestors()
         .find_map(|dir| {
-            let pipeline = Path::new(dir).join("src-game/config/pipeline.toml");
+            let pipeline = Path::new(dir).join("sources/game/config/pipeline.toml");
             pipeline.is_file().then_some(PathBuf::from(dir))
         })
         .unwrap_or_else(|| std::env::current_dir().unwrap_or_else(|_| PathBuf::from(".")))

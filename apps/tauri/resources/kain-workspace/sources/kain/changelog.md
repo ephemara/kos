@@ -1,0 +1,68 @@
+# sources/kain Changelog
+
+## 2026-03-11
+- Added new runtime app stubs: `shader_builder` and `brush_builder` (`sources/kain/apps/*/main.kn`) and wired them in `crates/k-os-kain/manifests/runtime_apps.json`.
+- Added Kain Omni manifests and entry sources for builder pipelines:
+  - `sources/kain/omni/shader_builder/KAIN.omni.toml`
+  - `sources/kain/omni/shader_builder/shader_builder.kn`
+  - `sources/kain/omni/brush_builder/KAIN.omni.toml`
+  - `sources/kain/omni/brush_builder/brush_builder.kn`
+- Hardened `crates/k-os-kain/build.rs` mapping logic so unsupported manifest values fail fast instead of silently defaulting.
+- Added a dedicated `kainscript_builder` runtime app to `crates/k-os-kain/manifests/runtime_apps.json` with `ts/js/ks` outputs rooted at `crates/k-os-kain/generated/runtime/*/kainscript_builder`.
+- Added `sources/kain/apps/kainscript_builder/main.kn` and the new Kain-omni pipeline:
+  - `sources/kain/omni/kainscript_builder/KAIN.omni.toml`
+  - `sources/kain/omni/kainscript_builder/kainscript_builder.kn`
+- Extended `crates/k-os-kain/src/lib.rs` runtime registry tests to assert the new `kainscript_builder` app is present across runtime and generated lookup surfaces.
+- Added a new `material_builder` runtime app manifest entry (data-driven runtime wiring with `ts/js/ks` outputs):
+  - `crates/k-os-kain/manifests/runtime_apps.json`
+- Added `material_builder` source + omni pipeline:
+  - `sources/kain/apps/material_builder/main.kn`
+  - `sources/kain/omni/material_builder/KAIN.omni.toml`
+  - `sources/kain/omni/material_builder/material_builder.kn`
+- Extended runtime registry tests for `material_builder` presence across runtime lookup, generated lookup, and target-based registry filters.
+- Added a new `fluid_builder` runtime app manifest entry with `ts/js/ks` outputs and dedicated source stub:
+  - `crates/k-os-kain/manifests/runtime_apps.json`
+  - `sources/kain/apps/fluid_builder/main.kn`
+- Added `fluid_builder` omni pipeline for `spirv`, `rust_bundle`, `ts`, and `ks`:
+  - `sources/kain/omni/fluid_builder/KAIN.omni.toml`
+  - `sources/kain/omni/fluid_builder/fluid_builder.kn`
+- Seeded a fluid domain data package in `sources/kain/domains/fluid` for KainScript-driven presets:
+  - `sources/kain/domains/fluid/fluid_builder_registry.json`
+  - `sources/kain/domains/fluid/fluid_brush_runtime.ks`
+- Added `crates/k-os-kain/domains/fluid/fluid_builder_kernel.kn` and a matching `sources.json` source-manifest entry so `KainDomain::Fluid` resolves non-empty assets.
+- Extended `crates/k-os-kain/src/lib.rs` tests to assert fluid-domain source presence and `fluid_builder` runtime wiring across manifest + generated registries.
+- Wired new data-driven `brush` builder domain packages:
+  - `sources/kain/domains/brush/brush_builder_registry.json`
+  - `sources/kain/domains/brush/brush_runtime_presets.ks`
+  - `crates/k-os-kain/domains/brush/brush_builder_kernel.kn`
+  - `crates/k-os-kain/manifests/sources.json` (`brush_builder_kernel`, target `source`)
+- Wired new data-driven `shader` builder domain packages:
+  - `sources/kain/domains/shader/shader_builder_registry.json`
+  - `sources/kain/domains/shader/shader_runtime_profiles.ks`
+  - `crates/k-os-kain/domains/shader/shader_builder_kernel.kn`
+  - `crates/k-os-kain/manifests/sources.json` (`shader_builder_kernel`, target `source`)
+- Extended builder app/omni entrypoints to expose domain registry paths:
+  - `sources/kain/apps/brush_builder/main.kn`
+  - `sources/kain/apps/shader_builder/main.kn`
+  - `sources/kain/omni/brush_builder/brush_builder.kn`
+  - `sources/kain/omni/shader_builder/shader_builder.kn`
+- Extended Rust + build-script domain support for new source-manifest domains:
+  - `crates/k-os-kain/src/lib.rs` (`KainDomain::{Brush, Shader}` + coverage tests)
+  - `crates/k-os-kain/build.rs` (`domain_variant` mapping for `brush` and `shader`)
+- Added a new manifest-driven `procedural_builder` runtime app with `ts/js/ks` outputs:
+  - `crates/k-os-kain/manifests/runtime_apps.json`
+  - `sources/kain/apps/procedural_builder/main.kn`
+- Added procedural Kain-omni builder pipeline:
+  - `sources/kain/omni/procedural_builder/KAIN.omni.toml`
+  - `sources/kain/omni/procedural_builder/procedural_builder.kn`
+- Added procedural domain data + KainScript presets:
+  - `sources/kain/domains/procedural/procedural_builder_registry.json`
+  - `sources/kain/domains/procedural/procedural_runtime_profiles.ks`
+- Added `crates/k-os-kain/domains/procedural/procedural_builder_kernel.kn` and wired it in `crates/k-os-kain/manifests/sources.json` as `target: source`.
+- Extended `crates/k-os-kain/src/lib.rs` and `crates/k-os-kain/build.rs` for `KainDomain::Procedural` domain mapping and runtime/source coverage tests.
+- Added a new data-driven `kainscript` domain package and registry wiring for `kainscript_builder`:
+  - `sources/kain/domains/kainscript/kainscript_builder_registry.json`
+  - `sources/kain/domains/kainscript/kainscript_runtime_profiles.ks`
+  - `sources/kain/apps/kainscript_builder/main.kn` (`kainscript_builder_registry_path`)
+- Added `crates/k-os-kain/domains/kainscript/kainscript_builder_kernel.kn` and wired it in `crates/k-os-kain/manifests/sources.json` as `target: source`.
+- Extended `crates/k-os-kain/src/lib.rs` and `crates/k-os-kain/build.rs` with `KainDomain::Kainscript` mapping and source-registry coverage assertions.

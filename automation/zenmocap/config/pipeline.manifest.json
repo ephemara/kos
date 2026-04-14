@@ -9,16 +9,8 @@
     "M:\\K_OS\\crates\\k-os-kain"
   ],
   "supportingRoots": [
-<<<<<<< Updated upstream
-    "M:\\K_OS\\src-kain",
-    "M:\\K_OS\\src-frontend",
-||||||| Stash base
-    "M:\\K_OS\\sources/kain",
-    "M:\\K_OS\\src-frontend",
-=======
     "M:\\K_OS\\sources\\kain",
     "M:\\K_OS\\apps\\web",
->>>>>>> Stashed changes
     "M:\\K_OS\\docs"
   ],
   "output": {

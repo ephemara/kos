@@ -11,8 +11,8 @@
   },
   "pythonSidecar": {
     "enabledByDefault": false,
-    "buildScript": "src-python/build.py",
-    "artifact": "src-python/dist/kos_python",
+    "buildScript": "sources/python/build.py",
+    "artifact": "sources/python/dist/kos_python",
     "entryPoint": "kos_python.exe",
     "bundleTarget": "apps/tauri/resources/bin/kos_python"
   },
@@ -76,27 +76,27 @@
   },
   "resourceCopies": [
     {
-      "source": "src-game/assets",
+      "source": "sources/game/assets",
       "target": "apps/tauri/resources/runtime/game-assets"
     },
     {
-      "source": "src-python/main.py",
+      "source": "sources/python/main.py",
       "target": "apps/tauri/resources/runtime/python-source/main.py"
     },
     {
-      "source": "src-python/kos",
+      "source": "sources/python/kos",
       "target": "apps/tauri/resources/runtime/python-source/kos"
     },
     {
-      "source": "src-python/requirements.txt",
+      "source": "sources/python/requirements.txt",
       "target": "apps/tauri/resources/runtime/python-source/requirements.txt"
     },
     {
-      "source": "src-python/requirements-autopbr.txt",
+      "source": "sources/python/requirements-autopbr.txt",
       "target": "apps/tauri/resources/runtime/python-source/requirements-autopbr.txt"
     },
     {
-      "source": "src-python/requirements-photogrammetry.txt",
+      "source": "sources/python/requirements-photogrammetry.txt",
       "target": "apps/tauri/resources/runtime/python-source/requirements-photogrammetry.txt"
     },
     {
@@ -104,8 +104,8 @@
       "target": "apps/tauri/resources/kain-workspace/crates/k-os-kain"
     },
     {
-      "source": "src-kain",
-      "target": "apps/tauri/resources/kain-workspace/src-kain"
+      "source": "sources/kain",
+      "target": "apps/tauri/resources/kain-workspace/sources/kain"
     }
   ]
 }

@@ -542,7 +542,7 @@ pub fn upstream_capability_manifest_path() -> PathBuf {
 }
 
 pub fn src_kain_dir() -> PathBuf {
-    workspace_root().join("src-kain")
+    workspace_root().join("sources/kain")
 }
 
 pub fn src_kain_apps_dir() -> PathBuf {

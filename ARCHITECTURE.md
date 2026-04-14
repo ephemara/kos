@@ -226,26 +226,12 @@ Good candidates for metadata and generated registry ownership:
 ## Important Folders
 
 - [`M:\K_OS\crates`](M:\K_OS\crates): Rust crates
-<<<<<<< Updated upstream
-- [`M:\K_OS\src-tauri`](M:\K_OS\src-tauri): Tauri backend
-- [`M:\K_OS\src-frontend`](M:\K_OS\src-frontend): React frontend
-- [`M:\K_OS\src-game`](M:\K_OS\src-game): game-facing assets and manifests
-- [`M:\K_OS\src-kain`](M:\K_OS\src-kain): Kain sources outside crate-local manifests
-||||||| Stash base
-- [`M:\K_OS\src-tauri`](M:\K_OS\src-tauri): Tauri backend
-- [`M:\K_OS\src-frontend`](M:\K_OS\src-frontend): React frontend
-- [`M:\K_OS\sources`](M:\K_OS\sources): authored non-crate source workspaces and content trees
-- [`M:\K_OS\sources/game`](M:\K_OS\sources/game): game-facing assets and manifests
-- [`M:\K_OS\sources/kain`](M:\K_OS\sources/kain): Kain sources outside crate-local manifests
-- [`M:\K_OS\sources/python`](M:\K_OS\sources/python): Python sidecar and tooling
-=======
 - [`M:\K_OS\apps\tauri`](M:\K_OS\apps\tauri): Tauri backend and desktop shell packaging
 - [`M:\K_OS\apps\web`](M:\K_OS\apps\web): React frontend
 - [`M:\K_OS\sources`](M:\K_OS\sources): authored non-crate source workspaces and content trees
 - [`M:\K_OS\sources/game`](M:\K_OS\sources/game): game-facing assets and manifests
 - [`M:\K_OS\sources/kain`](M:\K_OS\sources/kain): Kain sources outside crate-local manifests
 - [`M:\K_OS\sources/python`](M:\K_OS\sources/python): Python sidecar and tooling
->>>>>>> Stashed changes
 - [`M:\K_OS\config`](M:\K_OS\config): repo-level config
 - [`M:\K_OS\docs`](M:\K_OS\docs): broader docs
 - [`M:\K_OS\Swarm`](M:\K_OS\Swarm): active multi-agent execution plans and lane state

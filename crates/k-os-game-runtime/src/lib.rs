@@ -2429,7 +2429,7 @@ data_registry = "adapter::registry_loader"
 id = "scene_bootstrap"
 kind = "scene"
 profile = "editor_preview"
-scene_asset = "src-game/assets/scenes/sandbox.kscene"
+scene_asset = "sources/game/assets/scenes/sandbox.kscene"
 scene_format = "k_os_scene_v1"
 enable_hot_reload = true
 
@@ -2439,7 +2439,7 @@ kind = "kain_hot_reload"
 profile = "editor_preview"
 depends_on = ["scene_bootstrap"]
 source_registry = "crates/k-os-kain/domains/supermotion"
-watch_roots = ["src-game/scripts", "src-kain/domains"]
+watch_roots = ["sources/game/scripts", "sources/kain/domains"]
 debounce_ms = 120
 target = "gameplay"
 
@@ -2449,7 +2449,7 @@ kind = "data_registry"
 profile = "editor_preview"
 depends_on = ["scene_bootstrap"]
 registry_kind = "gameplay_tags"
-registry_asset = "src-game/assets/gameplay/tags.registry.toml"
+registry_asset = "sources/game/assets/gameplay/tags.registry.toml"
 merge_strategy = "append_unique"
 
 [[stages]]
@@ -2457,7 +2457,7 @@ id = "narrative_graph"
 kind = "narrative_graph"
 profile = "runtime_play"
 depends_on = ["scene_bootstrap", "kain_hot_reload", "gameplay_tags_registry"]
-graph_asset = "src-game/assets/narrative/intro.kgraph"
+graph_asset = "sources/game/assets/narrative/intro.kgraph"
 entry_node = "boot"
 evaluate_via = "k-os-eval"
 "#
@@ -2498,7 +2498,7 @@ evaluate_via = "k-os-eval"
             "data_registry = \"adapter::registry_loader\"\ncook = \"adapter::cook\"\nbuild = \"adapter::build\"\nexport = \"adapter::export\"",
         );
         format!(
-            "{manifest}\n\n[[stages]]\nid = \"cook_windows_content\"\nkind = \"cook\"\nprofile = \"runtime_play\"\ndepends_on = [\"narrative_graph\"]\nrecipe_asset = \"src-game/assets/packaging/windows.cook.toml\"\noutput_dir = \"src-game/build/cooked/windows\"\ntarget_platform = \"windows\"\nschema_version = \"1\"\n\n[[stages]]\nid = \"build_windows_player\"\nkind = \"build\"\nprofile = \"runtime_play\"\ndepends_on = [\"cook_windows_content\"]\npackage_asset = \"src-game/assets/packaging/windows.build.toml\"\noutput_dir = \"src-game/build/player/windows\"\nartifact_name = \"k_os_game_windows_dev\"\ntarget_platform = \"windows\"\nschema_version = \"1\"\n\n[[stages]]\nid = \"export_windows_bundle\"\nkind = \"export\"\nprofile = \"runtime_play\"\ndepends_on = [\"build_windows_player\"]\npackage_asset = \"src-game/assets/packaging/windows.export.toml\"\nsource_dir = \"src-game/build/player/windows\"\nexport_path = \"dist/game/k_os_game_windows_dev.zip\"\npackage_format = \"zip\"\nschema_version = \"1\"\n"
+            "{manifest}\n\n[[stages]]\nid = \"cook_windows_content\"\nkind = \"cook\"\nprofile = \"runtime_play\"\ndepends_on = [\"narrative_graph\"]\nrecipe_asset = \"sources/game/assets/packaging/windows.cook.toml\"\noutput_dir = \"sources/game/build/cooked/windows\"\ntarget_platform = \"windows\"\nschema_version = \"1\"\n\n[[stages]]\nid = \"build_windows_player\"\nkind = \"build\"\nprofile = \"runtime_play\"\ndepends_on = [\"cook_windows_content\"]\npackage_asset = \"sources/game/assets/packaging/windows.build.toml\"\noutput_dir = \"sources/game/build/player/windows\"\nartifact_name = \"k_os_game_windows_dev\"\ntarget_platform = \"windows\"\nschema_version = \"1\"\n\n[[stages]]\nid = \"export_windows_bundle\"\nkind = \"export\"\nprofile = \"runtime_play\"\ndepends_on = [\"build_windows_player\"]\npackage_asset = \"sources/game/assets/packaging/windows.export.toml\"\nsource_dir = \"sources/game/build/player/windows\"\nexport_path = \"dist/game/k_os_game_windows_dev.zip\"\npackage_format = \"zip\"\nschema_version = \"1\"\n"
         )
     }
 
@@ -2528,7 +2528,7 @@ evaluate_via = "k-os-eval"
 id = "scene_bootstrap"
 kind = "scene"
 profile = "editor_preview"
-scene_asset = "src-game/assets/scenes/dupe.kscene"
+scene_asset = "sources/game/assets/scenes/dupe.kscene"
 scene_format = "k_os_scene_v1"
 "#,
         );
@@ -2571,7 +2571,7 @@ scene_format = "k_os_scene_v1"
     #[test]
     fn rejects_stage_specific_payload_mismatch() {
         let manifest = base_manifest().replace(
-            "watch_roots = [\"src-game/scripts\", \"src-kain/domains\"]",
+            "watch_roots = [\"sources/game/scripts\", \"sources/kain/domains\"]",
             "watch_roots = []",
         );
 
@@ -2750,31 +2750,31 @@ required_fields = ["graph_asset", "entry_node", "evaluate_via"]"#,
         let plan = build_execution_plan(&manifest).expect("plan should be valid");
         let temp_root = unique_temp_dir("stage_schema_unsupported_version");
 
-        fs::create_dir_all(temp_root.join("src-game/assets/scenes"))
+        fs::create_dir_all(temp_root.join("sources/game/assets/scenes"))
             .expect("scene dir should be created");
-        fs::create_dir_all(temp_root.join("src-game/assets/narrative"))
+        fs::create_dir_all(temp_root.join("sources/game/assets/narrative"))
             .expect("narrative dir should be created");
-        fs::create_dir_all(temp_root.join("src-game/assets/gameplay"))
+        fs::create_dir_all(temp_root.join("sources/game/assets/gameplay"))
             .expect("gameplay dir should be created");
         fs::create_dir_all(temp_root.join("crates/k-os-kain/domains/supermotion"))
             .expect("kain source registry should be created");
-        fs::create_dir_all(temp_root.join("src-game/scripts"))
+        fs::create_dir_all(temp_root.join("sources/game/scripts"))
             .expect("scripts dir should be created");
-        fs::create_dir_all(temp_root.join("src-kain/domains"))
+        fs::create_dir_all(temp_root.join("sources/kain/domains"))
             .expect("watch root should be created");
 
         fs::write(
-            temp_root.join("src-game/assets/scenes/sandbox.kscene"),
+            temp_root.join("sources/game/assets/scenes/sandbox.kscene"),
             r#"{"schema":"k_os_scene_v1","actors":[{"id":"player_spawn"}]}"#,
         )
         .expect("scene should be written");
         fs::write(
-            temp_root.join("src-game/assets/narrative/intro.kgraph"),
+            temp_root.join("sources/game/assets/narrative/intro.kgraph"),
             r#"{"nodes":[{"id":"boot"},{"id":"handoff_input"}]}"#,
         )
         .expect("graph should be written");
         fs::write(
-            temp_root.join("src-game/assets/gameplay/tags.registry.toml"),
+            temp_root.join("sources/game/assets/gameplay/tags.registry.toml"),
             "version = \"1\"\nregistry_kind = \"gameplay_tags\"\n",
         )
         .expect("registry should be written");
@@ -2832,52 +2832,52 @@ required_fields = ["package_asset", "source_dir", "export_path", "package_format
         let plan = build_execution_plan(&manifest).expect("plan should be valid");
         let temp_root = unique_temp_dir("builtin_packaging_success");
 
-        fs::create_dir_all(temp_root.join("src-game/assets/scenes"))
+        fs::create_dir_all(temp_root.join("sources/game/assets/scenes"))
             .expect("scene dir should be created");
-        fs::create_dir_all(temp_root.join("src-game/assets/narrative"))
+        fs::create_dir_all(temp_root.join("sources/game/assets/narrative"))
             .expect("narrative dir should be created");
-        fs::create_dir_all(temp_root.join("src-game/assets/gameplay"))
+        fs::create_dir_all(temp_root.join("sources/game/assets/gameplay"))
             .expect("gameplay dir should be created");
-        fs::create_dir_all(temp_root.join("src-game/assets/packaging"))
+        fs::create_dir_all(temp_root.join("sources/game/assets/packaging"))
             .expect("packaging dir should be created");
         fs::create_dir_all(temp_root.join("crates/k-os-kain/domains/supermotion"))
             .expect("kain source registry should be created");
-        fs::create_dir_all(temp_root.join("src-game/scripts"))
+        fs::create_dir_all(temp_root.join("sources/game/scripts"))
             .expect("scripts dir should be created");
-        fs::create_dir_all(temp_root.join("src-kain/domains"))
+        fs::create_dir_all(temp_root.join("sources/kain/domains"))
             .expect("watch root should be created");
-        fs::create_dir_all(temp_root.join("src-game/build/cooked/windows"))
+        fs::create_dir_all(temp_root.join("sources/game/build/cooked/windows"))
             .expect("cooked dir should be created");
-        fs::create_dir_all(temp_root.join("src-game/build/player/windows"))
+        fs::create_dir_all(temp_root.join("sources/game/build/player/windows"))
             .expect("player dir should be created");
 
         fs::write(
-            temp_root.join("src-game/assets/scenes/sandbox.kscene"),
+            temp_root.join("sources/game/assets/scenes/sandbox.kscene"),
             r#"{"schema":"k_os_scene_v1","actors":[{"id":"player_spawn"}]}"#,
         )
         .expect("scene should be written");
         fs::write(
-            temp_root.join("src-game/assets/narrative/intro.kgraph"),
+            temp_root.join("sources/game/assets/narrative/intro.kgraph"),
             r#"{"nodes":[{"id":"boot"},{"id":"handoff_input"}]}"#,
         )
         .expect("graph should be written");
         fs::write(
-            temp_root.join("src-game/assets/gameplay/tags.registry.toml"),
+            temp_root.join("sources/game/assets/gameplay/tags.registry.toml"),
             "version = \"1\"\nregistry_kind = \"gameplay_tags\"\n",
         )
         .expect("registry should be written");
         fs::write(
-            temp_root.join("src-game/assets/packaging/windows.cook.toml"),
-            "version = \"1\"\ntarget_platform = \"windows\"\ninputs = [\"src-game/assets/scenes/sandbox.kscene\", \"src-game/assets/narrative/intro.kgraph\", \"src-game/assets/gameplay/tags.registry.toml\"]\n",
+            temp_root.join("sources/game/assets/packaging/windows.cook.toml"),
+            "version = \"1\"\ntarget_platform = \"windows\"\ninputs = [\"sources/game/assets/scenes/sandbox.kscene\", \"sources/game/assets/narrative/intro.kgraph\", \"sources/game/assets/gameplay/tags.registry.toml\"]\n",
         )
         .expect("cook recipe should be written");
         fs::write(
-            temp_root.join("src-game/assets/packaging/windows.build.toml"),
-            "version = \"1\"\ntarget_platform = \"windows\"\ncooked_dir = \"src-game/build/cooked/windows\"\n[runtime]\nexecutable = \"k_os_game_windows_dev.exe\"\n",
+            temp_root.join("sources/game/assets/packaging/windows.build.toml"),
+            "version = \"1\"\ntarget_platform = \"windows\"\ncooked_dir = \"sources/game/build/cooked/windows\"\n[runtime]\nexecutable = \"k_os_game_windows_dev.exe\"\n",
         )
         .expect("build package should be written");
         fs::write(
-            temp_root.join("src-game/assets/packaging/windows.export.toml"),
+            temp_root.join("sources/game/assets/packaging/windows.export.toml"),
             "version = \"1\"\npackage_format = \"zip\"\n",
         )
         .expect("export package should be written");
@@ -2902,35 +2902,23 @@ required_fields = ["package_asset", "source_dir", "export_path", "package_format
                 && record.status == StageExecutionStatus::Succeeded
         }));
         assert!(temp_root
-            .join("src-game/build/cooked/windows/cook.contract.json")
+            .join("sources/game/build/cooked/windows/cook.contract.json")
             .exists());
         assert!(temp_root
-            .join("src-game/build/player/windows/k_os_game_windows_dev/build.contract.json")
+            .join("sources/game/build/player/windows/k_os_game_windows_dev/build.contract.json")
             .exists());
         assert!(temp_root
-<<<<<<< Updated upstream
-            .join("src-game/build/player/windows/k_os_game_windows_dev/k_os_game_windows_dev.exe")
-||||||| Stash base
-            .join("sources/game/build/player/windows/k_os_game_windows_dev/k_os_game_windows_dev.exe")
-=======
             .join(
                 "sources/game/build/player/windows/k_os_game_windows_dev/k_os_game_windows_dev.exe"
             )
->>>>>>> Stashed changes
             .exists());
         assert!(temp_root
             .join("dist/game/k_os_game_windows_dev.zip")
             .exists());
-<<<<<<< Updated upstream
-        let cook_contract_path = temp_root.join("src-game/build/cooked/windows/cook.contract.json");
-||||||| Stash base
-        let cook_contract_path = temp_root.join("sources/game/build/cooked/windows/cook.contract.json");
-=======
         let cook_contract_path =
             temp_root.join("sources/game/build/cooked/windows/cook.contract.json");
->>>>>>> Stashed changes
         let build_contract_path = temp_root
-            .join("src-game/build/player/windows/k_os_game_windows_dev/build.contract.json");
+            .join("sources/game/build/player/windows/k_os_game_windows_dev/build.contract.json");
         let export_contract_path = temp_root.join("dist/game/k_os_game_windows_dev.zip");
 
         let cook_contract: JsonValue = serde_json::from_str(
@@ -2990,31 +2978,31 @@ supported_versions = ["1", "2"]"#,
         let plan = build_execution_plan(&manifest).expect("plan should be valid");
         let temp_root = unique_temp_dir("registry_needs_migration_hook");
 
-        fs::create_dir_all(temp_root.join("src-game/assets/scenes"))
+        fs::create_dir_all(temp_root.join("sources/game/assets/scenes"))
             .expect("scene dir should be created");
-        fs::create_dir_all(temp_root.join("src-game/assets/narrative"))
+        fs::create_dir_all(temp_root.join("sources/game/assets/narrative"))
             .expect("narrative dir should be created");
-        fs::create_dir_all(temp_root.join("src-game/assets/gameplay"))
+        fs::create_dir_all(temp_root.join("sources/game/assets/gameplay"))
             .expect("gameplay dir should be created");
         fs::create_dir_all(temp_root.join("crates/k-os-kain/domains/supermotion"))
             .expect("kain source registry should be created");
-        fs::create_dir_all(temp_root.join("src-game/scripts"))
+        fs::create_dir_all(temp_root.join("sources/game/scripts"))
             .expect("scripts dir should be created");
-        fs::create_dir_all(temp_root.join("src-kain/domains"))
+        fs::create_dir_all(temp_root.join("sources/kain/domains"))
             .expect("watch root should be created");
 
         fs::write(
-            temp_root.join("src-game/assets/scenes/sandbox.kscene"),
+            temp_root.join("sources/game/assets/scenes/sandbox.kscene"),
             r#"{"schema":"k_os_scene_v1","actors":[{"id":"player_spawn"}]}"#,
         )
         .expect("scene should be written");
         fs::write(
-            temp_root.join("src-game/assets/narrative/intro.kgraph"),
+            temp_root.join("sources/game/assets/narrative/intro.kgraph"),
             r#"{"nodes":[{"id":"boot"},{"id":"handoff_input"}]}"#,
         )
         .expect("graph should be written");
         fs::write(
-            temp_root.join("src-game/assets/gameplay/tags.registry.toml"),
+            temp_root.join("sources/game/assets/gameplay/tags.registry.toml"),
             "version = \"1\"\nregistry_kind = \"gameplay_tags\"\n[domains]\nvalues = [\"tag.a\"]\n",
         )
         .expect("registry should be written");
@@ -3046,31 +3034,31 @@ required_tables = ["domains", "metadata"]"#,
         let plan = build_execution_plan(&manifest).expect("plan should be valid");
         let temp_root = unique_temp_dir("registry_required_tables");
 
-        fs::create_dir_all(temp_root.join("src-game/assets/scenes"))
+        fs::create_dir_all(temp_root.join("sources/game/assets/scenes"))
             .expect("scene dir should be created");
-        fs::create_dir_all(temp_root.join("src-game/assets/narrative"))
+        fs::create_dir_all(temp_root.join("sources/game/assets/narrative"))
             .expect("narrative dir should be created");
-        fs::create_dir_all(temp_root.join("src-game/assets/gameplay"))
+        fs::create_dir_all(temp_root.join("sources/game/assets/gameplay"))
             .expect("gameplay dir should be created");
         fs::create_dir_all(temp_root.join("crates/k-os-kain/domains/supermotion"))
             .expect("kain source registry should be created");
-        fs::create_dir_all(temp_root.join("src-game/scripts"))
+        fs::create_dir_all(temp_root.join("sources/game/scripts"))
             .expect("scripts dir should be created");
-        fs::create_dir_all(temp_root.join("src-kain/domains"))
+        fs::create_dir_all(temp_root.join("sources/kain/domains"))
             .expect("watch root should be created");
 
         fs::write(
-            temp_root.join("src-game/assets/scenes/sandbox.kscene"),
+            temp_root.join("sources/game/assets/scenes/sandbox.kscene"),
             r#"{"schema":"k_os_scene_v1","actors":[{"id":"player_spawn"}]}"#,
         )
         .expect("scene should be written");
         fs::write(
-            temp_root.join("src-game/assets/narrative/intro.kgraph"),
+            temp_root.join("sources/game/assets/narrative/intro.kgraph"),
             r#"{"nodes":[{"id":"boot"},{"id":"handoff_input"}]}"#,
         )
         .expect("graph should be written");
         fs::write(
-            temp_root.join("src-game/assets/gameplay/tags.registry.toml"),
+            temp_root.join("sources/game/assets/gameplay/tags.registry.toml"),
             "version = \"1\"\nregistry_kind = \"gameplay_tags\"\n[domains]\nvalues = [\"tag.a\"]\n",
         )
         .expect("registry should be written");
@@ -3094,31 +3082,31 @@ required_tables = ["domains", "metadata"]"#,
         let plan = build_execution_plan(&manifest).expect("plan should be valid");
         let temp_root = unique_temp_dir("builtin_success");
 
-        fs::create_dir_all(temp_root.join("src-game/assets/scenes"))
+        fs::create_dir_all(temp_root.join("sources/game/assets/scenes"))
             .expect("scene dir should be created");
-        fs::create_dir_all(temp_root.join("src-game/assets/narrative"))
+        fs::create_dir_all(temp_root.join("sources/game/assets/narrative"))
             .expect("narrative dir should be created");
-        fs::create_dir_all(temp_root.join("src-game/assets/gameplay"))
+        fs::create_dir_all(temp_root.join("sources/game/assets/gameplay"))
             .expect("gameplay dir should be created");
         fs::create_dir_all(temp_root.join("crates/k-os-kain/domains/supermotion"))
             .expect("kain source registry should be created");
-        fs::create_dir_all(temp_root.join("src-game/scripts"))
+        fs::create_dir_all(temp_root.join("sources/game/scripts"))
             .expect("scripts dir should be created");
-        fs::create_dir_all(temp_root.join("src-kain/domains"))
+        fs::create_dir_all(temp_root.join("sources/kain/domains"))
             .expect("watch root should be created");
 
         fs::write(
-            temp_root.join("src-game/assets/scenes/sandbox.kscene"),
+            temp_root.join("sources/game/assets/scenes/sandbox.kscene"),
             r#"{"schema":"k_os_scene_v1","actors":[{"id":"player_spawn"}]}"#,
         )
         .expect("scene should be written");
         fs::write(
-            temp_root.join("src-game/assets/narrative/intro.kgraph"),
+            temp_root.join("sources/game/assets/narrative/intro.kgraph"),
             r#"{"nodes":[{"id":"boot"},{"id":"handoff_input"}]}"#,
         )
         .expect("graph should be written");
         fs::write(
-            temp_root.join("src-game/assets/gameplay/tags.registry.toml"),
+            temp_root.join("sources/game/assets/gameplay/tags.registry.toml"),
             "version = \"1\"\nregistry_kind = \"gameplay_tags\"\n",
         )
         .expect("registry should be written");
@@ -3147,31 +3135,31 @@ required_tables = ["domains", "metadata"]"#,
         let plan = build_execution_plan(&manifest).expect("plan should be valid");
         let temp_root = unique_temp_dir("builtin_bad_narrative");
 
-        fs::create_dir_all(temp_root.join("src-game/assets/scenes"))
+        fs::create_dir_all(temp_root.join("sources/game/assets/scenes"))
             .expect("scene dir should be created");
-        fs::create_dir_all(temp_root.join("src-game/assets/narrative"))
+        fs::create_dir_all(temp_root.join("sources/game/assets/narrative"))
             .expect("narrative dir should be created");
-        fs::create_dir_all(temp_root.join("src-game/assets/gameplay"))
+        fs::create_dir_all(temp_root.join("sources/game/assets/gameplay"))
             .expect("gameplay dir should be created");
         fs::create_dir_all(temp_root.join("crates/k-os-kain/domains/supermotion"))
             .expect("kain source registry should be created");
-        fs::create_dir_all(temp_root.join("src-game/scripts"))
+        fs::create_dir_all(temp_root.join("sources/game/scripts"))
             .expect("scripts dir should be created");
-        fs::create_dir_all(temp_root.join("src-kain/domains"))
+        fs::create_dir_all(temp_root.join("sources/kain/domains"))
             .expect("watch root should be created");
 
         fs::write(
-            temp_root.join("src-game/assets/scenes/sandbox.kscene"),
+            temp_root.join("sources/game/assets/scenes/sandbox.kscene"),
             r#"{"schema":"k_os_scene_v1","actors":[{"id":"player_spawn"}]}"#,
         )
         .expect("scene should be written");
         fs::write(
-            temp_root.join("src-game/assets/narrative/intro.kgraph"),
+            temp_root.join("sources/game/assets/narrative/intro.kgraph"),
             r#"{"nodes":[{"id":"boot"},{"id":"handoff_input"}]}"#,
         )
         .expect("graph should be written");
         fs::write(
-            temp_root.join("src-game/assets/gameplay/tags.registry.toml"),
+            temp_root.join("sources/game/assets/gameplay/tags.registry.toml"),
             "version = \"1\"\nregistry_kind = \"gameplay_tags\"\n",
         )
         .expect("registry should be written");
@@ -3193,32 +3181,32 @@ required_tables = ["domains", "metadata"]"#,
         let plan = build_execution_plan(&manifest).expect("plan should be valid");
         let temp_root = unique_temp_dir("builtin_blocked_dependencies");
 
-        fs::create_dir_all(temp_root.join("src-game/assets/scenes"))
+        fs::create_dir_all(temp_root.join("sources/game/assets/scenes"))
             .expect("scene dir should be created");
-        fs::create_dir_all(temp_root.join("src-game/assets/narrative"))
+        fs::create_dir_all(temp_root.join("sources/game/assets/narrative"))
             .expect("narrative dir should be created");
-        fs::create_dir_all(temp_root.join("src-game/assets/gameplay"))
+        fs::create_dir_all(temp_root.join("sources/game/assets/gameplay"))
             .expect("gameplay dir should be created");
         fs::create_dir_all(temp_root.join("crates/k-os-kain/domains/supermotion"))
             .expect("kain source registry should be created");
-        fs::create_dir_all(temp_root.join("src-game/scripts"))
+        fs::create_dir_all(temp_root.join("sources/game/scripts"))
             .expect("scripts dir should be created");
-        fs::create_dir_all(temp_root.join("src-kain/domains"))
+        fs::create_dir_all(temp_root.join("sources/kain/domains"))
             .expect("watch root should be created");
 
         // Intentionally wrong schema to force the first stage failure.
         fs::write(
-            temp_root.join("src-game/assets/scenes/sandbox.kscene"),
+            temp_root.join("sources/game/assets/scenes/sandbox.kscene"),
             r#"{"schema":"wrong_schema","actors":[{"id":"player_spawn"}]}"#,
         )
         .expect("scene should be written");
         fs::write(
-            temp_root.join("src-game/assets/narrative/intro.kgraph"),
+            temp_root.join("sources/game/assets/narrative/intro.kgraph"),
             r#"{"nodes":[{"id":"boot"},{"id":"handoff_input"}]}"#,
         )
         .expect("graph should be written");
         fs::write(
-            temp_root.join("src-game/assets/gameplay/tags.registry.toml"),
+            temp_root.join("sources/game/assets/gameplay/tags.registry.toml"),
             "version = \"1\"\nregistry_kind = \"gameplay_tags\"\n",
         )
         .expect("registry should be written");

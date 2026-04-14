@@ -2,7 +2,7 @@
  * uiForge.types.ts
  * 
  * TypeScript type definitions for UI Forge Python backend.
- * Auto-generated types matching Python dataclasses from src-python/UI/models.py
+ * Auto-generated types matching Python dataclasses from sources/python/UI/models.py
  * 
  * UI Forge is a procedural UI asset generation system that creates icons, brushes,
  * patterns, cursors, and overlays through data-driven templates.
